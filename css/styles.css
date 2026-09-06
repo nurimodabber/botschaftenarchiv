@@ -548,13 +548,13 @@ body {
     opacity: 0.75;
 }
 
-/* Secondary Filter Bar */
+/* Secondary Filter Bar (under search bar) */
 .secondary-filter-bar {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.65rem;
-    margin: 1.25rem auto 1.75rem;
+    margin: 0 auto 2rem;
 }
 
 .apple-select,
@@ -593,7 +593,7 @@ body {
 /* Inline Library Search Box */
 .library-search-box {
     max-width: 580px;
-    margin: 1.5rem auto 0;
+    margin: 1.75rem auto 1rem;
     position: relative;
 }
 

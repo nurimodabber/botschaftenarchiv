@@ -189,31 +189,15 @@ function setupKeyboardShortcuts() {
 function initLibraryView() {
     const libDocs = state.documents.filter(d => d.tier === 'house' || d.tier === 'institutions');
     
-    // Calculate recipient counts based on actual content
-    const setEl = (id, val) => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = `(${val})`;
-    };
-    
-    setEl('count-rec-all', libDocs.length);
-    setEl('count-rec-world', libDocs.filter(d => d.recipient === 'world').length);
-    setEl('count-rec-nsa', libDocs.filter(d => d.recipient === 'nsa').length);
-    setEl('count-rec-counsellors', libDocs.filter(d => d.recipient === 'counsellors' || d.subTier === 'counsellors').length);
-    setEl('count-rec-youth', libDocs.filter(d => d.recipient === 'youth').length);
-    setEl('count-rec-institutes', libDocs.filter(d => d.recipient === 'institutes').length);
-    setEl('count-rec-iran', libDocs.filter(d => d.recipient === 'iran').length);
-    setEl('count-rec-individual', libDocs.filter(d => d.recipient === 'individual').length);
-
-    // Recipient filter pills
-    const pills = document.querySelectorAll('#library-recipient-filters .filter-pill');
-    pills.forEach(pill => {
-        pill.addEventListener('click', () => {
-            pills.forEach(p => p.classList.remove('active'));
-            pill.classList.add('active');
-            state.library.recipient = pill.dataset.recipient;
+    // Recipient Select
+    const recipSelect = document.getElementById('library-recipient-select');
+    if (recipSelect) {
+        recipSelect.value = state.library.recipient || 'all';
+        recipSelect.addEventListener('change', (e) => {
+            state.library.recipient = e.target.value;
             applyLibraryFilters();
         });
-    });
+    }
 
     // Epoch Select
     const epochSelect = document.getElementById('library-epoch-select');

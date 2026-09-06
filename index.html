@@ -78,23 +78,26 @@
                     Die Botschaften des Universalen Hauses der Gerechtigkeit zur weltweiten Entfaltung und geistigen Entwicklung der Gemeinde.
                 </p>
 
-                <!-- Filter 1: Empfänger / An wen gerichtet -->
-                <div class="filter-section-wrapper">
-                    <div class="filter-section-label">Empfänger</div>
-                    <div class="quick-filters" id="library-recipient-filters">
-                        <button class="filter-pill active" data-recipient="all">Alle Empfänger <span class="pill-count" id="count-rec-all"></span></button>
-                        <button class="filter-pill" data-recipient="world">Weltweite Gemeinde <span class="pill-count" id="count-rec-world"></span></button>
-                        <button class="filter-pill" data-recipient="nsa">Nationale Geistige Räte <span class="pill-count" id="count-rec-nsa"></span></button>
-                        <button class="filter-pill" data-recipient="counsellors">Berater &amp; Hilfsamt <span class="pill-count" id="count-rec-counsellors"></span></button>
-                        <button class="filter-pill" data-recipient="youth">Jugend <span class="pill-count" id="count-rec-youth"></span></button>
-                        <button class="filter-pill" data-recipient="institutes">Trainingsinstitute <span class="pill-count" id="count-rec-institutes"></span></button>
-                        <button class="filter-pill" data-recipient="iran">Freunde im Iran <span class="pill-count" id="count-rec-iran"></span></button>
-                        <button class="filter-pill" data-recipient="individual">Einzelne Gläubige <span class="pill-count" id="count-rec-individual"></span></button>
-                    </div>
+                <!-- Inline-Suche (oben platziert) -->
+                <div class="library-search-box">
+                    <svg class="search-box-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="text" id="library-search-input" placeholder="In allen Botschaften suchen (Titel, Thema, Text)..." autocomplete="off">
                 </div>
 
-                <!-- Filter 2: Anlass & Epochen -->
+                <!-- Alle Filter unter der Search Bar -->
                 <div class="secondary-filter-bar">
+                    <!-- Empfänger-Filter -->
+                    <select id="library-recipient-select" class="apple-select">
+                        <option value="all">Alle Empfänger</option>
+                        <option value="world">Weltweite Gemeinde</option>
+                        <option value="nsa">Nationale Geistige Räte</option>
+                        <option value="counsellors">Berater &amp; Hilfsamt</option>
+                        <option value="youth">Jugend</option>
+                        <option value="institutes">Trainingsinstitute</option>
+                        <option value="iran">Freunde im Iran</option>
+                        <option value="individual">Einzelne Gläubige</option>
+                    </select>
+
                     <!-- Epochen-Schnellauswahl -->
                     <select id="library-epoch-select" class="apple-select">
                         <option value="">Alle Epochen / Pläne</option>
@@ -131,12 +134,6 @@
                         <option value="date-asc">Älteste zuerst</option>
                         <option value="title">Titel A–Z</option>
                     </select>
-                </div>
-
-                <!-- Inline-Suche -->
-                <div class="library-search-box">
-                    <svg class="search-box-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                    <input type="text" id="library-search-input" placeholder="In allen Botschaften suchen (Titel, Thema, Text)..." autocomplete="off">
                 </div>
             </div>
 
