@@ -32,6 +32,9 @@ window.state = {
     theme: safeGetStorage('theme', 'light'),
     currentView: 'library',
     library: {
+        segment: 'all',
+        author: 'all',
+        advancedFiltersOpen: false,
         recipient: 'all',
         epoch: '',
         type: '',
@@ -221,24 +224,60 @@ function setupAccentColor() {
 }
 
 // Navigation & View Switching
+window.switchLibrarySegment = function(segment) {
+    if (!state.library) return;
+    state.library.segment = segment;
+    
+    const segmentBtns = document.querySelectorAll('#library-segment-bar .segment-btn');
+    segmentBtns.forEach(b => {
+        const isActive = b.dataset.segment === segment;
+        b.classList.toggle('active', isActive);
+        b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+
+    const quickChips = document.getElementById('library-quick-chips');
+    const authorChips = document.getElementById('library-author-chips');
+    if (segment === 'books') {
+        if (quickChips) quickChips.style.display = 'none';
+        if (authorChips) authorChips.style.display = 'flex';
+    } else {
+        if (quickChips) quickChips.style.display = 'flex';
+        if (authorChips) authorChips.style.display = 'none';
+    }
+
+    if (typeof applyLibraryFilters === 'function') {
+        applyLibraryFilters();
+    }
+};
+
 window.switchView = function(targetView) {
+    // Redirection shortcuts to keep interface unified
+    if (targetView === 'search') {
+        window.switchView('library');
+        const s = document.getElementById('library-search-input');
+        if (s) { s.focus(); s.select(); }
+        return;
+    }
+    if (targetView === 'books') {
+        window.switchView('library');
+        window.switchLibrarySegment('books');
+        return;
+    }
+    if (targetView === 'collections') {
+        window.switchView('library');
+        window.switchLibrarySegment('collections');
+        return;
+    }
+
     const navBtns = document.querySelectorAll('.nav-btn');
     const views = document.querySelectorAll('.view');
 
     navBtns.forEach(btn => {
-        if (btn.dataset.view === targetView) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
+        btn.classList.toggle('active', btn.dataset.view === targetView);
     });
 
     views.forEach(v => {
-        if (v.id === `view-${targetView}`) {
-            v.classList.add('active');
-        } else {
-            v.classList.remove('active');
-        }
+        v.classList.toggle('active', v.id === `view-${targetView}`);
     });
 
     state.currentView = targetView;
@@ -250,14 +289,10 @@ window.switchView = function(targetView) {
 
     if (targetView === 'workshop' && window.CompilationBuilder) {
         window.CompilationBuilder.init();
-    } else if (targetView === 'collections') {
-        switchCollectionsSubview(state.collectionsSubView || 'compilations');
     } else if (targetView === 'saved') {
         renderSavedView();
     } else if (targetView === 'timeline' && window.TimelineModule) {
         window.TimelineModule.init();
-    } else if (targetView === 'books' && window.BooksModule) {
-        window.BooksModule.init();
     } else if (targetView === 'sources' && window.SourcesModule) {
         window.SourcesModule.init();
     }
@@ -313,13 +348,16 @@ function handleDeepLink() {
 // Keyboard Shortcuts
 function setupKeyboardShortcuts() {
     document.addEventListener('keydown', (e) => {
-        // '/' focuses Search
-        if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+        // ⌘K or '/' focuses Search
+        if (((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') || (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA')) {
             e.preventDefault();
-            window.switchView('search');
-            const searchInput = document.getElementById('search-input');
+            window.switchView('library');
+            const searchInput = document.getElementById('library-search-input');
             if (searchInput) {
-                setTimeout(() => searchInput.focus(), 50);
+                setTimeout(() => {
+                    searchInput.focus();
+                    searchInput.select();
+                }, 50);
             }
         }
         
@@ -341,8 +379,38 @@ function setupKeyboardShortcuts() {
    ────────────────────────────────────────────────────────────────────────── */
 
 function initLibraryView() {
-    const libDocs = state.documents.filter(d => d.tier === 'house' || d.tier === 'institutions');
-    
+    // Segment-Auswahl (Alle | Botschaften | Bücher | Ruhi)
+    const segmentBtns = document.querySelectorAll('#library-segment-bar .segment-btn');
+    segmentBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            window.switchLibrarySegment(btn.dataset.segment);
+        });
+    });
+
+    // Autoren-Filter für Bücher
+    const authorChips = document.querySelectorAll('#library-author-chips .author-chip-btn');
+    authorChips.forEach(btn => {
+        btn.addEventListener('click', () => {
+            authorChips.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            state.library.author = btn.dataset.author || 'all';
+            applyLibraryFilters();
+        });
+    });
+
+    // Detail-Filter Drawer Toggle (Progressive Disclosure)
+    const toggleFiltersBtn = document.getElementById('library-toggle-filters-btn');
+    const advancedDrawer = document.getElementById('library-advanced-drawer');
+    if (toggleFiltersBtn && advancedDrawer) {
+        toggleFiltersBtn.addEventListener('click', () => {
+            const isHidden = advancedDrawer.style.display === 'none' || !advancedDrawer.style.display;
+            advancedDrawer.style.display = isHidden ? 'block' : 'none';
+            toggleFiltersBtn.classList.toggle('active', isHidden);
+            toggleFiltersBtn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+            state.library.advancedFiltersOpen = isHidden;
+        });
+    }
+
     // Recipient Select
     const recipSelect = document.getElementById('library-recipient-select');
     if (recipSelect) {
@@ -519,6 +587,7 @@ function initLibraryView() {
             state.library.lang = '';
             state.library.format = 'all';
             state.library.query = '';
+            state.library.author = 'all';
             state.library.sort = 'date-desc';
 
             if (recipSelect) recipSelect.value = 'all';
@@ -534,6 +603,10 @@ function initLibraryView() {
                 b.classList.toggle('active', b.dataset.chip === 'all');
             });
             
+            authorChips.forEach(b => {
+                b.classList.toggle('active', b.dataset.author === 'all');
+            });
+
             formatChips.forEach(b => {
                 b.classList.toggle('active', b.dataset.fmt === 'all');
             });
@@ -570,8 +643,29 @@ function syncQuickChipsWithFilters() {
 }
 
 function applyLibraryFilters() {
-    let list = state.documents.filter(d => d.tier === 'house' || d.tier === 'institutions');
-    const { recipient, epoch, type, lang, format, sort, query } = state.library;
+    let list = state.documents;
+    const { segment, author, recipient, epoch, type, lang, format, sort, query } = state.library;
+
+    // 0. Segment-Filter
+    if (segment === 'house') {
+        list = list.filter(d => d.tier === 'house' || d.tier === 'institutions');
+    } else if (segment === 'books') {
+        list = list.filter(d => d.tier === 'books');
+    } else if (segment === 'collections') {
+        list = list.filter(d => d.tier === 'compilations' || d.tier === 'ruhi' || d.tier === 'study');
+    }
+
+    // 0b. Autoren-Filter (für Bücher)
+    if (segment === 'books' && author && author !== 'all') {
+        list = list.filter(d => {
+            const auth = ((d.author || '') + ' ' + (d.title || '')).toLowerCase();
+            if (author === 'bahaullah') return auth.includes("bahá'u'lláh") || auth.includes("baha'u'llah") || auth.includes("bahaullah");
+            if (author === 'the-bab') return auth.includes("báb") || auth.includes("bab");
+            if (author === 'abdul-baha') return auth.includes("abdu'l-bahá") || auth.includes("abdul-baha") || auth.includes("abdu'l-baha");
+            if (author === 'shoghi-effendi') return auth.includes("shoghi");
+            return true;
+        });
+    }
 
     // 1. Empfänger-Filter
     if (recipient && recipient !== 'all') {
@@ -643,10 +737,12 @@ function applyLibraryFilters() {
     if (query) {
         list = list.filter(d => {
             const title = (d.title || '').toLowerCase();
+            const author = (d.author || '').toLowerCase();
             const text = (d.text || '').substring(0, 500).toLowerCase();
+            const excerpt = (d.excerpt || '').toLowerCase();
             const topics = (d.topics || []).join(' ').toLowerCase();
             const rec = (d.recipientLabel || '').toLowerCase();
-            return title.includes(query) || text.includes(query) || topics.includes(query) || rec.includes(query);
+            return title.includes(query) || author.includes(query) || text.includes(query) || excerpt.includes(query) || topics.includes(query) || rec.includes(query);
         });
     }
 
@@ -688,16 +784,27 @@ function applyLibraryFilters() {
         activeFilterCount++;
         activeTags.push({ label: format.toUpperCase(), key: 'format' });
     }
+    if (segment === 'books' && author && author !== 'all') {
+        activeFilterCount++;
+        const authNameMap = {
+            bahaullah: "Bahá'u'lláh", 'the-bab': 'Der Báb',
+            'abdul-baha': '‘Abdu’l-Bahá', 'shoghi-effendi': 'Shoghi Effendi'
+        };
+        activeTags.push({ label: authNameMap[author] || author, key: 'author' });
+    }
     if (query) {
         activeFilterCount++;
         activeTags.push({ label: `"${query}"`, key: 'query' });
     }
 
     const resetBtnEl = document.getElementById('library-reset-filters-btn');
-    const activeCountEl = document.getElementById('library-active-count');
+    const filterBadge = document.getElementById('library-filter-badge');
+    if (filterBadge) {
+        filterBadge.style.display = activeFilterCount > 0 ? 'inline-block' : 'none';
+        filterBadge.textContent = activeFilterCount;
+    }
     if (resetBtnEl) {
         resetBtnEl.style.display = activeFilterCount > 0 ? 'inline-flex' : 'none';
-        if (activeCountEl) activeCountEl.textContent = activeFilterCount;
     }
 
     // Ergebnisse-Statuszeile aktualisieren
@@ -721,7 +828,7 @@ function applyLibraryFilters() {
 
     if (list.length === 0) {
         if (container) {
-            container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 3rem;">Keine Botschaften gefunden, die den gewählten Kriterien entsprechen.</p>';
+            container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 3rem;">Keine Werke oder Dokumente gefunden, die den gewählten Kriterien entsprechen.</p>';
         }
         updateLibraryLoadMore();
         return;
@@ -1134,79 +1241,93 @@ function formatDate(dateString) {
 }
 
 window.createDocCard = function(doc, snippet = '', index = 0) {
-    const formatBadge = doc.format ? doc.format.toUpperCase() : '';
-    const langBadge = (doc.language || '').toLowerCase() === 'english' ? 'EN' : 'DE';
+    const isEn = (doc.language || '').toLowerCase() === 'english';
+    const langLabel = isEn ? 'EN' : 'DE';
     
-    // Recipient chip (clean, calm typography)
-    let recipientBadge = '';
-    if (doc.recipientLabel) {
-        let label = doc.recipientLabel;
-        if (label === "Weltweite Bahá'í-Gemeinde") label = "Weltweite Gemeinde";
-        if (label === "Kontinentale Berater & Hilfsamt") label = "Berater & Hilfsamt";
-        recipientBadge = `<span class="recipient-chip" title="Empfänger">${escapeDocHtml(label)}</span>`;
+    // Meta breadcrumb line
+    const metaParts = [];
+    if (doc.date) metaParts.push(`<span class="doc-date">${formatDate(doc.date)}</span>`);
+    
+    // Origin / Category
+    let categoryLabel = '';
+    if (doc.tier === 'books') {
+        categoryLabel = doc.author || 'Heilige Schrift';
+    } else if (doc.type && doc.type !== 'Botschaft') {
+        categoryLabel = doc.type.replace('-Botschaft', '');
+    } else if (doc.recipientLabel) {
+        let rec = doc.recipientLabel;
+        if (rec === "Weltweite Bahá'í-Gemeinde") rec = "Weltweite Gemeinde";
+        if (rec === "Kontinentale Berater & Hilfsamt") rec = "Berater";
+        categoryLabel = rec;
+    } else {
+        categoryLabel = 'Botschaft';
     }
+    metaParts.push(`<span class="doc-origin-tag">${escapeDocHtml(categoryLabel)}</span>`);
+    metaParts.push(`<span class="doc-lang-tag ${langLabel.toLowerCase()}">${langLabel}</span>`);
 
-    // Curated passages indicator
-    let passagesBadge = '';
     if (doc.keyPassagesCount > 0) {
-        passagesBadge = `<span class="passages-chip" title="${doc.keyPassagesCount} thematische Kernabsätze">${doc.keyPassagesCount} Abs.</span>`;
+        metaParts.push(`<span class="doc-passages-tag" title="${doc.keyPassagesCount} thematische Kernabsätze">${doc.keyPassagesCount} Abs.</span>`);
     }
 
     const staggerIndex = typeof index === 'number' ? (index % 30) : 0;
     const previewText = snippet ? `…${snippet}…` : (doc.excerpt ? `${escapeDocHtml(doc.excerpt)}…` : '');
 
-    // Multi-format buttons & original source link
-    const fmts = doc.availableFormats || (doc.format ? [doc.format.toLowerCase()] : []);
-    const formatFiles = doc.formatFiles || {};
+    // Formate als zusammenhängende, typografische Download-Leiste
+    const fmts = doc.availableFormats || ['pdf', 'docx', 'epub', 'txt'];
+    const files = doc.formatFiles || {};
     
-    let formatPills = '';
+    let formatLinks = [];
     ['pdf', 'docx', 'epub', 'txt'].forEach(fmt => {
-        if (fmts.includes(fmt) || formatFiles[fmt]) {
-            const filePath = formatFiles[fmt] || (doc.format === fmt ? doc.filePath : '');
-            if (filePath) {
-                formatPills += `<a href="${encodeURI(filePath)}" download class="format-pill-btn" onclick="event.stopPropagation()" title="Als ${fmt.toUpperCase()} herunterladen">${fmt.toUpperCase()}</a>`;
+        if (fmts.includes(fmt) || files[fmt]) {
+            const path = files[fmt] || (doc.format === fmt ? doc.filePath : '');
+            if (path) {
+                formatLinks.push(`<a href="${encodeURI(path)}" download class="doc-fmt-link" onclick="event.stopPropagation()" title="Als ${fmt.toUpperCase()} herunterladen">${fmt.toUpperCase()}</a>`);
             }
         }
     });
 
-    if (!formatPills && formatBadge) {
-        formatPills = `<span class="format-chip">${formatBadge}</span>`;
-    }
-
     let sourceLink = '';
     if (doc.sourceUrl) {
         sourceLink = `
-            <a href="${escapeDocHtml(doc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="source-link-icon-btn" onclick="event.stopPropagation()" title="Originalquelle im Web öffnen (${escapeDocHtml(doc.source || 'Offizielle Quelle')})">
+            <a href="${escapeDocHtml(doc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="doc-source-btn" onclick="event.stopPropagation()" title="Originalquelle im Web öffnen (${escapeDocHtml(doc.source || 'Offizielle Quelle')})">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </a>
         `;
     }
 
+    // Dezent kuratierte Themen (max 1–2)
+    let topicsHtml = '';
+    if (doc.topics && doc.topics.length > 0) {
+        topicsHtml = `<span class="doc-topic-pill">${escapeDocHtml(doc.topics[0])}</span>`;
+        if (doc.topics.length > 1) {
+            topicsHtml += `<span class="doc-topic-pill">${escapeDocHtml(doc.topics[1])}</span>`;
+        }
+        if (doc.topics.length > 2) {
+            topicsHtml += `<span class="doc-topic-more">+${doc.topics.length - 2}</span>`;
+        }
+    }
+
     return `
-        <div class="doc-card" style="--i: ${staggerIndex};" onclick="window.openDocument('${doc.id}')">
-            <div>
-                <div class="doc-meta">
-                    <span class="doc-date">${formatDate(doc.date)}</span>
-                    <div class="meta-badges">
-                        ${recipientBadge}
-                        ${passagesBadge}
-                        <span class="lang-chip">${langBadge}</span>
-                    </div>
+        <article class="doc-card" style="--i: ${staggerIndex};" onclick="window.openDocument('${doc.id}')">
+            <div class="doc-card-body">
+                <div class="doc-meta-editorial">
+                    ${metaParts.join('<span class="meta-dot">•</span>')}
                 </div>
                 <h3 class="doc-title">${escapeDocHtml(doc.title)}</h3>
                 ${previewText ? `<p class="doc-excerpt">${previewText}</p>` : ''}
             </div>
-            <div class="doc-footer">
-                <div class="doc-tags">
-                    ${(doc.topics || []).slice(0, 2).map(t => `<span class="tag">${escapeDocHtml(t)}</span>`).join('')}
-                    ${(doc.topics || []).length > 2 ? `<span class="tag">+${doc.topics.length - 2}</span>` : ''}
+            <div class="doc-card-footer">
+                <div class="doc-topics-cluster">
+                    ${topicsHtml}
                 </div>
-                <div class="doc-actions-cluster">
-                    ${formatPills}
+                <div class="doc-actions-cluster" onclick="event.stopPropagation()">
+                    <div class="doc-formats-strip">
+                        ${formatLinks.join('<span class="fmt-sep">·</span>')}
+                    </div>
                     ${sourceLink}
                 </div>
             </div>
-        </div>
+        </article>
     `;
 };
 
