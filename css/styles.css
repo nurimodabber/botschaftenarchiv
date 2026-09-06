@@ -1040,6 +1040,7 @@ body {
 }
 
 .modal-content {
+    position: relative;
     background: var(--bg-paper);
     border: 1px solid var(--border-hairline);
     border-radius: var(--radius-lg);
@@ -1053,8 +1054,65 @@ body {
     animation: cosmosLightboxIn 0.4s var(--ease-cosmos) both;
 }
 
+/* Lese-Fortschrittsbalken */
+.viewer-progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-gold), var(--accent-gold-hover));
+    width: 0%;
+    z-index: 25;
+    transition: width 0.12s ease-out;
+    border-top-left-radius: var(--radius-lg);
+    border-top-right-radius: var(--radius-lg);
+}
+
 .modal.modal-wide .modal-content {
     max-width: 1240px;
+}
+
+/* Dual-Mode Text / PDF Toggle */
+.viewer-mode-switch {
+    display: inline-flex;
+    align-items: center;
+    background: var(--bg-canvas);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-full);
+    padding: 2px;
+    gap: 2px;
+}
+
+.viewer-mode-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-sans);
+    font-size: 0.74rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-full);
+    padding: 0.28rem 0.68rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.viewer-mode-tab:hover {
+    color: var(--text-ink);
+}
+
+.viewer-mode-tab.active {
+    background: var(--bg-paper);
+    color: var(--accent-gold);
+    font-weight: 600;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] .viewer-mode-tab.active {
+    background: var(--bg-subtle);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
 }
 
 .modal-header {
@@ -1903,6 +1961,21 @@ body {
 
 /* ─── Responsive Queries ─────────────────────────────────────────────────── */
 
+@media (min-width: 769px) and (max-width: 1200px) {
+    .cosmos-dock {
+        padding: 0.3rem 0.45rem;
+        gap: 0.2rem;
+    }
+    .nav-btn {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.78rem;
+        gap: 0.35rem;
+    }
+    .dock-title {
+        font-size: 0.88rem;
+    }
+}
+
 @media (max-width: 768px) {
     .cosmos-dock {
         width: 100%;
@@ -2554,8 +2627,8 @@ body {
 
 .library-hero-header {
     position: relative;
-    padding-top: 1rem;
-    margin-bottom: 2rem;
+    padding-top: 0.75rem;
+    margin-bottom: 1.25rem;
 }
 
 /* Zartes 9-zackiges Stern-Ornament */
@@ -2563,14 +2636,14 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     background: var(--accent-gold-soft);
     color: var(--accent-gold);
     border: 1px solid rgba(197, 160, 89, 0.28);
     box-shadow: 0 0 24px rgba(197, 160, 89, 0.2);
-    margin: 0 auto 1.15rem;
+    margin: 0 auto 0.9rem;
     transition: all var(--transition-normal);
 }
 
@@ -2594,13 +2667,13 @@ body {
     border: 1px solid var(--border-hairline);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-plate);
-    padding: 1.35rem 1.5rem;
-    margin: 2rem auto 1rem;
+    padding: 1.15rem 1.35rem;
+    margin: 1.25rem auto 0.85rem;
     max-width: 980px;
     text-align: left;
     display: flex;
     flex-direction: column;
-    gap: 1.1rem;
+    gap: 0.95rem;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     transition: background-color var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);

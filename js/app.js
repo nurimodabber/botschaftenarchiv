@@ -612,7 +612,12 @@ function applyLibraryFilters() {
 
     // 4. Sprach-Filter
     if (lang) {
-        list = list.filter(d => (d.language || '').toLowerCase() === lang.toLowerCase());
+        list = list.filter(d => {
+            const l = (d.language || '').toLowerCase();
+            if (lang.toLowerCase() === 'deutsch') return l === 'deutsch' || l === 'german';
+            if (lang.toLowerCase() === 'english') return l === 'english';
+            return l === lang.toLowerCase();
+        });
     }
 
     // 5. Format-Filter

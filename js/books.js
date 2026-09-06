@@ -91,42 +91,50 @@ window.BooksModule = (function() {
 
         // Filter: Sprache
         if (currentLang !== 'all') {
-            books = books.filter(b => (b.language || '').toLowerCase() === currentLang.toLowerCase());
+            books = books.filter(b => {
+                const l = (b.language || '').toLowerCase();
+                if (currentLang === 'deutsch') return l === 'deutsch' || l === 'german';
+                if (currentLang === 'english') return l === 'english';
+                return l === currentLang.toLowerCase();
+            });
         }
 
         // Filter: Suche
         if (currentSearchQuery.trim()) {
             const q = currentSearchQuery.trim().toLowerCase();
             books = books.filter(b =>
-                (b.title || '').toLowerCase().includes(q) ||
-                (b.subtitle || '').toLowerCase().includes(q) ||
-                (b.author || '').toLowerCase().includes(q) ||
-                (b.excerpt || '').toLowerCase().includes(q)
+                (b.title && b.title.toLowerCase().includes(q)) ||
+                (b.subtitle && b.subtitle.toLowerCase().includes(q)) ||
+                (b.author && b.author.toLowerCase().includes(q)) ||
+                (b.excerpt && b.excerpt.toLowerCase().includes(q))
             );
         }
 
         // Sortierung
-        if (currentSort === 'author') {
-            const order = ['bahaullah', 'the-bab', 'abdul-baha', 'shoghi-effendi', 'uhj', 'prayers', 'compilations'];
-            books.sort((a, b) => {
-                const idxA = order.indexOf(a.authorCode || a.subTier || '');
-                const idxB = order.indexOf(b.authorCode || b.subTier || '');
-                if (idxA !== idxB) return (idxA === -1 ? 99 : idxA) - (idxB === -1 ? 99 : idxB);
-                return (a.title || '').localeCompare(b.title || '');
-            });
-        } else if (currentSort === 'title') {
-            books.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+        if (currentSort === 'title') {
+            books.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'de'));
         } else if (currentSort === 'length') {
             books.sort((a, b) => (b.wordCount || 0) - (a.wordCount || 0));
+        } else {
+            // Standard: nach Autor
+            const authorOrder = ['bahaullah', 'the-bab', 'abdul-baha', 'shoghi-effendi', 'uhj', 'prayers', 'compilations'];
+            books.sort((a, b) => {
+                const iA = authorOrder.indexOf(a.authorCode || a.subTier || '');
+                const iB = authorOrder.indexOf(b.authorCode || b.subTier || '');
+                if (iA !== iB && iA !== -1 && iB !== -1) return iA - iB;
+                return (a.title || '').localeCompare(b.title || '', 'de');
+            });
         }
 
-        if (info) {
-            info.textContent = `${books.length} Schriften und Bücher gefunden`;
-        }
+        // Ergebnis-Zähler
+        info.innerHTML = `
+            <span><strong>${books.length}</strong> autorisierte Werke &amp; Publikationen gefunden</span>
+            ${currentAuthor !== 'all' || currentLang !== 'all' || currentSearchQuery ? `<button class="btn-clear-filter" onclick="window.BooksModule.resetFilters()">Filter zurücksetzen</button>` : ''}
+        `;
 
         if (books.length === 0) {
             grid.innerHTML = `
-                <div style="grid-column: 1/-1; text-align: center; padding: 4rem 1.5rem; color: var(--text-muted);">
+                <div style="grid-column: 1/-1; text-align: center; padding: 4rem 1rem; color: var(--text-muted);">
                     <p style="font-family: var(--font-serif-display); font-size: 1.15rem; margin-bottom: 0.75rem;">Keine Bücher für die ausgewählten Kriterien gefunden.</p>
                     <button class="btn-secondary" onclick="window.BooksModule.resetFilters()">Filter zurücksetzen</button>
                 </div>
@@ -143,7 +151,15 @@ window.BooksModule = (function() {
         const authorName = book.author || 'Bahá\'í-Literatur';
         const authorRole = book.role ? `<span class="book-author-role">${book.role}</span>` : '';
         const words = book.wordCount ? `&bull; ca. ${book.wordCount.toLocaleString('de-DE')} Wörter` : '';
-        const sourceLabel = book.source === 'bahai.org' ? 'Bahá\'í Reference Library' : 'Bahá\'í-Bibliothek';
+        const sourceLabel = book.sourcePlatform || (book.source === 'bahai.org' ? 'Bahá\'í Reference Library' : 'Bahá\'í-Bibliothek');
+
+        // Multi-format buttons
+        const files = book.formatFiles || {};
+        const formatPills = [];
+        if (files.pdf || book.filePath) formatPills.push(`<a href="${files.pdf || book.filePath}" download class="format-pill-btn" title="PDF herunterladen">PDF</a>`);
+        if (files.docx) formatPills.push(`<a href="${files.docx}" download class="format-pill-btn" title="Word (.docx) herunterladen">DOCX</a>`);
+        if (files.epub) formatPills.push(`<a href="${files.epub}" download class="format-pill-btn" title="E-Book (.epub) herunterladen">EPUB</a>`);
+        if (files.txt) formatPills.push(`<a href="${files.txt}" download class="format-pill-btn" title="Volltext (.txt) herunterladen">TXT</a>`);
 
         return `
             <article class="book-plate-card" data-id="${book.id}">
@@ -157,25 +173,28 @@ window.BooksModule = (function() {
                         ${langBadge}
                     </div>
 
-                    <h3 class="book-card-title" onclick="window.openViewer('${book.id}')" title="${book.title}">${book.title}</h3>
-                    ${book.subtitle ? `<div class="book-card-subtitle">${book.subtitle}</div>` : ''}
+                    <h3 class="book-card-title" onclick="window.openDocument('${book.id}')" title="${escapeHtml(book.title)}">${escapeHtml(book.title)}</h3>
+                    ${book.subtitle ? `<div class="book-card-subtitle">${escapeHtml(book.subtitle)}</div>` : ''}
 
-                    <p class="book-card-excerpt">${book.excerpt || 'Vollständiges Werk im Studienarchiv verfügbar.'}</p>
+                    <p class="book-card-excerpt">${escapeHtml(book.excerpt || 'Vollständiges autorisiertes Werk im Studienarchiv verfügbar.')}</p>
 
                     <div class="book-card-meta">
-                        <span class="book-source-tag">${sourceLabel}</span>
+                        <span class="book-source-tag">${escapeHtml(sourceLabel)}</span>
                         <span class="book-words-tag">${words}</span>
                     </div>
 
+                    <div class="book-card-formats-row" style="display: flex; gap: 0.35rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                        ${formatPills.join('')}
+                    </div>
+
                     <div class="book-card-actions">
-                        <button class="book-read-btn" onclick="window.openViewer('${book.id}')" title="Im Reader lesen">
+                        <button class="book-read-btn" onclick="window.openDocument('${book.id}')" title="Im Reader lesen (Volltext &amp; Absätze)">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
                             <span>Lesen</span>
                         </button>
-                        ${book.filePath ? `
-                            <a href="${book.filePath}" download class="book-dl-btn" title="PDF herunterladen">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                                <span>PDF</span>
+                        ${book.sourceUrl ? `
+                            <a href="${escapeHtml(book.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="source-link-icon-btn" title="Auf autorisierter Original-Website öffnen">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             </a>
                         ` : ''}
                         <button class="book-bookmark-btn ${window.isBookmarked && window.isBookmarked(book.id) ? 'bookmarked' : ''}" onclick="window.toggleBookmark('${book.id}'); this.classList.toggle('bookmarked');" title="Zur Merkliste hinzufügen">

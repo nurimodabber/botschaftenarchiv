@@ -135,21 +135,79 @@ window.openDocument = function(id, targetParagraph) {
     
     if (metaEl) metaEl.innerHTML = buildMetaHtml(doc.wordCount || 0);
 
-    // Ruhi books: exclusively viewable as official PDF
+    // Export openViewer as alias for openDocument
+    window.openViewer = window.openDocument;
+
+    // Progress bar tracking
+    const progressBar = document.getElementById('viewer-progress-bar');
+    if (bodyEl && progressBar) {
+        bodyEl.addEventListener('scroll', () => {
+            const maxScroll = bodyEl.scrollHeight - bodyEl.clientHeight;
+            if (maxScroll > 0) {
+                const pct = Math.min(100, Math.max(0, (bodyEl.scrollTop / maxScroll) * 100));
+                progressBar.style.width = `${pct}%`;
+            } else {
+                progressBar.style.width = '0%';
+            }
+        });
+    }
+
+    // Ruhi & Books: check if PDF and text are both available
     const isRuhi = doc.tier === 'ruhi' || doc.type === 'Ruhi-Buch' || 
                    (doc.title && (doc.title.startsWith('Ruhi Buch') || doc.title.startsWith('Ruhi Book')));
+    const isBook = doc.tier === 'books';
+    const pdfPath = doc.filePath && doc.filePath.toLowerCase().endsWith('.pdf') ? doc.filePath.replace(/^\.\.\//, '') : null;
+    
+    // Default viewer mode: Ruhi defaults to PDF, Books and Messages default to text
+    let currentMode = preferredMode || (isRuhi && !targetParagraph ? 'pdf' : 'text');
 
-    if (modal) modal.classList.toggle('modal-wide', isRuhi);
+    if (modal) modal.classList.toggle('modal-wide', currentMode === 'pdf');
 
     const fontControls = document.querySelector('.reader-font-controls');
-    if (fontControls) fontControls.style.display = isRuhi ? 'none' : 'flex';
+    if (fontControls) fontControls.style.display = currentMode === 'pdf' ? 'none' : 'flex';
     const copyBtn = document.getElementById('viewer-copy');
-    if (copyBtn) copyBtn.style.display = isRuhi ? 'none' : '';
+    if (copyBtn) copyBtn.style.display = currentMode === 'pdf' ? 'none' : '';
     const typeBadge = document.getElementById('viewer-type-badge');
     if (typeBadge) typeBadge.textContent = isRuhi ? 'Ruhi-Institut (Studienbuch)' : (doc.type || 'Botschaft');
 
-    if (isRuhi) {
-        const pdfPath = doc.filePath && doc.filePath.toLowerCase().endsWith('.pdf') ? doc.filePath : null;
+    // Dual-mode Text/PDF Switcher for documents with PDF
+    const oldModeSwitch = document.getElementById('viewer-mode-switch');
+    if (oldModeSwitch) oldModeSwitch.remove();
+
+    if (pdfPath) {
+        const modeSwitch = document.createElement('div');
+        modeSwitch.id = 'viewer-mode-switch';
+        modeSwitch.className = 'viewer-mode-switch';
+        modeSwitch.innerHTML = `
+            <button id="btn-mode-text" class="viewer-mode-tab ${currentMode === 'text' ? 'active' : ''}" title="Strukturiertes Textlese-Erlebnis mit Absätzen und Zitaten">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
+                <span>Fließtext</span>
+            </button>
+            <button id="btn-mode-pdf" class="viewer-mode-tab ${currentMode === 'pdf' ? 'active' : ''}" title="Original-Faksimile und Druckausgabe im PDF-Betrachter">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                <span>Original-PDF</span>
+            </button>
+        `;
+        const modalActions = document.querySelector('.modal-actions');
+        if (modalActions) {
+            modalActions.insertBefore(modeSwitch, modalActions.firstChild);
+        }
+
+        const btnText = modeSwitch.querySelector('#btn-mode-text');
+        const btnPdf = modeSwitch.querySelector('#btn-mode-pdf');
+        if (btnText) {
+            btnText.addEventListener('click', () => {
+                window.openDocument(doc.id, targetParagraph, 'text');
+            });
+        }
+        if (btnPdf) {
+            btnPdf.addEventListener('click', () => {
+                window.openDocument(doc.id, null, 'pdf');
+            });
+        }
+    }
+
+    if (currentMode === 'pdf' && pdfPath) {
         if (bodyEl) {
             bodyEl.style.fontSize = '';
             bodyEl.scrollTop = 0;
@@ -159,18 +217,16 @@ window.openDocument = function(id, targetParagraph) {
                     <div class="viewer-source-banner">
                         <div class="viewer-source-info">
                             <span class="source-verified-badge">✓ Autorisierte Quelle</span>
-                            <span class="source-platform-name">${escapeHtml(doc.sourcePlatform || 'Ruhi Institute Official')}</span>
+                            <span class="source-platform-name">${escapeHtml(doc.sourcePlatform || 'Bahá’í-Veröffentlichung')}</span>
                         </div>
-                        <a href="${escapeHtml(doc.sourceUrl || 'https://www.ruhi.org/en/materials/')}" target="_blank" rel="noopener noreferrer" class="viewer-source-link-btn" title="Offizielle Seite auf ruhi.org aufrufen">
-                            <span>Original auf ruhi.org öffnen</span>
+                        <a href="${escapeHtml(doc.sourceUrl || 'https://www.bahai.org/library/')}" target="_blank" rel="noopener noreferrer" class="viewer-source-link-btn" title="Offizielle Seite aufrufen">
+                            <span>Original auf ${doc.sourceUrl && doc.sourceUrl.includes('ruhi.org') ? 'ruhi.org' : doc.sourceUrl && doc.sourceUrl.includes('bibliothek.bahai.de') ? 'bibliothek.bahai.de' : 'bahai.org'} öffnen</span>
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                         </a>
                     </div>
-                    ${pdfPath ? `
-                    <div style="width: 100%; height: 75vh; min-height: 520px; border: 1px solid var(--border-hairline); border-radius: var(--radius-sm); overflow: hidden; background: #1a1d24;">
+                    <div style="width: 100%; height: 75vh; min-height: 540px; border: 1px solid var(--border-hairline); border-radius: var(--radius-sm); overflow: hidden; background: #1a1d24;">
                         <iframe src="${pdfPath}#toolbar=1&navpanes=0" style="width: 100%; height: 100%; border: none;" title="${escapeHtml(doc.title)}"></iframe>
                     </div>
-                    ` : '<p style="padding: 2rem; text-align: center; color: var(--text-muted);">PDF-Datei nicht gefunden.</p>'}
                 </div>
             `;
         }
@@ -236,8 +292,10 @@ window.openDocument = function(id, targetParagraph) {
                         }
 
                         // 2. Echte Textabsätze mit direkten Absatz-Aktionen & Original-Quell-Links
-                        fullHtml += structure.body.map((p, idx) => {
+                        fullHtml += structure.body.map((rawP, idx) => {
                             const pNum = idx + 1;
+                            // Clean database paragraph identifiers (e.g. "1:1 ", "f.1:1 ", "0_1 ")
+                            const p = rawP.replace(/^(\d+(?:\.\d+)?:\d+(?:_\d+)?|f\.(?:\w+:)?\d+(?:_\d+)?|0_\d+)\s+/, '').trim();
                             const originalParaUrl = getOriginalParagraphUrl(doc, pNum, p);
                             return `
                                 <div class="viewer-paragraph" id="viewer-para-${pNum}" data-pnum="${pNum}">
@@ -528,6 +586,9 @@ function parseDocumentStructure(text) {
     let inHead = true;
     for (let i = 0; i < rawBlocks.length; i++) {
         const b = rawBlocks[i];
+        if (/^f\.tp:\d*\s*$/.test(b) || /^\*\s*\*\s*\*$/.test(b)) {
+            continue;
+        }
         if (inHead && i < 8) {
             const kind = detectHeaderKind(b, i);
             if (kind) {
