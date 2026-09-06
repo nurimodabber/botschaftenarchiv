@@ -560,7 +560,7 @@ function renderRuhiBooks() {
                         PDF einsehen →
                     </span>
                     <div style="display: flex; gap: 0.35rem;" onclick="event.stopPropagation();">
-                        ${pdfPath ? `<a href="${pdfPath}" target="_blank" class="format-badge" style="text-decoration:none; background: #fce8e6; color: #d93025; padding: 0.2rem 0.55rem; font-size: 0.75rem; border-radius: 4px; font-weight: 600;" title="Offizielles PDF in neuem Tab öffnen">PDF</a>` : ''}
+                        ${pdfPath ? `<a href="${pdfPath}" target="_blank" class="format-badge" style="text-decoration:none; background: var(--accent-gold-soft); color: var(--accent-gold); padding: 0.2rem 0.55rem; font-size: 0.75rem; border-radius: 4px; font-weight: 600; border: 1px solid rgba(154, 122, 56, 0.25);" title="PDF-Studienausgabe in neuem Tab öffnen">PDF</a>` : ''}
                     </div>
                 </div>
             </div>

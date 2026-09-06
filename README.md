@@ -1,6 +1,8 @@
-# Bahá'í-Botschaften-Archiv — Universales Haus der Gerechtigkeit
+# Botschaften-Archiv — Inspirierte private Studieninitiative
 
-Ein vollständiges, digitales Text- und Studienarchiv aller Botschaften des Universalen Hauses der Gerechtigkeit (1963–2026), autorisierter Kompilationen der Forschungsabteilung sowie der Studienbücher der Ruhi-Kursreihe.
+> **Hinweis zur Transparenz:** Dies ist eine **unabhängige, private Studieninitiative** zur Erleichterung der Textarbeit, Reflexion und Erstellung von Zitatesammlungen für Andachten und Studienkreise. Diese Plattform ist **keine offizielle Website und keine Publikation des Universalen Hauses der Gerechtigkeit** oder anderer Bahá'í-Institutionen. Die offiziellen Texte und Verlautbarungen der weltweiten Bahá'í-Gemeinde finden sich unter [bahai.org](https://www.bahai.org) sowie [bahai.de](https://www.bahai.de).
+
+Digitales Studien- und Recherchewerkzeug zur Erschließung der Botschaften des Universalen Hauses der Gerechtigkeit (1963–2026), thematischer Kompilationen und der Ruhi-Studienreihe.
 
 Gestaltet im **Cosmos-Designsystem** ([cosmos.so](https://www.cosmos.so/)):
 - Warmer Alabaster- & Papier-Canvas (`#F9F7F3`) und tiefer OLED-Obsidian-Modus (`#0C0C0B`)
@@ -8,7 +10,7 @@ Gestaltet im **Cosmos-Designsystem** ([cosmos.so](https://www.cosmos.so/)):
 - Kinetische Typografie mit Blur-Reveal und rhythmisch gestaffeltem Karten-Entrance
 - Exakte 2-Zeilen-Garantie für Kartentitel und zitatbasierte Textvorschauen
 - Sanctuary Lightbox Leseraum mit strikter Zählung ab Absatz 1
-- Offizielle Studienbücher des Ruhi-Instituts ausschließlich als hochauflösendes PDF einsehbar
+- Studienbücher des Ruhi-Instituts in hochauflösender PDF-Ansicht
 - Interaktives Kompilations-Studio für Andachten, Studienkreise und Tagungen
 
 ## Automatische Bereitstellung & Entwicklungs-Richtlinie

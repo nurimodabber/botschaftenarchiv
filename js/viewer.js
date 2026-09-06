@@ -134,8 +134,8 @@ window.openDocument = function(id) {
                 <div class="ruhi-pdf-view-wrapper" style="width: 100%; display: flex; flex-direction: column; gap: 0.85rem; margin-top: 0.5rem;">
                     <div style="display: flex; justify-content: space-between; align-items: center; background: var(--color-surface-alt); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 0.75rem 1.25rem; flex-wrap: wrap; gap: 0.5rem;">
                         <div style="display: flex; align-items: center; gap: 0.6rem;">
-                            <span style="font-size: 0.75rem; font-weight: 700; color: #d93025; background: #fce8e6; padding: 0.2rem 0.5rem; border-radius: 4px;">OFFIZIELLES PDF</span>
-                            <span style="font-size: 0.85rem; color: var(--color-text-secondary);">Autorisiertes Studienbuch des Ruhi-Instituts (ausschließlich in PDF-Form einsehbar).</span>
+                            <span style="font-size: 0.75rem; font-weight: 700; color: var(--accent-gold); background: var(--accent-gold-soft); padding: 0.2rem 0.5rem; border-radius: 4px; border: 1px solid rgba(154, 122, 56, 0.25);">PDF-STUDIENAUSGABE</span>
+                            <span style="font-size: 0.85rem; color: var(--color-text-secondary);">Studienbuch des Ruhi-Instituts (in PDF-Form einsehbar).</span>
                         </div>
                         ${pdfPath ? `
                         <div style="display: flex; gap: 0.5rem;">
@@ -226,6 +226,13 @@ window.openDocument = function(id) {
                         `;
                     }
 
+                    // 4. Transparenzhinweis am Textende
+                    fullHtml += `
+                        <div class="viewer-disclaimer-footnote">
+                            Privates Studienarchiv (inspirierte Eigeninitiative) &bull; Autorisierte Schriften &amp; offizielle Publikationen: <a href="https://www.bahai.org/library/" target="_blank" rel="noopener">bahai.org/library</a>
+                        </div>
+                    `;
+
                     bodyEl.innerHTML = fullHtml;
                 }
                 const wc = text.split(/\s+/).length;
@@ -247,7 +254,7 @@ window.openDocument = function(id) {
     const formats = [];
     if (isRuhi) {
         if (doc.filePath && doc.filePath.toLowerCase().endsWith('.pdf')) {
-            formats.push({ label: 'PDF (Offizielles Ruhi-Buch)', href: doc.filePath });
+            formats.push({ label: 'PDF (Ruhi-Buch)', href: doc.filePath });
         }
     } else {
         if (doc.hasText !== false && doc.id) {

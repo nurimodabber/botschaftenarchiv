@@ -524,13 +524,13 @@ window.CompilationBuilder = (function() {
             </head>
             <body>
                 <h1>${escapeHtml(draft.title)}</h1>
-                <div class="subtitle">Zusammengestellt aus den Botschaften des Universalen Hauses der Gerechtigkeit</div>
+                <div class="subtitle">Inspirierte Zitatesammlung zur persönlichen Vertiefung und Reflexion (aus den Botschaften des Universalen Hauses der Gerechtigkeit)</div>
                 ${draft.description ? `<div class="description">${escapeHtml(draft.description)}</div>` : ''}
                 
                 ${passagesHtml}
 
                 <div class="footer">
-                    Bahá'í-Botschaften-Archiv • Erstellt am ${new Date().toLocaleDateString('de-DE')} • ${draft.passages.length} Absätze
+                    Botschaften-Archiv (Inspirierte private Studieninitiative) • Erstellt am ${new Date().toLocaleDateString('de-DE')} • ${draft.passages.length} Absätze • Keine offizielle Publikation
                 </div>
                 <script>
                     window.onload = function() { window.print(); }
@@ -549,7 +549,7 @@ window.CompilationBuilder = (function() {
 
         let out = `# ${draft.title}\n`;
         if (draft.description) out += `*${draft.description}*\n\n`;
-        out += `Zusammengestellt aus den Botschaften des Universalen Hauses der Gerechtigkeit\n\n---\n\n`;
+        out += `Inspirierte Zitatesammlung zur Textarbeit (aus den Botschaften des Universalen Hauses der Gerechtigkeit)\n\n---\n\n`;
 
         draft.passages.forEach((p, idx) => {
             out += `### [${idx + 1}] ${p.title} (${p.date}, Absatz ${p.paraIndex})\n\n`;
@@ -557,7 +557,7 @@ window.CompilationBuilder = (function() {
             out += `„${p.text}“\n\n`;
         });
 
-        out += `---\n*Bahá'í-Botschaften-Archiv — Kompilation vom ${new Date().toLocaleDateString('de-DE')}*\n`;
+        out += `---\n*Botschaften-Archiv — Inspirierte private Studieninitiative (Keine offizielle Publikation) • ${new Date().toLocaleDateString('de-DE')}*\n`;
 
         navigator.clipboard.writeText(out).then(() => {
             alert('Kompilation wurde formatiert in die Zwischenablage kopiert!');
