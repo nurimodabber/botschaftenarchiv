@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botschaften-Archiv — Universales Haus der Gerechtigkeit</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+</head>
+<body>
+    <div class="cosmos-dock-container">
+        <header class="cosmos-dock" role="banner">
+            <button class="dock-brand" onclick="window.switchView('library')" title="Bahá'í-Botschaften-Archiv" aria-label="Zurück zur Bibliothek">
+                <div class="dock-star">
+                    <svg width="18" height="18" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M50.00,4.00L58.21,27.45L79.57,14.76L70.78,38.00L95.30,42.01L73.64,54.17L89.84,73.00L65.43,68.39L65.73,93.23L50.00,74.00L34.27,93.23L34.57,68.39L10.16,73.00L26.36,54.17L4.70,42.01L29.22,38.00L20.43,14.76L41.79,27.45Z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <span class="dock-title">Botschaften-Archiv</span>
+            </button>
+
+            <div class="dock-divider"></div>
+
+            <nav class="cosmos-nav" aria-label="Hauptnavigation">
+                <button class="nav-btn active" data-view="library">
+                    <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
+                    <span>Bibliothek</span>
+                </button>
+                <button class="nav-btn" data-view="collections">
+                    <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                    <span>Sammlungen &amp; Ruhi</span>
+                </button>
+                <button class="nav-btn btn-nav-workshop" data-view="workshop">
+                    <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                    <span>Werkstatt</span>
+                </button>
+                <button class="nav-btn" data-view="search">
+                    <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <span>Suche</span>
+                </button>
+                <button class="nav-btn" data-view="saved">
+                    <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                    <span>Merkliste</span>
+                </button>
+            </nav>
+
+            <div class="dock-divider"></div>
+
+            <div class="dock-actions">
+                <button id="theme-toggle" class="dock-icon-btn" aria-label="Design umschalten" title="Helles / Dunkles Design">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+            </div>
+        </header>
+    </div>
+
+    <main id="app-content">
+        <!-- 1. BEREICH: BOTSCHAFTEN-BIBLIOTHEK (Vereinte Bibliothek aller Botschaften) -->
+        <section id="view-library" class="view active">
+            <div class="view-header">
+                <div class="editorial-eyebrow">Offizielles Archiv</div>
+                <h2 class="editorial-headline">Botschaften-Bibliothek</h2>
+                <p class="editorial-lead">
+                    Das vollständige Textarchiv aller Botschaften des Universalen Hauses der Gerechtigkeit an die weltweite Gemeinde, Institutionen und Gläubige (1963–2026).
+                </p>
+
+                <!-- Filter 1: Empfänger / An wen gerichtet -->
+                <div class="filter-section-wrapper">
+                    <div class="filter-section-label">Empfänger</div>
+                    <div class="quick-filters" id="library-recipient-filters">
+                        <button class="filter-pill active" data-recipient="all">Alle Empfänger <span class="pill-count" id="count-rec-all"></span></button>
+                        <button class="filter-pill" data-recipient="world">Weltweite Gemeinde <span class="pill-count" id="count-rec-world"></span></button>
+                        <button class="filter-pill" data-recipient="nsa">Nationale Geistige Räte <span class="pill-count" id="count-rec-nsa"></span></button>
+                        <button class="filter-pill" data-recipient="counsellors">Berater &amp; Hilfsamt <span class="pill-count" id="count-rec-counsellors"></span></button>
+                        <button class="filter-pill" data-recipient="youth">Jugend <span class="pill-count" id="count-rec-youth"></span></button>
+                        <button class="filter-pill" data-recipient="institutes">Trainingsinstitute <span class="pill-count" id="count-rec-institutes"></span></button>
+                        <button class="filter-pill" data-recipient="iran">Freunde im Iran <span class="pill-count" id="count-rec-iran"></span></button>
+                        <button class="filter-pill" data-recipient="individual">Einzelne Gläubige <span class="pill-count" id="count-rec-individual"></span></button>
+                    </div>
+                </div>
+
+                <!-- Filter 2: Anlass & Epochen -->
+                <div class="secondary-filter-bar">
+                    <!-- Epochen-Schnellauswahl -->
+                    <select id="library-epoch-select" class="apple-select">
+                        <option value="">Alle Epochen / Pläne</option>
+                        <option value="nine-year">Neunjahresplan (2022–2026)</option>
+                        <option value="one-year">Einjahresplan (2021–2022)</option>
+                        <option value="five-year-16">Fünfjahresplan (2016–2021)</option>
+                        <option value="plans-00">Pläne 2001–2015</option>
+                        <option value="era-90s">1990er Jahre</option>
+                        <option value="era-80s">1980er Jahre</option>
+                        <option value="era-early">1963–1979</option>
+                    </select>
+
+                    <!-- Typ-Auswahl -->
+                    <select id="library-type-select" class="apple-select">
+                        <option value="">Alle Anlässe / Typen</option>
+                        <option value="Riḍván-Botschaft">Riḍván-Botschaften</option>
+                        <option value="Naw-Rúz-Botschaft">Naw-Rúz-Botschaften</option>
+                        <option value="Beraterkonferenz-Botschaft">Beraterkonferenz</option>
+                        <option value="Friedensbotschaft">Friedensbotschaften</option>
+                        <option value="Jugendkonferenz-Botschaft">Jugendkonferenzen</option>
+                        <option value="Botschaft">Allgemeine Botschaften</option>
+                    </select>
+
+                    <!-- Sprache -->
+                    <select id="library-lang-select" class="apple-select">
+                        <option value="">Alle Sprachen</option>
+                        <option value="deutsch">Deutsch</option>
+                        <option value="english">English</option>
+                    </select>
+
+                    <!-- Sortierung -->
+                    <select id="library-sort-select" class="apple-select">
+                        <option value="date-desc">Neueste zuerst</option>
+                        <option value="date-asc">Älteste zuerst</option>
+                        <option value="title">Titel A–Z</option>
+                    </select>
+                </div>
+
+                <!-- Inline-Suche -->
+                <div class="library-search-box">
+                    <svg class="search-box-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="text" id="library-search-input" placeholder="In allen Botschaften suchen (Titel, Thema, Text)..." autocomplete="off">
+                </div>
+            </div>
+
+            <div id="library-results-info" class="search-results-info"></div>
+            <div id="library-results" class="results-grid"></div>
+            <div class="load-more-container" id="library-load-more" style="display: none;">
+                <button id="library-load-more-btn" class="btn-secondary">Mehr Botschaften anzeigen</button>
+            </div>
+        </section>
+
+        <!-- 2. BEREICH: THEMATISCHE SAMMLUNGEN & RUHI -->
+        <section id="view-collections" class="view">
+            <div class="collections-container">
+                <div class="view-header">
+                    <div class="editorial-eyebrow">Vertiefung &amp; Studienreihen</div>
+                    <h2 class="editorial-headline">Thematische Sammlungen</h2>
+                    <p class="editorial-lead">
+                        Autorisierte Kompilationen der Forschungsabteilung des Universalen Hauses der Gerechtigkeit sowie Studienbücher der Ruhi-Kursreihe.
+                    </p>
+
+                    <!-- Subtabs für Sammlungen -->
+                    <div class="subtabs-nav" id="collections-subtabs">
+                        <button class="filter-pill active" data-subview="compilations">Thematische Kompilationen (55)</button>
+                        <button class="filter-pill" data-subview="ruhi">Ruhi-Institut (Bücher 1–8)</button>
+                        <button class="filter-pill" data-subview="study">Studienhilfen &amp; Meilensteine</button>
+                    </div>
+                </div>
+
+                <!-- Unter-Bereich A: Kompilationen -->
+                <div id="subview-compilations" class="collections-pane active">
+                    <div id="compilations-grid" class="results-grid"></div>
+                </div>
+
+                <!-- Unter-Bereich B: Ruhi-Bücher -->
+                <div id="subview-ruhi" class="collections-pane" style="display: none;">
+                    <div id="ruhi-books-grid" class="ruhi-books-grid"></div>
+                </div>
+
+                <!-- Unter-Bereich C: Studienmaterial -->
+                <div id="subview-study" class="collections-pane" style="display: none;">
+                    <div id="study-grid" class="results-grid"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. BEREICH: KOMPILATIONS-WERKSTATT -->
+        <section id="view-workshop" class="view">
+            <div class="view-header" style="max-width: 900px; margin: 0 auto 2.5rem; text-align: center;">
+                <div class="editorial-eyebrow">Kompilations-Studio</div>
+                <h2 class="editorial-headline">Kompilations-Werkstatt</h2>
+                <p class="editorial-lead">
+                    Stellen Sie maßgeschneiderte Zitatesammlungen für Andachten, Studienkreise, Ratssitzungen oder Seminare zusammen. Absätze auswählen, ordnen, Notizen verfassen und als hochauflösendes PDF oder Fließtext exportieren.
+                </p>
+            </div>
+            <div id="compilation-workshop" style="max-width: 1280px; margin: 0 auto;">
+                <!-- Dynamically initialized by compilation_builder.js -->
+            </div>
+        </section>
+
+        <!-- 4. BEREICH: VOLLTEXTSUCHE -->
+        <section id="view-search" class="view">
+            <div class="search-container">
+                <div class="search-bar">
+                    <svg class="search-bar-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="text" id="search-input" placeholder="Botschaften und Dokumente durchsuchen... (Tastaturkürzel: /)" autocomplete="off">
+                    <button id="search-btn">Suchen</button>
+                </div>
+                
+                <div class="filters-panel">
+                    <div class="filter-group">
+                        <label for="filter-tier">Bereich</label>
+                        <select id="filter-tier" class="apple-select">
+                            <option value="">Alle Bereiche</option>
+                            <option value="house">Botschaften des Hauses</option>
+                            <option value="institutions">An &amp; über Institutionen</option>
+                            <option value="compilations">Kompilationen</option>
+                            <option value="ruhi">Ruhi-Bücher</option>
+                            <option value="study">Studienmaterial</option>
+                        </select>
+                    </div>
+                    <div class="filter-group" id="group-filter-subtier">
+                        <label for="filter-subtier">Institution</label>
+                        <select id="filter-subtier" class="apple-select">
+                            <option value="">Alle Institutionen</option>
+                            <option value="counsellors">Kontinentale Berater &amp; Hilfsamt</option>
+                            <option value="nsa">Nationale Geistige Räte</option>
+                            <option value="itc">Internationales Lehrzentrum (ITC)</option>
+                            <option value="institutes">Trainingsinstitute</option>
+                            <option value="lsa">Örtliche Geistige Räte</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-year">Jahr</label>
+                        <select id="filter-year" class="apple-select">
+                            <option value="">Alle Jahre</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-type">Typ</label>
+                        <select id="filter-type" class="apple-select">
+                            <option value="">Alle Typen</option>
+                            <option value="Riḍván-Botschaft">Riḍván-Botschaften</option>
+                            <option value="Beraterkonferenz-Botschaft">Beraterkonferenz</option>
+                            <option value="Botschaft">Allgemeine Botschaften</option>
+                            <option value="Kompilation">Kompilationen</option>
+                            <option value="Ruhi-Buch">Ruhi-Bücher</option>
+                            <option value="Friedensbotschaft">Friedensbotschaft</option>
+                            <option value="Jugendkonferenz-Botschaft">Jugendkonferenzen</option>
+                            <option value="Naw-Rúz-Botschaft">Naw-Rúz-Botschaften</option>
+                            <option value="Studienmaterial">Studienmaterial</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-lang">Sprache</label>
+                        <select id="filter-lang" class="apple-select">
+                            <option value="">Alle</option>
+                            <option value="deutsch">Deutsch</option>
+                            <option value="english">English</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="sort-by">Sortieren</label>
+                        <select id="sort-by" class="apple-select">
+                            <option value="relevance">Relevanz</option>
+                            <option value="date-desc">Neueste zuerst</option>
+                            <option value="date-asc">Älteste zuerst</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="search-results-info" id="results-info"></div>
+                <div id="search-results" class="results-grid"></div>
+                <div class="load-more-container" id="load-more-container" style="display: none;">
+                    <button id="load-more-btn" class="btn-secondary">Mehr Ergebnisse anzeigen</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. BEREICH: MERKLISTE & MEINE KOMPILATIONEN -->
+        <section id="view-saved" class="view">
+            <div class="bookmarks-container">
+                <div class="view-header">
+                    <div class="editorial-eyebrow">Gespeichertes</div>
+                    <h2 class="editorial-headline">Merkliste &amp; Manuskripte</h2>
+                    <p class="editorial-lead">Ihre mit einem Lesezeichen versehenen Botschaften sowie alle im Browser gesicherten Kompilationen.</p>
+                    
+                    <div class="subtabs-nav" style="margin-top: 1.5rem;">
+                        <button class="filter-pill active" id="pill-saved-bookmarks" onclick="window.switchSavedTab('bookmarks')">Lesezeichen (<span id="saved-bookmarks-count">0</span>)</button>
+                        <button class="filter-pill" id="pill-saved-compilations" onclick="window.switchSavedTab('compilations')">Meine Kompilationen (<span id="saved-compilations-count">0</span>)</button>
+                    </div>
+                </div>
+
+                <!-- Pane 1: Lesezeichen -->
+                <div id="saved-pane-bookmarks" class="active">
+                    <div id="bookmarks-list" class="results-grid"></div>
+                </div>
+
+                <!-- Pane 2: Gespeicherte Kompilationen -->
+                <div id="saved-pane-compilations" style="display: none;">
+                    <div id="saved-compilations-list" style="display: flex; flex-direction: column; gap: 1rem;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Document Viewer Modal (Apple Books / Safari Reader Style) -->
+        <div id="document-viewer" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-header-left">
+                        <span class="reader-doc-type" id="viewer-type-badge">Botschaft</span>
+                        <h2 id="viewer-title">Dokumenttitel</h2>
+                    </div>
+                    <div class="modal-actions">
+                        <div class="reader-font-controls">
+                            <button id="viewer-font-dec" class="icon-btn" title="Schrift kleiner" aria-label="Schrift kleiner">A−</button>
+                            <button id="viewer-font-inc" class="icon-btn" title="Schrift größer" aria-label="Schrift größer">A+</button>
+                        </div>
+                        <button id="viewer-copy" class="icon-btn" title="Text kopieren" aria-label="Text kopieren">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </button>
+                        <button id="viewer-bookmark" class="icon-btn" title="Lesezeichen" aria-label="Lesezeichen">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                        </button>
+                        <a id="viewer-download" href="#" target="_blank" class="icon-btn" title="Herunterladen" aria-label="Herunterladen">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        </a>
+                        <button id="viewer-close" class="icon-btn" title="Schließen" aria-label="Schließen">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="viewer-meta" id="viewer-meta"></div>
+                <div class="viewer-body" id="viewer-body"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-container">
+            <svg class="footer-star" width="16" height="16" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50.00,4.00L58.21,27.45L79.57,14.76L70.78,38.00L95.30,42.01L73.64,54.17L89.84,73.00L65.43,68.39L65.73,93.23L50.00,74.00L34.27,93.23L34.57,68.39L10.16,73.00L26.36,54.17L4.70,42.01L29.22,38.00L20.43,14.76L41.79,27.45Z" fill="currentColor"/>
+            </svg>
+            <p>Bahá'í-Botschaften-Archiv &copy; 2026 — Universales Haus der Gerechtigkeit</p>
+        </div>
+    </footer>
+
+    <script src="js/viewer.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/compilation_builder.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
