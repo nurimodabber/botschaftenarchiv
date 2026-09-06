@@ -76,10 +76,15 @@ function closeViewer() {
     }
 }
 
-window.openDocument = function(id, targetParagraph, preferredMode) {
+window.openDocument = function(id, targetParagraph, preferredMode, preferredLang) {
     if (!window.state || !window.state.documents) return;
     
-    const doc = window.state.documents.find(d => d.id === id);
+    let targetId = id;
+    const initialDoc = window.state.documents.find(d => d.id === id);
+    if (initialDoc && preferredLang && initialDoc.translations && initialDoc.translations[preferredLang]) {
+        targetId = initialDoc.translations[preferredLang];
+    }
+    const doc = window.state.documents.find(d => d.id === targetId) || initialDoc;
     if (!doc) return;
     
     currentViewerDoc = doc;
@@ -87,7 +92,7 @@ window.openDocument = function(id, targetParagraph, preferredMode) {
     // Synchronize URL hash for direct bookmarking/sharing
     try {
         const pHash = targetParagraph ? `&p=${targetParagraph}` : '';
-        const newHash = `#doc=${encodeURIComponent(id)}${pHash}`;
+        const newHash = `#doc=${encodeURIComponent(doc.id)}${pHash}`;
         if (window.location.hash !== newHash && window.history && window.history.replaceState) {
             window.history.replaceState(null, '', newHash);
         }
@@ -109,11 +114,23 @@ window.openDocument = function(id, targetParagraph, preferredMode) {
     const downloadBtn = document.getElementById('viewer-download');
     const bookmarkBtn = document.getElementById('viewer-bookmark');
     
-    // Set title
-    if (titleEl) titleEl.textContent = doc.title;
+    // Set title with subtle bilingual indicator
+    if (titleEl) {
+        let subHtml = '';
+        if (doc.availableLanguages && doc.availableLanguages.length > 1) {
+            const isDe = doc.language === 'deutsch';
+            const otherTitle = isDe ? doc.enTitle : doc.deTitle;
+            if (otherTitle && otherTitle !== doc.title) {
+                subHtml = `<div class="doc-sub-title">${isDe ? 'EN' : 'DE'}: ${escapeHtml(otherTitle)}</div>`;
+            }
+        }
+        titleEl.innerHTML = `${escapeHtml(doc.title)}${subHtml}`;
+    }
     
     // Meta information builder (called again after text loads for word count)
     const langLabel = doc.language === 'english' ? 'English' : 'Deutsch';
+    const hasBothLangs = doc.availableLanguages && doc.availableLanguages.includes('de') && doc.availableLanguages.includes('en');
+    const langMetaText = hasBothLangs ? `${langLabel} <span style="font-size:0.75rem; color:var(--text-subtle);">(Zweisprachig verfügbar)</span>` : langLabel;
     
     function buildMetaHtml(wc) {
         let html = `
@@ -122,7 +139,7 @@ window.openDocument = function(id, targetParagraph, preferredMode) {
             <div><strong>Typ:</strong> ${doc.type || 'Botschaft'}</div>
             <div><strong>Bereich:</strong> ${doc.tierName || 'Botschaften des Hauses'}</div>
             ${doc.subTierName ? `<div><strong>Institution:</strong> ${doc.subTierName}</div>` : ''}
-            <div><strong>Sprache:</strong> ${langLabel}</div>
+            <div><strong>Sprache:</strong> ${langMetaText}</div>
             ${wc > 0 ? `<div><strong>Umfang:</strong> ~${wc.toLocaleString('de-DE')} Wörter</div>` : ''}
         `;
         if (doc.topics && doc.topics.length > 0) {
@@ -170,11 +187,46 @@ window.openDocument = function(id, targetParagraph, preferredMode) {
     const typeBadge = document.getElementById('viewer-type-badge');
     if (typeBadge) typeBadge.textContent = isRuhi ? 'Ruhi-Institut (Studienbuch)' : (doc.type || 'Botschaft');
 
-    // Dual-mode Text/PDF Switcher for documents with PDF
+    // Remove previous toggles
     const oldModeSwitch = document.getElementById('viewer-mode-switch');
     if (oldModeSwitch) oldModeSwitch.remove();
+    const oldLangSwitch = document.getElementById('viewer-lang-switch');
+    if (oldLangSwitch) oldLangSwitch.remove();
 
-    if (pdfPath) {
+    const modalActions = document.querySelector('.modal-actions');
+
+    // 1. Dual-Language Switcher (DE / EN)
+    if (hasBothLangs && modalActions) {
+        const isCurrentDe = doc.language === 'deutsch';
+        const langSwitch = document.createElement('div');
+        langSwitch.id = 'viewer-lang-switch';
+        langSwitch.className = 'viewer-lang-switch';
+        langSwitch.innerHTML = `
+            <button id="btn-lang-de" class="viewer-lang-tab ${isCurrentDe ? 'active' : ''}" title="Deutsche Fassung anzeigen">DE</button>
+            <button id="btn-lang-en" class="viewer-lang-tab ${!isCurrentDe ? 'active' : ''}" title="Show English version">EN</button>
+        `;
+        modalActions.insertBefore(langSwitch, modalActions.firstChild);
+
+        const btnDe = langSwitch.querySelector('#btn-lang-de');
+        const btnEn = langSwitch.querySelector('#btn-lang-en');
+        if (btnDe) {
+            btnDe.addEventListener('click', () => {
+                if (!isCurrentDe && doc.translations && doc.translations.de) {
+                    window.openDocument(doc.translations.de, targetParagraph, currentMode, 'de');
+                }
+            });
+        }
+        if (btnEn) {
+            btnEn.addEventListener('click', () => {
+                if (isCurrentDe && doc.translations && doc.translations.en) {
+                    window.openDocument(doc.translations.en, targetParagraph, currentMode, 'en');
+                }
+            });
+        }
+    }
+
+    // 2. Dual-mode Text/PDF Switcher for documents with PDF
+    if (pdfPath && modalActions) {
         const modeSwitch = document.createElement('div');
         modeSwitch.id = 'viewer-mode-switch';
         modeSwitch.className = 'viewer-mode-switch';
@@ -188,10 +240,7 @@ window.openDocument = function(id, targetParagraph, preferredMode) {
                 <span>Original-PDF</span>
             </button>
         `;
-        const modalActions = document.querySelector('.modal-actions');
-        if (modalActions) {
-            modalActions.insertBefore(modeSwitch, modalActions.firstChild);
-        }
+        modalActions.insertBefore(modeSwitch, modalActions.firstChild);
 
         const btnText = modeSwitch.querySelector('#btn-mode-text');
         const btnPdf = modeSwitch.querySelector('#btn-mode-pdf');

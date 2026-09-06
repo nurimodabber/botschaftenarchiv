@@ -865,6 +865,43 @@ function applyLibraryFilters() {
         list.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'de'));
     }
 
+    // 8. Zweisprachige Zusammenführung (gleiche Dokumente als ein Werk darstellen)
+    const unifiedMap = new Map();
+    list.forEach(d => {
+        const key = d.groupId || d.id;
+        if (!unifiedMap.has(key)) {
+            unifiedMap.set(key, []);
+        }
+        unifiedMap.get(key).push(d);
+    });
+
+    const unifiedList = [];
+    unifiedMap.forEach(docsInGroup => {
+        let primaryDoc;
+        if (lang && lang.toLowerCase() === 'english') {
+            primaryDoc = docsInGroup.find(d => (d.language || '').toLowerCase() === 'english') || docsInGroup[0];
+        } else {
+            primaryDoc = docsInGroup.find(d => (d.language || '').toLowerCase() === 'deutsch') || docsInGroup[0];
+        }
+
+        const mergedFiles = Object.assign({}, primaryDoc.formatFiles);
+        const mergedFormats = new Set(primaryDoc.availableFormats || []);
+        docsInGroup.forEach(item => {
+            if (item.formatFiles) Object.assign(mergedFiles, item.formatFiles);
+            if (item.availableFormats) item.availableFormats.forEach(f => mergedFormats.add(f));
+        });
+
+        const unifiedDoc = Object.assign({}, primaryDoc, {
+            formatFiles: mergedFiles,
+            availableFormats: Array.from(mergedFormats),
+            siblingCount: docsInGroup.length
+        });
+
+        unifiedList.push(unifiedDoc);
+    });
+
+    list = unifiedList;
+
     // Aktive Filter ermitteln & Reset-Button / Counter aktualisieren
     let activeFilterCount = 0;
     const activeTags = [];
@@ -1370,6 +1407,7 @@ function formatDate(dateString) {
 window.createDocCard = function(doc, snippet = '', index = 0) {
     const isEn = (doc.language || '').toLowerCase() === 'english';
     const langLabel = isEn ? 'EN' : 'DE';
+    const hasBoth = doc.availableLanguages && doc.availableLanguages.includes('de') && doc.availableLanguages.includes('en');
     
     // Meta breadcrumb line
     const metaParts = [];
@@ -1390,7 +1428,19 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
         categoryLabel = 'Botschaft';
     }
     metaParts.push(`<span class="doc-origin-tag">${escapeDocHtml(categoryLabel)}</span>`);
-    metaParts.push(`<span class="doc-lang-tag ${langLabel.toLowerCase()}">${langLabel}</span>`);
+
+    if (hasBoth) {
+        const deId = doc.translations && doc.translations.de ? doc.translations.de : doc.id;
+        const enId = doc.translations && doc.translations.en ? doc.translations.en : doc.id;
+        metaParts.push(`
+            <div class="card-lang-toggle" onclick="event.stopPropagation()">
+                <button class="card-lang-btn ${!isEn ? 'active' : ''}" onclick="window.openDocument('${deId}', null, null, 'de')" title="Auf Deutsch öffnen">DE</button>
+                <button class="card-lang-btn ${isEn ? 'active' : ''}" onclick="window.openDocument('${enId}', null, null, 'en')" title="Open in English">EN</button>
+            </div>
+        `);
+    } else {
+        metaParts.push(`<span class="doc-lang-tag ${langLabel.toLowerCase()}">${langLabel}</span>`);
+    }
 
     if (doc.keyPassagesCount > 0) {
         metaParts.push(`<span class="doc-passages-tag" title="${doc.keyPassagesCount} thematische Kernabsätze">${doc.keyPassagesCount} Abs.</span>`);
@@ -1398,6 +1448,15 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
 
     const staggerIndex = typeof index === 'number' ? (index % 30) : 0;
     const previewText = snippet ? `…${snippet}…` : (doc.excerpt ? `${escapeDocHtml(doc.excerpt)}…` : '');
+
+    // Subtitle if bilingual and English/German title differs
+    let subTitleHtml = '';
+    if (hasBoth) {
+        const otherTitle = isEn ? doc.deTitle : doc.enTitle;
+        if (otherTitle && otherTitle !== doc.title) {
+            subTitleHtml = `<div class="doc-sub-title">${isEn ? 'DE' : 'EN'}: ${escapeDocHtml(otherTitle)}</div>`;
+        }
+    }
 
     // Formate als zusammenhängende, typografische Download-Leiste
     const fmts = doc.availableFormats || ['pdf', 'docx', 'epub', 'txt'];
@@ -1441,6 +1500,7 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
                     ${metaParts.join('<span class="meta-dot">•</span>')}
                 </div>
                 <h3 class="doc-title">${escapeDocHtml(doc.title)}</h3>
+                ${subTitleHtml}
                 ${previewText ? `<p class="doc-excerpt">${previewText}</p>` : ''}
             </div>
             <div class="doc-card-footer">
