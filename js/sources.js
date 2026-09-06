@@ -319,7 +319,7 @@ window.SourcesModule = (function() {
                             </div>
                             <div class="source-card-footer">
                                 <div class="source-features">
-                                    ${src.features.map(feat => `<span>✓ ${feat}</span>`).join('')}
+                                    ${src.features.map(feat => `<span>• ${feat}</span>`).join('')}
                                 </div>
                                 <a href="${src.url}" target="_blank" rel="noopener noreferrer" class="source-link-btn" title="Offizielle Website aufrufen">
                                     <span>Originalquelle öffnen</span>

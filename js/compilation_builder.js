@@ -51,7 +51,7 @@ window.CompilationBuilder = (function() {
         if (!passagesData) {
             const listEl = document.getElementById('workshop-passages-list');
             if (listEl) {
-                listEl.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--color-text-muted);"><span style="font-size:2rem;">⏳</span><br>Lade zielgruppenspezifische Absätze aller Botschaften…</div>';
+                listEl.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--color-text-muted);">Lade zielgruppenspezifische Absätze aller Botschaften…</div>';
             }
             try {
                 const res = await fetch('data/curated_passages.json');
@@ -307,7 +307,7 @@ window.CompilationBuilder = (function() {
                             Im Kontext lesen →
                         </button>
                         <button id="btn-add-${p.id}" onclick="window.CompilationBuilder.togglePassage('${p.id}')" class="${isAdded ? 'btn-secondary' : 'btn-primary'}" style="font-size:0.82rem;padding:0.35rem 0.8rem;font-weight:600;">
-                            ${isAdded ? '✓ Im Entwurf' : '+ In Kompilation'}
+                            ${isAdded ? 'Im Entwurf' : '+ In Kompilation'}
                         </button>
                     </div>
                 </div>
@@ -349,7 +349,7 @@ window.CompilationBuilder = (function() {
         if (btn) {
             const isAdded = draft.passages.some(p => p.id === passageId);
             btn.className = isAdded ? 'btn-secondary' : 'btn-primary';
-            btn.textContent = isAdded ? '✓ Im Entwurf' : '+ In Kompilation';
+            btn.textContent = isAdded ? 'Im Entwurf' : '+ In Kompilation';
         }
 
         updateDraftUI();

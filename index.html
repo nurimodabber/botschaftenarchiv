@@ -31,11 +31,15 @@
             <div class="dock-divider"></div>
 
             <nav class="cosmos-nav" aria-label="Hauptnavigation">
-                <button class="nav-btn active" data-view="library" title="Bibliothek & Schriften (1.972 Werke)">
+                <button class="nav-btn active" data-view="library" title="Bibliothek (Botschaften des Hauses)">
                     <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
                     <span>Bibliothek</span>
                 </button>
-                <button class="nav-btn" data-view="timeline" title="Historischer Zeitstrahl & Epochen-Explorer (1844–2044)">
+                <button class="nav-btn" data-view="books" title="Heilige Schriften &amp; Bücher (277 Werke)">
+                    <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    <span>Bücher</span>
+                </button>
+                <button class="nav-btn" data-view="timeline" title="Historischer Zeitstrahl &amp; Epochen-Explorer (1844–2044)">
                     <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12"/><circle cx="6" cy="12" r="3" fill="currentColor"/><circle cx="12" cy="12" r="3" fill="currentColor"/><circle cx="18" cy="12" r="3" fill="currentColor"/></svg>
                     <span>Zeitstrahl</span>
                 </button>
@@ -43,11 +47,11 @@
                     <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
                     <span>Werkstatt</span>
                 </button>
-                <button class="nav-btn" data-view="sources" title="Offizielle Bahá'í-Quellen & Repositorien">
+                <button class="nav-btn" data-view="sources" title="Offizielle Bahá'í-Quellen &amp; Repositorien">
                     <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                     <span>Quellen</span>
                 </button>
-                <button class="nav-btn" data-view="saved" title="Merkliste & Gespeichertes">
+                <button class="nav-btn" data-view="saved" title="Merkliste &amp; Gespeichertes">
                     <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
                     <span>Merkliste</span>
                 </button>
@@ -138,15 +142,15 @@
                             <span class="segment-badge">1.972</span>
                         </button>
                         <button class="segment-btn" data-segment="house" role="tab" aria-selected="false">
-                            <span>🏛️ Botschaften d. Hauses</span>
+                            <span>Botschaften d. Hauses</span>
                             <span class="segment-badge">1.542</span>
                         </button>
                         <button class="segment-btn" data-segment="books" role="tab" aria-selected="false">
-                            <span>📖 Heilige Schriften &amp; Bücher</span>
+                            <span>Heilige Schriften &amp; Bücher</span>
                             <span class="segment-badge">277</span>
                         </button>
                         <button class="segment-btn" data-segment="collections" role="tab" aria-selected="false">
-                            <span>🌿 Ruhi &amp; Sammlungen</span>
+                            <span>Ruhi &amp; Sammlungen</span>
                             <span class="segment-badge">153</span>
                         </button>
                     </div>
@@ -156,12 +160,12 @@
                         <!-- Fokus-Chips für Botschaften & Allgemein -->
                         <div class="quick-chips-scroller" id="library-quick-chips">
                             <button class="quick-chip-btn active" data-chip="all">Alle</button>
-                            <button class="quick-chip-btn" data-chip="ridvan">🌸 Riḍván</button>
-                            <button class="quick-chip-btn" data-chip="world">🌍 Weltweit</button>
-                            <button class="quick-chip-btn" data-chip="counsellors">🏛️ Berater</button>
-                            <button class="quick-chip-btn" data-chip="youth">🌱 Jugend</button>
-                            <button class="quick-chip-btn" data-chip="iran">🕊️ Iran</button>
-                            <button class="quick-chip-btn" data-chip="peace">⚖️ Frieden</button>
+                            <button class="quick-chip-btn" data-chip="ridvan">Riḍván</button>
+                            <button class="quick-chip-btn" data-chip="world">Weltweit</button>
+                            <button class="quick-chip-btn" data-chip="counsellors">Berater</button>
+                            <button class="quick-chip-btn" data-chip="youth">Jugend</button>
+                            <button class="quick-chip-btn" data-chip="iran">Iran</button>
+                            <button class="quick-chip-btn" data-chip="peace">Frieden</button>
                         </div>
 
                         <!-- Autoren-Chips (wird aktiviert wenn Segment 'books') -->

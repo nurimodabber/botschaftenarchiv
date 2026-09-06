@@ -27,7 +27,7 @@ window.initViewer = function() {
             if (!currentViewerDoc || !currentViewerDoc.text) return;
             navigator.clipboard.writeText(currentViewerDoc.text).then(() => {
                 const origHtml = copyBtn.innerHTML;
-                copyBtn.innerHTML = '<span style="font-size:0.75rem; color:var(--color-primary); font-weight:bold;">✓ Kopiert</span>';
+                copyBtn.innerHTML = '<span style="font-size:0.75rem; color:var(--color-primary); font-weight:bold;">Kopiert</span>';
                 setTimeout(() => {
                     copyBtn.innerHTML = origHtml;
                 }, 2000);
@@ -216,7 +216,7 @@ window.openDocument = function(id, targetParagraph) {
                     <!-- Autorisierte Quelle Banner -->
                     <div class="viewer-source-banner">
                         <div class="viewer-source-info">
-                            <span class="source-verified-badge">✓ Autorisierte Quelle</span>
+                            <span class="source-verified-badge">Autorisierte Quelle</span>
                             <span class="source-platform-name">${escapeHtml(doc.sourcePlatform || 'Bahá’í-Veröffentlichung')}</span>
                         </div>
                         <a href="${escapeHtml(doc.sourceUrl || 'https://www.bahai.org/library/')}" target="_blank" rel="noopener noreferrer" class="viewer-source-link-btn" title="Offizielle Seite aufrufen">
@@ -235,7 +235,7 @@ window.openDocument = function(id, targetParagraph) {
         if (bodyEl) {
             bodyEl.style.fontSize = `${currentFontSize}rem`;
             bodyEl.scrollTop = 0;
-            bodyEl.innerHTML = '<p style="color:var(--text-muted);font-style:italic;text-align:center;">⏳ Volltext wird geladen…</p>';
+            bodyEl.innerHTML = '<p style="color:var(--text-muted);font-style:italic;text-align:center;">Volltext wird geladen…</p>';
         }
         
         // Lazy-load full text from individual file
@@ -256,7 +256,7 @@ window.openDocument = function(id, targetParagraph) {
                         fullHtml += `
                             <div class="viewer-source-banner">
                                 <div class="viewer-source-info">
-                                    <span class="source-verified-badge">✓ Autorisierte Originalquelle</span>
+                                    <span class="source-verified-badge">Autorisierte Originalquelle</span>
                                     <span class="source-platform-name">${escapeHtml(sourceName)}</span>
                                 </div>
                                 <a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer" class="viewer-source-link-btn" title="Dieses Dokument auf der autorisierten Originalwebsite öffnen">
@@ -464,7 +464,7 @@ window.addViewerParagraphToWorkshop = function(paraIdx) {
         window.CompilationBuilder.addPassageFromViewer(currentViewerDoc, pText.trim(), paraIdx);
         const btn = document.getElementById(`viewer-para-btn-${paraIdx}`);
         if (btn) {
-            btn.innerHTML = '✓ Im Entwurf';
+            btn.innerHTML = 'Im Entwurf';
             btn.style.background = 'var(--color-accent-light)';
             btn.style.color = 'var(--color-primary)';
             btn.style.borderColor = 'var(--color-accent)';
@@ -661,7 +661,7 @@ window.copyParagraphCitation = function(pNum) {
         const label = document.getElementById(`para-copy-label-${pNum}`);
         if (label) {
             const orig = label.innerHTML;
-            label.innerHTML = '✓ Kopiert!';
+            label.innerHTML = 'Kopiert!';
             setTimeout(() => { label.innerHTML = orig; }, 2000);
         }
     }).catch(err => {
@@ -676,7 +676,7 @@ window.copyParagraphDeepLink = function(pNum) {
         const label = document.getElementById(`para-link-label-${pNum}`);
         if (label) {
             const orig = label.innerHTML;
-            label.innerHTML = '✓ Kopiert!';
+            label.innerHTML = 'Kopiert!';
             setTimeout(() => { label.innerHTML = orig; }, 2000);
         }
     }).catch(err => {

@@ -69,6 +69,7 @@ async function initApp() {
         
         // Initialize Views
         initLibraryView();
+        if (window.BooksModule) window.BooksModule.init();
         initCollectionsView();
         updateYearFilter();
         
@@ -258,11 +259,6 @@ window.switchView = function(targetView) {
         if (s) { s.focus(); s.select(); }
         return;
     }
-    if (targetView === 'books') {
-        window.switchView('library');
-        window.switchLibrarySegment('books');
-        return;
-    }
     if (targetView === 'collections') {
         window.switchView('library');
         window.switchLibrarySegment('collections');
@@ -287,7 +283,9 @@ window.switchView = function(targetView) {
         window.trackEvent('switch_view', { view: targetView });
     }
 
-    if (targetView === 'workshop' && window.CompilationBuilder) {
+    if (targetView === 'books' && window.BooksModule) {
+        window.BooksModule.init();
+    } else if (targetView === 'workshop' && window.CompilationBuilder) {
         window.CompilationBuilder.init();
     } else if (targetView === 'saved') {
         renderSavedView();

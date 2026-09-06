@@ -19,33 +19,33 @@ window.TimelineModule = (function() {
     let currentDocFilter = 'all'; // 'all', 'ridvan', 'institutions', 'books'
     let scrubberYear = 2026;
 
-    // Horizontale X-Koordinaten für die Schlüsseljahre im SVG (viewBox: 0 0 1200 590)
+    // Horizontale X-Koordinaten für die Schlüsseljahre im SVG (viewBox: 0 0 1480 610)
     const X = {
-        1844: 45,
-        1853: 110,
-        1892: 215,
-        1921: 305,
-        1937: 365,
-        1944: 395,
-        1946: 405,
-        1953: 450,
-        1963: 505,
-        1974: 565,
-        1979: 600,
-        1986: 645,
-        1993: 695,
-        1996: 725,
-        2000: 755,
-        2001: 765,
-        2006: 805,
-        2011: 845,
-        2016: 885,
-        2021: 925,
-        2022: 935,
-        2031: 995,
-        2044: 1065,
-        goldenStart: 1080,
-        goldenEnd: 1180
+        1844: 50,
+        1853: 125,
+        1892: 235,
+        1921: 345,
+        1937: 420,
+        1944: 455,
+        1946: 470,
+        1953: 525,
+        1963: 600,
+        1974: 675,
+        1979: 715,
+        1986: 775,
+        1993: 835,
+        1996: 870,
+        2000: 905,
+        2001: 920,
+        2006: 975,
+        2011: 1030,
+        2016: 1085,
+        2021: 1140,
+        2022: 1155,
+        2031: 1250,
+        2044: 1350,
+        goldenStart: 1365,
+        goldenEnd: 1455
     };
 
     // Entitäten-Datenbank mit deutschen und englischen Texten, Zitaten und Daten
@@ -713,8 +713,8 @@ window.TimelineModule = (function() {
                 <div class="unfold-toolbar">
                     <div class="unfold-lang-switch">
                         <span class="unfold-tool-label">${isDe ? "Sprache:" : "Language:"}</span>
-                        <button class="unfold-lang-btn ${currentLang === 'de' ? 'active' : ''}" onclick="window.TimelineModule.setLanguage('de')">🇩🇪 Deutsch</button>
-                        <button class="unfold-lang-btn ${currentLang === 'en' ? 'active' : ''}" onclick="window.TimelineModule.setLanguage('en')">🇬🇧 English (Original)</button>
+                        <button class="unfold-lang-btn ${currentLang === 'de' ? 'active' : ''}" onclick="window.TimelineModule.setLanguage('de')">Deutsch</button>
+                        <button class="unfold-lang-btn ${currentLang === 'en' ? 'active' : ''}" onclick="window.TimelineModule.setLanguage('en')">English (Original)</button>
                     </div>
 
                     <div class="unfold-scrubber-box">
@@ -750,19 +750,22 @@ window.TimelineModule = (function() {
         const milestoneYears = [1844, 1853, 1892, 1921, 1937, 1946, 1953, 1963, 1974, 1979, 1986, 1993, 1996, 2001, 2006, 2011, 2016, 2021, 2044];
         const gridLines = milestoneYears.map(y => {
             const x = X[y];
-            return `<line x1="${x}" y1="40" x2="${x}" y2="520" stroke="rgba(150,160,175,0.22)" stroke-dasharray="3 4" stroke-width="1" />`;
+            return `<line x1="${x}" y1="35" x2="${x}" y2="550" stroke="rgba(150,160,175,0.18)" stroke-dasharray="3 4" stroke-width="1" />`;
         }).join('\n');
 
         const axisLabels = milestoneYears.map(y => {
             const x = X[y];
             return `
-                <line x1="${x}" y1="510" x2="${x}" y2="522" stroke="currentColor" stroke-width="1.5" />
-                <text x="${x}" y="538" text-anchor="middle" class="svg-axis-label">${y}</text>
+                <line x1="${x}" y1="540" x2="${x}" y2="550" stroke="currentColor" stroke-width="1.5" />
+                <text x="${x}" y="568" text-anchor="middle" class="svg-axis-label">${y}</text>
             `;
         }).join('\n');
 
+        const midPrev = (X[1996] + X[2021]) / 2;
+        const midNew = (X[2021] + X[2044]) / 2;
+
         return `
-        <svg id="unfoldment-svg" class="unfold-svg" viewBox="0 0 1200 560" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+        <svg id="unfoldment-svg" class="unfold-svg" viewBox="0 0 1480 610" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
             <defs>
                 <filter id="node-glow" x="-20%" y="-20%" width="140%" height="140%">
                     <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="var(--accent-gold)" flood-opacity="0.6"/>
@@ -786,8 +789,8 @@ window.TimelineModule = (function() {
 
             <!-- 1. LAYER: Bahá'í Cycle -->
             <g class="unfold-node" data-id="cycle" style="cursor: pointer;">
-                <path d="M ${X[1844]} 40 L 1150 40 L 1170 52.5 L 1150 65 L ${X[1844]} 65 Z" fill="#1B2A58" class="svg-bar" />
-                <text x="${X[1844] + 15}" y="56" fill="#FFFFFF" class="svg-text-bold">
+                <path d="M ${X[1844]} 35 L 1425 35 L 1445 47.5 L 1425 60 L ${X[1844]} 60 Z" fill="#1B2A58" class="svg-bar" />
+                <text x="${X[1844] + 15}" y="51" fill="#FFFFFF" class="svg-text-bold">
                     ${isDe ? "Bahá'í-Zyklus" : "Bahá’í Cycle"}
                     <tspan fill="rgba(255,255,255,0.8)" font-weight="normal" font-size="11">
                         ${isDe ? " (Vorgesehen für 500.000 Jahre)" : " (destined to last for 500,000 years)"}
@@ -797,8 +800,8 @@ window.TimelineModule = (function() {
 
             <!-- 2. LAYER: Bahá'í Era -->
             <g class="unfold-node" data-id="era_c1" style="cursor: pointer;">
-                <path d="M ${X[1844]} 75 L 1150 75 L 1170 87.5 L 1150 100 L ${X[1844]} 100 Z" fill="#1F6FA8" class="svg-bar" />
-                <text x="${X[1844] + 15}" y="91" fill="#FFFFFF" class="svg-text-bold">
+                <path d="M ${X[1844]} 70 L 1425 70 L 1445 82.5 L 1425 95 L ${X[1844]} 95 Z" fill="#1F6FA8" class="svg-bar" />
+                <text x="${X[1844] + 15}" y="86" fill="#FFFFFF" class="svg-text-bold">
                     ${isDe ? "Bahá'í-Ära" : "Bahá’í Era"}
                     <tspan fill="rgba(255,255,255,0.8)" font-weight="normal" font-size="11">
                         ${isDe ? " (Umfasst die Sendungen des Báb und Bahá'u'lláhs)" : " (comprising the Dispensations of the Báb and Bahá’u’lláh)"}
@@ -807,29 +810,29 @@ window.TimelineModule = (function() {
             </g>
             <!-- Era Century Rulers -->
             <g class="svg-ruler">
-                <line x1="${X[1844]}" y1="110" x2="${X[1944]}" y2="110" stroke="currentColor" stroke-width="1.2" />
-                <line x1="${X[1844]}" y1="106" x2="${X[1844]}" y2="114" stroke="currentColor" stroke-width="1.2" />
-                <line x1="${X[1944]}" y1="106" x2="${X[1944]}" y2="114" stroke="currentColor" stroke-width="1.2" />
-                <text x="${(X[1844] + X[1944])/2}" y="119" text-anchor="middle" class="svg-ruler-text">
-                    ${isDe ? "1. Jahrhundert (1844–1944)" : "1st Century"}
+                <line x1="${X[1844]}" y1="104" x2="${X[1944]}" y2="104" stroke="currentColor" stroke-width="1.2" />
+                <line x1="${X[1844]}" y1="100" x2="${X[1844]}" y2="108" stroke="currentColor" stroke-width="1.2" />
+                <line x1="${X[1944]}" y1="100" x2="${X[1944]}" y2="108" stroke="currentColor" stroke-width="1.2" />
+                <text x="${(X[1844] + X[1944])/2}" y="114" text-anchor="middle" class="svg-ruler-text">
+                    ${isDe ? "1. Jahrhundert (1844–1944)" : "1st Century (1844–1944)"}
                 </text>
 
-                <line x1="${X[1944]}" y1="110" x2="${X[2044]}" y2="110" stroke="currentColor" stroke-width="1.2" />
-                <line x1="${X[2044]}" y1="106" x2="${X[2044]}" y2="114" stroke="currentColor" stroke-width="1.2" />
-                <text x="${(X[1944] + X[2044])/2}" y="119" text-anchor="middle" class="svg-ruler-text">
-                    ${isDe ? "2. Jahrhundert (1944–2044)" : "2nd Century"}
+                <line x1="${X[1944]}" y1="104" x2="${X[2044]}" y2="104" stroke="currentColor" stroke-width="1.2" />
+                <line x1="${X[2044]}" y1="100" x2="${X[2044]}" y2="108" stroke="currentColor" stroke-width="1.2" />
+                <text x="${(X[1944] + X[2044])/2}" y="114" text-anchor="middle" class="svg-ruler-text">
+                    ${isDe ? "2. Jahrhundert (1944–2044)" : "2nd Century (1944–2044)"}
                 </text>
 
-                <line x1="${X[2044]}" y1="110" x2="1140" y2="110" stroke="currentColor" stroke-dasharray="3 3" stroke-width="1.2" />
-                <text x="1100" y="119" class="svg-ruler-text">
+                <line x1="${X[2044]}" y1="104" x2="1420" y2="104" stroke="currentColor" stroke-dasharray="3 3" stroke-width="1.2" />
+                <text x="1395" y="114" class="svg-ruler-text">
                     ${isDe ? "3. Jhdt. …" : "3rd Century …"}
                 </text>
             </g>
 
             <!-- 3. LAYER: Dispensation of Bahá'u'lláh (Starts at 1853!) -->
             <g class="unfold-node" data-id="dispensation" style="cursor: pointer;">
-                <path d="M ${X[1853]} 128 L 1150 128 L 1170 140.5 L 1150 153 L ${X[1853]} 153 Z" fill="#00A3E0" class="svg-bar" />
-                <text x="${X[1853] + 15}" y="144" fill="#FFFFFF" class="svg-text-bold">
+                <path d="M ${X[1853]} 124 L 1425 124 L 1445 136.5 L 1425 149 L ${X[1853]} 149 Z" fill="#00A3E0" class="svg-bar" />
+                <text x="${X[1853] + 15}" y="140" fill="#FFFFFF" class="svg-text-bold">
                     ${isDe ? "Dispensation Bahá'u'lláhs" : "Dispensation of Bahá’u’lláh"}
                     <tspan fill="rgba(255,255,255,0.85)" font-weight="normal" font-size="11">
                         ${isDe ? " (Vorgesehen für mindestens 1.000 Jahre)" : " (destined to last at least 1000 years)"}
@@ -840,170 +843,176 @@ window.TimelineModule = (function() {
             <!-- 4. LAYER: Ages (Heroic Age -> Formative Age -> Golden Age) -->
             <!-- Heroic Age Header -->
             <g class="unfold-node" data-id="heroic_age" style="cursor: pointer;">
-                <rect x="${X[1844]}" y="165" width="${X[1921] - X[1844]}" height="24" rx="4" fill="#557637" class="svg-bar" />
-                <text x="${(X[1844] + X[1921])/2}" y="181" fill="#FFFFFF" text-anchor="middle" class="svg-text-bold">
-                    ${isDe ? "Heroisches Zeitalter (1844–1921)" : "Heroic Age"}
+                <rect x="${X[1844]}" y="160" width="${X[1921] - X[1844]}" height="26" rx="4" fill="#557637" class="svg-bar" />
+                <text x="${(X[1844] + X[1921])/2}" y="177" fill="#FFFFFF" text-anchor="middle" class="svg-text-bold">
+                    ${isDe ? "Heroisches Zeitalter (1844–1921)" : "Heroic Age (1844–1921)"}
                 </text>
             </g>
             <!-- Formative Age Header -->
             <g class="unfold-node" data-id="formative_age" style="cursor: pointer;">
-                <path d="M ${X[1921]} 165 L 1050 165 L 1070 177 L 1050 189 L ${X[1921]} 189 Z" fill="#3D6E34" class="svg-bar" />
-                <text x="${(X[1921] + 1050)/2}" y="181" fill="#FFFFFF" text-anchor="middle" class="svg-text-bold">
-                    ${isDe ? "Gestaltendes Zeitalter (Formative Age, ab 1921)" : "Formative Age"}
+                <path d="M ${X[1921]} 160 L 1335 160 L 1355 173 L 1335 186 L ${X[1921]} 186 Z" fill="#3D6E34" class="svg-bar" />
+                <text x="${(X[1921] + 1335)/2}" y="177" fill="#FFFFFF" text-anchor="middle" class="svg-text-bold">
+                    ${isDe ? "Gestaltendes Zeitalter (Formative Age, ab 1921)" : "Formative Age (from 1921)"}
                 </text>
             </g>
             <!-- Golden Age Header -->
             <g class="unfold-node" data-id="golden_age" style="cursor: pointer;">
-                <path d="M 1075 165 L 1150 165 L 1170 177 L 1150 189 L 1075 189 L 1090 177 Z" fill="#3D6E34" class="svg-bar" />
-                <text x="1125" y="181" fill="#FFFFFF" text-anchor="middle" class="svg-text-bold">
+                <path d="M 1360 160 L 1425 160 L 1445 173 L 1425 186 L 1360 186 L 1375 173 Z" fill="#3D6E34" class="svg-bar" />
+                <text x="1405" y="177" fill="#FFFFFF" text-anchor="middle" class="svg-text-bold">
                     ${isDe ? "Goldenes Zeitalter" : "Golden Age"}
                 </text>
             </g>
 
             <!-- Heroic Age 3 Epochs -->
             <g class="unfold-node" data-id="ministry_bab" style="cursor: pointer;">
-                <rect x="${X[1844]}" y="193" width="${X[1853] - X[1844]}" height="22" rx="3" fill="#7E9F4F" class="svg-bar" />
-                <text x="${(X[1844] + X[1853])/2}" y="208" fill="#FFFFFF" text-anchor="middle" font-size="10" font-weight="bold">
+                <rect x="${X[1844]}" y="196" width="${X[1853] - X[1844]}" height="24" rx="3" fill="#7E9F4F" class="svg-bar" />
+                <text x="${(X[1844] + X[1853])/2}" y="212" fill="#FFFFFF" text-anchor="middle" font-size="10" font-weight="bold">
                     ${isDe ? "1. Epoche" : "1st Epoch"}
                 </text>
             </g>
             <g class="unfold-node" data-id="ministry_bahaullah" style="cursor: pointer;">
-                <rect x="${X[1853]}" y="193" width="${X[1892] - X[1853]}" height="22" rx="3" fill="#7E9F4F" class="svg-bar" />
-                <text x="${(X[1853] + X[1892])/2}" y="208" fill="#FFFFFF" text-anchor="middle" font-size="10" font-weight="bold">
+                <rect x="${X[1853]}" y="196" width="${X[1892] - X[1853]}" height="24" rx="3" fill="#7E9F4F" class="svg-bar" />
+                <text x="${(X[1853] + X[1892])/2}" y="212" fill="#FFFFFF" text-anchor="middle" font-size="10" font-weight="bold">
                     ${isDe ? "2. Epoche" : "2nd Epoch"}
                 </text>
             </g>
             <g class="unfold-node" data-id="ministry_abdulbaha" style="cursor: pointer;">
-                <rect x="${X[1892]}" y="193" width="${X[1921] - X[1892]}" height="22" rx="3" fill="#7E9F4F" class="svg-bar" />
-                <text x="${(X[1892] + X[1921])/2}" y="208" fill="#FFFFFF" text-anchor="middle" font-size="10" font-weight="bold">
+                <rect x="${X[1892]}" y="196" width="${X[1921] - X[1892]}" height="24" rx="3" fill="#7E9F4F" class="svg-bar" />
+                <text x="${(X[1892] + X[1921])/2}" y="212" fill="#FFFFFF" text-anchor="middle" font-size="10" font-weight="bold">
                     ${isDe ? "3. Epoche" : "3rd Epoch"}
                 </text>
             </g>
 
-            <!-- Formative Age Century Ruler -->
-            <line x1="${X[1921]}" y1="198" x2="${X[2021]}" y2="198" stroke="currentColor" stroke-width="1" />
-            <text x="${(X[1921] + X[2021])/2}" y="195" text-anchor="middle" class="svg-ruler-text" font-size="10">
-                ${isDe ? "1. Jahrhundert des Gestaltenden Zeitalters (1921–2021)" : "1st Century"}
+            <!-- Formative Age Century Line: sauber platziert über den Epochen -->
+            <line x1="${X[1921]}" y1="192" x2="${X[2021]}" y2="192" stroke="currentColor" stroke-width="1" />
+            <text x="${(X[1921] + X[2021])/2}" y="190" text-anchor="middle" class="svg-ruler-text" font-size="9.5">
+                ${isDe ? "1. Jahrhundert des Gestaltenden Zeitalters (1921–2021)" : "1st Century of the Formative Age (1921–2021)"}
             </text>
-            <line x1="${X[2021]}" y1="198" x2="1050" y2="198" stroke="currentColor" stroke-dasharray="3 3" stroke-width="1" />
-            <text x="${(X[2021] + 1050)/2}" y="195" text-anchor="middle" class="svg-ruler-text" font-size="10">
+            <line x1="${X[2021]}" y1="192" x2="1335" y2="192" stroke="currentColor" stroke-dasharray="3 3" stroke-width="1" />
+            <text x="${(X[2021] + 1335)/2}" y="190" text-anchor="middle" class="svg-ruler-text" font-size="9.5">
                 ${isDe ? "2. Jahrhundert …" : "2nd Century …"}
             </text>
 
-            <!-- Formative Age 5 Epochs -->
+            <!-- Formative Age Epochs (1 to 5 + 6. ab 2021) -->
             <g class="unfold-node" data-id="epoch_1" style="cursor: pointer;">
-                <rect x="${X[1921]}" y="203" width="${X[1946] - X[1921]}" height="22" rx="3" fill="#86AC41" class="svg-bar" />
-                <text x="${(X[1921] + X[1946])/2}" y="218" fill="#FFFFFF" text-anchor="middle" font-size="10" font-weight="bold">
+                <rect x="${X[1921]}" y="200" width="${X[1946] - X[1921]}" height="24" rx="3" fill="#86AC41" class="svg-bar" />
+                <text x="${(X[1921] + X[1946])/2}" y="216" fill="#FFFFFF" text-anchor="middle" font-size="10" font-weight="bold">
                     ${isDe ? "1. Epoche" : "1st Epoch"}
                 </text>
             </g>
             <g class="unfold-node" data-id="epoch_2" style="cursor: pointer;">
-                <rect x="${X[1946]}" y="203" width="${X[1963] - X[1946]}" height="22" rx="3" fill="#86AC41" class="svg-bar" />
-                <text x="${(X[1946] + X[1963])/2}" y="218" fill="#FFFFFF" text-anchor="middle" font-size="10" font-weight="bold">
+                <rect x="${X[1946]}" y="200" width="${X[1963] - X[1946]}" height="24" rx="3" fill="#86AC41" class="svg-bar" />
+                <text x="${(X[1946] + X[1963])/2}" y="216" fill="#FFFFFF" text-anchor="middle" font-size="10" font-weight="bold">
                     ${isDe ? "2. Epoche" : "2nd Epoch"}
                 </text>
             </g>
             <g class="unfold-node" data-id="epoch_3" style="cursor: pointer;">
-                <rect x="${X[1963]}" y="203" width="${X[1986] - X[1963]}" height="22" rx="3" fill="#86AC41" class="svg-bar" />
-                <text x="${(X[1963] + X[1986])/2}" y="218" fill="#FFFFFF" text-anchor="middle" font-size="10" font-weight="bold">
+                <rect x="${X[1963]}" y="200" width="${X[1986] - X[1963]}" height="24" rx="3" fill="#86AC41" class="svg-bar" />
+                <text x="${(X[1963] + X[1986])/2}" y="216" fill="#FFFFFF" text-anchor="middle" font-size="10" font-weight="bold">
                     ${isDe ? "3. Epoche" : "3rd Epoch"}
                 </text>
             </g>
             <g class="unfold-node" data-id="epoch_4" style="cursor: pointer;">
-                <rect x="${X[1986]}" y="203" width="${X[2001] - X[1986]}" height="22" rx="3" fill="#86AC41" class="svg-bar" />
-                <text x="${(X[1986] + X[2001])/2}" y="218" fill="#FFFFFF" text-anchor="middle" font-size="10" font-weight="bold">
+                <rect x="${X[1986]}" y="200" width="${X[2001] - X[1986]}" height="24" rx="3" fill="#86AC41" class="svg-bar" />
+                <text x="${(X[1986] + X[2001])/2}" y="216" fill="#FFFFFF" text-anchor="middle" font-size="10" font-weight="bold">
                     ${isDe ? "4. Epoche" : "4th Epoch"}
                 </text>
             </g>
             <g class="unfold-node" data-id="epoch_5" style="cursor: pointer;">
-                <rect x="${X[2001]}" y="203" width="${X[2021] - X[2001]}" height="22" rx="3" fill="#86AC41" class="svg-bar" />
-                <text x="${(X[2001] + X[2021])/2}" y="218" fill="#FFFFFF" text-anchor="middle" font-size="10" font-weight="bold">
+                <rect x="${X[2001]}" y="200" width="${X[2021] - X[2001]}" height="24" rx="3" fill="#86AC41" class="svg-bar" />
+                <text x="${(X[2001] + X[2021])/2}" y="216" fill="#FFFFFF" text-anchor="middle" font-size="10" font-weight="bold">
                     ${isDe ? "5. Epoche" : "5th Epoch"}
+                </text>
+            </g>
+            <g class="unfold-node" data-id="plan_9yp_22" style="cursor: pointer;">
+                <path d="M ${X[2021]} 200 L 1320 200 L 1335 212 L 1320 224 L ${X[2021]} 224 Z" fill="#86AC41" class="svg-bar" />
+                <text x="${(X[2021] + 1320)/2}" y="216" fill="#FFFFFF" text-anchor="middle" font-size="10" font-weight="bold">
+                    ${isDe ? "6. Epoche" : "6th Epoch"}
                 </text>
             </g>
 
             <!-- Vertikale Beschriftungen der Sendungen (Links unten im Heroic Age) -->
             <g class="unfold-node" data-id="ministry_bab" style="cursor: pointer;">
-                <text x="${X[1844] + 25}" y="360" transform="rotate(-90 ${X[1844] + 25},360)" class="svg-vertical-text">
+                <text x="${X[1844] + 35}" y="380" transform="rotate(-90 ${X[1844] + 35},380)" class="svg-vertical-text">
                     ${isDe ? "Sendung des Báb" : "Ministry of the Báb"}
                 </text>
             </g>
             <g class="unfold-node" data-id="ministry_bahaullah" style="cursor: pointer;">
-                <text x="${X[1853] + 45}" y="360" transform="rotate(-90 ${X[1853] + 45},360)" class="svg-vertical-text">
+                <text x="${X[1853] + 55}" y="380" transform="rotate(-90 ${X[1853] + 55},380)" class="svg-vertical-text">
                     ${isDe ? "Sendung Bahá'u'lláhs" : "Ministry of Bahá’u’lláh"}
                 </text>
             </g>
             <g class="unfold-node" data-id="ministry_abdulbaha" style="cursor: pointer;">
-                <text x="${X[1892] + 40}" y="360" transform="rotate(-90 ${X[1892] + 40},360)" class="svg-vertical-text">
+                <text x="${X[1892] + 55}" y="380" transform="rotate(-90 ${X[1892] + 55},380)" class="svg-vertical-text">
                     ${isDe ? "Wirken 'Abdu'l-Bahás" : "Ministry of ‘Abdu’l-Bahá"}
                 </text>
             </g>
 
             <!-- 5. LAYER: Tablets of the Divine Plan (Starts in 1937!) -->
             <g class="unfold-node" data-id="tdp" style="cursor: pointer;">
-                <path d="M ${X[1937]} 240 L 1030 240 L 1045 251 L 1030 262 L ${X[1937]} 262 Z" fill="#855723" class="svg-bar" />
-                <text x="${(X[1937] + 1030)/2}" y="255" fill="#FFFFFF" text-anchor="middle" class="svg-text-bold">
+                <path d="M ${X[1937]} 240 L 1310 240 L 1330 252 L 1310 264 L ${X[1937]} 264 Z" fill="#855723" class="svg-bar" />
+                <text x="${(X[1937] + 1310)/2}" y="256" fill="#FFFFFF" text-anchor="middle" class="svg-text-bold">
                     ${isDe ? "Tafeln des Göttlichen Plans (Tablets of the Divine Plan)" : "Tablets of the Divine Plan"}
                 </text>
             </g>
             <!-- TDP 3 Epochs -->
             <g class="unfold-node" data-id="tdp_1" style="cursor: pointer;">
-                <rect x="${X[1937]}" y="267" width="${X[1953] - X[1937]}" height="22" rx="3" fill="#D98A1E" class="svg-bar" />
-                <text x="${(X[1937] + X[1953])/2}" y="282" fill="#FFFFFF" text-anchor="middle" font-size="10" font-weight="bold">
-                    ${isDe ? "1. Epoche (1937–1953)" : "1st Epoch"}
+                <rect x="${X[1937]}" y="272" width="${X[1953] - X[1937]}" height="26" rx="3" fill="#D98A1E" class="svg-bar" />
+                <text x="${(X[1937] + X[1953])/2}" y="289" fill="#FFFFFF" text-anchor="middle" font-size="10" font-weight="bold">
+                    ${isDe ? "1. Epoche (1937–53)" : "1st Epoch"}
                 </text>
             </g>
             <g class="unfold-node" data-id="tdp_2" style="cursor: pointer;">
-                <rect x="${X[1953]}" y="267" width="${X[2021] - X[1953]}" height="22" rx="3" fill="#D98A1E" class="svg-bar" />
-                <text x="${(X[1953] + X[2021])/2}" y="282" fill="#FFFFFF" text-anchor="middle" font-size="10" font-weight="bold">
-                    ${isDe ? "2. Epoche der Tafeln des Göttlichen Plans (1953–2021)" : "2nd Epoch"}
+                <rect x="${X[1953]}" y="272" width="${X[2021] - X[1953]}" height="26" rx="3" fill="#D98A1E" class="svg-bar" />
+                <text x="${(X[1953] + X[2021])/2}" y="289" fill="#FFFFFF" text-anchor="middle" font-size="10.5" font-weight="bold">
+                    ${isDe ? "2. Epoche der Tafeln des Göttlichen Plans (1953–2021)" : "2nd Epoch of the Tablets of the Divine Plan (1953–2021)"}
                 </text>
             </g>
             <g class="unfold-node" data-id="tdp_3" style="cursor: pointer;">
-                <path d="M ${X[2021]} 267 L 1000 267 L 1015 278 L 1000 289 L ${X[2021]} 289 Z" fill="#D98A1E" class="svg-bar" />
-                <text x="${(X[2021] + 1000)/2}" y="282" fill="#FFFFFF" text-anchor="middle" font-size="10" font-weight="bold">
-                    ${isDe ? "3. Epoche (ab 2021)" : "3rd Epoch"}
+                <path d="M ${X[2021]} 272 L 1295 272 L 1315 285 L 1295 298 L ${X[2021]} 298 Z" fill="#D98A1E" class="svg-bar" />
+                <text x="${(X[2021] + 1295)/2}" y="289" fill="#FFFFFF" text-anchor="middle" font-size="10.5" font-weight="bold">
+                    ${isDe ? "3. Epoche (ab 2021)" : "3rd Epoch (from 2021)"}
                 </text>
             </g>
 
             <!-- 6. LAYER: Global Plans (Capsules from 1937 to 2031) -->
             ${renderPlanCapsules(isDe)}
 
-            <!-- Brackets: Previous Series & New Series of Global Plans -->
+            <!-- Brackets: Previous Series & New Series of Global Plans (Vertikal gestaffelt, 100% kollisionsfrei!) -->
             <g class="svg-series-brackets">
-                <!-- 1996 to 2021 Bracket -->
-                <path d="M ${X[1996]} 395 Q ${(X[1996] + X[2021])/2} 415 ${X[2021]} 395" fill="none" stroke="currentColor" stroke-width="1.2" />
-                <line x1="${(X[1996] + X[2021])/2}" y1="405" x2="${(X[1996] + X[2021])/2}" y2="420" stroke="currentColor" stroke-width="1.2" />
-                <text x="${(X[1996] + X[2021])/2}" y="435" text-anchor="middle" class="svg-bracket-text">
+                <!-- 1996 to 2021 Bracket (Vorherige Serie) -->
+                <path d="M ${X[1996]} 395 Q ${midPrev} 415 ${X[2021]} 395" fill="none" stroke="currentColor" stroke-width="1.2" />
+                <line x1="${midPrev}" y1="407" x2="${midPrev}" y2="422" stroke="currentColor" stroke-width="1.2" />
+                <text x="${midPrev}" y="437" text-anchor="middle" class="svg-bracket-text">
                     ${isDe ? "Vorherige Serie globaler Pläne" : "Previous Series of Global Plans"}
-                    <tspan x="${(X[1996] + X[2021])/2}" dy="14" font-size="9" fill="var(--text-muted)">
-                        ${isDe ? "(1996–2021: 25 Jahre systematisches Lernen)" : "(1996–2021)"}
+                    <tspan x="${midPrev}" dy="14" font-size="9" fill="var(--text-muted)">
+                        ${isDe ? "(1996–2021: 25 Jahre systematisches Lernen)" : "(1996–2021: 25 years of systematic learning)"}
                     </tspan>
                 </text>
 
-                <!-- 2021 to 2044 Bracket (RED) -->
-                <path d="M ${X[2021]} 395 Q ${(X[2021] + X[2044])/2} 415 ${X[2044]} 395" fill="none" stroke="#E53935" stroke-width="1.5" />
-                <line x1="${(X[2021] + X[2044])/2}" y1="405" x2="${(X[2021] + X[2044])/2}" y2="420" stroke="#E53935" stroke-width="1.5" />
-                <path d="M ${(X[2021] + X[2044])/2 + 10} 432 L ${(X[2021] + X[2044])/2 + 50} 432" stroke="#E53935" stroke-width="1.5" marker-end="url(#arrow-red)" />
-                <text x="${(X[2021] + X[2044])/2}" y="435" text-anchor="middle" class="svg-bracket-text-red">
+                <!-- 2021 to 2044 Bracket (Neue Serie, RED - tiefere vertikale Position für perfekte Lesbarkeit!) -->
+                <path d="M ${X[2021]} 395 Q ${midNew} 445 ${X[2044]} 395" fill="none" stroke="#E53935" stroke-width="1.5" />
+                <line x1="${midNew}" y1="425" x2="${midNew}" y2="465" stroke="#E53935" stroke-width="1.5" />
+                <path d="M ${midNew + 60} 482 L ${midNew + 105} 482" stroke="#E53935" stroke-width="1.5" marker-end="url(#arrow-red)" />
+                <text x="${midNew}" y="482" text-anchor="middle" class="svg-bracket-text-red">
                     ${isDe ? "Neue Serie globaler Pläne" : "New Series of Global Plans"}
-                    <tspan x="${(X[2021] + X[2044])/2}" dy="14" font-size="9" fill="#E53935">
-                        ${isDe ? "(2021–2046: Gesellschaftsaufbauende Kräfte)" : "(2021–2046)"}
+                    <tspan x="${midNew}" dy="14" font-size="9.5" fill="#E53935">
+                        ${isDe ? "(2021–2046: Gesellschaftsaufbauende Kräfte)" : "(2021–2046: Society-building power)"}
                     </tspan>
                 </text>
             </g>
 
             <!-- Bottom Time Axis (Black Solid Arrow Bar) -->
             <g class="svg-axis">
-                <path d="M ${X[1844]} 500 L 1070 500 L 1090 510 L 1070 520 L ${X[1844]} 520 Z" fill="#11151A" />
+                <path d="M ${X[1844]} 535 L 1340 535 L 1360 545 L 1340 555 L ${X[1844]} 555 Z" fill="#11151A" />
                 ${axisLabels}
             </g>
 
             <!-- Interaktiver Scrubber Cursor (wird per JS bewegt) -->
             <g id="svg-year-cursor" style="display: none;">
-                <line id="svg-year-line" x1="${X[2026]}" y1="35" x2="${X[2026]}" y2="525" stroke="var(--accent-gold)" stroke-width="2.5" stroke-dasharray="4 2" />
-                <rect id="svg-year-badge" x="${X[2026] - 22}" y="20" width="44" height="18" rx="4" fill="var(--accent-gold)" />
-                <text id="svg-year-cursor-text" x="${X[2026]}" y="33" fill="#FFFFFF" font-family="var(--font-mono)" font-size="10" font-weight="bold" text-anchor="middle">2026</text>
+                <line id="svg-year-line" x1="${X[2026]}" y1="30" x2="${X[2026]}" y2="555" stroke="var(--accent-gold)" stroke-width="2.5" stroke-dasharray="4 2" />
+                <rect id="svg-year-badge" x="${X[2026] - 22}" y="15" width="44" height="18" rx="4" fill="var(--accent-gold)" />
+                <text id="svg-year-cursor-text" x="${X[2026]}" y="28" fill="#FFFFFF" font-family="var(--font-mono)" font-size="10" font-weight="bold" text-anchor="middle">2026</text>
             </g>
         </svg>
         `;
@@ -1037,7 +1046,7 @@ window.TimelineModule = (function() {
                 return `
                     <g class="unfold-node" data-id="${p.id}" style="cursor: pointer;">
                         <text x="${cx}" y="325" font-size="9" font-family="var(--font-mono)" font-weight="bold" fill="currentColor" text-anchor="middle">12MP</text>
-                        <path d="M ${cx} 330 L ${cx} 355" stroke="currentColor" stroke-width="1.8" marker-end="url(#arrow-navy)" />
+                        <path d="M ${cx} 328 L ${cx} 355" stroke="currentColor" stroke-width="1.8" marker-end="url(#arrow-navy)" />
                     </g>
                 `;
             }
@@ -1046,7 +1055,7 @@ window.TimelineModule = (function() {
                 return `
                     <g class="unfold-node" data-id="${p.id}" style="cursor: pointer;">
                         <text x="${cx}" y="325" font-size="10" font-family="var(--font-mono)" font-weight="bold" fill="#E53935" text-anchor="middle">1YP</text>
-                        <path d="M ${cx} 330 L ${cx} 355" stroke="#E53935" stroke-width="2" marker-end="url(#arrow-red)" />
+                        <path d="M ${cx} 328 L ${cx} 355" stroke="#E53935" stroke-width="2" marker-end="url(#arrow-red)" />
                     </g>
                 `;
             }
