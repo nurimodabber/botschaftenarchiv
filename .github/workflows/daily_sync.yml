@@ -26,6 +26,10 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Python-Abhängigkeiten installieren
+        run: |
+          pip install reportlab python-docx
+
       - name: Synchronisationsskript ausführen
         run: python scripts/sync_messages.py
 
@@ -34,10 +38,10 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          if [ -n "$(git status --porcelain data/)" ]; then
+          if [ -n "$(git status --porcelain data/ documents/)" ]; then
             echo "Neue Botschaften gefunden! Erstelle Commit..."
-            git add data/
-            git commit -m "chore(sync): automatische Aktualisierung neuer Botschaften von Bahá'í Reference Library & bibliothek.bahai.de [skip ci]"
+            git add data/ documents/
+            git commit -m "chore(sync): automatische Aktualisierung neuer Botschaften und Dokumente von Bahá'í Reference Library & bibliothek.bahai.de [skip ci]"
             git push origin main
             echo "Erfolgreich auf origin main gepusht. Vercel & Netlify Deployments wurden ausgelöst."
           else

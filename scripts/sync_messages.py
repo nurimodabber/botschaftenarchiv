@@ -27,8 +27,161 @@ REPO_DIR = SCRIPT_DIR.parent
 DATA_DIR = REPO_DIR / "data"
 INDEX_FILE = DATA_DIR / "index.json"
 TEXTS_DIR = DATA_DIR / "texts"
+REPO_DOCS_DIR = REPO_DIR / "documents"
+WORKSPACE_DOCS_DIR = REPO_DIR.parent / "documents"
+NETLIFY_DOCS_DIR = Path.home() / "Desktop/bahai_botschaften_netlify_deploy/documents"
 
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+
+
+def sanitize_filename(text: str) -> str:
+    """Sanitize title or string for filesystem compatibility."""
+    text = re.sub(r'[\/\\:*?"<>|]', '-', text)
+    text = re.sub(r'[\s_]+', ' ', text)
+    text = re.sub(r'-{2,}', '-', text)
+    return text.strip(" .-")
+
+
+def fetch_binary(url: str, timeout: int = 30) -> bytes:
+    """Fetch binary file (PDF/DOCX) with timeout and headers."""
+    req = urllib.request.Request(
+        url,
+        headers={"User-Agent": USER_AGENT}
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as response:
+            return response.read()
+    except Exception:
+        return b""
+
+
+def save_document_to_destinations(relative_subpath: Path, content_bytes: bytes) -> str:
+    """
+    Saves document binary content (PDF/DOCX) to:
+    1. REPO_DOCS_DIR / relative_subpath (inside git repo)
+    2. WORKSPACE_DOCS_DIR / relative_subpath (user's personal OneDrive folder!)
+    3. NETLIFY_DOCS_DIR / relative_subpath (if deploy directory exists)
+    Returns web relative path e.g. '../documents/2026/filename.pdf'
+    """
+    targets = [REPO_DOCS_DIR / relative_subpath]
+    try:
+        if WORKSPACE_DOCS_DIR.exists() and WORKSPACE_DOCS_DIR.resolve() != REPO_DOCS_DIR.resolve():
+            targets.append(WORKSPACE_DOCS_DIR / relative_subpath)
+    except Exception:
+        pass
+    try:
+        if NETLIFY_DOCS_DIR.exists():
+            targets.append(NETLIFY_DOCS_DIR / relative_subpath)
+    except Exception:
+        pass
+
+    for target in targets:
+        try:
+            target.parent.mkdir(parents=True, exist_ok=True)
+            with open(target, "wb") as f:
+                f.write(content_bytes)
+            print(f"    📁 In Ordner abgelegt: {target.parent.name}/{target.name}")
+        except Exception as e:
+            print(f"    ⚠ Fehler beim Ablegen in {target}: {e}", file=sys.stderr)
+
+    return f"../documents/{relative_subpath.as_posix()}"
+
+
+def generate_pdf(title: str, iso_date: str, recipient: str, paragraphs: list) -> bytes:
+    """Generate clean, publication-ready PDF using reportlab with fallback to plain text."""
+    try:
+        from reportlab.lib.pagesizes import A4
+        from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, HRFlowable
+        from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+        from reportlab.lib import colors
+        import io
+
+        pdf_buffer = io.BytesIO()
+        doc = SimpleDocTemplate(
+            pdf_buffer,
+            pagesize=A4,
+            rightMargin=54,
+            leftMargin=54,
+            topMargin=54,
+            bottomMargin=54
+        )
+        styles = getSampleStyleSheet()
+
+        eyebrow_style = ParagraphStyle(
+            'Eyebrow',
+            fontName='Helvetica-Bold',
+            fontSize=9,
+            leading=12,
+            textColor=colors.HexColor('#9A7A38'),
+            spaceAfter=8
+        )
+        title_style = ParagraphStyle(
+            'Title',
+            fontName='Helvetica-Bold',
+            fontSize=15,
+            leading=19,
+            textColor=colors.HexColor('#141413'),
+            spaceAfter=6
+        )
+        meta_style = ParagraphStyle(
+            'Meta',
+            fontName='Helvetica-Oblique',
+            fontSize=9.5,
+            leading=13,
+            textColor=colors.HexColor('#555555'),
+            spaceAfter=14
+        )
+        body_style = ParagraphStyle(
+            'Body',
+            fontName='Helvetica',
+            fontSize=10,
+            leading=15,
+            textColor=colors.HexColor('#222222'),
+            spaceAfter=9,
+            alignment=4
+        )
+        footer_style = ParagraphStyle(
+            'Footnote',
+            fontName='Helvetica',
+            fontSize=7.5,
+            leading=10,
+            textColor=colors.HexColor('#777777'),
+            spaceBefore=14,
+            alignment=1
+        )
+
+        safe_title = title.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+        story = [
+            Paragraph("UNIVERSALES HAUS DER GERECHTIGKEIT", eyebrow_style),
+            Paragraph(safe_title, title_style)
+        ]
+
+        meta_line = []
+        if iso_date:
+            meta_line.append(f"Datum: {iso_date}")
+        if recipient:
+            meta_line.append(f"Empf\u00e4nger: {recipient}")
+        if meta_line:
+            story.append(Paragraph(" &bull; ".join(meta_line).replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;'), meta_style))
+
+        story.append(HRFlowable(width="100%", thickness=0.75, color=colors.HexColor('#E0DCD3'), spaceAfter=14, spaceBefore=0))
+
+        for p in paragraphs:
+            cleaned = p.strip()
+            if cleaned:
+                safe_p = cleaned.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+                story.append(Paragraph(safe_p, body_style))
+
+        story.append(Spacer(1, 14))
+        story.append(HRFlowable(width="100%", thickness=0.5, color=colors.HexColor('#E0DCD3'), spaceAfter=8, spaceBefore=10))
+        story.append(Paragraph("Offizieller autorisierter Text &bull; bibliothek.bahai.de // Aufbereitet f\u00fcr das pers\u00f6nliche Studienarchiv", footer_style))
+
+        doc.build(story)
+        return pdf_buffer.getvalue()
+    except Exception as e:
+        print(f"  ⚠ PDF-Generierung fehlgeschlagen, speichere als Text: {e}", file=sys.stderr)
+        plain = f"UNIVERSALES HAUS DER GERECHTIGKEIT\n{title}\nDatum: {iso_date} | Empf\u00e4nger: {recipient}\n\n" + "\n\n".join(paragraphs)
+        return plain.encode('utf-8')
 
 
 def clean_html_text(raw_html: str) -> str:
@@ -287,6 +440,17 @@ def sync_german_bibliothek(existing_keys: set, existing_docs: list) -> int:
         with open(text_file_path, "w", encoding="utf-8") as f:
             f.write(full_text)
 
+        # In PDF umwandeln und im Benutzerordner (documents/<year>/) ablegen
+        date_dots = iso_date.replace('-', '.')
+        safe_t = sanitize_filename(desc or title)
+        if len(safe_t) > 60:
+            safe_t = safe_t[:60].rstrip(' -')
+        pdf_filename = f"{date_dots}-E-UHG-{safe_t}-dtsch.pdf"
+        rel_subpath = Path(str(year)) / pdf_filename
+
+        pdf_bytes = generate_pdf(title, iso_date, raw_recip, clean_paras)
+        web_file_path = save_document_to_destinations(rel_subpath, pdf_bytes)
+
         recip_key, recip_label = determine_recipient(raw_recip, title)
         msg_type = determine_message_type(title, raw_date)
         excerpt = create_clean_excerpt(clean_paras)
@@ -300,10 +464,10 @@ def sync_german_bibliothek(existing_keys: set, existing_docs: list) -> int:
             "type": msg_type,
             "topics": ["Botschaft", msg_type],
             "language": "deutsch",
-            "format": "online",
-            "fileSize": len(full_text.encode("utf-8")),
-            "filePath": reader_url,
-            "originalFilename": f"{uri}.html",
+            "format": "pdf",
+            "fileSize": len(pdf_bytes),
+            "filePath": web_file_path,
+            "originalFilename": pdf_filename,
             "tier": "house",
             "tierName": "Botschaften des Hauses",
             "subTier": None,
@@ -406,6 +570,22 @@ def sync_english_reference_library(existing_keys: set, existing_docs: list) -> i
         with open(text_file_path, "w", encoding="utf-8") as f:
             f.write(full_text)
 
+        # Offizielle PDF von bahai.org herunterladen oder generieren und im Ordner (documents/<year>/) ablegen
+        date_dots = iso_date.replace('-', '.')
+        safe_t = sanitize_filename(subject or title)
+        if len(safe_t) > 60:
+            safe_t = safe_t[:60].rstrip(' -')
+        pdf_filename = f"{date_dots}-E-UHG-{safe_t}-eng.pdf"
+        rel_subpath = Path(str(year)) / pdf_filename
+
+        pdf_url = f"https://www.bahai.org/library/authoritative-texts/the-universal-house-of-justice/messages/{doc_id}/{doc_id}.pdf"
+        pdf_bytes = fetch_binary(pdf_url)
+
+        if not pdf_bytes or len(pdf_bytes) < 1000:
+            pdf_bytes = generate_pdf(title, iso_date, recipient, clean_paras)
+
+        web_file_path = save_document_to_destinations(rel_subpath, pdf_bytes)
+
         recip_key, recip_label = determine_recipient(recipient, title)
         msg_type = determine_message_type(title, date_raw)
         excerpt = create_clean_excerpt(clean_paras)
@@ -419,10 +599,10 @@ def sync_english_reference_library(existing_keys: set, existing_docs: list) -> i
             "type": msg_type,
             "topics": ["Messages", msg_type],
             "language": "english",
-            "format": "online",
-            "fileSize": len(full_text.encode("utf-8")),
-            "filePath": f"https://www.bahai.org/library/authoritative-texts/the-universal-house-of-justice/messages/{doc_id}/1",
-            "originalFilename": f"{doc_id}.xhtml",
+            "format": "pdf",
+            "fileSize": len(pdf_bytes),
+            "filePath": web_file_path,
+            "originalFilename": pdf_filename,
             "tier": "house",
             "tierName": "Botschaften des Hauses",
             "subTier": None,
