@@ -263,19 +263,22 @@ window.SourcesModule = (function() {
     async function init() {
         const container = document.getElementById('view-sources');
         if (!container) return;
+        if (container.dataset.rendered === 'true') return;
 
         if (window.state && window.state.documents && window.state.documents.length > 0) {
             cachedDocs = window.state.documents;
         } else if (!cachedDocs) {
             try {
-                const res = await fetch('data/index.json');
-                cachedDocs = await res.json();
+                let res = await fetch('data/index.json').catch(() => null);
+                if (!res || !res.ok) res = await fetch('/data/index.json').catch(() => null);
+                if (res && res.ok) cachedDocs = await res.json();
             } catch (err) {
                 console.error('Fehler beim Laden von data/index.json in SourcesModule:', err);
                 cachedDocs = [];
             }
         }
 
+        container.dataset.rendered = 'true';
         render(container);
     }
 
@@ -777,8 +780,6 @@ window.SourcesModule = (function() {
         const input = document.getElementById('sources-search-input');
         if (input) input.value = '';
         applyFilter('');
-        const container = document.getElementById('view-sources');
-        if (container) render(container);
     }
 
     function applyFilter(query) {

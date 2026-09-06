@@ -58,36 +58,60 @@ async function initApp() {
     setupNavigation();
     setupKeyboardShortcuts();
     
+    // 1. Load Document Index
     try {
-        const response = await fetch('data/index.json');
-        if (!response.ok) throw new Error('Failed to load data');
+        let response = await fetch('data/index.json').catch(() => null);
+        if (!response || !response.ok) {
+            response = await fetch('/data/index.json').catch(() => null);
+        }
+        if (!response || !response.ok) {
+            throw new Error(`HTTP ${response ? response.status : 'Network Error'}`);
+        }
         state.documents = await response.json();
-        
-        // Initialize Search & Viewer modules
-        if (window.initSearch) window.initSearch(state.documents);
-        if (window.initViewer) window.initViewer();
-        
-        // Initialize Views
-        initLibraryView();
-        if (window.BooksModule) window.BooksModule.init();
-        initCollectionsView();
-        if (window.SourcesModule) window.SourcesModule.init();
-        updateYearFilter();
-        
-        // Default to Library
-        window.switchView('library');
-        
-        // Deep linking support (#doc=ID&p=N or ?doc=ID&p=N or #view)
-        handleDeepLink();
-        window.addEventListener('hashchange', handleDeepLink);
-        
     } catch (error) {
         console.error('Error loading documents:', error);
         const resultsEl = document.getElementById('library-results');
         if (resultsEl) {
             resultsEl.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--color-text-muted); padding: 3rem;">Fehler beim Laden der Daten. Bitte stellen Sie sicher, dass data/index.json existiert.</p>';
         }
+        return;
     }
+    
+    // 2. Safely initialize modules
+    try {
+        if (window.initSearch) window.initSearch(state.documents);
+    } catch (e) { console.warn('Search init:', e); }
+
+    try {
+        if (window.initViewer) window.initViewer();
+    } catch (e) { console.warn('Viewer init:', e); }
+
+    try {
+        initLibraryView();
+    } catch (e) { console.error('Library init:', e); }
+
+    try {
+        if (window.BooksModule) window.BooksModule.init();
+    } catch (e) { console.warn('Books init:', e); }
+
+    try {
+        initCollectionsView();
+    } catch (e) { console.warn('Collections init:', e); }
+
+    try {
+        updateYearFilter();
+    } catch (e) { console.warn('Year filter:', e); }
+
+    // 3. Default to Library view
+    try {
+        window.switchView('library');
+    } catch (e) { console.warn('SwitchView:', e); }
+
+    // 4. Deep linking support (#doc=ID&p=N or ?doc=ID&p=N or #view)
+    try {
+        handleDeepLink();
+        window.addEventListener('hashchange', handleDeepLink);
+    } catch (e) { console.warn('DeepLink:', e); }
 }
 
 // Theme Handling

@@ -76,7 +76,7 @@ function closeViewer() {
     }
 }
 
-window.openDocument = function(id, targetParagraph) {
+window.openDocument = function(id, targetParagraph, preferredMode) {
     if (!window.state || !window.state.documents) return;
     
     const doc = window.state.documents.find(d => d.id === id);
@@ -240,8 +240,10 @@ window.openDocument = function(id, targetParagraph) {
         
         // Lazy-load full text from individual file
         if (doc.hasText !== false && doc.id) {
-            fetch(`data/texts/${doc.id}.txt`)
-                .then(r => r.ok ? r.text() : Promise.reject('not found'))
+            const relUrl = `data/texts/${doc.id}.txt`;
+            const absUrl = `/data/texts/${doc.id}.txt`;
+            fetch(relUrl)
+                .then(r => r.ok ? r.text() : fetch(absUrl).then(r2 => r2.ok ? r2.text() : Promise.reject('not found')))
                 .then(text => {
                     currentViewerDoc.text = text;
                     if (bodyEl) {
@@ -418,7 +420,9 @@ window.openDocument = function(id, targetParagraph) {
     // Bookmark button state
     if (bookmarkBtn) {
         bookmarkBtn.dataset.id = doc.id;
-        if (window.state.bookmarks.includes(doc.id)) {
+        const isB = (window.isBookmarked && window.isBookmarked(doc.id)) || 
+                    (window.state && Array.isArray(window.state.bookmarks) && window.state.bookmarks.includes(doc.id));
+        if (isB) {
             bookmarkBtn.style.color = 'var(--color-primary)';
             const svg = bookmarkBtn.querySelector('svg');
             if (svg) svg.setAttribute('fill', 'currentColor');
