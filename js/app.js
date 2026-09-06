@@ -307,6 +307,7 @@ function initLibraryView() {
         recipSelect.value = state.library.recipient || 'all';
         recipSelect.addEventListener('change', (e) => {
             state.library.recipient = e.target.value;
+            syncQuickChipsWithFilters();
             applyLibraryFilters();
         });
     }
@@ -314,8 +315,10 @@ function initLibraryView() {
     // Epoch Select
     const epochSelect = document.getElementById('library-epoch-select');
     if (epochSelect) {
+        epochSelect.value = state.library.epoch || '';
         epochSelect.addEventListener('change', (e) => {
             state.library.epoch = e.target.value;
+            syncQuickChipsWithFilters();
             applyLibraryFilters();
         });
     }
@@ -323,8 +326,10 @@ function initLibraryView() {
     // Type Select
     const typeSelect = document.getElementById('library-type-select');
     if (typeSelect) {
+        typeSelect.value = state.library.type || '';
         typeSelect.addEventListener('change', (e) => {
             state.library.type = e.target.value;
+            syncQuickChipsWithFilters();
             applyLibraryFilters();
         });
     }
@@ -332,20 +337,59 @@ function initLibraryView() {
     // Language Select
     const langSelect = document.getElementById('library-lang-select');
     if (langSelect) {
+        langSelect.value = state.library.lang || '';
         langSelect.addEventListener('change', (e) => {
             state.library.lang = e.target.value;
             applyLibraryFilters();
         });
     }
 
-    // Sort Select
+    // Sort Select (now inside Results Bar)
     const sortSelect = document.getElementById('library-sort-select');
     if (sortSelect) {
+        sortSelect.value = state.library.sort || 'date-desc';
         sortSelect.addEventListener('change', (e) => {
             state.library.sort = e.target.value;
             applyLibraryFilters();
         });
     }
+
+    // 1-Klick Smart Quick-Chips
+    const quickChips = document.querySelectorAll('.quick-chip-btn');
+    quickChips.forEach(btn => {
+        btn.addEventListener('click', () => {
+            quickChips.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const chip = btn.dataset.chip;
+            if (chip === 'all') {
+                state.library.recipient = 'all';
+                state.library.type = '';
+                if (recipSelect) recipSelect.value = 'all';
+                if (typeSelect) typeSelect.value = '';
+            } else if (chip === 'ridvan') {
+                state.library.type = 'Riḍván-Botschaft';
+                if (typeSelect) typeSelect.value = 'Riḍván-Botschaft';
+            } else if (chip === 'world') {
+                state.library.recipient = 'world';
+                if (recipSelect) recipSelect.value = 'world';
+            } else if (chip === 'counsellors') {
+                state.library.recipient = 'counsellors';
+                if (recipSelect) recipSelect.value = 'counsellors';
+            } else if (chip === 'youth') {
+                state.library.recipient = 'youth';
+                if (recipSelect) recipSelect.value = 'youth';
+            } else if (chip === 'iran') {
+                state.library.recipient = 'iran';
+                if (recipSelect) recipSelect.value = 'iran';
+            } else if (chip === 'peace') {
+                state.library.type = 'Friedensbotschaft';
+                if (typeSelect) typeSelect.value = 'Friedensbotschaft';
+            }
+
+            applyLibraryFilters();
+        });
+    });
 
     // Format Chips Leiste
     const formatChips = document.querySelectorAll('.format-chip-btn');
@@ -356,6 +400,71 @@ function initLibraryView() {
             state.library.format = btn.dataset.fmt || 'all';
             applyLibraryFilters();
         });
+    });
+
+    // View Mode Toggle (Grid vs. List)
+    const viewGridBtn = document.getElementById('view-mode-grid');
+    const viewListBtn = document.getElementById('view-mode-list');
+    const resultsGrid = document.getElementById('library-results');
+
+    function applyViewMode(mode) {
+        state.library.viewMode = mode;
+        safeSetStorage('cosmos_library_view_mode', mode);
+
+        if (viewGridBtn) viewGridBtn.classList.toggle('active', mode === 'grid');
+        if (viewListBtn) viewListBtn.classList.toggle('active', mode === 'list');
+        if (resultsGrid) resultsGrid.classList.toggle('list-view', mode === 'list');
+    }
+
+    if (viewGridBtn) viewGridBtn.addEventListener('click', () => applyViewMode('grid'));
+    if (viewListBtn) viewListBtn.addEventListener('click', () => applyViewMode('list'));
+    applyViewMode(state.library.viewMode || 'grid');
+
+    // Search Input & Clear Button
+    const searchInput = document.getElementById('library-search-input');
+    const searchClearBtn = document.getElementById('library-search-clear');
+
+    if (searchInput) {
+        let timeout = null;
+        searchInput.addEventListener('input', (e) => {
+            const val = e.target.value.trim();
+            if (searchClearBtn) {
+                searchClearBtn.style.display = val.length > 0 ? 'inline-flex' : 'none';
+            }
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                state.library.query = val.toLowerCase();
+                applyLibraryFilters();
+            }, 200);
+        });
+    }
+
+    if (searchClearBtn && searchInput) {
+        searchClearBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            searchClearBtn.style.display = 'none';
+            state.library.query = '';
+            searchInput.focus();
+            applyLibraryFilters();
+        });
+    }
+
+    // Global Keyboard Shortcut: ⌘K or / to focus search
+    window.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+            e.preventDefault();
+            if (searchInput) {
+                searchInput.focus();
+                searchInput.select();
+            }
+        } else if (e.key === '/' && document.activeElement !== searchInput && 
+                   document.activeElement.tagName !== 'INPUT' && 
+                   document.activeElement.tagName !== 'TEXTAREA') {
+            e.preventDefault();
+            if (searchInput) {
+                searchInput.focus();
+            }
+        }
     });
 
     // Reset Filters Button
@@ -376,26 +485,18 @@ function initLibraryView() {
             if (langSelect) langSelect.value = '';
             if (sortSelect) sortSelect.value = 'date-desc';
             if (searchInput) searchInput.value = '';
+            if (searchClearBtn) searchClearBtn.style.display = 'none';
+
+            // Reset quick chips to 'all'
+            quickChips.forEach(b => {
+                b.classList.toggle('active', b.dataset.chip === 'all');
+            });
             
             formatChips.forEach(b => {
-                if (b.dataset.fmt === 'all') b.classList.add('active');
-                else b.classList.remove('active');
+                b.classList.toggle('active', b.dataset.fmt === 'all');
             });
 
             applyLibraryFilters();
-        });
-    }
-
-    // Search Input
-    const searchInput = document.getElementById('library-search-input');
-    if (searchInput) {
-        let timeout = null;
-        searchInput.addEventListener('input', (e) => {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => {
-                state.library.query = e.target.value.trim().toLowerCase();
-                applyLibraryFilters();
-            }, 200);
         });
     }
 
@@ -406,6 +507,24 @@ function initLibraryView() {
     }
 
     applyLibraryFilters();
+}
+
+function syncQuickChipsWithFilters() {
+    const { recipient, type } = state.library;
+    const quickChips = document.querySelectorAll('.quick-chip-btn');
+    quickChips.forEach(b => {
+        const c = b.dataset.chip;
+        let match = false;
+        if (c === 'ridvan' && type === 'Riḍván-Botschaft') match = true;
+        else if (c === 'world' && recipient === 'world') match = true;
+        else if (c === 'counsellors' && recipient === 'counsellors') match = true;
+        else if (c === 'youth' && recipient === 'youth') match = true;
+        else if (c === 'iran' && recipient === 'iran') match = true;
+        else if (c === 'peace' && type === 'Friedensbotschaft') match = true;
+        else if (c === 'all' && recipient === 'all' && !type) match = true;
+
+        b.classList.toggle('active', match);
+    });
 }
 
 function applyLibraryFilters() {
@@ -493,27 +612,69 @@ function applyLibraryFilters() {
         list.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'de'));
     }
 
-    // Toggle Reset-Button
-    const isFiltered = (recipient && recipient !== 'all') || Boolean(epoch) || Boolean(type) || Boolean(lang) || (format && format !== 'all') || Boolean(query);
+    // Aktive Filter ermitteln & Reset-Button / Counter aktualisieren
+    let activeFilterCount = 0;
+    const activeTags = [];
+
+    if (recipient && recipient !== 'all') {
+        activeFilterCount++;
+        const recNameMap = {
+            world: 'Weltweite Gemeinde', nsa: 'Nationale Räte',
+            counsellors: 'Berater & Räte', youth: 'Jugend',
+            institutes: 'Institute', iran: 'Iran', individual: 'Einzelne'
+        };
+        activeTags.push({ label: recNameMap[recipient] || recipient, key: 'recipient' });
+    }
+    if (epoch) {
+        activeFilterCount++;
+        activeTags.push({ label: 'Epoche/Plan', key: 'epoch' });
+    }
+    if (type) {
+        activeFilterCount++;
+        activeTags.push({ label: type.replace('-Botschaft', ''), key: 'type' });
+    }
+    if (lang) {
+        activeFilterCount++;
+        activeTags.push({ label: lang === 'deutsch' ? 'Deutsch' : 'English', key: 'lang' });
+    }
+    if (format && format !== 'all') {
+        activeFilterCount++;
+        activeTags.push({ label: format.toUpperCase(), key: 'format' });
+    }
+    if (query) {
+        activeFilterCount++;
+        activeTags.push({ label: `"${query}"`, key: 'query' });
+    }
+
     const resetBtnEl = document.getElementById('library-reset-filters-btn');
+    const activeCountEl = document.getElementById('library-active-count');
     if (resetBtnEl) {
-        resetBtnEl.style.display = isFiltered ? 'inline-flex' : 'none';
+        resetBtnEl.style.display = activeFilterCount > 0 ? 'inline-flex' : 'none';
+        if (activeCountEl) activeCountEl.textContent = activeFilterCount;
+    }
+
+    // Ergebnisse-Statuszeile aktualisieren
+    const countNumEl = document.getElementById('library-count-num');
+    if (countNumEl) countNumEl.textContent = list.length.toLocaleString('de-DE');
+
+    const tagsContainer = document.getElementById('library-active-tags');
+    if (tagsContainer) {
+        tagsContainer.innerHTML = activeTags.map(tag => `
+            <span class="active-tag-pill">
+                ${tag.label}
+            </span>
+        `).join('');
     }
 
     state.library.results = list;
     state.library.renderedCount = 0;
 
     const container = document.getElementById('library-results');
-    const infoEl = document.getElementById('library-results-info');
     if (container) container.innerHTML = '';
-    
-    if (infoEl) {
-        infoEl.innerHTML = `<p><strong>${list.length}</strong> ${list.length === 1 ? 'Botschaft' : 'Botschaften'} gefunden</p>`;
-    }
 
     if (list.length === 0) {
         if (container) {
-            container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--color-text-muted); padding: 3rem;">Keine Botschaften gefunden, die den gewählten Kriterien entsprechen.</p>';
+            container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 3rem;">Keine Botschaften gefunden, die den gewählten Kriterien entsprechen.</p>';
         }
         updateLibraryLoadMore();
         return;

@@ -109,97 +109,185 @@
     <main id="app-content">
         <!-- 1. BEREICH: BOTSCHAFTEN-BIBLIOTHEK (Vereinte Bibliothek aller Botschaften) -->
         <section id="view-library" class="view active">
-            <div class="view-header">
-                <div class="editorial-eyebrow">Universales Haus der Gerechtigkeit // 1963–2026</div>
+            <div class="view-header library-hero-header">
+                <!-- Sakrales 9-zackiges Sternen-Ornament -->
+                <div class="hero-celestial-badge" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <polygon points="12 2 14.5 8 21 8.5 16 13 18 19.5 12 16 6 19.5 8 13 3 8.5 9.5 8 12 2"/>
+                    </svg>
+                </div>
+                <div class="editorial-eyebrow">
+                    <span>Universales Haus der Gerechtigkeit</span>
+                    <span class="eyebrow-sep">•</span>
+                    <span class="eyebrow-dates">1963–2026</span>
+                </div>
                 <h2 class="editorial-headline">Botschaften-Bibliothek</h2>
                 <p class="editorial-lead">
-                    Die Botschaften des Universalen Hauses der Gerechtigkeit zur weltweiten Entfaltung und geistigen Entwicklung der Gemeinde.
+                    Die autorisierten Botschaften des Universalen Hauses der Gerechtigkeit zur weltweiten Entfaltung der Gemeinde, Ausbreitung der Lehren und gesellschaftlichen Transformation.
                 </p>
 
-                <!-- Inline-Suche (oben platziert) -->
-                <div class="library-search-box">
-                    <svg class="search-box-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                    <input type="text" id="library-search-input" placeholder="In allen Botschaften suchen (Titel, Thema, Text)..." autocomplete="off">
+                <!-- DIE UNIFIED COMMAND & SEARCH SURFACE -->
+                <div class="library-command-surface">
+                    
+                    <!-- A. Suchleiste mit ⌘K & Clear -->
+                    <div class="command-search-row">
+                        <svg class="command-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                        <input type="text" id="library-search-input" placeholder="In 1.664 Botschaften suchen (Titel, Thema, Volltext)..." autocomplete="off">
+                        <div class="command-search-actions">
+                            <button id="library-search-clear" class="search-clear-btn" title="Suche leeren" style="display: none;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            </button>
+                            <kbd class="search-kbd-badge" title="Tastatur-Kürzel">⌘K</kbd>
+                        </div>
+                    </div>
+
+                    <!-- B. 1-Klick Smart Quick-Filter Chips -->
+                    <div class="command-quick-chips-row">
+                        <span class="quick-chips-label">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            Fokus:
+                        </span>
+                        <div class="quick-chips-scroller" id="library-quick-chips">
+                            <button class="quick-chip-btn active" data-chip="all">Alle (1.664)</button>
+                            <button class="quick-chip-btn" data-chip="ridvan">🌸 Riḍván-Botschaften (144)</button>
+                            <button class="quick-chip-btn" data-chip="world">🌍 Weltweite Gemeinde (48)</button>
+                            <button class="quick-chip-btn" data-chip="counsellors">🏛️ Berater &amp; Räte (36)</button>
+                            <button class="quick-chip-btn" data-chip="youth">🌱 Jugend (14)</button>
+                            <button class="quick-chip-btn" data-chip="iran">🕊️ Freunde im Iran (22)</button>
+                            <button class="quick-chip-btn" data-chip="peace">⚖️ Friedensbotschaften (8)</button>
+                        </div>
+                    </div>
+
+                    <!-- C. Strukturierte Detail-Filter (Garantiertes 4er-Grid) -->
+                    <div class="command-filter-grid">
+                        
+                        <!-- 1. Empfänger -->
+                        <div class="command-field-group">
+                            <label class="command-field-label">Empfänger</label>
+                            <div class="command-select-box">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                <select id="library-recipient-select" class="command-select">
+                                    <option value="all">Alle Empfänger</option>
+                                    <option value="world">Weltweite Gemeinde</option>
+                                    <option value="nsa">Nationale Geistige Räte</option>
+                                    <option value="counsellors">Berater &amp; Hilfsamt</option>
+                                    <option value="youth">Jugend</option>
+                                    <option value="institutes">Trainingsinstitute</option>
+                                    <option value="iran">Freunde im Iran</option>
+                                    <option value="individual">Einzelne Gläubige</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- 2. Epoche & Plan -->
+                        <div class="command-field-group">
+                            <label class="command-field-label">Epoche &amp; Plan</label>
+                            <div class="command-select-box">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                <select id="library-epoch-select" class="command-select">
+                                    <option value="">Alle Pläne &amp; Epochen</option>
+                                    <option value="nine-year">Neunjahresplan (2022–2031)</option>
+                                    <option value="one-year">Einjahresplan (2021–2022)</option>
+                                    <option value="five-year-16">Fünfjahresplan (2016–2021)</option>
+                                    <option value="plans-00">Pläne 2001–2015</option>
+                                    <option value="era-90s">1990er Jahre</option>
+                                    <option value="era-80s">1980er Jahre</option>
+                                    <option value="era-early">1963–1979</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- 3. Anlass / Typ -->
+                        <div class="command-field-group">
+                            <label class="command-field-label">Anlass &amp; Typus</label>
+                            <div class="command-select-box">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                                <select id="library-type-select" class="command-select">
+                                    <option value="">Alle Anlässe</option>
+                                    <option value="Riḍván-Botschaft">Riḍván-Botschaften</option>
+                                    <option value="Naw-Rúz-Botschaft">Naw-Rúz-Botschaften</option>
+                                    <option value="Beraterkonferenz-Botschaft">Beraterkonferenzen</option>
+                                    <option value="Friedensbotschaft">Friedensbotschaften</option>
+                                    <option value="Jugendkonferenz-Botschaft">Jugendkonferenzen</option>
+                                    <option value="Botschaft">Allgemeine Botschaften</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- 4. Sprache -->
+                        <div class="command-field-group">
+                            <label class="command-field-label">Sprache</label>
+                            <div class="command-select-box">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                                <select id="library-lang-select" class="command-select">
+                                    <option value="">Alle Sprachen</option>
+                                    <option value="deutsch">Deutsch</option>
+                                    <option value="english">English (Original)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- D. Format-Leiste & Filter-Reset -->
+                    <div class="command-bottom-bar">
+                        <div class="command-formats-group">
+                            <span class="format-strip-label">Format:</span>
+                            <div class="format-chips-group">
+                                <button class="format-chip-btn active" data-fmt="all">Alle</button>
+                                <button class="format-chip-btn" data-fmt="pdf">📄 PDF</button>
+                                <button class="format-chip-btn" data-fmt="docx">📝 DOCX</button>
+                                <button class="format-chip-btn" data-fmt="epub">📱 EPUB</button>
+                                <button class="format-chip-btn" data-fmt="txt">📖 TXT</button>
+                            </div>
+                        </div>
+
+                        <button id="library-reset-filters-btn" class="command-reset-btn" title="Filter zurücksetzen" style="display: none;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            <span>Filter zurücksetzen (<span id="library-active-count">0</span>)</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ERGEBNIS-STATUSZEILE (Zähler links, Sortierung & Ansichts-Umschalter rechts) -->
+            <div id="library-results-info" class="library-results-bar">
+                <div class="results-bar-left">
+                    <span class="results-bar-count">
+                        <strong id="library-count-num">1.664</strong> Botschaften
+                    </span>
+                    <span class="results-bar-sub">• Archiviert &amp; digitalisiert</span>
+                    <div id="library-active-tags" class="results-active-tags"></div>
                 </div>
 
-                <!-- Harmonische, aufgeräumte Master Control Strip -->
-                <div class="master-control-strip">
-                    <div class="control-strip-filters">
-                        <div class="strip-select-wrapper">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                            <select id="library-recipient-select" class="strip-select">
-                                <option value="all">Alle Empfänger</option>
-                                <option value="world">Weltweite Gemeinde</option>
-                                <option value="nsa">Nationale Geistige Räte</option>
-                                <option value="counsellors">Berater &amp; Hilfsamt</option>
-                                <option value="youth">Jugend</option>
-                                <option value="institutes">Trainingsinstitute</option>
-                                <option value="iran">Freunde im Iran</option>
-                                <option value="individual">Einzelne Gläubige</option>
-                            </select>
-                        </div>
-                        <div class="strip-select-wrapper">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                            <select id="library-epoch-select" class="strip-select">
-                                <option value="">Alle Epochen / Pläne</option>
-                                <option value="nine-year">Neunjahresplan (2022–2026)</option>
-                                <option value="one-year">Einjahresplan (2021–2022)</option>
-                                <option value="five-year-16">Fünfjahresplan (2016–2021)</option>
-                                <option value="plans-00">Pläne 2001–2015</option>
-                                <option value="era-90s">1990er Jahre</option>
-                                <option value="era-80s">1980er Jahre</option>
-                                <option value="era-early">1963–1979</option>
-                            </select>
-                        </div>
-                        <div class="strip-select-wrapper">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-                            <select id="library-type-select" class="strip-select">
-                                <option value="">Alle Anlässe / Typen</option>
-                                <option value="Riḍván-Botschaft">Riḍván-Botschaften</option>
-                                <option value="Naw-Rúz-Botschaft">Naw-Rúz-Botschaften</option>
-                                <option value="Beraterkonferenz-Botschaft">Beraterkonferenz</option>
-                                <option value="Friedensbotschaft">Friedensbotschaften</option>
-                                <option value="Jugendkonferenz-Botschaft">Jugendkonferenzen</option>
-                                <option value="Botschaft">Allgemeine Botschaften</option>
-                            </select>
-                        </div>
-                        <div class="strip-select-wrapper">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                            <select id="library-lang-select" class="strip-select">
-                                <option value="">Alle Sprachen</option>
-                                <option value="deutsch">Deutsch</option>
-                                <option value="english">English</option>
-                            </select>
-                        </div>
-                        <div class="strip-select-wrapper">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-                            <select id="library-sort-select" class="strip-select">
+                <div class="results-bar-right">
+                    <!-- Saubere Sortier-Auswahl -->
+                    <div class="results-sort-wrapper">
+                        <span class="sort-label">Sortierung:</span>
+                        <div class="sort-select-box">
+                            <select id="library-sort-select" class="sort-select">
                                 <option value="date-desc">Neueste zuerst</option>
                                 <option value="date-asc">Älteste zuerst</option>
                                 <option value="title">Titel A–Z</option>
                             </select>
                         </div>
-                        <button id="library-reset-filters-btn" class="strip-reset-btn" title="Filter zurücksetzen" style="display: none;">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                            <span>Filter zurücksetzen</span>
-                        </button>
                     </div>
 
-                    <!-- Format-Chips Leiste -->
-                    <div class="control-strip-formats">
-                        <span class="format-strip-label">Verfügbare Formate:</span>
-                        <div class="format-chips-group">
-                            <button class="format-chip-btn active" data-fmt="all">Alle Formate</button>
-                            <button class="format-chip-btn" data-fmt="pdf">📄 PDF</button>
-                            <button class="format-chip-btn" data-fmt="docx">📝 Word (.docx)</button>
-                            <button class="format-chip-btn" data-fmt="epub">📱 E-Book (.epub)</button>
-                            <button class="format-chip-btn" data-fmt="txt">📖 Volltext</button>
-                        </div>
+                    <!-- Ansichts-Umschalter: Grid vs. List -->
+                    <div class="view-mode-toggle" role="group" aria-label="Ansichtsmodus">
+                        <button id="view-mode-grid" class="view-mode-btn active" title="Kartenansicht (Raster)" aria-label="Rasteransicht">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                        </button>
+                        <button id="view-mode-list" class="view-mode-btn" title="Kompakte Listenansicht" aria-label="Listenansicht">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <div id="library-results-info" class="search-results-info"></div>
             <div id="library-results" class="results-grid"></div>
             <div class="load-more-container" id="library-load-more" style="display: none;">
                 <button id="library-load-more-btn" class="btn-secondary">Mehr Botschaften anzeigen</button>
