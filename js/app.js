@@ -13,6 +13,15 @@ function safeSetStorage(key, val) {
     } catch (e) {}
 }
 
+// Analytics Helper (Vercel Web Analytics)
+window.trackEvent = function(name, data = {}) {
+    if (typeof window.va === 'function') {
+        try {
+            window.va('event', { name, ...data });
+        } catch (e) {}
+    }
+};
+
 // Global Application State
 window.state = {
     documents: [],
@@ -122,6 +131,10 @@ window.switchView = function(targetView) {
 
     state.currentView = targetView;
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (typeof window.trackEvent === 'function') {
+        window.trackEvent('switch_view', { view: targetView });
+    }
 
     if (targetView === 'workshop' && window.CompilationBuilder) {
         window.CompilationBuilder.init();

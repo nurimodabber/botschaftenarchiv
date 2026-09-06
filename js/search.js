@@ -151,6 +151,9 @@ window.performSearch = function() {
         results = searchDocuments.map(doc => ({ item: doc, matches: [] }));
     } else {
         results = fuse.search(query);
+        if (typeof window.trackEvent === 'function') {
+            window.trackEvent('search', { query: query.slice(0, 60), count: results.length });
+        }
     }
     
     // Apply filters

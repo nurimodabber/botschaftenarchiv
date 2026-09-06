@@ -78,6 +78,15 @@ window.openDocument = function(id) {
     if (!doc) return;
     
     currentViewerDoc = doc;
+
+    if (typeof window.trackEvent === 'function') {
+        window.trackEvent('document_open', {
+            id: doc.id,
+            title: (doc.title || '').slice(0, 80),
+            tier: doc.tier || '',
+            type: doc.type || ''
+        });
+    }
     
     const modal = document.getElementById('document-viewer');
     const titleEl = document.getElementById('viewer-title');
