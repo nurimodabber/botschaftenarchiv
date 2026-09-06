@@ -71,6 +71,7 @@ async function initApp() {
         initLibraryView();
         if (window.BooksModule) window.BooksModule.init();
         initCollectionsView();
+        if (window.SourcesModule) window.SourcesModule.init();
         updateYearFilter();
         
         // Default to Library
