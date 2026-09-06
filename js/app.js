@@ -142,6 +142,8 @@ window.switchView = function(targetView) {
         switchCollectionsSubview(state.collectionsSubView || 'compilations');
     } else if (targetView === 'saved') {
         renderSavedView();
+    } else if (targetView === 'timeline' && window.TimelineModule) {
+        window.TimelineModule.init();
     }
 };
 
