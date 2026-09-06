@@ -15,6 +15,18 @@ Gestaltet im **Cosmos-Designsystem** ([cosmos.so](https://www.cosmos.so/)):
 
 ## Automatische Bereitstellung & Entwicklungs-Richtlinie
 
-- **Hosting & CI/CD**: Dieses Repository ist direkt mit [Netlify (botschaftenarchiv.netlify.app)](https://botschaftenarchiv.netlify.app/) verbunden.
+- **Hosting & CI/CD**: Dieses Repository ist mit [Vercel](https://vercel.com) und [Netlify (botschaftenarchiv.netlify.app)](https://botschaftenarchiv.netlify.app/) verbunden.
 - **Auto-Commit & Auto-Push Regel (Antigravity)**: Alle zukünftigen Anpassungen, Ergänzungen und Codeänderungen werden von Antigravity stets **automatisch selbst committet und auf `origin main` gepusht**, sodass die Live-Webseite jederzeit synchron und ohne manuellen Aufwand aktualisiert wird.
+
+## Täglicher Botschaften-Sync (Automatischer Crawler)
+
+Das Archiv überprüft **einmal täglich um 04:00 Uhr UTC** vollautomatisch über GitHub Actions die beiden offiziellen Quellen auf neue Botschaften:
+1. **Bahá'í Reference Library** ([bahai.org/library](https://www.bahai.org/library/authoritative-texts/the-universal-house-of-justice/messages)) für englische Originaltexte.
+2. **bibliothek.bahai.de** ([bibliothek.bahai.de](https://bibliothek.bahai.de/pubAuthor.php?authorCode=uhj)) für offizielle deutsche Übersetzungen.
+
+- **Workflow-Datei**: [`.github/workflows/daily_sync.yml`](.github/workflows/daily_sync.yml)
+- **Skript**: [`scripts/sync_messages.py`](scripts/sync_messages.py)
+- **Ablauf**: Werden neue Botschaften gefunden, lädt der Bot den Volltext herunter, berechnet Exzerpte und Metadaten, trägt sie in `data/index.json` und `data/texts/` ein und pusht den neuen Stand auf `main`. Vercel & Netlify aktualisieren daraufhin die Live-Seite automatisch.
+- **Manueller Sofort-Start**: Kann jederzeit im GitHub Actions Tab per Klick auf *„Run workflow“* oder lokal via `npm run sync` ausgeführt werden.
+
 

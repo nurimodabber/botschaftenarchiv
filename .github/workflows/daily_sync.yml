@@ -1,0 +1,45 @@
+name: Täglicher Botschaften-Sync (Bahai Reference Library & bibliothek.bahai.de)
+
+on:
+  schedule:
+    # Jeden Tag um 04:00 Uhr UTC (06:00 Uhr deutscher Zeit)
+    - cron: '0 4 * * *'
+  workflow_dispatch: # Manuelle Ausführung im GitHub Actions Tab jederzeit möglich
+
+concurrency:
+  group: daily-sync
+  cancel-in-progress: true
+
+jobs:
+  sync-messages:
+    name: Neue Botschaften prüfen & synchronisieren
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: Python 3.11 einrichten
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Synchronisationsskript ausführen
+        run: python scripts/sync_messages.py
+
+      - name: Änderungen committen und auf main pushen
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          if [ -n "$(git status --porcelain data/)" ]; then
+            echo "Neue Botschaften gefunden! Erstelle Commit..."
+            git add data/
+            git commit -m "chore(sync): automatische Aktualisierung neuer Botschaften von Bahá'í Reference Library & bibliothek.bahai.de [skip ci]"
+            git push origin main
+            echo "Erfolgreich auf origin main gepusht. Vercel & Netlify Deployments wurden ausgelöst."
+          else
+            echo "Keine neuen Botschaften gefunden. Das Archiv ist aktuell."
+          fi

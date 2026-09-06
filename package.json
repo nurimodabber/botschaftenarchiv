@@ -1,0 +1,11 @@
+{
+  "name": "botschaftenarchiv",
+  "version": "1.0.0",
+  "description": "Bahá'í Botschaften-Archiv — Inspirierte private Studieninitiative",
+  "scripts": {
+    "sync": "python3 scripts/sync_messages.py"
+  },
+  "keywords": ["bahai", "archive", "study"],
+  "author": "",
+  "license": "ISC"
+}
