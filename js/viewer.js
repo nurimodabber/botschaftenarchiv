@@ -69,15 +69,29 @@ function closeViewer() {
         modal.classList.remove('active');
         document.body.style.overflow = '';
     }
+    if (window.location.hash && window.location.hash.includes('doc=')) {
+        if (window.history && window.history.replaceState) {
+            window.history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+    }
 }
 
-window.openDocument = function(id) {
+window.openDocument = function(id, targetParagraph) {
     if (!window.state || !window.state.documents) return;
     
     const doc = window.state.documents.find(d => d.id === id);
     if (!doc) return;
     
     currentViewerDoc = doc;
+
+    // Synchronize URL hash for direct bookmarking/sharing
+    try {
+        const pHash = targetParagraph ? `&p=${targetParagraph}` : '';
+        const newHash = `#doc=${encodeURIComponent(id)}${pHash}`;
+        if (window.location.hash !== newHash && window.history && window.history.replaceState) {
+            window.history.replaceState(null, '', newHash);
+        }
+    } catch (e) {}
 
     if (typeof window.trackEvent === 'function') {
         window.trackEvent('document_open', {
@@ -141,25 +155,22 @@ window.openDocument = function(id) {
             bodyEl.scrollTop = 0;
             bodyEl.innerHTML = `
                 <div class="ruhi-pdf-view-wrapper" style="width: 100%; display: flex; flex-direction: column; gap: 0.85rem; margin-top: 0.5rem;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; background: var(--color-surface-alt); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 0.75rem 1.25rem; flex-wrap: wrap; gap: 0.5rem;">
-                        <div style="display: flex; align-items: center; gap: 0.6rem;">
-                            <span style="font-size: 0.75rem; font-weight: 700; color: var(--accent-gold); background: var(--accent-gold-soft); padding: 0.2rem 0.5rem; border-radius: 4px; border: 1px solid rgba(154, 122, 56, 0.25);">PDF-STUDIENAUSGABE</span>
-                            <span style="font-size: 0.85rem; color: var(--color-text-secondary);">Studienbuch des Ruhi-Instituts (in PDF-Form einsehbar).</span>
+                    <!-- Autorisierte Quelle Banner -->
+                    <div class="viewer-source-banner">
+                        <div class="viewer-source-info">
+                            <span class="source-verified-badge">✓ Autorisierte Quelle</span>
+                            <span class="source-platform-name">${escapeHtml(doc.sourcePlatform || 'Ruhi Institute Official')}</span>
                         </div>
-                        ${pdfPath ? `
-                        <div style="display: flex; gap: 0.5rem;">
-                            <a href="${pdfPath}" target="_blank" class="btn-primary" style="font-size: 0.82rem; padding: 0.4rem 0.9rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem;">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                                In eigenem Tab öffnen
-                            </a>
-                        </div>
-                        ` : ''}
+                        <a href="${escapeHtml(doc.sourceUrl || 'https://www.ruhi.org/en/materials/')}" target="_blank" rel="noopener noreferrer" class="viewer-source-link-btn" title="Offizielle Seite auf ruhi.org aufrufen">
+                            <span>Original auf ruhi.org öffnen</span>
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
                     </div>
                     ${pdfPath ? `
-                    <div style="width: 100%; height: 75vh; min-height: 520px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); overflow: hidden; background: #525659;">
+                    <div style="width: 100%; height: 75vh; min-height: 520px; border: 1px solid var(--border-hairline); border-radius: var(--radius-sm); overflow: hidden; background: #1a1d24;">
                         <iframe src="${pdfPath}#toolbar=1&navpanes=0" style="width: 100%; height: 100%; border: none;" title="${escapeHtml(doc.title)}"></iframe>
                     </div>
-                    ` : '<p style="padding: 2rem; text-align: center; color: var(--color-text-muted);">PDF-Datei nicht gefunden.</p>'}
+                    ` : '<p style="padding: 2rem; text-align: center; color: var(--text-muted);">PDF-Datei nicht gefunden.</p>'}
                 </div>
             `;
         }
@@ -168,7 +179,7 @@ window.openDocument = function(id) {
         if (bodyEl) {
             bodyEl.style.fontSize = `${currentFontSize}rem`;
             bodyEl.scrollTop = 0;
-            bodyEl.innerHTML = '<p style="color:var(--color-text-muted);font-style:italic;text-align:center;">⏳ Volltext wird geladen…</p>';
+            bodyEl.innerHTML = '<p style="color:var(--text-muted);font-style:italic;text-align:center;">⏳ Volltext wird geladen…</p>';
         }
         
         // Lazy-load full text from individual file
@@ -177,82 +188,125 @@ window.openDocument = function(id) {
                 .then(r => r.ok ? r.text() : Promise.reject('not found'))
                 .then(text => {
                     currentViewerDoc.text = text;
-                if (bodyEl) {
-                    const structure = parseDocumentStructure(text);
-                    let fullHtml = '';
+                    if (bodyEl) {
+                        const structure = parseDocumentStructure(text);
+                        currentViewerDoc.paragraphs = structure.body;
+                        let fullHtml = '';
 
-                    // 1. Briefkopf / Document Letterhead (Institution, Date, Addressee, Salutation)
-                    if (structure.headers.length > 0 || structure.salutation) {
+                        // 0. Autorisierte Originalquelle Banner (Ganz oben im Dokument)
+                        const sourceName = doc.sourcePlatform || (doc.sourceUrl && doc.sourceUrl.includes('bibliothek.bahai.de') ? 'Bahá’í-Bibliothek Deutschland' : 'Bahá’í Reference Library');
+                        const sourceUrl = doc.sourceUrl || 'https://www.bahai.org/library/';
+
                         fullHtml += `
-                            <div class="viewer-letterhead">
-                                ${structure.headers.map(h => {
-                                    if (h.kind === 'institution') {
-                                        return `<div style="font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: var(--color-primary); letter-spacing: 0.08em; text-align: center; margin-bottom: 0.85rem; text-transform: uppercase;">${escapeHtml(h.text)}</div>`;
-                                    }
-                                    if (h.kind === 'date') {
-                                        return `<div style="font-family: var(--font-sans); font-size: 0.85rem; font-weight: 500; color: var(--color-text-secondary); margin-bottom: 0.35rem;">${escapeHtml(h.text)}</div>`;
-                                    }
-                                    if (h.kind === 'addressee') {
-                                        return `<div style="font-family: var(--font-sans); font-size: 0.95rem; font-weight: 600; color: var(--color-text); margin-bottom: 0.35rem;">${escapeHtml(h.text)}</div>`;
-                                    }
-                                    return `<div style="font-size: 0.85rem; color: var(--color-text-tertiary); font-style: italic; margin-bottom: 0.3rem;">${escapeHtml(h.text)}</div>`;
-                                }).join('')}
-                                ${structure.salutation ? `
-                                    <div style="font-family: var(--font-serif); font-size: 1.08rem; font-style: italic; font-weight: 500; color: var(--color-primary); margin-top: 0.85rem; padding-top: 0.6rem; border-top: 1px dashed var(--color-border);">
-                                        ${escapeHtml(structure.salutation)}
-                                    </div>
-                                ` : ''}
-                            </div>
-                        `;
-                    }
-
-                    // 2. Echte Textabsätze (strikt beginnend mit Absatz 1)
-                    fullHtml += structure.body.map((p, idx) => {
-                        const pNum = idx + 1;
-                        return `
-                            <div class="viewer-paragraph" id="viewer-para-${pNum}">
-                                <div class="para-header">
-                                    <span class="para-num">
-                                        Abs. ${pNum}
-                                    </span>
-                                    <button id="viewer-para-btn-${pNum}" onclick="window.addViewerParagraphToWorkshop(${pNum})" class="para-add-btn" title="Diesen Absatz zur Kompilations-Werkstatt hinzufügen">
-                                        + In Kompilation
-                                    </button>
+                            <div class="viewer-source-banner">
+                                <div class="viewer-source-info">
+                                    <span class="source-verified-badge">✓ Autorisierte Originalquelle</span>
+                                    <span class="source-platform-name">${escapeHtml(sourceName)}</span>
                                 </div>
-                                <p style="margin: 0; line-height: 1.76; text-align: justify;">${escapeHtml(p)}</p>
+                                <a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer" class="viewer-source-link-btn" title="Dieses Dokument auf der autorisierten Originalwebsite öffnen">
+                                    <span>Originaldokument auf ${sourceUrl.includes('bibliothek.bahai.de') ? 'bibliothek.bahai.de' : 'bahai.org'} öffnen</span>
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                                </a>
                             </div>
                         `;
-                    }).join('');
 
-                    // 3. Schlussformel & Unterschrift
-                    if (structure.closings.length > 0) {
+                        // 1. Briefkopf / Document Letterhead (Institution, Date, Addressee, Salutation)
+                        if (structure.headers.length > 0 || structure.salutation) {
+                            fullHtml += `
+                                <div class="viewer-letterhead">
+                                    ${structure.headers.map(h => {
+                                        if (h.kind === 'institution') {
+                                            return `<div style="font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: var(--accent-gold); letter-spacing: 0.08em; text-align: center; margin-bottom: 0.85rem; text-transform: uppercase;">${escapeHtml(h.text)}</div>`;
+                                        }
+                                        if (h.kind === 'date') {
+                                            return `<div style="font-family: var(--font-sans); font-size: 0.85rem; font-weight: 500; color: var(--text-muted); margin-bottom: 0.35rem;">${escapeHtml(h.text)}</div>`;
+                                        }
+                                        if (h.kind === 'addressee') {
+                                            return `<div style="font-family: var(--font-sans); font-size: 0.95rem; font-weight: 600; color: var(--text-ink); margin-bottom: 0.35rem;">${escapeHtml(h.text)}</div>`;
+                                        }
+                                        return `<div style="font-size: 0.85rem; color: var(--text-subtle); font-style: italic; margin-bottom: 0.3rem;">${escapeHtml(h.text)}</div>`;
+                                    }).join('')}
+                                    ${structure.salutation ? `
+                                        <div style="font-family: var(--font-serif); font-size: 1.08rem; font-style: italic; font-weight: 500; color: var(--accent-gold); margin-top: 0.85rem; padding-top: 0.6rem; border-top: 1px dashed var(--border-hairline);">
+                                            ${escapeHtml(structure.salutation)}
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            `;
+                        }
+
+                        // 2. Echte Textabsätze mit direkten Absatz-Aktionen & Original-Quell-Links
+                        fullHtml += structure.body.map((p, idx) => {
+                            const pNum = idx + 1;
+                            const originalParaUrl = getOriginalParagraphUrl(doc, pNum, p);
+                            return `
+                                <div class="viewer-paragraph" id="viewer-para-${pNum}" data-pnum="${pNum}">
+                                    <div class="para-header">
+                                        <div class="para-meta-left">
+                                            <span class="para-num" title="Absatz ${pNum}">Abs. ${pNum}</span>
+                                            <a href="${escapeHtml(originalParaUrl)}" target="_blank" rel="noopener noreferrer" class="para-action-btn btn-original-link" title="Diesen Absatz in der autorisierten Originalquelle öffnen">
+                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                                                <span>Original-Absatz ↗</span>
+                                            </a>
+                                            <button class="para-action-btn" onclick="window.copyParagraphCitation(${pNum})" title="Absatz samt formaler Quellenangabe & Link kopieren">
+                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                                                <span id="para-copy-label-${pNum}">Zitieren &amp; Link</span>
+                                            </button>
+                                            <button class="para-action-btn" onclick="window.copyParagraphDeepLink(${pNum})" title="Direktlink zu diesem Absatz im Archiv kopieren">
+                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                                                <span id="para-link-label-${pNum}">Link</span>
+                                            </button>
+                                        </div>
+                                        <button id="viewer-para-btn-${pNum}" onclick="window.addViewerParagraphToWorkshop(${pNum})" class="para-add-btn" title="Diesen Absatz zur Kompilations-Werkstatt hinzufügen">
+                                            + In Kompilation
+                                        </button>
+                                    </div>
+                                    <p class="para-text" style="margin: 0; line-height: 1.76; text-align: justify;">${escapeHtml(p)}</p>
+                                </div>
+                            `;
+                        }).join('');
+
+                        // 3. Schlussformel & Unterschrift
+                        if (structure.closings.length > 0) {
+                            fullHtml += `
+                                <div class="viewer-closing" style="margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border-hairline); text-align: right;">
+                                    ${structure.closings.map(c => `
+                                        <div style="font-family: var(--font-serif); font-style: italic; color: var(--text-muted); margin-bottom: 0.4rem; font-size: 0.95rem;">${escapeHtml(c)}</div>
+                                    `).join('')}
+                                </div>
+                            `;
+                        }
+
+                        // 4. Transparenzhinweis am Textende
                         fullHtml += `
-                            <div class="viewer-closing" style="margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--color-border); text-align: right;">
-                                ${structure.closings.map(c => `
-                                    <div style="font-family: var(--font-serif); font-style: italic; color: var(--color-text-secondary); margin-bottom: 0.4rem; font-size: 0.95rem;">${escapeHtml(c)}</div>
-                                `).join('')}
+                            <div class="viewer-disclaimer-footnote">
+                                Privates Studienarchiv &bull; Autorisierte Schriften &amp; offizielle Publikationen: <a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener">${escapeHtml(sourceName)}</a>
                             </div>
                         `;
+
+                        bodyEl.innerHTML = fullHtml;
+
+                        // Wenn ein Zielabsatz übergeben wurde, sanft hinscrollen & hervorheben
+                        if (targetParagraph) {
+                            setTimeout(() => {
+                                const targetEl = document.getElementById(`viewer-para-${targetParagraph}`);
+                                if (targetEl) {
+                                    targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                    targetEl.classList.add('highlight-target');
+                                    setTimeout(() => targetEl.classList.remove('highlight-target'), 3500);
+                                }
+                            }, 350);
+                        }
                     }
-
-                    // 4. Transparenzhinweis am Textende
-                    fullHtml += `
-                        <div class="viewer-disclaimer-footnote">
-                            Privates Studienarchiv (inspirierte Eigeninitiative) &bull; Autorisierte Schriften &amp; offizielle Publikationen: <a href="https://www.bahai.org/library/" target="_blank" rel="noopener">bahai.org/library</a>
-                        </div>
-                    `;
-
-                    bodyEl.innerHTML = fullHtml;
-                }
-                const wc = text.split(/\s+/).length;
-                if (metaEl) metaEl.innerHTML = buildMetaHtml(wc);
-            })
-            .catch(() => {
-                if (bodyEl) bodyEl.innerHTML = '<p style="color:var(--color-text-secondary);font-style:italic;padding:2rem;text-align:center;">Kein Volltext verfügbar.</p>';
-            });
-    } else {
-        if (bodyEl) bodyEl.innerHTML = '<p style="color:var(--color-text-secondary);font-style:italic;padding:2rem;text-align:center;">Kein Volltext vorhanden.</p>';
-    }
+                    const wc = text.split(/\s+/).length;
+                    if (metaEl) metaEl.innerHTML = buildMetaHtml(wc);
+                })
+                .catch(() => {
+                    if (bodyEl) bodyEl.innerHTML = '<p style="color:var(--text-muted);font-style:italic;padding:2rem;text-align:center;">Kein Volltext verfügbar.</p>';
+                });
+        } else {
+            if (bodyEl) bodyEl.innerHTML = '<p style="color:var(--text-muted);font-style:italic;padding:2rem;text-align:center;">Kein Volltext vorhanden.</p>';
+        }
     }
     
     // Multi-format download buttons & official source link
@@ -509,5 +563,65 @@ function parseDocumentStructure(text) {
     
     return { headers, salutation, body, closings };
 }
+
+function getOriginalParagraphUrl(doc, pNum, paraText) {
+    if (!doc || !doc.sourceUrl) return 'https://www.bahai.org/library/';
+    const base = doc.sourceUrl.split('#')[0];
+    
+    // W3C Text Fragment Standard: #:~:text=...
+    // Clean first 6-8 words
+    const cleanText = (paraText || '')
+        .replace(/["'„“»«\(\)\.,;:!?]/g, ' ')
+        .trim()
+        .split(/\s+/)
+        .slice(0, 7)
+        .join(' ');
+
+    if (cleanText && cleanText.length > 5) {
+        const textFrag = encodeURIComponent(cleanText);
+        return `${base}#:~:text=${textFrag}`;
+    }
+    return `${base}#p${pNum}`;
+}
+
+window.copyParagraphCitation = function(pNum) {
+    if (!currentViewerDoc || !currentViewerDoc.paragraphs) return;
+    const pText = currentViewerDoc.paragraphs[pNum - 1] || '';
+    if (!pText) return;
+
+    const sourceUrl = getOriginalParagraphUrl(currentViewerDoc, pNum, pText);
+    const dateFormatted = formatViewerDate(currentViewerDoc.date);
+    const platform = currentViewerDoc.sourcePlatform || 'Bahá’í Reference Library';
+    const author = currentViewerDoc.author || 'Universales Haus der Gerechtigkeit';
+    
+    const citation = `„${pText}“\n\n— ${author}\nDokument: ${currentViewerDoc.title}${dateFormatted ? ' (' + dateFormatted + ')' : ''}\nAbsatz: Abs. ${pNum}\nAutorisierte Originalquelle (${platform}): ${sourceUrl}`;
+
+    navigator.clipboard.writeText(citation).then(() => {
+        const label = document.getElementById(`para-copy-label-${pNum}`);
+        if (label) {
+            const orig = label.innerHTML;
+            label.innerHTML = '✓ Kopiert!';
+            setTimeout(() => { label.innerHTML = orig; }, 2000);
+        }
+    }).catch(err => {
+        console.error('Kopieren fehlgeschlagen:', err);
+    });
+};
+
+window.copyParagraphDeepLink = function(pNum) {
+    if (!currentViewerDoc) return;
+    const url = `${window.location.origin}${window.location.pathname}#doc=${encodeURIComponent(currentViewerDoc.id)}&p=${pNum}`;
+    navigator.clipboard.writeText(url).then(() => {
+        const label = document.getElementById(`para-link-label-${pNum}`);
+        if (label) {
+            const orig = label.innerHTML;
+            label.innerHTML = '✓ Kopiert!';
+            setTimeout(() => { label.innerHTML = orig; }, 2000);
+        }
+    }).catch(err => {
+        console.error('Link-Kopieren fehlgeschlagen:', err);
+    });
+};
+
 
 

@@ -72,6 +72,10 @@ async function initApp() {
         // Default to Library
         window.switchView('library');
         
+        // Deep linking support (#doc=ID&p=N or ?doc=ID&p=N or #view)
+        handleDeepLink();
+        window.addEventListener('hashchange', handleDeepLink);
+        
     } catch (error) {
         console.error('Error loading documents:', error);
         const resultsEl = document.getElementById('library-results');
@@ -266,6 +270,44 @@ function setupNavigation() {
             window.switchView(btn.dataset.view);
         });
     });
+}
+
+// Deep Linking Handler for documents, paragraphs & views
+function handleDeepLink() {
+    let docId = null;
+    let paraNum = null;
+
+    // 1. Check URL Search Parameters (e.g. ?doc=...&p=...)
+    try {
+        const searchParams = new URLSearchParams(window.location.search);
+        if (searchParams.has('doc') || searchParams.has('document')) {
+            docId = searchParams.get('doc') || searchParams.get('document');
+            paraNum = searchParams.get('p') || searchParams.get('paragraph');
+        }
+    } catch (e) {}
+
+    // 2. Check URL Hash (e.g. #doc=...&p=... or #timeline)
+    try {
+        const rawHash = (window.location.hash || '').replace(/^#\/?/, '');
+        if (rawHash) {
+            if (rawHash.includes('doc=') || rawHash.includes('document=')) {
+                const hashParams = new URLSearchParams(rawHash);
+                docId = hashParams.get('doc') || hashParams.get('document') || docId;
+                paraNum = hashParams.get('p') || hashParams.get('paragraph') || paraNum;
+            } else if (['library', 'search', 'collections', 'timeline', 'books', 'sources', 'workshop', 'saved'].includes(rawHash)) {
+                window.switchView(rawHash);
+            }
+        }
+    } catch (e) {}
+
+    // 3. If docId specified, open document and scroll to paragraph
+    if (docId && typeof window.openDocument === 'function') {
+        const pInt = paraNum ? parseInt(paraNum, 10) : null;
+        const exists = state.documents && state.documents.some(d => d.id === docId);
+        if (exists) {
+            window.openDocument(docId, pInt);
+        }
+    }
 }
 
 // Keyboard Shortcuts

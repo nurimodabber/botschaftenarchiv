@@ -162,6 +162,84 @@ window.SourcesModule = (function() {
             formats: ["Akademische Journals (PDF)", "Konferenzbände"],
             languages: ["English", "Französisch"],
             features: ["Journal of Bahá'í Studies", "Jahreskonferenzen", "Working Groups"]
+        },
+        {
+            id: 'persian-library',
+            name: "Persian Bahá'í Digital Library (کتابخانه بهائی)",
+            subtitle: "Maßgebliches Archiv für persische und arabische Originaltexte",
+            category: "libraries",
+            categoryLabel: "Primärschriften & Bibliotheken",
+            url: "https://www.bahailib.com",
+            badge: "Persisch & Arabisch",
+            description: "Umfangreiche wissenschaftliche Digitalbibliothek für Originalschriften Bahá'u'lláhs, des Báb und 'Abdu'l-Bahás in Originalsprache mit Faksimiles, Volltextsuche und typografischen Ausgaben.",
+            formats: ["PDF", "Volltext", "Faksimiles"],
+            languages: ["Persisch (فارسی)", "Arabisch (العربية)"],
+            features: ["Original-Kalligrafie", "Faksimile-Ausgaben", "Wissenschaftlicher Index"]
+        },
+        {
+            id: 'bahaibookstore-us',
+            name: "Bahá'í Publishing Trust (Vereinigte Staaten)",
+            subtitle: "Nationaler Verlag & Buchhandelsportal der USA",
+            category: "national",
+            categoryLabel: "Nationale Gremien & Verlage",
+            url: "https://www.bahaibookstore.com",
+            badge: "USA Verlag",
+            description: "Der traditionsreiche Verlag des Nationalen Geistigen Rates der Bahá'í der USA. Veröffentlicht maßgebliche wissenschaftliche Editionen, Studienausgaben, Nachschlagewerke und Einführungen.",
+            formats: ["Buchdruck", "E-Books", "Hörbücher"],
+            languages: ["English", "Spanisch"],
+            features: ["Autorisierte Buchausgaben", "Wissenschaftliche Kommentare", "Kindermaterial"]
+        },
+        {
+            id: 'itc-centre',
+            name: "International Teaching Centre (ITC)",
+            subtitle: "Leitungsorgan am Bahá'í-Weltzentrum für Lehrwerk & Institute",
+            category: "study",
+            categoryLabel: "Studien & Handlungsfelder",
+            url: "https://www.bahai.org/action/community-building/continental-counsellors/",
+            badge: "Weltzentrum",
+            description: "Das Internationale Lehrzentrum koordiniert weltweit das Netzwerk der Kontinentalen Beraterräte, Hilfsämter und Trainingsinstitute und publiziert grundlegende Orientierungsdokumente für systematisches Wachstum.",
+            formats: ["Briefe & Mitteilungen", "Studienpapiere", "PDF"],
+            languages: ["English", "Deutsch", "Spanisch", "Französisch"],
+            features: ["Dokumente zum Institutsprozess", "Beraterkonferenz-Papiere", "Weltweite Orientierung"]
+        },
+        {
+            id: 'bahai-uk',
+            name: "Bahá'í Community of the United Kingdom",
+            subtitle: "Nationales Portal & Bahá'í Publishing Trust UK",
+            category: "national",
+            categoryLabel: "Nationale Gremien & Verlage",
+            url: "https://www.bahai.org.uk",
+            badge: "Großbritannien",
+            description: "Offizielle Präsenz des Nationalen Geistigen Rates des Vereinigten Königreichs. Beinhaltet historische Archive, Presseerklärungen, nationale Publikationen und lokale Initiativen.",
+            formats: ["Web", "Publikationen", "Pressepapiere"],
+            languages: ["English"],
+            features: ["Historisches Archiv", "Öffentlicher Diskurs", "Gemeindearbeit"]
+        },
+        {
+            id: 'bic-regional-offices',
+            name: "BIC Regional Liaison Offices (Genf, Brüssel, Addis Abeba, Jakarta)",
+            subtitle: "Regionale Diskursbüros bei der Afrikanischen Union, EU & ASEAN",
+            category: "discourse",
+            categoryLabel: "Gesellschaftlicher Diskurs & UNO",
+            url: "https://www.bic.org/offices",
+            badge: "Diplomatie",
+            description: "Internationale Vertretungen der Bahá'í International Community bei regionalen zwischenstaatlichen Organisationen mit Fokus auf Friedensförderung, Frauenrechte und nachhaltige Entwicklung.",
+            formats: ["Grundsatzpapiere", "Erklärungen", "Konferenzberichte"],
+            languages: ["English", "Französisch"],
+            features: ["Regionalberichte", "Stellungnahmen zur EU/AU-Politik", "Diskursbeiträge"]
+        },
+        {
+            id: 'mediatheque-france',
+            name: "Médiathèque Bahá'íe de France",
+            subtitle: "Offizielle französischsprachige Medien- & Schriftenbibliothek",
+            category: "libraries",
+            categoryLabel: "Primärschriften & Bibliotheken",
+            url: "https://www.bahai.fr",
+            badge: "Frankreich",
+            description: "Umfassendes offizielles digitales Repositorium französischsprachiger Übersetzungen der Heiligen Schriften, Botschaften des Hauses und Studienmaterialien für den französischsprachigen Raum.",
+            formats: ["Web / Reader", "PDF", "Audio"],
+            languages: ["Französisch"],
+            features: ["Offizielle französische Texte", "Schriften der Zentralgestalten", "Audiolesungen"]
         }
     ];
 
