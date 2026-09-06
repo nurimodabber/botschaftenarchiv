@@ -149,9 +149,13 @@
                             <span>Heilige Schriften &amp; Bücher</span>
                             <span class="segment-badge">277</span>
                         </button>
-                        <button class="segment-btn" data-segment="collections" role="tab" aria-selected="false">
-                            <span>Ruhi &amp; Sammlungen</span>
-                            <span class="segment-badge">153</span>
+                        <button class="segment-btn" data-segment="compilations" role="tab" aria-selected="false">
+                            <span>Thematische Sammlungen</span>
+                            <span class="segment-badge">115</span>
+                        </button>
+                        <button class="segment-btn" data-segment="ruhi" role="tab" aria-selected="false">
+                            <span>Ruhi-Bücher</span>
+                            <span class="segment-badge">31</span>
                         </button>
                     </div>
 
@@ -175,6 +179,26 @@
                             <button class="author-chip-btn" data-author="the-bab">Der Báb</button>
                             <button class="author-chip-btn" data-author="abdul-baha">‘Abdu’l-Bahá</button>
                             <button class="author-chip-btn" data-author="shoghi-effendi">Shoghi Effendi</button>
+                        </div>
+
+                        <!-- Themen-Chips (wird aktiviert wenn Segment 'compilations') -->
+                        <div class="quick-chips-scroller" id="library-comp-chips" style="display: none;">
+                            <button class="comp-chip-btn active" data-comp="all">Alle Themen</button>
+                            <button class="comp-chip-btn" data-comp="marriage">Ehe &amp; Familie</button>
+                            <button class="comp-chip-btn" data-comp="prayer">Gebet &amp; Andacht</button>
+                            <button class="comp-chip-btn" data-comp="huquq">Ḥuqúqu’lláh</button>
+                            <button class="comp-chip-btn" data-comp="consultation">Beratung</button>
+                            <button class="comp-chip-btn" data-comp="women">Frauen</button>
+                            <button class="comp-chip-btn" data-comp="virtues">Geistige Tugenden</button>
+                        </div>
+
+                        <!-- Ruhi-Chips (wird aktiviert wenn Segment 'ruhi') -->
+                        <div class="quick-chips-scroller" id="library-ruhi-chips" style="display: none;">
+                            <button class="ruhi-chip-btn active" data-ruhi="all">Alle Bände</button>
+                            <button class="ruhi-chip-btn" data-ruhi="b1-4">Bücher 1–4</button>
+                            <button class="ruhi-chip-btn" data-ruhi="b5-8">Bücher 5–8</button>
+                            <button class="ruhi-chip-btn" data-ruhi="b9plus">Bücher 9–12</button>
+                            <button class="ruhi-chip-btn" data-ruhi="branch">Zweigkurse</button>
                         </div>
 
                         <!-- Rechte Werkzeugleiste: Formate & Filter-Drawer Toggle -->
@@ -330,8 +354,8 @@
 
                     <!-- Subtabs für Sammlungen -->
                     <div class="subtabs-nav" id="collections-subtabs">
-                        <button class="filter-pill active" data-subview="compilations">Thematische Kompilationen (55)</button>
-                        <button class="filter-pill" data-subview="ruhi">Ruhi-Institut (Bücher 1–8)</button>
+                        <button class="filter-pill active" data-subview="compilations">Thematische Kompilationen (115)</button>
+                        <button class="filter-pill" data-subview="ruhi">Ruhi-Institut (Bücher 1–12 &amp; Zweigkurse)</button>
                         <button class="filter-pill" data-subview="study">Studienhilfen &amp; Meilensteine</button>
                     </div>
                 </div>

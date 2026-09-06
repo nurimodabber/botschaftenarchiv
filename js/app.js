@@ -34,6 +34,8 @@ window.state = {
     library: {
         segment: 'all',
         author: 'all',
+        compTopic: 'all',
+        ruhiGroup: 'all',
         advancedFiltersOpen: false,
         recipient: 'all',
         epoch: '',
@@ -263,13 +265,13 @@ window.switchLibrarySegment = function(segment) {
 
     const quickChips = document.getElementById('library-quick-chips');
     const authorChips = document.getElementById('library-author-chips');
-    if (segment === 'books') {
-        if (quickChips) quickChips.style.display = 'none';
-        if (authorChips) authorChips.style.display = 'flex';
-    } else {
-        if (quickChips) quickChips.style.display = 'flex';
-        if (authorChips) authorChips.style.display = 'none';
-    }
+    const compChips = document.getElementById('library-comp-chips');
+    const ruhiChips = document.getElementById('library-ruhi-chips');
+
+    if (quickChips) quickChips.style.display = (segment === 'house' || segment === 'all') ? 'flex' : 'none';
+    if (authorChips) authorChips.style.display = (segment === 'books') ? 'flex' : 'none';
+    if (compChips) compChips.style.display = (segment === 'compilations') ? 'flex' : 'none';
+    if (ruhiChips) ruhiChips.style.display = (segment === 'ruhi') ? 'flex' : 'none';
 
     if (typeof applyLibraryFilters === 'function') {
         applyLibraryFilters();
@@ -286,7 +288,7 @@ window.switchView = function(targetView) {
     }
     if (targetView === 'collections') {
         window.switchView('library');
-        window.switchLibrarySegment('collections');
+        window.switchLibrarySegment('compilations');
         return;
     }
 
@@ -417,6 +419,28 @@ function initLibraryView() {
             authorChips.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             state.library.author = btn.dataset.author || 'all';
+            applyLibraryFilters();
+        });
+    });
+
+    // Themen-Filter für Kompilationen
+    const compChips = document.querySelectorAll('#library-comp-chips .comp-chip-btn');
+    compChips.forEach(btn => {
+        btn.addEventListener('click', () => {
+            compChips.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            state.library.compTopic = btn.dataset.comp || 'all';
+            applyLibraryFilters();
+        });
+    });
+
+    // Band-Filter für Ruhi-Bücher
+    const ruhiChips = document.querySelectorAll('#library-ruhi-chips .ruhi-chip-btn');
+    ruhiChips.forEach(btn => {
+        btn.addEventListener('click', () => {
+            ruhiChips.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            state.library.ruhiGroup = btn.dataset.ruhi || 'all';
             applyLibraryFilters();
         });
     });
@@ -611,6 +635,8 @@ function initLibraryView() {
             state.library.format = 'all';
             state.library.query = '';
             state.library.author = 'all';
+            state.library.compTopic = 'all';
+            state.library.ruhiGroup = 'all';
             state.library.sort = 'date-desc';
 
             if (recipSelect) recipSelect.value = 'all';
@@ -630,6 +656,16 @@ function initLibraryView() {
                 b.classList.toggle('active', b.dataset.author === 'all');
             });
 
+            const compChips = document.querySelectorAll('#library-comp-chips .comp-chip-btn');
+            compChips.forEach(b => {
+                b.classList.toggle('active', b.dataset.comp === 'all');
+            });
+
+            const ruhiChips = document.querySelectorAll('#library-ruhi-chips .ruhi-chip-btn');
+            ruhiChips.forEach(b => {
+                b.classList.toggle('active', b.dataset.ruhi === 'all');
+            });
+
             formatChips.forEach(b => {
                 b.classList.toggle('active', b.dataset.fmt === 'all');
             });
@@ -644,7 +680,28 @@ function initLibraryView() {
         loadMoreBtn.addEventListener('click', renderMoreLibraryResults);
     }
 
+    updateLibrarySegmentBadges();
     applyLibraryFilters();
+}
+
+function updateLibrarySegmentBadges() {
+    if (!state.documents || !state.documents.length) return;
+    const allCount = state.documents.length;
+    const houseCount = state.documents.filter(d => d.tier === 'house' || d.tier === 'institutions').length;
+    const booksCount = state.documents.filter(d => d.tier === 'books').length;
+    const compsCount = state.documents.filter(d => d.tier === 'compilations').length;
+    const ruhiCount = state.documents.filter(d => d.tier === 'ruhi').length;
+
+    const setBadge = (seg, count) => {
+        const badge = document.querySelector(`#library-segment-bar .segment-btn[data-segment="${seg}"] .segment-badge`);
+        if (badge) badge.textContent = count >= 1000 ? count.toLocaleString('de-DE') : count;
+    };
+
+    setBadge('all', allCount);
+    setBadge('house', houseCount);
+    setBadge('books', booksCount);
+    setBadge('compilations', compsCount);
+    setBadge('ruhi', ruhiCount);
 }
 
 function syncQuickChipsWithFilters() {
@@ -667,13 +724,17 @@ function syncQuickChipsWithFilters() {
 
 function applyLibraryFilters() {
     let list = state.documents;
-    const { segment, author, recipient, epoch, type, lang, format, sort, query } = state.library;
+    const { segment, author, compTopic, ruhiGroup, recipient, epoch, type, lang, format, sort, query } = state.library;
 
     // 0. Segment-Filter
     if (segment === 'house') {
         list = list.filter(d => d.tier === 'house' || d.tier === 'institutions');
     } else if (segment === 'books') {
         list = list.filter(d => d.tier === 'books');
+    } else if (segment === 'compilations') {
+        list = list.filter(d => d.tier === 'compilations');
+    } else if (segment === 'ruhi') {
+        list = list.filter(d => d.tier === 'ruhi');
     } else if (segment === 'collections') {
         list = list.filter(d => d.tier === 'compilations' || d.tier === 'ruhi' || d.tier === 'study');
     }
@@ -686,6 +747,32 @@ function applyLibraryFilters() {
             if (author === 'the-bab') return auth.includes("báb") || auth.includes("bab");
             if (author === 'abdul-baha') return auth.includes("abdu'l-bahá") || auth.includes("abdul-baha") || auth.includes("abdu'l-baha");
             if (author === 'shoghi-effendi') return auth.includes("shoghi");
+            return true;
+        });
+    }
+
+    // 0c. Themen-Filter (für Kompilationen)
+    if (segment === 'compilations' && compTopic && compTopic !== 'all') {
+        list = list.filter(d => {
+            const str = ((d.title || '') + ' ' + (d.compilationTopic || '')).toLowerCase();
+            if (compTopic === 'marriage') return str.includes('ehe') || str.includes('marriage');
+            if (compTopic === 'prayer') return str.includes('gebet') || str.includes('andacht') || str.includes('prayer');
+            if (compTopic === 'huquq') return str.includes('huquq') || str.includes('ḥuqúq') || str.includes('recht gottes');
+            if (compTopic === 'consultation') return str.includes('beratung') || str.includes('konsultation') || str.includes('consultation');
+            if (compTopic === 'women') return str.includes('frau') || str.includes('women');
+            if (compTopic === 'virtues') return str.includes('tugend') || str.includes('vertrauen') || str.includes('charakter') || str.includes('trust');
+            return true;
+        });
+    }
+
+    // 0d. Band-Filter (für Ruhi-Bücher)
+    if (segment === 'ruhi' && ruhiGroup && ruhiGroup !== 'all') {
+        list = list.filter(d => {
+            const t = (d.title || '').toLowerCase();
+            if (ruhiGroup === 'b1-4') return /buch 0?[1-4]\b|book 0?[1-4]\b/i.test(t);
+            if (ruhiGroup === 'b5-8') return /buch 0?[5-8]\b|book 0?[5-8]\b/i.test(t);
+            if (ruhiGroup === 'b9plus') return /buch (?:0?9|1[0-2])\b|book (?:9|1[0-2])\b/i.test(t);
+            if (ruhiGroup === 'branch') return t.includes('zweigkurs') || t.includes('branch');
             return true;
         });
     }
@@ -814,6 +901,23 @@ function applyLibraryFilters() {
             'abdul-baha': '‘Abdu’l-Bahá', 'shoghi-effendi': 'Shoghi Effendi'
         };
         activeTags.push({ label: authNameMap[author] || author, key: 'author' });
+    }
+    if (segment === 'compilations' && compTopic && compTopic !== 'all') {
+        activeFilterCount++;
+        const topicMap = {
+            marriage: 'Ehe & Familie', prayer: 'Gebet & Andacht',
+            huquq: 'Ḥuqúqu’lláh', consultation: 'Beratung',
+            women: 'Frauen', virtues: 'Geistige Tugenden'
+        };
+        activeTags.push({ label: topicMap[compTopic] || compTopic, key: 'compTopic' });
+    }
+    if (segment === 'ruhi' && ruhiGroup && ruhiGroup !== 'all') {
+        activeFilterCount++;
+        const ruhiMap = {
+            'b1-4': 'Bücher 1–4', 'b5-8': 'Bücher 5–8',
+            'b9plus': 'Bücher 9–12', 'branch': 'Zweigkurse'
+        };
+        activeTags.push({ label: ruhiMap[ruhiGroup] || ruhiGroup, key: 'ruhiGroup' });
     }
     if (query) {
         activeFilterCount++;
