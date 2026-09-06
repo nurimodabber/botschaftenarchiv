@@ -255,20 +255,29 @@ window.openDocument = function(id) {
     }
     }
     
-    // Multi-format download buttons
+    // Multi-format download buttons & official source link
     const oldBar = document.getElementById('viewer-dl-bar');
     if (oldBar) oldBar.remove();
     if (downloadBtn) downloadBtn.style.display = 'none';
 
     const formats = [];
-    if (isRuhi) {
-        if (doc.filePath && doc.filePath.toLowerCase().endsWith('.pdf')) {
-            formats.push({ label: 'PDF (Ruhi-Buch)', href: doc.filePath });
+    const fmts = doc.availableFormats || [];
+    const files = doc.formatFiles || {};
+
+    ['pdf', 'docx', 'epub', 'txt'].forEach(fmt => {
+        if (files[fmt]) {
+            const label = fmt === 'docx' ? 'Word (DOCX)' : fmt === 'epub' ? 'E-Book (EPUB)' : fmt === 'pdf' ? 'PDF' : 'Volltext (TXT)';
+            formats.push({ label, href: files[fmt] });
+        } else if (fmts.includes(fmt)) {
+            let path = '';
+            if (fmt === 'txt') path = `data/texts/${doc.id}.txt`;
+            else if (fmt === 'docx') path = doc.docxPath || doc.filePath;
+            else if (fmt === 'pdf') path = doc.filePath;
+            if (path) formats.push({ label: fmt.toUpperCase(), href: path });
         }
-    } else {
-        if (doc.hasText !== false && doc.id) {
-            formats.push({ label: 'TXT (Volltext)', href: `data/texts/${doc.id}.txt` });
-        }
+    });
+
+    if (formats.length === 0) {
         if (doc.filePath) {
             const ext = doc.filePath.split('.').pop().toUpperCase();
             formats.push({ label: ext, href: doc.filePath });
@@ -277,13 +286,20 @@ window.openDocument = function(id) {
     }
 
     const dlParent = downloadBtn ? downloadBtn.parentElement : null;
-    if (formats.length > 0 && dlParent) {
+    if (dlParent) {
         const bar = document.createElement('div');
         bar.id = 'viewer-dl-bar';
-        bar.style.cssText = 'display:flex;gap:0.4rem;flex-wrap:wrap;';
-        bar.innerHTML = formats.map(f =>
+        bar.style.cssText = 'display:flex;gap:0.4rem;flex-wrap:wrap;align-items:center;';
+        
+        let barHtml = formats.map(f =>
             `<a href="${f.href}" download class="btn-secondary" style="font-size:0.75rem;padding:0.25rem 0.65rem;text-decoration:none;border-radius:var(--radius-full);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:3px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>${f.label}</a>`
         ).join('');
+
+        if (doc.sourceUrl) {
+            barHtml += `<a href="${doc.sourceUrl}" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="font-size:0.75rem;padding:0.25rem 0.65rem;text-decoration:none;border-radius:var(--radius-full);color:var(--accent-gold);border-color:rgba(197,160,89,0.4);" title="Originale Quelle online öffnen"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:3px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Web-Quelle</a>`;
+        }
+        
+        bar.innerHTML = barHtml;
         dlParent.appendChild(bar);
     }
     

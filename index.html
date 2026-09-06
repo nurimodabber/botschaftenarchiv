@@ -39,6 +39,10 @@
                     <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12"/><circle cx="6" cy="12" r="3" fill="currentColor"/><circle cx="12" cy="12" r="3" fill="currentColor"/><circle cx="18" cy="12" r="3" fill="currentColor"/></svg>
                     <span>Zeitstrahl</span>
                 </button>
+                <button class="nav-btn" data-view="books">
+                    <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    <span>Bücher</span>
+                </button>
                 <button class="nav-btn" data-view="collections">
                     <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
                     <span>Sammlungen &amp; Ruhi</span>
@@ -46,6 +50,10 @@
                 <button class="nav-btn btn-nav-workshop" data-view="workshop">
                     <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
                     <span>Werkstatt</span>
+                </button>
+                <button class="nav-btn" data-view="sources">
+                    <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    <span>Quellen</span>
                 </button>
                 <button class="nav-btn" data-view="search">
                     <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -60,6 +68,36 @@
             <div class="dock-divider"></div>
 
             <div class="dock-actions">
+                <!-- Akzentfarben-Customizer (Farbrad) -->
+                <div class="accent-customizer-wrapper">
+                    <button id="accent-customizer-btn" class="dock-icon-btn" aria-label="Akzentfarbe anpassen" title="Akzentfarbe anpassen (Farbrad)">
+                        <svg class="color-wheel-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10"/><path d="M12 12 2.1 14.5"/><path d="M12 12 4.9 4.9"/><path d="M12 12l7.1-7.1"/></svg>
+                    </button>
+                    <div id="accent-popover" class="accent-popover" hidden>
+                        <div class="accent-popover-header">
+                            <span class="accent-popover-title">Akzentfarbe wählen</span>
+                            <button id="accent-reset-btn" class="accent-reset-btn" title="Auf Standard zurücksetzen">Zurücksetzen</button>
+                        </div>
+                        <div class="accent-swatches">
+                            <button class="accent-swatch" data-color="#C5A059" title="Klassisches Gold" style="background: #C5A059;"></button>
+                            <button class="accent-swatch" data-color="#C86432" title="Terracotta" style="background: #C86432;"></button>
+                            <button class="accent-swatch" data-color="#2B4C7E" title="Persischblau / Saphir" style="background: #2B4C7E;"></button>
+                            <button class="accent-swatch" data-color="#A62B2B" title="Rubinrot" style="background: #A62B2B;"></button>
+                            <button class="accent-swatch" data-color="#2E7D32" title="Smaragdgrün" style="background: #2E7D32;"></button>
+                            <button class="accent-swatch" data-color="#6B4E71" title="Amethyst" style="background: #6B4E71;"></button>
+                            <button class="accent-swatch" data-color="#1E6B7B" title="Ozeanpetrol" style="background: #1E6B7B;"></button>
+                            <button class="accent-swatch" data-color="#5A6B7C" title="Schieferblau" style="background: #5A6B7C;"></button>
+                        </div>
+                        <div class="accent-wheel-row">
+                            <label for="accent-color-input" class="accent-wheel-label">
+                                <input type="color" id="accent-color-input" value="#C5A059">
+                                <span>Farbrad</span>
+                            </label>
+                            <input type="text" id="accent-hex-input" class="accent-hex-input" value="#C5A059" maxlength="7" spellcheck="false">
+                        </div>
+                    </div>
+                </div>
+
                 <button id="theme-toggle" class="dock-icon-btn" aria-label="Design umschalten" title="Helles / Dunkles Design">
                     <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
                     <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -84,56 +122,80 @@
                     <input type="text" id="library-search-input" placeholder="In allen Botschaften suchen (Titel, Thema, Text)..." autocomplete="off">
                 </div>
 
-                <!-- Alle Filter unter der Search Bar -->
-                <div class="secondary-filter-bar">
-                    <!-- Empfänger-Filter -->
-                    <select id="library-recipient-select" class="apple-select">
-                        <option value="all">Alle Empfänger</option>
-                        <option value="world">Weltweite Gemeinde</option>
-                        <option value="nsa">Nationale Geistige Räte</option>
-                        <option value="counsellors">Berater &amp; Hilfsamt</option>
-                        <option value="youth">Jugend</option>
-                        <option value="institutes">Trainingsinstitute</option>
-                        <option value="iran">Freunde im Iran</option>
-                        <option value="individual">Einzelne Gläubige</option>
-                    </select>
+                <!-- Harmonische, aufgeräumte Master Control Strip -->
+                <div class="master-control-strip">
+                    <div class="control-strip-filters">
+                        <div class="strip-select-wrapper">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            <select id="library-recipient-select" class="strip-select">
+                                <option value="all">Alle Empfänger</option>
+                                <option value="world">Weltweite Gemeinde</option>
+                                <option value="nsa">Nationale Geistige Räte</option>
+                                <option value="counsellors">Berater &amp; Hilfsamt</option>
+                                <option value="youth">Jugend</option>
+                                <option value="institutes">Trainingsinstitute</option>
+                                <option value="iran">Freunde im Iran</option>
+                                <option value="individual">Einzelne Gläubige</option>
+                            </select>
+                        </div>
+                        <div class="strip-select-wrapper">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            <select id="library-epoch-select" class="strip-select">
+                                <option value="">Alle Epochen / Pläne</option>
+                                <option value="nine-year">Neunjahresplan (2022–2026)</option>
+                                <option value="one-year">Einjahresplan (2021–2022)</option>
+                                <option value="five-year-16">Fünfjahresplan (2016–2021)</option>
+                                <option value="plans-00">Pläne 2001–2015</option>
+                                <option value="era-90s">1990er Jahre</option>
+                                <option value="era-80s">1980er Jahre</option>
+                                <option value="era-early">1963–1979</option>
+                            </select>
+                        </div>
+                        <div class="strip-select-wrapper">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                            <select id="library-type-select" class="strip-select">
+                                <option value="">Alle Anlässe / Typen</option>
+                                <option value="Riḍván-Botschaft">Riḍván-Botschaften</option>
+                                <option value="Naw-Rúz-Botschaft">Naw-Rúz-Botschaften</option>
+                                <option value="Beraterkonferenz-Botschaft">Beraterkonferenz</option>
+                                <option value="Friedensbotschaft">Friedensbotschaften</option>
+                                <option value="Jugendkonferenz-Botschaft">Jugendkonferenzen</option>
+                                <option value="Botschaft">Allgemeine Botschaften</option>
+                            </select>
+                        </div>
+                        <div class="strip-select-wrapper">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                            <select id="library-lang-select" class="strip-select">
+                                <option value="">Alle Sprachen</option>
+                                <option value="deutsch">Deutsch</option>
+                                <option value="english">English</option>
+                            </select>
+                        </div>
+                        <div class="strip-select-wrapper">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+                            <select id="library-sort-select" class="strip-select">
+                                <option value="date-desc">Neueste zuerst</option>
+                                <option value="date-asc">Älteste zuerst</option>
+                                <option value="title">Titel A–Z</option>
+                            </select>
+                        </div>
+                        <button id="library-reset-filters-btn" class="strip-reset-btn" title="Filter zurücksetzen" style="display: none;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            <span>Filter zurücksetzen</span>
+                        </button>
+                    </div>
 
-                    <!-- Epochen-Schnellauswahl -->
-                    <select id="library-epoch-select" class="apple-select">
-                        <option value="">Alle Epochen / Pläne</option>
-                        <option value="nine-year">Neunjahresplan (2022–2026)</option>
-                        <option value="one-year">Einjahresplan (2021–2022)</option>
-                        <option value="five-year-16">Fünfjahresplan (2016–2021)</option>
-                        <option value="plans-00">Pläne 2001–2015</option>
-                        <option value="era-90s">1990er Jahre</option>
-                        <option value="era-80s">1980er Jahre</option>
-                        <option value="era-early">1963–1979</option>
-                    </select>
-
-                    <!-- Typ-Auswahl -->
-                    <select id="library-type-select" class="apple-select">
-                        <option value="">Alle Anlässe / Typen</option>
-                        <option value="Riḍván-Botschaft">Riḍván-Botschaften</option>
-                        <option value="Naw-Rúz-Botschaft">Naw-Rúz-Botschaften</option>
-                        <option value="Beraterkonferenz-Botschaft">Beraterkonferenz</option>
-                        <option value="Friedensbotschaft">Friedensbotschaften</option>
-                        <option value="Jugendkonferenz-Botschaft">Jugendkonferenzen</option>
-                        <option value="Botschaft">Allgemeine Botschaften</option>
-                    </select>
-
-                    <!-- Sprache -->
-                    <select id="library-lang-select" class="apple-select">
-                        <option value="">Alle Sprachen</option>
-                        <option value="deutsch">Deutsch</option>
-                        <option value="english">English</option>
-                    </select>
-
-                    <!-- Sortierung -->
-                    <select id="library-sort-select" class="apple-select">
-                        <option value="date-desc">Neueste zuerst</option>
-                        <option value="date-asc">Älteste zuerst</option>
-                        <option value="title">Titel A–Z</option>
-                    </select>
+                    <!-- Format-Chips Leiste -->
+                    <div class="control-strip-formats">
+                        <span class="format-strip-label">Verfügbare Formate:</span>
+                        <div class="format-chips-group">
+                            <button class="format-chip-btn active" data-fmt="all">Alle Formate</button>
+                            <button class="format-chip-btn" data-fmt="pdf">📄 PDF</button>
+                            <button class="format-chip-btn" data-fmt="docx">📝 Word (.docx)</button>
+                            <button class="format-chip-btn" data-fmt="epub">📱 E-Book (.epub)</button>
+                            <button class="format-chip-btn" data-fmt="txt">📖 Volltext</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -147,7 +209,10 @@
         <!-- ZEITSTRAHL: Entfaltung des Bahá'í-Glaubens & Globale Lehrpläne -->
         <section id="view-timeline" class="view"></section>
 
-        <!-- 2. BEREICH: THEMATISCHE SAMMLUNGEN & RUHI -->
+        <!-- 2. BEREICH: HEILIGE SCHRIFTEN & BÜCHER -->
+        <section id="view-books" class="view"></section>
+
+        <!-- 3. BEREICH: THEMATISCHE SAMMLUNGEN & RUHI -->
         <section id="view-collections" class="view">
             <div class="collections-container">
                 <div class="view-header">
@@ -196,7 +261,10 @@
             </div>
         </section>
 
-        <!-- 4. BEREICH: VOLLTEXTSUCHE -->
+        <!-- 5. BEREICH: OFFIZIELLE QUELLEN & REPOSITORIEN -->
+        <section id="view-sources" class="view"></section>
+
+        <!-- 6. BEREICH: VOLLTEXTSUCHE -->
         <section id="view-search" class="view">
             <div class="search-container">
                 <div class="search-bar">
@@ -212,6 +280,7 @@
                             <option value="">Alle Bereiche</option>
                             <option value="house">Botschaften des Hauses</option>
                             <option value="institutions">An &amp; über Institutionen</option>
+                            <option value="books">Heilige Schriften &amp; Bücher</option>
                             <option value="compilations">Kompilationen</option>
                             <option value="ruhi">Ruhi-Bücher</option>
                             <option value="study">Studienmaterial</option>
@@ -358,6 +427,8 @@
     <script src="js/search.js"></script>
     <script src="js/compilation_builder.js"></script>
     <script src="js/timeline.js"></script>
+    <script src="js/books.js"></script>
+    <script src="js/sources.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

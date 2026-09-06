@@ -36,6 +36,7 @@ window.state = {
         epoch: '',
         type: '',
         lang: '',
+        format: 'all',
         sort: 'date-desc',
         query: '',
         results: [],
@@ -50,6 +51,7 @@ const APP_PAGE_SIZE = 30;
 // Initialize Application
 async function initApp() {
     setupTheme();
+    setupAccentColor();
     setupNavigation();
     setupKeyboardShortcuts();
     
@@ -108,6 +110,112 @@ function setupTheme() {
     });
 }
 
+// Accent Color Customizer (Farbrad & Paletten)
+function setupAccentColor() {
+    const defaultColor = '#C5A059';
+    const savedColor = safeGetStorage('cosmos_accent_color', defaultColor);
+
+    function applyAccentColor(hex) {
+        if (!hex || !hex.startsWith('#') || (hex.length !== 7 && hex.length !== 4)) return;
+        
+        let fullHex = hex;
+        if (hex.length === 4) {
+            fullHex = '#' + hex[1] + hex[1] + hex[2] + hex[2] + hex[3] + hex[3];
+        }
+
+        const r = parseInt(fullHex.slice(1, 3), 16) || 197;
+        const g = parseInt(fullHex.slice(3, 5), 16) || 160;
+        const b = parseInt(fullHex.slice(5, 7), 16) || 89;
+
+        const rH = Math.max(0, Math.min(255, Math.round(r * 1.12)));
+        const gH = Math.max(0, Math.min(255, Math.round(g * 1.12)));
+        const bH = Math.max(0, Math.min(255, Math.round(b * 1.12)));
+        const hexHover = `rgb(${rH}, ${gH}, ${bH})`;
+
+        document.documentElement.style.setProperty('--accent-gold', fullHex);
+        document.documentElement.style.setProperty('--accent-gold-hover', hexHover);
+        document.documentElement.style.setProperty('--accent-gold-soft', `rgba(${r}, ${g}, ${b}, 0.14)`);
+        document.documentElement.style.setProperty('--accent-gold-glow', `rgba(${r}, ${g}, ${b}, 0.28)`);
+        document.documentElement.style.setProperty('--border-focus', `rgba(${r}, ${g}, ${b}, 0.55)`);
+
+        safeSetStorage('cosmos_accent_color', fullHex);
+
+        const wheelInput = document.getElementById('accent-color-input');
+        const hexInput = document.getElementById('accent-hex-input');
+        if (wheelInput && wheelInput.value !== fullHex) wheelInput.value = fullHex;
+        if (hexInput && hexInput.value.toLowerCase() !== fullHex.toLowerCase()) hexInput.value = fullHex.toUpperCase();
+
+        document.querySelectorAll('.accent-swatch').forEach(sw => {
+            if ((sw.dataset.color || '').toLowerCase() === fullHex.toLowerCase()) {
+                sw.classList.add('active');
+            } else {
+                sw.classList.remove('active');
+            }
+        });
+    }
+
+    // Apply initially
+    applyAccentColor(savedColor);
+
+    const toggleBtn = document.getElementById('accent-customizer-btn');
+    const popover = document.getElementById('accent-popover');
+    const colorInput = document.getElementById('accent-color-input');
+    const hexInput = document.getElementById('accent-hex-input');
+    const resetBtn = document.getElementById('accent-reset-btn');
+    const swatches = document.querySelectorAll('.accent-swatch');
+
+    if (toggleBtn && popover) {
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = popover.classList.contains('active') || !popover.hidden;
+            if (isOpen) {
+                popover.classList.remove('active');
+                popover.hidden = true;
+            } else {
+                popover.hidden = false;
+                popover.classList.add('active');
+            }
+        });
+
+        // Close on outside click
+        document.addEventListener('click', (e) => {
+            if (!popover.hidden && !popover.contains(e.target) && !toggleBtn.contains(e.target)) {
+                popover.classList.remove('active');
+                popover.hidden = true;
+            }
+        });
+    }
+
+    if (colorInput) {
+        colorInput.addEventListener('input', (e) => {
+            applyAccentColor(e.target.value);
+        });
+    }
+
+    if (hexInput) {
+        hexInput.addEventListener('input', (e) => {
+            let val = e.target.value.trim();
+            if (!val.startsWith('#')) val = '#' + val;
+            if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+                applyAccentColor(val);
+            }
+        });
+    }
+
+    swatches.forEach(sw => {
+        sw.addEventListener('click', () => {
+            const color = sw.dataset.color;
+            if (color) applyAccentColor(color);
+        });
+    });
+
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            applyAccentColor(defaultColor);
+        });
+    }
+}
+
 // Navigation & View Switching
 window.switchView = function(targetView) {
     const navBtns = document.querySelectorAll('.nav-btn');
@@ -144,6 +252,10 @@ window.switchView = function(targetView) {
         renderSavedView();
     } else if (targetView === 'timeline' && window.TimelineModule) {
         window.TimelineModule.init();
+    } else if (targetView === 'books' && window.BooksModule) {
+        window.BooksModule.init();
+    } else if (targetView === 'sources' && window.SourcesModule) {
+        window.SourcesModule.init();
     }
 };
 
@@ -235,6 +347,45 @@ function initLibraryView() {
         });
     }
 
+    // Format Chips Leiste
+    const formatChips = document.querySelectorAll('.format-chip-btn');
+    formatChips.forEach(btn => {
+        btn.addEventListener('click', () => {
+            formatChips.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            state.library.format = btn.dataset.fmt || 'all';
+            applyLibraryFilters();
+        });
+    });
+
+    // Reset Filters Button
+    const resetBtn = document.getElementById('library-reset-filters-btn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            state.library.recipient = 'all';
+            state.library.epoch = '';
+            state.library.type = '';
+            state.library.lang = '';
+            state.library.format = 'all';
+            state.library.query = '';
+            state.library.sort = 'date-desc';
+
+            if (recipSelect) recipSelect.value = 'all';
+            if (epochSelect) epochSelect.value = '';
+            if (typeSelect) typeSelect.value = '';
+            if (langSelect) langSelect.value = '';
+            if (sortSelect) sortSelect.value = 'date-desc';
+            if (searchInput) searchInput.value = '';
+            
+            formatChips.forEach(b => {
+                if (b.dataset.fmt === 'all') b.classList.add('active');
+                else b.classList.remove('active');
+            });
+
+            applyLibraryFilters();
+        });
+    }
+
     // Search Input
     const searchInput = document.getElementById('library-search-input');
     if (searchInput) {
@@ -259,7 +410,7 @@ function initLibraryView() {
 
 function applyLibraryFilters() {
     let list = state.documents.filter(d => d.tier === 'house' || d.tier === 'institutions');
-    const { recipient, epoch, type, lang, sort, query } = state.library;
+    const { recipient, epoch, type, lang, format, sort, query } = state.library;
 
     // 1. Empfänger-Filter
     if (recipient && recipient !== 'all') {
@@ -303,7 +454,26 @@ function applyLibraryFilters() {
         list = list.filter(d => (d.language || '').toLowerCase() === lang.toLowerCase());
     }
 
-    // 5. Text-Suche
+    // 5. Format-Filter
+    if (format && format !== 'all') {
+        const targetFmt = format.toLowerCase();
+        list = list.filter(d => {
+            if (Array.isArray(d.availableFormats) && d.availableFormats.includes(targetFmt)) {
+                return true;
+            }
+            if (d.formatFiles && d.formatFiles[targetFmt]) {
+                return true;
+            }
+            if (d.format) {
+                const f = d.format.toLowerCase();
+                if (targetFmt === 'docx' && (f === 'docx' || f === 'doc')) return true;
+                return f === targetFmt;
+            }
+            return false;
+        });
+    }
+
+    // 6. Text-Suche
     if (query) {
         list = list.filter(d => {
             const title = (d.title || '').toLowerCase();
@@ -314,13 +484,20 @@ function applyLibraryFilters() {
         });
     }
 
-    // 6. Sortierung
+    // 7. Sortierung
     if (sort === 'date-desc') {
         list.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
     } else if (sort === 'date-asc') {
         list.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
     } else if (sort === 'title') {
         list.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'de'));
+    }
+
+    // Toggle Reset-Button
+    const isFiltered = (recipient && recipient !== 'all') || Boolean(epoch) || Boolean(type) || Boolean(lang) || (format && format !== 'all') || Boolean(query);
+    const resetBtnEl = document.getElementById('library-reset-filters-btn');
+    if (resetBtnEl) {
+        resetBtnEl.style.display = isFiltered ? 'inline-flex' : 'none';
     }
 
     state.library.results = list;
@@ -770,6 +947,33 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
     const staggerIndex = typeof index === 'number' ? (index % 30) : 0;
     const previewText = snippet ? `…${snippet}…` : (doc.excerpt ? `${escapeDocHtml(doc.excerpt)}…` : '');
 
+    // Multi-format buttons & original source link
+    const fmts = doc.availableFormats || (doc.format ? [doc.format.toLowerCase()] : []);
+    const formatFiles = doc.formatFiles || {};
+    
+    let formatPills = '';
+    ['pdf', 'docx', 'epub', 'txt'].forEach(fmt => {
+        if (fmts.includes(fmt) || formatFiles[fmt]) {
+            const filePath = formatFiles[fmt] || (doc.format === fmt ? doc.filePath : '');
+            if (filePath) {
+                formatPills += `<a href="${encodeURI(filePath)}" download class="format-pill-btn" onclick="event.stopPropagation()" title="Als ${fmt.toUpperCase()} herunterladen">${fmt.toUpperCase()}</a>`;
+            }
+        }
+    });
+
+    if (!formatPills && formatBadge) {
+        formatPills = `<span class="format-chip">${formatBadge}</span>`;
+    }
+
+    let sourceLink = '';
+    if (doc.sourceUrl) {
+        sourceLink = `
+            <a href="${escapeDocHtml(doc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="source-link-icon-btn" onclick="event.stopPropagation()" title="Originalquelle im Web öffnen (${escapeDocHtml(doc.source || 'Offizielle Quelle')})">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+        `;
+    }
+
     return `
         <div class="doc-card" style="--i: ${staggerIndex};" onclick="window.openDocument('${doc.id}')">
             <div>
@@ -786,10 +990,13 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
             </div>
             <div class="doc-footer">
                 <div class="doc-tags">
-                    ${(doc.topics || []).slice(0, 3).map(t => `<span class="tag">${t}</span>`).join('')}
-                    ${(doc.topics || []).length > 3 ? `<span class="tag">+${doc.topics.length - 3}</span>` : ''}
+                    ${(doc.topics || []).slice(0, 2).map(t => `<span class="tag">${escapeDocHtml(t)}</span>`).join('')}
+                    ${(doc.topics || []).length > 2 ? `<span class="tag">+${doc.topics.length - 2}</span>` : ''}
                 </div>
-                <span class="format-chip">${formatBadge}</span>
+                <div class="doc-actions-cluster">
+                    ${formatPills}
+                    ${sourceLink}
+                </div>
             </div>
         </div>
     `;
