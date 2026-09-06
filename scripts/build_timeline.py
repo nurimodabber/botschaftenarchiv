@@ -1,4 +1,12 @@
-/**
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+build_timeline.py
+Generiert die JavaScript-Datei js/timeline.js für das Botschaften-Archiv.
+100% akkurate, interaktive Umsetzung des Referenzdiagramms "Unfoldment of the Bahá'í Faith".
+"""
+
+timeline_code = r'''/**
  * timeline.js
  * 100% akkurate, interaktive Vektordarstellung des Referenzdiagramms
  * "Unfoldment of the Bahá'í Faith" (Die Entfaltung des Bahá'í-Glaubens).
@@ -1193,3 +1201,9 @@ window.TimelineModule = (function() {
         filterDocs: filterDocs
     };
 })();
+'''
+
+with open('js/timeline.js', 'w', encoding='utf-8') as f:
+    f.write(timeline_code)
+
+print("Generated js/timeline.js successfully!")
