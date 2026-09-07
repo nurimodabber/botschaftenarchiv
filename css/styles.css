@@ -3387,50 +3387,236 @@ body {
     color: var(--accent-gold);
 }
 
-/* B. Die Vier Hauptsäulen (Pillar Cards Grid) */
+/* ════════════════════════════════════════════════════════════════════════════
+   THEMATISCHE ADAPTION JE SÄULE (Dynamic Realm Styling)
+   Wenn eine Option gewählt wird, passt sich die gesamte Seite dem Realm an!
+   ════════════════════════════════════════════════════════════════════════════ */
+
+:root,
+html[data-active-pillar="house"] {
+    --pillar-accent: #7A1E3A;
+    --pillar-accent-glow: rgba(122, 30, 58, 0.16);
+    --pillar-accent-soft: rgba(122, 30, 58, 0.05);
+    --pillar-accent-border: rgba(122, 30, 58, 0.32);
+    --pillar-badge-bg: #7A1E3A;
+    --pillar-badge-text: #FFFFFF;
+}
+[data-theme="dark"],
+[data-theme="dark"][data-active-pillar="house"] {
+    --pillar-accent: #E05A7A;
+    --pillar-accent-glow: rgba(224, 90, 122, 0.20);
+    --pillar-accent-soft: rgba(122, 30, 58, 0.22);
+    --pillar-accent-border: rgba(224, 90, 122, 0.45);
+    --pillar-badge-bg: #C5A059;
+    --pillar-badge-text: #121417;
+}
+
+/* Säule 2: Compilations des Hauses (Deep Emerald) */
+html[data-active-pillar="compilations"] {
+    --pillar-accent: #1E5E4B;
+    --pillar-accent-glow: rgba(30, 94, 75, 0.16);
+    --pillar-accent-soft: rgba(30, 94, 75, 0.05);
+    --pillar-accent-border: rgba(30, 94, 75, 0.32);
+    --pillar-badge-bg: #1E5E4B;
+    --pillar-badge-text: #FFFFFF;
+}
+[data-theme="dark"][data-active-pillar="compilations"] {
+    --pillar-accent: #34D399;
+    --pillar-accent-glow: rgba(52, 211, 153, 0.20);
+    --pillar-accent-soft: rgba(30, 94, 75, 0.22);
+    --pillar-accent-border: rgba(52, 211, 153, 0.45);
+    --pillar-badge-bg: #4CAF50;
+    --pillar-badge-text: #121417;
+}
+
+/* Säule 3: Heilige Schriften & Bücher (Lapislazuli) */
+html[data-active-pillar="books"] {
+    --pillar-accent: #1A365D;
+    --pillar-accent-glow: rgba(26, 54, 93, 0.16);
+    --pillar-accent-soft: rgba(26, 54, 93, 0.05);
+    --pillar-accent-border: rgba(26, 54, 93, 0.32);
+    --pillar-badge-bg: #1A365D;
+    --pillar-badge-text: #FFFFFF;
+}
+[data-theme="dark"][data-active-pillar="books"] {
+    --pillar-accent: #60A5FA;
+    --pillar-accent-glow: rgba(96, 165, 250, 0.20);
+    --pillar-accent-soft: rgba(26, 54, 93, 0.22);
+    --pillar-accent-border: rgba(96, 165, 250, 0.45);
+    --pillar-badge-bg: #63B3ED;
+    --pillar-badge-text: #121417;
+}
+
+/* Säule 4: Ruhi-Bücher (Terracotta) */
+html[data-active-pillar="ruhi"] {
+    --pillar-accent: #9C4221;
+    --pillar-accent-glow: rgba(156, 66, 33, 0.16);
+    --pillar-accent-soft: rgba(156, 66, 33, 0.05);
+    --pillar-accent-border: rgba(156, 66, 33, 0.32);
+    --pillar-badge-bg: #9C4221;
+    --pillar-badge-text: #FFFFFF;
+}
+[data-theme="dark"][data-active-pillar="ruhi"] {
+    --pillar-accent: #FB923C;
+    --pillar-accent-glow: rgba(251, 146, 60, 0.20);
+    --pillar-accent-soft: rgba(156, 66, 33, 0.22);
+    --pillar-accent-border: rgba(251, 146, 60, 0.45);
+    --pillar-badge-bg: #ED8936;
+    --pillar-badge-text: #121417;
+}
+
+/* All / Fallback */
+html[data-active-pillar="all"] {
+    --pillar-accent: #C5A059;
+    --pillar-accent-glow: rgba(197, 160, 89, 0.16);
+    --pillar-accent-soft: rgba(197, 160, 89, 0.05);
+    --pillar-accent-border: rgba(197, 160, 89, 0.32);
+    --pillar-badge-bg: #C5A059;
+    --pillar-badge-text: #121417;
+}
+
+/* Ambient Top Glow & Aura */
+.library-command-surface {
+    position: relative;
+    transition: all 0.35s ease;
+}
+
+.library-command-surface::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 115%;
+    max-width: 1240px;
+    height: 380px;
+    background: radial-gradient(ellipse 70% 55% at 50% 18%, var(--pillar-accent-glow), transparent 72%);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.95;
+    transition: background 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+}
+
+/* Aktiver Bereich Banner */
+.library-realm-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.85rem;
+    position: relative;
+    z-index: 1;
+}
+
+.realm-lead-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.38rem 0.95rem;
+    border-radius: var(--radius-full);
+    background: var(--pillar-accent-soft);
+    border: 1px solid var(--pillar-accent-border);
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    box-shadow: 0 2px 10px var(--pillar-accent-glow);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.realm-lead-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--pillar-accent);
+    box-shadow: 0 0 8px var(--pillar-accent);
+    flex-shrink: 0;
+    transition: background 0.35s ease;
+}
+
+.realm-lead-title {
+    font-weight: 700;
+    color: var(--text-ink);
+    letter-spacing: -0.01em;
+}
+
+.realm-lead-sep {
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+.realm-lead-subtitle {
+    color: var(--text-muted);
+    font-size: 0.74rem;
+}
+
+/* Master Search Bar Adaption */
+.master-search-row {
+    position: relative;
+    z-index: 1;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.master-search-row input:focus {
+    border-color: var(--pillar-accent);
+    box-shadow: 0 0 0 3px var(--pillar-accent-soft), 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.master-search-row .command-search-icon {
+    color: var(--pillar-accent);
+    transition: color 0.3s ease;
+}
+
+/* B. Die Vier Hauptsäulen (Sliding, Expanding & Fluid Stage) */
 .pillar-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.75rem;
+    display: flex;
+    align-items: stretch;
+    gap: 0.65rem;
     width: 100%;
+    position: relative;
+    z-index: 1;
+    padding: 2px 2px 4px 2px;
 }
 
 .pillar-card {
     position: relative;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.85rem 0.95rem;
+    justify-content: space-between;
+    gap: 0.65rem;
+    padding: 0.75rem 1rem;
     background: var(--bg-paper);
     border: 1px solid var(--border-hairline);
     border-radius: var(--radius-md);
     cursor: pointer;
     text-align: left;
-    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     outline: none;
     overflow: hidden;
+    user-select: none;
+    white-space: nowrap;
+
+    /* Inactive State: Sleek, compact companion pill that smoothly slides */
+    flex: 1 1 0;
+    min-width: 105px;
+    opacity: 0.75;
+    transform: translateY(0);
+    transition: 
+        flex 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        min-width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.3s ease;
 }
 
 [data-theme="dark"] .pillar-card {
-    background: rgba(28, 32, 39, 0.85);
+    background: rgba(26, 30, 37, 0.85);
     border-color: rgba(255, 255, 255, 0.07);
 }
 
-.pillar-card:hover {
+.pillar-card:not(.active):hover {
+    opacity: 1;
     transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
     border-color: var(--text-subtle);
-}
-
-.pillar-card-icon-wrap {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: all 0.2s ease;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
 
 .pillar-card-content {
@@ -3438,28 +3624,114 @@ body {
     flex-direction: column;
     min-width: 0;
     flex: 1;
+    overflow: hidden;
+}
+
+.pillar-card-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-width: 0;
 }
 
 .pillar-card-title {
     font-family: var(--font-sans);
-    font-size: 0.86rem;
-    font-weight: 600;
-    color: var(--text-ink);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.25;
-}
-
-.pillar-card-sub {
-    font-family: var(--font-sans);
-    font-size: 0.70rem;
+    font-size: 0.82rem;
+    font-weight: 500;
     color: var(--text-muted);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 1.25;
-    margin-top: 0.12rem;
+    transition: color 0.2s ease, font-size 0.2s ease, font-weight 0.2s ease;
+}
+
+/* Inactive cards: Subtitle gracefully collapsed so it is a tidy single-line pill */
+.pillar-card:not(.active) .pillar-card-sub {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transition: max-height 0.25s ease, opacity 0.2s ease, margin-top 0.25s ease;
+}
+
+.pillar-card:not(.active) .pillar-active-chip {
+    display: none;
+}
+
+/* Active State: The dominant central focus card */
+.pillar-card.active {
+    flex: 3.2 1 0;
+    min-width: 260px;
+    opacity: 1;
+    transform: translateY(-2px);
+    cursor: default;
+    background: var(--bg-paper);
+    border-color: var(--pillar-accent);
+    box-shadow: 0 6px 20px var(--pillar-accent-glow), 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .pillar-card.active {
+    background: rgba(28, 32, 40, 0.95);
+    border-color: var(--pillar-accent);
+    box-shadow: 0 6px 22px var(--pillar-accent-glow);
+}
+
+/* Active indicator accent on the left */
+.pillar-card.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--pillar-accent);
+    border-top-left-radius: var(--radius-md);
+    border-bottom-left-radius: var(--radius-md);
+    transition: background 0.3s ease;
+}
+
+.pillar-card.active .pillar-card-title {
+    font-size: 0.94rem;
+    font-weight: 700;
+    color: var(--text-ink);
+}
+
+.pillar-card.active .pillar-card-sub {
+    max-height: 24px;
+    opacity: 1;
+    margin-top: 0.18rem;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.25;
+    transition: max-height 0.3s ease, opacity 0.25s ease, margin-top 0.3s ease;
+}
+
+.pillar-active-chip {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.60rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.1rem 0.4rem;
+    border-radius: var(--radius-full);
+    background: var(--pillar-accent-soft);
+    color: var(--pillar-accent);
+    border: 1px solid var(--pillar-accent-border);
+    flex-shrink: 0;
+    animation: fadeInScale 0.25s ease;
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 .pillar-badge {
@@ -3471,132 +3743,14 @@ body {
     background: var(--bg-subtle);
     color: var(--text-subtle);
     flex-shrink: 0;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
 }
 
-/* Farbdifferenzierung der 4 Säulen */
-/* Säule 1: Botschaften des Hauses (Royal Burgundy / Gold) */
-.pillar-card[data-pillar="house"] .pillar-card-icon-wrap {
-    background: rgba(122, 30, 58, 0.09);
-    color: #7A1E3A;
-}
-[data-theme="dark"] .pillar-card[data-pillar="house"] .pillar-card-icon-wrap {
-    background: rgba(197, 160, 89, 0.15);
-    color: #C5A059;
-}
-.pillar-card[data-pillar="house"]:hover {
-    border-color: rgba(122, 30, 58, 0.4);
-}
-.pillar-card[data-pillar="house"].active {
-    background: rgba(122, 30, 58, 0.04);
-    border-color: #7A1E3A;
-    box-shadow: 0 4px 18px rgba(122, 30, 58, 0.14);
-}
-[data-theme="dark"] .pillar-card[data-pillar="house"].active {
-    background: rgba(122, 30, 58, 0.2);
-    border-color: #C5A059;
-    box-shadow: 0 4px 20px rgba(197, 160, 89, 0.18);
-}
-.pillar-card[data-pillar="house"].active .pillar-badge {
-    background: #7A1E3A;
-    color: #FFFFFF;
-}
-[data-theme="dark"] .pillar-card[data-pillar="house"].active .pillar-badge {
-    background: #C5A059;
-    color: #121417;
-}
-
-/* Säule 2: Compilations des Hauses (Deep Emerald / Bronze) */
-.pillar-card[data-pillar="compilations"] .pillar-card-icon-wrap {
-    background: rgba(30, 94, 75, 0.09);
-    color: #1E5E4B;
-}
-[data-theme="dark"] .pillar-card[data-pillar="compilations"] .pillar-card-icon-wrap {
-    background: rgba(46, 125, 50, 0.18);
-    color: #4CAF50;
-}
-.pillar-card[data-pillar="compilations"]:hover {
-    border-color: rgba(30, 94, 75, 0.4);
-}
-.pillar-card[data-pillar="compilations"].active {
-    background: rgba(30, 94, 75, 0.04);
-    border-color: #1E5E4B;
-    box-shadow: 0 4px 18px rgba(30, 94, 75, 0.14);
-}
-[data-theme="dark"] .pillar-card[data-pillar="compilations"].active {
-    background: rgba(30, 94, 75, 0.2);
-    border-color: #4CAF50;
-    box-shadow: 0 4px 20px rgba(76, 175, 80, 0.18);
-}
-.pillar-card[data-pillar="compilations"].active .pillar-badge {
-    background: #1E5E4B;
-    color: #FFFFFF;
-}
-[data-theme="dark"] .pillar-card[data-pillar="compilations"].active .pillar-badge {
-    background: #4CAF50;
-    color: #121417;
-}
-
-/* Säule 3: Heilige Schriften & Bücher (Lapislazuli / Azure) */
-.pillar-card[data-pillar="books"] .pillar-card-icon-wrap {
-    background: rgba(26, 54, 93, 0.09);
-    color: #1A365D;
-}
-[data-theme="dark"] .pillar-card[data-pillar="books"] .pillar-card-icon-wrap {
-    background: rgba(49, 130, 206, 0.18);
-    color: #63B3ED;
-}
-.pillar-card[data-pillar="books"]:hover {
-    border-color: rgba(26, 54, 93, 0.4);
-}
-.pillar-card[data-pillar="books"].active {
-    background: rgba(26, 54, 93, 0.04);
-    border-color: #1A365D;
-    box-shadow: 0 4px 18px rgba(26, 54, 93, 0.14);
-}
-[data-theme="dark"] .pillar-card[data-pillar="books"].active {
-    background: rgba(26, 54, 93, 0.2);
-    border-color: #63B3ED;
-    box-shadow: 0 4px 20px rgba(99, 179, 237, 0.18);
-}
-.pillar-card[data-pillar="books"].active .pillar-badge {
-    background: #1A365D;
-    color: #FFFFFF;
-}
-[data-theme="dark"] .pillar-card[data-pillar="books"].active .pillar-badge {
-    background: #63B3ED;
-    color: #121417;
-}
-
-/* Säule 4: Ruhi-Bücher (Terracotta / Amber) */
-.pillar-card[data-pillar="ruhi"] .pillar-card-icon-wrap {
-    background: rgba(156, 66, 33, 0.09);
-    color: #9C4221;
-}
-[data-theme="dark"] .pillar-card[data-pillar="ruhi"] .pillar-card-icon-wrap {
-    background: rgba(221, 107, 32, 0.18);
-    color: #ED8936;
-}
-.pillar-card[data-pillar="ruhi"]:hover {
-    border-color: rgba(156, 66, 33, 0.4);
-}
-.pillar-card[data-pillar="ruhi"].active {
-    background: rgba(156, 66, 33, 0.04);
-    border-color: #9C4221;
-    box-shadow: 0 4px 18px rgba(156, 66, 33, 0.14);
-}
-[data-theme="dark"] .pillar-card[data-pillar="ruhi"].active {
-    background: rgba(156, 66, 33, 0.2);
-    border-color: #ED8936;
-    box-shadow: 0 4px 20px rgba(237, 137, 54, 0.18);
-}
-.pillar-card[data-pillar="ruhi"].active .pillar-badge {
-    background: #9C4221;
-    color: #FFFFFF;
-}
-[data-theme="dark"] .pillar-card[data-pillar="ruhi"].active .pillar-badge {
-    background: #ED8936;
-    color: #121417;
+.pillar-card.active .pillar-badge {
+    background: var(--pillar-badge-bg);
+    color: var(--pillar-badge-text);
+    font-weight: 700;
+    box-shadow: 0 2px 6px var(--pillar-accent-glow);
 }
 
 /* C. Säulen-Ecosystem: Subfilter, Original-Quellen & Fach-Werkzeuge */
@@ -3858,15 +4012,38 @@ body {
     color: #FFFFFF;
 }
 
-@media (max-width: 920px) {
+@media (max-width: 900px) {
     .pillar-cards-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 8px;
+        scrollbar-width: thin;
+    }
+    .pillar-card {
+        flex: 0 0 auto;
+        min-width: 140px;
+        scroll-snap-align: start;
+    }
+    .pillar-card.active {
+        flex: 0 0 auto;
+        min-width: 270px;
+        scroll-snap-align: center;
+    }
+    .realm-lead-subtitle {
+        display: none;
+    }
+    .realm-lead-sep {
+        display: none;
     }
 }
 
 @media (max-width: 540px) {
-    .pillar-cards-grid {
-        grid-template-columns: 1fr;
+    .pillar-card {
+        min-width: 120px;
+    }
+    .pillar-card.active {
+        min-width: 230px;
     }
     .ecosystem-top-row {
         flex-direction: column;

@@ -440,11 +440,13 @@ function setupAppearance() {
 }
 
 // Navigation & View Switching
-// Navigation & View Switching
 window.switchLibrarySegment = function(segment) {
     if (!state.library) return;
     state.library.segment = segment;
     
+    // 0. Thema der gesamten Seite dem aktiven Realm anpassen
+    document.documentElement.setAttribute('data-active-pillar', segment);
+
     // 1. Die vier Hauptsäulen (Pillar Cards) aktualisieren
     const pillarCards = document.querySelectorAll('#pillar-cards-grid .pillar-card');
     pillarCards.forEach(card => {
@@ -453,13 +455,59 @@ window.switchLibrarySegment = function(segment) {
         card.setAttribute('aria-selected', isActive ? 'true' : 'false');
     });
 
-    // 2. Button "Gesamtes Archiv" aktualisieren
+    // Aktive Karte sanft ins Blickfeld gleiten lassen
+    const activeCard = document.querySelector(`#pillar-cards-grid .pillar-card[data-pillar="${segment}"]`);
+    if (activeCard && typeof activeCard.scrollIntoView === 'function') {
+        try {
+            activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        } catch (e) {}
+    }
+
+    // 2. Dynamisches Realm-Banner oben aktualisieren
+    const realmTitle = document.getElementById('realm-lead-title');
+    const realmSub = document.getElementById('realm-lead-subtitle');
+    if (realmTitle && realmSub) {
+        if (segment === 'house') {
+            realmTitle.textContent = 'Botschaften des Hauses';
+            realmSub.textContent = '1.542 Botschaften des Universalen Hauses der Gerechtigkeit (1963–2026)';
+        } else if (segment === 'compilations') {
+            realmTitle.textContent = 'Compilations des Hauses';
+            realmSub.textContent = '115 autorisierte thematische Sammlungen der Forschungsabteilung';
+        } else if (segment === 'books') {
+            realmTitle.textContent = 'Heilige Schriften & Bücher';
+            realmSub.textContent = '108 autorisierte Schriften der Zentralen Gestalten & Shoghi Effendis';
+        } else if (segment === 'ruhi') {
+            realmTitle.textContent = 'Ruhi-Bücher';
+            realmSub.textContent = '31 Bände der Hauptkursfolge 1–12, Vorjugendreihe & Zweigkurse';
+        } else {
+            realmTitle.textContent = 'Gesamtes Archiv';
+            realmSub.textContent = '1.972 Dokumente, Schriften, Bücher und thematische Sammlungen';
+        }
+    }
+
+    // 3. Platzhalter der Master-Suchleiste an den aktiven Bereich anpassen
+    const searchInput = document.getElementById('library-search-input');
+    if (searchInput) {
+        if (segment === 'house') {
+            searchInput.placeholder = 'In 1.542 Botschaften des Hauses (1963–2026) suchen...';
+        } else if (segment === 'compilations') {
+            searchInput.placeholder = 'In 115 thematischen Compilations & Sammlungen suchen...';
+        } else if (segment === 'books') {
+            searchInput.placeholder = 'In Heiligen Schriften & Standardwerken suchen...';
+        } else if (segment === 'ruhi') {
+            searchInput.placeholder = 'In Ruhi-Büchern 1–12 & Kursmaterialien suchen...';
+        } else {
+            searchInput.placeholder = 'In allen 1.972 Dokumenten, Schriften, Büchern & Volltexten suchen...';
+        }
+    }
+
+    // 4. Button "Gesamtes Archiv" aktualisieren
     const pillarAllBtn = document.getElementById('pillar-all-btn');
     if (pillarAllBtn) {
         pillarAllBtn.classList.toggle('active', segment === 'all');
     }
 
-    // 3. Kontextuelle Schnellfilter-Chips
+    // 5. Kontextuelle Schnellfilter-Chips
     const quickChips = document.getElementById('library-quick-chips');
     const authorChips = document.getElementById('library-author-chips');
     const compChips = document.getElementById('library-comp-chips');
@@ -470,12 +518,12 @@ window.switchLibrarySegment = function(segment) {
     if (compChips) compChips.style.display = (segment === 'compilations') ? 'flex' : 'none';
     if (ruhiChips) ruhiChips.style.display = (segment === 'ruhi') ? 'flex' : 'none';
 
-    // 4. Kontextuelle Ressourcen & verlinkte Originalquellen aktualisieren
+    // 6. Kontextuelle Ressourcen & verlinkte Originalquellen aktualisieren
     if (typeof updatePillarEcosystem === 'function') {
         updatePillarEcosystem(segment);
     }
 
-    // 5. Filter anwenden & Ergebnisse rendern
+    // 7. Filter anwenden & Ergebnisse rendern
     if (typeof applyLibraryFilters === 'function') {
         applyLibraryFilters();
     }
@@ -906,8 +954,7 @@ function initLibraryView() {
     }
 
     updateLibrarySegmentBadges();
-    updatePillarEcosystem(state.library.segment || 'house');
-    applyLibraryFilters();
+    window.switchLibrarySegment(state.library.segment || 'house');
 }
 
 function updateLibrarySegmentBadges() {

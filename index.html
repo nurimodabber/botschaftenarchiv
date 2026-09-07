@@ -204,12 +204,22 @@
                 <!-- DIE UNIFIED COMMAND & MASTER-SEARCH SURFACE -->
                 <div class="library-command-surface">
                     
+                    <!-- Aktiver Bereich Banner -->
+                    <div class="library-realm-header" id="library-realm-header">
+                        <div class="realm-lead-badge">
+                            <span class="realm-lead-dot"></span>
+                            <span class="realm-lead-title" id="realm-lead-title">Botschaften des Hauses</span>
+                            <span class="realm-lead-sep">•</span>
+                            <span class="realm-lead-subtitle" id="realm-lead-subtitle">1.542 Botschaften des Universalen Hauses der Gerechtigkeit (1963–2026)</span>
+                        </div>
+                    </div>
+
                     <!-- 1. Master-Suchleiste (Apex: Omnisearch über alle Werke mit ⌘K & Clear) -->
                     <div class="command-search-row master-search-row">
                         <svg class="command-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
                         </svg>
-                        <input type="text" id="library-search-input" placeholder="In allen 1.972 Dokumenten, Schriften, Büchern &amp; Volltexten suchen..." autocomplete="off">
+                        <input type="text" id="library-search-input" placeholder="In allen 1.542 Botschaften des Hauses (1963–2026) suchen..." autocomplete="off">
                         <div class="command-search-actions">
                             <button id="library-search-clear" class="search-clear-btn" title="Suche leeren" style="display: none;">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -222,13 +232,11 @@
                     <div class="pillar-cards-grid" id="pillar-cards-grid" role="tablist" aria-label="Vier Hauptbereiche">
                         <!-- Säule 1: Botschaften des Hauses -->
                         <button class="pillar-card active" data-pillar="house" role="tab" aria-selected="true" title="Botschaften des Universalen Hauses der Gerechtigkeit (1963–2026)">
-                            <div class="pillar-card-icon-wrap pillar-icon-house">
-                                <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                    <path d="M50.00,4.00L58.21,27.45L79.57,14.76L70.78,38.00L95.30,42.01L73.64,54.17L89.84,73.00L65.43,68.39L65.73,93.23L50.00,74.00L34.27,93.23L34.57,68.39L10.16,73.00L26.36,54.17L4.70,42.01L29.22,38.00L20.43,14.76L41.79,27.45Z" fill="currentColor"/>
-                                </svg>
-                            </div>
                             <div class="pillar-card-content">
-                                <span class="pillar-card-title">Botschaften des Hauses</span>
+                                <div class="pillar-card-title-row">
+                                    <span class="pillar-card-title">Botschaften des Hauses</span>
+                                    <span class="pillar-active-chip">Aktiv</span>
+                                </div>
                                 <span class="pillar-card-sub">Universales Haus der Gerechtigkeit</span>
                             </div>
                             <span class="pillar-badge pillar-badge-house">1.542</span>
@@ -236,15 +244,11 @@
 
                         <!-- Säule 2: Compilations des Hauses -->
                         <button class="pillar-card" data-pillar="compilations" role="tab" aria-selected="false" title="Thematische Sammlungen der Forschungsabteilung und des Hauses">
-                            <div class="pillar-card-icon-wrap pillar-icon-compilations">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
-                                    <polyline points="2 17 12 22 22 17"/>
-                                    <polyline points="2 12 12 17 22 12"/>
-                                </svg>
-                            </div>
                             <div class="pillar-card-content">
-                                <span class="pillar-card-title">Compilations des Hauses</span>
+                                <div class="pillar-card-title-row">
+                                    <span class="pillar-card-title">Compilations des Hauses</span>
+                                    <span class="pillar-active-chip">Aktiv</span>
+                                </div>
                                 <span class="pillar-card-sub">Thematische Textsammlungen</span>
                             </div>
                             <span class="pillar-badge pillar-badge-compilations">115</span>
@@ -252,15 +256,11 @@
 
                         <!-- Säule 3: Heilige Schriften und Bücher -->
                         <button class="pillar-card" data-pillar="books" role="tab" aria-selected="false" title="Autorisierte Heilige Schriften und Standardwerke der Zentralen Gestalten &amp; Shoghi Effendis">
-                            <div class="pillar-card-icon-wrap pillar-icon-books">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
-                                    <path d="M6 6h10"/>
-                                    <path d="M6 10h10"/>
-                                </svg>
-                            </div>
                             <div class="pillar-card-content">
-                                <span class="pillar-card-title">Heilige Schriften &amp; Bücher</span>
+                                <div class="pillar-card-title-row">
+                                    <span class="pillar-card-title">Heilige Schriften &amp; Bücher</span>
+                                    <span class="pillar-active-chip">Aktiv</span>
+                                </div>
                                 <span class="pillar-card-sub">Zentrale Gestalten &amp; Shoghi Effendi</span>
                             </div>
                             <span class="pillar-badge pillar-badge-books">108</span>
@@ -268,14 +268,11 @@
 
                         <!-- Säule 4: Ruhi-Bücher -->
                         <button class="pillar-card" data-pillar="ruhi" role="tab" aria-selected="false" title="Ruhi-Institut Studienmaterialien, Hauptkursfolge &amp; Zweigkurse">
-                            <div class="pillar-card-icon-wrap pillar-icon-ruhi">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-                                    <path d="M6 12v5c3 3 9 3 12 0v-5"/>
-                                </svg>
-                            </div>
                             <div class="pillar-card-content">
-                                <span class="pillar-card-title">Ruhi-Bücher</span>
+                                <div class="pillar-card-title-row">
+                                    <span class="pillar-card-title">Ruhi-Bücher</span>
+                                    <span class="pillar-active-chip">Aktiv</span>
+                                </div>
                                 <span class="pillar-card-sub">Institut &amp; Kursmaterialien</span>
                             </div>
                             <span class="pillar-badge pillar-badge-ruhi">31</span>
