@@ -55,8 +55,7 @@ const APP_PAGE_SIZE = 30;
 
 // Initialize Application
 async function initApp() {
-    setupTheme();
-    setupAccentColor();
+    setupAppearance();
     setupNavigation();
     setupKeyboardShortcuts();
     
@@ -116,37 +115,27 @@ async function initApp() {
     } catch (e) { console.warn('DeepLink:', e); }
 }
 
-// Theme Handling
-function setupTheme() {
+// ─── Unified Appearance & Visual Customizations ────────────────────────────
+function setupAppearance() {
     const html = document.documentElement;
-    const btn = document.getElementById('theme-toggle');
-    if (!btn) return;
-    const sun = btn.querySelector('.sun-icon');
-    const moon = btn.querySelector('.moon-icon');
 
-    const updateTheme = (newTheme) => {
-        html.setAttribute('data-theme', newTheme);
-        safeSetStorage('theme', newTheme);
-        state.theme = newTheme;
-        
-        if (newTheme === 'dark') {
-            if (sun) sun.style.display = 'none';
-            if (moon) moon.style.display = 'block';
-        } else {
-            if (sun) sun.style.display = 'block';
-            if (moon) moon.style.display = 'none';
-        }
-    };
+    // 1. Theme Setting (light / sepia / dark)
+    const savedTheme = safeGetStorage('cosmos_theme', safeGetStorage('theme', 'light'));
+    
+    function applyTheme(theme) {
+        const validTheme = (theme === 'dark' || theme === 'sepia') ? theme : 'light';
+        html.setAttribute('data-theme', validTheme);
+        safeSetStorage('cosmos_theme', validTheme);
+        safeSetStorage('theme', validTheme);
+        state.theme = validTheme;
 
-    updateTheme(state.theme);
+        // Update Theme Tab Buttons
+        document.querySelectorAll('#appearance-theme-tabs .theme-tab-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.themeVal === validTheme);
+        });
+    }
 
-    btn.addEventListener('click', () => {
-        updateTheme(state.theme === 'light' ? 'dark' : 'light');
-    });
-}
-
-// Accent Color Customizer (Farbrad & Paletten)
-function setupAccentColor() {
+    // 2. Accent Color Setting
     const defaultColor = '#C5A059';
     const savedColor = safeGetStorage('cosmos_accent_color', defaultColor);
 
@@ -167,11 +156,11 @@ function setupAccentColor() {
         const bH = Math.max(0, Math.min(255, Math.round(b * 1.12)));
         const hexHover = `rgb(${rH}, ${gH}, ${bH})`;
 
-        document.documentElement.style.setProperty('--accent-gold', fullHex);
-        document.documentElement.style.setProperty('--accent-gold-hover', hexHover);
-        document.documentElement.style.setProperty('--accent-gold-soft', `rgba(${r}, ${g}, ${b}, 0.14)`);
-        document.documentElement.style.setProperty('--accent-gold-glow', `rgba(${r}, ${g}, ${b}, 0.28)`);
-        document.documentElement.style.setProperty('--border-focus', `rgba(${r}, ${g}, ${b}, 0.55)`);
+        html.style.setProperty('--accent-gold', fullHex);
+        html.style.setProperty('--accent-gold-hover', hexHover);
+        html.style.setProperty('--accent-gold-soft', `rgba(${r}, ${g}, ${b}, 0.14)`);
+        html.style.setProperty('--accent-gold-glow', `rgba(${r}, ${g}, ${b}, 0.28)`);
+        html.style.setProperty('--border-focus', `rgba(${r}, ${g}, ${b}, 0.55)`);
 
         safeSetStorage('cosmos_accent_color', fullHex);
 
@@ -181,72 +170,158 @@ function setupAccentColor() {
         if (hexInput && hexInput.value.toLowerCase() !== fullHex.toLowerCase()) hexInput.value = fullHex.toUpperCase();
 
         document.querySelectorAll('.accent-swatch').forEach(sw => {
-            if ((sw.dataset.color || '').toLowerCase() === fullHex.toLowerCase()) {
-                sw.classList.add('active');
-            } else {
-                sw.classList.remove('active');
-            }
+            sw.classList.toggle('active', (sw.dataset.color || '').toLowerCase() === fullHex.toLowerCase());
         });
     }
 
-    // Apply initially
-    applyAccentColor(savedColor);
+    // 3. Reader Font Setting (serif / sans / classic)
+    const savedFont = safeGetStorage('cosmos_reader_font', 'serif');
 
-    const toggleBtn = document.getElementById('accent-customizer-btn');
-    const popover = document.getElementById('accent-popover');
-    const colorInput = document.getElementById('accent-color-input');
-    const hexInput = document.getElementById('accent-hex-input');
-    const resetBtn = document.getElementById('accent-reset-btn');
-    const swatches = document.querySelectorAll('.accent-swatch');
+    function applyReaderFont(font) {
+        const validFont = (font === 'sans' || font === 'classic') ? font : 'serif';
+        html.setAttribute('data-reader-font', validFont);
+        safeSetStorage('cosmos_reader_font', validFont);
+
+        document.querySelectorAll('#appearance-font-group .appearance-opt-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.fontVal === validFont);
+        });
+    }
+
+    // 4. Reader Width Setting (normal / wide / full)
+    const savedWidth = safeGetStorage('cosmos_reader_width', 'normal');
+
+    function applyReaderWidth(width) {
+        const validWidth = (width === 'wide' || width === 'full') ? width : 'normal';
+        html.setAttribute('data-reader-width', validWidth);
+        safeSetStorage('cosmos_reader_width', validWidth);
+
+        document.querySelectorAll('#appearance-width-group .appearance-opt-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.widthVal === validWidth);
+        });
+    }
+
+    // 5. Font Scale Setting (85% to 135%)
+    const savedScale = parseInt(safeGetStorage('cosmos_reader_font_scale', '100'), 10) || 100;
+
+    function applyFontScale(scaleVal) {
+        const clamped = Math.max(85, Math.min(135, scaleVal));
+        html.style.setProperty('--reader-font-scale', (clamped / 100).toString());
+        safeSetStorage('cosmos_reader_font_scale', clamped.toString());
+
+        const display = document.getElementById('appearance-size-display');
+        if (display) display.textContent = `${clamped}%`;
+
+        const slider = document.getElementById('appearance-size-slider');
+        if (slider && parseInt(slider.value, 10) !== clamped) slider.value = clamped;
+    }
+
+    // Initialize all settings
+    applyTheme(savedTheme);
+    applyAccentColor(savedColor);
+    applyReaderFont(savedFont);
+    applyReaderWidth(savedWidth);
+    applyFontScale(savedScale);
+
+    // Wire up Popover Toggle & Events
+    const toggleBtn = document.getElementById('appearance-btn');
+    const popover = document.getElementById('appearance-popover');
+    const resetBtn = document.getElementById('appearance-reset-btn');
 
     if (toggleBtn && popover) {
         toggleBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            const isOpen = popover.classList.contains('active') || !popover.hidden;
-            if (isOpen) {
-                popover.classList.remove('active');
-                popover.hidden = true;
-            } else {
-                popover.hidden = false;
-                popover.classList.add('active');
-            }
+            const isHidden = popover.hidden;
+            popover.hidden = !isHidden;
         });
 
-        // Close on outside click
         document.addEventListener('click', (e) => {
             if (!popover.hidden && !popover.contains(e.target) && !toggleBtn.contains(e.target)) {
-                popover.classList.remove('active');
+                popover.hidden = true;
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !popover.hidden) {
                 popover.hidden = true;
             }
         });
     }
 
-    if (colorInput) {
-        colorInput.addEventListener('input', (e) => {
-            applyAccentColor(e.target.value);
+    // Theme Button Clicks
+    document.querySelectorAll('#appearance-theme-tabs .theme-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            applyTheme(btn.dataset.themeVal);
         });
+    });
+
+    // Swatches
+    document.querySelectorAll('.accent-swatch').forEach(sw => {
+        sw.addEventListener('click', () => {
+            if (sw.dataset.color) applyAccentColor(sw.dataset.color);
+        });
+    });
+
+    // Color Wheel & Hex
+    const colorInput = document.getElementById('accent-color-input');
+    if (colorInput) {
+        colorInput.addEventListener('input', (e) => applyAccentColor(e.target.value));
     }
 
+    const hexInput = document.getElementById('accent-hex-input');
     if (hexInput) {
         hexInput.addEventListener('input', (e) => {
             let val = e.target.value.trim();
             if (!val.startsWith('#')) val = '#' + val;
-            if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
-                applyAccentColor(val);
-            }
+            if (/^#[0-9A-Fa-f]{6}$/.test(val)) applyAccentColor(val);
         });
     }
 
-    swatches.forEach(sw => {
-        sw.addEventListener('click', () => {
-            const color = sw.dataset.color;
-            if (color) applyAccentColor(color);
+    // Font selection
+    document.querySelectorAll('#appearance-font-group .appearance-opt-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            applyReaderFont(btn.dataset.fontVal);
         });
     });
 
+    // Width selection
+    document.querySelectorAll('#appearance-width-group .appearance-opt-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            applyReaderWidth(btn.dataset.widthVal);
+        });
+    });
+
+    // Size Stepper & Slider
+    const sizeSlider = document.getElementById('appearance-size-slider');
+    if (sizeSlider) {
+        sizeSlider.addEventListener('input', (e) => {
+            applyFontScale(parseInt(e.target.value, 10));
+        });
+    }
+
+    const sizeDecBtn = document.getElementById('appearance-size-dec');
+    if (sizeDecBtn) {
+        sizeDecBtn.addEventListener('click', () => {
+            const cur = parseInt(safeGetStorage('cosmos_reader_font_scale', '100'), 10) || 100;
+            applyFontScale(cur - 5);
+        });
+    }
+
+    const sizeIncBtn = document.getElementById('appearance-size-inc');
+    if (sizeIncBtn) {
+        sizeIncBtn.addEventListener('click', () => {
+            const cur = parseInt(safeGetStorage('cosmos_reader_font_scale', '100'), 10) || 100;
+            applyFontScale(cur + 5);
+        });
+    }
+
+    // Reset Button
     if (resetBtn) {
         resetBtn.addEventListener('click', () => {
+            applyTheme('light');
             applyAccentColor(defaultColor);
+            applyReaderFont('serif');
+            applyReaderWidth('normal');
+            applyFontScale(100);
         });
     }
 }
@@ -1307,7 +1382,7 @@ function renderSavedCompilationsList() {
     if (compList.length === 0) {
         container.innerHTML = `
             <div style="text-align: center; color: var(--color-text-secondary); padding: 3.5rem 1.5rem; background: var(--color-surface); border-radius: var(--radius-md); border: 1px solid var(--color-border);">
-                <div class="editorial-eyebrow" style="margin-bottom: 0.5rem;">Keine Manuskripte</div>
+                <div style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 600; color: var(--color-accent); margin-bottom: 0.5rem; text-transform: uppercase;">Keine Manuskripte</div>
                 <p style="font-size: 1.05rem; font-family: var(--font-serif); color: var(--color-text); margin-bottom: 0.4rem;">Noch keine eigenen Kompilationen gespeichert.</p>
                 <p style="font-size: 0.88rem; color: var(--color-text-secondary); max-width: 480px; margin: 0 auto 1.5rem;">In der Kompilations-Werkstatt können Sie Absätze aus allen Botschaften zusammenstellen und dauerhaft sichern.</p>
                 <button onclick="window.switchView('workshop')" class="btn-primary">Zur Kompilations-Werkstatt</button>

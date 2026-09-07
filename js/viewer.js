@@ -1,59 +1,136 @@
+/**
+ * Botschaften-Archiv & Bibliothek: Grosszuegiger, unaufdringlicher Dokument-Reader
+ * 
+ * Features:
+ * - Auto-wegklappender Header beim Hinabscrollen (sanftes Slide-Out)
+ * - Sofortiges Wiedereinblenden beim Hochscrollen oder oberem Hover-Trigger
+ * - Grosszuegiges Layout (bis zu 96vw / 1420px) ohne visuelle Ueberladung
+ * - Unaufdringliche Randnummerierung (Gutter) und schwebende Aktions-Pille bei Hover
+ * - Nahtlose Umschaltung zwischen Original-PDF und Fliesstext
+ * - Zweisprachiger Umschalter (DE / EN) bei mehrsprachigen Werken
+ * - Direkte Download-Pills fuer Original-Dateien (PDF, EPUB, DOCX, TXT)
+ * - Null Emojis, reine typografische Eleganz
+ */
+
 let currentViewerDoc = null;
-let currentFontSize = 1.05; // rem
+let currentViewerMode = 'text'; // 'text' | 'pdf'
+let lastScrollTop = 0;
 
 window.initViewer = function() {
+    const modal = document.getElementById('document-viewer');
+    const headerEl = document.getElementById('viewer-header');
+    const bodyEl = document.getElementById('viewer-body');
+    const topTrigger = document.getElementById('viewer-top-trigger');
     const closeBtn = document.getElementById('viewer-close');
     const bookmarkBtn = document.getElementById('viewer-bookmark');
     const copyBtn = document.getElementById('viewer-copy');
-    const fontIncBtn = document.getElementById('viewer-font-inc');
-    const fontDecBtn = document.getElementById('viewer-font-dec');
-    const modal = document.getElementById('document-viewer');
-    
+    const btnModePdf = document.getElementById('btn-mode-pdf');
+    const btnModeText = document.getElementById('btn-mode-text');
+    const btnLangDe = document.getElementById('btn-viewer-lang-de');
+    const btnLangEn = document.getElementById('btn-viewer-lang-en');
+    const progressBar = document.getElementById('viewer-progress-bar');
+
+    // 1. Schliessen-Schaltflaeche
     if (closeBtn) {
         closeBtn.addEventListener('click', closeViewer);
     }
-    
+
+    // 2. Lesezeichen umschalten
     if (bookmarkBtn) {
         bookmarkBtn.addEventListener('click', (e) => {
             const id = e.currentTarget.dataset.id;
             if (id && window.toggleBookmark) {
                 window.toggleBookmark(id);
+                updateBookmarkBtnState(id);
             }
         });
     }
-    
+
+    // 3. Gesamten Volltext kopieren
     if (copyBtn) {
         copyBtn.addEventListener('click', () => {
             if (!currentViewerDoc || !currentViewerDoc.text) return;
             navigator.clipboard.writeText(currentViewerDoc.text).then(() => {
-                const origHtml = copyBtn.innerHTML;
-                copyBtn.innerHTML = '<span style="font-size:0.75rem; color:var(--color-primary); font-weight:bold;">Kopiert</span>';
+                const origSvg = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<span style="font-size:0.75rem; color:var(--accent-gold); font-weight:600; font-family:var(--font-sans);">Kopiert</span>';
                 setTimeout(() => {
-                    copyBtn.innerHTML = origHtml;
+                    copyBtn.innerHTML = origSvg;
                 }, 2000);
             }).catch(err => {
                 console.error('Kopieren fehlgeschlagen:', err);
             });
         });
     }
-    
-    if (fontIncBtn) {
-        fontIncBtn.addEventListener('click', () => {
-            currentFontSize = Math.min(1.6, currentFontSize + 0.1);
-            const bodyEl = document.getElementById('viewer-body');
-            if (bodyEl) bodyEl.style.fontSize = `${currentFontSize}rem`;
+
+    // 4. Modus-Umschaltung: Original-PDF vs. Fliesstext
+    if (btnModePdf) {
+        btnModePdf.addEventListener('click', () => {
+            if (currentViewerDoc) {
+                setViewerMode('pdf');
+            }
         });
     }
-    
-    if (fontDecBtn) {
-        fontDecBtn.addEventListener('click', () => {
-            currentFontSize = Math.max(0.85, currentFontSize - 0.1);
-            const bodyEl = document.getElementById('viewer-body');
-            if (bodyEl) bodyEl.style.fontSize = `${currentFontSize}rem`;
+    if (btnModeText) {
+        btnModeText.addEventListener('click', () => {
+            if (currentViewerDoc) {
+                setViewerMode('text');
+            }
         });
     }
-    
-    // Close modal when clicking outside content
+
+    // 5. Sprach-Umschaltung: DE vs. EN
+    if (btnLangDe) {
+        btnLangDe.addEventListener('click', () => {
+            if (currentViewerDoc && currentViewerDoc.language !== 'deutsch' && currentViewerDoc.translations && currentViewerDoc.translations.de) {
+                window.openDocument(currentViewerDoc.translations.de, null, currentViewerMode, 'de');
+            }
+        });
+    }
+    if (btnLangEn) {
+        btnLangEn.addEventListener('click', () => {
+            if (currentViewerDoc && currentViewerDoc.language === 'deutsch' && currentViewerDoc.translations && currentViewerDoc.translations.en) {
+                window.openDocument(currentViewerDoc.translations.en, null, currentViewerMode, 'en');
+            }
+        });
+    }
+
+    // 6. Wegklappender Header beim Hinabscrollen & Lese-Fortschritt
+    if (bodyEl && headerEl) {
+        bodyEl.addEventListener('scroll', () => {
+            const st = bodyEl.scrollTop;
+
+            // Auto-Collapse Logik: beim Scrollen nach unten einklappen, beim Hochscrollen sanft einblenden
+            if (st > lastScrollTop && st > 65) {
+                headerEl.classList.add('header-hidden');
+            } else if (st < lastScrollTop || st <= 25) {
+                headerEl.classList.remove('header-hidden');
+            }
+            lastScrollTop = st <= 0 ? 0 : st;
+
+            // Lese-Fortschrittsbalken
+            if (progressBar) {
+                const maxScroll = bodyEl.scrollHeight - bodyEl.clientHeight;
+                if (maxScroll > 0) {
+                    const pct = Math.min(100, Math.max(0, (st / maxScroll) * 100));
+                    progressBar.style.width = `${pct}%`;
+                } else {
+                    progressBar.style.width = '0%';
+                }
+            }
+        }, { passive: true });
+    }
+
+    // 7. Unsichtbare Trigger-Zone am oberen Rand: Mausberuehrung blendet Header sofort wieder ein
+    if (topTrigger && headerEl) {
+        topTrigger.addEventListener('mouseenter', () => {
+            headerEl.classList.remove('header-hidden');
+        });
+        topTrigger.addEventListener('click', () => {
+            headerEl.classList.remove('header-hidden');
+        });
+    }
+
+    // 8. Klick auf Hintergrund schliesst Modal
     if (modal) {
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
@@ -61,6 +138,13 @@ window.initViewer = function() {
             }
         });
     }
+
+    // 9. Tastatur-Kuerzel Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+            closeViewer();
+        }
+    });
 };
 
 function closeViewer() {
@@ -75,10 +159,42 @@ function closeViewer() {
         }
     }
 }
+window.closeViewer = closeViewer;
+
+function updateBookmarkBtnState(id) {
+    const bookmarkBtn = document.getElementById('viewer-bookmark');
+    if (!bookmarkBtn) return;
+    bookmarkBtn.dataset.id = id;
+    const isB = (window.isBookmarked && window.isBookmarked(id)) || 
+                (window.state && Array.isArray(window.state.bookmarks) && window.state.bookmarks.includes(id));
+    if (isB) {
+        bookmarkBtn.style.color = 'var(--color-primary)';
+        const svg = bookmarkBtn.querySelector('svg');
+        if (svg) svg.setAttribute('fill', 'currentColor');
+    } else {
+        bookmarkBtn.style.color = '';
+        const svg = bookmarkBtn.querySelector('svg');
+        if (svg) svg.setAttribute('fill', 'none');
+    }
+}
+
+function resolvePdfPath(doc) {
+    if (!doc) return null;
+    if (doc.formatFiles && doc.formatFiles.pdf) {
+        return doc.formatFiles.pdf.replace(/^\.\.\//, '');
+    }
+    if (doc.filePath && doc.filePath.toLowerCase().endsWith('.pdf')) {
+        return doc.filePath.replace(/^\.\.\//, '');
+    }
+    if (doc.id) {
+        return `documents/formats/pdf/${doc.id}.pdf`;
+    }
+    return null;
+}
 
 window.openDocument = function(id, targetParagraph, preferredMode, preferredLang) {
     if (!window.state || !window.state.documents) return;
-    
+
     let targetId = id;
     const initialDoc = window.state.documents.find(d => d.id === id);
     if (initialDoc && preferredLang && initialDoc.translations && initialDoc.translations[preferredLang]) {
@@ -86,10 +202,10 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
     }
     const doc = window.state.documents.find(d => d.id === targetId) || initialDoc;
     if (!doc) return;
-    
+
     currentViewerDoc = doc;
 
-    // Synchronize URL hash for direct bookmarking/sharing
+    // URL-Hash aktualisieren (fuer direktes Teilen und Bookmarken)
     try {
         const pHash = targetParagraph ? `&p=${targetParagraph}` : '';
         const newHash = `#doc=${encodeURIComponent(doc.id)}${pHash}`;
@@ -106,426 +222,264 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
             type: doc.type || ''
         });
     }
-    
+
     const modal = document.getElementById('document-viewer');
+    const headerEl = document.getElementById('viewer-header');
     const titleEl = document.getElementById('viewer-title');
-    const metaEl = document.getElementById('viewer-meta');
-    const bodyEl = document.getElementById('viewer-body');
-    const downloadBtn = document.getElementById('viewer-download');
-    const bookmarkBtn = document.getElementById('viewer-bookmark');
-    
-    // Set title with subtle bilingual indicator
-    if (titleEl) {
-        let subHtml = '';
-        if (doc.availableLanguages && doc.availableLanguages.length > 1) {
-            const isDe = doc.language === 'deutsch';
-            const otherTitle = isDe ? doc.enTitle : doc.deTitle;
-            if (otherTitle && otherTitle !== doc.title) {
-                subHtml = `<div class="doc-sub-title">${isDe ? 'EN' : 'DE'}: ${escapeHtml(otherTitle)}</div>`;
-            }
-        }
-        titleEl.innerHTML = `${escapeHtml(doc.title)}${subHtml}`;
-    }
-    
-    // Meta information builder (called again after text loads for word count)
-    const langLabel = doc.language === 'english' ? 'English' : 'Deutsch';
-    const hasBothLangs = doc.availableLanguages && doc.availableLanguages.includes('de') && doc.availableLanguages.includes('en');
-    const langMetaText = hasBothLangs ? `${langLabel} <span style="font-size:0.75rem; color:var(--text-subtle);">(Zweisprachig verfügbar)</span>` : langLabel;
-    
-    function buildMetaHtml(wc) {
-        let html = `
-            <div><strong>Datum:</strong> ${formatViewerDate(doc.date)}</div>
-            <div><strong>Quelle:</strong> <span class="source-badge source-${(doc.source || '').toLowerCase().replace(/[^a-z0-9]/g, '')}">${doc.source || 'UHG'}</span></div>
-            <div><strong>Typ:</strong> ${doc.type || 'Botschaft'}</div>
-            <div><strong>Bereich:</strong> ${doc.tierName || 'Botschaften des Hauses'}</div>
-            ${doc.subTierName ? `<div><strong>Institution:</strong> ${doc.subTierName}</div>` : ''}
-            <div><strong>Sprache:</strong> ${langMetaText}</div>
-            ${wc > 0 ? `<div><strong>Umfang:</strong> ~${wc.toLocaleString('de-DE')} Wörter</div>` : ''}
-        `;
-        if (doc.topics && doc.topics.length > 0) {
-            html += `<div style="width: 100%; display: flex; gap: 0.35rem; flex-wrap: wrap; margin-top: 0.25rem;">
-                <strong>Themen:</strong> ${doc.topics.map(t => `<span class="tag">${t}</span>`).join('')}
-            </div>`;
-        }
-        return html;
-    }
-    
-    if (metaEl) metaEl.innerHTML = buildMetaHtml(doc.wordCount || 0);
+    const typeBadge = document.getElementById('viewer-type-badge');
+    const metaDate = document.getElementById('viewer-meta-date');
+    const metaSource = document.getElementById('viewer-meta-source');
+    const modePill = document.getElementById('viewer-layout-mode-pill');
+    const langPill = document.getElementById('viewer-lang-pill');
+    const btnLangDe = document.getElementById('btn-viewer-lang-de');
+    const btnLangEn = document.getElementById('btn-viewer-lang-en');
+    const dlGroup = document.getElementById('viewer-download-group');
 
-    // Export openViewer as alias for openDocument
-    window.openViewer = window.openDocument;
-
-    // Progress bar tracking
-    const progressBar = document.getElementById('viewer-progress-bar');
-    if (bodyEl && progressBar) {
-        bodyEl.addEventListener('scroll', () => {
-            const maxScroll = bodyEl.scrollHeight - bodyEl.clientHeight;
-            if (maxScroll > 0) {
-                const pct = Math.min(100, Math.max(0, (bodyEl.scrollTop / maxScroll) * 100));
-                progressBar.style.width = `${pct}%`;
-            } else {
-                progressBar.style.width = '0%';
-            }
-        });
-    }
-
-    // Ruhi & Books: check if PDF and text are both available
+    // Header-Metadaten setzen
     const isRuhi = doc.tier === 'ruhi' || doc.type === 'Ruhi-Buch' || 
                    (doc.title && (doc.title.startsWith('Ruhi Buch') || doc.title.startsWith('Ruhi Book')));
-    const isBook = doc.tier === 'books';
-    const pdfPath = doc.filePath && doc.filePath.toLowerCase().endsWith('.pdf') ? doc.filePath.replace(/^\.\.\//, '') : null;
-    
-    // Default viewer mode: Ruhi defaults to PDF, Books and Messages default to text
-    let currentMode = preferredMode || (isRuhi && !targetParagraph ? 'pdf' : 'text');
 
-    if (modal) modal.classList.toggle('modal-wide', currentMode === 'pdf');
-
-    const fontControls = document.querySelector('.reader-font-controls');
-    if (fontControls) fontControls.style.display = currentMode === 'pdf' ? 'none' : 'flex';
-    const copyBtn = document.getElementById('viewer-copy');
-    if (copyBtn) copyBtn.style.display = currentMode === 'pdf' ? 'none' : '';
-    const typeBadge = document.getElementById('viewer-type-badge');
-    if (typeBadge) typeBadge.textContent = isRuhi ? 'Ruhi-Institut (Studienbuch)' : (doc.type || 'Botschaft');
-
-    // Remove previous toggles
-    const oldModeSwitch = document.getElementById('viewer-mode-switch');
-    if (oldModeSwitch) oldModeSwitch.remove();
-    const oldLangSwitch = document.getElementById('viewer-lang-switch');
-    if (oldLangSwitch) oldLangSwitch.remove();
-
-    const modalActions = document.querySelector('.modal-actions');
-
-    // 1. Dual-Language Switcher (DE / EN)
-    if (hasBothLangs && modalActions) {
-        const isCurrentDe = doc.language === 'deutsch';
-        const langSwitch = document.createElement('div');
-        langSwitch.id = 'viewer-lang-switch';
-        langSwitch.className = 'viewer-lang-switch';
-        langSwitch.innerHTML = `
-            <button id="btn-lang-de" class="viewer-lang-tab ${isCurrentDe ? 'active' : ''}" title="Deutsche Fassung anzeigen">DE</button>
-            <button id="btn-lang-en" class="viewer-lang-tab ${!isCurrentDe ? 'active' : ''}" title="Show English version">EN</button>
-        `;
-        modalActions.insertBefore(langSwitch, modalActions.firstChild);
-
-        const btnDe = langSwitch.querySelector('#btn-lang-de');
-        const btnEn = langSwitch.querySelector('#btn-lang-en');
-        if (btnDe) {
-            btnDe.addEventListener('click', () => {
-                if (!isCurrentDe && doc.translations && doc.translations.de) {
-                    window.openDocument(doc.translations.de, targetParagraph, currentMode, 'de');
-                }
-            });
-        }
-        if (btnEn) {
-            btnEn.addEventListener('click', () => {
-                if (isCurrentDe && doc.translations && doc.translations.en) {
-                    window.openDocument(doc.translations.en, targetParagraph, currentMode, 'en');
-                }
-            });
-        }
+    if (typeBadge) {
+        typeBadge.textContent = isRuhi ? 'Ruhi-Institut' : (doc.type || 'Botschaft');
+    }
+    if (metaDate) {
+        metaDate.textContent = formatViewerDate(doc.date);
+    }
+    if (metaSource) {
+        metaSource.textContent = doc.source || 'UHG';
+    }
+    if (titleEl) {
+        titleEl.textContent = doc.title || 'Ohne Titel';
+        titleEl.title = doc.title || '';
     }
 
-    // 2. Dual-mode Text/PDF Switcher for documents with PDF
-    if (pdfPath && modalActions) {
-        const modeSwitch = document.createElement('div');
-        modeSwitch.id = 'viewer-mode-switch';
-        modeSwitch.className = 'viewer-mode-switch';
-        modeSwitch.innerHTML = `
-            <button id="btn-mode-text" class="viewer-mode-tab ${currentMode === 'text' ? 'active' : ''}" title="Strukturiertes Textlese-Erlebnis mit Absätzen und Zitaten">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
-                <span>Fließtext</span>
-            </button>
-            <button id="btn-mode-pdf" class="viewer-mode-tab ${currentMode === 'pdf' ? 'active' : ''}" title="Original-Faksimile und Druckausgabe im PDF-Betrachter">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-                <span>Original-PDF</span>
-            </button>
-        `;
-        modalActions.insertBefore(modeSwitch, modalActions.firstChild);
+    // PDF-Pfad ermitteln
+    const pdfPath = resolvePdfPath(doc);
 
-        const btnText = modeSwitch.querySelector('#btn-mode-text');
-        const btnPdf = modeSwitch.querySelector('#btn-mode-pdf');
-        if (btnText) {
-            btnText.addEventListener('click', () => {
-                window.openDocument(doc.id, targetParagraph, 'text');
-            });
-        }
-        if (btnPdf) {
-            btnPdf.addEventListener('click', () => {
-                window.openDocument(doc.id, null, 'pdf');
-            });
-        }
+    // Layout-Modus Pill (Original-PDF vs. Fliesstext)
+    if (modePill) {
+        modePill.style.display = pdfPath ? 'inline-flex' : 'none';
     }
 
-    if (currentMode === 'pdf' && pdfPath) {
-        if (bodyEl) {
-            bodyEl.style.fontSize = '';
-            bodyEl.scrollTop = 0;
-            bodyEl.innerHTML = `
-                <div class="ruhi-pdf-view-wrapper" style="width: 100%; display: flex; flex-direction: column; gap: 0.85rem; margin-top: 0.5rem;">
-                    <!-- Autorisierte Quelle Banner -->
-                    <div class="viewer-source-banner">
-                        <div class="viewer-source-info">
-                            <span class="source-verified-badge">Autorisierte Quelle</span>
-                            <span class="source-platform-name">${escapeHtml(doc.sourcePlatform || 'Bahá’í-Veröffentlichung')}</span>
-                        </div>
-                        <a href="${escapeHtml(doc.sourceUrl || 'https://www.bahai.org/library/')}" target="_blank" rel="noopener noreferrer" class="viewer-source-link-btn" title="Offizielle Seite aufrufen">
-                            <span>Original auf ${doc.sourceUrl && doc.sourceUrl.includes('ruhi.org') ? 'ruhi.org' : doc.sourceUrl && doc.sourceUrl.includes('bibliothek.bahai.de') ? 'bibliothek.bahai.de' : 'bahai.org'} öffnen</span>
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                        </a>
-                    </div>
-                    <div style="width: 100%; height: 75vh; min-height: 540px; border: 1px solid var(--border-hairline); border-radius: var(--radius-sm); overflow: hidden; background: #1a1d24;">
-                        <iframe src="${pdfPath}#toolbar=1&navpanes=0" style="width: 100%; height: 100%; border: none;" title="${escapeHtml(doc.title)}"></iframe>
-                    </div>
-                </div>
-            `;
-        }
-    } else {
-        // Reset body for standard text documents
-        if (bodyEl) {
-            bodyEl.style.fontSize = `${currentFontSize}rem`;
-            bodyEl.scrollTop = 0;
-            bodyEl.innerHTML = '<p style="color:var(--text-muted);font-style:italic;text-align:center;">Volltext wird geladen…</p>';
-        }
-        
-        // Lazy-load full text from individual file
-        if (doc.hasText !== false && doc.id) {
-            const relUrl = `data/texts/${doc.id}.txt`;
-            const absUrl = `/data/texts/${doc.id}.txt`;
-            fetch(relUrl)
-                .then(r => r.ok ? r.text() : fetch(absUrl).then(r2 => r2.ok ? r2.text() : Promise.reject('not found')))
-                .then(text => {
-                    currentViewerDoc.text = text;
-                    if (bodyEl) {
-                        const structure = parseDocumentStructure(text);
-                        currentViewerDoc.paragraphs = structure.body;
-                        let fullHtml = '';
-
-                        // 0. Autorisierte Originalquelle Banner (Ganz oben im Dokument)
-                        const sourceName = doc.sourcePlatform || (doc.sourceUrl && doc.sourceUrl.includes('bibliothek.bahai.de') ? 'Bahá’í-Bibliothek Deutschland' : 'Bahá’í Reference Library');
-                        const sourceUrl = doc.sourceUrl || 'https://www.bahai.org/library/';
-
-                        fullHtml += `
-                            <div class="viewer-source-banner">
-                                <div class="viewer-source-info">
-                                    <span class="source-verified-badge">Autorisierte Originalquelle</span>
-                                    <span class="source-platform-name">${escapeHtml(sourceName)}</span>
-                                </div>
-                                <a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer" class="viewer-source-link-btn" title="Dieses Dokument auf der autorisierten Originalwebsite öffnen">
-                                    <span>Originaldokument auf ${sourceUrl.includes('bibliothek.bahai.de') ? 'bibliothek.bahai.de' : 'bahai.org'} öffnen</span>
-                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                                </a>
-                            </div>
-                        `;
-
-                        // 1. Briefkopf / Document Letterhead (Institution, Date, Addressee, Salutation)
-                        if (structure.headers.length > 0 || structure.salutation) {
-                            fullHtml += `
-                                <div class="viewer-letterhead">
-                                    ${structure.headers.map(h => {
-                                        if (h.kind === 'institution') {
-                                            return `<div style="font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: var(--accent-gold); letter-spacing: 0.08em; text-align: center; margin-bottom: 0.85rem; text-transform: uppercase;">${escapeHtml(h.text)}</div>`;
-                                        }
-                                        if (h.kind === 'date') {
-                                            return `<div style="font-family: var(--font-sans); font-size: 0.85rem; font-weight: 500; color: var(--text-muted); margin-bottom: 0.35rem;">${escapeHtml(h.text)}</div>`;
-                                        }
-                                        if (h.kind === 'addressee') {
-                                            return `<div style="font-family: var(--font-sans); font-size: 0.95rem; font-weight: 600; color: var(--text-ink); margin-bottom: 0.35rem;">${escapeHtml(h.text)}</div>`;
-                                        }
-                                        return `<div style="font-size: 0.85rem; color: var(--text-subtle); font-style: italic; margin-bottom: 0.3rem;">${escapeHtml(h.text)}</div>`;
-                                    }).join('')}
-                                    ${structure.salutation ? `
-                                        <div style="font-family: var(--font-serif); font-size: 1.08rem; font-style: italic; font-weight: 500; color: var(--accent-gold); margin-top: 0.85rem; padding-top: 0.6rem; border-top: 1px dashed var(--border-hairline);">
-                                            ${escapeHtml(structure.salutation)}
-                                        </div>
-                                    ` : ''}
-                                </div>
-                            `;
-                        }
-
-                        // 2. Echte Textabsätze mit direkten Absatz-Aktionen & Original-Quell-Links
-                        fullHtml += structure.body.map((rawP, idx) => {
-                            const pNum = idx + 1;
-                            // Clean database paragraph identifiers (e.g. "1:1 ", "f.1:1 ", "0_1 ")
-                            const p = rawP.replace(/^(\d+(?:\.\d+)?:\d+(?:_\d+)?|f\.(?:\w+:)?\d+(?:_\d+)?|0_\d+)\s+/, '').trim();
-                            const originalParaUrl = getOriginalParagraphUrl(doc, pNum, p);
-                            return `
-                                <div class="viewer-paragraph" id="viewer-para-${pNum}" data-pnum="${pNum}">
-                                    <div class="para-header">
-                                        <div class="para-meta-left">
-                                            <span class="para-num" title="Absatz ${pNum}">Abs. ${pNum}</span>
-                                            <a href="${escapeHtml(originalParaUrl)}" target="_blank" rel="noopener noreferrer" class="para-action-btn btn-original-link" title="Diesen Absatz in der autorisierten Originalquelle öffnen">
-                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                                                <span>Original-Absatz ↗</span>
-                                            </a>
-                                            <button class="para-action-btn" onclick="window.copyParagraphCitation(${pNum})" title="Absatz samt formaler Quellenangabe & Link kopieren">
-                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-                                                <span id="para-copy-label-${pNum}">Zitieren &amp; Link</span>
-                                            </button>
-                                            <button class="para-action-btn" onclick="window.copyParagraphDeepLink(${pNum})" title="Direktlink zu diesem Absatz im Archiv kopieren">
-                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-                                                <span id="para-link-label-${pNum}">Link</span>
-                                            </button>
-                                        </div>
-                                        <button id="viewer-para-btn-${pNum}" onclick="window.addViewerParagraphToWorkshop(${pNum})" class="para-add-btn" title="Diesen Absatz zur Kompilations-Werkstatt hinzufügen">
-                                            + In Kompilation
-                                        </button>
-                                    </div>
-                                    <p class="para-text" style="margin: 0; line-height: 1.76; text-align: justify;">${escapeHtml(p)}</p>
-                                </div>
-                            `;
-                        }).join('');
-
-                        // 3. Schlussformel & Unterschrift
-                        if (structure.closings.length > 0) {
-                            fullHtml += `
-                                <div class="viewer-closing" style="margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border-hairline); text-align: right;">
-                                    ${structure.closings.map(c => `
-                                        <div style="font-family: var(--font-serif); font-style: italic; color: var(--text-muted); margin-bottom: 0.4rem; font-size: 0.95rem;">${escapeHtml(c)}</div>
-                                    `).join('')}
-                                </div>
-                            `;
-                        }
-
-                        // 4. Transparenzhinweis am Textende
-                        fullHtml += `
-                            <div class="viewer-disclaimer-footnote">
-                                Privates Studienarchiv &bull; Autorisierte Schriften &amp; offizielle Publikationen: <a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener">${escapeHtml(sourceName)}</a>
-                            </div>
-                        `;
-
-                        bodyEl.innerHTML = fullHtml;
-
-                        // Wenn ein Zielabsatz übergeben wurde, sanft hinscrollen & hervorheben
-                        if (targetParagraph) {
-                            setTimeout(() => {
-                                const targetEl = document.getElementById(`viewer-para-${targetParagraph}`);
-                                if (targetEl) {
-                                    targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                    targetEl.classList.add('highlight-target');
-                                    setTimeout(() => targetEl.classList.remove('highlight-target'), 3500);
-                                }
-                            }, 350);
-                        }
-                    }
-                    const wc = text.split(/\s+/).length;
-                    if (metaEl) metaEl.innerHTML = buildMetaHtml(wc);
-                })
-                .catch(() => {
-                    if (bodyEl) bodyEl.innerHTML = '<p style="color:var(--text-muted);font-style:italic;padding:2rem;text-align:center;">Kein Volltext verfügbar.</p>';
-                });
+    // Sprach-Pill (DE / EN)
+    const hasBothLangs = doc.availableLanguages && doc.availableLanguages.includes('de') && doc.availableLanguages.includes('en');
+    if (langPill) {
+        if (hasBothLangs) {
+            langPill.style.display = 'inline-flex';
+            const isDe = doc.language === 'deutsch';
+            if (btnLangDe) btnLangDe.classList.toggle('active', isDe);
+            if (btnLangEn) btnLangEn.classList.toggle('active', !isDe);
         } else {
-            if (bodyEl) bodyEl.innerHTML = '<p style="color:var(--text-muted);font-style:italic;padding:2rem;text-align:center;">Kein Volltext vorhanden.</p>';
+            langPill.style.display = 'none';
         }
     }
-    
-    // Multi-format download buttons & official source link
-    const oldBar = document.getElementById('viewer-dl-bar');
-    if (oldBar) oldBar.remove();
-    if (downloadBtn) downloadBtn.style.display = 'none';
 
-    const formats = [];
-    const fmts = doc.availableFormats || [];
-    const files = doc.formatFiles || {};
+    // Direkte Download-Pills fuer Originalformate generieren
+    if (dlGroup) {
+        dlGroup.innerHTML = '';
+        const formats = [];
+        const files = doc.formatFiles || {};
 
-    ['pdf', 'docx', 'epub', 'txt'].forEach(fmt => {
-        if (files[fmt]) {
-            const label = fmt === 'docx' ? 'Word (DOCX)' : fmt === 'epub' ? 'E-Book (EPUB)' : fmt === 'pdf' ? 'PDF' : 'Volltext (TXT)';
-            formats.push({ label, href: files[fmt] });
-        } else if (fmts.includes(fmt)) {
-            let path = '';
-            if (fmt === 'txt') path = `data/texts/${doc.id}.txt`;
-            else if (fmt === 'docx') path = doc.docxPath || doc.filePath;
-            else if (fmt === 'pdf') path = doc.filePath;
-            if (path) formats.push({ label: fmt.toUpperCase(), href: path });
+        if (files.pdf || pdfPath) {
+            formats.push({ label: 'PDF', href: files.pdf || pdfPath, title: 'Original-PDF herunterladen' });
         }
-    });
-
-    if (formats.length === 0) {
-        if (doc.filePath) {
-            const ext = doc.filePath.split('.').pop().toUpperCase();
-            formats.push({ label: ext, href: doc.filePath });
+        if (files.epub) {
+            formats.push({ label: 'EPUB', href: files.epub, title: 'E-Book (EPUB) herunterladen' });
         }
-        if (doc.docxPath && doc.docxPath !== doc.filePath) formats.push({ label: 'DOCX', href: doc.docxPath });
-    }
+        if (files.docx || (doc.filePath && doc.filePath.endsWith('.docx'))) {
+            formats.push({ label: 'DOCX', href: files.docx || doc.filePath, title: 'Word-Dokument (DOCX) herunterladen' });
+        }
 
-    const dlParent = downloadBtn ? downloadBtn.parentElement : null;
-    if (dlParent) {
-        const bar = document.createElement('div');
-        bar.id = 'viewer-dl-bar';
-        bar.style.cssText = 'display:flex;gap:0.4rem;flex-wrap:wrap;align-items:center;';
-        
-        let barHtml = formats.map(f =>
-            `<a href="${f.href}" download class="btn-secondary" style="font-size:0.75rem;padding:0.25rem 0.65rem;text-decoration:none;border-radius:var(--radius-full);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:3px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>${f.label}</a>`
-        ).join('');
+        formats.forEach(f => {
+            const a = document.createElement('a');
+            a.href = f.href;
+            a.download = '';
+            a.className = 'viewer-dl-pill';
+            a.title = f.title;
+            a.textContent = f.label;
+            dlGroup.appendChild(a);
+        });
 
         if (doc.sourceUrl) {
-            barHtml += `<a href="${doc.sourceUrl}" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="font-size:0.75rem;padding:0.25rem 0.65rem;text-decoration:none;border-radius:var(--radius-full);color:var(--accent-gold);border-color:rgba(197,160,89,0.4);" title="Originale Quelle online öffnen"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:3px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Web-Quelle</a>`;
-        }
-        
-        bar.innerHTML = barHtml;
-        dlParent.appendChild(bar);
-    }
-    
-    // Bookmark button state
-    if (bookmarkBtn) {
-        bookmarkBtn.dataset.id = doc.id;
-        const isB = (window.isBookmarked && window.isBookmarked(doc.id)) || 
-                    (window.state && Array.isArray(window.state.bookmarks) && window.state.bookmarks.includes(doc.id));
-        if (isB) {
-            bookmarkBtn.style.color = 'var(--color-primary)';
-            const svg = bookmarkBtn.querySelector('svg');
-            if (svg) svg.setAttribute('fill', 'currentColor');
-        } else {
-            bookmarkBtn.style.color = '';
-            const svg = bookmarkBtn.querySelector('svg');
-            if (svg) svg.setAttribute('fill', 'none');
+            const webLink = document.createElement('a');
+            webLink.href = doc.sourceUrl;
+            webLink.target = '_blank';
+            webLink.rel = 'noopener noreferrer';
+            webLink.className = 'viewer-dl-pill';
+            webLink.title = 'Originaldokument im Web aufrufen';
+            webLink.textContent = 'Web ↗';
+            dlGroup.appendChild(webLink);
         }
     }
-    
-    // Show modal
+
+    // Lesezeichen-Zustand aktualisieren
+    updateBookmarkBtnState(doc.id);
+
+    // Initialen Modus festlegen: Ruhi standardmaessig als PDF; Schriften & Botschaften als Fliesstext
+    let targetMode = preferredMode || (isRuhi && !targetParagraph ? 'pdf' : 'text');
+    if (!pdfPath) targetMode = 'text';
+
+    setViewerMode(targetMode, targetParagraph);
+
+    // Modal anzeigen & Header zuruecksetzen
     if (modal) {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
+    if (headerEl) {
+        headerEl.classList.remove('header-hidden');
+    }
+    lastScrollTop = 0;
 };
 
-function formatViewerDate(dateString) {
-    if (!dateString) return 'Undatiert';
-    const parts = dateString.split('-');
-    if (parts.length === 3) {
-        const d = new Date(parts[0], parts[1] - 1, parts[2]);
-        if (!isNaN(d.getTime())) {
-            return d.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' });
-        }
-    }
-    return dateString;
-}
+window.openViewer = window.openDocument;
 
-function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.appendChild(document.createTextNode(text));
-    return div.innerHTML;
-}
+function setViewerMode(mode, targetParagraph) {
+    currentViewerMode = mode;
+    const modal = document.getElementById('document-viewer');
+    const bodyEl = document.getElementById('viewer-body');
+    const headerEl = document.getElementById('viewer-header');
+    const btnModePdf = document.getElementById('btn-mode-pdf');
+    const btnModeText = document.getElementById('btn-mode-text');
+    const copyBtn = document.getElementById('viewer-copy');
 
-window.addViewerParagraphToWorkshop = function(paraIdx) {
-    if (!currentViewerDoc || !currentViewerDoc.text) return;
-    const structure = parseDocumentStructure(currentViewerDoc.text);
-    const pText = structure.body[paraIdx - 1];
-    if (!pText) return;
+    if (btnModePdf) btnModePdf.classList.toggle('active', mode === 'pdf');
+    if (btnModeText) btnModeText.classList.toggle('active', mode === 'text');
+    if (modal) modal.classList.toggle('modal-wide', mode === 'pdf');
+    if (copyBtn) copyBtn.style.display = mode === 'pdf' ? 'none' : '';
 
-    if (window.CompilationBuilder && window.CompilationBuilder.addPassageFromViewer) {
-        window.CompilationBuilder.addPassageFromViewer(currentViewerDoc, pText.trim(), paraIdx);
-        const btn = document.getElementById(`viewer-para-btn-${paraIdx}`);
-        if (btn) {
-            btn.innerHTML = 'Im Entwurf';
-            btn.style.background = 'var(--color-accent-light)';
-            btn.style.color = 'var(--color-primary)';
-            btn.style.borderColor = 'var(--color-accent)';
+    const pdfPath = resolvePdfPath(currentViewerDoc);
+
+    if (mode === 'pdf' && pdfPath) {
+        if (bodyEl) {
+            bodyEl.classList.add('pdf-active');
+            bodyEl.scrollTop = 0;
+            if (headerEl) headerEl.classList.remove('header-hidden');
+            bodyEl.innerHTML = `
+                <div class="ruhi-pdf-view-wrapper">
+                    <iframe src="${pdfPath}#toolbar=1&navpanes=0" class="viewer-pdf-frame" title="${escapeHtml(currentViewerDoc.title || 'Original-PDF')}"></iframe>
+                </div>
+            `;
         }
     } else {
-        alert('Kompilations-Werkstatt ist noch nicht bereit.');
+        if (bodyEl) {
+            bodyEl.classList.remove('pdf-active');
+            bodyEl.innerHTML = `
+                <div class="viewer-reading-canvas" id="viewer-reading-canvas">
+                    <p style="color:var(--text-muted);font-style:italic;text-align:center;padding:4rem 0;">Volltext wird geladen…</p>
+                </div>
+            `;
+            renderDocumentText(currentViewerDoc, targetParagraph);
+        }
     }
-};
+}
+
+function renderDocumentText(doc, targetParagraph) {
+    const canvas = document.getElementById('viewer-reading-canvas');
+    if (!canvas || !doc) return;
+
+    function render(text) {
+        doc.text = text;
+        const structure = parseDocumentStructure(text);
+        doc.paragraphs = structure.body;
+
+        let html = '';
+
+        // 1. Schlanker, eleganter Vorspann (falls Institution, Datum, Empfaenger oder Anrede vorhanden)
+        const instHeader = structure.headers.find(h => h.kind === 'institution');
+        const dateHeader = structure.headers.find(h => h.kind === 'date');
+        const addresseeHeader = structure.headers.find(h => h.kind === 'addressee');
+
+        if (instHeader || dateHeader || addresseeHeader || structure.salutation) {
+            html += '<header class="reader-prologue">';
+            if (instHeader) {
+                html += `<div class="reader-prologue-inst">${escapeHtml(instHeader.text)}</div>`;
+            }
+            if (dateHeader) {
+                html += `<div class="reader-prologue-date">${escapeHtml(dateHeader.text)}</div>`;
+            }
+            if (addresseeHeader) {
+                html += `<div class="reader-prologue-addressee">${escapeHtml(addresseeHeader.text)}</div>`;
+            }
+            if (structure.salutation) {
+                html += `<div class="reader-prologue-salutation">${escapeHtml(structure.salutation)}</div>`;
+            }
+            html += '</header>';
+        }
+
+        // 2. Aufgeraeumte Absaetze mit Randnummer & unaufdringlicher Schwebepille
+        html += structure.body.map((rawP, idx) => {
+            const pNum = idx + 1;
+            // Datenbank-Praefixe bereinigen (z.B. "1:1 ", "f.1:1 ", "0_1 ")
+            const p = rawP.replace(/^(\d+(?:\.\d+)?:\d+(?:_\d+)?|f\.(?:\w+:)?\d+(?:_\d+)?|0_\d+)\s+/, '').trim();
+            const originalParaUrl = getOriginalParagraphUrl(doc, pNum, p);
+
+            return `
+                <div class="viewer-paragraph" id="viewer-para-${pNum}" data-pnum="${pNum}">
+                    <span class="para-gutter-num">${pNum}</span>
+                    <p class="para-text">${escapeHtml(p)}</p>
+                    <div class="para-hover-actions">
+                        <a href="${escapeHtml(originalParaUrl)}" target="_blank" rel="noopener noreferrer" class="para-pill-btn" title="Diesen Absatz in der autorisierten Originalquelle im Web oeffnen">Original ↗</a>
+                        <button class="para-pill-btn" onclick="window.copyParagraphCitation(${pNum})" title="Absatz samt formaler Quellenangabe kopieren">
+                            <span id="para-copy-label-${pNum}">Zitieren</span>
+                        </button>
+                        <button class="para-pill-btn" onclick="window.copyParagraphDeepLink(${pNum})" title="Direktlink zu diesem Absatz im Archiv kopieren">
+                            <span id="para-link-label-${pNum}">Link</span>
+                        </button>
+                        <button id="viewer-para-btn-${pNum}" onclick="window.addViewerParagraphToWorkshop(${pNum})" class="para-pill-btn btn-add-workshop" title="Diesen Absatz zur Kompilations-Werkstatt hinzufuegen">+ Werkstatt</button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        // 3. Nachspann (Schlussformeln & Unterzeichner)
+        if (structure.closings.length > 0) {
+            html += `
+                <footer class="reader-epilogue">
+                    ${structure.closings.map(c => `<div>${escapeHtml(c)}</div>`).join('')}
+                </footer>
+            `;
+        }
+
+        // 4. Zurueckhaltender Herkunftshinweis
+        const sourceName = doc.sourcePlatform || (doc.sourceUrl && doc.sourceUrl.includes('bibliothek.bahai.de') ? 'Bahá’í-Bibliothek Deutschland' : 'Bahá’í Reference Library');
+        const sourceUrl = doc.sourceUrl || 'https://www.bahai.org/library/';
+        html += `
+            <div class="reader-footer-note">
+                Autorisierte Publikation &bull; <a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener">${escapeHtml(sourceName)}</a>
+            </div>
+        `;
+
+        canvas.innerHTML = html;
+
+        // Wenn ein Zielabsatz uebergeben wurde, sanft hinscrollen & hervorheben
+        if (targetParagraph) {
+            setTimeout(() => {
+                const targetEl = document.getElementById(`viewer-para-${targetParagraph}`);
+                if (targetEl) {
+                    targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    targetEl.classList.add('highlight-target');
+                    setTimeout(() => targetEl.classList.remove('highlight-target'), 3500);
+                }
+            }, 300);
+        }
+    }
+
+    if (doc.text) {
+        render(doc.text);
+    } else if (doc.hasText !== false && doc.id) {
+        const relUrl = `data/texts/${doc.id}.txt`;
+        const absUrl = `/data/texts/${doc.id}.txt`;
+        fetch(relUrl)
+            .then(r => r.ok ? r.text() : fetch(absUrl).then(r2 => r2.ok ? r2.text() : Promise.reject('not found')))
+            .then(text => render(text))
+            .catch(() => {
+                canvas.innerHTML = '<p style="color:var(--text-muted);font-style:italic;text-align:center;padding:4rem 0;">Kein Volltext verfuegbar.</p>';
+            });
+    } else {
+        canvas.innerHTML = '<p style="color:var(--text-muted);font-style:italic;text-align:center;padding:4rem 0;">Kein Volltext hinterlegt.</p>';
+    }
+}
 
 function detectHeaderKind(b, idx) {
     if (idx > 7) return null;
@@ -544,7 +498,7 @@ function detectHeaderKind(b, idx) {
         return 'institution';
     }
     
-    // 2. Date
+    // 2. Datum
     const months = /(januar|februar|märz|april|mai|juni|juli|august|september|oktober|november|dezember|january|february|march|april|may|june|july|august|september|october|november|december|riḍván|ridvan|naw-rúz|naw-ruz)/i;
     if (b.length < 90) {
         if (months.test(bl) && (/\d{4}/.test(bl) || /\b(1[5-9]\d|2\d\d)\b/.test(bl))) {
@@ -558,7 +512,7 @@ function detectHeaderKind(b, idx) {
         }
     }
     
-    // 3. Addressee
+    // 3. Adressat
     if (b.length < 220) {
         if (/^(an\s+|to\s+)/i.test(bl)) {
             return 'addressee';
@@ -577,7 +531,7 @@ function detectHeaderKind(b, idx) {
         }
     }
     
-    // 4. Salutation (Anrede)
+    // 4. Anrede
     if (b.length < 130) {
         const salutations = [
             'innig geliebte freunde', 'dearly loved friends', 'liebe bahá', 'dear bahá',
@@ -594,7 +548,7 @@ function detectHeaderKind(b, idx) {
         }
     }
     
-    // 5. Metadata / translation / subject header
+    // 5. Metadaten / Uebersetzung
     if (b.length < 180 && (
         bl.includes('[authorized translation') || bl.includes('[autorisierte übersetzung') ||
         bl.includes('[übersetzung aus dem') || bl.includes('betrifft:') ||
@@ -683,7 +637,6 @@ function getOriginalParagraphUrl(doc, pNum, paraText) {
     const base = doc.sourceUrl.split('#')[0];
     
     // W3C Text Fragment Standard: #:~:text=...
-    // Clean first 6-8 words
     const cleanText = (paraText || '')
         .replace(/["'„“»«\(\)\.,;:!?]/g, ' ')
         .trim()
@@ -737,5 +690,40 @@ window.copyParagraphDeepLink = function(pNum) {
     });
 };
 
+window.addViewerParagraphToWorkshop = function(paraIdx) {
+    if (!currentViewerDoc || !currentViewerDoc.text) return;
+    const structure = parseDocumentStructure(currentViewerDoc.text);
+    const pText = structure.body[paraIdx - 1];
+    if (!pText) return;
 
+    if (window.CompilationBuilder && window.CompilationBuilder.addPassageFromViewer) {
+        window.CompilationBuilder.addPassageFromViewer(currentViewerDoc, pText.trim(), paraIdx);
+        const btn = document.getElementById(`viewer-para-btn-${paraIdx}`);
+        if (btn) {
+            btn.innerHTML = 'Im Entwurf';
+            btn.style.background = 'var(--color-accent-light)';
+            btn.style.color = 'var(--color-primary)';
+            btn.style.borderColor = 'var(--color-accent)';
+        }
+    } else {
+        alert('Kompilations-Werkstatt ist noch nicht bereit.');
+    }
+};
 
+function formatViewerDate(dateString) {
+    if (!dateString) return 'Undatiert';
+    const parts = dateString.split('-');
+    if (parts.length === 3) {
+        const d = new Date(parts[0], parts[1] - 1, parts[2]);
+        if (!isNaN(d.getTime())) {
+            return d.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+    }
+    return dateString;
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.appendChild(document.createTextNode(text));
+    return div.innerHTML;
+}

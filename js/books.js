@@ -33,12 +33,8 @@ window.BooksModule = (function() {
         const booksDocs = allDocs.filter(d => d.tier === 'books');
 
         container.innerHTML = `
-            <div class="view-header" style="max-width: 960px; margin: 0 auto 2rem; text-align: center;">
-                <div class="editorial-eyebrow">Heilige Schriften &amp; Primärliteratur // Autorisierter Kanon</div>
+            <div class="view-header" style="max-width: 960px; margin: 0 auto 1.25rem; text-align: center;">
                 <h2 class="editorial-headline">Schriften &amp; Bücher</h2>
-                <p class="editorial-lead">
-                    Die maßgeblichen heiligen Schriften und autorisierten Werke der Zentralen Gestalten des Bahá'í-Glaubens, Shoghi Effendis und des Universalen Hauses der Gerechtigkeit aus der Bahá'í Reference Library und der Bahá'í-Bibliothek.
-                </p>
 
                 <!-- Suchfeld für Bücher -->
                 <div class="library-search-box" style="margin-top: 1.5rem;">

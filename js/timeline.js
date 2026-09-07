@@ -696,18 +696,10 @@ window.TimelineModule = (function() {
         const isDe = currentLang === 'de';
 
         container.innerHTML = `
-            <div class="view-header" style="max-width: 1150px; margin: 0 auto 1.5rem; text-align: center;">
-                <div class="editorial-eyebrow">
-                    ${isDe ? "Historischer Strukturplan // Offizielle Zeittafel" : "Historical Structural Chart // Authoritative Timeline"}
-                </div>
-                <h2 class="editorial-headline" style="font-size: 2.35rem; margin-bottom: 0.5rem;">
-                    ${isDe ? "Unfoldment of the Bahá’í Faith" : "Unfoldment of the Bahá’í Faith"}
+            <div class="view-header" style="max-width: 1150px; margin: 0 auto 1.25rem; text-align: center;">
+                <h2 class="editorial-headline" style="font-size: 2.25rem; margin-bottom: 0.75rem;">
+                    ${isDe ? "Entfaltung des Bahá’í-Glaubens" : "Unfoldment of the Bahá’í Faith"}
                 </h2>
-                <p class="editorial-lead" style="max-width: 780px; margin: 0 auto 1.5rem;">
-                    ${isDe 
-                        ? "Interaktive, maßstabsgetreue Rekonstruktion des autorisierten historischen Diagramms. Klicken Sie auf beliebige Epochen, Sendungen oder Pläne, um sofort alle zugehörigen Dokumente zu studieren."
-                        : "Interactive, authentic vector reproduction of the authoritative historical chart. Click any epoch, ministry, or plan to inspect its theological significance and read all relevant texts."}
-                </p>
 
                 <!-- Toolbar: Sprache & Scrubber -->
                 <div class="unfold-toolbar">

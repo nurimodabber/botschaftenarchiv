@@ -189,7 +189,7 @@ def save_pdf_to_destinations(folder_name: str, filename: str, content_bytes: byt
                 with open(target, "wb") as f:
                     f.write(content_bytes)
         except Exception as e:
-            print(f"    ⚠ Fehler beim Speichern in {target}: {e}", file=sys.stderr)
+            print(f"     Fehler beim Speichern in {target}: {e}", file=sys.stderr)
 
     return f"../documents/{rel_subpath.as_posix()}"
 
@@ -286,14 +286,14 @@ def generate_book_pdf(title: str, subtitle: str, author_name: str, paragraphs: l
         doc.build(story)
         return pdf_buffer.getvalue()
     except Exception as e:
-        print(f"    ⚠ PDF-Generierung fehlgeschlagen ({e}), erstelle Text-Fallback.", file=sys.stderr)
+        print(f"     PDF-Generierung fehlgeschlagen ({e}), erstelle Text-Fallback.", file=sys.stderr)
         plain = f"{author_name}\n{title}\n{subtitle}\n\n" + "\n\n".join(paragraphs)
         return plain.encode('utf-8')
 
 
 def import_english_books(existing_ids: set, docs: list) -> int:
     """Importiert alle englischen Bücher von bahai.org/library/authoritative-texts/downloads."""
-    print("\n📚 [1/2] Importiere englische Bücher von bahai.org/library...")
+    print("\n [1/2] Importiere englische Bücher von bahai.org/library...")
     base_url = "https://www.bahai.org"
     dl_url = f"{base_url}/library/authoritative-texts/downloads"
 
@@ -303,7 +303,7 @@ def import_english_books(existing_ids: set, docs: list) -> int:
     try:
         html = opener.open(dl_url, timeout=25).read().decode('utf-8', errors='replace')
     except Exception as e:
-        print(f"❌ Fehler beim Laden der Downloads-Seite von bahai.org: {e}", file=sys.stderr)
+        print(f" Fehler beim Laden der Downloads-Seite von bahai.org: {e}", file=sys.stderr)
         return 0
 
     # Links extrahieren: href="/library/authoritative-texts/<author>/<slug>/<file>.pdf"
@@ -348,7 +348,7 @@ def import_english_books(existing_ids: set, docs: list) -> int:
         try:
             pdf_bytes = opener.open(pdf_url, timeout=40).read()
         except Exception as e:
-            print(f"    ⚠ PDF konnte nicht geladen werden ({pdf_url}): {e}")
+            print(f"     PDF konnte nicht geladen werden ({pdf_url}): {e}")
             continue
 
         safe_fname = f"{sanitize_filename(clean_title)}-eng.pdf"
@@ -410,13 +410,13 @@ def import_english_books(existing_ids: set, docs: list) -> int:
         count += 1
         time.sleep(0.1)
 
-    print(f"✓ {count} englische Bücher erfolgreich importiert.")
+    print(f" {count} englische Bücher erfolgreich importiert.")
     return count
 
 
 def import_german_books(existing_ids: set, docs: list) -> int:
     """Importiert alle deutschen Bücher von bibliothek.bahai.de."""
-    print("\n📚 [2/2] Importiere deutsche Bücher von bibliothek.bahai.de...")
+    print("\n [2/2] Importiere deutsche Bücher von bibliothek.bahai.de...")
     base_url = "https://bibliothek.bahai.de"
     authors = ["bah", "bab", "abd", "sho", "uhj", "comp", "prayer"]
 
@@ -430,11 +430,11 @@ def import_german_books(existing_ids: set, docs: list) -> int:
         try:
             html = urllib.request.urlopen(req, timeout=25).read().decode('utf-8', errors='replace')
         except Exception as e:
-            print(f"  ⚠ Fehler beim Laden von Autor {a_code}: {e}", file=sys.stderr)
+            print(f"   Fehler beim Laden von Autor {a_code}: {e}", file=sys.stderr)
             continue
 
         book_blocks = re.findall(r'<a[^>]*href=[\"\']pubReader\.php\?titleLangUri=([^\"\']+)[\"\'][^>]*>(.*?)</a>', html, re.DOTALL)
-        print(f"  🔍 Autor [{author_meta['name']}]: {len(book_blocks)} Werke gefunden.")
+        print(f"   Autor [{author_meta['name']}]: {len(book_blocks)} Werke gefunden.")
 
         for uri, block in book_blocks:
             book_id = f"book_de_{uri}".replace('-', '_')
@@ -450,7 +450,7 @@ def import_german_books(existing_ids: set, docs: list) -> int:
             if title.startswith(author_meta['name']):
                 title = title[len(author_meta['name']):].strip(" :–-")
 
-            print(f"    📖 Lade [{author_meta['name']}] {title[:50]}...")
+            print(f"     Lade [{author_meta['name']}] {title[:50]}...")
 
             # Session initialisieren und alle Absätze iterativ per loadTextAfter laden
             cj = http.cookiejar.CookieJar()
@@ -481,7 +481,7 @@ def import_german_books(existing_ids: set, docs: list) -> int:
                         break
                     time.sleep(0.05)
             except Exception as e:
-                print(f"      ⚠ Fehler beim Nachladen ({e})", file=sys.stderr)
+                print(f"       Fehler beim Nachladen ({e})", file=sys.stderr)
 
             if not paragraphs:
                 continue
@@ -534,7 +534,7 @@ def import_german_books(existing_ids: set, docs: list) -> int:
             count += 1
             time.sleep(0.1)
 
-    print(f"✓ {count} deutsche Bücher erfolgreich importiert.")
+    print(f" {count} deutsche Bücher erfolgreich importiert.")
     return count
 
 
@@ -545,7 +545,7 @@ def main():
     print("═══════════════════════════════════════════════════════════════════════")
 
     if not INDEX_FILE.exists():
-        print(f"❌ Index-Datei {INDEX_FILE} nicht gefunden!", file=sys.stderr)
+        print(f" Index-Datei {INDEX_FILE} nicht gefunden!", file=sys.stderr)
         sys.exit(1)
 
     with open(INDEX_FILE, "r", encoding="utf-8") as f:
@@ -560,12 +560,12 @@ def main():
     total_added = added_en + added_de
 
     if total_added > 0:
-        print(f"\n🎉 Insgesamt {total_added} neue Bücher erfolgreich hinzugefügt ({added_en} EN, {added_de} DE).")
+        print(f"\n Insgesamt {total_added} neue Bücher erfolgreich hinzugefügt ({added_en} EN, {added_de} DE).")
         with open(INDEX_FILE, "w", encoding="utf-8") as f:
             json.dump(docs, f, ensure_ascii=False, indent=2)
-        print(f"💾 data/index.json aktualisiert. Neuer Gesamtbestand: {len(docs)} Dokumente.")
+        print(f" data/index.json aktualisiert. Neuer Gesamtbestand: {len(docs)} Dokumente.")
     else:
-        print("\n✅ Alle Bücher sind bereits vollständig im Index und Ordner vorhanden.")
+        print("\n Alle Bücher sind bereits vollständig im Index und Ordner vorhanden.")
 
     print("\n=== Bücher-Import abgeschlossen ===")
 

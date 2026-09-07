@@ -303,12 +303,8 @@ window.SourcesModule = (function() {
         container.innerHTML = `
             <div class="sources-master-container">
                 <!-- Header -->
-                <div class="view-header" style="max-width: 960px; margin: 0 auto 2rem; text-align: center;">
-                    <div class="editorial-eyebrow">Vollständiges Dokumenten- &amp; Quellenverzeichnis // Autorisierter Kanon</div>
+                <div class="view-header" style="max-width: 960px; margin: 0 auto 1.25rem; text-align: center;">
                     <h2 class="editorial-headline">Quellen &amp; Dokumente</h2>
-                    <p class="editorial-lead">
-                        Ausführliche Gesamtschau aller autorisierten Bücher, Botschaften, Kompilationen, Ruhi-Studienbände und offiziellen Webportale. Gegliedert in aufklappbare Verzeichnisse mit direkten Original-Verlinkungen, Leseansicht im Reader und Mehrformat-Downloads.
-                    </p>
                 </div>
 
                 <!-- Steuerungsleiste: Suche, Schnellnavigation & Aufklapp-Aktionen -->
@@ -412,7 +408,6 @@ window.SourcesModule = (function() {
                         </div>
                         <div class="summary-title-wrap">
                             <h3 class="summary-title">Bücher &amp; Heilige Schriften</h3>
-                            <span class="summary-desc">Schriften der Zentralgestalten, Shoghi Effendis und autorisierte Werke</span>
                         </div>
                     </div>
                     <div class="summary-right">
@@ -479,7 +474,6 @@ window.SourcesModule = (function() {
                         </div>
                         <div class="summary-title-wrap">
                             <h3 class="summary-title">Botschaften des Universalen Hauses der Gerechtigkeit</h3>
-                            <span class="summary-desc">Chronologische Gesamtsammlung von 1963 bis heute mit Primärverlinkung</span>
                         </div>
                     </div>
                     <div class="summary-right">
@@ -491,10 +485,7 @@ window.SourcesModule = (function() {
                     ${grouped.map(group => `
                         <details class="source-sub-accordion" ${group.key === 2020 ? 'open' : ''}>
                             <summary class="source-sub-summary">
-                                <div>
-                                    <span class="source-sub-title">${group.label}</span>
-                                    <span class="source-sub-tagline">${group.desc}</span>
-                                </div>
+                                <span class="source-sub-title">${group.label}</span>
                                 <div class="source-sub-meta">
                                     <span class="source-sub-counter">${group.items.length} Botschaften</span>
                                     <svg class="source-sub-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
@@ -523,8 +514,7 @@ window.SourcesModule = (function() {
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
                         </div>
                         <div class="summary-title-wrap">
-                            <h3 class="summary-title">Thematische Kompilationen</h3>
-                            <span class="summary-desc">Autorisierte Textzusammenstellungen der Forschungsabteilung des Weltzentrums</span>
+                            <h3 class="summary-title">Thematische Sammlungen</h3>
                         </div>
                     </div>
                     <div class="summary-right">
@@ -571,7 +561,6 @@ window.SourcesModule = (function() {
                         </div>
                         <div class="summary-title-wrap">
                             <h3 class="summary-title">Ruhi-Institut &amp; Studienreihen</h3>
-                            <span class="summary-desc">Systematisches Curriculum für Studienkreise, Kinderklassen und Vorjugend</span>
                         </div>
                     </div>
                     <div class="summary-right">
@@ -583,10 +572,7 @@ window.SourcesModule = (function() {
                     ${groups.map(group => `
                         <details class="source-sub-accordion" open>
                             <summary class="source-sub-summary">
-                                <div>
-                                    <span class="source-sub-title">${group.name}</span>
-                                    <span class="source-sub-tagline">${group.desc}</span>
-                                </div>
+                                <span class="source-sub-title">${group.name}</span>
                                 <div class="source-sub-meta">
                                     <span class="source-sub-counter">${group.items.length} Hefte</span>
                                     <svg class="source-sub-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
@@ -626,7 +612,6 @@ window.SourcesModule = (function() {
                         </div>
                         <div class="summary-title-wrap">
                             <h3 class="summary-title">Offizielle Webseiten &amp; Portale</h3>
-                            <span class="summary-desc">Maßgebliche Webpräsenzen, Repositorien und Vertretungen weltweit</span>
                         </div>
                     </div>
                     <div class="summary-right">
@@ -638,10 +623,7 @@ window.SourcesModule = (function() {
                     ${grouped.map(group => `
                         <details class="source-sub-accordion" open>
                             <summary class="source-sub-summary">
-                                <div>
-                                    <span class="source-sub-title">${group.label}</span>
-                                    <span class="source-sub-tagline">${group.desc}</span>
-                                </div>
+                                <span class="source-sub-title">${group.label}</span>
                                 <div class="source-sub-meta">
                                     <span class="source-sub-counter">${group.items.length} Portale</span>
                                     <svg class="source-sub-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
