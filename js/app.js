@@ -1547,20 +1547,7 @@ function renderCompilations() {
                 <div>
                     <div class="doc-meta">
                         <span class="source-badge source-forschungsabteilung">Kompilation</span>
-                        <div style="display: flex; gap: 0.5rem; align-items: center;">
-                            ${(deWord || dePdf) ? `
-                            <div style="display: flex; align-items: center; gap: 0.2rem;">
-                                <span style="font-size: 0.68rem; font-weight: bold; color: var(--text-subtle);">DE:</span>
-                                ${deWord ? `<a href="${deWord.filePath}" target="_blank" onclick="event.stopPropagation();" class="format-chip" style="text-decoration:none;" title="Deutsch DOCX">DOCX</a>` : ''}
-                                ${dePdf ? `<a href="${dePdf.filePath}" target="_blank" onclick="event.stopPropagation();" class="format-chip" style="text-decoration:none;" title="Deutsch PDF">PDF</a>` : ''}
-                            </div>` : ''}
-                            ${(enWord || enPdf) ? `
-                            <div style="display: flex; align-items: center; gap: 0.2rem;">
-                                <span style="font-size: 0.68rem; font-weight: bold; color: var(--text-subtle);">EN:</span>
-                                ${enWord ? `<a href="${enWord.filePath}" target="_blank" onclick="event.stopPropagation();" class="format-chip" style="text-decoration:none;" title="Englisch DOCX">DOCX</a>` : ''}
-                                ${enPdf ? `<a href="${enPdf.filePath}" target="_blank" onclick="event.stopPropagation();" class="format-chip" style="text-decoration:none;" title="Englisch PDF">PDF</a>` : ''}
-                            </div>` : ''}
-                        </div>
+                        ${(dePdf && enPdf) ? `<span class="doc-bilingual-badge">DE · EN</span>` : ''}
                     </div>
                     <h3 class="doc-title">${escapeDocHtml(key)}${enSubtitle ? ` (${escapeDocHtml(enSubtitle)})` : ''}</h3>
                     <p class="doc-excerpt">${escapeDocHtml(excerpt)}…</p>
@@ -1824,106 +1811,66 @@ function formatDate(dateString) {
 
 window.createDocCard = function(doc, snippet = '', index = 0) {
     const isEn = (doc.language || '').toLowerCase() === 'english';
-    const langLabel = isEn ? 'EN' : 'DE';
     const hasBoth = doc.availableLanguages && doc.availableLanguages.includes('de') && doc.availableLanguages.includes('en');
     
-    // Meta breadcrumb line (Originalformat immer oben)
+    // 1. Ruhige, informative Metazeile (nur das Wesentliche: Datum & Kontext)
     const metaParts = [];
-    const origFmt = window.getDocOriginalFormat ? window.getDocOriginalFormat(doc) : (doc.tier === 'books' ? 'PDF' : (doc.sourceUrl ? 'Webseite' : 'PDF'));
-    metaParts.push(`<span class="doc-orig-format-pill orig-${origFmt.toLowerCase()}">${origFmt}</span>`);
 
-    // Säulen-Zuordnung bei Gesamtdurchsuchung
+    // Säulen-Zuordnung nur bei Master-Gesamtsuche ("all") zur Orientierung
     if (state.library && state.library.segment === 'all') {
-        let pillarTag = 'Haus';
-        let pillarClass = 'pillar-badge-house';
-        if (doc.tier === 'books') {
-            pillarTag = 'Schriften';
-            pillarClass = 'pillar-badge-books';
-        } else if (doc.tier === 'compilations') {
-            pillarTag = 'Kompilation';
-            pillarClass = 'pillar-badge-compilations';
-        } else if (doc.tier === 'ruhi') {
-            pillarTag = 'Ruhi';
-            pillarClass = 'pillar-badge-ruhi';
-        }
-        metaParts.push(`<span class="doc-pillar-tag ${pillarClass}">${pillarTag}</span>`);
+        let pillarTag = 'Botschaft';
+        if (doc.tier === 'books') pillarTag = 'Heilige Schrift';
+        else if (doc.tier === 'compilations') pillarTag = 'Kompilation';
+        else if (doc.tier === 'ruhi') pillarTag = 'Ruhi-Buch';
+        metaParts.push(`<span class="doc-pillar-text">${pillarTag}</span>`);
     }
 
+    // Datum (unverzichtbar für chronologische Orientierung)
     if (doc.tier === 'books' && doc.year) {
         metaParts.push(`<span class="doc-date">${doc.year}</span>`);
     } else if (doc.date) {
         metaParts.push(`<span class="doc-date">${formatDate(doc.date)}</span>`);
     }
     
-    // Origin / Category
-    let categoryLabel = '';
+    // Spezifischer Anlass / Empfänger / Autor (nur falls aussagekräftig)
+    let contextLabel = '';
     if (doc.tier === 'books') {
-        categoryLabel = doc.author || 'Heilige Schrift';
-    } else if (doc.type && doc.type !== 'Botschaft') {
-        categoryLabel = doc.type.replace('-Botschaft', '');
+        if (doc.author) contextLabel = doc.author;
+    } else if (doc.type && doc.type !== 'Botschaft' && !doc.type.includes('Botschaft')) {
+        contextLabel = doc.type;
     } else if (doc.recipientLabel) {
         let rec = doc.recipientLabel;
         if (rec === "Weltweite Bahá'í-Gemeinde") rec = "Weltweite Gemeinde";
-        if (rec === "Kontinentale Berater & Hilfsamt") rec = "Berater";
-        categoryLabel = rec;
-    } else {
-        categoryLabel = 'Botschaft';
+        if (rec === "Kontinentale Berater & Hilfsamt") rec = "Beraterkonferenz";
+        if (rec !== "Botschaft" && rec !== "Universales Haus der Gerechtigkeit") {
+            contextLabel = rec;
+        }
     }
-    metaParts.push(`<span class="doc-origin-tag">${escapeDocHtml(categoryLabel)}</span>`);
+    if (contextLabel) {
+        metaParts.push(`<span class="doc-context-text">${escapeDocHtml(contextLabel)}</span>`);
+    }
 
+    // Dezente zweisprachige Kennzeichnung (ohne klickbare Doppel-Knöpfe)
     if (hasBoth) {
-        const deId = doc.translations && doc.translations.de ? doc.translations.de : doc.id;
-        const enId = doc.translations && doc.translations.en ? doc.translations.en : doc.id;
-        metaParts.push(`
-            <div class="card-lang-toggle" onclick="event.stopPropagation()">
-                <button class="card-lang-btn ${!isEn ? 'active' : ''}" onclick="window.openDocument('${deId}', null, null, 'de')" title="Auf Deutsch öffnen">DE</button>
-                <button class="card-lang-btn ${isEn ? 'active' : ''}" onclick="window.openDocument('${enId}', null, null, 'en')" title="Open in English">EN</button>
-            </div>
-        `);
-    } else {
-        metaParts.push(`<span class="doc-lang-tag ${langLabel.toLowerCase()}">${langLabel}</span>`);
-    }
-
-    if (doc.keyPassagesCount > 0) {
-        metaParts.push(`<span class="doc-passages-tag" title="${doc.keyPassagesCount} thematische Kernabsätze">${doc.keyPassagesCount} Abs.</span>`);
+        metaParts.push(`<span class="doc-bilingual-badge" title="Zweisprachig verfügbar (Deutsch & Englisch)">DE · EN</span>`);
     }
 
     const staggerIndex = typeof index === 'number' ? (index % 30) : 0;
     const previewText = snippet ? `…${snippet}…` : (doc.excerpt ? `${escapeDocHtml(doc.excerpt)}…` : '');
 
-    // Subtitle if bilingual and English/German title differs
+    // Zweitsprachiger Titel ohne redundante Datumsdoppelung
     let subTitleHtml = '';
     if (hasBoth) {
-        const otherTitle = isEn ? doc.deTitle : doc.enTitle;
+        let otherTitle = isEn ? doc.deTitle : doc.enTitle;
         if (otherTitle && otherTitle !== doc.title) {
-            subTitleHtml = `<div class="doc-sub-title">${isEn ? 'DE' : 'EN'}: ${escapeDocHtml(otherTitle)}</div>`;
-        }
-    }
-
-    // Formate als zusammenhängende, typografische Download-Leiste
-    const fmts = doc.availableFormats || ['pdf', 'docx', 'epub', 'txt'];
-    const files = doc.formatFiles || {};
-    
-    let formatLinks = [];
-    ['pdf', 'docx', 'epub', 'txt'].forEach(fmt => {
-        if (fmts.includes(fmt) || files[fmt]) {
-            const path = files[fmt] || (doc.format === fmt ? doc.filePath : '');
-            if (path) {
-                formatLinks.push(`<a href="${encodeURI(path)}" download class="doc-fmt-link" onclick="event.stopPropagation()" title="Als ${fmt.toUpperCase()} herunterladen">${fmt.toUpperCase()}</a>`);
+            otherTitle = otherTitle.replace(/^\d{1,2}\s+[A-Za-zäöüßÄÖÜ]+\s+\d{4}\s*[–-]\s*/, '').trim();
+            if (otherTitle) {
+                subTitleHtml = `<div class="doc-sub-title">${escapeDocHtml(otherTitle)}</div>`;
             }
         }
-    });
-
-    let sourceLink = '';
-    if (doc.sourceUrl) {
-        sourceLink = `
-            <a href="${escapeDocHtml(doc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="doc-source-btn" onclick="event.stopPropagation()" title="Originalquelle im Web öffnen (${escapeDocHtml(doc.sourcePlatform || doc.source || 'Offizielle Quelle')})">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            </a>
-        `;
     }
 
-    // Dezent kuratierte Themen (max 1–2)
+    // 2. Dezent kuratierte Themen im Footer (maximal 2)
     let topicsHtml = '';
     if (doc.topics && doc.topics.length > 0) {
         topicsHtml = `<span class="doc-topic-pill">${escapeDocHtml(doc.topics[0])}</span>`;
@@ -1945,17 +1892,12 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
                 ${subTitleHtml}
                 ${previewText ? `<p class="doc-excerpt">${previewText}</p>` : ''}
             </div>
+            ${topicsHtml ? `
             <div class="doc-card-footer">
                 <div class="doc-topics-cluster">
                     ${topicsHtml}
                 </div>
-                <div class="doc-actions-cluster" onclick="event.stopPropagation()">
-                    <div class="doc-formats-strip">
-                        ${formatLinks.join('<span class="fmt-sep">·</span>')}
-                    </div>
-                    ${sourceLink}
-                </div>
-            </div>
+            </div>` : ''}
         </article>
     `;
 };
