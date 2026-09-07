@@ -1834,9 +1834,7 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
             contextLabel = rec;
         }
     }
-    if (contextLabel) {
-        metaParts.push(`<span class="doc-context-text">${escapeDocHtml(contextLabel)}</span>`);
-    }
+    const recipientHtml = contextLabel ? `<span class="doc-recipient-text" title="Empfänger / Kontext">${escapeDocHtml(contextLabel)}</span>` : '';
 
     const bilingualBadge = hasBoth ? `<span class="doc-bilingual-badge" title="Zweisprachig verfügbar (Deutsch & Englisch)">DE · EN</span>` : '';
 
@@ -1867,6 +1865,8 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
         }
     }
 
+    const hasFooter = Boolean(topicsHtml || recipientHtml);
+
     return `
         <article class="doc-card" style="--i: ${staggerIndex};" onclick="window.openDocument('${doc.id}')">
             <div class="doc-card-body">
@@ -1880,11 +1880,10 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
                 ${subTitleHtml}
                 ${previewText ? `<p class="doc-excerpt">${previewText}</p>` : ''}
             </div>
-            ${topicsHtml ? `
+            ${hasFooter ? `
             <div class="doc-card-footer">
-                <div class="doc-topics-cluster">
-                    ${topicsHtml}
-                </div>
+                ${topicsHtml ? `<div class="doc-topics-cluster">${topicsHtml}</div>` : ''}
+                ${recipientHtml}
             </div>` : ''}
         </article>
     `;

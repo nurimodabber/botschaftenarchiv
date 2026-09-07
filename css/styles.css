@@ -322,6 +322,18 @@ html[data-library-view="list"] #library-results .doc-topics-cluster,
     gap: 0.35rem;
 }
 
+html[data-library-view="list"] #library-results .doc-recipient-text,
+#library-results.list-view .doc-recipient-text {
+    font-family: var(--font-sans);
+    font-size: 0.74rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-left: auto;
+    text-align: right;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
 /* ─── Global Reset & Body ────────────────────────────────────────────────── */
 
 *, *::before, *::after {
@@ -3858,12 +3870,13 @@ body:has(#document-viewer.active) .cosmos-dock-container {
     #library-results.list-view .doc-card-footer {
         display: flex !important;
         align-items: center !important;
-        justify-content: flex-start !important;
+        justify-content: space-between !important;
         gap: 0.45rem !important;
         border-top: none !important;
         padding-top: 0.15rem !important;
         margin-top: 0 !important;
-        flex-wrap: wrap !important;
+        flex-wrap: nowrap !important;
+        width: 100% !important;
     }
 
     html[data-library-view="list"] #library-results .doc-topics-cluster,
@@ -3871,7 +3884,10 @@ body:has(#document-viewer.active) .cosmos-dock-container {
         display: flex !important;
         align-items: center !important;
         gap: 0.3rem !important;
-        flex-wrap: wrap !important;
+        flex-wrap: nowrap !important;
+        overflow: hidden !important;
+        min-width: 0 !important;
+        flex: 1 !important;
     }
 
     html[data-library-view="list"] #library-results .doc-topic-pill,
@@ -3879,12 +3895,30 @@ body:has(#document-viewer.active) .cosmos-dock-container {
         font-size: 0.68rem !important;
         padding: 0.1rem 0.42rem !important;
         border-radius: var(--radius-full) !important;
+        max-width: 120px !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
     }
 
     html[data-library-view="list"] #library-results .doc-topic-more,
     #library-results.list-view .doc-topic-more {
-        font-size: 0.68rem !important;
+        font-size: 0.64rem !important;
         color: var(--text-subtle) !important;
+        flex-shrink: 0 !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-recipient-text,
+    #library-results.list-view .doc-recipient-text {
+        font-family: var(--font-sans) !important;
+        font-size: 0.7rem !important;
+        font-weight: 500 !important;
+        color: var(--text-muted) !important;
+        margin-left: auto !important;
+        text-align: right !important;
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+        line-height: 1.2 !important;
     }
 
     .book-plate-card,
@@ -7896,11 +7930,23 @@ html[data-active-pillar="all"] {
 .doc-card-footer {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 0.75rem;
     padding-top: 0.75rem;
     border-top: 1px solid var(--border-hairline);
     font-size: 0.78rem;
     margin-top: auto;
+}
+
+.doc-recipient-text {
+    font-family: var(--font-sans);
+    font-size: 0.74rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-left: auto;
+    text-align: right;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .doc-topics-cluster {
