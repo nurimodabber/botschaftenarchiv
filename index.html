@@ -42,7 +42,7 @@
     <meta name="twitter:description" content="Digitale Forschungsbibliothek mit 918 Botschaften des Universalen Hauses der Gerechtigkeit, Schriften und Büchern im offiziellen Satzspiegel.">
     <meta name="twitter:image" content="https://bahaibibliothek.vercel.app/assets/icons/og-image.png">
 
-    <link rel="stylesheet" href="css/styles.css?v=2.4">
+    <link rel="stylesheet" href="css/styles.css?v=2.5">
     <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
     <!-- Vercel Web Analytics & Speed Insights -->
     <script>
@@ -114,7 +114,7 @@
             <div class="dock-actions">
                 <!-- Vereintes Einstellungs-Menü (Standard-Format, Sprache, Thema, Farbauswahl, Typografie, Lesebreite, Zeilenabstand, Layout) -->
                 <div class="appearance-wrapper">
-                    <button id="appearance-btn" class="appearance-dock-btn" aria-label="Einstellungen" title="Einstellungen">
+                    <button id="appearance-btn" class="appearance-dock-btn nav-btn" data-view="settings" aria-label="Einstellungen" title="Einstellungen">
                         <span class="nav-icon-circle">
                             <svg class="appearance-settings-icon nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="12" cy="12" r="3"></circle>
@@ -124,10 +124,11 @@
                         <span class="nav-label">Einstellungen</span>
                     </button>
                     <div id="appearance-popover" class="appearance-popover" hidden>
-                        <div class="appearance-popover-header">
-                            <span class="appearance-popover-title">Einstellungen</span>
-                            <button id="appearance-reset-btn" class="appearance-reset-btn" title="Auf Standard zurücksetzen">Zurücksetzen</button>
-                        </div>
+                        <div id="settings-panel-content" class="settings-panel-content">
+                            <div class="appearance-popover-header">
+                                <span class="appearance-popover-title">Einstellungen</span>
+                                <button id="appearance-reset-btn" class="appearance-reset-btn" title="Auf Standard zurücksetzen">Zurücksetzen</button>
+                            </div>
 
                         <!-- 0. Standard-Leseformat beim Öffnen von Dokumenten -->
                         <div class="appearance-section">
@@ -255,9 +256,10 @@
                                 <button class="appearance-opt-btn" data-lib-view="list">Kompakt-Liste</button>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </div><!-- /#settings-panel-content -->
+                </div><!-- /#appearance-popover -->
             </div>
+        </div>
         </header>
     </div>
 
@@ -601,6 +603,17 @@
             </div>
         </section>
 
+        <!-- 6. BEREICH: EINSTELLUNGEN (Mobile Vollansicht) -->
+        <section id="view-settings" class="view">
+            <div class="settings-view-container">
+                <div class="view-header settings-view-header">
+                    <h2 class="editorial-headline">Einstellungen</h2>
+                    <p class="settings-view-subtitle">Passen Sie Anzeige, Typografie und Leseoptionen an Ihre Vorlieben an.</p>
+                </div>
+                <div id="settings-page-mount" class="settings-page-mount"></div>
+            </div>
+        </section>
+
         <!-- Document Viewer Modal (Großzügiger, aufgeräumter Reader mit wegklappendem Header) -->
         <div id="document-viewer" class="modal" role="dialog" aria-modal="true" aria-labelledby="viewer-title">
             <div class="modal-content">
@@ -693,6 +706,6 @@
     <script src="js/timeline.js"></script>
     <script src="js/books.js"></script>
     <script src="js/sources.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/app.js?v=2.5"></script>
 </body>
 </html>

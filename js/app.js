@@ -352,16 +352,45 @@ function setupAppearance() {
     const popover = document.getElementById('appearance-popover');
     const resetBtn = document.getElementById('appearance-reset-btn');
 
+    function syncSettingsContainer() {
+        const isMobile = window.innerWidth <= 768;
+        const panel = document.getElementById('settings-panel-content');
+        const pop = document.getElementById('appearance-popover');
+        const pageMount = document.getElementById('settings-page-mount');
+        if (!panel || !pop || !pageMount) return;
+
+        if (isMobile) {
+            if (panel.parentElement !== pageMount) {
+                pageMount.appendChild(panel);
+            }
+            pop.hidden = true;
+        } else {
+            if (panel.parentElement !== pop) {
+                pop.appendChild(panel);
+            }
+            if (state.currentView === 'settings') {
+                window.switchView('library');
+            }
+        }
+    }
+
+    syncSettingsContainer();
+    window.addEventListener('resize', syncSettingsContainer);
+
     if (toggleBtn && popover) {
         toggleBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            const isHidden = popover.hidden;
-            popover.hidden = !isHidden;
-            toggleBtn.classList.toggle('active', !popover.hidden);
+            if (window.innerWidth <= 768) {
+                window.switchView('settings');
+            } else {
+                const isHidden = popover.hidden;
+                popover.hidden = !isHidden;
+                toggleBtn.classList.toggle('active', !popover.hidden);
+            }
         });
 
         document.addEventListener('click', (e) => {
-            if (!popover.hidden && !popover.contains(e.target) && !toggleBtn.contains(e.target)) {
+            if (window.innerWidth > 768 && !popover.hidden && !popover.contains(e.target) && !toggleBtn.contains(e.target)) {
                 popover.hidden = true;
                 toggleBtn.classList.remove('active');
             }
@@ -594,7 +623,15 @@ window.switchView = function(targetView) {
         return;
     }
 
-    const navBtns = document.querySelectorAll('.cosmos-nav .nav-btn');
+    if (targetView === 'settings' && window.innerWidth > 768) {
+        targetView = 'library';
+        const pop = document.getElementById('appearance-popover');
+        const toggleBtn = document.getElementById('appearance-btn');
+        if (pop) pop.hidden = false;
+        if (toggleBtn) toggleBtn.classList.add('active');
+    }
+
+    const navBtns = document.querySelectorAll('.cosmos-nav .nav-btn, .dock-actions .nav-btn');
     const views = document.querySelectorAll('.view');
 
     navBtns.forEach(btn => {
@@ -608,7 +645,9 @@ window.switchView = function(targetView) {
     state.currentView = targetView;
     document.body.setAttribute('data-active-view', targetView);
     const pop = document.getElementById('appearance-popover');
-    if (pop && !pop.hidden) pop.hidden = true;
+    if (pop && !pop.hidden && (window.innerWidth <= 768 || targetView !== 'library')) {
+        pop.hidden = true;
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     if (typeof window.trackEvent === 'function') {
@@ -629,7 +668,7 @@ window.switchView = function(targetView) {
 };
 
 function setupNavigation() {
-    const navBtns = document.querySelectorAll('.cosmos-nav .nav-btn');
+    const navBtns = document.querySelectorAll('.cosmos-nav .nav-btn, .dock-actions .nav-btn:not(#appearance-btn)');
     navBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             window.switchView(btn.dataset.view);
@@ -659,7 +698,7 @@ function handleDeepLink() {
                 const hashParams = new URLSearchParams(rawHash);
                 docId = hashParams.get('doc') || hashParams.get('document') || docId;
                 paraNum = hashParams.get('p') || hashParams.get('paragraph') || paraNum;
-            } else if (['library', 'search', 'collections', 'timeline', 'books', 'sources', 'workshop', 'saved'].includes(rawHash)) {
+            } else if (['library', 'search', 'collections', 'timeline', 'books', 'sources', 'workshop', 'saved', 'settings'].includes(rawHash)) {
                 window.switchView(rawHash);
             }
         }
