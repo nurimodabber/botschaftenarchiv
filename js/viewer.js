@@ -25,6 +25,8 @@ window.initViewer = function() {
     const bookmarkBtn = document.getElementById('viewer-bookmark');
     const copyBtn = document.getElementById('viewer-copy');
     const btnModePdf = document.getElementById('btn-mode-pdf');
+    const btnModeWeb = document.getElementById('btn-mode-web');
+    const btnModeEpub = document.getElementById('btn-mode-epub');
     const btnModeText = document.getElementById('btn-mode-text');
     const btnLangDe = document.getElementById('btn-viewer-lang-de');
     const btnLangEn = document.getElementById('btn-viewer-lang-en');
@@ -62,19 +64,25 @@ window.initViewer = function() {
         });
     }
 
-    // 4. Modus-Umschaltung: Original-PDF vs. Fliesstext
+    // 4. Modus-Umschaltung: Originalformate (PDF, Webseite, EPUB) vs. Fliesstext
     if (btnModePdf) {
         btnModePdf.addEventListener('click', () => {
-            if (currentViewerDoc) {
-                setViewerMode('pdf');
-            }
+            if (currentViewerDoc) setViewerMode('pdf');
+        });
+    }
+    if (btnModeWeb) {
+        btnModeWeb.addEventListener('click', () => {
+            if (currentViewerDoc) setViewerMode('web');
+        });
+    }
+    if (btnModeEpub) {
+        btnModeEpub.addEventListener('click', () => {
+            if (currentViewerDoc) setViewerMode('epub');
         });
     }
     if (btnModeText) {
         btnModeText.addEventListener('click', () => {
-            if (currentViewerDoc) {
-                setViewerMode('text');
-            }
+            if (currentViewerDoc) setViewerMode('text');
         });
     }
 
@@ -191,6 +199,43 @@ function resolvePdfPath(doc) {
     }
     return null;
 }
+window.resolvePdfPath = resolvePdfPath;
+
+function resolveEpubPath(doc) {
+    if (!doc) return null;
+    if (doc.filePath && doc.filePath.toLowerCase().endsWith('.epub')) {
+        return doc.filePath.replace(/^\.\.\//, '');
+    }
+    if (doc.formatFiles && doc.formatFiles.epub) {
+        return doc.formatFiles.epub.replace(/^\.\.\//, '');
+    }
+    if (doc.id) {
+        return `documents/formats/epub/${doc.id}.epub`;
+    }
+    return null;
+}
+window.resolveEpubPath = resolveEpubPath;
+
+function getDocOriginalFormat(doc) {
+    if (!doc) return 'PDF';
+    const fp = (doc.filePath || '').toLowerCase();
+    const ofn = (doc.originalFilename || '').toLowerCase();
+    
+    if (doc.tier === 'books' || doc.tier === 'ruhi') {
+        return 'PDF';
+    }
+    if (fp.endsWith('.pdf') || ofn.endsWith('.pdf')) {
+        return 'PDF';
+    }
+    if (fp.endsWith('.epub') || ofn.endsWith('.epub')) {
+        return 'EPUB';
+    }
+    if (doc.sourceUrl) {
+        return 'Webseite';
+    }
+    return 'PDF';
+}
+window.getDocOriginalFormat = getDocOriginalFormat;
 
 window.openDocument = function(id, targetParagraph, preferredMode, preferredLang) {
     if (!window.state || !window.state.documents) return;
@@ -253,12 +298,24 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
         titleEl.title = doc.title || '';
     }
 
-    // PDF-Pfad ermitteln
+    // PDF- und EPUB-Pfade ermitteln
     const pdfPath = resolvePdfPath(doc);
+    const epubPath = resolveEpubPath(doc);
+    const origFmt = getDocOriginalFormat(doc);
 
-    // Layout-Modus Pill (Original-PDF vs. Fliesstext)
+    // Layout-Modus Buttons (Original-PDF, Webseite, EPUB, Fliesstext)
+    const btnModePdf = document.getElementById('btn-mode-pdf');
+    const btnModeWeb = document.getElementById('btn-mode-web');
+    const btnModeEpub = document.getElementById('btn-mode-epub');
+    const btnModeText = document.getElementById('btn-mode-text');
+
+    if (btnModePdf) btnModePdf.style.display = pdfPath ? 'inline-flex' : 'none';
+    if (btnModeWeb) btnModeWeb.style.display = doc.sourceUrl ? 'inline-flex' : 'none';
+    if (btnModeEpub) btnModeEpub.style.display = epubPath ? 'inline-flex' : 'none';
+    if (btnModeText) btnModeText.style.display = 'inline-flex';
+
     if (modePill) {
-        modePill.style.display = pdfPath ? 'inline-flex' : 'none';
+        modePill.style.display = 'inline-flex';
     }
 
     // Sprach-Pill (DE / EN)
@@ -323,9 +380,29 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
     // Lesezeichen-Zustand aktualisieren
     updateBookmarkBtnState(doc.id);
 
-    // Initialen Modus festlegen: Ruhi standardmaessig als PDF; Schriften & Botschaften als Fliesstext
-    let targetMode = preferredMode || (isRuhi && !targetParagraph ? 'pdf' : 'text');
-    if (!pdfPath) targetMode = 'text';
+    // IMMER das Originalformat oben anzeigen (entweder PDF, Webseite oder EPUB)
+    let targetMode = preferredMode;
+    if (!targetMode) {
+        if (targetParagraph) {
+            targetMode = 'text';
+        } else if (origFmt === 'PDF' && pdfPath) {
+            targetMode = 'pdf';
+        } else if (origFmt === 'Webseite') {
+            if (doc.sourceUrl && doc.sourceUrl.includes('bibliothek.bahai.de')) {
+                targetMode = 'web';
+            } else if (pdfPath) {
+                targetMode = 'pdf';
+            } else {
+                targetMode = 'web';
+            }
+        } else if (origFmt === 'EPUB') {
+            targetMode = 'epub';
+        } else if (pdfPath) {
+            targetMode = 'pdf';
+        } else {
+            targetMode = 'text';
+        }
+    }
 
     setViewerMode(targetMode, targetParagraph);
 
@@ -348,15 +425,21 @@ function setViewerMode(mode, targetParagraph) {
     const bodyEl = document.getElementById('viewer-body');
     const headerEl = document.getElementById('viewer-header');
     const btnModePdf = document.getElementById('btn-mode-pdf');
+    const btnModeWeb = document.getElementById('btn-mode-web');
+    const btnModeEpub = document.getElementById('btn-mode-epub');
     const btnModeText = document.getElementById('btn-mode-text');
     const copyBtn = document.getElementById('viewer-copy');
 
     if (btnModePdf) btnModePdf.classList.toggle('active', mode === 'pdf');
+    if (btnModeWeb) btnModeWeb.classList.toggle('active', mode === 'web');
+    if (btnModeEpub) btnModeEpub.classList.toggle('active', mode === 'epub');
     if (btnModeText) btnModeText.classList.toggle('active', mode === 'text');
-    if (modal) modal.classList.toggle('modal-wide', mode === 'pdf');
-    if (copyBtn) copyBtn.style.display = mode === 'pdf' ? 'none' : '';
+    
+    if (modal) modal.classList.toggle('modal-wide', mode === 'pdf' || mode === 'web');
+    if (copyBtn) copyBtn.style.display = mode === 'text' ? '' : 'none';
 
     const pdfPath = resolvePdfPath(currentViewerDoc);
+    const epubPath = resolveEpubPath(currentViewerDoc);
 
     if (mode === 'pdf' && pdfPath) {
         if (bodyEl) {
@@ -369,7 +452,66 @@ function setViewerMode(mode, targetParagraph) {
                 </div>
             `;
         }
+    } else if (mode === 'web' && currentViewerDoc && currentViewerDoc.sourceUrl) {
+        if (bodyEl) {
+            bodyEl.classList.add('pdf-active');
+            bodyEl.scrollTop = 0;
+            if (headerEl) headerEl.classList.remove('header-hidden');
+
+            const isBibliothek = currentViewerDoc.sourceUrl.includes('bibliothek.bahai.de');
+            if (isBibliothek) {
+                bodyEl.innerHTML = `
+                    <div style="width: 100%; height: calc(100vh - 80px); display: flex; flex-direction: column;">
+                        <div style="background: var(--bg-surface); padding: 0.5rem 1.25rem; border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem;">
+                            <span style="color: var(--text-secondary); font-family: var(--font-sans);">Originalfassung auf <strong>${escapeHtml(currentViewerDoc.sourcePlatform || 'Bahá’í-Bibliothek Deutschland')}</strong></span>
+                            <a href="${escapeHtml(currentViewerDoc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="padding: 0.25rem 0.75rem; font-size: 0.75rem; text-decoration: none;">Im neuen Tab öffnen ↗</a>
+                        </div>
+                        <iframe src="${currentViewerDoc.sourceUrl}" class="viewer-pdf-frame" style="flex: 1; border: none;" title="Autorisierte Original-Webseite"></iframe>
+                    </div>
+                `;
+            } else {
+                bodyEl.innerHTML = `
+                    <div style="max-width: 820px; margin: 3rem auto; padding: 2.5rem; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 12px; text-align: center;">
+                        <span class="doc-origin-tag" style="display: inline-block; margin-bottom: 0.75rem;">Autorisierte Webpublikation</span>
+                        <h3 style="font-family: var(--font-serif-display); font-size: 1.6rem; margin-bottom: 0.75rem; color: var(--text-primary);">${escapeHtml(currentViewerDoc.title)}</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">
+                            Dieses Dokument wurde auf der offiziellen <strong>${escapeHtml(currentViewerDoc.sourcePlatform || 'Bahá’í Reference Library')}</strong> im Web veröffentlicht.
+                        </p>
+                        <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+                            <a href="${escapeHtml(currentViewerDoc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="btn-primary" style="padding: 0.65rem 1.4rem; text-decoration: none; font-weight: 600;">
+                                Auf ${escapeHtml(currentViewerDoc.sourcePlatform || 'Bahá’í Reference Library')} öffnen ↗
+                            </a>
+                            ${pdfPath ? `<button class="btn-secondary" onclick="setViewerMode('pdf')" style="padding: 0.65rem 1.2rem;">Original-PDF betrachten</button>` : ''}
+                            <button class="btn-secondary" onclick="setViewerMode('text')" style="padding: 0.65rem 1.2rem;">Als Fließtext lesen</button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+    } else if (mode === 'epub') {
+        if (bodyEl) {
+            bodyEl.classList.remove('pdf-active');
+            bodyEl.scrollTop = 0;
+            if (headerEl) headerEl.classList.remove('header-hidden');
+            bodyEl.innerHTML = `
+                <div style="max-width: 780px; margin: 3rem auto; padding: 2.5rem; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 12px; text-align: center;">
+                    <span class="doc-origin-tag" style="display: inline-block; margin-bottom: 0.75rem;">Original-E-Book (EPUB)</span>
+                    <h3 style="font-family: var(--font-serif-display); font-size: 1.6rem; margin-bottom: 0.75rem; color: var(--text-primary);">${escapeHtml(currentViewerDoc.title)}</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">
+                        Offizielles E-Book im Standardformat EPUB. Kompatibel mit Apple Books, Tolino, PocketBook, Kobo und Kindle.
+                    </p>
+                    <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+                        <a href="${epubPath}" download class="btn-primary" style="padding: 0.65rem 1.4rem; text-decoration: none; font-weight: 600;">
+                            EPUB herunterladen
+                        </a>
+                        ${pdfPath ? `<button class="btn-secondary" onclick="setViewerMode('pdf')" style="padding: 0.65rem 1.2rem;">Als Original-PDF öffnen</button>` : ''}
+                        <button class="btn-secondary" onclick="setViewerMode('text')" style="padding: 0.65rem 1.2rem;">Als Fließtext lesen</button>
+                    </div>
+                </div>
+            `;
+        }
     } else {
+        // mode === 'text'
         if (bodyEl) {
             bodyEl.classList.remove('pdf-active');
             bodyEl.innerHTML = `
@@ -392,6 +534,25 @@ function renderDocumentText(doc, targetParagraph) {
         doc.paragraphs = structure.body;
 
         let html = '';
+
+        // Originalformat-Leiste immer ganz oben anzeigen
+        const origFmt = getDocOriginalFormat(doc);
+        const pdfPath = resolvePdfPath(doc);
+        const epubPath = resolveEpubPath(doc);
+
+        html += `
+            <div class="reader-top-original-bar">
+                <div class="original-bar-label">
+                    <span class="original-indicator-dot"></span>
+                    <span>Originalformat: <strong>${escapeHtml(origFmt)}</strong></span>
+                </div>
+                <div class="original-bar-actions">
+                    ${pdfPath ? `<button class="original-action-pill" onclick="setViewerMode('pdf')" title="Im Original-PDF-Layout betrachten">Original-PDF</button>` : ''}
+                    ${doc.sourceUrl ? `<button class="original-action-pill" onclick="setViewerMode('web')" title="Auf autorisierter Original-Webseite aufrufen">Webseite ↗</button>` : ''}
+                    ${epubPath ? `<button class="original-action-pill" onclick="setViewerMode('epub')" title="Original-E-Book (EPUB) anzeigen">EPUB</button>` : ''}
+                </div>
+            </div>
+        `;
 
         // 1. Schlanker, eleganter Vorspann (falls Institution, Datum, Empfaenger oder Anrede vorhanden)
         const instHeader = structure.headers.find(h => h.kind === 'institution');

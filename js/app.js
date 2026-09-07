@@ -1574,8 +1574,11 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
     const langLabel = isEn ? 'EN' : 'DE';
     const hasBoth = doc.availableLanguages && doc.availableLanguages.includes('de') && doc.availableLanguages.includes('en');
     
-    // Meta breadcrumb line
+    // Meta breadcrumb line (Originalformat immer oben)
     const metaParts = [];
+    const origFmt = window.getDocOriginalFormat ? window.getDocOriginalFormat(doc) : (doc.tier === 'books' ? 'PDF' : (doc.sourceUrl ? 'Webseite' : 'PDF'));
+    metaParts.push(`<span class="doc-orig-format-pill orig-${origFmt.toLowerCase()}">${origFmt}</span>`);
+
     if (doc.tier === 'books' && doc.year) {
         metaParts.push(`<span class="doc-date">${doc.year}</span>`);
     } else if (doc.date) {

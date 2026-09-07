@@ -178,6 +178,8 @@ window.BooksModule = (function() {
                             ${authorRole}
                         </div>
                         <div style="display: flex; gap: 0.35rem; align-items: center;">
+                            <span class="book-format-badge">PDF</span>
+                            ${files.epub ? `<span class="book-format-badge epub">EPUB</span>` : ''}
                             ${book.year ? `<span class="book-year-badge">${book.year}</span>` : ''}
                             ${langBadge}
                         </div>

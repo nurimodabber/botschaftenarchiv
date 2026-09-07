@@ -2587,6 +2587,137 @@ body {
     border-color: rgba(160, 175, 195, 0.25);
 }
 
+.book-format-badge {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.16rem 0.42rem;
+    border-radius: 4px;
+    background: rgba(229, 57, 53, 0.08);
+    color: #C62828;
+    border: 1px solid rgba(229, 57, 53, 0.2);
+    white-space: nowrap;
+    letter-spacing: 0.03em;
+}
+
+.book-format-badge.epub {
+    background: rgba(67, 160, 71, 0.08);
+    color: #2E7D32;
+    border-color: rgba(67, 160, 71, 0.2);
+}
+
+[data-theme="dark"] .book-format-badge {
+    background: rgba(239, 83, 80, 0.12);
+    color: #EF5350;
+    border-color: rgba(239, 83, 80, 0.25);
+}
+
+[data-theme="dark"] .book-format-badge.epub {
+    background: rgba(102, 187, 106, 0.12);
+    color: #81C784;
+    border-color: rgba(102, 187, 106, 0.25);
+}
+
+.doc-orig-format-pill {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.14rem 0.45rem;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.doc-orig-format-pill.orig-pdf {
+    background: rgba(229, 57, 53, 0.1);
+    color: #D32F2F;
+    border: 1px solid rgba(229, 57, 53, 0.25);
+}
+
+[data-theme="dark"] .doc-orig-format-pill.orig-pdf {
+    background: rgba(239, 83, 80, 0.15);
+    color: #EF5350;
+    border-color: rgba(239, 83, 80, 0.3);
+}
+
+.doc-orig-format-pill.orig-webseite {
+    background: rgba(30, 136, 229, 0.1);
+    color: #1976D2;
+    border: 1px solid rgba(30, 136, 229, 0.25);
+}
+
+[data-theme="dark"] .doc-orig-format-pill.orig-webseite {
+    background: rgba(66, 165, 245, 0.15);
+    color: #64B5F6;
+    border-color: rgba(66, 165, 245, 0.3);
+}
+
+.doc-orig-format-pill.orig-epub {
+    background: rgba(67, 160, 71, 0.1);
+    color: #388E3C;
+    border: 1px solid rgba(67, 160, 71, 0.25);
+}
+
+[data-theme="dark"] .doc-orig-format-pill.orig-epub {
+    background: rgba(102, 187, 106, 0.15);
+    color: #81C784;
+    border-color: rgba(102, 187, 106, 0.3);
+}
+
+.reader-top-original-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 1rem;
+    margin-bottom: 2rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    font-size: 0.82rem;
+}
+
+.reader-top-original-bar .original-bar-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.original-indicator-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent-gold);
+    display: inline-block;
+}
+
+.reader-top-original-bar .original-bar-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.original-action-pill {
+    padding: 0.25rem 0.65rem;
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-decoration: none;
+}
+
+.original-action-pill:hover {
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
+}
+
 /* Card Body */
 .book-card-body {
     display: flex;
