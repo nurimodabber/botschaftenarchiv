@@ -789,7 +789,7 @@ window.TimelineModule = (function() {
                     <div class="unfold-scrubber-box">
                         <label for="timeline-scrubber-input" class="unfold-tool-label">
                             ${isDe ? "Zeitreise (1844–2044):" : "Time Scrubber (1844–2044):"}
-                            <strong id="timeline-scrubber-val" style="color: var(--accent-gold); font-family: var(--font-mono);">${scrubberYear}</strong>
+                            <strong id="timeline-scrubber-val" style="color: var(--accent-gold); font-family: var(--font-sans); font-variant-numeric: tabular-nums;">${scrubberYear}</strong>
                         </label>
                         <input type="range" id="timeline-scrubber-input" min="1844" max="2044" value="${scrubberYear}" 
                                oninput="window.TimelineModule.scrubToYear(this.value)" class="unfold-slider">
@@ -1081,7 +1081,7 @@ window.TimelineModule = (function() {
             <g id="svg-year-cursor" style="display: none;">
                 <line id="svg-year-line" x1="${X[2026]}" y1="30" x2="${X[2026]}" y2="555" stroke="var(--accent-gold)" stroke-width="2.5" stroke-dasharray="4 2" />
                 <rect id="svg-year-badge" x="${X[2026] - 22}" y="15" width="44" height="18" rx="4" fill="var(--accent-gold)" />
-                <text id="svg-year-cursor-text" x="${X[2026]}" y="28" fill="#FFFFFF" font-family="var(--font-mono)" font-size="10" font-weight="bold" text-anchor="middle">2026</text>
+                <text id="svg-year-cursor-text" x="${X[2026]}" y="28" fill="#FFFFFF" font-family="var(--font-sans)" font-size="10" font-weight="bold" text-anchor="middle">2026</text>
             </g>
         </svg>
         `;
@@ -1114,7 +1114,7 @@ window.TimelineModule = (function() {
             if (p.isArrow) {
                 return `
                     <g class="unfold-node" data-id="${p.id}" style="cursor: pointer;">
-                        <text x="${cx}" y="325" font-size="9" font-family="var(--font-mono)" font-weight="bold" fill="currentColor" text-anchor="middle">12MP</text>
+                        <text x="${cx}" y="325" font-size="9" font-family="var(--font-sans)" font-weight="bold" fill="currentColor" text-anchor="middle">12MP</text>
                         <path d="M ${cx} 328 L ${cx} 355" stroke="currentColor" stroke-width="1.8" marker-end="url(#arrow-navy)" />
                     </g>
                 `;
@@ -1123,7 +1123,7 @@ window.TimelineModule = (function() {
             if (p.isRedArrow) {
                 return `
                     <g class="unfold-node" data-id="${p.id}" style="cursor: pointer;">
-                        <text x="${cx}" y="325" font-size="10" font-family="var(--font-mono)" font-weight="bold" fill="#E53935" text-anchor="middle">1YP</text>
+                        <text x="${cx}" y="325" font-size="10" font-family="var(--font-sans)" font-weight="bold" fill="#E53935" text-anchor="middle">1YP</text>
                         <path d="M ${cx} 328 L ${cx} 355" stroke="#E53935" stroke-width="2" marker-end="url(#arrow-red)" />
                     </g>
                 `;
@@ -1136,7 +1136,7 @@ window.TimelineModule = (function() {
                 <g class="unfold-node ${p.isCurrent ? 'active-node' : ''}" data-id="${p.id}" style="cursor: pointer;">
                     <rect x="${p.x1}" y="332" width="${w}" height="28" rx="5" 
                           fill="${fill}" stroke="${stroke}" stroke-width="1.2" class="svg-plan-rect" />
-                    <text x="${cx}" y="350" font-size="11" font-family="var(--font-mono)" font-weight="bold" 
+                    <text x="${cx}" y="350" font-size="11" font-family="var(--font-sans)" font-weight="bold" 
                           fill="#FFFFFF" text-anchor="middle">
                         ${p.label}
                     </text>

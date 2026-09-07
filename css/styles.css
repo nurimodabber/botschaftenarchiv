@@ -51,7 +51,7 @@
     /* Typography */
     --font-serif-display: "New York", "Charter", "Georgia", "Iowan Old Style", "Palatino", serif;
     --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
-    --font-mono: ui-monospace, "SF Mono", "Menlo", "Consolas", monospace;
+    --font-mono: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
 
     /* Cosmos Physics Easings */
     --ease-cosmos: cubic-bezier(0.16, 1, 0.3, 1);
@@ -522,7 +522,7 @@ body:has(#document-viewer.active) .cosmos-dock-container {
 }
 
 .dock-pill {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: 0.62rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -744,9 +744,10 @@ body:has(#document-viewer.active) .cosmos-dock-container {
 }
 
 .filter-section-label {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: 0.7rem;
-    letter-spacing: 0.08em;
+    font-weight: 600;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--text-subtle);
 }
@@ -796,9 +797,11 @@ body:has(#document-viewer.active) .cosmos-dock-container {
 }
 
 .pill-count {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    opacity: 0.75;
+    font-family: var(--font-sans);
+    font-variant-numeric: tabular-nums;
+    font-size: 0.72rem;
+    font-weight: 600;
+    opacity: 0.85;
 }
 
 /* Secondary Filter Bar (under search bar) */
@@ -879,9 +882,8 @@ body:has(#document-viewer.active) .cosmos-dock-container {
 }
 
 .search-results-info {
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
-    letter-spacing: 0.04em;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
     color: var(--text-muted);
     text-align: center;
     margin: 2rem 0 1.5rem;
@@ -6294,7 +6296,8 @@ html[data-active-pillar="all"] {
 }
 
 .filter-count-badge {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
+    font-variant-numeric: tabular-nums;
     font-size: 0.66rem;
     font-weight: 700;
     background: var(--accent-gold);
@@ -6372,7 +6375,7 @@ html[data-active-pillar="all"] {
 }
 
 .command-field-label {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: 0.68rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -6456,14 +6459,18 @@ html[data-active-pillar="all"] {
 }
 
 .results-bar-count {
-    font-family: var(--font-serif-display);
-    font-size: 1.15rem;
-    font-weight: 600;
-    color: var(--text-ink);
+    font-family: var(--font-sans);
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
 }
 
 .results-bar-count strong {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
+    font-variant-numeric: tabular-nums;
     color: var(--accent-gold);
     font-weight: 700;
 }
@@ -6518,8 +6525,8 @@ html[data-active-pillar="all"] {
 }
 
 .sort-label {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-family: var(--font-sans);
+    font-size: 0.74rem;
     color: var(--text-subtle);
 }
 
@@ -7867,8 +7874,8 @@ html[data-active-pillar="all"] {
     align-items: center;
     flex-wrap: wrap;
     gap: 0.35rem 0.5rem;
-    font-family: var(--font-mono);
-    font-size: 0.73rem;
+    font-family: var(--font-sans);
+    font-size: 0.74rem;
     color: var(--text-subtle);
     line-height: 1.4;
     min-width: 0;
@@ -7891,8 +7898,9 @@ html[data-active-pillar="all"] {
 }
 
 .doc-date {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-weight: 600;
+    font-variant-numeric: tabular-nums;
     color: var(--text-ink);
 }
 
@@ -7903,7 +7911,7 @@ html[data-active-pillar="all"] {
 }
 
 .doc-bilingual-badge {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: 0.65rem;
     font-weight: 600;
     color: var(--text-muted);
@@ -7974,8 +7982,9 @@ html[data-active-pillar="all"] {
 }
 
 .doc-topic-more {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: 0.65rem;
+    font-weight: 600;
     color: var(--text-subtle);
     opacity: 0.8;
 }

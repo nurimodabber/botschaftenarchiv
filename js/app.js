@@ -1544,7 +1544,7 @@ function renderCompilations() {
                     <div class="doc-tags">
                         ${(mainDoc.topics || []).slice(0, 3).map(t => `<span class="tag">${t}</span>`).join('')}
                     </div>
-                    ${wordsLabel ? `<span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-subtle);">${wordsLabel}</span>` : ''}
+                    ${wordsLabel ? `<span style="font-family: var(--font-sans); font-size: 0.72rem; color: var(--text-subtle);">${wordsLabel}</span>` : ''}
                 </div>
             </div>
         `;
@@ -1700,7 +1700,7 @@ function renderSavedCompilationsList() {
     if (compList.length === 0) {
         container.innerHTML = `
             <div style="text-align: center; color: var(--color-text-secondary); padding: 3.5rem 1.5rem; background: var(--color-surface); border-radius: var(--radius-md); border: 1px solid var(--color-border);">
-                <div style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 600; color: var(--color-accent); margin-bottom: 0.5rem; text-transform: uppercase;">Keine Manuskripte</div>
+                <div style="font-family: var(--font-sans); font-size: 0.8rem; font-weight: 600; color: var(--color-accent); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">Keine Manuskripte</div>
                 <p style="font-size: 1.05rem; font-family: var(--font-serif); color: var(--color-text); margin-bottom: 0.4rem;">Noch keine eigenen Kompilationen gespeichert.</p>
                 <p style="font-size: 0.88rem; color: var(--color-text-secondary); max-width: 480px; margin: 0 auto 1.5rem;">In der Kompilations-Werkstatt können Sie Absätze aus allen Botschaften zusammenstellen und dauerhaft sichern.</p>
                 <button onclick="window.switchView('workshop')" class="btn-primary">Zur Kompilations-Werkstatt</button>
