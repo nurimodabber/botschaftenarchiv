@@ -4327,6 +4327,24 @@ html[data-active-pillar="all"] {
     animation: cosmosFadeIn 0.25s var(--ease-cosmos);
 }
 
+.drawer-quick-filter-row {
+    margin-bottom: 0.95rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--border-hairline);
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.drawer-chips-wrap {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    width: 100%;
+    scrollbar-width: thin;
+    padding-bottom: 0.2rem;
+}
+
 .command-filter-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

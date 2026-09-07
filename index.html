@@ -280,61 +280,17 @@
                         </button>
                     </div>
 
-                    <!-- 3. Säulen-Ecosystem: Subfilter & Fachwerkzeuge -->
+                    <!-- 3. Werkzeugleiste: Formate & Filter-Schalter -->
                     <div class="pillar-ecosystem-panel" id="pillar-ecosystem-panel">
                         <div class="ecosystem-top-row">
-                            <!-- Kontextuelle Filterchips -->
-                            <div class="ecosystem-chips-wrap">
-                                <!-- Chips für Botschaften des Hauses -->
-                                <div class="quick-chips-scroller" id="library-quick-chips">
-                                    <button class="quick-chip-btn active" data-chip="all">Alle Botschaften</button>
-                                    <button class="quick-chip-btn" data-chip="ridvan">Riḍván</button>
-                                    <button class="quick-chip-btn" data-chip="world">An die Bahá’í-Welt</button>
-                                    <button class="quick-chip-btn" data-chip="counsellors">Berater &amp; Hilfsamt</button>
-                                    <button class="quick-chip-btn" data-chip="youth">Jugend</button>
-                                    <button class="quick-chip-btn" data-chip="iran">Iran</button>
-                                    <button class="quick-chip-btn" data-chip="peace">Frieden</button>
-                                </div>
-
-                                <!-- Autoren-Chips für Heilige Schriften & Bücher -->
-                                <div class="quick-chips-scroller" id="library-author-chips" style="display: none;">
-                                    <button class="author-chip-btn active" data-author="all">Alle Verfasser</button>
-                                    <button class="author-chip-btn" data-author="bahaullah">Bahá'u'lláh</button>
-                                    <button class="author-chip-btn" data-author="the-bab">Der Báb</button>
-                                    <button class="author-chip-btn" data-author="abdul-baha">‘Abdu’l-Bahá</button>
-                                    <button class="author-chip-btn" data-author="shoghi-effendi">Shoghi Effendi</button>
-                                </div>
-
-                                <!-- Themen-Chips für Compilations -->
-                                <div class="quick-chips-scroller" id="library-comp-chips" style="display: none;">
-                                    <button class="comp-chip-btn active" data-comp="all">Alle Themen</button>
-                                    <button class="comp-chip-btn" data-comp="marriage">Ehe &amp; Familie</button>
-                                    <button class="comp-chip-btn" data-comp="prayer">Gebet &amp; Andacht</button>
-                                    <button class="comp-chip-btn" data-comp="huquq">Ḥuqúqu’lláh</button>
-                                    <button class="comp-chip-btn" data-comp="consultation">Beratung</button>
-                                    <button class="comp-chip-btn" data-comp="women">Frauen</button>
-                                    <button class="comp-chip-btn" data-comp="virtues">Geistige Tugenden</button>
-                                </div>
-
-                                <!-- Bände-Chips für Ruhi-Bücher -->
-                                <div class="quick-chips-scroller" id="library-ruhi-chips" style="display: none;">
-                                    <button class="ruhi-chip-btn active" data-ruhi="all">Alle Bände</button>
-                                    <button class="ruhi-chip-btn" data-ruhi="b1-4">Bücher 1–4 (Grundlagen)</button>
-                                    <button class="ruhi-chip-btn" data-ruhi="b5-8">Bücher 5–8 (Befähigung)</button>
-                                    <button class="ruhi-chip-btn" data-ruhi="b9plus">Bücher 9–14 (Vertiefung)</button>
-                                    <button class="ruhi-chip-btn" data-ruhi="branch">Zweigkurse</button>
-                                </div>
+                            <div class="format-chips-group">
+                                <button class="format-chip-btn active" data-fmt="all">Alle</button>
+                                <button class="format-chip-btn" data-fmt="pdf" title="Nur PDF">PDF</button>
+                                <button class="format-chip-btn" data-fmt="docx" title="Nur Word">DOCX</button>
+                                <button class="format-chip-btn" data-fmt="epub" title="Nur E-Book">EPUB</button>
                             </div>
 
-                            <!-- Rechte Werkzeugleiste: Formate & Filter-Drawer -->
                             <div class="command-actions-cluster">
-                                <div class="format-chips-group">
-                                    <button class="format-chip-btn active" data-fmt="all">Alle</button>
-                                    <button class="format-chip-btn" data-fmt="pdf" title="Nur PDF">PDF</button>
-                                    <button class="format-chip-btn" data-fmt="docx" title="Nur Word">DOCX</button>
-                                    <button class="format-chip-btn" data-fmt="epub" title="Nur E-Book">EPUB</button>
-                                </div>
-
                                 <button id="library-toggle-filters-btn" class="command-filter-toggle-btn" aria-expanded="false" title="Detail-Filter ein- oder ausblenden">
                                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
@@ -348,10 +304,54 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- 4. Aufklappbare Detail-Filter (Progressive Disclosure) -->
-                    <div id="library-advanced-drawer" class="command-advanced-drawer" style="display: none;">
+                        <!-- 4. Aufklappbare Detail-Filter (Progressive Disclosure) -->
+                        <div id="library-advanced-drawer" class="command-advanced-drawer" style="display: none;">
+                            <!-- Themen- & Empfänger-Schnellfilter (in die Filter verschoben) -->
+                            <div class="drawer-quick-filter-row">
+                                <label class="command-field-label">Themen &amp; Empfänger</label>
+                                <div class="drawer-chips-wrap">
+                                    <!-- Chips für Botschaften des Hauses -->
+                                    <div class="quick-chips-scroller" id="library-quick-chips">
+                                        <button class="quick-chip-btn active" data-chip="all">Alle Botschaften</button>
+                                        <button class="quick-chip-btn" data-chip="ridvan">Riḍván</button>
+                                        <button class="quick-chip-btn" data-chip="world">An die Bahá’í-Welt</button>
+                                        <button class="quick-chip-btn" data-chip="counsellors">Berater &amp; Hilfsamt</button>
+                                        <button class="quick-chip-btn" data-chip="youth">Jugend</button>
+                                        <button class="quick-chip-btn" data-chip="iran">Iran</button>
+                                        <button class="quick-chip-btn" data-chip="peace">Frieden</button>
+                                    </div>
+
+                                    <!-- Autoren-Chips für Heilige Schriften & Bücher -->
+                                    <div class="quick-chips-scroller" id="library-author-chips" style="display: none;">
+                                        <button class="author-chip-btn active" data-author="all">Alle Verfasser</button>
+                                        <button class="author-chip-btn" data-author="bahaullah">Bahá'u'lláh</button>
+                                        <button class="author-chip-btn" data-author="the-bab">Der Báb</button>
+                                        <button class="author-chip-btn" data-author="abdul-baha">‘Abdu’l-Bahá</button>
+                                        <button class="author-chip-btn" data-author="shoghi-effendi">Shoghi Effendi</button>
+                                    </div>
+
+                                    <!-- Themen-Chips für Compilations -->
+                                    <div class="quick-chips-scroller" id="library-comp-chips" style="display: none;">
+                                        <button class="comp-chip-btn active" data-comp="all">Alle Themen</button>
+                                        <button class="comp-chip-btn" data-comp="marriage">Ehe &amp; Familie</button>
+                                        <button class="comp-chip-btn" data-comp="prayer">Gebet &amp; Andacht</button>
+                                        <button class="comp-chip-btn" data-comp="huquq">Ḥuqúqu’lláh</button>
+                                        <button class="comp-chip-btn" data-comp="consultation">Beratung</button>
+                                        <button class="comp-chip-btn" data-comp="women">Frauen</button>
+                                        <button class="comp-chip-btn" data-comp="virtues">Geistige Tugenden</button>
+                                    </div>
+
+                                    <!-- Bände-Chips für Ruhi-Bücher -->
+                                    <div class="quick-chips-scroller" id="library-ruhi-chips" style="display: none;">
+                                        <button class="ruhi-chip-btn active" data-ruhi="all">Alle Bände</button>
+                                        <button class="ruhi-chip-btn" data-ruhi="b1-4">Bücher 1–4 (Grundlagen)</button>
+                                        <button class="ruhi-chip-btn" data-ruhi="b5-8">Bücher 5–8 (Befähigung)</button>
+                                        <button class="ruhi-chip-btn" data-ruhi="b9plus">Bücher 9–14 (Vertiefung)</button>
+                                        <button class="ruhi-chip-btn" data-ruhi="branch">Zweigkurse</button>
+                                    </div>
+                                </div>
+                            </div>
                         <div class="command-filter-grid">
                             <!-- 1. Empfänger -->
                             <div class="command-field-group">
@@ -416,9 +416,9 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
+        </div>
 
             <!-- ERGEBNIS-STATUSZEILE (Zähler links, Sortierung & Ansichts-Umschalter rechts) -->
             <div id="library-results-info" class="library-results-bar">
