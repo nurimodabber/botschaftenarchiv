@@ -1101,7 +1101,6 @@ window.TimelineModule = (function() {
             </div>
 
             <h3 class="inspector-title">${escapeHtml(title)}</h3>
-            <p class="inspector-desc">${escapeHtml(desc)}</p>
 
             ${entity.quote ? `
                 <blockquote class="inspector-quote">

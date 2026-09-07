@@ -172,16 +172,20 @@ window.BooksModule = (function() {
                     <h3 class="book-card-title" onclick="window.openDocument('${book.id}')" title="${escapeHtml(book.title)}">${escapeHtml(book.title)}</h3>
                     ${book.subtitle ? `<div class="book-card-subtitle">${escapeHtml(book.subtitle)}</div>` : ''}
 
-                    <p class="book-card-excerpt">${escapeHtml(book.excerpt || 'Vollständiges autorisiertes Werk im Studienarchiv verfügbar.')}</p>
+                    ${book.excerpt && book.excerpt !== 'Vollständiges autorisiertes Werk im Studienarchiv verfügbar.' && book.excerpt.trim().length > 0 ? `
+                        <p class="book-card-excerpt">${escapeHtml(book.excerpt)}</p>
+                    ` : ''}
 
                     <div class="book-card-meta">
                         <span class="book-source-tag">${escapeHtml(sourceLabel)}</span>
                         <span class="book-words-tag">${words}</span>
                     </div>
 
-                    <div class="book-card-formats-row" style="display: flex; gap: 0.35rem; flex-wrap: wrap; margin-top: 0.5rem;">
-                        ${formatPills.join('')}
-                    </div>
+                    ${formatPills.length > 0 ? `
+                        <div class="book-card-formats-row" style="display: flex; gap: 0.35rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                            ${formatPills.join('')}
+                        </div>
+                    ` : ''}
 
                     <div class="book-card-actions">
                         <button class="book-read-btn" onclick="window.openDocument('${book.id}')" title="Im Reader lesen (Volltext &amp; Absätze)">

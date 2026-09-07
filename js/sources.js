@@ -717,18 +717,6 @@ window.SourcesModule = (function() {
                         </a>
                         <span class="source-badge">${escapeHtml(src.badge)}</span>
                     </div>
-                    <div class="source-web-subtitle">${escapeHtml(src.subtitle)}</div>
-                    <p class="source-web-desc">${escapeHtml(src.description)}</p>
-                    <div class="source-web-tags">
-                        <div class="source-tags-group">
-                            <span class="source-tags-label">Formate:</span>
-                            ${src.formats.map(f => `<span class="source-tag">${escapeHtml(f)}</span>`).join('')}
-                        </div>
-                        <div class="source-tags-group">
-                            <span class="source-tags-label">Sprachen:</span>
-                            ${src.languages.map(l => `<span class="source-tag lang-tag">${escapeHtml(l)}</span>`).join('')}
-                        </div>
-                    </div>
                 </div>
                 <div class="source-web-actions">
                     <a href="${src.url}" target="_blank" rel="noopener noreferrer" class="source-web-visit-btn" title="Offizielle Website aufrufen">
