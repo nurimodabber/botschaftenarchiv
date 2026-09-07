@@ -496,64 +496,60 @@ window.switchLibrarySegment = function(segment) {
     // 1. Die vier Hauptsäulen (Pillar Cards) aktualisieren
     const pillarCards = document.querySelectorAll('#pillar-cards-grid .pillar-card');
     pillarCards.forEach(card => {
-        const isActive = card.dataset.pillar === segment;
+        const isActive = (segment !== 'all') && (card.dataset.pillar === segment);
         card.classList.toggle('active', isActive);
         card.setAttribute('aria-selected', isActive ? 'true' : 'false');
     });
 
     // Aktive Karte sanft ins Blickfeld gleiten lassen
-    const activeCard = document.querySelector(`#pillar-cards-grid .pillar-card[data-pillar="${segment}"]`);
-    if (activeCard && typeof activeCard.scrollIntoView === 'function') {
-        try {
-            activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-        } catch (e) {}
+    if (segment !== 'all') {
+        const activeCard = document.querySelector(`#pillar-cards-grid .pillar-card[data-pillar="${segment}"]`);
+        if (activeCard && typeof activeCard.scrollIntoView === 'function') {
+            try {
+                activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            } catch (e) {}
+        }
     }
 
-    // 2. Dynamisches Realm-Banner oben aktualisieren
+    // 2. Dynamisches Realm-Banner oben aktualisieren (ohne Mengenangaben)
     const realmTitle = document.getElementById('realm-lead-title');
     const realmSub = document.getElementById('realm-lead-subtitle');
     if (realmTitle && realmSub) {
         if (segment === 'house') {
             realmTitle.textContent = 'Botschaften des Hauses';
-            realmSub.textContent = '1.542 Botschaften des Universalen Hauses der Gerechtigkeit (1963–2026)';
+            realmSub.textContent = 'Botschaften des Universalen Hauses der Gerechtigkeit (1963–2026)';
         } else if (segment === 'compilations') {
             realmTitle.textContent = 'Compilations des Hauses';
-            realmSub.textContent = '115 autorisierte thematische Sammlungen der Forschungsabteilung';
+            realmSub.textContent = 'Autorisierte thematische Sammlungen der Forschungsabteilung';
         } else if (segment === 'books') {
             realmTitle.textContent = 'Heilige Schriften & Bücher';
-            realmSub.textContent = '108 autorisierte Schriften der Zentralen Gestalten & Shoghi Effendis';
+            realmSub.textContent = 'Autorisierte Schriften der Zentralen Gestalten & Shoghi Effendis';
         } else if (segment === 'ruhi') {
             realmTitle.textContent = 'Ruhi-Bücher';
-            realmSub.textContent = '31 Bände der Hauptkursfolge 1–12, Vorjugendreihe & Zweigkurse';
+            realmSub.textContent = 'Studienmaterialien des Ruhi-Instituts (Hauptkurse & Zweigkurse)';
         } else {
             realmTitle.textContent = 'Gesamtes Archiv';
-            realmSub.textContent = '1.972 Dokumente, Schriften, Bücher und thematische Sammlungen';
+            realmSub.textContent = 'Dokumente, Schriften, Bücher und thematische Sammlungen';
         }
     }
 
-    // 3. Platzhalter der Master-Suchleiste an den aktiven Bereich anpassen
+    // 3. Platzhalter der Master-Suchleiste an den aktiven Bereich anpassen (ohne Mengenangaben)
     const searchInput = document.getElementById('library-search-input');
     if (searchInput) {
         if (segment === 'house') {
-            searchInput.placeholder = 'In 1.542 Botschaften des Hauses (1963–2026) suchen...';
+            searchInput.placeholder = 'In Botschaften des Hauses (1963–2026) suchen...';
         } else if (segment === 'compilations') {
-            searchInput.placeholder = 'In 115 thematischen Compilations & Sammlungen suchen...';
+            searchInput.placeholder = 'In thematischen Compilations & Sammlungen suchen...';
         } else if (segment === 'books') {
             searchInput.placeholder = 'In Heiligen Schriften & Standardwerken suchen...';
         } else if (segment === 'ruhi') {
-            searchInput.placeholder = 'In Ruhi-Büchern 1–12 & Kursmaterialien suchen...';
+            searchInput.placeholder = 'In Ruhi-Büchern & Kursmaterialien suchen...';
         } else {
-            searchInput.placeholder = 'In allen 1.972 Dokumenten, Schriften, Büchern & Volltexten suchen...';
+            searchInput.placeholder = 'In allen Dokumenten, Schriften & Volltexten suchen...';
         }
     }
 
-    // 4. Button "Gesamtes Archiv" aktualisieren
-    const pillarAllBtn = document.getElementById('pillar-all-btn');
-    if (pillarAllBtn) {
-        pillarAllBtn.classList.toggle('active', segment === 'all');
-    }
-
-    // 5. Kontextuelle Schnellfilter-Chips
+    // 4. Kontextuelle Schnellfilter-Chips
     const quickChips = document.getElementById('library-quick-chips');
     const authorChips = document.getElementById('library-author-chips');
     const compChips = document.getElementById('library-comp-chips');
@@ -564,12 +560,7 @@ window.switchLibrarySegment = function(segment) {
     if (compChips) compChips.style.display = (segment === 'compilations') ? 'flex' : 'none';
     if (ruhiChips) ruhiChips.style.display = (segment === 'ruhi') ? 'flex' : 'none';
 
-    // 6. Kontextuelle Ressourcen & verlinkte Originalquellen aktualisieren
-    if (typeof updatePillarEcosystem === 'function') {
-        updatePillarEcosystem(segment);
-    }
-
-    // 7. Filter anwenden & Ergebnisse rendern
+    // 5. Filter anwenden & Ergebnisse rendern
     if (typeof applyLibraryFilters === 'function') {
         applyLibraryFilters();
     }
@@ -706,21 +697,17 @@ function setupKeyboardShortcuts() {
    ────────────────────────────────────────────────────────────────────────── */
 
 function initLibraryView() {
-    // 1. Die vier Hauptsäulen (Pillar Cards)
+    // 1. Die vier Hauptsäulen (Pillar Cards) mit Toggle-Funktion
     const pillarCards = document.querySelectorAll('#pillar-cards-grid .pillar-card');
     pillarCards.forEach(card => {
         card.addEventListener('click', () => {
-            window.switchLibrarySegment(card.dataset.pillar);
+            if (state.library && state.library.segment === card.dataset.pillar) {
+                window.switchLibrarySegment('all');
+            } else {
+                window.switchLibrarySegment(card.dataset.pillar);
+            }
         });
     });
-
-    // Button "Gesamtes Archiv"
-    const pillarAllBtn = document.getElementById('pillar-all-btn');
-    if (pillarAllBtn) {
-        pillarAllBtn.addEventListener('click', () => {
-            window.switchLibrarySegment('all');
-        });
-    }
 
     // Inline-Zeitstrahl initialisieren
     initInlineTimeline();
@@ -1013,122 +1000,12 @@ function initLibraryView() {
 }
 
 function updateLibrarySegmentBadges() {
-    if (!state.documents || !state.documents.length) return;
-    const allCount = state.documents.length;
-    const houseCount = state.documents.filter(d => d.tier === 'house' || d.tier === 'institutions').length;
-    const booksCount = state.documents.filter(d => d.tier === 'books').length;
-    const compsCount = state.documents.filter(d => d.tier === 'compilations').length;
-    const ruhiCount = state.documents.filter(d => d.tier === 'ruhi').length;
-
-    const setBadge = (pillar, count) => {
-        const badge = document.querySelector(`.pillar-card[data-pillar="${pillar}"] .pillar-badge`);
-        if (badge) badge.textContent = count >= 1000 ? count.toLocaleString('de-DE') : count;
-    };
-
-    setBadge('house', houseCount);
-    setBadge('books', booksCount);
-    setBadge('compilations', compsCount);
-    setBadge('ruhi', ruhiCount);
-
-    const allBtn = document.getElementById('pillar-all-btn');
-    if (allBtn) {
-        const span = allBtn.querySelector('span');
-        if (span) span.textContent = `Gesamtes Archiv (${allCount.toLocaleString('de-DE')})`;
-    }
+    // Mengenangaben entfernt gemäss Benutzervorgabe
 }
 
-// Kontextuelle Quellen & Werkzeuge je Säule aktualisieren
+// Kontextuelle Quellen & Werkzeuge (in Hauptnavigation ausgelagert)
 function updatePillarEcosystem(segment) {
-    const badgesRow = document.getElementById('authority-badges-row');
-    const toolBtn = document.getElementById('btn-context-tool');
-    const toolLabel = document.getElementById('btn-context-tool-label');
-    const timelinePanel = document.getElementById('inline-timeline-panel');
-
-    const extSvg = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
-
-    let links = [];
-
-    if (segment === 'house') {
-        links = [
-            { title: "BRL Letters (Universal House of Justice)", url: "https://www.bahai.org/library/authoritative-texts/the-universal-house-of-justice/messages/" },
-            { title: "bahai.de Dokumente", url: "https://www.bahai.de/dokumente/" },
-            { title: "Offizieller Webauftritt des Hauses", url: "https://universalhouseofjustice.bahai.org/" }
-        ];
-        if (toolBtn) {
-            toolBtn.style.display = 'inline-flex';
-            if (toolLabel) toolLabel.textContent = 'Plan-Explorer & Epochen';
-            toolBtn.onclick = () => {
-                const drawer = document.getElementById('library-advanced-drawer');
-                const toggleBtn = document.getElementById('library-toggle-filters-btn');
-                if (drawer) {
-                    drawer.style.display = 'block';
-                    if (toggleBtn) toggleBtn.classList.add('active');
-                    const sel = document.getElementById('library-epoch-select');
-                    if (sel) { sel.focus(); }
-                }
-            };
-        }
-        if (timelinePanel) timelinePanel.style.display = 'none';
-    } else if (segment === 'compilations') {
-        links = [
-            { title: "BRL Compilations Repository", url: "https://www.bahai.org/library/authoritative-texts/compilations/" },
-            { title: "bahai.de Publikationen", url: "https://www.bahai.de/publikationen/" }
-        ];
-        if (toolBtn) {
-            toolBtn.style.display = 'inline-flex';
-            if (toolLabel) toolLabel.textContent = 'Kompilations-Werkstatt';
-            toolBtn.onclick = () => {
-                window.switchView('workshop');
-            };
-        }
-        if (timelinePanel) timelinePanel.style.display = 'none';
-    } else if (segment === 'books') {
-        links = [
-            { title: "bibliothek.bahai.de (Deutsche Bibliothek)", url: "https://bibliothek.bahai.de" },
-            { title: "Bahá'í Reference Library (Originale)", url: "https://www.bahai.org/library/" },
-            { title: "Bahá'í-Verlag Shop", url: "https://www.bahai-verlag.de" }
-        ];
-        if (toolBtn) {
-            toolBtn.style.display = 'inline-flex';
-            if (toolLabel) toolLabel.textContent = 'Historischer Zeitstrahl';
-            toolBtn.onclick = () => {
-                if (timelinePanel) {
-                    const isShown = timelinePanel.style.display === 'block';
-                    timelinePanel.style.display = isShown ? 'none' : 'block';
-                }
-            };
-        }
-    } else if (segment === 'ruhi') {
-        links = [
-            { title: "ruhi.org Offiziell", url: "https://www.ruhi.org" },
-            { title: "Ruhi Curricula & Materialien", url: "https://www.ruhi.org/materials/" },
-            { title: "Institut für Geistige Bildung (IGB)", url: "https://www.bahai.de/bildung/" },
-            { title: "Bahá'í-Verlag Studienkreise", url: "https://www.bahai-verlag.de/themen/studienkreise/" }
-        ];
-        if (toolBtn) {
-            toolBtn.style.display = 'none';
-        }
-        if (timelinePanel) timelinePanel.style.display = 'none';
-    } else { // 'all'
-        links = [
-            { title: "Bahá'í Reference Library", url: "https://www.bahai.org/library/" },
-            { title: "bibliothek.bahai.de", url: "https://bibliothek.bahai.de" },
-            { title: "bahai.de", url: "https://www.bahai.de" }
-        ];
-        if (toolBtn) {
-            toolBtn.style.display = 'none';
-        }
-        if (timelinePanel) timelinePanel.style.display = 'none';
-    }
-
-    if (badgesRow) {
-        badgesRow.innerHTML = links.map(link => `
-            <a href="${escapeDocHtml(link.url)}" target="_blank" rel="noopener noreferrer" class="authority-badge" title="${escapeDocHtml(link.title)} öffnen">
-                <span>${escapeDocHtml(link.title)}</span>
-                ${extSvg}
-            </a>
-        `).join('');
-    }
+    // Duplikatfunktionen entfernt gemäss Benutzervorgabe
 }
 
 // Inline-Zeitstrahl für Heilige Schriften & Bücher

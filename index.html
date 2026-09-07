@@ -215,7 +215,7 @@
                             <span class="realm-lead-dot"></span>
                             <span class="realm-lead-title" id="realm-lead-title">Botschaften des Hauses</span>
                             <span class="realm-lead-sep">•</span>
-                            <span class="realm-lead-subtitle" id="realm-lead-subtitle">1.542 Botschaften des Universalen Hauses der Gerechtigkeit (1963–2026)</span>
+                            <span class="realm-lead-subtitle" id="realm-lead-subtitle">Botschaften des Universalen Hauses der Gerechtigkeit (1963–2026)</span>
                         </div>
                     </div>
 
@@ -224,7 +224,7 @@
                         <svg class="command-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
                         </svg>
-                        <input type="text" id="library-search-input" placeholder="In allen 1.542 Botschaften des Hauses (1963–2026) suchen..." autocomplete="off">
+                        <input type="text" id="library-search-input" placeholder="In Botschaften des Hauses (1963–2026) suchen..." autocomplete="off">
                         <div class="command-search-actions">
                             <button id="library-search-clear" class="search-clear-btn" title="Suche leeren" style="display: none;">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -244,7 +244,6 @@
                                 </div>
                                 <span class="pillar-card-sub">Universales Haus der Gerechtigkeit</span>
                             </div>
-                            <span class="pillar-badge pillar-badge-house">1.542</span>
                         </button>
 
                         <!-- Säule 2: Compilations des Hauses -->
@@ -256,7 +255,6 @@
                                 </div>
                                 <span class="pillar-card-sub">Thematische Textsammlungen</span>
                             </div>
-                            <span class="pillar-badge pillar-badge-compilations">115</span>
                         </button>
 
                         <!-- Säule 3: Heilige Schriften und Bücher -->
@@ -268,7 +266,6 @@
                                 </div>
                                 <span class="pillar-card-sub">Zentrale Gestalten &amp; Shoghi Effendi</span>
                             </div>
-                            <span class="pillar-badge pillar-badge-books">108</span>
                         </button>
 
                         <!-- Säule 4: Ruhi-Bücher -->
@@ -280,11 +277,10 @@
                                 </div>
                                 <span class="pillar-card-sub">Institut &amp; Kursmaterialien</span>
                             </div>
-                            <span class="pillar-badge pillar-badge-ruhi">31</span>
                         </button>
                     </div>
 
-                    <!-- 3. Säulen-Ecosystem: Subfilter, verlinkte Original-Quellen & Fachwerkzeuge -->
+                    <!-- 3. Säulen-Ecosystem: Subfilter & Fachwerkzeuge -->
                     <div class="pillar-ecosystem-panel" id="pillar-ecosystem-panel">
                         <div class="ecosystem-top-row">
                             <!-- Kontextuelle Filterchips -->
@@ -330,12 +326,8 @@
                                 </div>
                             </div>
 
-                            <!-- Rechte Werkzeugleiste: Formate, Filter-Drawer & Universal-Button -->
+                            <!-- Rechte Werkzeugleiste: Formate & Filter-Drawer -->
                             <div class="command-actions-cluster">
-                                <button id="pillar-all-btn" class="pillar-all-pill" title="Gesamtes Archiv ohne Säulen-Einschränkung durchsuchen">
-                                    <span>Gesamtes Archiv (1.972)</span>
-                                </button>
-
                                 <div class="format-chips-group">
                                     <button class="format-chip-btn active" data-fmt="all">Alle</button>
                                     <button class="format-chip-btn" data-fmt="pdf" title="Nur PDF">PDF</button>
@@ -354,46 +346,6 @@
                                 <button id="library-reset-filters-btn" class="command-reset-btn" title="Alle Filter zurücksetzen" style="display: none;">
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                                 </button>
-                            </div>
-                        </div>
-
-                        <!-- Kontextuelle Ressourcen & Verlinkte Originalwebseiten -->
-                        <div class="ecosystem-resources-bar" id="ecosystem-resources-bar">
-                            <!-- Dynamisch aktualisierte Verlinkungen & Werkzeuge je Säule -->
-                            <div class="authority-links-cluster" id="authority-links-cluster">
-                                <span class="authority-label">Originalquellen:</span>
-                                <div class="authority-badges-row" id="authority-badges-row">
-                                    <!-- Befüllt via JavaScript je Säule -->
-                                </div>
-                            </div>
-
-                            <div class="ecosystem-tools-cluster" id="ecosystem-tools-cluster">
-                                <!-- Dynamische Buttons für Zeitstrahl, Werkstatt etc. -->
-                                <button class="ecosystem-action-btn btn-resource-tool" id="btn-context-tool" style="display: none;">
-                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12"/><circle cx="6" cy="12" r="3" fill="currentColor"/><circle cx="12" cy="12" r="3" fill="currentColor"/><circle cx="18" cy="12" r="3" fill="currentColor"/></svg>
-                                    <span id="btn-context-tool-label">Zeitstrahl einblenden</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Einklappbarer Inline-Zeitstrahl für Heilige Schriften & Bücher -->
-                        <div id="inline-timeline-panel" class="inline-timeline-panel" style="display: none;">
-                            <div class="inline-timeline-header">
-                                <div class="inline-timeline-title-wrap">
-                                    <span class="inline-timeline-badge">1844–1957</span>
-                                    <h4>Historischer Zeitstrahl der Offenbarung &amp; Bücher</h4>
-                                </div>
-                                <button id="inline-timeline-close-btn" class="inline-close-btn" title="Zeitstrahl einklappen">✕</button>
-                            </div>
-                            <div class="inline-timeline-body" id="inline-timeline-body">
-                                <p class="inline-timeline-intro">Wählen Sie eine Epoche, um die in jener Zeitspanne offenbarten Schriften und Standardwerke zu filtern:</p>
-                                <div class="inline-timeline-epochs" id="inline-timeline-epochs">
-                                    <button class="inline-epoch-btn active" data-epoch-filter="all">Alle Epochen</button>
-                                    <button class="inline-epoch-btn" data-epoch-filter="bab">Sendung des Báb (1844–1853)</button>
-                                    <button class="inline-epoch-btn" data-epoch-filter="bahaullah">Sendung Bahá'u'lláhs (1853–1892)</button>
-                                    <button class="inline-epoch-btn" data-epoch-filter="abdulbaha">Wirkung ‘Abdu’l-Bahás (1892–1921)</button>
-                                    <button class="inline-epoch-btn" data-epoch-filter="shoghi">Wirken Shoghi Effendis (1921–1957)</button>
-                                </div>
                             </div>
                         </div>
                     </div>
