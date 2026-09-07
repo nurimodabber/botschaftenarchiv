@@ -400,6 +400,17 @@ body:not([data-active-view])::before {
     justify-content: center;
     pointer-events: none;
     padding: 0 1rem;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, visibility 0.35s;
+    will-change: transform, opacity;
+}
+
+/* Obere Taskbar (Dock) waehrend Dokument-Preview / Reader ausblenden */
+body.viewer-open .cosmos-dock-container,
+body:has(#document-viewer.active) .cosmos-dock-container {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateY(-130%) !important;
+    visibility: hidden !important;
 }
 
 .cosmos-dock {

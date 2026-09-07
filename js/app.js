@@ -693,8 +693,13 @@ function setupKeyboardShortcuts() {
         if (e.key === 'Escape') {
             const modal = document.getElementById('document-viewer');
             if (modal && modal.classList.contains('active')) {
-                modal.classList.remove('active');
-                document.body.style.overflow = '';
+                if (typeof window.closeViewer === 'function') {
+                    window.closeViewer();
+                } else {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                    document.body.classList.remove('viewer-open');
+                }
             } else if (document.activeElement.tagName === 'INPUT') {
                 document.activeElement.blur();
             }

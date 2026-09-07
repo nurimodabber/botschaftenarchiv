@@ -200,6 +200,7 @@ function closeViewer() {
     if (modal) {
         modal.classList.remove('active');
         document.body.style.overflow = '';
+        document.body.classList.remove('viewer-open');
     }
     if (window.location.hash && window.location.hash.includes('doc=')) {
         if (window.history && window.history.replaceState) {
@@ -516,6 +517,7 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
     if (modal) {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
+        document.body.classList.add('viewer-open');
     }
     if (headerEl) {
         headerEl.classList.remove('header-hidden');
