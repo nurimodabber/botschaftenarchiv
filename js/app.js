@@ -597,6 +597,7 @@ window.switchView = function(targetView) {
     });
 
     state.currentView = targetView;
+    document.body.setAttribute('data-active-view', targetView);
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     if (typeof window.trackEvent === 'function') {

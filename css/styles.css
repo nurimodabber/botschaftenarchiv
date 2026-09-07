@@ -308,6 +308,7 @@ html {
 }
 
 body {
+    position: relative;
     font-family: var(--font-sans);
     background-color: var(--bg-canvas);
     color: var(--text-ink);
@@ -319,6 +320,29 @@ body {
     flex-direction: column;
     overflow-x: hidden;
     transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* ─── Nahtlose Ambient Hero Aura (Bibliothek & Realms) ────────────────────────── */
+/* Beginnt nahtlos am obersten Rand des Fensters (top: 0) hinter dem Nav-Dock
+   und verlaeuft sanft und vollstaendig nach unten und zur Seite in die Canvas-Farbe,
+   sodass keinerlei Kanten oder abgeschnittene Farbbereiche entstehen. */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 560px;
+    background: radial-gradient(ellipse 75% 65% at 50% 0%, var(--pillar-accent-glow), transparent 75%);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease, background 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body[data-active-view="library"]::before,
+body:not([data-active-view])::before {
+    opacity: 0.95;
 }
 
 /* ─── Cosmos Kinetic Keyframes ───────────────────────────────────────────── */
@@ -558,6 +582,8 @@ body {
 /* ─── Main Content Canvas ────────────────────────────────────────────────── */
 
 #app-content {
+    position: relative;
+    z-index: 1;
     flex: 1;
     max-width: 1400px;
     width: 100%;
@@ -1870,6 +1896,7 @@ body {
         background: #FFFFFF !important;
         color: #000000 !important;
     }
+    body::before,
     .cosmos-dock-container,
     .dock-actions,
     .app-footer,
@@ -3522,7 +3549,9 @@ html[data-active-pillar="house"] {
     --pillar-badge-text: #FFFFFF;
 }
 [data-theme="dark"],
-[data-theme="dark"][data-active-pillar="house"] {
+[data-theme="dark"][data-active-pillar="house"],
+[data-theme="oled"],
+[data-theme="oled"][data-active-pillar="house"] {
     --pillar-accent: #E05A7A;
     --pillar-accent-glow: rgba(224, 90, 122, 0.20);
     --pillar-accent-soft: rgba(122, 30, 58, 0.22);
@@ -3540,7 +3569,8 @@ html[data-active-pillar="compilations"] {
     --pillar-badge-bg: #1E5E4B;
     --pillar-badge-text: #FFFFFF;
 }
-[data-theme="dark"][data-active-pillar="compilations"] {
+[data-theme="dark"][data-active-pillar="compilations"],
+[data-theme="oled"][data-active-pillar="compilations"] {
     --pillar-accent: #34D399;
     --pillar-accent-glow: rgba(52, 211, 153, 0.20);
     --pillar-accent-soft: rgba(30, 94, 75, 0.22);
@@ -3558,7 +3588,8 @@ html[data-active-pillar="books"] {
     --pillar-badge-bg: #1A365D;
     --pillar-badge-text: #FFFFFF;
 }
-[data-theme="dark"][data-active-pillar="books"] {
+[data-theme="dark"][data-active-pillar="books"],
+[data-theme="oled"][data-active-pillar="books"] {
     --pillar-accent: #60A5FA;
     --pillar-accent-glow: rgba(96, 165, 250, 0.20);
     --pillar-accent-soft: rgba(26, 54, 93, 0.22);
@@ -3576,7 +3607,8 @@ html[data-active-pillar="ruhi"] {
     --pillar-badge-bg: #9C4221;
     --pillar-badge-text: #FFFFFF;
 }
-[data-theme="dark"][data-active-pillar="ruhi"] {
+[data-theme="dark"][data-active-pillar="ruhi"],
+[data-theme="oled"][data-active-pillar="ruhi"] {
     --pillar-accent: #FB923C;
     --pillar-accent-glow: rgba(251, 146, 60, 0.20);
     --pillar-accent-soft: rgba(156, 66, 33, 0.22);
@@ -3594,27 +3626,20 @@ html[data-active-pillar="all"] {
     --pillar-badge-bg: #C5A059;
     --pillar-badge-text: #121417;
 }
+[data-theme="dark"][data-active-pillar="all"],
+[data-theme="oled"][data-active-pillar="all"] {
+    --pillar-accent: #C5A059;
+    --pillar-accent-glow: rgba(197, 160, 89, 0.25);
+    --pillar-accent-soft: rgba(197, 160, 89, 0.18);
+    --pillar-accent-border: rgba(197, 160, 89, 0.45);
+    --pillar-badge-bg: #C5A059;
+    --pillar-badge-text: #121417;
+}
 
-/* Ambient Top Glow & Aura */
+/* Ambient Top Glow & Aura: Nahtlos ueber body::before gesteuert */
 .library-command-surface {
     position: relative;
     transition: all 0.35s ease;
-}
-
-.library-command-surface::before {
-    content: '';
-    position: absolute;
-    top: -60px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 115%;
-    max-width: 1240px;
-    height: 380px;
-    background: radial-gradient(ellipse 70% 55% at 50% 18%, var(--pillar-accent-glow), transparent 72%);
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.95;
-    transition: background 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
 }
 
 /* Aktiver Bereich Banner */
