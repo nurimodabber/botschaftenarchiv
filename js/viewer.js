@@ -38,10 +38,11 @@ window.initViewer = function() {
     const copyBtn = document.getElementById('viewer-copy');
     const btnModePdf = document.getElementById('btn-mode-pdf');
     const btnModeWeb = document.getElementById('btn-mode-web');
-    const btnModeEpub = document.getElementById('btn-mode-epub');
     const btnModeText = document.getElementById('btn-mode-text');
     const btnLangDe = document.getElementById('btn-viewer-lang-de');
     const btnLangEn = document.getElementById('btn-viewer-lang-en');
+    const exportBtn = document.getElementById('viewer-export-btn');
+    const exportMenu = document.getElementById('viewer-export-menu');
     const progressBar = document.getElementById('viewer-progress-bar');
 
     // 1. Schliessen-Schaltflaeche
@@ -76,7 +77,12 @@ window.initViewer = function() {
         });
     }
 
-    // 4. Modus-Umschaltung: Originalformate (PDF, Webseite, EPUB) vs. Fliesstext
+    // 4. Modus-Umschaltung: Fließtext vs. Original-PDF
+    if (btnModeText) {
+        btnModeText.addEventListener('click', () => {
+            if (currentViewerDoc) setViewerMode('text');
+        });
+    }
     if (btnModePdf) {
         btnModePdf.addEventListener('click', () => {
             if (currentViewerDoc) setViewerMode('pdf');
@@ -87,18 +93,32 @@ window.initViewer = function() {
             if (currentViewerDoc) setViewerMode('web');
         });
     }
-    if (btnModeEpub) {
-        btnModeEpub.addEventListener('click', () => {
-            if (currentViewerDoc) setViewerMode('epub');
+
+    // 5. Download- & Export-Dropdown Umschaltung
+    if (exportBtn && exportMenu) {
+        exportBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isCurrentlyHidden = exportMenu.hidden;
+            exportMenu.hidden = !isCurrentlyHidden;
+            exportBtn.setAttribute('aria-expanded', isCurrentlyHidden ? 'true' : 'false');
         });
-    }
-    if (btnModeText) {
-        btnModeText.addEventListener('click', () => {
-            if (currentViewerDoc) setViewerMode('text');
+
+        document.addEventListener('click', (e) => {
+            if (!exportMenu.hidden && !exportBtn.contains(e.target) && !exportMenu.contains(e.target)) {
+                exportMenu.hidden = true;
+                exportBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        exportMenu.addEventListener('click', (e) => {
+            if (e.target.closest('a')) {
+                exportMenu.hidden = true;
+                exportBtn.setAttribute('aria-expanded', 'false');
+            }
         });
     }
 
-    // 5. Sprach-Umschaltung: DE vs. EN
+    // 6. Sprach-Umschaltung: DE vs. EN
     if (btnLangDe) {
         btnLangDe.addEventListener('click', () => {
             if (currentViewerDoc && currentViewerDoc.language !== 'deutsch' && currentViewerDoc.translations && currentViewerDoc.translations.de) {
@@ -114,7 +134,7 @@ window.initViewer = function() {
         });
     }
 
-    // 6. Wegklappender Header beim Hinabscrollen & Lese-Fortschritt
+    // 7. Wegklappender Header beim Hinabscrollen & Lese-Fortschritt
     if (bodyEl && headerEl) {
         bodyEl.addEventListener('scroll', () => {
             const st = bodyEl.scrollTop;
@@ -140,7 +160,7 @@ window.initViewer = function() {
         }, { passive: true });
     }
 
-    // 7. Unsichtbare Trigger-Zone am oberen Rand: Mausberuehrung blendet Header sofort wieder ein
+    // 8. Unsichtbare Trigger-Zone am oberen Rand: Mausberuehrung blendet Header sofort wieder ein
     if (topTrigger && headerEl) {
         topTrigger.addEventListener('mouseenter', () => {
             headerEl.classList.remove('header-hidden');
@@ -150,7 +170,7 @@ window.initViewer = function() {
         });
     }
 
-    // 8. Klick auf Hintergrund schliesst Modal
+    // 9. Klick auf Hintergrund schliesst Modal
     if (modal) {
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
@@ -159,10 +179,18 @@ window.initViewer = function() {
         });
     }
 
-    // 9. Tastatur-Kuerzel Escape
+    // 10. Tastatur-Kuerzel Escape
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
-            closeViewer();
+        if (e.key === 'Escape') {
+            if (exportMenu && !exportMenu.hidden) {
+                exportMenu.hidden = true;
+                if (exportBtn) exportBtn.setAttribute('aria-expanded', 'false');
+                e.stopPropagation();
+                return;
+            }
+            if (modal && modal.classList.contains('active')) {
+                closeViewer();
+            }
         }
     });
 };
@@ -315,16 +343,25 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
     const epubPath = resolveEpubPath(doc);
     const origFmt = getDocOriginalFormat(doc);
 
-    // Layout-Modus Buttons (Original-PDF, Webseite, EPUB, Fliesstext)
+    // Originalformat-Anzeige oben in der Metazeile
+    const origTextEl = document.getElementById('viewer-meta-orig-text');
+    if (origTextEl) {
+        origTextEl.textContent = `Original: ${origFmt}`;
+    }
+
+    // Layout-Modus Buttons (Fließtext vs. Original-PDF)
     const btnModePdf = document.getElementById('btn-mode-pdf');
     const btnModeWeb = document.getElementById('btn-mode-web');
-    const btnModeEpub = document.getElementById('btn-mode-epub');
     const btnModeText = document.getElementById('btn-mode-text');
 
-    if (btnModePdf) btnModePdf.style.display = pdfPath ? 'inline-flex' : 'none';
-    if (btnModeWeb) btnModeWeb.style.display = doc.sourceUrl ? 'inline-flex' : 'none';
-    if (btnModeEpub) btnModeEpub.style.display = epubPath ? 'inline-flex' : 'none';
     if (btnModeText) btnModeText.style.display = 'inline-flex';
+    if (btnModePdf) {
+        btnModePdf.style.display = pdfPath ? 'inline-flex' : 'none';
+    }
+    if (btnModeWeb) {
+        // Nur anzeigen, falls kein PDF vorhanden ist (reines Web-Dokument)
+        btnModeWeb.style.display = (!pdfPath && doc.sourceUrl) ? 'inline-flex' : 'none';
+    }
 
     if (modePill) {
         modePill.style.display = 'inline-flex';
@@ -343,50 +380,71 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
         }
     }
 
-    // Direkte Download-Pills fuer Originalformate generieren
-    if (dlGroup) {
-        dlGroup.innerHTML = '';
-        const formats = [];
+    // Aufgeräumtes Download- & Export-Menü befüllen
+    const exportBtn = document.getElementById('viewer-export-btn');
+    const exportMenu = document.getElementById('viewer-export-menu');
+    if (exportMenu) {
+        exportMenu.hidden = true;
+        if (exportBtn) exportBtn.setAttribute('aria-expanded', 'false');
+
         const files = doc.formatFiles || {};
+        const pdfHref = (doc.filePath && doc.filePath.toLowerCase().endsWith('.pdf')) ? doc.filePath : (files.pdf || pdfPath);
+        const epubHref = (doc.filePath && doc.filePath.toLowerCase().endsWith('.epub')) ? doc.filePath : (files.epub || epubPath);
+        const docxHref = (doc.filePath && doc.filePath.toLowerCase().endsWith('.docx')) ? doc.filePath : files.docx;
 
-        if (doc.filePath && doc.filePath.toLowerCase().endsWith('.pdf')) {
-            formats.push({ label: 'PDF', href: doc.filePath, title: 'Original-PDF herunterladen' });
-        } else if (files.pdf || pdfPath) {
-            formats.push({ label: 'PDF', href: files.pdf || pdfPath, title: 'Original-PDF herunterladen' });
+        let menuHtml = '';
+        menuHtml += '<div class="export-menu-header">Herunterladen &amp; Export</div>';
+
+        if (pdfHref) {
+            menuHtml += `
+                <a href="${escapeHtml(pdfHref)}" download class="export-menu-item" title="Original-PDF herunterladen">
+                    <div class="export-item-content">
+                        <span class="export-item-title">Original-PDF (.pdf)</span>
+                        <span class="export-item-sub">Offizielles Layout &amp; Druckfassung</span>
+                    </div>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </a>
+            `;
         }
 
-        if (doc.filePath && doc.filePath.toLowerCase().endsWith('.epub')) {
-            formats.push({ label: 'EPUB', href: doc.filePath, title: 'Original-E-Book (EPUB) herunterladen' });
-        } else if (files.epub) {
-            formats.push({ label: 'EPUB', href: files.epub, title: 'Original-E-Book (EPUB) herunterladen' });
+        if (epubHref) {
+            menuHtml += `
+                <a href="${escapeHtml(epubHref)}" download class="export-menu-item" title="E-Book im EPUB-Format herunterladen">
+                    <div class="export-item-content">
+                        <span class="export-item-title">E-Book (.epub)</span>
+                        <span class="export-item-sub">Für Apple Books, Tolino, Kindle</span>
+                    </div>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </a>
+            `;
         }
 
-        if (doc.filePath && doc.filePath.toLowerCase().endsWith('.docx')) {
-            formats.push({ label: 'DOCX', href: doc.filePath, title: 'Original-Word-Dokument (DOCX) herunterladen' });
-        } else if (files.docx) {
-            formats.push({ label: 'DOCX', href: files.docx, title: 'Original-Word-Dokument (DOCX) herunterladen' });
+        if (docxHref) {
+            menuHtml += `
+                <a href="${escapeHtml(docxHref)}" download class="export-menu-item" title="Word-Dokument herunterladen">
+                    <div class="export-item-content">
+                        <span class="export-item-title">Word-Dokument (.docx)</span>
+                        <span class="export-item-sub">Bearbeitbare Textdatei</span>
+                    </div>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </a>
+            `;
         }
-
-        formats.forEach(f => {
-            const a = document.createElement('a');
-            a.href = f.href;
-            a.download = '';
-            a.className = 'viewer-dl-pill';
-            a.title = f.title;
-            a.textContent = f.label;
-            dlGroup.appendChild(a);
-        });
 
         if (doc.sourceUrl) {
-            const webLink = document.createElement('a');
-            webLink.href = doc.sourceUrl;
-            webLink.target = '_blank';
-            webLink.rel = 'noopener noreferrer';
-            webLink.className = 'viewer-dl-pill';
-            webLink.title = `Originaldokument auf ${doc.sourcePlatform || 'autorisierter Quelle'} im Web aufrufen`;
-            webLink.textContent = 'Web ↗';
-            dlGroup.appendChild(webLink);
+            menuHtml += `
+                <div class="export-menu-divider"></div>
+                <a href="${escapeHtml(doc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="export-menu-item external" title="Dokument auf offizieller Quelle im Web öffnen">
+                    <div class="export-item-content">
+                        <span class="export-item-title">Im Web aufrufen ↗</span>
+                        <span class="export-item-sub">${escapeHtml(doc.sourcePlatform || 'Autorisierte Online-Quelle')}</span>
+                    </div>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+            `;
         }
+
+        exportMenu.innerHTML = menuHtml;
     }
 
     // Lesezeichen-Zustand aktualisieren
@@ -426,10 +484,8 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
                     } else if (pdfPath) {
                         targetMode = 'pdf';
                     } else {
-                        targetMode = 'web';
+                        targetMode = 'text';
                     }
-                } else if (origFmt === 'EPUB') {
-                    targetMode = 'epub';
                 } else if (pdfPath) {
                     targetMode = 'pdf';
                 } else {
@@ -571,25 +627,6 @@ function renderDocumentText(doc, targetParagraph) {
         doc.paragraphs = structure.body;
 
         let html = '';
-
-        // Originalformat-Leiste immer ganz oben anzeigen
-        const origFmt = getDocOriginalFormat(doc);
-        const pdfPath = resolvePdfPath(doc);
-        const epubPath = resolveEpubPath(doc);
-
-        html += `
-            <div class="reader-top-original-bar">
-                <div class="original-bar-label">
-                    <span class="original-indicator-dot"></span>
-                    <span>Originalformat: <strong>${escapeHtml(origFmt)}</strong></span>
-                </div>
-                <div class="original-bar-actions">
-                    ${pdfPath ? `<button class="original-action-pill" onclick="setViewerMode('pdf')" title="Im Original-PDF-Layout betrachten">Original-PDF</button>` : ''}
-                    ${doc.sourceUrl ? `<button class="original-action-pill" onclick="setViewerMode('web')" title="Auf autorisierter Original-Webseite aufrufen">Webseite ↗</button>` : ''}
-                    ${epubPath ? `<button class="original-action-pill" onclick="setViewerMode('epub')" title="Original-E-Book (EPUB) anzeigen">EPUB</button>` : ''}
-                </div>
-            </div>
-        `;
 
         // 1. Schlanker, eleganter Vorspann (falls Institution, Datum, Empfaenger oder Anrede vorhanden)
         const instHeader = structure.headers.find(h => h.kind === 'institution');

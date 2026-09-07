@@ -592,28 +592,20 @@
                             <span id="viewer-meta-date" class="reader-meta-item">Undatiert</span>
                             <span class="meta-sep">•</span>
                             <span id="viewer-meta-source" class="reader-meta-item">UHG</span>
+                            <span class="meta-sep">•</span>
+                            <span class="reader-meta-orig" id="viewer-meta-orig-container" title="Ursprüngliches Publikationsformat">
+                                <span class="orig-indicator-dot"></span>
+                                <span id="viewer-meta-orig-text">Original: PDF</span>
+                            </span>
                         </div>
                         <h2 id="viewer-title" class="reader-modal-title">Dokumenttitel</h2>
                     </div>
                     <div class="modal-actions" id="viewer-modal-actions">
-                        <!-- 1. Layout-Modus: Original-Formate vs. Fließtext -->
+                        <!-- 1. Lesemodus: Fließtext vs. Original-PDF (Schlank, ohne verwirrende Icons) -->
                         <div class="viewer-segmented-pill" id="viewer-layout-mode-pill">
-                            <button id="btn-mode-pdf" class="viewer-segment-tab active" title="Original-Dokument im PDF-Layout betrachten">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                                <span>PDF</span>
-                            </button>
-                            <button id="btn-mode-web" class="viewer-segment-tab" title="Autorisierte Original-Webseite aufrufen">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                                <span>Webseite</span>
-                            </button>
-                            <button id="btn-mode-epub" class="viewer-segment-tab" title="Original-E-Book (EPUB) anzeigen">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/></svg>
-                                <span>EPUB</span>
-                            </button>
-                            <button id="btn-mode-text" class="viewer-segment-tab" title="Als Fließtext lesen">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h10"/></svg>
-                                <span>Fließtext</span>
-                            </button>
+                            <button id="btn-mode-text" class="viewer-segment-tab active" title="Als lesefreundlichen Fließtext anzeigen">Fließtext</button>
+                            <button id="btn-mode-pdf" class="viewer-segment-tab" title="Im Original-PDF-Layout betrachten">Original-PDF</button>
+                            <button id="btn-mode-web" class="viewer-segment-tab" style="display: none;" title="Original-Webseite aufrufen">Webseite</button>
                         </div>
 
                         <!-- 2. Zweisprachig-Umschalter DE / EN -->
@@ -622,8 +614,15 @@
                             <button id="btn-viewer-lang-en" class="viewer-segment-tab" title="English version">EN</button>
                         </div>
 
-                        <!-- 3. Original-Formate Download-Leiste (PDF, EPUB, DOCX) -->
-                        <div class="viewer-download-group" id="viewer-download-group"></div>
+                        <!-- 3. Aufgeräumtes Download- & Export-Menü (PDF, EPUB, DOCX, Web) -->
+                        <div class="viewer-export-dropdown-wrapper" id="viewer-export-dropdown-wrapper">
+                            <button id="viewer-export-btn" class="viewer-export-btn" title="Dokument herunterladen oder im Web öffnen" aria-haspopup="true" aria-expanded="false">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                <span>Download</span>
+                                <svg class="dropdown-chevron" width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+                            </button>
+                            <div id="viewer-export-menu" class="viewer-export-menu" hidden></div>
+                        </div>
 
                         <!-- 4. Text kopieren -->
                         <button id="viewer-copy" class="dock-icon-btn" title="Gesamten Text kopieren" aria-label="Text kopieren">
