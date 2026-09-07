@@ -2553,29 +2553,29 @@ body:has(#document-viewer.active) .cosmos-dock-container {
         justify-content: space-between !important;
         gap: 0 !important;
         border-radius: 9999px !important;
-        border: 1px solid rgba(255, 255, 255, 0.12) !important;
-        background: #0F1519 !important; /* 100% vollstaendig deckend und blickdicht - kein Text schimmert durch */
-        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65), 0 2px 10px rgba(0, 0, 0, 0.4) !important;
+        border: 1px solid var(--border-hairline) !important;
+        background: var(--bg-paper) !important;
+        box-shadow: var(--shadow-dock), 0 4px 20px rgba(0, 0, 0, 0.4) !important;
         padding: 0 6px !important;
         position: relative !important;
     }
 
     [data-theme="light"] .cosmos-dock {
-        background: #FFFFFF !important;
-        border: 1px solid rgba(0, 0, 0, 0.1) !important;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+        background: var(--bg-paper) !important;
+        border: 1px solid var(--border-hairline) !important;
+        box-shadow: var(--shadow-dock), 0 4px 16px rgba(0, 0, 0, 0.06) !important;
     }
 
     [data-theme="sepia"] .cosmos-dock {
-        background: #F4EFEB !important;
-        border: 1px solid rgba(61, 48, 36, 0.14) !important;
-        box-shadow: 0 10px 30px rgba(61, 48, 36, 0.15), 0 2px 8px rgba(61, 48, 36, 0.06) !important;
+        background: var(--bg-paper) !important;
+        border: 1px solid var(--border-hairline) !important;
+        box-shadow: var(--shadow-dock), 0 4px 16px rgba(74, 52, 28, 0.08) !important;
     }
 
     [data-theme="oled"] .cosmos-dock {
         background: #000000 !important;
-        border: 1px solid rgba(255, 255, 255, 0.18) !important;
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.85) !important;
+        border: 1px solid var(--border-hairline) !important;
+        box-shadow: var(--shadow-dock), 0 4px 24px rgba(0, 0, 0, 0.8) !important;
     }
 
     .dock-brand,
@@ -2634,12 +2634,18 @@ body:has(#document-viewer.active) .cosmos-dock-container {
         min-width: 0 !important;
         width: 100% !important;
         max-width: none !important;
-        color: #7E909B !important;
+        color: var(--text-muted) !important;
         text-decoration: none !important;
         touch-action: manipulation !important;
         -webkit-tap-highlight-color: transparent !important;
         cursor: pointer !important;
         box-sizing: border-box !important;
+        transition: color var(--transition-fast) !important;
+    }
+
+    .cosmos-nav .nav-btn:hover,
+    .appearance-dock-btn:hover {
+        color: var(--text-ink) !important;
     }
 
     .appearance-dock-btn:hover,
@@ -2649,17 +2655,7 @@ body:has(#document-viewer.active) .cosmos-dock-container {
         border: none !important;
     }
 
-    [data-theme="light"] .cosmos-nav .nav-btn,
-    [data-theme="light"] .appearance-dock-btn {
-        color: #64748B !important;
-    }
-
-    [data-theme="sepia"] .cosmos-nav .nav-btn,
-    [data-theme="sepia"] .appearance-dock-btn {
-        color: #7A6A58 !important;
-    }
-
-    /* RUNDES ICON-CONTAINER-ELEMENT (Perfekter Kreis gemäss Referenzbild) */
+    /* RUNDES ICON-CONTAINER-ELEMENT (Inaktiver Zustand) */
     .nav-icon-circle {
         width: 36px !important;
         height: 36px !important;
@@ -2667,23 +2663,30 @@ body:has(#document-viewer.active) .cosmos-dock-container {
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        background: rgba(255, 255, 255, 0.04) !important;
-        border: 1px solid rgba(255, 255, 255, 0.06) !important;
-        color: inherit !important;
-        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        background: rgba(255, 255, 255, 0.03) !important;
+        border: 1px solid var(--border-subtle) !important;
+        color: var(--text-muted) !important;
+        transition: all var(--transition-fast) !important;
         flex-shrink: 0 !important;
         box-sizing: border-box !important;
         margin: 0 auto !important;
     }
 
     [data-theme="light"] .nav-icon-circle {
-        background: rgba(0, 0, 0, 0.03) !important;
-        border: 1px solid rgba(0, 0, 0, 0.06) !important;
+        background: rgba(0, 0, 0, 0.02) !important;
+        border: 1px solid var(--border-subtle) !important;
     }
 
     [data-theme="sepia"] .nav-icon-circle {
-        background: rgba(61, 48, 36, 0.05) !important;
-        border: 1px solid rgba(61, 48, 36, 0.08) !important;
+        background: rgba(74, 52, 28, 0.04) !important;
+        border: 1px solid var(--border-subtle) !important;
+    }
+
+    .cosmos-nav .nav-btn:hover .nav-icon-circle,
+    .appearance-dock-btn:hover .nav-icon-circle {
+        color: var(--text-ink) !important;
+        background: var(--bg-subtle) !important;
+        border-color: var(--border-hover) !important;
     }
 
     .cosmos-nav .nav-btn .nav-icon,
@@ -2703,25 +2706,22 @@ body:has(#document-viewer.active) .cosmos-dock-container {
         font-weight: 500 !important;
         line-height: 1.1 !important;
         letter-spacing: -0.01em !important;
-        color: #7E909B !important;
+        color: var(--text-muted) !important;
         white-space: nowrap !important;
         text-align: center !important;
         margin-top: 1px !important;
         max-width: 100% !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
-        transition: color 0.2s ease, font-weight 0.2s ease !important;
+        transition: color var(--transition-fast), font-weight var(--transition-fast) !important;
     }
 
-    [data-theme="light"] .nav-label {
-        color: #64748B !important;
+    .cosmos-nav .nav-btn:hover .nav-label,
+    .appearance-dock-btn:hover .nav-label {
+        color: var(--text-ink) !important;
     }
 
-    [data-theme="sepia"] .nav-label {
-        color: #7A6A58 !important;
-    }
-
-    /* AKTIVER TASTEN-STATUS: Runder Icon-Kreis mit Teal/Cyan-Hervorhebung gemäss Referenz */
+    /* AKTIVER TASTEN-STATUS: Angepasst an die Farb- und Oberflaechen-Gestaltung des Landscape Docks */
     .cosmos-nav .nav-btn.active,
     .appearance-dock-btn.active {
         background: transparent !important;
@@ -2732,54 +2732,43 @@ body:has(#document-viewer.active) .cosmos-dock-container {
 
     .cosmos-nav .nav-btn.active .nav-icon-circle,
     .appearance-dock-btn.active .nav-icon-circle {
-        background: #132425 !important;
-        border: 1px solid rgba(62, 107, 116, 0.85) !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
-        color: #FFFFFF !important;
+        background: var(--bg-subtle) !important;
+        border: 1px solid var(--border-hover) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35) !important;
+        color: var(--text-ink) !important;
         transform: scale(1.04) !important;
     }
 
     [data-theme="light"] .cosmos-nav .nav-btn.active .nav-icon-circle,
     [data-theme="light"] .appearance-dock-btn.active .nav-icon-circle {
-        background: rgba(220, 236, 246, 0.95) !important;
-        border: 1px solid rgba(75, 125, 150, 0.55) !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
-        color: #0F172A !important;
+        background: var(--bg-subtle) !important;
+        border: 1px solid var(--border-hairline) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07) !important;
+        color: var(--text-ink) !important;
         transform: scale(1.04) !important;
     }
 
     [data-theme="sepia"] .cosmos-nav .nav-btn.active .nav-icon-circle,
     [data-theme="sepia"] .appearance-dock-btn.active .nav-icon-circle {
-        background: rgba(230, 222, 208, 0.95) !important;
-        border: 1px solid rgba(180, 160, 130, 0.65) !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
-        color: #3D3024 !important;
+        background: var(--bg-subtle) !important;
+        border: 1px solid var(--border-hairline) !important;
+        box-shadow: 0 2px 8px rgba(74, 52, 28, 0.08) !important;
+        color: var(--text-ink) !important;
         transform: scale(1.04) !important;
     }
 
     [data-theme="oled"] .cosmos-nav .nav-btn.active .nav-icon-circle,
     [data-theme="oled"] .appearance-dock-btn.active .nav-icon-circle {
-        background: #142931 !important;
-        border: 1px solid rgba(75, 125, 150, 0.85) !important;
-        color: #FFFFFF !important;
+        background: var(--bg-subtle) !important;
+        border: 1px solid var(--border-hover) !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8) !important;
+        color: var(--text-ink) !important;
         transform: scale(1.04) !important;
     }
 
     .cosmos-nav .nav-btn.active .nav-label,
     .appearance-dock-btn.active .nav-label {
-        color: #FFFFFF !important;
-        font-weight: 600 !important;
-    }
-
-    [data-theme="light"] .cosmos-nav .nav-btn.active .nav-label,
-    [data-theme="light"] .appearance-dock-btn.active .nav-label {
-        color: #0F172A !important;
-        font-weight: 600 !important;
-    }
-
-    [data-theme="sepia"] .cosmos-nav .nav-btn.active .nav-label,
-    [data-theme="sepia"] .appearance-dock-btn.active .nav-label {
-        color: #3D3024 !important;
+        color: var(--text-ink) !important;
         font-weight: 600 !important;
     }
 
