@@ -250,8 +250,20 @@ function setupAppearance() {
             dockDot.style.boxShadow = `0 0 6px ${fullHex}`;
         }
 
+        const standardColors = ['#c5a059', '#2b4c7e', '#c86432'];
+        const isStandard = standardColors.includes(fullHex.toLowerCase());
+
         document.querySelectorAll('.accent-swatch').forEach(sw => {
-            sw.classList.toggle('active', (sw.dataset.color || '').toLowerCase() === fullHex.toLowerCase());
+            if (sw.classList.contains('accent-swatch-custom')) {
+                sw.classList.toggle('active', !isStandard);
+                if (!isStandard) {
+                    sw.style.background = fullHex;
+                } else {
+                    sw.style.background = 'conic-gradient(from 180deg at 50% 50%, #E53935, #FB8C00, #FDD835, #43A047, #1E88E5, #8E24AA, #E53935)';
+                }
+            } else {
+                sw.classList.toggle('active', (sw.dataset.color || '').toLowerCase() === fullHex.toLowerCase());
+            }
         });
     }
 
@@ -411,17 +423,26 @@ function setupAppearance() {
         });
     });
 
-    // Swatches
-    document.querySelectorAll('.accent-swatch').forEach(sw => {
+    // Swatches (3 Standardempfehlungen)
+    document.querySelectorAll('.accent-swatch:not(.accent-swatch-custom)').forEach(sw => {
         sw.addEventListener('click', () => {
             if (sw.dataset.color) applyAccentColor(sw.dataset.color);
         });
     });
 
-    // Color Wheel & Hex
+    // 4. Custom Swatch (Farbrad & Picker Trigger)
+    const customSwatchBtn = document.getElementById('accent-swatch-custom');
     const colorInput = document.getElementById('accent-color-input');
+    if (customSwatchBtn && colorInput) {
+        customSwatchBtn.addEventListener('click', () => {
+            colorInput.click();
+        });
+    }
+
+    // Color Wheel & Hex
     if (colorInput) {
         colorInput.addEventListener('input', (e) => applyAccentColor(e.target.value));
+        colorInput.addEventListener('change', (e) => applyAccentColor(e.target.value));
     }
 
     const hexInput = document.getElementById('accent-hex-input');

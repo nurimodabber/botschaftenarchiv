@@ -42,7 +42,7 @@
     <meta name="twitter:description" content="Digitale Forschungsbibliothek mit 918 Botschaften des Universalen Hauses der Gerechtigkeit, Schriften und Büchern im offiziellen Satzspiegel.">
     <meta name="twitter:image" content="https://bahaibibliothek.vercel.app/assets/icons/og-image.png">
 
-    <link rel="stylesheet" href="css/styles.css?v=3.1">
+    <link rel="stylesheet" href="css/styles.css?v=3.2">
     <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
     <!-- Vercel Web Analytics & Speed Insights -->
     <script>
@@ -178,21 +178,19 @@
                         <div class="appearance-section">
                             <label class="appearance-section-label">Akzentfarbe</label>
                             <div class="accent-swatches">
-                                <button class="accent-swatch active" data-color="#C5A059" title="Klassisches Gold" style="background: #C5A059;"></button>
-                                <button class="accent-swatch" data-color="#C86432" title="Terracotta" style="background: #C86432;"></button>
-                                <button class="accent-swatch" data-color="#2B4C7E" title="Persischblau" style="background: #2B4C7E;"></button>
-                                <button class="accent-swatch" data-color="#A62B2B" title="Rubinrot" style="background: #A62B2B;"></button>
-                                <button class="accent-swatch" data-color="#2E7D32" title="Smaragdgrün" style="background: #2E7D32;"></button>
-                                <button class="accent-swatch" data-color="#6B4E71" title="Amethyst" style="background: #6B4E71;"></button>
-                                <button class="accent-swatch" data-color="#1E6B7B" title="Ozeanpetrol" style="background: #1E6B7B;"></button>
-                                <button class="accent-swatch" data-color="#5A6B7C" title="Schieferblau" style="background: #5A6B7C;"></button>
+                                <button type="button" class="accent-swatch active" data-color="#C5A059" title="Klassisches Gold" style="background: #C5A059;"></button>
+                                <button type="button" class="accent-swatch" data-color="#2B4C7E" title="Persischblau" style="background: #2B4C7E;"></button>
+                                <button type="button" class="accent-swatch" data-color="#C86432" title="Terracotta" style="background: #C86432;"></button>
+                                <button type="button" class="accent-swatch accent-swatch-custom" id="accent-swatch-custom" title="Eigene Farbe wählen (Farbrad &amp; Palette)">
+                                    <span class="custom-swatch-icon" aria-hidden="true">
+                                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+                                    </span>
+                                </button>
+                                <input type="color" id="accent-color-input" value="#C5A059" style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;">
                             </div>
                             <div class="accent-wheel-row">
-                                <label for="accent-color-input" class="accent-wheel-label">
-                                    <input type="color" id="accent-color-input" value="#C5A059">
-                                    <span>Eigenes Farbrad</span>
-                                </label>
-                                <input type="text" id="accent-hex-input" class="accent-hex-input" value="#C5A059" maxlength="7" spellcheck="false">
+                                <span class="accent-custom-hint">Farbcode (Hex):</span>
+                                <input type="text" id="accent-hex-input" class="accent-hex-input" value="#C5A059" maxlength="7" spellcheck="false" placeholder="#C5A059">
                             </div>
                         </div>
 
@@ -707,6 +705,6 @@
     <script src="js/timeline.js?v=3.1"></script>
     <script src="js/books.js"></script>
     <script src="js/sources.js"></script>
-    <script src="js/app.js?v=3.1"></script>
+    <script src="js/app.js?v=3.2"></script>
 </body>
 </html>
