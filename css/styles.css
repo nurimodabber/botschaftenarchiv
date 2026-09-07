@@ -2511,7 +2511,7 @@ body:has(#document-viewer.active) .cosmos-dock-container {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px), (orientation: landscape) and (max-height: 500px) {
     /* ─── Mobile Floating Navigation Bar (Schwebende Taskbar im modernen Dark-Mode-Design) ─── */
     .cosmos-dock-container {
         position: fixed !important;
@@ -2795,6 +2795,13 @@ body:has(#document-viewer.active) .cosmos-dock-container {
         }
         .nav-label {
             font-size: 0.52rem !important;
+        }
+    }
+
+    /* Im Landscape Mode: Text vom Einstellungsbutton ausblenden */
+    @media (orientation: landscape) {
+        .appearance-dock-btn .nav-label {
+            display: none !important;
         }
     }
 
@@ -4061,6 +4068,12 @@ body:has(#document-viewer.active) .cosmos-dock-container {
 
 .appearance-dock-btn .nav-label {
     display: none;
+}
+
+@media (orientation: landscape) {
+    .appearance-dock-btn .nav-label {
+        display: none !important;
+    }
 }
 
 .appearance-dock-btn:hover,
