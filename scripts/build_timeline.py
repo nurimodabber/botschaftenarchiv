@@ -107,7 +107,7 @@ window.TimelineModule = (function() {
             startYear: 1944,
             endYear: 2044,
             color: "#1F6FA8",
-            descDe: "Das gegenwärtige Jahrhundert der Bahá'í-Ära ist geprägt von der weltweiten Verbreitung des Glaubens auf alle Kontinente, der Errichtung des Universalen Hauses der Gerechtigkeit (1963), der Entfaltung des Trainingsinstituts und der Freisetzung der gesellschaftsaufbauenden Kräfte der Lehren.",
+            descDe: "Das gegenwärtige Jahrhundert der Bahá'í-Ära ist geprägt von der weltweiten Verbreitung des Glaubens auf alle Kontinente, der Errichtung des Universalen Hauses der Gerechtigkeit (1963), der Entfaltung des Trainingsinstituts und der Freisetzung der gesellschaftsbildenden Kraft der Lehren.",
             descEn: "The current century marks the global consolidation, election of the Universal House of Justice (1963), institute process, and release of society-building powers.",
             quote: "„Das zweite Jahrhundert der Bahá'í-Ära ist die Arena, in der die Verheißungen der Zwillingsmanifestationen ihre weltumspannende Reife erlangen.“",
             quoteSource: "Universales Haus der Gerechtigkeit"
@@ -421,7 +421,7 @@ window.TimelineModule = (function() {
             startYear: 2021,
             endYear: 2046,
             color: "#E53935",
-            descDe: "Die aktuelle Serie globaler Pläne zur Freisetzung der gesellschaftsaufbauenden Kräfte des Glaubens in Tausenden von fortgeschrittenen Clustern weltweit."
+            descDe: "Die aktuelle Serie globaler Pläne zur Freisetzung der gesellschaftsbildenden Kraft des Glaubens in Tausenden von fortgeschrittenen Clustern weltweit."
         },
 
         // DIE LEHRPLÄNE
@@ -566,7 +566,7 @@ window.TimelineModule = (function() {
             nameEn: "Nine Year Plan (2022–2031)",
             periodDe: "2022–2031", periodEn: "2022–2031",
             startYear: 2022, endYear: 2031, startDate: "2022-04-21", endDate: "2031-12-31",
-            descDe: "Der aktuelle globale Lehrplan. Erster Plan einer neuen 25-jährigen Serie bis 2046 zur Freisetzung gesellschaftsaufbauender Kräfte.",
+            descDe: "Der aktuelle globale Lehrplan. Erster Plan einer neuen 25-jährigen Serie bis 2046 zur Freisetzung gesellschaftsbildender Kraft.",
             descEn: "The current active global plan, first in a 25-year series through 2046 to release society-building power."
         }
     };
@@ -988,7 +988,7 @@ window.TimelineModule = (function() {
                 <text x="${(X[2021] + X[2044])/2}" y="435" text-anchor="middle" class="svg-bracket-text-red">
                     ${isDe ? "Neue Serie globaler Pläne" : "New Series of Global Plans"}
                     <tspan x="${(X[2021] + X[2044])/2}" dy="14" font-size="9" fill="#E53935">
-                        ${isDe ? "(2021–2046: Gesellschaftsaufbauende Kräfte)" : "(2021–2046)"}
+                        ${isDe ? "(2021–2046: Gesellschaftsbildende Kraft)" : "(2021–2046)"}
                     </tspan>
                 </text>
             </g>
