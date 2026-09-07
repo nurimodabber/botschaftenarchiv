@@ -2665,6 +2665,57 @@ body {
     border-color: rgba(102, 187, 106, 0.3);
 }
 
+.doc-pillar-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.12rem 0.45rem;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border: 1px solid transparent;
+}
+.doc-pillar-tag.pillar-badge-house {
+    background: rgba(122, 30, 58, 0.09);
+    color: #7A1E3A;
+    border-color: rgba(122, 30, 58, 0.2);
+}
+[data-theme="dark"] .doc-pillar-tag.pillar-badge-house {
+    background: rgba(197, 160, 89, 0.15);
+    color: #C5A059;
+    border-color: rgba(197, 160, 89, 0.3);
+}
+.doc-pillar-tag.pillar-badge-compilations {
+    background: rgba(30, 94, 75, 0.09);
+    color: #1E5E4B;
+    border-color: rgba(30, 94, 75, 0.2);
+}
+[data-theme="dark"] .doc-pillar-tag.pillar-badge-compilations {
+    background: rgba(76, 175, 80, 0.15);
+    color: #81C784;
+    border-color: rgba(76, 175, 80, 0.3);
+}
+.doc-pillar-tag.pillar-badge-books {
+    background: rgba(26, 54, 93, 0.09);
+    color: #1A365D;
+    border-color: rgba(26, 54, 93, 0.2);
+}
+[data-theme="dark"] .doc-pillar-tag.pillar-badge-books {
+    background: rgba(99, 179, 237, 0.15);
+    color: #90CDF4;
+    border-color: rgba(99, 179, 237, 0.3);
+}
+.doc-pillar-tag.pillar-badge-ruhi {
+    background: rgba(156, 66, 33, 0.09);
+    color: #9C4221;
+    border-color: rgba(156, 66, 33, 0.2);
+}
+[data-theme="dark"] .doc-pillar-tag.pillar-badge-ruhi {
+    background: rgba(237, 137, 54, 0.15);
+    color: #FBD38D;
+    border-color: rgba(237, 137, 54, 0.3);
+}
+
 .reader-top-original-bar {
     display: flex;
     align-items: center;
@@ -3321,54 +3372,97 @@ body {
     pointer-events: none;
 }
 
-/* B. Primäre Segment-Leiste (Apple Segmented Control) */
-.library-segment-bar {
+/* Master Search Bar (Apex Omnisearch) */
+.master-search-row input {
+    font-size: 1.02rem;
+    padding: 0.95rem 5.5rem 0.95rem 3.1rem;
+    border-radius: var(--radius-md);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.master-search-row .command-search-icon {
+    left: 1.15rem;
+    width: 22px;
+    height: 22px;
+    color: var(--accent-gold);
+}
+
+/* B. Die Vier Hauptsäulen (Pillar Cards Grid) */
+.pillar-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.pillar-card {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 0.35rem;
-    background: var(--bg-canvas);
-    border: 1px solid var(--border-hairline);
-    border-radius: var(--radius-full);
-    padding: 0.28rem;
-    overflow-x: auto;
-    scrollbar-width: none;
-}
-
-.library-segment-bar::-webkit-scrollbar {
-    display: none;
-}
-
-.segment-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.42rem 1rem;
-    border-radius: var(--radius-full);
-    border: 1px solid transparent;
-    background: transparent;
-    color: var(--text-muted);
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
-    font-weight: 500;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all var(--transition-fast);
-}
-
-.segment-btn:hover {
-    color: var(--text-ink);
-    background: var(--bg-subtle);
-}
-
-.segment-btn.active {
+    gap: 0.75rem;
+    padding: 0.85rem 0.95rem;
     background: var(--bg-paper);
-    color: var(--text-ink);
-    font-weight: 600;
-    border-color: var(--border-hairline);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    outline: none;
+    overflow: hidden;
 }
 
-.segment-badge {
+[data-theme="dark"] .pillar-card {
+    background: rgba(28, 32, 39, 0.85);
+    border-color: rgba(255, 255, 255, 0.07);
+}
+
+.pillar-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    border-color: var(--text-subtle);
+}
+
+.pillar-card-icon-wrap {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+.pillar-card-content {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
+}
+
+.pillar-card-title {
+    font-family: var(--font-sans);
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--text-ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.25;
+}
+
+.pillar-card-sub {
+    font-family: var(--font-sans);
+    font-size: 0.70rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.25;
+    margin-top: 0.12rem;
+}
+
+.pillar-badge {
     font-family: var(--font-mono);
     font-size: 0.68rem;
     font-weight: 600;
@@ -3376,12 +3470,792 @@ body {
     border-radius: var(--radius-full);
     background: var(--bg-subtle);
     color: var(--text-subtle);
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+/* Farbdifferenzierung der 4 Säulen */
+/* Säule 1: Botschaften des Hauses (Royal Burgundy / Gold) */
+.pillar-card[data-pillar="house"] .pillar-card-icon-wrap {
+    background: rgba(122, 30, 58, 0.09);
+    color: #7A1E3A;
+}
+[data-theme="dark"] .pillar-card[data-pillar="house"] .pillar-card-icon-wrap {
+    background: rgba(197, 160, 89, 0.15);
+    color: #C5A059;
+}
+.pillar-card[data-pillar="house"]:hover {
+    border-color: rgba(122, 30, 58, 0.4);
+}
+.pillar-card[data-pillar="house"].active {
+    background: rgba(122, 30, 58, 0.04);
+    border-color: #7A1E3A;
+    box-shadow: 0 4px 18px rgba(122, 30, 58, 0.14);
+}
+[data-theme="dark"] .pillar-card[data-pillar="house"].active {
+    background: rgba(122, 30, 58, 0.2);
+    border-color: #C5A059;
+    box-shadow: 0 4px 20px rgba(197, 160, 89, 0.18);
+}
+.pillar-card[data-pillar="house"].active .pillar-badge {
+    background: #7A1E3A;
+    color: #FFFFFF;
+}
+[data-theme="dark"] .pillar-card[data-pillar="house"].active .pillar-badge {
+    background: #C5A059;
+    color: #121417;
+}
+
+/* Säule 2: Compilations des Hauses (Deep Emerald / Bronze) */
+.pillar-card[data-pillar="compilations"] .pillar-card-icon-wrap {
+    background: rgba(30, 94, 75, 0.09);
+    color: #1E5E4B;
+}
+[data-theme="dark"] .pillar-card[data-pillar="compilations"] .pillar-card-icon-wrap {
+    background: rgba(46, 125, 50, 0.18);
+    color: #4CAF50;
+}
+.pillar-card[data-pillar="compilations"]:hover {
+    border-color: rgba(30, 94, 75, 0.4);
+}
+.pillar-card[data-pillar="compilations"].active {
+    background: rgba(30, 94, 75, 0.04);
+    border-color: #1E5E4B;
+    box-shadow: 0 4px 18px rgba(30, 94, 75, 0.14);
+}
+[data-theme="dark"] .pillar-card[data-pillar="compilations"].active {
+    background: rgba(30, 94, 75, 0.2);
+    border-color: #4CAF50;
+    box-shadow: 0 4px 20px rgba(76, 175, 80, 0.18);
+}
+.pillar-card[data-pillar="compilations"].active .pillar-badge {
+    background: #1E5E4B;
+    color: #FFFFFF;
+}
+[data-theme="dark"] .pillar-card[data-pillar="compilations"].active .pillar-badge {
+    background: #4CAF50;
+    color: #121417;
+}
+
+/* Säule 3: Heilige Schriften & Bücher (Lapislazuli / Azure) */
+.pillar-card[data-pillar="books"] .pillar-card-icon-wrap {
+    background: rgba(26, 54, 93, 0.09);
+    color: #1A365D;
+}
+[data-theme="dark"] .pillar-card[data-pillar="books"] .pillar-card-icon-wrap {
+    background: rgba(49, 130, 206, 0.18);
+    color: #63B3ED;
+}
+.pillar-card[data-pillar="books"]:hover {
+    border-color: rgba(26, 54, 93, 0.4);
+}
+.pillar-card[data-pillar="books"].active {
+    background: rgba(26, 54, 93, 0.04);
+    border-color: #1A365D;
+    box-shadow: 0 4px 18px rgba(26, 54, 93, 0.14);
+}
+[data-theme="dark"] .pillar-card[data-pillar="books"].active {
+    background: rgba(26, 54, 93, 0.2);
+    border-color: #63B3ED;
+    box-shadow: 0 4px 20px rgba(99, 179, 237, 0.18);
+}
+.pillar-card[data-pillar="books"].active .pillar-badge {
+    background: #1A365D;
+    color: #FFFFFF;
+}
+[data-theme="dark"] .pillar-card[data-pillar="books"].active .pillar-badge {
+    background: #63B3ED;
+    color: #121417;
+}
+
+/* Säule 4: Ruhi-Bücher (Terracotta / Amber) */
+.pillar-card[data-pillar="ruhi"] .pillar-card-icon-wrap {
+    background: rgba(156, 66, 33, 0.09);
+    color: #9C4221;
+}
+[data-theme="dark"] .pillar-card[data-pillar="ruhi"] .pillar-card-icon-wrap {
+    background: rgba(221, 107, 32, 0.18);
+    color: #ED8936;
+}
+.pillar-card[data-pillar="ruhi"]:hover {
+    border-color: rgba(156, 66, 33, 0.4);
+}
+.pillar-card[data-pillar="ruhi"].active {
+    background: rgba(156, 66, 33, 0.04);
+    border-color: #9C4221;
+    box-shadow: 0 4px 18px rgba(156, 66, 33, 0.14);
+}
+[data-theme="dark"] .pillar-card[data-pillar="ruhi"].active {
+    background: rgba(156, 66, 33, 0.2);
+    border-color: #ED8936;
+    box-shadow: 0 4px 20px rgba(237, 137, 54, 0.18);
+}
+.pillar-card[data-pillar="ruhi"].active .pillar-badge {
+    background: #9C4221;
+    color: #FFFFFF;
+}
+[data-theme="dark"] .pillar-card[data-pillar="ruhi"].active .pillar-badge {
+    background: #ED8936;
+    color: #121417;
+}
+
+/* C. Säulen-Ecosystem: Subfilter, Original-Quellen & Fach-Werkzeuge */
+.pillar-ecosystem-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    background: var(--bg-canvas);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-md);
+    padding: 0.75rem 0.95rem;
+    transition: all var(--transition-normal);
+}
+
+[data-theme="dark"] .pillar-ecosystem-panel {
+    background: rgba(15, 18, 22, 0.55);
+    border-color: rgba(255, 255, 255, 0.06);
+}
+
+.ecosystem-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.ecosystem-chips-wrap {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 240px;
+    overflow-x: auto;
+}
+
+.pillar-all-pill {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.32rem 0.75rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-hairline);
+    background: var(--bg-paper);
+    color: var(--text-muted);
+    white-space: nowrap;
+    cursor: pointer;
     transition: all var(--transition-fast);
 }
 
-.segment-btn.active .segment-badge {
-    background: var(--accent-gold-soft);
+.pillar-all-pill:hover {
+    color: var(--text-ink);
+    border-color: var(--accent-gold);
+}
+
+.pillar-all-pill.active {
+    background: var(--text-ink);
+    color: var(--bg-paper);
+    border-color: var(--text-ink);
+    font-weight: 600;
+}
+
+/* Ressourcen- & Originalquellenleiste */
+.ecosystem-resources-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    padding-top: 0.65rem;
+    border-top: 1px solid var(--border-hairline);
+}
+
+.authority-links-cluster {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    flex-wrap: wrap;
+}
+
+.authority-label {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-subtle);
+}
+
+.authority-badges-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.authority-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.22rem 0.62rem;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    border-radius: var(--radius-full);
+    background: var(--bg-paper);
+    border: 1px solid var(--border-hairline);
+    color: var(--text-ink);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+}
+
+.authority-badge:hover {
+    border-color: var(--accent-gold);
     color: var(--accent-gold);
+    transform: translateY(-1px);
+}
+
+.authority-badge svg {
+    color: var(--text-muted);
+    transition: color var(--transition-fast);
+}
+
+.authority-badge:hover svg {
+    color: var(--accent-gold);
+}
+
+.ecosystem-tools-cluster {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.ecosystem-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.32rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-family: var(--font-sans);
+    font-size: 0.74rem;
+    font-weight: 500;
+    border: 1px solid var(--border-hairline);
+    background: var(--bg-paper);
+    color: var(--text-ink);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.ecosystem-action-btn:hover {
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
+    background: var(--bg-subtle);
+}
+
+.btn-calculator-tool {
+    background: var(--accent-gold-soft);
+    border-color: var(--accent-gold);
+    color: var(--text-ink);
+    font-weight: 600;
+}
+
+.btn-calculator-tool:hover {
+    background: var(--accent-gold);
+    color: #121417;
+}
+
+/* D. Einklappbarer Inline-Zeitstrahl */
+.inline-timeline-panel {
+    margin-top: 0.75rem;
+    padding: 0.95rem 1.15rem;
+    background: var(--bg-paper);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-md);
+    animation: cosmosFadeIn 0.25s ease-out both;
+}
+
+.inline-timeline-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.6rem;
+}
+
+.inline-timeline-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+}
+
+.inline-timeline-badge {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 0.15rem 0.45rem;
+    border-radius: var(--radius-xs);
+    background: rgba(26, 54, 93, 0.1);
+    color: #1A365D;
+}
+
+[data-theme="dark"] .inline-timeline-badge {
+    background: rgba(99, 179, 237, 0.18);
+    color: #63B3ED;
+}
+
+.inline-timeline-header h4 {
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-ink);
+}
+
+.inline-close-btn {
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: var(--radius-xs);
+    transition: all var(--transition-fast);
+}
+
+.inline-close-btn:hover {
+    background: var(--bg-subtle);
+    color: var(--text-ink);
+}
+
+.inline-timeline-intro {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin: 0 0 0.6rem 0;
+}
+
+.inline-timeline-epochs {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.inline-epoch-btn {
+    font-family: var(--font-sans);
+    font-size: 0.74rem;
+    font-weight: 500;
+    padding: 0.32rem 0.75rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-hairline);
+    background: var(--bg-canvas);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.inline-epoch-btn:hover {
+    border-color: #1A365D;
+    color: var(--text-ink);
+}
+
+.inline-epoch-btn.active {
+    background: #1A365D;
+    border-color: #1A365D;
+    color: #FFFFFF;
+    font-weight: 600;
+}
+
+[data-theme="dark"] .inline-epoch-btn.active {
+    background: #3182CE;
+    border-color: #3182CE;
+    color: #FFFFFF;
+}
+
+/* E. Kostenkalkulator Modal Styling */
+.cost-modal-content {
+    max-width: 820px;
+    height: auto;
+    max-height: 88vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.cost-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.15rem 1.45rem;
+    border-bottom: 1px solid var(--border-hairline);
+}
+
+.cost-header-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.cost-header-badge {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-gold);
+}
+
+.cost-modal-title {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-ink);
+}
+
+.cost-tabs-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.6rem 1.45rem;
+    background: var(--bg-canvas);
+    border-bottom: 1px solid var(--border-hairline);
+    overflow-x: auto;
+}
+
+.cost-tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.95rem;
+    border-radius: var(--radius-full);
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: var(--font-sans);
+    font-size: 0.80rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all var(--transition-fast);
+}
+
+.cost-tab-btn:hover {
+    color: var(--text-ink);
+    background: var(--bg-subtle);
+}
+
+.cost-tab-btn.active {
+    background: var(--bg-paper);
+    color: var(--text-ink);
+    font-weight: 600;
+    border-color: var(--border-hairline);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.cost-modal-body {
+    padding: 1.45rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.cost-grid-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 680px) {
+    .cost-grid-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.cost-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-bottom: 1.15rem;
+}
+
+.cost-field-label {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-ink);
+}
+
+.cost-stepper-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.cost-step-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-hairline);
+    background: var(--bg-paper);
+    color: var(--text-ink);
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.cost-step-btn:hover {
+    background: var(--bg-subtle);
+    border-color: var(--accent-gold);
+}
+
+.cost-number-input {
+    width: 80px;
+    height: 34px;
+    text-align: center;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-hairline);
+    background: var(--bg-paper);
+    color: var(--text-ink);
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.cost-unit-label {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.cost-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    color: var(--text-ink);
+    cursor: pointer;
+}
+
+.cost-checkbox-label input {
+    cursor: pointer;
+}
+
+/* Zusammenfassungs-Karte */
+.cost-summary-card {
+    background: var(--bg-canvas);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.cost-summary-title {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-ink);
+}
+
+.cost-summary-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+}
+
+.cost-row-label {
+    color: var(--text-muted);
+}
+
+.cost-row-val {
+    font-weight: 600;
+    color: var(--text-ink);
+    font-family: var(--font-mono);
+}
+
+.cost-summary-divider {
+    height: 1px;
+    background: var(--border-hairline);
+    margin: 0.25rem 0;
+}
+
+.cost-total-row {
+    margin-top: 0.25rem;
+}
+
+.cost-total-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-ink);
+}
+
+.cost-total-amount {
+    font-family: var(--font-mono);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+}
+
+.cost-per-person-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0.85rem;
+    border-radius: var(--radius-sm);
+    background: var(--bg-paper);
+    border: 1px solid var(--border-hairline);
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.cost-per-person-box strong {
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    color: var(--text-ink);
+}
+
+.cost-order-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1rem;
+    border-radius: var(--radius-sm);
+    background: var(--text-ink);
+    color: var(--bg-paper);
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: 0.5rem;
+    transition: all var(--transition-fast);
+}
+
+.cost-order-btn:hover {
+    background: var(--accent-gold);
+    color: #121417;
+}
+
+.cost-summary-tip {
+    font-family: var(--font-sans);
+    font-size: 0.73rem;
+    color: var(--text-muted);
+    line-height: 1.35;
+    margin: 0.25rem 0 0 0;
+}
+
+.cost-intro-text {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin: 0 0 0.85rem 0;
+}
+
+.cost-book-selector-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    max-height: 280px;
+    overflow-y: auto;
+    padding-right: 0.4rem;
+}
+
+.cost-book-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0.85rem;
+    border-radius: var(--radius-sm);
+    background: var(--bg-paper);
+    border: 1px solid var(--border-hairline);
+    gap: 0.85rem;
+}
+
+.cost-book-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.cost-book-title {
+    font-family: var(--font-sans);
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--text-ink);
+}
+
+.cost-book-author {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+.cost-book-counter {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+}
+
+.cost-book-dec, .cost-book-inc {
+    width: 26px;
+    height: 26px;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--border-hairline);
+    background: var(--bg-canvas);
+    color: var(--text-ink);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.cost-book-dec:hover, .cost-book-inc:hover {
+    background: var(--bg-subtle);
+    border-color: var(--accent-gold);
+}
+
+.cost-book-qty {
+    width: 44px;
+    height: 26px;
+    text-align: center;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--border-hairline);
+    background: var(--bg-paper);
+    color: var(--text-ink);
+    font-family: var(--font-mono);
+    font-size: 0.84rem;
+    font-weight: 600;
+}
+
+@media (max-width: 920px) {
+    .pillar-cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 540px) {
+    .pillar-cards-grid {
+        grid-template-columns: 1fr;
+    }
+    .ecosystem-top-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .ecosystem-resources-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
 }
 
 /* C. Schlanke Schnellfilter- & Formatleiste */

@@ -193,15 +193,15 @@
             <div class="view-header library-hero-header">
                 <h2 class="editorial-headline">Bibliothek</h2>
 
-                <!-- DIE UNIFIED COMMAND & SEARCH SURFACE (Aufgeräumt & Intuitiv) -->
+                <!-- DIE UNIFIED COMMAND & MASTER-SEARCH SURFACE -->
                 <div class="library-command-surface">
                     
-                    <!-- 1. Universale Sofortsuche mit ⌘K & Clear -->
-                    <div class="command-search-row">
-                        <svg class="command-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <!-- 1. Master-Suchleiste (Apex: Omnisearch über alle Werke mit ⌘K & Clear) -->
+                    <div class="command-search-row master-search-row">
+                        <svg class="command-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
                         </svg>
-                        <input type="text" id="library-search-input" placeholder="In allen 1.972 Dokumenten, Büchern &amp; Volltexten suchen..." autocomplete="off">
+                        <input type="text" id="library-search-input" placeholder="In allen 1.972 Dokumenten, Schriften, Büchern &amp; Volltexten suchen..." autocomplete="off">
                         <div class="command-search-actions">
                             <button id="library-search-clear" class="search-clear-btn" title="Suche leeren" style="display: none;">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -210,93 +210,188 @@
                         </div>
                     </div>
 
-                    <!-- 2. Primäre Segment-Reiter (Klarer Fokus) -->
-                    <div class="library-segment-bar" id="library-segment-bar" role="tablist" aria-label="Hauptbereiche">
-                        <button class="segment-btn active" data-segment="all" role="tab" aria-selected="true">
-                            <span>Alle Werke</span>
-                            <span class="segment-badge">1.972</span>
+                    <!-- 2. Die Vier Hauptsäulen (Unterkategorien der Masterleiste) -->
+                    <div class="pillar-cards-grid" id="pillar-cards-grid" role="tablist" aria-label="Vier Hauptbereiche">
+                        <!-- Säule 1: Botschaften des Hauses -->
+                        <button class="pillar-card active" data-pillar="house" role="tab" aria-selected="true" title="Botschaften des Universalen Hauses der Gerechtigkeit (1963–2026)">
+                            <div class="pillar-card-icon-wrap pillar-icon-house">
+                                <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path d="M50.00,4.00L58.21,27.45L79.57,14.76L70.78,38.00L95.30,42.01L73.64,54.17L89.84,73.00L65.43,68.39L65.73,93.23L50.00,74.00L34.27,93.23L34.57,68.39L10.16,73.00L26.36,54.17L4.70,42.01L29.22,38.00L20.43,14.76L41.79,27.45Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div class="pillar-card-content">
+                                <span class="pillar-card-title">Botschaften des Hauses</span>
+                                <span class="pillar-card-sub">Universales Haus der Gerechtigkeit</span>
+                            </div>
+                            <span class="pillar-badge pillar-badge-house">1.542</span>
                         </button>
-                        <button class="segment-btn" data-segment="house" role="tab" aria-selected="false">
-                            <span>Botschaften d. Hauses</span>
-                            <span class="segment-badge">1.542</span>
+
+                        <!-- Säule 2: Compilations des Hauses -->
+                        <button class="pillar-card" data-pillar="compilations" role="tab" aria-selected="false" title="Thematische Sammlungen der Forschungsabteilung und des Hauses">
+                            <div class="pillar-card-icon-wrap pillar-icon-compilations">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                                    <polyline points="2 17 12 22 22 17"/>
+                                    <polyline points="2 12 12 17 22 12"/>
+                                </svg>
+                            </div>
+                            <div class="pillar-card-content">
+                                <span class="pillar-card-title">Compilations des Hauses</span>
+                                <span class="pillar-card-sub">Thematische Textsammlungen</span>
+                            </div>
+                            <span class="pillar-badge pillar-badge-compilations">115</span>
                         </button>
-                        <button class="segment-btn" data-segment="books" role="tab" aria-selected="false">
-                            <span>Heilige Schriften &amp; Bücher</span>
-                            <span class="segment-badge">277</span>
+
+                        <!-- Säule 3: Heilige Schriften und Bücher -->
+                        <button class="pillar-card" data-pillar="books" role="tab" aria-selected="false" title="Autorisierte Heilige Schriften und Standardwerke der Zentralen Gestalten &amp; Shoghi Effendis">
+                            <div class="pillar-card-icon-wrap pillar-icon-books">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+                                    <path d="M6 6h10"/>
+                                    <path d="M6 10h10"/>
+                                </svg>
+                            </div>
+                            <div class="pillar-card-content">
+                                <span class="pillar-card-title">Heilige Schriften &amp; Bücher</span>
+                                <span class="pillar-card-sub">Zentrale Gestalten &amp; Shoghi Effendi</span>
+                            </div>
+                            <span class="pillar-badge pillar-badge-books">108</span>
                         </button>
-                        <button class="segment-btn" data-segment="compilations" role="tab" aria-selected="false">
-                            <span>Thematische Sammlungen</span>
-                            <span class="segment-badge">115</span>
-                        </button>
-                        <button class="segment-btn" data-segment="ruhi" role="tab" aria-selected="false">
-                            <span>Ruhi-Bücher</span>
-                            <span class="segment-badge">31</span>
+
+                        <!-- Säule 4: Ruhi-Bücher -->
+                        <button class="pillar-card" data-pillar="ruhi" role="tab" aria-selected="false" title="Ruhi-Institut Studienmaterialien, Hauptkursfolge &amp; Zweigkurse">
+                            <div class="pillar-card-icon-wrap pillar-icon-ruhi">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                                    <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                                </svg>
+                            </div>
+                            <div class="pillar-card-content">
+                                <span class="pillar-card-title">Ruhi-Bücher</span>
+                                <span class="pillar-card-sub">Institut &amp; Kursmaterialien</span>
+                            </div>
+                            <span class="pillar-badge pillar-badge-ruhi">31</span>
                         </button>
                     </div>
 
-                    <!-- 3. Schlanke Schnellfilter- & Formatleiste -->
-                    <div class="command-quick-bar">
-                        <!-- Fokus-Chips für Botschaften & Allgemein -->
-                        <div class="quick-chips-scroller" id="library-quick-chips">
-                            <button class="quick-chip-btn active" data-chip="all">Alle</button>
-                            <button class="quick-chip-btn" data-chip="ridvan">Riḍván</button>
-                            <button class="quick-chip-btn" data-chip="world">Weltweit</button>
-                            <button class="quick-chip-btn" data-chip="counsellors">Berater</button>
-                            <button class="quick-chip-btn" data-chip="youth">Jugend</button>
-                            <button class="quick-chip-btn" data-chip="iran">Iran</button>
-                            <button class="quick-chip-btn" data-chip="peace">Frieden</button>
-                        </div>
+                    <!-- 3. Säulen-Ecosystem: Subfilter, verlinkte Original-Quellen & Fachwerkzeuge -->
+                    <div class="pillar-ecosystem-panel" id="pillar-ecosystem-panel">
+                        <div class="ecosystem-top-row">
+                            <!-- Kontextuelle Filterchips -->
+                            <div class="ecosystem-chips-wrap">
+                                <!-- Chips für Botschaften des Hauses -->
+                                <div class="quick-chips-scroller" id="library-quick-chips">
+                                    <button class="quick-chip-btn active" data-chip="all">Alle Botschaften</button>
+                                    <button class="quick-chip-btn" data-chip="ridvan">Riḍván</button>
+                                    <button class="quick-chip-btn" data-chip="world">An die Bahá’í-Welt</button>
+                                    <button class="quick-chip-btn" data-chip="counsellors">Berater &amp; Hilfsamt</button>
+                                    <button class="quick-chip-btn" data-chip="youth">Jugend</button>
+                                    <button class="quick-chip-btn" data-chip="iran">Iran</button>
+                                    <button class="quick-chip-btn" data-chip="peace">Frieden</button>
+                                </div>
 
-                        <!-- Autoren-Chips (wird aktiviert wenn Segment 'books') -->
-                        <div class="quick-chips-scroller" id="library-author-chips" style="display: none;">
-                            <button class="author-chip-btn active" data-author="all">Alle Verfasser</button>
-                            <button class="author-chip-btn" data-author="bahaullah">Bahá'u'lláh</button>
-                            <button class="author-chip-btn" data-author="the-bab">Der Báb</button>
-                            <button class="author-chip-btn" data-author="abdul-baha">‘Abdu’l-Bahá</button>
-                            <button class="author-chip-btn" data-author="shoghi-effendi">Shoghi Effendi</button>
-                        </div>
+                                <!-- Autoren-Chips für Heilige Schriften & Bücher -->
+                                <div class="quick-chips-scroller" id="library-author-chips" style="display: none;">
+                                    <button class="author-chip-btn active" data-author="all">Alle Verfasser</button>
+                                    <button class="author-chip-btn" data-author="bahaullah">Bahá'u'lláh</button>
+                                    <button class="author-chip-btn" data-author="the-bab">Der Báb</button>
+                                    <button class="author-chip-btn" data-author="abdul-baha">‘Abdu’l-Bahá</button>
+                                    <button class="author-chip-btn" data-author="shoghi-effendi">Shoghi Effendi</button>
+                                </div>
 
-                        <!-- Themen-Chips (wird aktiviert wenn Segment 'compilations') -->
-                        <div class="quick-chips-scroller" id="library-comp-chips" style="display: none;">
-                            <button class="comp-chip-btn active" data-comp="all">Alle Themen</button>
-                            <button class="comp-chip-btn" data-comp="marriage">Ehe &amp; Familie</button>
-                            <button class="comp-chip-btn" data-comp="prayer">Gebet &amp; Andacht</button>
-                            <button class="comp-chip-btn" data-comp="huquq">Ḥuqúqu’lláh</button>
-                            <button class="comp-chip-btn" data-comp="consultation">Beratung</button>
-                            <button class="comp-chip-btn" data-comp="women">Frauen</button>
-                            <button class="comp-chip-btn" data-comp="virtues">Geistige Tugenden</button>
-                        </div>
+                                <!-- Themen-Chips für Compilations -->
+                                <div class="quick-chips-scroller" id="library-comp-chips" style="display: none;">
+                                    <button class="comp-chip-btn active" data-comp="all">Alle Themen</button>
+                                    <button class="comp-chip-btn" data-comp="marriage">Ehe &amp; Familie</button>
+                                    <button class="comp-chip-btn" data-comp="prayer">Gebet &amp; Andacht</button>
+                                    <button class="comp-chip-btn" data-comp="huquq">Ḥuqúqu’lláh</button>
+                                    <button class="comp-chip-btn" data-comp="consultation">Beratung</button>
+                                    <button class="comp-chip-btn" data-comp="women">Frauen</button>
+                                    <button class="comp-chip-btn" data-comp="virtues">Geistige Tugenden</button>
+                                </div>
 
-                        <!-- Ruhi-Chips (wird aktiviert wenn Segment 'ruhi') -->
-                        <div class="quick-chips-scroller" id="library-ruhi-chips" style="display: none;">
-                            <button class="ruhi-chip-btn active" data-ruhi="all">Alle Bände</button>
-                            <button class="ruhi-chip-btn" data-ruhi="b1-4">Bücher 1–4</button>
-                            <button class="ruhi-chip-btn" data-ruhi="b5-8">Bücher 5–8</button>
-                            <button class="ruhi-chip-btn" data-ruhi="b9plus">Bücher 9–12</button>
-                            <button class="ruhi-chip-btn" data-ruhi="branch">Zweigkurse</button>
-                        </div>
-
-                        <!-- Rechte Werkzeugleiste: Formate & Filter-Drawer Toggle -->
-                        <div class="command-actions-cluster">
-                            <div class="format-chips-group">
-                                <button class="format-chip-btn active" data-fmt="all">Alle</button>
-                                <button class="format-chip-btn" data-fmt="pdf" title="Nur PDF">PDF</button>
-                                <button class="format-chip-btn" data-fmt="docx" title="Nur Word">DOCX</button>
-                                <button class="format-chip-btn" data-fmt="epub" title="Nur E-Book">EPUB</button>
-                                <button class="format-chip-btn" data-fmt="txt" title="Nur Volltext">TXT</button>
+                                <!-- Bände-Chips für Ruhi-Bücher -->
+                                <div class="quick-chips-scroller" id="library-ruhi-chips" style="display: none;">
+                                    <button class="ruhi-chip-btn active" data-ruhi="all">Alle Bände</button>
+                                    <button class="ruhi-chip-btn" data-ruhi="b1-4">Bücher 1–4 (Grundlagen)</button>
+                                    <button class="ruhi-chip-btn" data-ruhi="b5-8">Bücher 5–8 (Befähigung)</button>
+                                    <button class="ruhi-chip-btn" data-ruhi="b9plus">Bücher 9–14 (Vertiefung)</button>
+                                    <button class="ruhi-chip-btn" data-ruhi="branch">Zweigkurse</button>
+                                </div>
                             </div>
 
-                            <button id="library-toggle-filters-btn" class="command-filter-toggle-btn" aria-expanded="false" title="Detail-Filter ein- oder ausblenden">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
-                                </svg>
-                                <span>Filter</span>
-                                <span id="library-filter-badge" class="filter-count-badge" style="display: none;">0</span>
-                            </button>
+                            <!-- Rechte Werkzeugleiste: Formate, Filter-Drawer & Universal-Button -->
+                            <div class="command-actions-cluster">
+                                <button id="pillar-all-btn" class="pillar-all-pill" title="Gesamtes Archiv ohne Säulen-Einschränkung durchsuchen">
+                                    <span>Gesamtes Archiv (1.972)</span>
+                                </button>
 
-                            <button id="library-reset-filters-btn" class="command-reset-btn" title="Alle Filter zurücksetzen" style="display: none;">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                            </button>
+                                <div class="format-chips-group">
+                                    <button class="format-chip-btn active" data-fmt="all">Alle</button>
+                                    <button class="format-chip-btn" data-fmt="pdf" title="Nur PDF">PDF</button>
+                                    <button class="format-chip-btn" data-fmt="docx" title="Nur Word">DOCX</button>
+                                    <button class="format-chip-btn" data-fmt="epub" title="Nur E-Book">EPUB</button>
+                                </div>
+
+                                <button id="library-toggle-filters-btn" class="command-filter-toggle-btn" aria-expanded="false" title="Detail-Filter ein- oder ausblenden">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+                                    </svg>
+                                    <span>Filter</span>
+                                    <span id="library-filter-badge" class="filter-count-badge" style="display: none;">0</span>
+                                </button>
+
+                                <button id="library-reset-filters-btn" class="command-reset-btn" title="Alle Filter zurücksetzen" style="display: none;">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Kontextuelle Ressourcen & Verlinkte Originalwebseiten -->
+                        <div class="ecosystem-resources-bar" id="ecosystem-resources-bar">
+                            <!-- Dynamisch aktualisierte Verlinkungen & Werkzeuge je Säule -->
+                            <div class="authority-links-cluster" id="authority-links-cluster">
+                                <span class="authority-label">Originalquellen:</span>
+                                <div class="authority-badges-row" id="authority-badges-row">
+                                    <!-- Befüllt via JavaScript je Säule -->
+                                </div>
+                            </div>
+
+                            <div class="ecosystem-tools-cluster" id="ecosystem-tools-cluster">
+                                <!-- Dynamische Buttons für Zeitstrahl, Werkstatt, Kostenrechner -->
+                                <button class="ecosystem-action-btn btn-resource-tool" id="btn-context-tool" style="display: none;">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12"/><circle cx="6" cy="12" r="3" fill="currentColor"/><circle cx="12" cy="12" r="3" fill="currentColor"/><circle cx="18" cy="12" r="3" fill="currentColor"/></svg>
+                                    <span id="btn-context-tool-label">Zeitstrahl einblenden</span>
+                                </button>
+
+                                <button class="ecosystem-action-btn btn-calculator-tool" id="btn-open-calculator" title="Kostenrechner &amp; Materialbudget öffnen">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/>
+                                    </svg>
+                                    <span>Kostenrechner &amp; Budget</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Einklappbarer Inline-Zeitstrahl für Heilige Schriften & Bücher -->
+                        <div id="inline-timeline-panel" class="inline-timeline-panel" style="display: none;">
+                            <div class="inline-timeline-header">
+                                <div class="inline-timeline-title-wrap">
+                                    <span class="inline-timeline-badge">1844–1957</span>
+                                    <h4>Historischer Zeitstrahl der Offenbarung &amp; Bücher</h4>
+                                </div>
+                                <button id="inline-timeline-close-btn" class="inline-close-btn" title="Zeitstrahl einklappen">✕</button>
+                            </div>
+                            <div class="inline-timeline-body" id="inline-timeline-body">
+                                <p class="inline-timeline-intro">Wählen Sie eine Epoche, um die in jener Zeitspanne offenbarten Schriften und Standardwerke zu filtern:</p>
+                                <div class="inline-timeline-epochs" id="inline-timeline-epochs">
+                                    <button class="inline-epoch-btn active" data-epoch-filter="all">Alle Epochen</button>
+                                    <button class="inline-epoch-btn" data-epoch-filter="bab">Sendung des Báb (1844–1853)</button>
+                                    <button class="inline-epoch-btn" data-epoch-filter="bahaullah">Sendung Bahá'u'lláhs (1853–1892)</button>
+                                    <button class="inline-epoch-btn" data-epoch-filter="abdulbaha">Wirkung ‘Abdu’l-Bahás (1892–1921)</button>
+                                    <button class="inline-epoch-btn" data-epoch-filter="shoghi">Wirken Shoghi Effendis (1921–1957)</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -485,6 +580,302 @@
                 </div>
             </div>
         </section>
+
+        <!-- Kostenkalkulator- & Budget-Modal (Ruhi-Kurse, Broschürendruck, Schriftenkauf) -->
+        <div id="cost-calculator-modal" class="modal cost-modal" role="dialog" aria-modal="true" aria-labelledby="cost-modal-title" style="display: none;">
+            <div class="modal-content cost-modal-content">
+                <header class="modal-header cost-modal-header">
+                    <div class="cost-header-info">
+                        <span class="cost-header-badge">Kosten &amp; Materialbudget</span>
+                        <h3 id="cost-modal-title" class="cost-modal-title">Kostenkalkulator für Studien &amp; Gemeinde</h3>
+                    </div>
+                    <button id="cost-modal-close" class="dock-icon-btn close-modal-btn" title="Schließen (Esc)" aria-label="Schließen">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </header>
+
+                <!-- Modus-Tabs für die 3 Kostenbereiche -->
+                <div class="cost-tabs-bar" role="tablist" aria-label="Kostenbereiche">
+                    <button class="cost-tab-btn active" data-cost-tab="ruhi" role="tab" aria-selected="true">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                        <span>Ruhi-Studienkreise</span>
+                    </button>
+                    <button class="cost-tab-btn" data-cost-tab="print" role="tab" aria-selected="false">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                        <span>Gemeinde-Druck (Botschaften)</span>
+                    </button>
+                    <button class="cost-tab-btn" data-cost-tab="books" role="tab" aria-selected="false">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
+                        <span>Buchbestellung (Heilige Schriften)</span>
+                    </button>
+                </div>
+
+                <div class="cost-modal-body">
+                    <!-- 1. Tab: Ruhi-Studienkreise -->
+                    <div id="cost-panel-ruhi" class="cost-tab-panel active">
+                        <div class="cost-grid-layout">
+                            <div class="cost-form-col">
+                                <div class="cost-field-group">
+                                    <label for="calc-ruhi-book" class="cost-field-label">Ruhi-Band auswählen</label>
+                                    <div class="command-select-box">
+                                        <select id="calc-ruhi-book" class="command-select">
+                                            <option value="8.50" data-book="1">Buch 1: Reflexionen über das geistige Leben (8,50 €)</option>
+                                            <option value="8.50" data-book="2">Buch 2: Zum Dienst aufstehen (8,50 €)</option>
+                                            <option value="9.50" data-book="3">Buch 3: Den Unterricht von Kinderklassen leiten, Band 1 (9,50 €)</option>
+                                            <option value="9.50" data-book="4">Buch 4: Die Zwillingsmanifestationen (9,50 €)</option>
+                                            <option value="10.00" data-book="5">Buch 5: Das Vorjugendprogramm begleiten (10,00 €)</option>
+                                            <option value="9.50" data-book="6">Buch 6: Den Glauben lehren (9,50 €)</option>
+                                            <option value="9.50" data-book="7">Buch 7: Gemeinsam auf dem Pfad des Dienstes wandeln (9,50 €)</option>
+                                            <option value="10.00" data-book="8">Buch 8: Der Bund Bahá'u'lláhs (10,00 €)</option>
+                                            <option value="10.00" data-book="9">Buch 9: Die historische Perspektive des Glaubens (10,00 €)</option>
+                                            <option value="10.50" data-book="10">Buch 10: Die Entwicklung der Gemeinschaft errichten (10,50 €)</option>
+                                            <option value="10.50" data-book="11">Buch 11: Materielle Mittel &amp; Geistige Existenz (10,50 €)</option>
+                                            <option value="11.00" data-book="12">Buch 12: Familie und Gemeinschaft (11,00 €)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="cost-field-group">
+                                    <label class="cost-field-label">Teilnehmende im Studienkreis</label>
+                                    <div class="cost-stepper-row">
+                                        <button type="button" id="calc-ruhi-part-dec" class="cost-step-btn">−</button>
+                                        <input type="number" id="calc-ruhi-participants" class="cost-number-input" min="1" max="50" value="6">
+                                        <button type="button" id="calc-ruhi-part-inc" class="cost-step-btn">+</button>
+                                        <span class="cost-unit-label">Teilnehmer</span>
+                                    </div>
+                                </div>
+
+                                <div class="cost-field-group">
+                                    <label class="cost-checkbox-label">
+                                        <input type="checkbox" id="calc-ruhi-tutor" checked>
+                                        <span>Zusätzliches Exemplar für den Tutor / Begleiter einrechnen</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="cost-summary-col">
+                                <div class="cost-summary-card">
+                                    <h4 class="cost-summary-title">Kalkulation für Studienkreis</h4>
+                                    <div class="cost-summary-row">
+                                        <span class="cost-row-label">Bücher insgesamt:</span>
+                                        <strong id="calc-ruhi-total-books" class="cost-row-val">7 Exemplare</strong>
+                                    </div>
+                                    <div class="cost-summary-row">
+                                        <span class="cost-row-label">Einzelpreis:</span>
+                                        <span id="calc-ruhi-unit-price" class="cost-row-val">8,50 €</span>
+                                    </div>
+                                    <div class="cost-summary-divider"></div>
+                                    <div class="cost-summary-row cost-total-row">
+                                        <span class="cost-total-label">Gesamtbudget:</span>
+                                        <span id="calc-ruhi-total-sum" class="cost-total-amount">59,50 €</span>
+                                    </div>
+                                    <div class="cost-per-person-box">
+                                        <span>Umlage je Teilnehmer:</span>
+                                        <strong id="calc-ruhi-per-person">9,92 €</strong>
+                                    </div>
+                                    <a href="https://www.bahai-verlag.de/themen/studienkreise/" target="_blank" rel="noopener" class="cost-order-btn">
+                                        <span>Beim Bahá'í-Verlag bestellen</span>
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Tab: Gemeinde-Druck (Botschaften & Compilations) -->
+                    <div id="cost-panel-print" class="cost-tab-panel" style="display: none;">
+                        <div class="cost-grid-layout">
+                            <div class="cost-form-col">
+                                <div class="cost-field-group">
+                                    <label for="calc-print-preset" class="cost-field-label">Dokument-Vorlage</label>
+                                    <div class="command-select-box">
+                                        <select id="calc-print-preset" class="command-select">
+                                            <option value="6">Riḍván-Botschaft (ca. 6 Seiten)</option>
+                                            <option value="18">Konferenz-Botschaft (ca. 18 Seiten)</option>
+                                            <option value="32">Kompilation / Studienheft (ca. 32 Seiten)</option>
+                                            <option value="custom">Benutzerdefinierte Seitenzahl</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="cost-field-group" id="calc-print-custom-wrap" style="display: none;">
+                                    <label for="calc-print-pages" class="cost-field-label">Seitenzahl des Dokuments</label>
+                                    <input type="number" id="calc-print-pages" class="cost-number-input" min="1" max="250" value="6">
+                                </div>
+
+                                <div class="cost-field-group">
+                                    <label class="cost-field-label">Auflage (Exemplare für die Gemeinde)</label>
+                                    <div class="cost-stepper-row">
+                                        <button type="button" id="calc-print-copies-dec" class="cost-step-btn">−</button>
+                                        <input type="number" id="calc-print-copies" class="cost-number-input" min="5" max="1000" step="5" value="50">
+                                        <button type="button" id="calc-print-copies-inc" class="cost-step-btn">+</button>
+                                        <span class="cost-unit-label">Hefte</span>
+                                    </div>
+                                </div>
+
+                                <div class="cost-field-group">
+                                    <label for="calc-print-colormode" class="cost-field-label">Druckart</label>
+                                    <div class="command-select-box">
+                                        <select id="calc-print-colormode" class="command-select">
+                                            <option value="0.04">Schwarz-Weiß Dokumentdruck (0,04 € / Seite)</option>
+                                            <option value="0.10">Farbdruck Umschlag &amp; Akzente (0,10 € / Seite)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="cost-field-group">
+                                    <label for="calc-print-binding" class="cost-field-label">Broschüren-Heftung</label>
+                                    <div class="command-select-box">
+                                        <select id="calc-print-binding" class="command-select">
+                                            <option value="0.05">Klammerheftung (0,05 € je Heft)</option>
+                                            <option value="0.35">Broschüren-Rückenheftung gefalzt (0,35 € je Heft)</option>
+                                            <option value="0.00">Ohne Bindung / Loseblätter (0,00 €)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cost-summary-col">
+                                <div class="cost-summary-card">
+                                    <h4 class="cost-summary-title">Druckkosten-Kalkulation</h4>
+                                    <div class="cost-summary-row">
+                                        <span class="cost-row-label">Druckseiten gesamt:</span>
+                                        <strong id="calc-print-total-pages" class="cost-row-val">300 Seiten</strong>
+                                    </div>
+                                    <div class="cost-summary-row">
+                                        <span class="cost-row-label">Reine Druckkosten:</span>
+                                        <span id="calc-print-page-sum" class="cost-row-val">12,00 €</span>
+                                    </div>
+                                    <div class="cost-summary-row">
+                                        <span class="cost-row-label">Binde- &amp; Heftkosten:</span>
+                                        <span id="calc-print-bind-sum" class="cost-row-val">2,50 €</span>
+                                    </div>
+                                    <div class="cost-summary-divider"></div>
+                                    <div class="cost-summary-row cost-total-row">
+                                        <span class="cost-total-label">Gesamtpreis:</span>
+                                        <span id="calc-print-total-sum" class="cost-total-amount">14,50 €</span>
+                                    </div>
+                                    <div class="cost-per-person-box">
+                                        <span>Kosten je Gemeindeheft:</span>
+                                        <strong id="calc-print-per-unit">0,29 €</strong>
+                                    </div>
+                                    <p class="cost-summary-tip">
+                                        Tipp: Alle Botschaften stehen im archivierten DIN-A4- und Palatino-Standardformat zum direkten Druck zur Verfügung.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Tab: Buchkauf (Heilige Schriften & Bücher) -->
+                    <div id="cost-panel-books" class="cost-tab-panel" style="display: none;">
+                        <div class="cost-grid-layout">
+                            <div class="cost-form-col">
+                                <p class="cost-intro-text">
+                                    Wählen Sie die gewünschten Standardwerke für die persönliche Vertiefung oder die Gemeindebibliothek:
+                                </p>
+                                <div class="cost-book-selector-list" id="calc-books-list">
+                                    <div class="cost-book-item" data-price="24.00">
+                                        <div class="cost-book-info">
+                                            <strong class="cost-book-title">Kitáb-i-Aqdas</strong>
+                                            <span class="cost-book-author">Bahá'u'lláh &bull; 24,00 €</span>
+                                        </div>
+                                        <div class="cost-book-counter">
+                                            <button type="button" class="cost-book-dec">−</button>
+                                            <input type="number" class="cost-book-qty" min="0" max="20" value="0">
+                                            <button type="button" class="cost-book-inc">+</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="cost-book-item" data-price="12.00">
+                                        <div class="cost-book-info">
+                                            <strong class="cost-book-title">Die Verborgenen Worte</strong>
+                                            <span class="cost-book-author">Bahá'u'lláh &bull; 12,00 €</span>
+                                        </div>
+                                        <div class="cost-book-counter">
+                                            <button type="button" class="cost-book-dec">−</button>
+                                            <input type="number" class="cost-book-qty" min="0" max="20" value="0">
+                                            <button type="button" class="cost-book-inc">+</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="cost-book-item" data-price="22.00">
+                                        <div class="cost-book-info">
+                                            <strong class="cost-book-title">Ährenlese</strong>
+                                            <span class="cost-book-author">Bahá'u'lláh &bull; 22,00 €</span>
+                                        </div>
+                                        <div class="cost-book-counter">
+                                            <button type="button" class="cost-book-dec">−</button>
+                                            <input type="number" class="cost-book-qty" min="0" max="20" value="0">
+                                            <button type="button" class="cost-book-inc">+</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="cost-book-item" data-price="20.00">
+                                        <div class="cost-book-info">
+                                            <strong class="cost-book-title">Das Buch der Gewissheit (Kitáb-i-Íqán)</strong>
+                                            <span class="cost-book-author">Bahá'u'lláh &bull; 20,00 €</span>
+                                        </div>
+                                        <div class="cost-book-counter">
+                                            <button type="button" class="cost-book-dec">−</button>
+                                            <input type="number" class="cost-book-qty" min="0" max="20" value="0">
+                                            <button type="button" class="cost-book-inc">+</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="cost-book-item" data-price="22.00">
+                                        <div class="cost-book-info">
+                                            <strong class="cost-book-title">Beantwortete Fragen</strong>
+                                            <span class="cost-book-author">‘Abdu’l-Bahá &bull; 22,00 €</span>
+                                        </div>
+                                        <div class="cost-book-counter">
+                                            <button type="button" class="cost-book-dec">−</button>
+                                            <input type="number" class="cost-book-qty" min="0" max="20" value="0">
+                                            <button type="button" class="cost-book-inc">+</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="cost-book-item" data-price="28.00">
+                                        <div class="cost-book-info">
+                                            <strong class="cost-book-title">Gott geht vorüber</strong>
+                                            <span class="cost-book-author">Shoghi Effendi &bull; 28,00 €</span>
+                                        </div>
+                                        <div class="cost-book-counter">
+                                            <button type="button" class="cost-book-dec">−</button>
+                                            <input type="number" class="cost-book-qty" min="0" max="20" value="0">
+                                            <button type="button" class="cost-book-inc">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cost-summary-col">
+                                <div class="cost-summary-card">
+                                    <h4 class="cost-summary-title">Bestellsumme</h4>
+                                    <div class="cost-summary-row">
+                                        <span class="cost-row-label">Ausgewählte Bücher:</span>
+                                        <strong id="calc-books-total-count" class="cost-row-val">0 Bände</strong>
+                                    </div>
+                                    <div class="cost-summary-row">
+                                        <span class="cost-row-label">Versandhinweis:</span>
+                                        <span id="calc-books-shipping-note" class="cost-row-val">Kostenfrei ab 50 €</span>
+                                    </div>
+                                    <div class="cost-summary-divider"></div>
+                                    <div class="cost-summary-row cost-total-row">
+                                        <span class="cost-total-label">Gesamtsumme:</span>
+                                        <span id="calc-books-total-sum" class="cost-total-amount">0,00 €</span>
+                                    </div>
+                                    <a href="https://www.bahai-verlag.de" target="_blank" rel="noopener" class="cost-order-btn">
+                                        <span>Zum Bahá'í-Verlag Shop</span>
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Document Viewer Modal (Großzügiger, aufgeräumter Reader mit wegklappendem Header) -->
         <div id="document-viewer" class="modal" role="dialog" aria-modal="true" aria-labelledby="viewer-title">

@@ -417,17 +417,26 @@ function setupAppearance() {
 }
 
 // Navigation & View Switching
+// Navigation & View Switching
 window.switchLibrarySegment = function(segment) {
     if (!state.library) return;
     state.library.segment = segment;
     
-    const segmentBtns = document.querySelectorAll('#library-segment-bar .segment-btn');
-    segmentBtns.forEach(b => {
-        const isActive = b.dataset.segment === segment;
-        b.classList.toggle('active', isActive);
-        b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    // 1. Die vier Hauptsäulen (Pillar Cards) aktualisieren
+    const pillarCards = document.querySelectorAll('#pillar-cards-grid .pillar-card');
+    pillarCards.forEach(card => {
+        const isActive = card.dataset.pillar === segment;
+        card.classList.toggle('active', isActive);
+        card.setAttribute('aria-selected', isActive ? 'true' : 'false');
     });
 
+    // 2. Button "Gesamtes Archiv" aktualisieren
+    const pillarAllBtn = document.getElementById('pillar-all-btn');
+    if (pillarAllBtn) {
+        pillarAllBtn.classList.toggle('active', segment === 'all');
+    }
+
+    // 3. Kontextuelle Schnellfilter-Chips
     const quickChips = document.getElementById('library-quick-chips');
     const authorChips = document.getElementById('library-author-chips');
     const compChips = document.getElementById('library-comp-chips');
@@ -438,6 +447,12 @@ window.switchLibrarySegment = function(segment) {
     if (compChips) compChips.style.display = (segment === 'compilations') ? 'flex' : 'none';
     if (ruhiChips) ruhiChips.style.display = (segment === 'ruhi') ? 'flex' : 'none';
 
+    // 4. Kontextuelle Ressourcen & verlinkte Originalquellen aktualisieren
+    if (typeof updatePillarEcosystem === 'function') {
+        updatePillarEcosystem(segment);
+    }
+
+    // 5. Filter anwenden & Ergebnisse rendern
     if (typeof applyLibraryFilters === 'function') {
         applyLibraryFilters();
     }
@@ -454,6 +469,11 @@ window.switchView = function(targetView) {
     if (targetView === 'collections') {
         window.switchView('library');
         window.switchLibrarySegment('compilations');
+        return;
+    }
+    if (targetView === 'books') {
+        window.switchView('library');
+        window.switchLibrarySegment('books');
         return;
     }
 
@@ -569,13 +589,25 @@ function setupKeyboardShortcuts() {
    ────────────────────────────────────────────────────────────────────────── */
 
 function initLibraryView() {
-    // Segment-Auswahl (Alle | Botschaften | Bücher | Ruhi)
-    const segmentBtns = document.querySelectorAll('#library-segment-bar .segment-btn');
-    segmentBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            window.switchLibrarySegment(btn.dataset.segment);
+    // 1. Die vier Hauptsäulen (Pillar Cards)
+    const pillarCards = document.querySelectorAll('#pillar-cards-grid .pillar-card');
+    pillarCards.forEach(card => {
+        card.addEventListener('click', () => {
+            window.switchLibrarySegment(card.dataset.pillar);
         });
     });
+
+    // Button "Gesamtes Archiv"
+    const pillarAllBtn = document.getElementById('pillar-all-btn');
+    if (pillarAllBtn) {
+        pillarAllBtn.addEventListener('click', () => {
+            window.switchLibrarySegment('all');
+        });
+    }
+
+    // Kostenkalkulator & Inline-Zeitstrahl initialisieren
+    initCostCalculator();
+    initInlineTimeline();
 
     // Autoren-Filter für Bücher
     const authorChips = document.querySelectorAll('#library-author-chips .author-chip-btn');
@@ -803,6 +835,7 @@ function initLibraryView() {
             state.library.compTopic = 'all';
             state.library.ruhiGroup = 'all';
             state.library.sort = 'date-desc';
+            state.library.timelineEpoch = '';
 
             if (recipSelect) recipSelect.value = 'all';
             if (epochSelect) epochSelect.value = '';
@@ -835,6 +868,11 @@ function initLibraryView() {
                 b.classList.toggle('active', b.dataset.fmt === 'all');
             });
 
+            const inlineEpochBtns = document.querySelectorAll('.inline-epoch-btn');
+            inlineEpochBtns.forEach(b => {
+                b.classList.toggle('active', b.dataset.epochFilter === 'all');
+            });
+
             applyLibraryFilters();
         });
     }
@@ -846,6 +884,7 @@ function initLibraryView() {
     }
 
     updateLibrarySegmentBadges();
+    updatePillarEcosystem(state.library.segment || 'house');
     applyLibraryFilters();
 }
 
@@ -857,16 +896,383 @@ function updateLibrarySegmentBadges() {
     const compsCount = state.documents.filter(d => d.tier === 'compilations').length;
     const ruhiCount = state.documents.filter(d => d.tier === 'ruhi').length;
 
-    const setBadge = (seg, count) => {
-        const badge = document.querySelector(`#library-segment-bar .segment-btn[data-segment="${seg}"] .segment-badge`);
+    const setBadge = (pillar, count) => {
+        const badge = document.querySelector(`.pillar-card[data-pillar="${pillar}"] .pillar-badge`);
         if (badge) badge.textContent = count >= 1000 ? count.toLocaleString('de-DE') : count;
     };
 
-    setBadge('all', allCount);
     setBadge('house', houseCount);
     setBadge('books', booksCount);
     setBadge('compilations', compsCount);
     setBadge('ruhi', ruhiCount);
+
+    const allBtn = document.getElementById('pillar-all-btn');
+    if (allBtn) {
+        const span = allBtn.querySelector('span');
+        if (span) span.textContent = `Gesamtes Archiv (${allCount.toLocaleString('de-DE')})`;
+    }
+}
+
+// Kontextuelle Quellen & Werkzeuge je Säule aktualisieren
+function updatePillarEcosystem(segment) {
+    const badgesRow = document.getElementById('authority-badges-row');
+    const toolBtn = document.getElementById('btn-context-tool');
+    const toolLabel = document.getElementById('btn-context-tool-label');
+    const timelinePanel = document.getElementById('inline-timeline-panel');
+
+    const extSvg = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
+
+    let links = [];
+
+    if (segment === 'house') {
+        links = [
+            { title: "BRL Letters (Universal House of Justice)", url: "https://www.bahai.org/library/authoritative-texts/the-universal-house-of-justice/messages/" },
+            { title: "bahai.de Dokumente", url: "https://www.bahai.de/dokumente/" },
+            { title: "Offizieller Webauftritt des Hauses", url: "https://universalhouseofjustice.bahai.org/" }
+        ];
+        if (toolBtn) {
+            toolBtn.style.display = 'inline-flex';
+            if (toolLabel) toolLabel.textContent = 'Plan-Explorer & Epochen';
+            toolBtn.onclick = () => {
+                const drawer = document.getElementById('library-advanced-drawer');
+                const toggleBtn = document.getElementById('library-toggle-filters-btn');
+                if (drawer) {
+                    drawer.style.display = 'block';
+                    if (toggleBtn) toggleBtn.classList.add('active');
+                    const sel = document.getElementById('library-epoch-select');
+                    if (sel) { sel.focus(); }
+                }
+            };
+        }
+        if (timelinePanel) timelinePanel.style.display = 'none';
+    } else if (segment === 'compilations') {
+        links = [
+            { title: "BRL Compilations Repository", url: "https://www.bahai.org/library/authoritative-texts/compilations/" },
+            { title: "bahai.de Publikationen", url: "https://www.bahai.de/publikationen/" }
+        ];
+        if (toolBtn) {
+            toolBtn.style.display = 'inline-flex';
+            if (toolLabel) toolLabel.textContent = 'Kompilations-Werkstatt';
+            toolBtn.onclick = () => {
+                window.switchView('workshop');
+            };
+        }
+        if (timelinePanel) timelinePanel.style.display = 'none';
+    } else if (segment === 'books') {
+        links = [
+            { title: "bibliothek.bahai.de (Deutsche Bibliothek)", url: "https://bibliothek.bahai.de" },
+            { title: "Bahá'í Reference Library (Originale)", url: "https://www.bahai.org/library/" },
+            { title: "Bahá'í-Verlag Shop", url: "https://www.bahai-verlag.de" }
+        ];
+        if (toolBtn) {
+            toolBtn.style.display = 'inline-flex';
+            if (toolLabel) toolLabel.textContent = 'Historischer Zeitstrahl';
+            toolBtn.onclick = () => {
+                if (timelinePanel) {
+                    const isShown = timelinePanel.style.display === 'block';
+                    timelinePanel.style.display = isShown ? 'none' : 'block';
+                }
+            };
+        }
+    } else if (segment === 'ruhi') {
+        links = [
+            { title: "ruhi.org Offiziell", url: "https://www.ruhi.org" },
+            { title: "Ruhi Curricula & Materialien", url: "https://www.ruhi.org/materials/" },
+            { title: "Institut für Geistige Bildung (IGB)", url: "https://www.bahai.de/bildung/" },
+            { title: "Bahá'í-Verlag Studienkreise", url: "https://www.bahai-verlag.de/themen/studienkreise/" }
+        ];
+        if (toolBtn) {
+            toolBtn.style.display = 'inline-flex';
+            if (toolLabel) toolLabel.textContent = 'Kurs-Budgetrechner';
+            toolBtn.onclick = () => {
+                window.openCostCalculator('ruhi');
+            };
+        }
+        if (timelinePanel) timelinePanel.style.display = 'none';
+    } else { // 'all'
+        links = [
+            { title: "Bahá'í Reference Library", url: "https://www.bahai.org/library/" },
+            { title: "bibliothek.bahai.de", url: "https://bibliothek.bahai.de" },
+            { title: "bahai.de", url: "https://www.bahai.de" }
+        ];
+        if (toolBtn) {
+            toolBtn.style.display = 'none';
+        }
+        if (timelinePanel) timelinePanel.style.display = 'none';
+    }
+
+    if (badgesRow) {
+        badgesRow.innerHTML = links.map(link => `
+            <a href="${escapeDocHtml(link.url)}" target="_blank" rel="noopener noreferrer" class="authority-badge" title="${escapeDocHtml(link.title)} öffnen">
+                <span>${escapeDocHtml(link.title)}</span>
+                ${extSvg}
+            </a>
+        `).join('');
+    }
+}
+
+// Inline-Zeitstrahl für Heilige Schriften & Bücher
+function initInlineTimeline() {
+    const closeBtn = document.getElementById('inline-timeline-close-btn');
+    const timelinePanel = document.getElementById('inline-timeline-panel');
+    if (closeBtn && timelinePanel) {
+        closeBtn.addEventListener('click', () => {
+            timelinePanel.style.display = 'none';
+        });
+    }
+
+    const epochBtns = document.querySelectorAll('.inline-epoch-btn');
+    epochBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            epochBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const epoch = btn.dataset.epochFilter;
+            state.library.timelineEpoch = (epoch === 'all') ? '' : epoch;
+            applyLibraryFilters();
+        });
+    });
+}
+
+// Kostenkalkulator Modal & Berechnungen
+function initCostCalculator() {
+    const openBtn = document.getElementById('btn-open-calculator');
+    if (openBtn) {
+        openBtn.addEventListener('click', () => {
+            const seg = state.library ? state.library.segment : 'ruhi';
+            let initialTab = 'ruhi';
+            if (seg === 'books') initialTab = 'books';
+            else if (seg === 'house' || seg === 'compilations') initialTab = 'print';
+            window.openCostCalculator(initialTab);
+        });
+    }
+
+    const closeBtn = document.getElementById('cost-modal-close');
+    if (closeBtn) closeBtn.addEventListener('click', window.closeCostCalculator);
+
+    const modal = document.getElementById('cost-calculator-modal');
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) window.closeCostCalculator();
+        });
+    }
+
+    // Tabs umschalten
+    const tabBtns = document.querySelectorAll('.cost-tab-btn');
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            window.switchCostTab(btn.dataset.costTab);
+        });
+    });
+
+    // 1. Ruhi Listeners
+    const bookSelect = document.getElementById('calc-ruhi-book');
+    const participantsInput = document.getElementById('calc-ruhi-participants');
+    const tutorCheck = document.getElementById('calc-ruhi-tutor');
+    const partDec = document.getElementById('calc-ruhi-part-dec');
+    const partInc = document.getElementById('calc-ruhi-part-inc');
+
+    if (bookSelect) bookSelect.addEventListener('change', calculateRuhiBudget);
+    if (participantsInput) participantsInput.addEventListener('input', calculateRuhiBudget);
+    if (tutorCheck) tutorCheck.addEventListener('change', calculateRuhiBudget);
+
+    if (partDec && participantsInput) {
+        partDec.addEventListener('click', () => {
+            const val = Math.max(1, (parseInt(participantsInput.value, 10) || 1) - 1);
+            participantsInput.value = val;
+            calculateRuhiBudget();
+        });
+    }
+    if (partInc && participantsInput) {
+        partInc.addEventListener('click', () => {
+            const val = Math.min(50, (parseInt(participantsInput.value, 10) || 1) + 1);
+            participantsInput.value = val;
+            calculateRuhiBudget();
+        });
+    }
+
+    // 2. Print Listeners
+    const presetSelect = document.getElementById('calc-print-preset');
+    const pagesInput = document.getElementById('calc-print-pages');
+    const copiesInput = document.getElementById('calc-print-copies');
+    const colormodeSelect = document.getElementById('calc-print-colormode');
+    const bindingSelect = document.getElementById('calc-print-binding');
+    const copiesDec = document.getElementById('calc-print-copies-dec');
+    const copiesInc = document.getElementById('calc-print-copies-inc');
+
+    if (presetSelect) presetSelect.addEventListener('change', calculatePrintCost);
+    if (pagesInput) pagesInput.addEventListener('input', calculatePrintCost);
+    if (copiesInput) copiesInput.addEventListener('input', calculatePrintCost);
+    if (colormodeSelect) colormodeSelect.addEventListener('change', calculatePrintCost);
+    if (bindingSelect) bindingSelect.addEventListener('change', calculatePrintCost);
+
+    if (copiesDec && copiesInput) {
+        copiesDec.addEventListener('click', () => {
+            const val = Math.max(5, (parseInt(copiesInput.value, 10) || 50) - 5);
+            copiesInput.value = val;
+            calculatePrintCost();
+        });
+    }
+    if (copiesInc && copiesInput) {
+        copiesInc.addEventListener('click', () => {
+            const val = Math.min(1000, (parseInt(copiesInput.value, 10) || 50) + 5);
+            copiesInput.value = val;
+            calculatePrintCost();
+        });
+    }
+
+    // 3. Books Listeners
+    const bookItems = document.querySelectorAll('.cost-book-item');
+    bookItems.forEach(item => {
+        const decBtn = item.querySelector('.cost-book-dec');
+        const incBtn = item.querySelector('.cost-book-inc');
+        const qtyInput = item.querySelector('.cost-book-qty');
+
+        if (decBtn && qtyInput) {
+            decBtn.addEventListener('click', () => {
+                const val = Math.max(0, (parseInt(qtyInput.value, 10) || 0) - 1);
+                qtyInput.value = val;
+                calculateBooksCart();
+            });
+        }
+        if (incBtn && qtyInput) {
+            incBtn.addEventListener('click', () => {
+                const val = Math.min(20, (parseInt(qtyInput.value, 10) || 0) + 1);
+                qtyInput.value = val;
+                calculateBooksCart();
+            });
+        }
+        if (qtyInput) {
+            qtyInput.addEventListener('input', calculateBooksCart);
+        }
+    });
+}
+
+window.openCostCalculator = function(initialTab = 'ruhi') {
+    const modal = document.getElementById('cost-calculator-modal');
+    if (!modal) return;
+    modal.style.display = 'flex';
+    modal.classList.add('active');
+
+    window.switchCostTab(initialTab);
+    calculateRuhiBudget();
+    calculatePrintCost();
+    calculateBooksCart();
+};
+
+window.closeCostCalculator = function() {
+    const modal = document.getElementById('cost-calculator-modal');
+    if (!modal) return;
+    modal.classList.remove('active');
+    modal.style.display = 'none';
+};
+
+window.switchCostTab = function(tabName) {
+    const tabBtns = document.querySelectorAll('.cost-tab-btn');
+    const panels = document.querySelectorAll('.cost-tab-panel');
+
+    tabBtns.forEach(btn => {
+        const isActive = btn.dataset.costTab === tabName;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+
+    panels.forEach(p => {
+        p.style.display = (p.id === `cost-panel-${tabName}`) ? 'block' : 'none';
+        p.classList.toggle('active', p.id === `cost-panel-${tabName}`);
+    });
+};
+
+function calculateRuhiBudget() {
+    const bookSelect = document.getElementById('calc-ruhi-book');
+    const participantsInput = document.getElementById('calc-ruhi-participants');
+    const tutorCheck = document.getElementById('calc-ruhi-tutor');
+
+    const unitPrice = bookSelect ? parseFloat(bookSelect.value) || 8.50 : 8.50;
+    const participants = participantsInput ? parseInt(participantsInput.value, 10) || 1 : 6;
+    const hasTutor = tutorCheck ? tutorCheck.checked : true;
+
+    const totalBooks = participants + (hasTutor ? 1 : 0);
+    const totalSum = totalBooks * unitPrice;
+    const perPerson = participants > 0 ? (totalSum / participants) : 0;
+
+    const totalBooksEl = document.getElementById('calc-ruhi-total-books');
+    const unitPriceEl = document.getElementById('calc-ruhi-unit-price');
+    const totalSumEl = document.getElementById('calc-ruhi-total-sum');
+    const perPersonEl = document.getElementById('calc-ruhi-per-person');
+
+    if (totalBooksEl) totalBooksEl.textContent = `${totalBooks} Exemplare`;
+    if (unitPriceEl) unitPriceEl.textContent = unitPrice.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+    if (totalSumEl) totalSumEl.textContent = totalSum.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+    if (perPersonEl) perPersonEl.textContent = perPerson.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+}
+
+function calculatePrintCost() {
+    const presetSelect = document.getElementById('calc-print-preset');
+    const pagesInput = document.getElementById('calc-print-pages');
+    const copiesInput = document.getElementById('calc-print-copies');
+    const colormodeSelect = document.getElementById('calc-print-colormode');
+    const bindingSelect = document.getElementById('calc-print-binding');
+    const customWrap = document.getElementById('calc-print-custom-wrap');
+
+    let pages = 6;
+    if (presetSelect && presetSelect.value !== 'custom') {
+        pages = parseInt(presetSelect.value, 10) || 6;
+        if (pagesInput) pagesInput.value = pages;
+        if (customWrap) customWrap.style.display = 'none';
+    } else if (pagesInput) {
+        pages = parseInt(pagesInput.value, 10) || 6;
+        if (customWrap) customWrap.style.display = 'flex';
+    }
+
+    const copies = copiesInput ? parseInt(copiesInput.value, 10) || 50 : 50;
+    const pagePrice = colormodeSelect ? parseFloat(colormodeSelect.value) || 0.04 : 0.04;
+    const bindingPrice = bindingSelect ? parseFloat(bindingSelect.value) || 0.05 : 0.05;
+
+    const totalPages = pages * copies;
+    const pageSum = totalPages * pagePrice;
+    const bindSum = copies * bindingPrice;
+    const totalSum = pageSum + bindSum;
+    const perUnit = copies > 0 ? (totalSum / copies) : 0;
+
+    const totalPagesEl = document.getElementById('calc-print-total-pages');
+    const pageSumEl = document.getElementById('calc-print-page-sum');
+    const bindSumEl = document.getElementById('calc-print-bind-sum');
+    const totalSumEl = document.getElementById('calc-print-total-sum');
+    const perUnitEl = document.getElementById('calc-print-per-unit');
+
+    if (totalPagesEl) totalPagesEl.textContent = `${totalPages.toLocaleString('de-DE')} Seiten`;
+    if (pageSumEl) pageSumEl.textContent = pageSum.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+    if (bindSumEl) bindSumEl.textContent = bindSum.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+    if (totalSumEl) totalSumEl.textContent = totalSum.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+    if (perUnitEl) perUnitEl.textContent = perUnit.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+}
+
+function calculateBooksCart() {
+    const bookItems = document.querySelectorAll('.cost-book-item');
+    let totalCount = 0;
+    let totalSum = 0;
+
+    bookItems.forEach(item => {
+        const price = parseFloat(item.dataset.price) || 0;
+        const qtyInput = item.querySelector('.cost-book-qty');
+        const qty = qtyInput ? parseInt(qtyInput.value, 10) || 0 : 0;
+        totalCount += qty;
+        totalSum += qty * price;
+    });
+
+    const totalCountEl = document.getElementById('calc-books-total-count');
+    const shippingEl = document.getElementById('calc-books-shipping-note');
+    const totalSumEl = document.getElementById('calc-books-total-sum');
+
+    if (totalCountEl) totalCountEl.textContent = `${totalCount} Bände`;
+    if (shippingEl) {
+        if (totalSum >= 50 || totalSum === 0) {
+            shippingEl.textContent = "Kostenfrei ab 50 €";
+        } else {
+            shippingEl.textContent = "4,50 € Versand (Frei ab 50 €)";
+        }
+    }
+    if (totalSumEl) totalSumEl.textContent = totalSum.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
 }
 
 function syncQuickChipsWithFilters() {
@@ -967,6 +1373,20 @@ function applyLibraryFilters() {
             list = list.filter(d => d.year >= 1980 && d.year <= 1989);
         } else if (epoch === 'era-early') {
             list = list.filter(d => d.year >= 1963 && d.year <= 1979);
+        }
+    }
+
+    // 2b. Historischer Zeitstrahl Epochen-Filter (Heilige Schriften & Bücher)
+    const tEpoch = state.library.timelineEpoch;
+    if (tEpoch && tEpoch !== 'all') {
+        if (tEpoch === 'bab') {
+            list = list.filter(d => (d.year >= 1844 && d.year <= 1853) || ((d.author || '').toLowerCase().includes('báb') || (d.author || '').toLowerCase().includes('bab')));
+        } else if (tEpoch === 'bahaullah') {
+            list = list.filter(d => (d.year >= 1853 && d.year <= 1892) || ((d.author || '').toLowerCase().includes('bahá') || (d.author || '').toLowerCase().includes('baha')));
+        } else if (tEpoch === 'abdulbaha') {
+            list = list.filter(d => (d.year >= 1892 && d.year <= 1921) || ((d.author || '').toLowerCase().includes('abdu')));
+        } else if (tEpoch === 'shoghi') {
+            list = list.filter(d => (d.year >= 1921 && d.year <= 1957) || ((d.author || '').toLowerCase().includes('shoghi')));
         }
     }
 
@@ -1120,6 +1540,16 @@ function applyLibraryFilters() {
             'b9plus': 'Bücher 9–12', 'branch': 'Zweigkurse'
         };
         activeTags.push({ label: ruhiMap[ruhiGroup] || ruhiGroup, key: 'ruhiGroup' });
+    }
+    if (tEpoch && tEpoch !== 'all') {
+        activeFilterCount++;
+        const epochMap = {
+            bab: 'Sendung des Báb (1844–1853)',
+            bahaullah: "Sendung Bahá'u'lláhs (1853–1892)",
+            abdulbaha: "Wirken ‘Abdu’l-Bahás (1892–1921)",
+            shoghi: "Wirken Shoghi Effendis (1921–1957)"
+        };
+        activeTags.push({ label: epochMap[tEpoch] || tEpoch, key: 'timelineEpoch' });
     }
     if (query) {
         activeFilterCount++;
@@ -1578,6 +2008,23 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
     const metaParts = [];
     const origFmt = window.getDocOriginalFormat ? window.getDocOriginalFormat(doc) : (doc.tier === 'books' ? 'PDF' : (doc.sourceUrl ? 'Webseite' : 'PDF'));
     metaParts.push(`<span class="doc-orig-format-pill orig-${origFmt.toLowerCase()}">${origFmt}</span>`);
+
+    // Säulen-Zuordnung bei Gesamtdurchsuchung
+    if (state.library && state.library.segment === 'all') {
+        let pillarTag = 'Haus';
+        let pillarClass = 'pillar-badge-house';
+        if (doc.tier === 'books') {
+            pillarTag = 'Schriften';
+            pillarClass = 'pillar-badge-books';
+        } else if (doc.tier === 'compilations') {
+            pillarTag = 'Kompilation';
+            pillarClass = 'pillar-badge-compilations';
+        } else if (doc.tier === 'ruhi') {
+            pillarTag = 'Ruhi';
+            pillarClass = 'pillar-badge-ruhi';
+        }
+        metaParts.push(`<span class="doc-pillar-tag ${pillarClass}">${pillarTag}</span>`);
+    }
 
     if (doc.tier === 'books' && doc.year) {
         metaParts.push(`<span class="doc-date">${doc.year}</span>`);
