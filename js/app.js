@@ -1576,7 +1576,11 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
     
     // Meta breadcrumb line
     const metaParts = [];
-    if (doc.date) metaParts.push(`<span class="doc-date">${formatDate(doc.date)}</span>`);
+    if (doc.tier === 'books' && doc.year) {
+        metaParts.push(`<span class="doc-date">${doc.year}</span>`);
+    } else if (doc.date) {
+        metaParts.push(`<span class="doc-date">${formatDate(doc.date)}</span>`);
+    }
     
     // Origin / Category
     let categoryLabel = '';

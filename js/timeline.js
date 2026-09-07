@@ -659,34 +659,42 @@ window.TimelineModule = (function() {
     function getDocumentsForEntity(entity) {
         const allDocs = window.state ? (window.state.documents || []) : [];
         const id = entity.id;
+        let results = [];
 
         if (id === 'ministry_bab') {
-            return allDocs.filter(d => (d.authorCode || '').toLowerCase() === 'bab' || (d.topics || []).includes('Der Báb'));
-        }
-        if (id === 'ministry_bahaullah') {
-            return allDocs.filter(d => (d.authorCode || '').toLowerCase() === 'bahaullah' || (d.topics || []).includes("Bahá'u'lláh"));
-        }
-        if (id === 'ministry_abdulbaha') {
-            return allDocs.filter(d => (d.authorCode || '').toLowerCase() === 'abdulbaha' || (d.topics || []).includes("ʻAbdu'l-Bahá") || (d.topics || []).includes("'Abdu'l-Bahá"));
-        }
-        if (id === 'epoch_1' || id === 'epoch_2') {
-            return allDocs.filter(d => (d.authorCode || '').toLowerCase() === 'shoghieffendi' || (d.year >= entity.startYear && d.year <= entity.endYear));
-        }
-
-        // For plans
-        if (entity.startDate && entity.endDate) {
-            return allDocs.filter(d => {
+            results = allDocs.filter(d => (d.authorCode || '').toLowerCase() === 'bab' || (d.authorCode || '').toLowerCase() === 'the-bab' || d.subTier === 'the-bab' || d.author === 'Der Báb');
+        } else if (id === 'ministry_bahaullah') {
+            results = allDocs.filter(d => (d.authorCode || '').toLowerCase() === 'bahaullah' || d.subTier === 'bahaullah' || d.author === "Bahá'u'lláh");
+        } else if (id === 'ministry_abdulbaha') {
+            results = allDocs.filter(d => (d.authorCode || '').toLowerCase() === 'abdulbaha' || (d.authorCode || '').toLowerCase() === 'abdul-baha' || d.subTier === 'abdul-baha' || d.author === "‘Abdu’l-Bahá");
+        } else if (id === 'epoch_1' || id === 'epoch_2') {
+            results = allDocs.filter(d => (d.authorCode || '').toLowerCase() === 'shoghieffendi' || (d.authorCode || '').toLowerCase() === 'shoghi-effendi' || d.subTier === 'shoghi-effendi' || d.author === 'Shoghi Effendi' || (d.year >= entity.startYear && d.year <= entity.endYear));
+        } else if (entity.startDate && entity.endDate) {
+            // For plans (e.g. 7-Year Plan 1937–1944)
+            results = allDocs.filter(d => {
                 const date = d.date || '';
-                return date >= entity.startDate && date <= entity.endDate;
+                const y = d.year || (date ? parseInt(date.substring(0, 4), 10) : 0);
+                if (date && date >= entity.startDate && date <= entity.endDate) return true;
+                if (y && y >= entity.startYear && y <= entity.endYear) return true;
+                return false;
             });
+        } else if (entity.startYear && entity.endYear) {
+            // By year range
+            results = allDocs.filter(d => d.year >= entity.startYear && d.year <= Math.min(2026, entity.endYear));
         }
 
-        // By year range
-        if (entity.startYear && entity.endYear) {
-            return allDocs.filter(d => d.year >= entity.startYear && d.year <= Math.min(2026, entity.endYear));
-        }
+        // Chronologische Sortierung (aufsteigend nach Jahr und Datum)
+        results.sort((a, b) => {
+            const ya = a.year || 0;
+            const yb = b.year || 0;
+            if (ya !== yb) return ya - yb;
+            const da = a.date || '';
+            const db = b.date || '';
+            if (da !== db) return da.localeCompare(db);
+            return (a.title || '').localeCompare(b.title || '', 'de');
+        });
 
-        return [];
+        return results;
     }
 
     function renderTimelineView() {
@@ -1169,7 +1177,7 @@ window.TimelineModule = (function() {
             </p>`;
         }
 
-        const sample = docs.slice(0, 18);
+        const sample = docs.slice(0, 48);
         return sample.map((doc, idx) => {
             return window.createDocCard ? window.createDocCard(doc, '', idx) : '';
         }).join('');

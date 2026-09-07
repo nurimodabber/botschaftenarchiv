@@ -61,6 +61,7 @@ window.BooksModule = (function() {
 
                     <select id="books-sort-select" class="apple-select" onchange="window.BooksModule.setSort(this.value)">
                         <option value="author" ${currentSort === 'author' ? 'selected' : ''}>Nach Verfasser sortieren</option>
+                        <option value="chronological" ${currentSort === 'chronological' ? 'selected' : ''}>Nach Entstehungsjahr / Chronologie</option>
                         <option value="title" ${currentSort === 'title' ? 'selected' : ''}>Titel A–Z</option>
                         <option value="length" ${currentSort === 'length' ? 'selected' : ''}>Nach Umfang (Wortanzahl)</option>
                     </select>
@@ -111,13 +112,23 @@ window.BooksModule = (function() {
             books.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'de'));
         } else if (currentSort === 'length') {
             books.sort((a, b) => (b.wordCount || 0) - (a.wordCount || 0));
+        } else if (currentSort === 'chronological') {
+            books.sort((a, b) => {
+                const ya = a.year || 0;
+                const yb = b.year || 0;
+                if (ya !== yb) return ya - yb;
+                return (a.title || '').localeCompare(b.title || '', 'de');
+            });
         } else {
-            // Standard: nach Autor
+            // Standard: nach Autor und innerhalb des Autors chronologisch
             const authorOrder = ['bahaullah', 'the-bab', 'abdul-baha', 'shoghi-effendi', 'uhj', 'prayers', 'compilations'];
             books.sort((a, b) => {
                 const iA = authorOrder.indexOf(a.authorCode || a.subTier || '');
                 const iB = authorOrder.indexOf(b.authorCode || b.subTier || '');
                 if (iA !== iB && iA !== -1 && iB !== -1) return iA - iB;
+                const ya = a.year || 0;
+                const yb = b.year || 0;
+                if (ya !== yb) return ya - yb;
                 return (a.title || '').localeCompare(b.title || '', 'de');
             });
         }
@@ -166,7 +177,10 @@ window.BooksModule = (function() {
                             <span class="book-author-name">${authorName}</span>
                             ${authorRole}
                         </div>
-                        ${langBadge}
+                        <div style="display: flex; gap: 0.35rem; align-items: center;">
+                            ${book.year ? `<span class="book-year-badge">${book.year}</span>` : ''}
+                            ${langBadge}
+                        </div>
                     </div>
 
                     <h3 class="book-card-title" onclick="window.openDocument('${book.id}')" title="${escapeHtml(book.title)}">${escapeHtml(book.title)}</h3>

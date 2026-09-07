@@ -2569,6 +2569,24 @@ body {
     border-color: rgba(107, 158, 222, 0.3);
 }
 
+.book-year-badge {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 0.18rem 0.45rem;
+    border-radius: 4px;
+    background: rgba(120, 130, 145, 0.1);
+    color: var(--text-secondary);
+    border: 1px solid rgba(120, 130, 145, 0.2);
+    white-space: nowrap;
+}
+
+[data-theme="dark"] .book-year-badge {
+    background: rgba(160, 175, 195, 0.12);
+    color: #A0B0C0;
+    border-color: rgba(160, 175, 195, 0.25);
+}
+
 /* Card Body */
 .book-card-body {
     display: flex;
