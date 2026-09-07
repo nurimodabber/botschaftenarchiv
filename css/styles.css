@@ -6662,6 +6662,7 @@ html[data-active-pillar="all"] {
     border-top: none;
     flex-shrink: 0;
     gap: 0.85rem;
+    display: flex;
 }
 
 /* ─── Präziser Zeitstrahl (Historical Continuity) ────────────────────────── */
@@ -7945,7 +7946,7 @@ html[data-active-pillar="all"] {
 }
 
 .doc-card-footer {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem;
