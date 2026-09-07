@@ -1,0 +1,9 @@
+# Vercel Deployment Ignore
+# Exclude offline generation scripts and developer files from Vercel deployment bundle
+
+scripts/
+*.py
+*.sh
+.github/
+.git/
+README.md
