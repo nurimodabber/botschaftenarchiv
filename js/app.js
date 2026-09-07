@@ -142,11 +142,20 @@ function setupAppearance() {
         });
     }
 
-    // 0b. Preferred Language Setting (deutsch / english / all)
-    const savedLanguage = safeGetStorage('cosmos_preferred_lang', 'deutsch');
+    // 0b. Preferred Language Setting (all / deutsch / english)
+    // Standard ist 'all' (Alle Sprachen anzeigen), damit die Bibliothek beim Oeffnen nicht auf 232 Werke begrenzt wird.
+    let storedLang = safeGetStorage('cosmos_preferred_lang_v2', null);
+    if (!storedLang) {
+        // Einmalige Bereinigung eines frueheren automatischen 'deutsch'-Eintrags
+        storedLang = 'all';
+        safeSetStorage('cosmos_preferred_lang_v2', 'all');
+        safeSetStorage('cosmos_preferred_lang', 'all');
+    }
+    const savedLanguage = (storedLang === 'deutsch' || storedLang === 'english') ? storedLang : 'all';
 
     function applyLanguage(langVal) {
-        const validLang = (langVal === 'english' || langVal === 'all') ? langVal : 'deutsch';
+        const validLang = (langVal === 'english' || langVal === 'deutsch') ? langVal : 'all';
+        safeSetStorage('cosmos_preferred_lang_v2', validLang);
         safeSetStorage('cosmos_preferred_lang', validLang);
 
         document.querySelectorAll('#appearance-language-group .appearance-opt-btn').forEach(btn => {
@@ -472,7 +481,7 @@ function setupAppearance() {
     if (resetBtn) {
         resetBtn.addEventListener('click', () => {
             applyDefaultViewerFormat('pdf');
-            applyLanguage('deutsch');
+            applyLanguage('all');
             applyTheme('light');
             applyAccentColor(defaultColor);
             applyReaderFont('serif');
