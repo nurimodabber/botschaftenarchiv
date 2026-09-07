@@ -335,12 +335,24 @@ function setupAppearance() {
     }
 
     // 8. Library View Mode (cards / list)
-    const savedLibView = safeGetStorage('cosmos_library_view', 'cards');
+    const savedLibView = (() => {
+        const raw = safeGetStorage('cosmos_library_view', safeGetStorage('cosmos_library_view_mode', 'cards'));
+        return raw === 'list' ? 'list' : 'cards';
+    })();
 
     function applyLibraryView(viewMode) {
         const validView = (viewMode === 'list') ? 'list' : 'cards';
         html.setAttribute('data-library-view', validView);
         safeSetStorage('cosmos_library_view', validView);
+        if (window.state && window.state.library) {
+            window.state.library.viewMode = (validView === 'list' ? 'list' : 'grid');
+        }
+        safeSetStorage('cosmos_library_view_mode', validView === 'list' ? 'list' : 'grid');
+
+        const resultsGrid = document.getElementById('library-results');
+        if (resultsGrid) {
+            resultsGrid.classList.toggle('list-view', validView === 'list');
+        }
 
         document.querySelectorAll('#appearance-library-view-group .appearance-opt-btn').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.libView === validView);
@@ -945,23 +957,19 @@ function initLibraryView() {
         });
     });
 
-    // View Mode Toggle (Grid vs. List)
+    // View Mode Handling (delegates to applyLibraryView)
     const viewGridBtn = document.getElementById('view-mode-grid');
     const viewListBtn = document.getElementById('view-mode-list');
-    const resultsGrid = document.getElementById('library-results');
 
     function applyViewMode(mode) {
-        state.library.viewMode = mode;
-        safeSetStorage('cosmos_library_view_mode', mode);
-
+        applyLibraryView(mode === 'list' ? 'list' : 'cards');
         if (viewGridBtn) viewGridBtn.classList.toggle('active', mode === 'grid');
         if (viewListBtn) viewListBtn.classList.toggle('active', mode === 'list');
-        if (resultsGrid) resultsGrid.classList.toggle('list-view', mode === 'list');
     }
 
     if (viewGridBtn) viewGridBtn.addEventListener('click', () => applyViewMode('grid'));
     if (viewListBtn) viewListBtn.addEventListener('click', () => applyViewMode('list'));
-    applyViewMode(state.library.viewMode || 'grid');
+    applyViewMode(safeGetStorage('cosmos_library_view', 'cards') === 'list' ? 'list' : 'grid');
 
     // Search Input & Clear Button
     const searchInput = document.getElementById('library-search-input');

@@ -42,7 +42,7 @@
     <meta name="twitter:description" content="Digitale Forschungsbibliothek mit 918 Botschaften des Universalen Hauses der Gerechtigkeit, Schriften und Büchern im offiziellen Satzspiegel.">
     <meta name="twitter:image" content="https://bahaibibliothek.vercel.app/assets/icons/og-image.png">
 
-    <link rel="stylesheet" href="css/styles.css?v=3.2">
+    <link rel="stylesheet" href="css/styles.css?v=3.3">
     <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
     <!-- Vercel Web Analytics & Speed Insights -->
     <script>
@@ -246,12 +246,12 @@
                             </div>
                         </div>
 
-                        <!-- 8. Bibliotheksansicht (Karten vs. Kompaktliste) -->
+                        <!-- 8. Darstellung (Kompakt vs. Geräumig) -->
                         <div class="appearance-section">
-                            <label class="appearance-section-label">Bibliotheks-Ansicht</label>
+                            <label class="appearance-section-label">Darstellung</label>
                             <div class="appearance-segment-group two-col" id="appearance-library-view-group">
-                                <button class="appearance-opt-btn active" data-lib-view="cards">Karten-Raster</button>
-                                <button class="appearance-opt-btn" data-lib-view="list">Kompakt-Liste</button>
+                                <button class="appearance-opt-btn" data-lib-view="list">Kompakt</button>
+                                <button class="appearance-opt-btn active" data-lib-view="cards">Geräumig</button>
                             </div>
                         </div>
                     </div><!-- /#settings-panel-content -->
@@ -506,16 +506,6 @@
                             </select>
                         </div>
                     </div>
-
-                    <!-- Ansichts-Umschalter: Grid vs. List -->
-                    <div class="view-mode-toggle" role="group" aria-label="Ansichtsmodus">
-                        <button id="view-mode-grid" class="view-mode-btn active" title="Kartenansicht (Raster)" aria-label="Rasteransicht">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-                        </button>
-                        <button id="view-mode-list" class="view-mode-btn" title="Kompakte Listenansicht" aria-label="Listenansicht">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-                        </button>
-                    </div>
                 </div>
             </div>
 
@@ -705,6 +695,6 @@
     <script src="js/timeline.js?v=3.1"></script>
     <script src="js/books.js"></script>
     <script src="js/sources.js"></script>
-    <script src="js/app.js?v=3.2"></script>
+    <script src="js/app.js?v=3.3"></script>
 </body>
 </html>
