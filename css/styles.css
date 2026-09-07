@@ -1867,12 +1867,6 @@ body:has(#document-viewer.active) .cosmos-dock-container {
     align-items: start;
 }
 
-@media (max-width: 1024px) {
-    .workshop-layout {
-        grid-template-columns: 1fr;
-    }
-}
-
 .workshop-filters {
     background: var(--bg-paper);
     border: 1px solid var(--border-hairline);
@@ -1880,6 +1874,113 @@ body:has(#document-viewer.active) .cosmos-dock-container {
     padding: 1.5rem;
     box-shadow: var(--shadow-plate);
     margin-bottom: 1.5rem;
+}
+
+.workshop-filter-heading {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+}
+
+.target-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+}
+
+.workshop-search-row {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.workshop-search-input {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.55rem 1rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-hairline);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    background: var(--bg-canvas);
+    color: var(--text-ink);
+}
+
+.workshop-search-input:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 0 3px var(--accent-gold-soft);
+}
+
+.workshop-rec-select {
+    padding: 0.55rem 0.85rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-hairline);
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    background: var(--bg-canvas);
+    color: var(--text-ink);
+    cursor: pointer;
+}
+
+.workshop-passages-info {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 0.85rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.workshop-draft-pane {
+    position: sticky;
+    top: 85px;
+    background: var(--bg-paper);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-hairline);
+    box-shadow: var(--shadow-plate);
+}
+
+.draft-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-hairline);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.draft-title-head {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-ink);
+    margin: 0;
+}
+
+.draft-stats-badge {
+    font-size: 0.8rem;
+    background: var(--bg-canvas);
+    color: var(--text-muted);
+    border: 1px solid var(--border-hairline);
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+    .workshop-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .workshop-draft-pane {
+        position: static;
+        top: auto;
+    }
 }
 
 .passage-card {
@@ -2533,7 +2634,7 @@ body:has(#document-viewer.active) .cosmos-dock-container {
         background: rgba(28, 48, 62, 0.9) !important;
         border: 1px solid rgba(75, 125, 150, 0.6) !important;
         border-radius: 22px !important;
-        padding: 0.35rem 0.8rem !important;
+        padding: 0.35rem 0.55rem !important;
         color: #FFFFFF !important;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
     }
@@ -2566,6 +2667,9 @@ body:has(#document-viewer.active) .cosmos-dock-container {
         right: 0.75rem !important;
         width: auto !important;
         max-height: 75vh !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding: 1.15rem 1rem !important;
         z-index: 2500 !important;
         border-radius: 18px !important;
         box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5) !important;
@@ -2825,30 +2929,344 @@ body:has(#document-viewer.active) .cosmos-dock-container {
         border: 1px solid var(--border-hairline);
     }
 
-    .t-layer-ages {
-        flex-direction: column;
+    /* ─── Mobile Omnisearch & Filter Bar ─── */
+    .search-kbd-badge {
+        display: none !important;
     }
 
-    .t-bar-era {
-        flex-direction: column;
-        align-items: flex-start;
+    .master-search-row input {
+        font-size: 0.95rem !important;
+        padding: 0.85rem 2.85rem 0.85rem 2.75rem !important;
     }
 
-    .period-detail-header {
-        flex-direction: column;
+    .master-search-row .command-search-icon {
+        left: 0.95rem !important;
     }
 
-    .period-stat-box {
-        width: 100%;
+    /* ─── Mobile Ergebnis-Toolbar (Bibliothek) ─── */
+    .library-results-bar {
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        margin: 1rem 0 1.25rem !important;
+        padding-bottom: 0.65rem !important;
     }
 
-    .period-controls-bar {
-        flex-direction: column;
-        align-items: stretch;
+    .results-bar-left {
+        gap: 0.35rem !important;
     }
 
-    .period-search-input-wrapper {
-        max-width: 100%;
+    .results-bar-count {
+        font-size: 1.02rem !important;
+    }
+
+    .results-bar-sub {
+        font-size: 0.72rem !important;
+    }
+
+    .results-bar-right {
+        gap: 0.4rem !important;
+    }
+
+    .sort-label {
+        display: none !important;
+    }
+
+    .sort-select {
+        font-size: 0.74rem !important;
+        padding: 0.32rem 1.3rem 0.32rem 0.55rem !important;
+    }
+
+    .view-mode-toggle {
+        padding: 0.1rem !important;
+    }
+
+    .view-mode-btn {
+        padding: 0.28rem !important;
+    }
+
+    /* ─── Mobile Karten & Raster (Bibliothek, Bücher & Ruhi) ─── */
+    .books-grid,
+    .ruhi-books-grid,
+    .inspector-docs-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+
+    .doc-card {
+        padding: 1.15rem 1.2rem !important;
+        gap: 0.85rem !important;
+    }
+
+    .doc-title {
+        font-size: 1.08rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .book-plate-card,
+    .ruhi-card {
+        padding: 1.25rem 1.15rem !important;
+    }
+
+    .books-filter-bar {
+        padding: 1rem 1.1rem !important;
+        gap: 0.75rem !important;
+    }
+
+    .books-secondary-filters {
+        gap: 0.5rem !important;
+    }
+
+    .books-filter-select {
+        width: 100% !important;
+    }
+
+    .load-more-container {
+        margin: 1.75rem 0 !important;
+    }
+
+    .load-more-container button {
+        width: 100% !important;
+        max-width: 320px !important;
+        min-height: 44px !important;
+    }
+
+    /* ─── Mobile Historischer Zeitstrahl (Vector Timeline) ─── */
+    .unfold-toolbar {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0.85rem !important;
+        padding: 0.85rem 1rem !important;
+        margin-bottom: 1.25rem !important;
+    }
+
+    .unfold-lang-switch {
+        justify-content: space-between !important;
+        width: 100% !important;
+    }
+
+    .unfold-scrubber-box {
+        max-width: 100% !important;
+        width: 100% !important;
+        justify-content: space-between !important;
+        gap: 0.6rem !important;
+    }
+
+    .unfold-slider {
+        max-width: none !important;
+        flex: 1 !important;
+    }
+
+    .unfold-svg-container {
+        padding: 0.85rem 0.5rem !important;
+        margin-bottom: 1.25rem !important;
+        border-radius: var(--radius-md) !important;
+    }
+
+    .unfold-inspector-card {
+        padding: 1.25rem 1rem !important;
+        border-radius: var(--radius-md) !important;
+    }
+
+    .inspector-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.75rem !important;
+        padding-bottom: 0.85rem !important;
+    }
+
+    .inspector-title {
+        font-size: 1.35rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .inspector-desc {
+        font-size: 0.88rem !important;
+        line-height: 1.6 !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .inspector-quote {
+        padding: 0.85rem 1rem !important;
+        font-size: 0.92rem !important;
+        margin-bottom: 1.25rem !important;
+    }
+
+    .inspector-docs-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.65rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .inspector-subfilters {
+        width: 100% !important;
+        overflow-x: auto !important;
+        flex-wrap: nowrap !important;
+        padding-bottom: 0.25rem !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    .subfilter-btn {
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* ─── Mobile Kompilations-Werkstatt ─── */
+    .workshop-filters {
+        padding: 1rem !important;
+    }
+
+    .target-pills {
+        overflow-x: auto !important;
+        flex-wrap: nowrap !important;
+        padding-bottom: 0.35rem !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    .target-pills .filter-pill {
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+    }
+
+    .workshop-search-row {
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+    }
+
+    .workshop-search-input {
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+
+    .workshop-rec-select {
+        width: 100% !important;
+    }
+
+    .workshop-draft-pane {
+        padding: 1.15rem 1rem !important;
+    }
+
+    .passage-card {
+        padding: 1.15rem 1rem !important;
+    }
+
+    .draft-item {
+        padding: 0.85rem !important;
+    }
+
+    .draft-action-buttons button {
+        padding: 0.55rem !important;
+        font-size: 0.8rem !important;
+    }
+
+    /* ─── Mobile Quellen & Repositorien ─── */
+    .sources-controls-card {
+        padding: 1rem 1.1rem !important;
+        gap: 0.75rem !important;
+        margin-bottom: 1.25rem !important;
+    }
+
+    .sources-search-row {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0.75rem !important;
+    }
+
+    .sources-search-box {
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+
+    .sources-expand-collapse-group {
+        width: 100% !important;
+        justify-content: space-between !important;
+    }
+
+    .sources-tool-btn {
+        flex: 1 !important;
+        justify-content: center !important;
+        font-size: 0.75rem !important;
+        padding: 0.45rem 0.6rem !important;
+    }
+
+    .sources-jump-pills {
+        gap: 0.35rem !important;
+        overflow-x: auto !important;
+        flex-wrap: nowrap !important;
+        padding-bottom: 0.25rem !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    .jump-label {
+        display: none !important;
+    }
+
+    .jump-pill {
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+        font-size: 0.75rem !important;
+        padding: 0.25rem 0.65rem !important;
+    }
+
+    .sources-accordion-summary {
+        padding: 1rem 0.85rem !important;
+    }
+
+    .summary-left {
+        gap: 0.75rem !important;
+    }
+
+    .summary-icon-box {
+        width: 36px !important;
+        height: 36px !important;
+    }
+
+    .summary-icon-box svg {
+        width: 18px !important;
+        height: 18px !important;
+    }
+
+    .summary-title {
+        font-size: 1.1rem !important;
+    }
+
+    .summary-desc {
+        font-size: 0.75rem !important;
+    }
+
+    .summary-right {
+        gap: 0.5rem !important;
+    }
+
+    .summary-counter-badge {
+        font-size: 0.7rem !important;
+        padding: 0.2rem 0.55rem !important;
+    }
+
+    .sources-accordion-body {
+        padding: 0.5rem 0.65rem 1rem !important;
+    }
+
+    .source-sub-summary {
+        padding: 0.75rem 0.85rem !important;
+    }
+
+    .source-sub-title {
+        font-size: 0.88rem !important;
+    }
+
+    /* ─── Mobile Merkliste & Manuskripte ─── */
+    .subtabs-nav {
+        flex-wrap: wrap !important;
+        gap: 0.4rem !important;
+        margin-top: 1rem !important;
+    }
+
+    .subtabs-nav .filter-pill {
+        font-size: 0.78rem !important;
+        padding: 0.4rem 0.85rem !important;
     }
 }
 
@@ -6396,11 +6814,13 @@ html[data-active-pillar="all"] {
 html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 body {
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
+    overflow-x: hidden;
 }
 
 /* Eliminate 300ms mobile touch delay on interactive controls */
@@ -6414,7 +6834,13 @@ button,
 .pillar-card,
 .doc-card,
 .close-modal-btn,
-.dock-icon-btn {
+.dock-icon-btn,
+.subfilter-btn,
+.jump-pill,
+.quick-chip-btn,
+.author-chip-btn,
+.comp-chip-btn,
+.ruhi-chip-btn {
     touch-action: manipulation;
 }
 
@@ -6423,7 +6849,12 @@ button,
 .quick-chips-scroller,
 .advanced-filters-panel,
 .books-subnav,
-.tab-scroller {
+.tab-scroller,
+.unfold-svg-container,
+.target-pills,
+.sources-jump-pills,
+.inspector-subfilters,
+.modal-actions {
     -webkit-overflow-scrolling: touch;
 }
 

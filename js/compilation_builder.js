@@ -73,12 +73,12 @@ window.CompilationBuilder = (function() {
 
     function renderWorkshopUI(container) {
         container.innerHTML = `
-            <div class="workshop-layout" style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 2rem; align-items: start;">
+            <div class="workshop-layout">
                 <!-- Linke Spalte: Absatz-Katalog & Filter -->
                 <div class="workshop-catalog-pane">
-                    <div class="workshop-filters" style="background: var(--color-surface); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); margin-bottom: 1.25rem;">
-                        <h3 style="font-size: 0.95rem; font-weight: 600; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.75rem;">Thema &amp; Zielgruppe</h3>
-                        <div class="target-pills" id="workshop-target-pills" style="display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem;">
+                    <div class="workshop-filters">
+                        <h3 class="workshop-filter-heading">Thema &amp; Zielgruppe</h3>
+                        <div class="target-pills" id="workshop-target-pills">
                             <button class="filter-pill active" data-cat="all">Alle Zielgruppen</button>
                             <button class="filter-pill" data-cat="jugend">Jugend &amp; Nachwuchs</button>
                             <button class="filter-pill" data-cat="raete_institutionen">Geistige Räte</button>
@@ -89,9 +89,9 @@ window.CompilationBuilder = (function() {
                             <button class="filter-pill" data-cat="gebet_vertiefung">Gebet &amp; Charakter</button>
                         </div>
                         
-                        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-                            <input type="text" id="workshop-search-input" placeholder="Absätze durchsuchen (z. B. Mut, Andacht, Konsultation)..." style="flex: 1; min-width: 220px; padding: 0.5rem 1rem; border-radius: 20px; border: 1px solid var(--color-border); font-family: var(--font-sans); font-size: 0.9rem; background: var(--color-surface-alt); color: var(--color-text);">
-                            <select id="workshop-rec-select" style="padding: 0.5rem 0.8rem; border-radius: 20px; border: 1px solid var(--color-border); font-family: var(--font-sans); font-size: 0.88rem; background: var(--color-surface-alt); color: var(--color-text);">
+                        <div class="workshop-search-row">
+                            <input type="text" id="workshop-search-input" class="workshop-search-input" placeholder="Absätze durchsuchen (z. B. Mut, Andacht, Konsultation)...">
+                            <select id="workshop-rec-select" class="workshop-rec-select">
                                 <option value="all">Alle Empfänger</option>
                                 <option value="world">Weltweite Gemeinde</option>
                                 <option value="nsa">Nationale Geistige Räte</option>
@@ -103,11 +103,11 @@ window.CompilationBuilder = (function() {
                         </div>
                     </div>
 
-                    <div id="workshop-passages-info" style="font-size: 0.9rem; color: var(--color-text-muted); margin-bottom: 0.85rem; display: flex; justify-content: space-between; align-items: center;">
+                    <div id="workshop-passages-info" class="workshop-passages-info">
                         <span id="workshop-passages-count">0 Absätze gefunden</span>
                     </div>
 
-                    <div id="workshop-passages-list" class="passages-grid" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div id="workshop-passages-list" class="passages-grid">
                         <!-- Dynamically populated -->
                     </div>
 
@@ -117,10 +117,10 @@ window.CompilationBuilder = (function() {
                 </div>
 
                 <!-- Rechte Spalte: Kompilations-Editor & Export -->
-                <div class="workshop-draft-pane" style="position: sticky; top: 85px; background: var(--color-surface); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); box-shadow: var(--shadow-sm);">
-                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem; margin-bottom: 1rem;">
-                        <h3 style="font-size: 1.15rem; font-weight: 600; color: var(--color-primary); margin: 0;">Kompilations-Manuskript</h3>
-                        <span id="draft-stats-badge" style="font-size: 0.8rem; background: var(--color-surface-alt); color: var(--color-text-muted); border: 1px solid var(--color-border); padding: 0.2rem 0.6rem; border-radius: 12px; font-weight: 600;">0 Absätze</span>
+                <div class="workshop-draft-pane">
+                    <div class="draft-header">
+                        <h3 class="draft-title-head">Kompilations-Manuskript</h3>
+                        <span id="draft-stats-badge" class="draft-stats-badge">0 Absätze</span>
                     </div>
 
                     <div style="margin-bottom: 1rem;">
