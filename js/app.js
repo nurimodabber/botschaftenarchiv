@@ -119,11 +119,11 @@ async function initApp() {
 function setupAppearance() {
     const html = document.documentElement;
 
-    // 1. Theme Setting (light / sepia / dark)
+    // 1. Theme Setting (light / sepia / dark / oled)
     const savedTheme = safeGetStorage('cosmos_theme', safeGetStorage('theme', 'light'));
     
     function applyTheme(theme) {
-        const validTheme = (theme === 'dark' || theme === 'sepia') ? theme : 'light';
+        const validTheme = (theme === 'dark' || theme === 'sepia' || theme === 'oled') ? theme : 'light';
         html.setAttribute('data-theme', validTheme);
         safeSetStorage('cosmos_theme', validTheme);
         safeSetStorage('theme', validTheme);
@@ -133,6 +133,20 @@ function setupAppearance() {
         document.querySelectorAll('#appearance-theme-tabs .theme-tab-btn').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.themeVal === validTheme);
         });
+
+        // Update Dock Pill Icon
+        const dockThemeIcon = document.getElementById('dock-theme-icon');
+        if (dockThemeIcon) {
+            if (validTheme === 'light') {
+                dockThemeIcon.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>`;
+            } else if (validTheme === 'sepia') {
+                dockThemeIcon.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/></svg>`;
+            } else if (validTheme === 'dark') {
+                dockThemeIcon.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+            } else if (validTheme === 'oled') {
+                dockThemeIcon.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 0 20z" fill="currentColor"/></svg>`;
+            }
+        }
     }
 
     // 2. Accent Color Setting
@@ -169,6 +183,13 @@ function setupAppearance() {
         if (wheelInput && wheelInput.value !== fullHex) wheelInput.value = fullHex;
         if (hexInput && hexInput.value.toLowerCase() !== fullHex.toLowerCase()) hexInput.value = fullHex.toUpperCase();
 
+        // Update Dock Pill Color Dot
+        const dockDot = document.getElementById('dock-accent-dot');
+        if (dockDot) {
+            dockDot.style.backgroundColor = fullHex;
+            dockDot.style.boxShadow = `0 0 6px ${fullHex}`;
+        }
+
         document.querySelectorAll('.accent-swatch').forEach(sw => {
             sw.classList.toggle('active', (sw.dataset.color || '').toLowerCase() === fullHex.toLowerCase());
         });
@@ -187,7 +208,33 @@ function setupAppearance() {
         });
     }
 
-    // 4. Reader Width Setting (normal / wide / full)
+    // 4. Reader Line Height (compact / normal / relaxed)
+    const savedLh = safeGetStorage('cosmos_reader_lh', 'normal');
+
+    function applyLineHeight(lh) {
+        const validLh = (lh === 'compact' || lh === 'relaxed') ? lh : 'normal';
+        html.setAttribute('data-reader-lh', validLh);
+        safeSetStorage('cosmos_reader_lh', validLh);
+
+        document.querySelectorAll('#appearance-line-height-group .appearance-opt-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.lhVal === validLh);
+        });
+    }
+
+    // 5. Reader Text Alignment (justify / left)
+    const savedAlign = safeGetStorage('cosmos_reader_align', 'justify');
+
+    function applyTextAlign(align) {
+        const validAlign = (align === 'left') ? 'left' : 'justify';
+        html.setAttribute('data-reader-align', validAlign);
+        safeSetStorage('cosmos_reader_align', validAlign);
+
+        document.querySelectorAll('#appearance-align-group .appearance-opt-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.alignVal === validAlign);
+        });
+    }
+
+    // 6. Reader Width Setting (normal / wide / full)
     const savedWidth = safeGetStorage('cosmos_reader_width', 'normal');
 
     function applyReaderWidth(width) {
@@ -200,7 +247,7 @@ function setupAppearance() {
         });
     }
 
-    // 5. Font Scale Setting (85% to 135%)
+    // 7. Font Scale Setting (85% to 135%)
     const savedScale = parseInt(safeGetStorage('cosmos_reader_font_scale', '100'), 10) || 100;
 
     function applyFontScale(scaleVal) {
@@ -215,12 +262,28 @@ function setupAppearance() {
         if (slider && parseInt(slider.value, 10) !== clamped) slider.value = clamped;
     }
 
+    // 8. Library View Mode (cards / list)
+    const savedLibView = safeGetStorage('cosmos_library_view', 'cards');
+
+    function applyLibraryView(viewMode) {
+        const validView = (viewMode === 'list') ? 'list' : 'cards';
+        html.setAttribute('data-library-view', validView);
+        safeSetStorage('cosmos_library_view', validView);
+
+        document.querySelectorAll('#appearance-library-view-group .appearance-opt-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.libView === validView);
+        });
+    }
+
     // Initialize all settings
     applyTheme(savedTheme);
     applyAccentColor(savedColor);
     applyReaderFont(savedFont);
+    applyLineHeight(savedLh);
+    applyTextAlign(savedAlign);
     applyReaderWidth(savedWidth);
     applyFontScale(savedScale);
+    applyLibraryView(savedLibView);
 
     // Wire up Popover Toggle & Events
     const toggleBtn = document.getElementById('appearance-btn');
@@ -232,17 +295,20 @@ function setupAppearance() {
             e.stopPropagation();
             const isHidden = popover.hidden;
             popover.hidden = !isHidden;
+            toggleBtn.classList.toggle('active', !popover.hidden);
         });
 
         document.addEventListener('click', (e) => {
             if (!popover.hidden && !popover.contains(e.target) && !toggleBtn.contains(e.target)) {
                 popover.hidden = true;
+                toggleBtn.classList.remove('active');
             }
         });
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && !popover.hidden) {
                 popover.hidden = true;
+                toggleBtn.classList.remove('active');
             }
         });
     }
@@ -283,6 +349,20 @@ function setupAppearance() {
         });
     });
 
+    // Line Height selection
+    document.querySelectorAll('#appearance-line-height-group .appearance-opt-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            applyLineHeight(btn.dataset.lhVal);
+        });
+    });
+
+    // Text Alignment selection
+    document.querySelectorAll('#appearance-align-group .appearance-opt-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            applyTextAlign(btn.dataset.alignVal);
+        });
+    });
+
     // Width selection
     document.querySelectorAll('#appearance-width-group .appearance-opt-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -314,14 +394,24 @@ function setupAppearance() {
         });
     }
 
+    // Library View Mode (cards / list)
+    document.querySelectorAll('#appearance-library-view-group .appearance-opt-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            applyLibraryView(btn.dataset.libView);
+        });
+    });
+
     // Reset Button
     if (resetBtn) {
         resetBtn.addEventListener('click', () => {
             applyTheme('light');
             applyAccentColor(defaultColor);
             applyReaderFont('serif');
+            applyLineHeight('normal');
+            applyTextAlign('justify');
             applyReaderWidth('normal');
             applyFontScale(100);
+            applyLibraryView('cards');
         });
     }
 }

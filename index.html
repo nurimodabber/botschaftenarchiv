@@ -60,16 +60,15 @@
             <div class="dock-divider"></div>
 
             <div class="dock-actions">
-                <!-- Vereintes Darstellungs-Menü (Thema, Farbauswahl, Typografie, Lesebreite) -->
+                <!-- Vereintes Darstellungs-Menü (Thema, Farbauswahl, Typografie, Lesebreite, Zeilenabstand, Layout) -->
                 <div class="appearance-wrapper">
-                    <button id="appearance-btn" class="dock-icon-btn" aria-label="Darstellung anpassen" title="Darstellung anpassen (Design, Farben, Leseschrift)">
-                        <svg class="appearance-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="4"></circle>
-                            <path d="M12 2v2"></path><path d="M12 20v2"></path>
-                            <path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path>
-                            <path d="M2 12h2"></path><path d="M20 12h2"></path>
-                            <path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path>
-                        </svg>
+                    <button id="appearance-btn" class="appearance-dock-pill" aria-label="Darstellung &amp; Design anpassen" title="Darstellung anpassen (Hell/Sepia/Dunkel, Akzentfarben, Typografie, Zeilenabstand, Layout)">
+                        <span class="appearance-pill-mode-icon" id="dock-theme-icon">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+                        </span>
+                        <span class="appearance-pill-dot" id="dock-accent-dot"></span>
+                        <span class="appearance-pill-label">Design</span>
+                        <svg class="appearance-pill-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
                     </button>
                     <div id="appearance-popover" class="appearance-popover" hidden>
                         <div class="appearance-popover-header">
@@ -77,21 +76,25 @@
                             <button id="appearance-reset-btn" class="appearance-reset-btn" title="Auf Standard zurücksetzen">Zurücksetzen</button>
                         </div>
 
-                        <!-- 1. Design-Modus (Hell, Sepia, Dunkel) -->
+                        <!-- 1. Design-Modus (Hell, Sepia, Dunkel, OLED) -->
                         <div class="appearance-section">
-                            <label class="appearance-section-label">Design-Modus</label>
-                            <div class="appearance-theme-tabs" id="appearance-theme-tabs">
-                                <button class="theme-tab-btn active" data-theme-val="light" title="Helles, klares Design">
-                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+                            <label class="appearance-section-label">Erscheinungsbild</label>
+                            <div class="appearance-theme-tabs four-col" id="appearance-theme-tabs">
+                                <button class="theme-tab-btn active" data-theme-val="light" title="Helles, klares Bibliotheksweiß">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
                                     <span>Hell</span>
                                 </button>
                                 <button class="theme-tab-btn" data-theme-val="sepia" title="Warmes Buchpapier (schont die Augen)">
-                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/></svg>
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/></svg>
                                     <span>Sepia</span>
                                 </button>
                                 <button class="theme-tab-btn" data-theme-val="dark" title="Augenschonendes dunkles Design">
-                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                                     <span>Dunkel</span>
+                                </button>
+                                <button class="theme-tab-btn" data-theme-val="oled" title="Reines OLED-Tiefschwarz für Nachtlesen">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 0 20z" fill="currentColor"/></svg>
+                                    <span>OLED</span>
                                 </button>
                             </div>
                         </div>
@@ -122,13 +125,32 @@
                         <div class="appearance-section">
                             <label class="appearance-section-label">Leseschriftart</label>
                             <div class="appearance-segment-group" id="appearance-font-group">
-                                <button class="appearance-opt-btn active" data-font-val="serif">Serif (Buchdruck)</button>
+                                <button class="appearance-opt-btn active" data-font-val="serif">Serif (Buch)</button>
                                 <button class="appearance-opt-btn" data-font-val="sans">Sans (Klar)</button>
                                 <button class="appearance-opt-btn" data-font-val="classic">Literarisch</button>
                             </div>
                         </div>
 
-                        <!-- 4. Textbreite im Reader -->
+                        <!-- 4. Zeilenabstand im Reader -->
+                        <div class="appearance-section">
+                            <label class="appearance-section-label">Zeilenabstand</label>
+                            <div class="appearance-segment-group" id="appearance-line-height-group">
+                                <button class="appearance-opt-btn" data-lh-val="compact">Kompakt</button>
+                                <button class="appearance-opt-btn active" data-lh-val="normal">Standard</button>
+                                <button class="appearance-opt-btn" data-lh-val="relaxed">Großzügig</button>
+                            </div>
+                        </div>
+
+                        <!-- 5. Textausrichtung im Reader -->
+                        <div class="appearance-section">
+                            <label class="appearance-section-label">Textausrichtung</label>
+                            <div class="appearance-segment-group two-col" id="appearance-align-group">
+                                <button class="appearance-opt-btn active" data-align-val="justify">Blocksatz</button>
+                                <button class="appearance-opt-btn" data-align-val="left">Linksbündig</button>
+                            </div>
+                        </div>
+
+                        <!-- 6. Textbreite im Reader -->
                         <div class="appearance-section">
                             <label class="appearance-section-label">Lesebreite</label>
                             <div class="appearance-segment-group" id="appearance-width-group">
@@ -138,7 +160,7 @@
                             </div>
                         </div>
 
-                        <!-- 5. Schriftgrößen-Skalierung -->
+                        <!-- 7. Schriftgrößen-Skalierung -->
                         <div class="appearance-section">
                             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 0.35rem;">
                                 <label class="appearance-section-label" style="margin:0;">Schriftgröße</label>
@@ -148,6 +170,15 @@
                                 <button id="appearance-size-dec" class="size-step-btn" title="Schrift verkleinern">A−</button>
                                 <input type="range" id="appearance-size-slider" min="85" max="135" step="5" value="100" class="unfold-slider">
                                 <button id="appearance-size-inc" class="size-step-btn" title="Schrift vergrößern">A+</button>
+                            </div>
+                        </div>
+
+                        <!-- 8. Bibliotheksansicht (Karten vs. Kompaktliste) -->
+                        <div class="appearance-section">
+                            <label class="appearance-section-label">Bibliotheks-Ansicht</label>
+                            <div class="appearance-segment-group two-col" id="appearance-library-view-group">
+                                <button class="appearance-opt-btn active" data-lib-view="cards">Karten-Raster</button>
+                                <button class="appearance-opt-btn" data-lib-view="list">Kompakt-Liste</button>
                             </div>
                         </div>
                     </div>

@@ -150,11 +150,49 @@
     --shadow-lightbox: 0 32px 80px -16px rgba(45, 33, 20, 0.35);
 }
 
+[data-theme="oled"] {
+    /* Reines OLED-Tiefschwarz (Maximaler Kontrast & minimale Ermüdung bei Nacht) */
+    --bg-canvas: #000000;
+    --bg-paper: #090909;
+    --bg-surface: #090909;
+    --bg-subtle: #121212;
+    --bg-muted: #1c1c1c;
+    --bg-glass: rgba(0, 0, 0, 0.9);
+    --bg-glass-dock: rgba(8, 8, 8, 0.94);
+    --bg-overlay: rgba(0, 0, 0, 0.88);
+
+    /* Text & Inks */
+    --text-ink: #F4F4F2;
+    --text-muted: #A6A49E;
+    --text-subtle: #706F69;
+    --text-invert: #000000;
+
+    /* Accents */
+    --accent-gold: #D8B26B;
+    --accent-gold-hover: #E8C88A;
+    --accent-gold-soft: rgba(216, 178, 107, 0.16);
+    --accent-gold-glow: rgba(216, 178, 107, 0.35);
+
+    /* Borders & Hairlines */
+    --border-hairline: rgba(255, 255, 255, 0.12);
+    --border-subtle: rgba(255, 255, 255, 0.06);
+    --border-hover: rgba(255, 255, 255, 0.28);
+    --border-focus: rgba(216, 178, 107, 0.6);
+
+    /* Shadows */
+    --shadow-plate: 0 2px 10px rgba(0, 0, 0, 0.8);
+    --shadow-hover: 0 20px 48px -10px rgba(0, 0, 0, 0.95);
+    --shadow-dock: 0 16px 40px -8px rgba(0, 0, 0, 0.9);
+    --shadow-lightbox: 0 32px 80px -16px rgba(0, 0, 0, 1);
+}
+
 /* ─── Reader Typografie & Format-Customizations ────────────────────────────── */
 :root {
     --font-reader: "New York", "Charter", "Georgia", "Iowan Old Style", "Palatino", serif;
     --reader-max-width: 780px;
     --reader-font-scale: 1;
+    --reader-line-height: 1.84;
+    --reader-text-align: justify;
 }
 
 html[data-reader-font="serif"] {
@@ -179,6 +217,81 @@ html[data-reader-width="wide"] {
 
 html[data-reader-width="full"] {
     --reader-max-width: 100%;
+}
+
+/* Zeilenabstand-Präferenzen */
+html[data-reader-lh="compact"] {
+    --reader-line-height: 1.55;
+}
+
+html[data-reader-lh="normal"] {
+    --reader-line-height: 1.84;
+}
+
+html[data-reader-lh="relaxed"] {
+    --reader-line-height: 2.15;
+}
+
+/* Textausrichtungs-Präferenzen */
+html[data-reader-align="justify"] {
+    --reader-text-align: justify;
+}
+
+html[data-reader-align="left"] {
+    --reader-text-align: left;
+}
+
+/* Bibliotheks-Ansichtsmodus (Karten vs. Kompaktliste) */
+html[data-library-view="list"] #library-results {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+html[data-library-view="list"] #library-results .doc-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.25rem;
+    gap: 1.25rem;
+    min-height: auto;
+}
+
+html[data-library-view="list"] #library-results .doc-card-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+html[data-library-view="list"] #library-results .doc-meta-editorial {
+    flex-shrink: 0;
+    min-width: 160px;
+    margin-bottom: 0;
+}
+
+html[data-library-view="list"] #library-results .doc-title {
+    margin: 0;
+    font-size: 0.98rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+html[data-library-view="list"] #library-results .doc-excerpt,
+html[data-library-view="list"] #library-results .doc-sub-title,
+html[data-library-view="list"] #library-results .doc-topics-cluster {
+    display: none;
+}
+
+html[data-library-view="list"] #library-results .doc-card-footer {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+    flex-shrink: 0;
 }
 
 /* ─── Global Reset & Body ────────────────────────────────────────────────── */
@@ -2602,19 +2715,71 @@ body {
     align-items: center;
 }
 
-.appearance-icon {
-    transition: transform var(--transition-normal);
+/* Prominente, vereinte Dock-Pill: Zeigt Theme-Icon, aktiven Farb-Dot & Label */
+.appearance-dock-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: var(--bg-paper);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-full);
+    padding: 0.35rem 0.75rem 0.35rem 0.65rem;
+    cursor: pointer;
+    box-shadow: var(--shadow-plate);
+    transition: all var(--transition-fast);
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-ink);
 }
 
-#appearance-btn:hover .appearance-icon {
-    transform: rotate(30deg);
+.appearance-dock-pill:hover {
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 0 2px var(--accent-gold-soft);
+    transform: translateY(-1px);
+}
+
+.appearance-dock-pill.active {
+    border-color: var(--accent-gold);
+    background: var(--bg-subtle);
+}
+
+.appearance-pill-mode-icon {
+    display: inline-flex;
+    align-items: center;
+    color: var(--text-muted);
+}
+
+.appearance-pill-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: var(--accent-gold);
+    box-shadow: 0 0 6px var(--accent-gold);
+    transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.appearance-pill-label {
+    letter-spacing: 0.01em;
+}
+
+.appearance-pill-chevron {
+    color: var(--text-subtle);
+    transition: transform var(--transition-fast);
+}
+
+.appearance-dock-pill.active .appearance-pill-chevron {
+    transform: rotate(180deg);
 }
 
 .appearance-popover {
     position: absolute;
     top: calc(100% + 10px);
     right: -10px;
-    width: 320px;
+    width: 330px;
+    max-height: 82vh;
+    overflow-y: auto;
     background: var(--bg-paper);
     border: 1px solid var(--border-hairline);
     border-radius: var(--radius-md);
@@ -2679,10 +2844,10 @@ body {
     color: var(--text-muted);
 }
 
-/* 1. Theme Tabs */
+/* 1. Theme Tabs (4 Themes: Hell, Sepia, Dunkel, OLED) */
 .appearance-theme-tabs {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     background: var(--bg-canvas);
     border: 1px solid var(--border-hairline);
     border-radius: var(--radius-full);
@@ -2801,7 +2966,7 @@ body {
     border-color: var(--accent-gold);
 }
 
-/* 3. Segmented Option Buttons (Font & Width) */
+/* 3. Segmented Option Buttons (Font, Width, Align, etc.) */
 .appearance-segment-group {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -2810,6 +2975,10 @@ body {
     border-radius: var(--radius-full);
     padding: 3px;
     gap: 3px;
+}
+
+.appearance-segment-group.two-col {
+    grid-template-columns: repeat(2, 1fr);
 }
 
 .appearance-opt-btn {

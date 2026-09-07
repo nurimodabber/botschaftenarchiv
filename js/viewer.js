@@ -180,11 +180,11 @@ function updateBookmarkBtnState(id) {
 
 function resolvePdfPath(doc) {
     if (!doc) return null;
-    if (doc.formatFiles && doc.formatFiles.pdf) {
-        return doc.formatFiles.pdf.replace(/^\.\.\//, '');
-    }
     if (doc.filePath && doc.filePath.toLowerCase().endsWith('.pdf')) {
         return doc.filePath.replace(/^\.\.\//, '');
+    }
+    if (doc.formatFiles && doc.formatFiles.pdf) {
+        return doc.formatFiles.pdf.replace(/^\.\.\//, '');
     }
     if (doc.id) {
         return `documents/formats/pdf/${doc.id}.pdf`;
@@ -280,14 +280,22 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
         const formats = [];
         const files = doc.formatFiles || {};
 
-        if (files.pdf || pdfPath) {
+        if (doc.filePath && doc.filePath.toLowerCase().endsWith('.pdf')) {
+            formats.push({ label: 'PDF', href: doc.filePath, title: 'Original-PDF herunterladen' });
+        } else if (files.pdf || pdfPath) {
             formats.push({ label: 'PDF', href: files.pdf || pdfPath, title: 'Original-PDF herunterladen' });
         }
-        if (files.epub) {
-            formats.push({ label: 'EPUB', href: files.epub, title: 'E-Book (EPUB) herunterladen' });
+
+        if (doc.filePath && doc.filePath.toLowerCase().endsWith('.epub')) {
+            formats.push({ label: 'EPUB', href: doc.filePath, title: 'Original-E-Book (EPUB) herunterladen' });
+        } else if (files.epub) {
+            formats.push({ label: 'EPUB', href: files.epub, title: 'Original-E-Book (EPUB) herunterladen' });
         }
-        if (files.docx || (doc.filePath && doc.filePath.endsWith('.docx'))) {
-            formats.push({ label: 'DOCX', href: files.docx || doc.filePath, title: 'Word-Dokument (DOCX) herunterladen' });
+
+        if (doc.filePath && doc.filePath.toLowerCase().endsWith('.docx')) {
+            formats.push({ label: 'DOCX', href: doc.filePath, title: 'Original-Word-Dokument (DOCX) herunterladen' });
+        } else if (files.docx) {
+            formats.push({ label: 'DOCX', href: files.docx, title: 'Original-Word-Dokument (DOCX) herunterladen' });
         }
 
         formats.forEach(f => {
