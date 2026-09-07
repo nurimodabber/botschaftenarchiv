@@ -393,13 +393,13 @@ body:not([data-active-view])::before {
 
 .cosmos-dock-container {
     position: sticky;
-    top: 1.25rem;
+    top: max(0.85rem, env(safe-area-inset-top, 0px));
     z-index: 1000;
     width: 100%;
     display: flex;
     justify-content: center;
     pointer-events: none;
-    padding: 0 1rem;
+    padding: 0 max(1rem, env(safe-area-inset-right, 0px)) 0 max(1rem, env(safe-area-inset-left, 0px));
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, visibility 0.35s;
     will-change: transform, opacity;
 }
@@ -2419,7 +2419,7 @@ body:has(#document-viewer.active) .cosmos-dock-container {
     }
 
     #app-content {
-        padding: 1.5rem 1rem 4rem;
+        padding: 1.25rem max(0.85rem, env(safe-area-inset-right, 0px)) max(4rem, env(safe-area-inset-bottom, 0px)) max(0.85rem, env(safe-area-inset-left, 0px));
     }
 
     .modal {
@@ -2428,12 +2428,15 @@ body:has(#document-viewer.active) .cosmos-dock-container {
 
     .modal-content {
         max-height: 100vh;
+        max-height: 100dvh;
         height: 100vh;
+        height: 100dvh;
         border-radius: 0;
+        padding-bottom: env(safe-area-inset-bottom, 0px);
     }
 
     .viewer-body {
-        padding: 1.5rem 1.25rem 3rem;
+        padding: 1.5rem max(1.1rem, env(safe-area-inset-right, 0px)) max(3.5rem, env(safe-area-inset-bottom, 0px)) max(1.1rem, env(safe-area-inset-left, 0px));
     }
 
     .t-layer-ages {
@@ -6001,3 +6004,68 @@ html[data-active-pillar="all"] {
     color: var(--text-subtle);
     opacity: 0.8;
 }
+
+/* ─── Mobile WebApp & PWA Ergonomics ─────────────────────────────────────── */
+
+html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+/* Eliminate 300ms mobile touch delay on interactive controls */
+button,
+.nav-btn,
+.dock-brand,
+.filter-chip,
+.command-btn,
+.format-pill-btn,
+.source-link-icon-btn,
+.pillar-card,
+.doc-card,
+.close-modal-btn,
+.dock-icon-btn {
+    touch-action: manipulation;
+}
+
+/* Smooth momentum scrolling for iOS containers */
+.viewer-body,
+.quick-chips-scroller,
+.advanced-filters-panel,
+.books-subnav,
+.tab-scroller {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Standalone PWA display mode (when opened from mobile Home Screen) */
+@media (display-mode: standalone) {
+    body {
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    /* Keep text in reading canvas selectable */
+    .viewer-reading-canvas,
+    .doc-card-title,
+    .doc-preview-snippet,
+    .quote-content,
+    input,
+    textarea {
+        user-select: text;
+        -webkit-user-select: text;
+    }
+
+    .cosmos-dock-container {
+        top: max(0.5rem, env(safe-area-inset-top, 0px));
+    }
+
+    /* Generous bottom padding for home indicator bar */
+    .app-footer {
+        padding-bottom: max(1.5rem, env(safe-area-inset-bottom, 0px));
+    }
+}
+
