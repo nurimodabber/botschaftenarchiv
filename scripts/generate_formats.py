@@ -4,6 +4,9 @@ import json
 import html
 import zipfile
 import traceback
+import argparse
+import re
+import shutil
 from concurrent.futures import ProcessPoolExecutor, as_completed
 
 import docx
@@ -11,8 +14,16 @@ from docx.shared import Inches, Pt, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 
 from reportlab.lib.pagesizes import A4
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, HRFlowable
+from reportlab.platypus import (
+    BaseDocTemplate,
+    PageTemplate,
+    Frame,
+    Paragraph,
+    Spacer,
+    KeepTogether
+)
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.enums import TA_JUSTIFY, TA_CENTER, TA_LEFT, TA_RIGHT
 from reportlab.lib import colors
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
@@ -35,33 +46,40 @@ os.makedirs(EPUB_DIR, exist_ok=True)
 font_path = '/System/Library/Fonts/Palatino.ttc'
 if not os.path.exists(font_path):
     font_path = '/Library/Fonts/Palatino.ttc'
+
 pdfmetrics.registerFont(TTFont('Palatino-Roman', font_path, subfontIndex=0))
 pdfmetrics.registerFont(TTFont('Palatino-Italic', font_path, subfontIndex=1))
 pdfmetrics.registerFont(TTFont('Palatino-Bold', font_path, subfontIndex=2))
 pdfmetrics.registerFont(TTFont('Palatino-BoldItalic', font_path, subfontIndex=3))
-pdfmetrics.registerFontFamily('Palatino', normal='Palatino-Roman', bold='Palatino-Bold', italic='Palatino-Italic', boldItalic='Palatino-BoldItalic')
+pdfmetrics.registerFontFamily(
+    'Palatino',
+    normal='Palatino-Roman',
+    bold='Palatino-Bold',
+    italic='Palatino-Italic',
+    boldItalic='Palatino-BoldItalic'
+)
 
 class OfficialHausCanvas(canvas.Canvas):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.pages = []
-
+    """
+    Canvas for official House of Justice documents.
+    Draws centered page numbers at the bottom of all pages (1, 2, 3...)
+    matching the official publication standard.
+    """
     def showPage(self):
-        self.pages.append(dict(self.__dict__))
-        self._startPage()
-
-    def save(self):
-        for page_state in self.pages:
-            self.__dict__.update(page_state)
-            if self._pageNumber > 1:
-                self.saveState()
-                self.setFont('Palatino-Roman', 10)
-                self.drawCentredString(595.27 / 2.0, 42.0, str(self._pageNumber))
-                self.restoreState()
-            super().showPage()
-        super().save()
+        self.saveState()
+        self.setFont('Palatino-Roman', 11.04)
+        # Position: 45.88 pt from bottom edge, centered on page width 595.28 pt
+        self.drawCentredString(595.28 / 2.0, 45.88, str(self._pageNumber))
+        self.restoreState()
+        super().showPage()
 
 class OfficialHausParagraph(Paragraph):
+    """
+    Paragraph with a small paragraph number drawn at the left margin (x=0 relative to frame)
+    aligned with the baseline of the first line of text.
+    The first line of text is indented by 36 pt (firstLineIndent=36.0),
+    while subsequent lines return to the left margin.
+    """
     def __init__(self, text, style, p_num=None, bulletText=None, frags=None, **kwargs):
         super().__init__(text, style, bulletText=bulletText, frags=frags, **kwargs)
         self.p_num = str(p_num) if p_num else None
@@ -70,8 +88,9 @@ class OfficialHausParagraph(Paragraph):
         super().draw()
         if self.p_num:
             self.canv.saveState()
-            self.canv.setFont('Palatino-Roman', 7.5)
-            baseline_y = self.height - self.style.fontSize + 0.5
+            self.canv.setFont('Palatino-Roman', 6.48)
+            # Baseline alignment with line 0
+            baseline_y = self.height - self.style.fontSize
             self.canv.drawString(0, baseline_y, self.p_num)
             self.canv.restoreState()
 
@@ -89,29 +108,148 @@ def clean_xml(text):
     clean = "".join(ch for ch in text if ch in ('\n', '\r', '\t') or ord(ch) >= 32)
     return html.escape(clean)
 
+def normalize_paragraphs(raw_text):
+    text = raw_text.replace('\r\n', '\n').replace('\r', '\n')
+    lines = text.split('\n')
+    new_lines = []
+    for line in lines:
+        stripped = line.strip()
+        # If line starts with a paragraph number like '2 ', '3 ', '10 '
+        if re.match(r'^\d+\s+[A-ZÄÖÜa-zäöü]', stripped) and not stripped.startswith(('19', '20')):
+            new_lines.append('')
+            new_lines.append(stripped)
+        else:
+            new_lines.append(stripped)
+    norm = '\n'.join(new_lines)
+    paras = [p.strip() for p in re.split(r'\n\s*\n+', norm) if p.strip()]
+    return paras
+
 def generate_pdf(doc, paragraphs, output_path):
-    frame = Frame(72, 54, 595.27 - 144, 841.89 - 108, id='normal', leftPadding=0, rightPadding=0, topPadding=0, bottomPadding=0)
+    # A4 Dimensions: 595.28 x 841.89 pt
+    # Left margin: 70.944 pt (~25 mm)
+    # Right margin: 70.944 pt (~25 mm) -> Width = 453.392 pt
+    # Top margin: 74.75 pt (~26.4 mm)
+    # Bottom margin: 65.0 pt (~23 mm, above footer at 45.88 pt) -> Height = 702.14 pt
+    frame = Frame(
+        70.944, 65.0, 453.392, 702.14,
+        id='MainFrame',
+        leftPadding=0, rightPadding=0, topPadding=0, bottomPadding=0
+    )
     pdf_doc = BaseDocTemplate(output_path, pagesize=A4)
     pdf_doc.addPageTemplates([PageTemplate(id='Main', frames=frame)])
 
-    header_style = ParagraphStyle('HHead', fontName='Palatino-Roman', fontSize=11, leading=14, alignment=1, spaceAfter=38)
-    date_style = ParagraphStyle('HDate', fontName='Palatino-Roman', fontSize=11, leading=14, alignment=1, spaceAfter=38)
-    recipient_style = ParagraphStyle('HRecip', fontName='Palatino-Roman', fontSize=11, leading=14, alignment=0, spaceAfter=18)
-    salutation_style = ParagraphStyle('HSalut', fontName='Palatino-Roman', fontSize=11, leading=14, alignment=0, spaceAfter=14)
-    body_numbered_style = ParagraphStyle('HBodyNum', fontName='Palatino-Roman', fontSize=11, leading=14.2, alignment=4, leftIndent=0, firstLineIndent=36, spaceAfter=8)
-    body_plain_style = ParagraphStyle('HBodyPlain', fontName='Palatino-Roman', fontSize=11, leading=14.2, alignment=4, leftIndent=0, firstLineIndent=0, spaceAfter=8)
-    quote_style = ParagraphStyle('HQuote', fontName='Palatino-Roman', fontSize=10.5, leading=13.8, alignment=4, leftIndent=36, rightIndent=18, spaceAfter=8)
-    sign_style = ParagraphStyle('HSign', fontName='Palatino-Roman', fontSize=11, leading=14, alignment=1, spaceBefore=38)
+    header_style = ParagraphStyle(
+        'HHead',
+        fontName='Palatino-Roman',
+        fontSize=12.0,
+        leading=14.76,
+        alignment=TA_CENTER,
+        spaceAfter=46.0
+    )
+
+    date_style = ParagraphStyle(
+        'HDate',
+        fontName='Palatino-Roman',
+        fontSize=11.04,
+        leading=14.76,
+        alignment=TA_CENTER,
+        spaceAfter=26.0
+    )
+
+    recipient_style = ParagraphStyle(
+        'HRecip',
+        fontName='Palatino-Roman',
+        fontSize=11.04,
+        leading=14.76,
+        alignment=TA_LEFT,
+        spaceAfter=24.0
+    )
+
+    salutation_style = ParagraphStyle(
+        'HSalut',
+        fontName='Palatino-Roman',
+        fontSize=11.04,
+        leading=14.76,
+        alignment=TA_LEFT,
+        spaceAfter=8.0
+    )
+
+    body_numbered_style = ParagraphStyle(
+        'HBodyNum',
+        fontName='Palatino-Roman',
+        fontSize=11.04,
+        leading=14.76,
+        alignment=TA_JUSTIFY,
+        leftIndent=0,
+        firstLineIndent=36.0,
+        spaceAfter=8.0
+    )
+
+    body_plain_style = ParagraphStyle(
+        'HBodyPlain',
+        fontName='Palatino-Roman',
+        fontSize=11.04,
+        leading=14.76,
+        alignment=TA_JUSTIFY,
+        leftIndent=0,
+        firstLineIndent=36.0,
+        spaceAfter=8.0
+    )
+
+    subheading_style = ParagraphStyle(
+        'HSubhead',
+        fontName='Palatino-Bold',
+        fontSize=11.04,
+        leading=14.76,
+        alignment=TA_LEFT,
+        leftIndent=0,
+        spaceBefore=12.0,
+        spaceAfter=6.0
+    )
+
+    asterisk_style = ParagraphStyle(
+        'HAst',
+        fontName='Palatino-Roman',
+        fontSize=11.04,
+        leading=14.76,
+        alignment=TA_CENTER,
+        spaceBefore=6.0,
+        spaceAfter=6.0
+    )
+
+    sign_style = ParagraphStyle(
+        'HSign',
+        fontName='Palatino-Roman',
+        fontSize=11.04,
+        leading=14.76,
+        alignment=TA_LEFT,
+        leftIndent=180.0,
+        spaceBefore=14.0,
+        spaceAfter=8.0
+    )
+
+    closing_note_style = ParagraphStyle(
+        'HClosing',
+        fontName='Palatino-Roman',
+        fontSize=10.0,
+        leading=13.5,
+        alignment=TA_LEFT,
+        leftIndent=180.0,
+        spaceBefore=10.0,
+        spaceAfter=4.0
+    )
 
     story = []
     in_header = True
 
     first_p = paragraphs[0] if paragraphs else ""
-    has_explicit_header = any(h in first_p for h in ['UNIVERSALE HAUS', 'UNIVERSAL HOUSE OF JUSTICE', 'INTERNATIONAL TEACHING CENTRE', 'LEHRZENTRUM'])
+    first_upper = first_p.upper()
+    has_explicit_header = any(h in first_upper for h in ['UNIVERSALE HAUS', 'UNIVERSAL HOUSE OF JUSTICE', 'INTERNATIONAL TEACHING CENTRE', 'LEHRZENTRUM'])
+
+    lang = doc.get('language') or 'deutsch'
+    is_itc = 'itc' in (doc.get('source') or '').lower()
 
     if not has_explicit_header:
-        lang = doc.get('language') or 'deutsch'
-        is_itc = 'itc' in (doc.get('source') or '').lower()
         if is_itc:
             head_txt = 'DAS INTERNATIONALE LEHRZENTRUM' if lang == 'deutsch' else 'THE INTERNATIONAL TEACHING CENTRE'
         else:
@@ -119,57 +257,68 @@ def generate_pdf(doc, paragraphs, output_path):
         story.append(Paragraph(head_txt, header_style))
 
         date_val = doc.get('date') or ''
-        if date_val:
+        # If date is not in first paragraph, add synthetic date
+        if date_val and not any(date_val in p for p in paragraphs[:2]):
             story.append(Paragraph(clean_xml(date_val), date_style))
 
         recip = doc.get('recipientLabel') or doc.get('recipient')
-        if recip:
+        if recip and not any(recip in p for p in paragraphs[:3]):
             story.append(Paragraph(clean_xml(recip), recipient_style))
 
-    import re
+    para_counter = 0
+
     for idx, p_raw in enumerate(paragraphs):
         p_clean = p_raw.strip()
         if not p_clean:
             continue
         p_escaped = clean_xml(p_clean)
 
-        if p_clean in ['DAS UNIVERSALE HAUS DER GERECHTIGKEIT', 'THE UNIVERSAL HOUSE OF JUSTICE', 'DAS INTERNATIONALE LEHRZENTRUM', 'THE INTERNATIONAL TEACHING CENTRE']:
+        p_upper = p_clean.upper()
+        if any(p_upper == h for h in ['DAS UNIVERSALE HAUS DER GERECHTIGKEIT', 'THE UNIVERSAL HOUSE OF JUSTICE', 'DAS INTERNATIONALE LEHRZENTRUM', 'THE INTERNATIONAL TEACHING CENTRE']):
             story.append(Paragraph(p_escaped, header_style))
-        elif in_header and (any(p_clean.startswith(kw) for kw in ['Riḍván', 'Naw-Rúz', '1', '2', '3', 'Jan', 'Feb', 'Mär', 'Mar', 'Apr', 'Mai', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Oct', 'Nov', 'Dez', 'Dec']) and len(p_clean) < 40):
+        elif in_header and (any(p_clean.startswith(kw) for kw in ['Riḍván', 'Naw-Rúz', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'Jan', 'Feb', 'Mär', 'Mar', 'Apr', 'Mai', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Oct', 'Nov', 'Dez', 'Dec']) and len(p_clean) < 45):
             story.append(Paragraph(p_escaped, date_style))
-        elif in_header and (p_clean.startswith('An ') or p_clean.startswith('To ') or p_clean.startswith('Für ') or p_clean.startswith('Gegenüber ')) and len(p_clean) < 120:
-            story.append(Paragraph(p_escaped, recipient_style))
-        elif in_header and any(p_clean.endswith(s) for s in ['Freunde,', 'Friends,', 'Mitglieder,', 'Members,', 'Räte,', 'Councils,']):
-            story.append(Paragraph(p_escaped, salutation_style))
+        elif in_header and (p_clean.startswith(('An ', 'To ', 'Für ', 'Gegenüber ', 'An die ', 'To the ', 'To all ', 'An alle ')) and len(p_clean) < 140):
+            story.append(Paragraph(p_escaped.replace('\n', '<br/>'), recipient_style))
+        elif in_header and any(p_clean.endswith(s) for s in ['Freunde,', 'Friends,', 'Mitglieder,', 'Members,', 'Räte,', 'Councils,', 'Gläubigen,', 'Believers,', 'friend,', 'Freund,']):
+            story.append(Paragraph(p_escaped.replace('\n', '<br/>'), salutation_style))
             in_header = False
-        elif p_clean.startswith('[gez.:') or p_clean.startswith('[signed:'):
-            story.append(Paragraph(p_escaped, sign_style))
+        elif p_clean in ['*', '* * *', '***']:
+            story.append(Paragraph('*', asterisk_style))
+        elif p_clean.startswith(('[gez.:', '[signed:', '[gez.', '[signed')) or any(sig in p_clean for sig in ['Das Universale Haus der Gerechtigkeit]', 'The Universal House of Justice]']):
+            story.append(Paragraph(p_escaped.replace('\n', '<br/>'), sign_style))
             in_header = False
+        elif any(sec in p_clean for sec in ['Department of the Secretariat', 'Die Sekretariatsabteilung', 'Mit herzlichen Grüßen', 'With loving Bahá’í greetings']):
+            story.append(Paragraph(p_escaped.replace('\n', '<br/>'), closing_note_style))
+            in_header = False
+        elif len(p_clean) < 70 and not p_clean.endswith(('.', ',', ':', ';', '!', '?')) and not re.match(r'^\d', p_clean) and not in_header:
+            # Subheading
+            story.append(Paragraph(p_escaped, subheading_style))
         else:
             in_header = False
+            m = re.match(r'^(\d+(?:\.\d+)?)(?:[\.\t]|\s{2,}|\s+)(.*)$', p_clean, re.DOTALL)
+            is_valid_p_num = False
             p_num = None
             body_text = p_escaped
 
-            m_tab = re.match(r'^(\d+)\t(.*)$', p_clean, re.DOTALL)
-            m_dot = re.match(r'^(\d+)\.\s+(.*)$', p_clean, re.DOTALL)
-            m_space = re.match(r'^(\d+)\s{2,}(.*)$', p_clean, re.DOTALL)
+            if m:
+                num_str = m.group(1)
+                try:
+                    val = float(num_str)
+                    if val < 500:
+                        is_valid_p_num = True
+                        p_num = num_str
+                        body_text = clean_xml(m.group(2).strip())
+                        para_counter = int(val)
+                except ValueError:
+                    pass
 
-            if m_tab:
-                p_num = m_tab.group(1)
-                body_text = clean_xml(m_tab.group(2))
-            elif m_dot and len(m_dot.group(1)) <= 3 and idx > 2:
-                p_num = m_dot.group(1)
-                body_text = clean_xml(m_dot.group(2))
-            elif m_space and len(m_space.group(1)) <= 3 and idx > 2:
-                p_num = m_space.group(1)
-                body_text = clean_xml(m_space.group(2))
+            if not is_valid_p_num:
+                para_counter += 1
+                p_num = str(para_counter)
+                body_text = p_escaped
 
-            if p_num:
-                story.append(OfficialHausParagraph(body_text, body_numbered_style, p_num=p_num))
-            elif p_clean.startswith('„') or p_clean.startswith('“') or p_clean.startswith('"'):
-                story.append(Paragraph(body_text, quote_style))
-            else:
-                story.append(Paragraph(body_text, body_plain_style))
+            story.append(OfficialHausParagraph(body_text, body_numbered_style, p_num=p_num))
 
     pdf_doc.build(story, canvasmaker=OfficialHausCanvas)
 
@@ -183,7 +332,7 @@ def generate_docx(doc, paragraphs, output_path):
 
     h = d.add_heading(doc.get('title', ''), level=1)
     if h.runs:
-        h.runs[0].font.name = 'Georgia'
+        h.runs[0].font.name = 'Palatino'
         h.runs[0].font.size = Pt(18)
         h.runs[0].font.color.rgb = RGBColor(0x0f, 0x17, 0x2a)
 
@@ -193,7 +342,7 @@ def generate_docx(doc, paragraphs, output_path):
     recipient_str = doc.get('recipientLabel') or doc.get('recipient') or ''
     meta_parts = [p for p in [date_str, doc.get('source', ''), recipient_str] if p]
     run_meta = meta_p.add_run(' • '.join(meta_parts))
-    run_meta.font.name = 'Georgia'
+    run_meta.font.name = 'Palatino'
     run_meta.font.italic = True
     run_meta.font.size = Pt(10)
     run_meta.font.color.rgb = RGBColor(0x64, 0x74, 0x8b)
@@ -252,7 +401,7 @@ def generate_epub(doc, paragraphs, output_path):
 
     nav_xhtml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="{lang}">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{lang}">
 <head><title>{title}</title></head>
 <body>
   <nav epub:type="toc" id="toc">
@@ -362,7 +511,8 @@ p.first-p {
         zf.writestr('OEBPS/style.css', css, compress_type=zipfile.ZIP_DEFLATED)
         zf.writestr('OEBPS/content.xhtml', content_xhtml, compress_type=zipfile.ZIP_DEFLATED)
 
-def process_single_doc(doc):
+def process_single_doc(args_tuple):
+    doc, force_pdf = args_tuple
     doc_id = doc['id']
     txt_path = os.path.join(TEXTS_DIR, f"{doc_id}.txt")
     if not os.path.isfile(txt_path):
@@ -372,9 +522,7 @@ def process_single_doc(doc):
         with open(txt_path, 'r', encoding='utf-8', errors='ignore') as f:
             raw_text = f.read().strip()
 
-        paragraphs = [p.strip() for p in raw_text.split('\n\n') if p.strip()]
-        if not paragraphs:
-            paragraphs = [p.strip() for p in raw_text.split('\n') if p.strip()]
+        paragraphs = normalize_paragraphs(raw_text)
         if not paragraphs:
             paragraphs = [doc.get('title', 'Dokument ohne Textinhalt.')]
 
@@ -386,13 +534,21 @@ def process_single_doc(doc):
         available_fmts.add('txt')
 
         # 1. PDF
+        target_pdf = os.path.join(PDF_DIR, f"{doc_id}.pdf")
         pdf_rel = format_files.get('pdf')
-        needs_pdf = not pdf_rel or not os.path.isfile(os.path.join(BASE_DIR, pdf_rel))
-        if needs_pdf:
-            target_pdf = os.path.join(PDF_DIR, f"{doc_id}.pdf")
-            if not os.path.isfile(target_pdf) or os.path.getsize(target_pdf) == 0:
-                generate_pdf(doc, paragraphs, target_pdf)
+        needs_pdf = force_pdf or not pdf_rel or not os.path.isfile(os.path.join(BASE_DIR, pdf_rel))
+
+        if needs_pdf or not os.path.isfile(target_pdf) or os.path.getsize(target_pdf) == 0:
+            generate_pdf(doc, paragraphs, target_pdf)
+
+            # If the doc had an existing legacy path (e.g. in documents/Buecher/...), overwrite it too
+            if pdf_rel and pdf_rel != f"documents/formats/pdf/{doc_id}.pdf":
+                legacy_full = os.path.join(BASE_DIR, pdf_rel)
+                if os.path.isfile(legacy_full):
+                    shutil.copy2(target_pdf, legacy_full)
+
             format_files['pdf'] = f"documents/formats/pdf/{doc_id}.pdf"
+
         available_fmts.add('pdf')
 
         # 2. DOCX
@@ -421,49 +577,74 @@ def process_single_doc(doc):
             if f not in ordered_fmts:
                 ordered_fmts.append(f)
 
-        return doc_id, True, (format_files, ordered_fmts)
+        # Update file size based on primary format
+        pdf_full_path = os.path.join(BASE_DIR, format_files.get('pdf', ''))
+        file_size = os.path.getsize(pdf_full_path) if os.path.isfile(pdf_full_path) else doc.get('fileSize', 0)
+
+        return doc_id, True, (format_files, ordered_fmts, file_size)
     except Exception as e:
         return doc_id, False, f"{str(e)}\n{traceback.format_exc()}"
 
 def main():
+    parser = argparse.ArgumentParser(description="Generate official PDF/DOCX/EPUB formats.")
+    parser.add_argument('--house-only', action='store_true', help="Only process messages of the House of Justice (tiers house and institutions)")
+    parser.add_argument('--force', action='store_true', help="Force regeneration of all PDFs")
+    parser.add_argument('--doc-id', type=str, help="Process a single document by ID")
+    parser.add_argument('--workers', type=int, default=0, help="Number of worker processes")
+    args = parser.parse_args()
+
     print("Starting format generation...")
     with open(DATA_PATH, 'r', encoding='utf-8') as f:
         docs = json.load(f)
 
-    print(f"Loaded {len(docs)} documents.")
+    if args.doc_id:
+        target_docs = [d for d in docs if d['id'] == args.doc_id]
+        if not target_docs:
+            print(f"Document ID {args.doc_id} not found.")
+            sys.exit(1)
+    elif args.house_only:
+        target_docs = [d for d in docs if d.get('tier') in ('house', 'institutions')]
+    else:
+        target_docs = docs
+
+    print(f"Loaded {len(docs)} documents. Target documents to process: {len(target_docs)}.")
 
     success_count = 0
     error_count = 0
     doc_updates = {}
 
-    workers = min(os.cpu_count() or 4, 8)
-    print(f"Using {workers} worker processes.")
+    workers = args.workers or min(os.cpu_count() or 4, 8)
+    print(f"Using {workers} worker processes (force_pdf={args.force}).")
+
+    work_items = [(doc, args.force) for doc in target_docs]
 
     with ProcessPoolExecutor(max_workers=workers) as executor:
-        futures = {executor.submit(process_single_doc, doc): doc['id'] for doc in docs}
+        futures = {executor.submit(process_single_doc, item): item[0]['id'] for item in work_items}
         done = 0
         total = len(futures)
         for future in as_completed(futures):
             doc_id, ok, res = future.result()
             done += 1
             if ok:
-                format_files, ordered_fmts = res
-                doc_updates[doc_id] = (format_files, ordered_fmts)
+                format_files, ordered_fmts, file_size = res
+                doc_updates[doc_id] = (format_files, ordered_fmts, file_size)
                 success_count += 1
             else:
                 print(f"Error on {doc_id}: {res}")
                 error_count += 1
 
-            if done % 200 == 0 or done == total:
+            if done % 100 == 0 or done == total:
                 print(f"Progress: {done}/{total} ({done*100/total:.1f}%) | Success: {success_count}, Errors: {error_count}")
 
     print("Updating index.json with new format metadata...")
     for doc in docs:
         doc_id = doc['id']
         if doc_id in doc_updates:
-            ff, af = doc_updates[doc_id]
+            ff, af, sz = doc_updates[doc_id]
             doc['formatFiles'] = ff
             doc['availableFormats'] = af
+            if sz > 0:
+                doc['fileSize'] = sz
 
     with open(DATA_PATH, 'w', encoding='utf-8') as f:
         json.dump(docs, f, ensure_ascii=False, indent=2)
