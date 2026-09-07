@@ -8,7 +8,7 @@ Das aktive Production-Deployment wird dabei geschuetzt und niemals geloescht.
 
 Verwendung:
   export VERCEL_TOKEN="dein_vercel_token"
-  python3 cleanup_vercel_deployments.py [--dry-run] [--keep 3] [--team nuri14] [--project botschaftenarchiv]
+  python3 cleanup_vercel_deployments.py [--dry-run] [--keep 3] [--team nuri14] [--project bibliothek]
 """
 
 import os
@@ -56,18 +56,34 @@ def resolve_team_id(token, team_slug):
     return None
 
 
-def get_active_production_deployment(token, project_name, team_id=None):
+def resolve_project(token, project_name, team_id=None):
     team_param = f"?teamId={team_id}" if team_id else ""
-    url = f"https://api.vercel.com/v9/projects/{project_name}{team_param}"
+    url = f"https://api.vercel.com/v9/projects{team_param}"
     data = api_request(url, token)
-    prod = data.get("targets", {}).get("production", {})
-    return prod.get("id")
+    projects = data.get("projects", [])
+    
+    # 1. Exakter Namensabgleich
+    for p in projects:
+        if p.get("name") == project_name or p.get("id") == project_name:
+            return p
+            
+    # 2. Falls 'botschaftenarchiv' gesucht, aber 'bibliothek' heisst (oder umgekehrt)
+    for p in projects:
+        pname = p.get("name", "").lower()
+        if "archiv" in pname or "bot" in pname or "biblio" in pname:
+            return p
+            
+    # 3. Falls nur 1 Projekt existiert, dieses verwenden
+    if len(projects) == 1:
+        return projects[0]
+        
+    return None
 
 
-def fetch_all_deployments(token, project_name, team_id=None):
+def fetch_all_deployments(token, project_id, team_id=None):
     deployments = []
     base_url = "https://api.vercel.com/v6/deployments"
-    params = [f"app={project_name}", "limit=100"]
+    params = [f"projectId={project_id}", "limit=100"]
     if team_id:
         params.append(f"teamId={team_id}")
 
@@ -107,8 +123,8 @@ def main():
     )
     parser.add_argument(
         "--project",
-        default="botschaftenarchiv",
-        help="Projektname in Vercel (Standard: botschaftenarchiv)"
+        default="bibliothek",
+        help="Projektname in Vercel (Standard: bibliothek)"
     )
     parser.add_argument(
         "--team",
@@ -150,8 +166,6 @@ def main():
         print(f"   https://vercel.com/{args.team}/{args.project}/deployments")
         sys.exit(1)
 
-    print(f"Projekt: {args.project}")
-    print(f"Team / Account: {args.team}")
     print("Pruefe Authentifizierung und Team-Zuordnung...")
 
     team_id = None
@@ -159,23 +173,28 @@ def main():
         try:
             team_id = resolve_team_id(token, args.team)
             if team_id:
-                print(f"Team ID identifiziert: {team_id}")
+                print(f"Team ID identifiziert: {team_id} ({args.team})")
             else:
                 print(f"Hinweis: Team '{args.team}' nicht in der Team-Liste gefunden. Nutze persoenlichen Account.")
         except Exception as e:
             print(f"Warnung bei Team-Aufloesung: {e}")
 
-    # Aktives Production Deployment abrufen
-    try:
-        active_prod_id = get_active_production_deployment(token, args.project, team_id)
-        print(f"Aktives Production-Deployment (geschuetzt): {active_prod_id}")
-    except Exception as e:
-        print(f"Warnung: Konnte aktives Production-Deployment nicht direkt ermitteln: {e}")
-        active_prod_id = None
+    # Projekt ermitteln
+    project_data = resolve_project(token, args.project, team_id)
+    if not project_data:
+        print(f"Fehler: Projekt '{args.project}' konnte nicht gefunden werden.")
+        sys.exit(1)
+
+    project_name = project_data.get("name")
+    project_id = project_data.get("id")
+    active_prod_id = project_data.get("targets", {}).get("production", {}).get("id")
+
+    print(f"Projekt gefunden: {project_name} ({project_id})")
+    print(f"Aktives Production-Deployment (geschuetzt): {active_prod_id}")
 
     # Alle Deployments auflisten
-    print("Rufe Deployments ab...")
-    deployments = fetch_all_deployments(token, args.project, team_id)
+    print("Rufe alle Deployments fuer das Projekt ab...")
+    deployments = fetch_all_deployments(token, project_id, team_id)
     total_count = len(deployments)
     print(f"Insgesamt {total_count} Deployments gefunden.")
 
@@ -201,7 +220,7 @@ def main():
             to_keep.append(dep)
             continue
 
-        if retained_counter < keep_count:
+        if retained_counter < (keep_count - 1):
             to_keep.append(dep)
             retained_counter += 1
         else:
@@ -212,7 +231,7 @@ def main():
     print(f"  Zu behalten: {len(to_keep)} Deployments")
     for dep in to_keep:
         dt = datetime.fromtimestamp(dep.get("created", 0) / 1000).strftime("%Y-%m-%d %H:%M:%S")
-        is_prod = " [AKTIVE PRODUKTION]" if dep.get("uid") == active_prod_id else ""
+        is_prod = " [AKTIVE PRODUKTION - GESCHUETZT]" if dep.get("uid") == active_prod_id else ""
         print(f"    - {dep.get('uid')} | {dt} | {dep.get('url')} | {dep.get('state')}{is_prod}")
 
     print(f"  Zu loeschen: {len(to_delete)} Deployments")
@@ -233,15 +252,15 @@ def main():
     deleted_count = 0
     failed_count = 0
 
-    for dep in to_delete:
+    for idx, dep in enumerate(to_delete, 1):
         dep_id = dep.get("uid")
         try:
             delete_deployment(token, dep_id, team_id)
             deleted_count += 1
-            print(f"  Geloescht: {dep_id} ({dep.get('url')})")
+            print(f"  [{idx}/{len(to_delete)}] Geloescht: {dep_id} ({dep.get('url')})")
         except Exception as e:
             failed_count += 1
-            print(f"  Fehler beim Loeschen von {dep_id}: {e}")
+            print(f"  [{idx}/{len(to_delete)}] Fehler beim Loeschen von {dep_id}: {e}")
 
     print()
     print("Bereinigung abgeschlossen:")
