@@ -400,21 +400,24 @@ body {
 
 /* Dock Brand Monogram */
 .dock-brand {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    padding: 0.35rem 0.65rem 0.35rem 0.5rem;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
     border-radius: var(--radius-full);
     background: transparent;
     border: none;
     cursor: pointer;
     color: var(--text-ink);
     text-decoration: none;
-    transition: opacity var(--transition-fast);
+    transition: opacity var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
 }
 
 .dock-brand:hover {
-    opacity: 0.85;
+    opacity: 0.95;
+    background: var(--bg-hover);
 }
 
 .dock-star {
@@ -3052,62 +3055,42 @@ body {
     align-items: center;
 }
 
-/* Prominente, vereinte Dock-Pill: Zeigt Theme-Icon, aktiven Farb-Dot & Label */
+/* Einstellungs-Icon-Button im Dock */
+.appearance-dock-btn,
 .appearance-dock-pill {
+    width: 34px;
+    height: 34px;
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
-    background: var(--bg-paper);
-    border: 1px solid var(--border-hairline);
+    justify-content: center;
     border-radius: var(--radius-full);
-    padding: 0.35rem 0.75rem 0.35rem 0.65rem;
+    background: transparent;
+    border: 1px solid transparent;
     cursor: pointer;
-    box-shadow: var(--shadow-plate);
-    transition: all var(--transition-fast);
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--text-ink);
-}
-
-.appearance-dock-pill:hover {
-    border-color: var(--accent-gold);
-    box-shadow: 0 0 0 2px var(--accent-gold-soft);
-    transform: translateY(-1px);
-}
-
-.appearance-dock-pill.active {
-    border-color: var(--accent-gold);
-    background: var(--bg-subtle);
-}
-
-.appearance-pill-mode-icon {
-    display: inline-flex;
-    align-items: center;
     color: var(--text-muted);
+    transition: all var(--transition-fast);
+    padding: 0;
 }
 
-.appearance-pill-dot {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background-color: var(--accent-gold);
-    box-shadow: 0 0 6px var(--accent-gold);
-    transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
-    flex-shrink: 0;
+.appearance-dock-btn:hover,
+.appearance-dock-pill:hover {
+    color: var(--text-ink);
+    background: var(--bg-hover);
+    border-color: var(--border-hairline);
+    transform: rotate(25deg);
 }
 
-.appearance-pill-label {
-    letter-spacing: 0.01em;
+.appearance-dock-btn.active,
+.appearance-dock-pill.active {
+    color: var(--accent-gold);
+    background: var(--bg-subtle);
+    border-color: var(--accent-gold);
+    transform: rotate(45deg);
 }
 
-.appearance-pill-chevron {
-    color: var(--text-subtle);
+.appearance-settings-icon {
+    display: inline-flex;
     transition: transform var(--transition-fast);
-}
-
-.appearance-dock-pill.active .appearance-pill-chevron {
-    transform: rotate(180deg);
 }
 
 .appearance-popover {

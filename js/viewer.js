@@ -286,8 +286,17 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
 
     let targetId = id;
     const initialDoc = window.state.documents.find(d => d.id === id);
-    if (initialDoc && preferredLang && initialDoc.translations && initialDoc.translations[preferredLang]) {
-        targetId = initialDoc.translations[preferredLang];
+    const effectiveLang = preferredLang || (function() {
+        try {
+            const saved = localStorage.getItem('cosmos_preferred_lang');
+            if (saved === 'english') return 'en';
+            if (saved === 'deutsch') return 'de';
+        } catch (e) {}
+        return null;
+    })();
+
+    if (initialDoc && effectiveLang && initialDoc.translations && initialDoc.translations[effectiveLang]) {
+        targetId = initialDoc.translations[effectiveLang];
     }
     const doc = window.state.documents.find(d => d.id === targetId) || initialDoc;
     if (!doc) return;

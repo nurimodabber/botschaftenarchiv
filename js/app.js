@@ -142,6 +142,34 @@ function setupAppearance() {
         });
     }
 
+    // 0b. Preferred Language Setting (deutsch / english / all)
+    const savedLanguage = safeGetStorage('cosmos_preferred_lang', 'deutsch');
+
+    function applyLanguage(langVal) {
+        const validLang = (langVal === 'english' || langVal === 'all') ? langVal : 'deutsch';
+        safeSetStorage('cosmos_preferred_lang', validLang);
+
+        document.querySelectorAll('#appearance-language-group .appearance-opt-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.langVal === validLang);
+        });
+
+        // Synchronize with library state and filter select
+        state.library.lang = (validLang === 'all') ? '' : validLang;
+        const langSelect = document.getElementById('library-lang-select');
+        if (langSelect) {
+            langSelect.value = state.library.lang;
+        }
+
+        // Synchronize with timeline if available
+        if (window.TimelineModule && window.TimelineModule.setLanguage) {
+            window.TimelineModule.setLanguage(validLang === 'english' ? 'en' : 'de');
+        }
+
+        if (typeof applyLibraryFilters === 'function') {
+            applyLibraryFilters();
+        }
+    }
+
     // 1. Theme Setting (light / sepia / dark / oled)
     const savedTheme = safeGetStorage('cosmos_theme', safeGetStorage('theme', 'light'));
     
@@ -300,6 +328,7 @@ function setupAppearance() {
 
     // Initialize all settings
     applyDefaultViewerFormat(savedViewerFormat);
+    applyLanguage(savedLanguage);
     applyTheme(savedTheme);
     applyAccentColor(savedColor);
     applyReaderFont(savedFont);
@@ -373,6 +402,13 @@ function setupAppearance() {
         });
     });
 
+    // Language selection
+    document.querySelectorAll('#appearance-language-group .appearance-opt-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            applyLanguage(btn.dataset.langVal);
+        });
+    });
+
     // Font selection
     document.querySelectorAll('#appearance-font-group .appearance-opt-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -436,6 +472,7 @@ function setupAppearance() {
     if (resetBtn) {
         resetBtn.addEventListener('click', () => {
             applyDefaultViewerFormat('pdf');
+            applyLanguage('deutsch');
             applyTheme('light');
             applyAccentColor(defaultColor);
             applyReaderFont('serif');
@@ -772,7 +809,16 @@ function initLibraryView() {
     if (langSelect) {
         langSelect.value = state.library.lang || '';
         langSelect.addEventListener('change', (e) => {
-            state.library.lang = e.target.value;
+            const chosen = e.target.value;
+            state.library.lang = chosen;
+            const prefLang = (chosen === 'english' || chosen === 'all') ? chosen : (chosen === '' ? 'all' : 'deutsch');
+            safeSetStorage('cosmos_preferred_lang', prefLang);
+            document.querySelectorAll('#appearance-language-group .appearance-opt-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.langVal === prefLang);
+            });
+            if (window.TimelineModule && window.TimelineModule.setLanguage) {
+                window.TimelineModule.setLanguage(prefLang === 'english' ? 'en' : 'de');
+            }
             applyLibraryFilters();
         });
     }
