@@ -314,7 +314,7 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
             webLink.target = '_blank';
             webLink.rel = 'noopener noreferrer';
             webLink.className = 'viewer-dl-pill';
-            webLink.title = 'Originaldokument im Web aufrufen';
+            webLink.title = `Originaldokument auf ${doc.sourcePlatform || 'autorisierter Quelle'} im Web aufrufen`;
             webLink.textContent = 'Web ↗';
             dlGroup.appendChild(webLink);
         }
