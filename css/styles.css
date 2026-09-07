@@ -5602,8 +5602,9 @@ html[data-active-pillar="all"] {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.85rem;
-    flex-wrap: wrap;
+    gap: 0.75rem;
+    flex-wrap: nowrap;
+    width: 100%;
 }
 
 .ecosystem-chips-wrap {
@@ -5887,12 +5888,59 @@ html[data-active-pillar="all"] {
         font-size: 0.68rem;
     }
     .ecosystem-top-row {
-        flex-direction: column;
-        align-items: stretch;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.4rem;
+        flex-wrap: nowrap;
     }
     .ecosystem-resources-bar {
         flex-direction: column;
         align-items: stretch;
+    }
+}
+
+/* ─── Bibliothek im Hochformat: Formatauswahl links & Filter-Button rechts auf gleicher Höhe ─── */
+@media (orientation: portrait), (max-width: 768px) {
+    .ecosystem-top-row {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 0.45rem !important;
+        flex-wrap: nowrap !important;
+        width: 100% !important;
+    }
+
+    .format-chips-group {
+        display: inline-flex !important;
+        align-items: center !important;
+        flex-shrink: 0 !important;
+        gap: 0.2rem !important;
+        padding: 0.18rem !important;
+    }
+
+    .format-chip-btn {
+        padding: 0.24rem 0.52rem !important;
+        font-size: 0.72rem !important;
+        white-space: nowrap !important;
+    }
+
+    .command-actions-cluster {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 0.35rem !important;
+        flex-shrink: 0 !important;
+        margin-left: auto !important;
+    }
+
+    .command-filter-toggle-btn {
+        padding: 0.26rem 0.65rem !important;
+        font-size: 0.75rem !important;
+        white-space: nowrap !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 0.3rem !important;
     }
 }
 
