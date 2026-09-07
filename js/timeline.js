@@ -328,31 +328,33 @@ window.TimelineModule = (function() {
             id: 'tdp_1',
             nameDe: "1. Epoche der Tafeln des Göttlichen Plans",
             nameEn: "1st Epoch of the Tablets of the Divine Plan",
-            subDe: "1937–1953 (Zwei Siebenjahrespläne in Nordamerika)",
-            subEn: "1937–1953 (Two Seven Year Plans in North America)",
+            subDe: "1937–1963 (Zwei Siebenjahrespläne & Zehnjähriger Kreuzzug)",
+            subEn: "1937–1963 (Two Seven Year Plans & Ten Year Crusade)",
             categoryDe: "Tafeln des Göttlichen Plans",
             categoryEn: "Tablets of the Divine Plan",
-            periodDe: "1937–1953",
-            periodEn: "1937–1953",
+            periodDe: "1937–1963",
+            periodEn: "1937–1963",
             startYear: 1937,
-            endYear: 1953,
+            endYear: 1963,
             color: "#D48817",
-            descDe: "Unter Führung von Shoghi Effendi trugen die Bahá'í Nordamerikas in zwei aufeinanderfolgenden Siebenjahresplänen den Glauben nach Lateinamerika und Europa."
+            descDe: "Unter Leitung des Hüters Shoghi Effendi entfaltete sich die erste Epoche des Göttlichen Plans in drei Stufen: den beiden Siebenjahresplänen (1937–1944 und 1946–1953) sowie dem weltumspannenden Zehnjährigen Kreuzzug (1953–1963), der den Glauben auf alle Kontinente trug und in der Wahl des Universalen Hauses der Gerechtigkeit mündete.",
+            descEn: "Under the leadership of Shoghi Effendi, the first epoch of the Divine Plan unfolded in three stages: the two Seven Year Plans (1937–1944 and 1946–1953) and the global Ten Year Crusade (1953–1963), culminating in the election of the Universal House of Justice."
         },
         'tdp_2': {
             id: 'tdp_2',
             nameDe: "2. Epoche der Tafeln des Göttlichen Plans",
             nameEn: "2nd Epoch of the Tablets of the Divine Plan",
-            subDe: "1953–2021 (Vom Zehnjährigen Kreuzzug bis zum Abschluss des 5YP)",
-            subEn: "1953–2021 (From the 10-Year Crusade to the close of 5YP)",
+            subDe: "1963–2021 (Globale Pläne unter Führung des Universalen Hauses der Gerechtigkeit)",
+            subEn: "1963–2021 (Global plans under the Universal House of Justice)",
             categoryDe: "Tafeln des Göttlichen Plans",
             categoryEn: "Tablets of the Divine Plan",
-            periodDe: "1953–2021",
-            periodEn: "1953–2021",
-            startYear: 1953,
+            periodDe: "1963–2021",
+            periodEn: "1963–2021",
+            startYear: 1963,
             endYear: 2021,
             color: "#D48817",
-            descDe: "Umfasste den Zehnjährigen Kreuzzug und alle globalen Pläne des Universalen Hauses der Gerechtigkeit bis zum Riḍván 2021."
+            descDe: "Eingeläutet mit der Wahl des Universalen Hauses der Gerechtigkeit 1963. Umfasste alle weltweiten Lehrpläne des Hauses vom Neunjahresplan (1964–1973) bis zum feierlichen Abschluss des Fünfjahresplans zu Riḍván 2021.",
+            descEn: "Inaugurated with the election of the Universal House of Justice in 1963, encompassing all global teaching plans from the Nine Year Plan (1964–1973) to the close of the Five Year Plan at Riḍván 2021."
         },
         'tdp_3': {
             id: 'tdp_3',
@@ -367,7 +369,8 @@ window.TimelineModule = (function() {
             startYear: 2021,
             endYear: 2046,
             color: "#B36B00",
-            descDe: "Die aktuelle Epoche des Göttlichen Plans, begonnen zu Riḍván 2021 mit dem Einjahresplan und dem aktuellen Neunjahresplan bis 2031."
+            descDe: "Die aktuelle dritte Epoche des Göttlichen Plans, begonnen zu Riḍván 2021 mit dem Einjahresplan und dem aktuellen Neunjahresplan bis 2031 als erstem Schritt einer 25-jährigen Serie bis 2046.",
+            descEn: "The current third epoch of the Divine Plan, launched at Riḍván 2021 with the One Year Plan and the current Nine Year Plan through 2031, part of a 25-year series to 2046."
         },
         'golden_age': {
             id: 'golden_age',
@@ -390,7 +393,7 @@ window.TimelineModule = (function() {
             nameDe: "Vorherige Serie globaler Pläne",
             nameEn: "Previous Series of Global Plans",
             subDe: "1996–2021 (Vierteljahrhundert des Lernens)",
-            subEn: "1996–2021 (Quarter-century of systematic learning)",
+            subEn: "1996–2021 (Quarter century of learning)",
             categoryDe: "Serie globaler Pläne",
             categoryEn: "Series of Global Plans",
             periodDe: "1996–2021",
@@ -421,6 +424,10 @@ window.TimelineModule = (function() {
             id: 'plan_7yp_37', code: '7YP',
             nameDe: "Erster Siebenjahresplan (1937–1944)",
             nameEn: "First Seven Year Plan (1937–1944)",
+            subDe: "1937–1944 (1. Stufe der 1. Epoche des Göttlichen Plans)",
+            subEn: "1937–1944 (Stage 1 of the 1st Epoch of Divine Plan)",
+            categoryDe: "1. Epoche der Tafeln des Göttlichen Plans",
+            categoryEn: "1st Epoch of the Tablets of the Divine Plan",
             periodDe: "1937–1944", periodEn: "1937–1944",
             startYear: 1937, endYear: 1944, startDate: "1937-04-21", endDate: "1944-04-20",
             descDe: "Der erste systematische Lehrplan der Bahá'í-Geschichte, initiiert von Shoghi Effendi für die nordamerikanische Gemeinde zur Ausbreitung nach Lateinamerika.",
@@ -430,6 +437,10 @@ window.TimelineModule = (function() {
             id: 'plan_7yp_46', code: '7YP',
             nameDe: "Zweiter Siebenjahresplan (1946–1953)",
             nameEn: "Second Seven Year Plan (1946–1953)",
+            subDe: "1946–1953 (2. Stufe der 1. Epoche des Göttlichen Plans)",
+            subEn: "1946–1953 (Stage 2 of the 1st Epoch of Divine Plan)",
+            categoryDe: "1. Epoche der Tafeln des Göttlichen Plans",
+            categoryEn: "1st Epoch of the Tablets of the Divine Plan",
             periodDe: "1946–1953", periodEn: "1946–1953",
             startYear: 1946, endYear: 1953, startDate: "1946-04-21", endDate: "1953-04-20",
             descDe: "Wiederaufbau der im Zweiten Weltkrieg verwüsteten europäischen Bahá'í-Gemeinden und Vorbereitung auf den globalen Kreuzzug.",
@@ -439,24 +450,36 @@ window.TimelineModule = (function() {
             id: 'plan_10yc_53', code: '10YC',
             nameDe: "Zehnjähriger Kreuzzug (1953–1963)",
             nameEn: "Ten Year Crusade (1953–1963)",
+            subDe: "1953–1963 (3. Stufe der 1. Epoche des Göttlichen Plans)",
+            subEn: "1953–1963 (Stage 3 of the 1st Epoch of Divine Plan)",
+            categoryDe: "1. Epoche der Tafeln des Göttlichen Plans",
+            categoryEn: "1st Epoch of the Tablets of the Divine Plan",
             periodDe: "1953–1963", periodEn: "1953–1963",
             startYear: 1953, endYear: 1963, startDate: "1953-04-21", endDate: "1963-04-20",
-            descDe: "Der weltweite Kreuzzug des Hüters Shoghi Effendi. Er trug den Glauben auf alle Kontinente und führte 1963 zur Wahl des Universalen Hauses der Gerechtigkeit.",
-            descEn: "Shoghi Effendi's global plan that planted the banner of Bahá'u'lláh worldwide and culminated in the election of the Universal House of Justice."
+            descDe: "Der weltweite Kreuzzug des Hüters Shoghi Effendi als krönender Abschluss der 1. Epoche des Göttlichen Plans. Er trug den Glauben auf alle Kontinente und führte 1963 zur Wahl des Universalen Hauses der Gerechtigkeit.",
+            descEn: "Shoghi Effendi's global crusade concluding the 1st Epoch of the Divine Plan, planting the banner of Bahá'u'lláh worldwide and culminating in the election of the Universal House of Justice in 1963."
         },
         'plan_9yp_64': {
             id: 'plan_9yp_64', code: '9YP',
             nameDe: "Neunjahresplan (1964–1973)",
             nameEn: "Nine Year Plan (1964–1973)",
+            subDe: "1964–1973 (2. Epoche des Göttlichen Plans)",
+            subEn: "1964–1973 (2nd Epoch of the Divine Plan)",
+            categoryDe: "2. Epoche der Tafeln des Göttlichen Plans",
+            categoryEn: "2nd Epoch of the Tablets of the Divine Plan",
             periodDe: "1964–1973", periodEn: "1964–1973",
             startYear: 1964, endYear: 1973, startDate: "1964-04-21", endDate: "1974-04-20",
-            descDe: "Erster globaler Plan unter Führung des Universalen Hauses der Gerechtigkeit. Erhöhung der Nationalen Räte von 56 auf 113.",
-            descEn: "First global plan under the Universal House of Justice, doubling the number of National Assemblies."
+            descDe: "Erster globaler Plan der 2. Epoche des Göttlichen Plans unter Führung des Universalen Hauses der Gerechtigkeit. Erhöhung der Nationalen Räte von 56 auf 113.",
+            descEn: "First global plan of the 2nd Epoch of the Divine Plan under the Universal House of Justice, doubling the number of National Assemblies."
         },
         'plan_5yp_74': {
             id: 'plan_5yp_74', code: '5YP',
             nameDe: "Fünfjahresplan (1974–1979)",
             nameEn: "Five Year Plan (1974–1979)",
+            subDe: "1974–1979 (2. Epoche des Göttlichen Plans)",
+            subEn: "1974–1979 (2nd Epoch of the Divine Plan)",
+            categoryDe: "2. Epoche der Tafeln des Göttlichen Plans",
+            categoryEn: "2nd Epoch of the Tablets of the Divine Plan",
             periodDe: "1974–1979", periodEn: "1974–1979",
             startYear: 1974, endYear: 1979, startDate: "1974-04-21", endDate: "1979-04-20",
             descDe: "Stärkung des Gemeindelebens, Gründung des Internationalen Lehrzentrums (ITC) und Baubeginn des Sitzes des Hauses auf dem Berg Karmel.",
@@ -466,6 +489,10 @@ window.TimelineModule = (function() {
             id: 'plan_7yp_79', code: '7YP',
             nameDe: "Siebenjahresplan (1979–1986)",
             nameEn: "Seven Year Plan (1979–1986)",
+            subDe: "1979–1986 (2. Epoche des Göttlichen Plans)",
+            subEn: "1979–1986 (2nd Epoch of the Divine Plan)",
+            categoryDe: "2. Epoche der Tafeln des Göttlichen Plans",
+            categoryEn: "2nd Epoch of the Tablets of the Divine Plan",
             periodDe: "1979–1986", periodEn: "1979–1986",
             startYear: 1979, endYear: 1986, startDate: "1979-04-21", endDate: "1986-04-20",
             descDe: "Hervortreten aus der Verborgenheit angesichts der Verfolgungen im Iran und Veröffentlichung der Friedenserklärung (1985).",
@@ -475,6 +502,10 @@ window.TimelineModule = (function() {
             id: 'plan_6yp_86', code: '6YP',
             nameDe: "Sechsjahresplan (1986–1992)",
             nameEn: "Six Year Plan (1986–1992)",
+            subDe: "1986–1992 (2. Epoche des Göttlichen Plans)",
+            subEn: "1986–1992 (2nd Epoch of the Divine Plan)",
+            categoryDe: "2. Epoche der Tafeln des Göttlichen Plans",
+            categoryEn: "2nd Epoch of the Tablets of the Divine Plan",
             periodDe: "1986–1992", periodEn: "1986–1992",
             startYear: 1986, endYear: 1992, startDate: "1986-04-21", endDate: "1992-04-20",
             descDe: "Voranschreiten des Prozesses des massenhaften Eintritts und Ausbau sozial-ökonomischer Entwicklungsprojekte.",
@@ -484,6 +515,10 @@ window.TimelineModule = (function() {
             id: 'plan_3yp_93', code: '3YP',
             nameDe: "Dreijahresplan (1993–1996)",
             nameEn: "Three Year Plan (1993–1996)",
+            subDe: "1993–1996 (2. Epoche des Göttlichen Plans)",
+            subEn: "1993–1996 (2nd Epoch of the Divine Plan)",
+            categoryDe: "2. Epoche der Tafeln des Göttlichen Plans",
+            categoryEn: "2nd Epoch of the Tablets of the Divine Plan",
             periodDe: "1993–1996", periodEn: "1993–1996",
             startYear: 1993, endYear: 1996, startDate: "1993-04-21", endDate: "1996-04-20",
             descDe: "Reifung der Institutionen und Vorbereitung des weltweiten Netzwerks regionaler Trainingsinstitute.",
@@ -493,6 +528,10 @@ window.TimelineModule = (function() {
             id: 'plan_4yp_96', code: '4YP',
             nameDe: "Vierjahresplan (1996–2000)",
             nameEn: "Four Year Plan (1996–2000)",
+            subDe: "1996–2000 (2. Epoche des Göttlichen Plans)",
+            subEn: "1996–2000 (2nd Epoch of the Divine Plan)",
+            categoryDe: "2. Epoche der Tafeln des Göttlichen Plans",
+            categoryEn: "2nd Epoch of the Tablets of the Divine Plan",
             periodDe: "1996–2000", periodEn: "1996–2000",
             startYear: 1996, endYear: 2000, startDate: "1996-04-21", endDate: "2000-04-20",
             descDe: "Der historische Wendepunkt: Etablierung des Trainingsinstituts als primäres Instrument zur Entfaltung menschlicher Ressourcen.",
@@ -502,6 +541,10 @@ window.TimelineModule = (function() {
             id: 'plan_12mp_00', code: '12MP',
             nameDe: "Zwölfmonatsplan (2000–2001)",
             nameEn: "Twelve Month Plan (2000–2001)",
+            subDe: "2000–2001 (2. Epoche des Göttlichen Plans)",
+            subEn: "2000–2001 (2nd Epoch of the Divine Plan)",
+            categoryDe: "2. Epoche der Tafeln des Göttlichen Plans",
+            categoryEn: "2nd Epoch of the Tablets of the Divine Plan",
             periodDe: "2000–2001", periodEn: "2000–2001",
             startYear: 2000, endYear: 2001, startDate: "2000-04-21", endDate: "2001-04-20",
             descDe: "Übergangsplan an der Schwelle des neuen Jahrtausends zur Vorbereitung der Serie von Fünfjahresplänen.",
@@ -511,6 +554,10 @@ window.TimelineModule = (function() {
             id: 'plan_5yp_01', code: '5YP',
             nameDe: "Fünfjahresplan I (2001–2006)",
             nameEn: "Five Year Plan I (2001–2006)",
+            subDe: "2001–2006 (2. Epoche des Göttlichen Plans)",
+            subEn: "2001–2006 (2nd Epoch of the Divine Plan)",
+            categoryDe: "2. Epoche der Tafeln des Göttlichen Plans",
+            categoryEn: "2nd Epoch of the Tablets of the Divine Plan",
             periodDe: "2001–2006", periodEn: "2001–2006",
             startYear: 2001, endYear: 2006, startDate: "2001-04-21", endDate: "2006-04-20",
             descDe: "Einführung des Cluster-Konzepts und der Kernaktivitäten (Studienkreise, Andachten, Kinderklassen).",
@@ -520,6 +567,10 @@ window.TimelineModule = (function() {
             id: 'plan_5yp_06', code: '5YP',
             nameDe: "Fünfjahresplan II (2006–2011)",
             nameEn: "Five Year Plan II (2006–2011)",
+            subDe: "2006–2011 (2. Epoche des Göttlichen Plans)",
+            subEn: "2006–2011 (2nd Epoch of the Divine Plan)",
+            categoryDe: "2. Epoche der Tafeln des Göttlichen Plans",
+            categoryEn: "2nd Epoch of the Tablets of the Divine Plan",
             periodDe: "2006–2011", periodEn: "2006–2011",
             startYear: 2006, endYear: 2011, startDate: "2006-04-21", endDate: "2011-04-20",
             descDe: "Etablierung des Vorjugendprogramms und intensive Programme des Wachstums in hunderten Clustern.",
@@ -529,6 +580,10 @@ window.TimelineModule = (function() {
             id: 'plan_5yp_11', code: '5YP',
             nameDe: "Fünfjahresplan III (2011–2016)",
             nameEn: "Five Year Plan III (2011–2016)",
+            subDe: "2011–2016 (2. Epoche des Göttlichen Plans)",
+            subEn: "2011–2016 (2nd Epoch of the Divine Plan)",
+            categoryDe: "2. Epoche der Tafeln des Göttlichen Plans",
+            categoryEn: "2nd Epoch of the Tablets of the Divine Plan",
             periodDe: "2011–2016", periodEn: "2011–2016",
             startYear: 2011, endYear: 2016, startDate: "2011-04-21", endDate: "2016-04-20",
             descDe: "Weltweite Jugendkonferenzen 2013 und Entstehung von Zentren intensiver Aktivität in Nachbarschaften.",
@@ -538,6 +593,10 @@ window.TimelineModule = (function() {
             id: 'plan_5yp_16', code: '5YP',
             nameDe: "Fünfjahresplan IV (2016–2021)",
             nameEn: "Five Year Plan IV (2016–2021)",
+            subDe: "2016–2021 (2. Epoche des Göttlichen Plans)",
+            subEn: "2016–2021 (2nd Epoch of the Divine Plan)",
+            categoryDe: "2. Epoche der Tafeln des Göttlichen Plans",
+            categoryEn: "2nd Epoch of the Tablets of the Divine Plan",
             periodDe: "2016–2021", periodEn: "2016–2021",
             startYear: 2016, endYear: 2021, startDate: "2016-04-21", endDate: "2021-04-20",
             descDe: "Zweihundertjahrfeiern der Geburt Bahá'u'lláhs (2017) und des Báb (2019). Über 5.000 Cluster mit Wachstumsprogrammen.",
@@ -547,19 +606,27 @@ window.TimelineModule = (function() {
             id: 'plan_1yp_21', code: '1YP',
             nameDe: "Einjahresplan (2021–2022)",
             nameEn: "One Year Plan (2021–2022)",
+            subDe: "2021–2022 (3. Epoche des Göttlichen Plans)",
+            subEn: "2021–2022 (3rd Epoch of the Divine Plan)",
+            categoryDe: "3. Epoche der Tafeln des Göttlichen Plans",
+            categoryEn: "3rd Epoch of the Tablets of the Divine Plan",
             periodDe: "2021–2022", periodEn: "2021–2022",
             startYear: 2021, endYear: 2022, startDate: "2021-04-21", endDate: "2022-04-20",
-            descDe: "Hundertjahrfeier des Hinscheidens 'Abdu'l-Bahás und Eröffnung des 2. Jahrhunderts des Gestaltenden Zeitalters.",
-            descEn: "Centenary of the Ascension of 'Abdu'l-Bahá, opening the 2nd Century of the Formative Age."
+            descDe: "Eröffnung der 3. Epoche des Göttlichen Plans, Hundertjahrfeier des Hinscheidens 'Abdu'l-Bahás und Start in das 2. Jahrhundert des Gestaltenden Zeitalters.",
+            descEn: "Opening the 3rd Epoch of the Divine Plan, centenary of the Ascension of 'Abdu'l-Bahá, and inauguration of the 2nd Century of the Formative Age."
         },
         'plan_9yp_22': {
             id: 'plan_9yp_22', code: '9YP',
             nameDe: "Neunjahresplan (2022–2031)",
             nameEn: "Nine Year Plan (2022–2031)",
+            subDe: "2022–2031 (3. Epoche des Göttlichen Plans)",
+            subEn: "2022–2031 (3rd Epoch of the Divine Plan)",
+            categoryDe: "3. Epoche der Tafeln des Göttlichen Plans",
+            categoryEn: "3rd Epoch of the Tablets of the Divine Plan",
             periodDe: "2022–2031", periodEn: "2022–2031",
             startYear: 2022, endYear: 2031, startDate: "2022-04-21", endDate: "2031-12-31",
-            descDe: "Der aktuelle globale Lehrplan. Erster Plan einer neuen 25-jährigen Serie bis 2046 zur Freisetzung gesellschaftsbildender Kraft.",
-            descEn: "The current active global plan, first in a 25-year series through 2046 to release society-building power."
+            descDe: "Der aktuelle globale Lehrplan der 3. Epoche des Göttlichen Plans. Erster Plan einer neuen 25-jährigen Serie bis 2046 zur Freisetzung gesellschaftsbildender Kraft.",
+            descEn: "The current active global plan in the 3rd Epoch of the Divine Plan, first in a 25-year series through 2046 to release society-building power."
         }
     };
 
@@ -669,6 +736,8 @@ window.TimelineModule = (function() {
             results = allDocs.filter(d => (d.authorCode || '').toLowerCase() === 'abdulbaha' || (d.authorCode || '').toLowerCase() === 'abdul-baha' || d.subTier === 'abdul-baha' || d.author === "‘Abdu’l-Bahá");
         } else if (id === 'epoch_1' || id === 'epoch_2') {
             results = allDocs.filter(d => (d.authorCode || '').toLowerCase() === 'shoghieffendi' || (d.authorCode || '').toLowerCase() === 'shoghi-effendi' || d.subTier === 'shoghi-effendi' || d.author === 'Shoghi Effendi' || (d.year >= entity.startYear && d.year <= entity.endYear));
+        } else if (id === 'tdp') {
+            results = allDocs.filter(d => (d.id && d.id.includes('tdp')) || (d.year >= entity.startYear && d.year <= Math.min(2026, entity.endYear)));
         } else if (entity.startDate && entity.endDate) {
             // For plans (e.g. 7-Year Plan 1937–1944)
             results = allDocs.filter(d => {
@@ -957,15 +1026,15 @@ window.TimelineModule = (function() {
             </g>
             <!-- TDP 3 Epochs -->
             <g class="unfold-node" data-id="tdp_1" style="cursor: pointer;">
-                <rect x="${X[1937]}" y="272" width="${X[1953] - X[1937]}" height="26" rx="3" fill="#D98A1E" class="svg-bar" />
-                <text x="${(X[1937] + X[1953])/2}" y="289" fill="#FFFFFF" text-anchor="middle" font-size="10" font-weight="bold">
-                    ${isDe ? "1. Epoche (1937–53)" : "1st Epoch"}
+                <rect x="${X[1937]}" y="272" width="${X[1963] - X[1937]}" height="26" rx="3" fill="#D98A1E" class="svg-bar" />
+                <text x="${(X[1937] + X[1963])/2}" y="289" fill="#FFFFFF" text-anchor="middle" font-size="10.5" font-weight="bold">
+                    ${isDe ? "1. Epoche (1937–1963)" : "1st Epoch (1937–1963)"}
                 </text>
             </g>
             <g class="unfold-node" data-id="tdp_2" style="cursor: pointer;">
-                <rect x="${X[1953]}" y="272" width="${X[2021] - X[1953]}" height="26" rx="3" fill="#D98A1E" class="svg-bar" />
-                <text x="${(X[1953] + X[2021])/2}" y="289" fill="#FFFFFF" text-anchor="middle" font-size="10.5" font-weight="bold">
-                    ${isDe ? "2. Epoche der Tafeln des Göttlichen Plans (1953–2021)" : "2nd Epoch of the Tablets of the Divine Plan (1953–2021)"}
+                <rect x="${X[1963]}" y="272" width="${X[2021] - X[1963]}" height="26" rx="3" fill="#D98A1E" class="svg-bar" />
+                <text x="${(X[1963] + X[2021])/2}" y="289" fill="#FFFFFF" text-anchor="middle" font-size="10.5" font-weight="bold">
+                    ${isDe ? "2. Epoche der Tafeln des Göttlichen Plans (1963–2021)" : "2nd Epoch of the Tablets of the Divine Plan (1963–2021)"}
                 </text>
             </g>
             <g class="unfold-node" data-id="tdp_3" style="cursor: pointer;">
@@ -1109,6 +1178,8 @@ window.TimelineModule = (function() {
             </div>
 
             <h3 class="inspector-title">${escapeHtml(title)}</h3>
+
+            ${desc ? `<p class="inspector-desc">${escapeHtml(desc)}</p>` : ''}
 
             ${entity.quote ? `
                 <blockquote class="inspector-quote">
