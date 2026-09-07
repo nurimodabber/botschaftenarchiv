@@ -7,3 +7,7 @@ scripts/
 .github/
 .git/
 README.md
+.DS_Store
+**/.DS_Store
+scratch/
+
