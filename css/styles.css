@@ -2094,32 +2094,54 @@ body:has(#document-viewer.active) .cosmos-dock-container {
 .workshop-search-input {
     flex: 1;
     min-width: 200px;
-    padding: 0.55rem 1rem;
-    border-radius: var(--radius-full);
+    padding: 0.6rem 1rem;
+    border-radius: 12px;
     border: 1px solid var(--border-hairline);
     font-family: var(--font-sans);
     font-size: 0.9rem;
-    background: var(--bg-canvas);
+    background: var(--bg-subtle);
     color: var(--text-ink);
     box-sizing: border-box;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+}
+
+.workshop-search-input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.72;
+}
+
+.workshop-search-input:hover {
+    border-color: var(--border-hover);
 }
 
 .workshop-search-input:focus {
     outline: none;
     border-color: var(--accent-gold);
-    box-shadow: 0 0 0 3px var(--accent-gold-soft);
+    box-shadow: 0 0 0 3px var(--accent-gold-soft), 0 4px 14px var(--accent-gold-glow);
+    background: var(--bg-paper);
 }
 
 .workshop-rec-select {
-    padding: 0.55rem 0.85rem;
-    border-radius: var(--radius-full);
+    padding: 0.6rem 0.85rem;
+    border-radius: 12px;
     border: 1px solid var(--border-hairline);
     font-family: var(--font-sans);
     font-size: 0.88rem;
-    background: var(--bg-canvas);
+    background: var(--bg-subtle);
     color: var(--text-ink);
     cursor: pointer;
     box-sizing: border-box;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.workshop-rec-select:hover {
+    border-color: var(--border-hover);
+}
+
+.workshop-rec-select:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 0 3px var(--accent-gold-soft);
 }
 
 @media (orientation: portrait), (max-width: 860px) {
@@ -3650,12 +3672,15 @@ body:has(#document-viewer.active) .cosmos-dock-container {
     }
 
     .master-search-row input {
-        font-size: 0.95rem !important;
-        padding: 0.85rem 2.85rem 0.85rem 2.75rem !important;
+        font-size: 0.92rem !important;
+        padding: 0.78rem 2.85rem 0.78rem 2.65rem !important;
+        border-radius: 12px !important;
     }
 
     .master-search-row .command-search-icon {
         left: 0.95rem !important;
+        width: 18px !important;
+        height: 18px !important;
     }
 
     /* ─── Mobile Ergebnis-Toolbar (Bibliothek) ─── */
@@ -5110,9 +5135,14 @@ body:has(#document-viewer.active) .cosmos-dock-container {
 }
 
 [data-theme="dark"] .library-command-surface {
-    background: rgba(22, 25, 30, 0.78);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(21, 21, 20, 0.85);
+    border: 1px solid var(--border-hairline);
     box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="oled"] .library-command-surface {
+    background: rgba(10, 10, 10, 0.92);
+    border-color: rgba(255, 255, 255, 0.08);
 }
 
 /* A. Command Search Row */
@@ -5125,39 +5155,66 @@ body:has(#document-viewer.active) .cosmos-dock-container {
 
 .command-search-icon {
     position: absolute;
-    left: 1.1rem;
+    left: 1.15rem;
     color: var(--text-subtle);
     pointer-events: none;
-    transition: color var(--transition-fast);
+    transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.command-search-row:hover .command-search-icon {
+    color: var(--text-muted);
+}
+
+.command-search-row:focus-within .command-search-icon {
+    color: var(--accent-gold);
+    transform: scale(1.04);
 }
 
 .command-search-row input {
     width: 100%;
     font-family: var(--font-sans);
-    font-size: 0.94rem;
-    padding: 0.82rem 5.5rem 0.82rem 2.85rem;
-    border-radius: var(--radius-md);
+    font-size: 0.96rem;
+    padding: 0.85rem 5.25rem 0.85rem 3.15rem;
+    border-radius: 12px;
     border: 1px solid var(--border-hairline);
-    background: var(--bg-canvas);
+    background: var(--bg-subtle);
     color: var(--text-ink);
-    transition: all var(--transition-fast);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.command-search-row input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.72;
 }
 
 [data-theme="dark"] .command-search-row input {
-    background: rgba(10, 12, 16, 0.6);
-    border-color: rgba(255, 255, 255, 0.09);
+    background: var(--bg-subtle);
+    border-color: var(--border-hairline);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="oled"] .command-search-row input {
+    background: #111111;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+}
+
+.command-search-row input:hover {
+    border-color: var(--border-hover);
+    background: var(--bg-paper);
 }
 
 .command-search-row input:focus {
     outline: none;
-    border-color: var(--accent-gold);
-    box-shadow: 0 0 0 3px var(--accent-gold-soft);
+    border-color: var(--accent-gold) !important;
+    box-shadow: 0 0 0 3px var(--accent-gold-soft), 0 4px 18px var(--accent-gold-glow) !important;
     background: var(--bg-paper);
 }
 
 .command-search-actions {
     position: absolute;
-    right: 0.75rem;
+    right: 0.8rem;
     display: flex;
     align-items: center;
     gap: 0.4rem;
@@ -5174,35 +5231,35 @@ body:has(#document-viewer.active) .cosmos-dock-container {
 }
 
 .search-clear-btn:hover {
-    background: var(--bg-subtle);
-    color: var(--text-ink);
+    background: var(--accent-gold-soft);
+    color: var(--accent-gold);
 }
 
 .search-kbd-badge {
     font-family: var(--font-mono);
     font-size: 0.68rem;
     font-weight: 600;
-    padding: 0.2rem 0.45rem;
-    border-radius: 4px;
-    background: var(--bg-subtle);
+    padding: 0.22rem 0.48rem;
+    border-radius: 6px;
+    background: var(--bg-paper);
     border: 1px solid var(--border-hairline);
     color: var(--text-subtle);
     pointer-events: none;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 /* Master Search Bar (Apex Omnisearch) */
 .master-search-row input {
-    font-size: 1.02rem;
-    padding: 0.95rem 5.5rem 0.95rem 3.1rem;
-    border-radius: var(--radius-md);
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+    font-size: 0.98rem;
+    padding: 0.88rem 5.25rem 0.88rem 3.15rem;
+    border-radius: 12px;
 }
 
 .master-search-row .command-search-icon {
     left: 1.15rem;
-    width: 22px;
-    height: 22px;
-    color: var(--accent-gold);
+    width: 20px;
+    height: 20px;
+    color: var(--text-subtle);
 }
 
 /* ════════════════════════════════════════════════════════════════════════════
@@ -5371,13 +5428,12 @@ html[data-active-pillar="all"] {
 }
 
 .master-search-row input:focus {
-    border-color: var(--pillar-accent);
-    box-shadow: 0 0 0 3px var(--pillar-accent-soft), 0 8px 24px rgba(0, 0, 0, 0.06);
+    border-color: var(--accent-gold) !important;
+    box-shadow: 0 0 0 3px var(--accent-gold-soft), 0 8px 24px rgba(0, 0, 0, 0.08) !important;
 }
 
-.master-search-row .command-search-icon {
-    color: var(--pillar-accent);
-    transition: color 0.3s ease;
+.master-search-row:focus-within .command-search-icon {
+    color: var(--accent-gold) !important;
 }
 
 /* B. Die Vier Hauptsäulen (4-Spalten Desktop Grid & Fluid Stage) */
@@ -5418,7 +5474,7 @@ html[data-active-pillar="all"] {
 }
 
 [data-theme="dark"] .pillar-card {
-    background: rgba(26, 30, 37, 0.85);
+    background: rgba(28, 28, 26, 0.85);
     border-color: rgba(255, 255, 255, 0.07);
 }
 
@@ -6159,8 +6215,8 @@ html[data-active-pillar="all"] {
 }
 
 [data-theme="dark"] .command-select-box {
-    background: rgba(10, 12, 16, 0.45);
-    border-color: rgba(255, 255, 255, 0.08);
+    background: var(--bg-subtle);
+    border-color: var(--border-hairline);
 }
 
 .command-select-box svg {
@@ -6884,18 +6940,31 @@ html[data-active-pillar="all"] {
     font-family: var(--font-sans);
     font-size: 0.95rem;
     padding: 0.75rem 2.75rem 0.75rem 3rem;
-    border-radius: var(--radius-full);
+    border-radius: 12px;
     border: 1px solid var(--border-hairline);
-    background: var(--bg-canvas);
+    background: var(--bg-subtle);
     color: var(--text-ink);
     transition: all var(--transition-fast);
+}
+
+.sources-search-box input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.72;
+}
+
+.sources-search-box input:hover {
+    border-color: var(--border-hover);
 }
 
 .sources-search-box input:focus {
     outline: none;
     background: var(--bg-paper);
     border-color: var(--accent-gold);
-    box-shadow: 0 0 0 3px var(--accent-gold-soft);
+    box-shadow: 0 0 0 3px var(--accent-gold-soft), 0 4px 14px var(--accent-gold-glow);
+}
+
+.sources-search-box:focus-within svg {
+    color: var(--accent-gold);
 }
 
 .search-clear-btn {
