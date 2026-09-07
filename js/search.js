@@ -178,6 +178,31 @@ window.performSearch = function() {
     } else if (query === '') {
         results.sort((a, b) => (b.item.date || '').localeCompare(a.item.date || ''));
     }
+
+    // Zweisprachige Zusammenfuehrung in der Suche: ein Werk als eine Karte darstellen
+    if (!langFilter) {
+        const unifiedSearchMap = new Map();
+        results.forEach(res => {
+            const d = res.item;
+            const key = d.groupId || d.id;
+            if (!unifiedSearchMap.has(key)) {
+                unifiedSearchMap.set(key, res);
+            } else {
+                const existing = unifiedSearchMap.get(key);
+                // Deutsches Dokument bevorzugen, falls verfuegbar
+                if ((d.language || '').toLowerCase() === 'deutsch' && (existing.item.language || '').toLowerCase() !== 'deutsch') {
+                    d.formatFiles = Object.assign({}, existing.item.formatFiles, d.formatFiles);
+                    d.availableFormats = Array.from(new Set([...(existing.item.availableFormats || []), ...(d.availableFormats || [])]));
+                    res.matches = (res.matches && res.matches.length > 0) ? res.matches : existing.matches;
+                    unifiedSearchMap.set(key, res);
+                } else {
+                    existing.item.formatFiles = Object.assign({}, existing.item.formatFiles, d.formatFiles);
+                    existing.item.availableFormats = Array.from(new Set([...(existing.item.availableFormats || []), ...(d.availableFormats || [])]));
+                }
+            }
+        });
+        results = Array.from(unifiedSearchMap.values());
+    }
     
     currentSearchResults = results;
     renderedCount = 0;

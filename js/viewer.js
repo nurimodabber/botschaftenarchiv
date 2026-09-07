@@ -280,6 +280,10 @@ window.getDocOriginalFormat = getDocOriginalFormat;
 window.openDocument = function(id, targetParagraph, preferredMode, preferredLang) {
     if (!window.state || !window.state.documents) return;
 
+    if (window.state.idAliases && window.state.idAliases[id]) {
+        id = window.state.idAliases[id];
+    }
+
     let targetId = id;
     const initialDoc = window.state.documents.find(d => d.id === id);
     if (initialDoc && preferredLang && initialDoc.translations && initialDoc.translations[preferredLang]) {

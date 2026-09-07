@@ -1177,7 +1177,37 @@ window.TimelineModule = (function() {
             </p>`;
         }
 
-        const sample = docs.slice(0, 48);
+        const unifiedMap = new Map();
+        docs.forEach(d => {
+            const key = d.groupId || d.id;
+            if (!unifiedMap.has(key)) {
+                unifiedMap.set(key, []);
+            }
+            unifiedMap.get(key).push(d);
+        });
+
+        const unifiedList = [];
+        unifiedMap.forEach(docsInGroup => {
+            let primaryDoc;
+            if (currentLang === 'en') {
+                primaryDoc = docsInGroup.find(d => (d.language || '').toLowerCase() === 'english') || docsInGroup[0];
+            } else {
+                primaryDoc = docsInGroup.find(d => (d.language || '').toLowerCase() === 'deutsch') || docsInGroup[0];
+            }
+            const mergedFiles = Object.assign({}, primaryDoc.formatFiles);
+            const mergedFormats = new Set(primaryDoc.availableFormats || []);
+            docsInGroup.forEach(item => {
+                if (item.formatFiles) Object.assign(mergedFiles, item.formatFiles);
+                if (item.availableFormats) item.availableFormats.forEach(f => mergedFormats.add(f));
+            });
+            unifiedList.push(Object.assign({}, primaryDoc, {
+                formatFiles: mergedFiles,
+                availableFormats: Array.from(mergedFormats),
+                siblingCount: docsInGroup.length
+            }));
+        });
+
+        const sample = unifiedList.slice(0, 48);
         return sample.map((doc, idx) => {
             return window.createDocCard ? window.createDocCard(doc, '', idx) : '';
         }).join('');

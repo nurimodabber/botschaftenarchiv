@@ -71,6 +71,15 @@ async function initApp() {
             throw new Error(`HTTP ${response ? response.status : 'Network Error'}`);
         }
         state.documents = await response.json();
+        try {
+            let aliasResp = await fetch('data/id_aliases.json').catch(() => null);
+            if (!aliasResp || !aliasResp.ok) {
+                aliasResp = await fetch('/data/id_aliases.json').catch(() => null);
+            }
+            if (aliasResp && aliasResp.ok) {
+                state.idAliases = await aliasResp.json();
+            }
+        } catch (e) {}
     } catch (error) {
         console.error('Error loading documents:', error);
         const resultsEl = document.getElementById('library-results');
