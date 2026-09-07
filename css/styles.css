@@ -2516,11 +2516,12 @@ body:has(#document-viewer.active) .cosmos-dock-container {
     .cosmos-dock-container {
         position: fixed !important;
         top: auto !important;
-        bottom: max(0.85rem, env(safe-area-inset-bottom, 0px)) !important;
+        bottom: 14px !important;
+        bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important;
         left: 0 !important;
         right: 0 !important;
         width: 100% !important;
-        padding: 0 0.85rem !important;
+        padding: 0 12px !important;
         box-sizing: border-box !important;
         z-index: 1000 !important;
         display: flex !important;
@@ -2535,44 +2536,46 @@ body:has(#document-viewer.active) .cosmos-dock-container {
     body:has(#document-viewer.active) .cosmos-dock-container {
         opacity: 0 !important;
         pointer-events: none !important;
-        transform: translateY(160%) !important;
+        transform: translateY(180%) !important;
         visibility: hidden !important;
     }
 
     .cosmos-dock {
         pointer-events: auto !important;
         width: 100% !important;
-        max-width: 520px !important;
+        max-width: 480px !important;
+        height: 66px !important;
+        min-height: 66px !important;
+        max-height: 66px !important;
+        box-sizing: border-box !important;
         display: flex !important;
         align-items: center !important;
-        justify-content: space-around !important;
+        justify-content: space-between !important;
         gap: 0 !important;
-        border-radius: 40px !important;
+        border-radius: 9999px !important;
         border: 1px solid rgba(255, 255, 255, 0.12) !important;
-        background: #0B1318 !important;
-        background: rgba(11, 19, 24, 0.94) !important;
-        backdrop-filter: blur(28px) saturate(200%) !important;
-        -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
-        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55), 0 2px 10px rgba(0, 0, 0, 0.3) !important;
-        padding: 0.45rem 0.35rem !important;
+        background: #0F1519 !important; /* 100% vollstaendig deckend und blickdicht - kein Text schimmert durch */
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65), 0 2px 10px rgba(0, 0, 0, 0.4) !important;
+        padding: 0 6px !important;
+        position: relative !important;
     }
 
     [data-theme="light"] .cosmos-dock {
-        background: rgba(255, 255, 255, 0.95) !important;
+        background: #FFFFFF !important;
         border: 1px solid rgba(0, 0, 0, 0.1) !important;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.05) !important;
     }
 
     [data-theme="sepia"] .cosmos-dock {
-        background: rgba(247, 243, 235, 0.96) !important;
+        background: #F4EFEB !important;
         border: 1px solid rgba(61, 48, 36, 0.14) !important;
-        box-shadow: 0 10px 30px rgba(61, 48, 36, 0.12) !important;
+        box-shadow: 0 10px 30px rgba(61, 48, 36, 0.15), 0 2px 8px rgba(61, 48, 36, 0.06) !important;
     }
 
     [data-theme="oled"] .cosmos-dock {
-        background: rgba(0, 0, 0, 0.96) !important;
-        border: 1px solid rgba(255, 255, 255, 0.16) !important;
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8) !important;
+        background: #000000 !important;
+        border: 1px solid rgba(255, 255, 255, 0.18) !important;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.85) !important;
     }
 
     .dock-brand,
@@ -2587,7 +2590,10 @@ body:has(#document-viewer.active) .cosmos-dock-container {
         justify-content: space-around !important;
         flex: 5 !important;
         width: auto !important;
+        height: 100% !important;
         gap: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     .dock-actions {
@@ -2595,7 +2601,9 @@ body:has(#document-viewer.active) .cosmos-dock-container {
         align-items: center !important;
         justify-content: center !important;
         flex: 1 !important;
+        height: 100% !important;
         padding: 0 !important;
+        margin: 0 !important;
     }
 
     .appearance-wrapper {
@@ -2603,85 +2611,99 @@ body:has(#document-viewer.active) .cosmos-dock-container {
         align-items: center !important;
         justify-content: center !important;
         width: 100% !important;
+        height: 100% !important;
     }
 
     /* Navigation Buttons: Vertikal gestapelt (Rundes Icon oben, Label unten) */
-    .nav-btn,
+    .cosmos-nav .nav-btn,
     .appearance-dock-btn {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
-        gap: 2px !important;
-        padding: 0.15rem 0.1rem !important;
+        gap: 3px !important;
+        padding: 4px 1px !important;
+        height: 100% !important;
+        min-height: 0 !important;
+        max-height: none !important;
         background: transparent !important;
         border: none !important;
         box-shadow: none !important;
         border-radius: 0 !important;
+        transform: none !important;
         min-width: 0 !important;
         width: 100% !important;
-        max-width: 66px !important;
-        color: #8E9DAE !important;
+        max-width: none !important;
+        color: #7E909B !important;
         text-decoration: none !important;
         touch-action: manipulation !important;
         -webkit-tap-highlight-color: transparent !important;
-        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        cursor: pointer !important;
+        box-sizing: border-box !important;
     }
 
-    [data-theme="light"] .nav-btn,
+    .appearance-dock-btn:hover,
+    .appearance-dock-btn.active {
+        transform: none !important;
+        background: transparent !important;
+        border: none !important;
+    }
+
+    [data-theme="light"] .cosmos-nav .nav-btn,
     [data-theme="light"] .appearance-dock-btn {
         color: #64748B !important;
     }
 
-    [data-theme="sepia"] .nav-btn,
+    [data-theme="sepia"] .cosmos-nav .nav-btn,
     [data-theme="sepia"] .appearance-dock-btn {
         color: #7A6A58 !important;
     }
 
     /* RUNDES ICON-CONTAINER-ELEMENT (Perfekter Kreis gemäss Referenzbild) */
     .nav-icon-circle {
-        width: 38px !important;
-        height: 38px !important;
+        width: 36px !important;
+        height: 36px !important;
         border-radius: 50% !important;
-        display: inline-flex !important;
+        display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        background: rgba(255, 255, 255, 0.03) !important;
-        border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        background: rgba(255, 255, 255, 0.04) !important;
+        border: 1px solid rgba(255, 255, 255, 0.06) !important;
         color: inherit !important;
-        transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
         flex-shrink: 0 !important;
+        box-sizing: border-box !important;
+        margin: 0 auto !important;
     }
 
     [data-theme="light"] .nav-icon-circle {
         background: rgba(0, 0, 0, 0.03) !important;
-        border: 1px solid rgba(0, 0, 0, 0.05) !important;
+        border: 1px solid rgba(0, 0, 0, 0.06) !important;
     }
 
     [data-theme="sepia"] .nav-icon-circle {
-        background: rgba(61, 48, 36, 0.04) !important;
-        border: 1px solid rgba(61, 48, 36, 0.07) !important;
+        background: rgba(61, 48, 36, 0.05) !important;
+        border: 1px solid rgba(61, 48, 36, 0.08) !important;
     }
 
-    .nav-btn .nav-icon,
+    .cosmos-nav .nav-btn .nav-icon,
     .appearance-dock-btn .appearance-settings-icon {
-        width: 19px !important;
-        height: 19px !important;
+        width: 18px !important;
+        height: 18px !important;
         stroke-width: 1.8 !important;
         color: inherit !important;
         display: block !important;
-        transition: transform 0.2s ease !important;
+        margin: auto !important;
     }
 
     /* Text-Labels unter den runden Icons */
-    .nav-btn span,
-    .appearance-dock-btn span {
+    .nav-label {
         display: block !important;
-        font-size: 0.61rem !important;
+        font-size: 0.58rem !important;
         font-weight: 500 !important;
         line-height: 1.1 !important;
-        letter-spacing: -0.015em !important;
-        color: #8E9DAE !important;
+        letter-spacing: -0.01em !important;
+        color: #7E909B !important;
         white-space: nowrap !important;
         text-align: center !important;
         margin-top: 1px !important;
@@ -2691,91 +2713,88 @@ body:has(#document-viewer.active) .cosmos-dock-container {
         transition: color 0.2s ease, font-weight 0.2s ease !important;
     }
 
-    [data-theme="light"] .nav-btn span,
-    [data-theme="light"] .appearance-dock-btn span {
+    [data-theme="light"] .nav-label {
         color: #64748B !important;
     }
 
-    [data-theme="sepia"] .nav-btn span,
-    [data-theme="sepia"] .appearance-dock-btn span {
+    [data-theme="sepia"] .nav-label {
         color: #7A6A58 !important;
     }
 
     /* AKTIVER TASTEN-STATUS: Runder Icon-Kreis mit Teal/Cyan-Hervorhebung gemäss Referenz */
-    .nav-btn.active,
+    .cosmos-nav .nav-btn.active,
     .appearance-dock-btn.active {
         background: transparent !important;
         border: none !important;
         box-shadow: none !important;
-        padding: 0.15rem 0.1rem !important;
+        padding: 4px 1px !important;
     }
 
-    .nav-btn.active .nav-icon-circle,
+    .cosmos-nav .nav-btn.active .nav-icon-circle,
     .appearance-dock-btn.active .nav-icon-circle {
-        background: rgba(25, 45, 54, 0.96) !important;
-        border: 1px solid rgba(75, 125, 150, 0.75) !important;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.15) !important;
+        background: #132425 !important;
+        border: 1px solid rgba(62, 107, 116, 0.85) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
         color: #FFFFFF !important;
-        transform: scale(1.06) !important;
+        transform: scale(1.04) !important;
     }
 
-    [data-theme="light"] .nav-btn.active .nav-icon-circle,
+    [data-theme="light"] .cosmos-nav .nav-btn.active .nav-icon-circle,
     [data-theme="light"] .appearance-dock-btn.active .nav-icon-circle {
         background: rgba(220, 236, 246, 0.95) !important;
         border: 1px solid rgba(75, 125, 150, 0.55) !important;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
         color: #0F172A !important;
-        transform: scale(1.06) !important;
+        transform: scale(1.04) !important;
     }
 
-    [data-theme="sepia"] .nav-btn.active .nav-icon-circle,
+    [data-theme="sepia"] .cosmos-nav .nav-btn.active .nav-icon-circle,
     [data-theme="sepia"] .appearance-dock-btn.active .nav-icon-circle {
         background: rgba(230, 222, 208, 0.95) !important;
         border: 1px solid rgba(180, 160, 130, 0.65) !important;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
         color: #3D3024 !important;
-        transform: scale(1.06) !important;
+        transform: scale(1.04) !important;
     }
 
-    [data-theme="oled"] .nav-btn.active .nav-icon-circle,
+    [data-theme="oled"] .cosmos-nav .nav-btn.active .nav-icon-circle,
     [data-theme="oled"] .appearance-dock-btn.active .nav-icon-circle {
-        background: rgba(20, 36, 44, 0.98) !important;
+        background: #142931 !important;
         border: 1px solid rgba(75, 125, 150, 0.85) !important;
         color: #FFFFFF !important;
-        transform: scale(1.06) !important;
+        transform: scale(1.04) !important;
     }
 
-    .nav-btn.active span,
-    .appearance-dock-btn.active span {
+    .cosmos-nav .nav-btn.active .nav-label,
+    .appearance-dock-btn.active .nav-label {
         color: #FFFFFF !important;
         font-weight: 600 !important;
     }
 
-    [data-theme="light"] .nav-btn.active span,
-    [data-theme="light"] .appearance-dock-btn.active span {
+    [data-theme="light"] .cosmos-nav .nav-btn.active .nav-label,
+    [data-theme="light"] .appearance-dock-btn.active .nav-label {
         color: #0F172A !important;
         font-weight: 600 !important;
     }
 
-    [data-theme="sepia"] .nav-btn.active span,
-    [data-theme="sepia"] .appearance-dock-btn.active span {
+    [data-theme="sepia"] .cosmos-nav .nav-btn.active .nav-label,
+    [data-theme="sepia"] .appearance-dock-btn.active .nav-label {
         color: #3D3024 !important;
         font-weight: 600 !important;
     }
 
     @media (max-width: 360px) {
         .nav-icon-circle {
-            width: 34px !important;
-            height: 34px !important;
+            width: 32px !important;
+            height: 32px !important;
         }
-        .nav-btn .nav-icon,
+        .cosmos-nav .nav-btn .nav-icon,
         .appearance-dock-btn .appearance-settings-icon {
-            width: 17px !important;
-            height: 17px !important;
+            width: 16px !important;
+            height: 16px !important;
         }
-        .nav-btn span,
-        .appearance-dock-btn span {
-            font-size: 0.55rem !important;
+        .nav-label {
+            font-size: 0.52rem !important;
         }
     }
 
@@ -2783,13 +2802,13 @@ body:has(#document-viewer.active) .cosmos-dock-container {
     .appearance-popover {
         position: fixed !important;
         top: auto !important;
-        bottom: calc(5.4rem + env(safe-area-inset-bottom, 0px)) !important;
+        bottom: calc(5.8rem + env(safe-area-inset-bottom, 0px)) !important;
         left: max(0.75rem, env(safe-area-inset-left, 0px)) !important;
         right: max(0.75rem, env(safe-area-inset-right, 0px)) !important;
         width: auto !important;
-        max-width: 520px !important;
+        max-width: 480px !important;
         margin: 0 auto !important;
-        max-height: 75vh !important;
+        max-height: 72vh !important;
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch !important;
         padding: 1.15rem 1.1rem !important;
@@ -2808,11 +2827,11 @@ body:has(#document-viewer.active) .cosmos-dock-container {
 
     /* Hauptinhalt mit Freiraum für die untere Taskbar und Notch oben */
     #app-content {
-        padding: max(1.25rem, env(safe-area-inset-top, 0px)) max(0.85rem, env(safe-area-inset-right, 0px)) calc(5.8rem + env(safe-area-inset-bottom, 0px)) max(0.85rem, env(safe-area-inset-left, 0px)) !important;
+        padding: max(1.25rem, env(safe-area-inset-top, 0px)) max(0.85rem, env(safe-area-inset-right, 0px)) calc(6.5rem + env(safe-area-inset-bottom, 0px)) max(0.85rem, env(safe-area-inset-left, 0px)) !important;
     }
 
     .app-footer {
-        padding-bottom: calc(5.8rem + env(safe-area-inset-bottom, 0px)) !important;
+        padding-bottom: calc(6.5rem + env(safe-area-inset-bottom, 0px)) !important;
     }
 
     /* ─── Mobile Document Viewer / Preview Modal (Vollständig repariert) ─── */
@@ -4038,6 +4057,10 @@ body:has(#document-viewer.active) .cosmos-dock-container {
     color: var(--text-muted);
     transition: all var(--transition-fast);
     padding: 0;
+}
+
+.appearance-dock-btn .nav-label {
+    display: none;
 }
 
 .appearance-dock-btn:hover,
@@ -7003,7 +7026,8 @@ button,
     /* In standalone mode, retain floating dock clearance */
     @media (max-width: 768px) {
         .cosmos-dock-container {
-            bottom: max(0.85rem, env(safe-area-inset-bottom, 0px)) !important;
+            bottom: 14px !important;
+            bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important;
             top: auto !important;
         }
     }

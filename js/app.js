@@ -594,7 +594,7 @@ window.switchView = function(targetView) {
         return;
     }
 
-    const navBtns = document.querySelectorAll('.nav-btn');
+    const navBtns = document.querySelectorAll('.cosmos-nav .nav-btn');
     const views = document.querySelectorAll('.view');
 
     navBtns.forEach(btn => {
@@ -629,7 +629,7 @@ window.switchView = function(targetView) {
 };
 
 function setupNavigation() {
-    const navBtns = document.querySelectorAll('.nav-btn');
+    const navBtns = document.querySelectorAll('.cosmos-nav .nav-btn');
     navBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             window.switchView(btn.dataset.view);

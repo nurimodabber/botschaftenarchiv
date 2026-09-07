@@ -42,7 +42,7 @@
     <meta name="twitter:description" content="Digitale Forschungsbibliothek mit 918 Botschaften des Universalen Hauses der Gerechtigkeit, Schriften und Büchern im offiziellen Satzspiegel.">
     <meta name="twitter:image" content="https://bahaibibliothek.vercel.app/assets/icons/og-image.png">
 
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css?v=2.2">
     <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
     <!-- Vercel Web Analytics & Speed Insights -->
     <script>
@@ -55,7 +55,9 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').catch(() => {});
+                navigator.serviceWorker.register('/sw.js').then((reg) => {
+                    reg.update().catch(() => {});
+                }).catch(() => {});
             });
         }
     </script>
@@ -78,32 +80,32 @@
                     <span class="nav-icon-circle">
                         <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
                     </span>
-                    <span>Bibliothek</span>
+                    <span class="nav-label">Bibliothek</span>
                 </button>
 
                 <button class="nav-btn" data-view="timeline" title="Historischer Zeitstrahl &amp; Epochen-Explorer (1844–2044)">
                     <span class="nav-icon-circle">
                         <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12"/><circle cx="6" cy="12" r="3" fill="currentColor"/><circle cx="12" cy="12" r="3" fill="currentColor"/><circle cx="18" cy="12" r="3" fill="currentColor"/></svg>
                     </span>
-                    <span>Zeitstrahl</span>
+                    <span class="nav-label">Zeitstrahl</span>
                 </button>
                 <button class="nav-btn btn-nav-workshop" data-view="workshop" title="Kompilations-Werkstatt">
                     <span class="nav-icon-circle">
                         <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
                     </span>
-                    <span>Werkstatt</span>
+                    <span class="nav-label">Werkstatt</span>
                 </button>
                 <button class="nav-btn" data-view="sources" title="Offizielle Bahá'í-Quellen &amp; Repositorien">
                     <span class="nav-icon-circle">
-                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"/></svg>
                     </span>
-                    <span>Quellen</span>
+                    <span class="nav-label">Quellen</span>
                 </button>
                 <button class="nav-btn" data-view="saved" title="Merkliste &amp; Gespeichertes">
                     <span class="nav-icon-circle">
                         <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
                     </span>
-                    <span>Merkliste</span>
+                    <span class="nav-label">Merkliste</span>
                 </button>
             </nav>
 
@@ -112,14 +114,14 @@
             <div class="dock-actions">
                 <!-- Vereintes Einstellungs-Menü (Standard-Format, Sprache, Thema, Farbauswahl, Typografie, Lesebreite, Zeilenabstand, Layout) -->
                 <div class="appearance-wrapper">
-                    <button id="appearance-btn" class="appearance-dock-btn nav-btn" aria-label="Einstellungen" title="Einstellungen">
+                    <button id="appearance-btn" class="appearance-dock-btn" aria-label="Einstellungen" title="Einstellungen">
                         <span class="nav-icon-circle">
                             <svg class="appearance-settings-icon nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="12" cy="12" r="3"></circle>
                                 <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
                             </svg>
                         </span>
-                        <span>Einstellungen</span>
+                        <span class="nav-label">Einstellungen</span>
                     </button>
                     <div id="appearance-popover" class="appearance-popover" hidden>
                         <div class="appearance-popover-header">
