@@ -16,6 +16,18 @@ let currentViewerDoc = null;
 let currentViewerMode = 'text'; // 'text' | 'pdf'
 let lastScrollTop = 0;
 
+function getStoredDefaultViewerMode() {
+    try {
+        if (typeof window.safeGetStorage === 'function') {
+            return window.safeGetStorage('cosmos_default_viewer_mode', 'pdf');
+        }
+        const val = localStorage.getItem('cosmos_default_viewer_mode');
+        return val !== null ? val : 'pdf';
+    } catch (e) {
+        return 'pdf';
+    }
+}
+
 window.initViewer = function() {
     const modal = document.getElementById('document-viewer');
     const headerEl = document.getElementById('viewer-header');
@@ -380,27 +392,52 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
     // Lesezeichen-Zustand aktualisieren
     updateBookmarkBtnState(doc.id);
 
-    // IMMER das Originalformat oben anzeigen (entweder PDF, Webseite oder EPUB)
+    // Standard-Leseformat gemaess Benutzereinstellung (Original-PDF, Fliesstext, Webseite, Automatisch)
     let targetMode = preferredMode;
     if (!targetMode) {
         if (targetParagraph) {
             targetMode = 'text';
-        } else if (origFmt === 'PDF' && pdfPath) {
-            targetMode = 'pdf';
-        } else if (origFmt === 'Webseite') {
-            if (doc.sourceUrl && doc.sourceUrl.includes('bibliothek.bahai.de')) {
-                targetMode = 'web';
-            } else if (pdfPath) {
-                targetMode = 'pdf';
-            } else {
-                targetMode = 'web';
-            }
-        } else if (origFmt === 'EPUB') {
-            targetMode = 'epub';
-        } else if (pdfPath) {
-            targetMode = 'pdf';
         } else {
-            targetMode = 'text';
+            const defaultFmt = getStoredDefaultViewerMode();
+            if (defaultFmt === 'pdf') {
+                if (pdfPath) {
+                    targetMode = 'pdf';
+                } else if (doc.sourceUrl) {
+                    targetMode = 'web';
+                } else {
+                    targetMode = 'text';
+                }
+            } else if (defaultFmt === 'text') {
+                targetMode = 'text';
+            } else if (defaultFmt === 'web') {
+                if (doc.sourceUrl) {
+                    targetMode = 'web';
+                } else if (pdfPath) {
+                    targetMode = 'pdf';
+                } else {
+                    targetMode = 'text';
+                }
+            } else if (defaultFmt === 'auto') {
+                if (origFmt === 'PDF' && pdfPath) {
+                    targetMode = 'pdf';
+                } else if (origFmt === 'Webseite') {
+                    if (doc.sourceUrl && doc.sourceUrl.includes('bibliothek.bahai.de')) {
+                        targetMode = 'web';
+                    } else if (pdfPath) {
+                        targetMode = 'pdf';
+                    } else {
+                        targetMode = 'web';
+                    }
+                } else if (origFmt === 'EPUB') {
+                    targetMode = 'epub';
+                } else if (pdfPath) {
+                    targetMode = 'pdf';
+                } else {
+                    targetMode = 'text';
+                }
+            } else {
+                targetMode = pdfPath ? 'pdf' : 'text';
+            }
         }
     }
 

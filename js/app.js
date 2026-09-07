@@ -12,6 +12,8 @@ function safeSetStorage(key, val) {
         localStorage.setItem(key, val);
     } catch (e) {}
 }
+window.safeGetStorage = safeGetStorage;
+window.safeSetStorage = safeSetStorage;
 
 // Analytics Helper (Vercel Web Analytics)
 window.trackEvent = function(name, data = {}) {
@@ -118,6 +120,18 @@ async function initApp() {
 // ─── Unified Appearance & Visual Customizations ────────────────────────────
 function setupAppearance() {
     const html = document.documentElement;
+
+    // 0. Default Viewer Format Setting (pdf / text / web / auto)
+    const savedViewerFormat = safeGetStorage('cosmos_default_viewer_mode', 'pdf');
+
+    function applyDefaultViewerFormat(fmt) {
+        const validFormat = (fmt === 'text' || fmt === 'web' || fmt === 'auto' || fmt === 'pdf') ? fmt : 'pdf';
+        safeSetStorage('cosmos_default_viewer_mode', validFormat);
+
+        document.querySelectorAll('#appearance-format-group .appearance-opt-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.formatVal === validFormat);
+        });
+    }
 
     // 1. Theme Setting (light / sepia / dark / oled)
     const savedTheme = safeGetStorage('cosmos_theme', safeGetStorage('theme', 'light'));
@@ -276,6 +290,7 @@ function setupAppearance() {
     }
 
     // Initialize all settings
+    applyDefaultViewerFormat(savedViewerFormat);
     applyTheme(savedTheme);
     applyAccentColor(savedColor);
     applyReaderFont(savedFont);
@@ -342,6 +357,13 @@ function setupAppearance() {
         });
     }
 
+    // Default Viewer Format selection
+    document.querySelectorAll('#appearance-format-group .appearance-opt-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            applyDefaultViewerFormat(btn.dataset.formatVal);
+        });
+    });
+
     // Font selection
     document.querySelectorAll('#appearance-font-group .appearance-opt-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -404,6 +426,7 @@ function setupAppearance() {
     // Reset Button
     if (resetBtn) {
         resetBtn.addEventListener('click', () => {
+            applyDefaultViewerFormat('pdf');
             applyTheme('light');
             applyAccentColor(defaultColor);
             applyReaderFont('serif');
