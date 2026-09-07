@@ -607,6 +607,8 @@ window.switchView = function(targetView) {
 
     state.currentView = targetView;
     document.body.setAttribute('data-active-view', targetView);
+    const pop = document.getElementById('appearance-popover');
+    if (pop && !pop.hidden) pop.hidden = true;
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     if (typeof window.trackEvent === 'function') {

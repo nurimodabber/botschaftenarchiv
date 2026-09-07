@@ -75,24 +75,34 @@
 
             <nav class="cosmos-nav" aria-label="Hauptnavigation">
                 <button class="nav-btn active" data-view="library" title="Bibliothek (Botschaften des Hauses)">
-                    <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
+                    <span class="nav-icon-circle">
+                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
+                    </span>
                     <span>Bibliothek</span>
                 </button>
 
                 <button class="nav-btn" data-view="timeline" title="Historischer Zeitstrahl &amp; Epochen-Explorer (1844–2044)">
-                    <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12"/><circle cx="6" cy="12" r="3" fill="currentColor"/><circle cx="12" cy="12" r="3" fill="currentColor"/><circle cx="18" cy="12" r="3" fill="currentColor"/></svg>
+                    <span class="nav-icon-circle">
+                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12"/><circle cx="6" cy="12" r="3" fill="currentColor"/><circle cx="12" cy="12" r="3" fill="currentColor"/><circle cx="18" cy="12" r="3" fill="currentColor"/></svg>
+                    </span>
                     <span>Zeitstrahl</span>
                 </button>
                 <button class="nav-btn btn-nav-workshop" data-view="workshop" title="Kompilations-Werkstatt">
-                    <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                    <span class="nav-icon-circle">
+                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                    </span>
                     <span>Werkstatt</span>
                 </button>
                 <button class="nav-btn" data-view="sources" title="Offizielle Bahá'í-Quellen &amp; Repositorien">
-                    <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    <span class="nav-icon-circle">
+                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    </span>
                     <span>Quellen</span>
                 </button>
                 <button class="nav-btn" data-view="saved" title="Merkliste &amp; Gespeichertes">
-                    <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                    <span class="nav-icon-circle">
+                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                    </span>
                     <span>Merkliste</span>
                 </button>
             </nav>
@@ -103,18 +113,20 @@
                 <!-- Vereintes Einstellungs-Menü (Standard-Format, Sprache, Thema, Farbauswahl, Typografie, Lesebreite, Zeilenabstand, Layout) -->
                 <div class="appearance-wrapper">
                     <button id="appearance-btn" class="appearance-dock-btn nav-btn" aria-label="Einstellungen" title="Einstellungen">
-                        <svg class="appearance-settings-icon nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="4" y1="21" x2="4" y2="14"></line>
-                            <line x1="4" y1="10" x2="4" y2="3"></line>
-                            <line x1="12" y1="21" x2="12" y2="12"></line>
-                            <line x1="12" y1="8" x2="12" y2="3"></line>
-                            <line x1="20" y1="21" x2="20" y2="16"></line>
-                            <line x1="20" y1="12" x2="20" y2="3"></line>
-                            <line x1="1" y1="14" x2="7" y2="14"></line>
-                            <line x1="9" y1="8" x2="15" y2="8"></line>
-                            <line x1="17" y1="16" x2="23" y2="16"></line>
-                        </svg>
-                        <span>Optionen</span>
+                        <span class="nav-icon-circle">
+                            <svg class="appearance-settings-icon nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="4" y1="21" x2="4" y2="14"></line>
+                                <line x1="4" y1="10" x2="4" y2="3"></line>
+                                <line x1="12" y1="21" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12" y2="3"></line>
+                                <line x1="20" y1="21" x2="20" y2="16"></line>
+                                <line x1="20" y1="12" x2="20" y2="3"></line>
+                                <line x1="1" y1="14" x2="7" y2="14"></line>
+                                <line x1="9" y1="8" x2="15" y2="8"></line>
+                                <line x1="17" y1="16" x2="23" y2="16"></line>
+                            </svg>
+                        </span>
+                        <span>Einstellungen</span>
                     </button>
                     <div id="appearance-popover" class="appearance-popover" hidden>
                         <div class="appearance-popover-header">
