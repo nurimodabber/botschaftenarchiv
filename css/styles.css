@@ -241,14 +241,16 @@ html[data-reader-align="left"] {
     --reader-text-align: left;
 }
 
-/* Bibliotheks-Ansichtsmodus (Karten vs. Kompaktliste) */
-html[data-library-view="list"] #library-results {
+/* Bibliotheks-Ansichtsmodus (Karten vs. Kompaktliste Desktop) */
+html[data-library-view="list"] #library-results,
+#library-results.list-view {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 
-html[data-library-view="list"] #library-results .doc-card {
+html[data-library-view="list"] #library-results .doc-card,
+#library-results.list-view .doc-card {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -258,7 +260,8 @@ html[data-library-view="list"] #library-results .doc-card {
     min-height: auto;
 }
 
-html[data-library-view="list"] #library-results .doc-card-body {
+html[data-library-view="list"] #library-results .doc-card-body,
+#library-results.list-view .doc-card-body {
     flex: 1;
     min-width: 0;
     display: flex;
@@ -267,31 +270,56 @@ html[data-library-view="list"] #library-results .doc-card-body {
     gap: 1.25rem;
 }
 
-html[data-library-view="list"] #library-results .doc-meta-editorial {
-    flex-shrink: 0;
-    min-width: 160px;
+html[data-library-view="list"] #library-results .doc-card-header,
+#library-results.list-view .doc-card-header {
     margin-bottom: 0;
+    flex-shrink: 0;
+    min-width: 170px;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
 }
 
-html[data-library-view="list"] #library-results .doc-title {
+html[data-library-view="list"] #library-results .doc-meta-editorial,
+#library-results.list-view .doc-meta-editorial {
+    flex-shrink: 0;
+    margin-bottom: 0;
+    white-space: nowrap;
+}
+
+html[data-library-view="list"] #library-results .doc-title,
+#library-results.list-view .doc-title {
     margin: 0;
     font-size: 0.98rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    flex: 1;
 }
 
 html[data-library-view="list"] #library-results .doc-excerpt,
+#library-results.list-view .doc-excerpt,
 html[data-library-view="list"] #library-results .doc-sub-title,
-html[data-library-view="list"] #library-results .doc-topics-cluster {
+#library-results.list-view .doc-sub-title {
     display: none;
 }
 
-html[data-library-view="list"] #library-results .doc-card-footer {
+html[data-library-view="list"] #library-results .doc-card-footer,
+#library-results.list-view .doc-card-footer {
     border-top: none;
     padding-top: 0;
     margin-top: 0;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+html[data-library-view="list"] #library-results .doc-topics-cluster,
+#library-results.list-view .doc-topics-cluster {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
 }
 
 /* ─── Global Reset & Body ────────────────────────────────────────────────── */
@@ -3742,6 +3770,121 @@ body:has(#document-viewer.active) .cosmos-dock-container {
     .doc-title {
         font-size: 1.08rem !important;
         margin-bottom: 0.5rem !important;
+    }
+
+    /* ─── Mobile Hochkant-Listenansicht (Kompakte 3-Zeilen-Indexstreifen) ─── */
+    html[data-library-view="list"] #library-results,
+    #library-results.list-view {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.45rem !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-card,
+    #library-results.list-view .doc-card {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        justify-content: flex-start !important;
+        padding: 0.72rem 0.95rem !important;
+        gap: 0.28rem !important;
+        min-height: auto !important;
+        border-radius: 12px !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-card-body,
+    #library-results.list-view .doc-card-body {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0.22rem !important;
+        width: 100% !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-card-header,
+    #library-results.list-view .doc-card-header {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        margin-bottom: 0 !important;
+        min-width: 0 !important;
+        width: 100% !important;
+        gap: 0.5rem !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-meta-editorial,
+    #library-results.list-view .doc-meta-editorial {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.35rem 0.45rem !important;
+        font-size: 0.72rem !important;
+        flex-wrap: wrap !important;
+        min-width: 0 !important;
+        line-height: 1.3 !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-bilingual-badge,
+    #library-results.list-view .doc-bilingual-badge {
+        font-size: 0.62rem !important;
+        padding: 0.08rem 0.38rem !important;
+        flex-shrink: 0 !important;
+        margin-left: auto !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-title,
+    #library-results.list-view .doc-title {
+        font-size: 0.95rem !important;
+        font-weight: 600 !important;
+        line-height: 1.35 !important;
+        margin: 0.08rem 0 0.05rem 0 !important;
+        white-space: normal !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        width: 100% !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-excerpt,
+    #library-results.list-view .doc-excerpt,
+    html[data-library-view="list"] #library-results .doc-sub-title,
+    #library-results.list-view .doc-sub-title {
+        display: none !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-card-footer,
+    #library-results.list-view .doc-card-footer {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        gap: 0.45rem !important;
+        border-top: none !important;
+        padding-top: 0.15rem !important;
+        margin-top: 0 !important;
+        flex-wrap: wrap !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-topics-cluster,
+    #library-results.list-view .doc-topics-cluster {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.3rem !important;
+        flex-wrap: wrap !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-topic-pill,
+    #library-results.list-view .doc-topic-pill {
+        font-size: 0.68rem !important;
+        padding: 0.1rem 0.42rem !important;
+        border-radius: var(--radius-full) !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-topic-more,
+    #library-results.list-view .doc-topic-more {
+        font-size: 0.68rem !important;
+        color: var(--text-subtle) !important;
     }
 
     .book-plate-card,
@@ -7676,6 +7819,15 @@ html[data-active-pillar="all"] {
     flex: 1;
 }
 
+.doc-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.55rem;
+    width: 100%;
+}
+
 .doc-meta-editorial {
     display: flex;
     align-items: center;
@@ -7684,8 +7836,8 @@ html[data-active-pillar="all"] {
     font-family: var(--font-mono);
     font-size: 0.73rem;
     color: var(--text-subtle);
-    margin-bottom: 0.55rem;
     line-height: 1.4;
+    min-width: 0;
 }
 
 .meta-dot {
@@ -7723,9 +7875,12 @@ html[data-active-pillar="all"] {
     color: var(--text-muted);
     background: var(--bg-subtle);
     border: 1px solid var(--border-hairline);
-    padding: 0.1rem 0.42rem;
+    padding: 0.12rem 0.45rem;
     border-radius: var(--radius-full);
     letter-spacing: 0.04em;
+    flex-shrink: 0;
+    margin-left: auto;
+    white-space: nowrap;
 }
 
 .doc-sub-title {

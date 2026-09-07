@@ -1838,10 +1838,7 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
         metaParts.push(`<span class="doc-context-text">${escapeDocHtml(contextLabel)}</span>`);
     }
 
-    // Dezente zweisprachige Kennzeichnung (ohne klickbare Doppel-Knöpfe)
-    if (hasBoth) {
-        metaParts.push(`<span class="doc-bilingual-badge" title="Zweisprachig verfügbar (Deutsch & Englisch)">DE · EN</span>`);
-    }
+    const bilingualBadge = hasBoth ? `<span class="doc-bilingual-badge" title="Zweisprachig verfügbar (Deutsch & Englisch)">DE · EN</span>` : '';
 
     const staggerIndex = typeof index === 'number' ? (index % 30) : 0;
     const previewText = snippet ? `…${snippet}…` : (doc.excerpt ? `${escapeDocHtml(doc.excerpt)}…` : '');
@@ -1873,8 +1870,11 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
     return `
         <article class="doc-card" style="--i: ${staggerIndex};" onclick="window.openDocument('${doc.id}')">
             <div class="doc-card-body">
-                <div class="doc-meta-editorial">
-                    ${metaParts.join('<span class="meta-dot">•</span>')}
+                <div class="doc-card-header">
+                    <div class="doc-meta-editorial">
+                        ${metaParts.join('<span class="meta-dot">•</span>')}
+                    </div>
+                    ${bilingualBadge}
                 </div>
                 <h3 class="doc-title">${escapeDocHtml(doc.title)}</h3>
                 ${subTitleHtml}
