@@ -31,145 +31,147 @@ os.makedirs(PDF_DIR, exist_ok=True)
 os.makedirs(DOCX_DIR, exist_ok=True)
 os.makedirs(EPUB_DIR, exist_ok=True)
 
-# Register high quality fonts
-HAS_GEORGIA = False
-try:
-    g_reg = '/System/Library/Fonts/Supplemental/Georgia.ttf'
-    g_bold = '/System/Library/Fonts/Supplemental/Georgia Bold.ttf'
-    g_ita = '/System/Library/Fonts/Supplemental/Georgia Italic.ttf'
-    if os.path.isfile(g_reg) and os.path.isfile(g_bold):
-        pdfmetrics.registerFont(TTFont('Georgia', g_reg))
-        pdfmetrics.registerFont(TTFont('Georgia-Bold', g_bold))
-        if os.path.isfile(g_ita):
-            pdfmetrics.registerFont(TTFont('Georgia-Italic', g_ita))
-        HAS_GEORGIA = True
-except Exception:
-    HAS_GEORGIA = False
+# Register official Palatino fonts
+font_path = '/System/Library/Fonts/Palatino.ttc'
+if not os.path.exists(font_path):
+    font_path = '/Library/Fonts/Palatino.ttc'
+pdfmetrics.registerFont(TTFont('Palatino-Roman', font_path, subfontIndex=0))
+pdfmetrics.registerFont(TTFont('Palatino-Italic', font_path, subfontIndex=1))
+pdfmetrics.registerFont(TTFont('Palatino-Bold', font_path, subfontIndex=2))
+pdfmetrics.registerFont(TTFont('Palatino-BoldItalic', font_path, subfontIndex=3))
+pdfmetrics.registerFontFamily('Palatino', normal='Palatino-Roman', bold='Palatino-Bold', italic='Palatino-Italic', boldItalic='Palatino-BoldItalic')
 
-FONT_BODY = 'Georgia' if HAS_GEORGIA else 'Helvetica'
-FONT_BOLD = 'Georgia-Bold' if HAS_GEORGIA else 'Helvetica-Bold'
-FONT_ITA = 'Georgia-Italic' if HAS_GEORGIA else 'Helvetica-Oblique'
-
-class NumberedCanvas(canvas.Canvas):
+class OfficialHausCanvas(canvas.Canvas):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._saved_page_states = []
+        self.pages = []
 
     def showPage(self):
-        self._saved_page_states.append(dict(self.__dict__))
+        self.pages.append(dict(self.__dict__))
         self._startPage()
 
     def save(self):
-        num_pages = len(self._saved_page_states)
-        for state in self._saved_page_states:
-            self.__dict__.update(state)
-            self.draw_page_decorations(num_pages)
+        for page_state in self.pages:
+            self.__dict__.update(page_state)
+            if self._pageNumber > 1:
+                self.saveState()
+                self.setFont('Palatino-Roman', 10)
+                self.drawCentredString(595.27 / 2.0, 42.0, str(self._pageNumber))
+                self.restoreState()
             super().showPage()
         super().save()
 
-    def draw_page_decorations(self, page_count):
-        self.saveState()
-        self.setFont(FONT_ITA, 8)
-        self.setFillColor(colors.HexColor('#64748b'))
-        # Running header on pages 2+
-        if self._pageNumber > 1:
-            title_snippet = getattr(self, '_doc_title_snippet', "Bahá'í-Archiv")
-            self.drawString(54, 842 - 36, title_snippet)
-            self.setStrokeColor(colors.HexColor('#e2e8f0'))
-            self.setLineWidth(0.5)
-            self.line(54, 842 - 42, 595 - 54, 842 - 42)
-        # Running footer on all pages
-        self.setStrokeColor(colors.HexColor('#e2e8f0'))
-        self.setLineWidth(0.5)
-        self.line(54, 45, 595 - 54, 45)
-        page_text = f"Seite {self._pageNumber} von {page_count}"
-        self.drawRightString(595 - 54, 32, page_text)
-        self.drawString(54, 32, "Offizielles Bahá'í-Archiv • botschaften-haus.de")
-        self.restoreState()
+class OfficialHausParagraph(Paragraph):
+    def __init__(self, text, style, p_num=None, bulletText=None, frags=None, **kwargs):
+        super().__init__(text, style, bulletText=bulletText, frags=frags, **kwargs)
+        self.p_num = str(p_num) if p_num else None
+
+    def draw(self):
+        super().draw()
+        if self.p_num:
+            self.canv.saveState()
+            self.canv.setFont('Palatino-Roman', 7.5)
+            baseline_y = self.height - self.style.fontSize + 0.5
+            self.canv.drawString(0, baseline_y, self.p_num)
+            self.canv.restoreState()
+
+    def split(self, availWidth, availHeight):
+        parts = super().split(availWidth, availHeight)
+        if len(parts) > 0 and self.p_num:
+            parts[0].p_num = self.p_num
+            for p in parts[1:]:
+                p.p_num = None
+        return parts
 
 def clean_xml(text):
     if not text:
         return ""
-    # Strip control chars
     clean = "".join(ch for ch in text if ch in ('\n', '\r', '\t') or ord(ch) >= 32)
     return html.escape(clean)
 
 def generate_pdf(doc, paragraphs, output_path):
-    title = doc.get('title', '')
-    title_short = (title[:55] + '...') if len(title) > 58 else title
-    
-    class CustomCanvas(NumberedCanvas):
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            self._doc_title_snippet = title_short
+    frame = Frame(72, 54, 595.27 - 144, 841.89 - 108, id='normal', leftPadding=0, rightPadding=0, topPadding=0, bottomPadding=0)
+    pdf_doc = BaseDocTemplate(output_path, pagesize=A4)
+    pdf_doc.addPageTemplates([PageTemplate(id='Main', frames=frame)])
 
-    pdf_doc = SimpleDocTemplate(
-        output_path,
-        pagesize=A4,
-        leftMargin=54,
-        rightMargin=54,
-        topMargin=54,
-        bottomMargin=54
-    )
-    styles = getSampleStyleSheet()
+    header_style = ParagraphStyle('HHead', fontName='Palatino-Roman', fontSize=11, leading=14, alignment=1, spaceAfter=38)
+    date_style = ParagraphStyle('HDate', fontName='Palatino-Roman', fontSize=11, leading=14, alignment=1, spaceAfter=38)
+    recipient_style = ParagraphStyle('HRecip', fontName='Palatino-Roman', fontSize=11, leading=14, alignment=0, spaceAfter=18)
+    salutation_style = ParagraphStyle('HSalut', fontName='Palatino-Roman', fontSize=11, leading=14, alignment=0, spaceAfter=14)
+    body_numbered_style = ParagraphStyle('HBodyNum', fontName='Palatino-Roman', fontSize=11, leading=14.2, alignment=4, leftIndent=0, firstLineIndent=36, spaceAfter=8)
+    body_plain_style = ParagraphStyle('HBodyPlain', fontName='Palatino-Roman', fontSize=11, leading=14.2, alignment=4, leftIndent=0, firstLineIndent=0, spaceAfter=8)
+    quote_style = ParagraphStyle('HQuote', fontName='Palatino-Roman', fontSize=10.5, leading=13.8, alignment=4, leftIndent=36, rightIndent=18, spaceAfter=8)
+    sign_style = ParagraphStyle('HSign', fontName='Palatino-Roman', fontSize=11, leading=14, alignment=1, spaceBefore=38)
 
-    eyebrow_style = ParagraphStyle(
-        'Eyebrow',
-        parent=styles['Normal'],
-        fontName=FONT_BOLD,
-        fontSize=8,
-        leading=11,
-        textColor=colors.HexColor('#c89d5c'),
-        spaceAfter=4
-    )
-    title_style = ParagraphStyle(
-        'DocTitle',
-        parent=styles['Heading1'],
-        fontName=FONT_BOLD,
-        fontSize=17,
-        leading=22,
-        textColor=colors.HexColor('#0f172a'),
-        spaceAfter=6
-    )
-    meta_style = ParagraphStyle(
-        'DocMeta',
-        parent=styles['Normal'],
-        fontName=FONT_ITA,
-        fontSize=9.5,
-        leading=13,
-        textColor=colors.HexColor('#64748b'),
-        spaceAfter=10
-    )
-    body_style = ParagraphStyle(
-        'DocBody',
-        parent=styles['Normal'],
-        fontName=FONT_BODY,
-        fontSize=10,
-        leading=15,
-        alignment=4,  # Justified
-        textColor=colors.HexColor('#1e293b'),
-        spaceAfter=8
-    )
+    story = []
+    in_header = True
 
-    institution = doc.get('sourcePlatform') or doc.get('source') or 'Universales Haus der Gerechtigkeit'
-    eyebrow_text = clean_xml(str(institution).upper())
+    first_p = paragraphs[0] if paragraphs else ""
+    has_explicit_header = any(h in first_p for h in ['UNIVERSALE HAUS', 'UNIVERSAL HOUSE OF JUSTICE', 'INTERNATIONAL TEACHING CENTRE', 'LEHRZENTRUM'])
 
-    date_str = doc.get('date', '')
-    recipient_str = doc.get('recipientLabel') or doc.get('recipient') or ''
-    meta_parts = [p for p in [date_str, doc.get('source', ''), recipient_str] if p]
-    meta_text = clean_xml(' • '.join(meta_parts))
+    if not has_explicit_header:
+        lang = doc.get('language') or 'deutsch'
+        is_itc = 'itc' in (doc.get('source') or '').lower()
+        if is_itc:
+            head_txt = 'DAS INTERNATIONALE LEHRZENTRUM' if lang == 'deutsch' else 'THE INTERNATIONAL TEACHING CENTRE'
+        else:
+            head_txt = 'DAS UNIVERSALE HAUS DER GERECHTIGKEIT' if lang == 'deutsch' else 'THE UNIVERSAL HOUSE OF JUSTICE'
+        story.append(Paragraph(head_txt, header_style))
 
-    story = [
-        Paragraph(eyebrow_text, eyebrow_style),
-        Paragraph(clean_xml(title), title_style),
-        Paragraph(meta_text, meta_style),
-        HRFlowable(width='100%', thickness=1.5, color=colors.HexColor('#c89d5c'), spaceAfter=14)
-    ]
+        date_val = doc.get('date') or ''
+        if date_val:
+            story.append(Paragraph(clean_xml(date_val), date_style))
 
-    for p in paragraphs:
-        story.append(Paragraph(clean_xml(p), body_style))
+        recip = doc.get('recipientLabel') or doc.get('recipient')
+        if recip:
+            story.append(Paragraph(clean_xml(recip), recipient_style))
 
-    pdf_doc.build(story, canvasmaker=CustomCanvas)
+    import re
+    for idx, p_raw in enumerate(paragraphs):
+        p_clean = p_raw.strip()
+        if not p_clean:
+            continue
+        p_escaped = clean_xml(p_clean)
+
+        if p_clean in ['DAS UNIVERSALE HAUS DER GERECHTIGKEIT', 'THE UNIVERSAL HOUSE OF JUSTICE', 'DAS INTERNATIONALE LEHRZENTRUM', 'THE INTERNATIONAL TEACHING CENTRE']:
+            story.append(Paragraph(p_escaped, header_style))
+        elif in_header and (any(p_clean.startswith(kw) for kw in ['Riḍván', 'Naw-Rúz', '1', '2', '3', 'Jan', 'Feb', 'Mär', 'Mar', 'Apr', 'Mai', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Oct', 'Nov', 'Dez', 'Dec']) and len(p_clean) < 40):
+            story.append(Paragraph(p_escaped, date_style))
+        elif in_header and (p_clean.startswith('An ') or p_clean.startswith('To ') or p_clean.startswith('Für ') or p_clean.startswith('Gegenüber ')) and len(p_clean) < 120:
+            story.append(Paragraph(p_escaped, recipient_style))
+        elif in_header and any(p_clean.endswith(s) for s in ['Freunde,', 'Friends,', 'Mitglieder,', 'Members,', 'Räte,', 'Councils,']):
+            story.append(Paragraph(p_escaped, salutation_style))
+            in_header = False
+        elif p_clean.startswith('[gez.:') or p_clean.startswith('[signed:'):
+            story.append(Paragraph(p_escaped, sign_style))
+            in_header = False
+        else:
+            in_header = False
+            p_num = None
+            body_text = p_escaped
+
+            m_tab = re.match(r'^(\d+)\t(.*)$', p_clean, re.DOTALL)
+            m_dot = re.match(r'^(\d+)\.\s+(.*)$', p_clean, re.DOTALL)
+            m_space = re.match(r'^(\d+)\s{2,}(.*)$', p_clean, re.DOTALL)
+
+            if m_tab:
+                p_num = m_tab.group(1)
+                body_text = clean_xml(m_tab.group(2))
+            elif m_dot and len(m_dot.group(1)) <= 3 and idx > 2:
+                p_num = m_dot.group(1)
+                body_text = clean_xml(m_dot.group(2))
+            elif m_space and len(m_space.group(1)) <= 3 and idx > 2:
+                p_num = m_space.group(1)
+                body_text = clean_xml(m_space.group(2))
+
+            if p_num:
+                story.append(OfficialHausParagraph(body_text, body_numbered_style, p_num=p_num))
+            elif p_clean.startswith('„') or p_clean.startswith('“') or p_clean.startswith('"'):
+                story.append(Paragraph(body_text, quote_style))
+            else:
+                story.append(Paragraph(body_text, body_plain_style))
+
+    pdf_doc.build(story, canvasmaker=OfficialHausCanvas)
 
 def generate_docx(doc, paragraphs, output_path):
     d = docx.Document()
