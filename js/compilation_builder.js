@@ -37,6 +37,48 @@ window.CompilationBuilder = (function() {
         } catch (e) {}
     }
 
+    let currentWorkshopTab = 'catalog';
+
+    function isPortraitMode() {
+        return window.matchMedia('(orientation: portrait), (max-width: 860px)').matches;
+    }
+
+    function switchWorkshopTab(tab) {
+        currentWorkshopTab = tab;
+        const catBtn = document.getElementById('wtab-catalog');
+        const draftBtn = document.getElementById('wtab-draft');
+        const catPane = document.querySelector('.workshop-catalog-pane');
+        const draftPane = document.querySelector('.workshop-draft-pane');
+        const jumpEl = document.getElementById('workshop-floating-jump');
+
+        if (catBtn && draftBtn) {
+            catBtn.classList.toggle('active', tab === 'catalog');
+            draftBtn.classList.toggle('active', tab === 'draft');
+        }
+
+        if (isPortraitMode()) {
+            if (catPane && draftPane) {
+                if (tab === 'catalog') {
+                    catPane.style.display = 'block';
+                    draftPane.style.display = 'none';
+                    if (jumpEl) {
+                        jumpEl.style.display = draft.passages.length > 0 ? 'flex' : 'none';
+                    }
+                } else {
+                    catPane.style.display = 'none';
+                    draftPane.style.display = 'block';
+                    if (jumpEl) {
+                        jumpEl.style.display = 'none';
+                    }
+                }
+            }
+        } else {
+            if (catPane) catPane.style.display = '';
+            if (draftPane) draftPane.style.display = '';
+            if (jumpEl) jumpEl.style.display = 'none';
+        }
+    }
+
     // Initialize module
     async function init() {
         const container = document.getElementById('compilation-workshop');
@@ -47,11 +89,13 @@ window.CompilationBuilder = (function() {
             renderWorkshopUI(container);
         }
 
+        switchWorkshopTab(currentWorkshopTab);
+
         // Lazy-load curated_passages.json
         if (!passagesData) {
             const listEl = document.getElementById('workshop-passages-list');
             if (listEl) {
-                listEl.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--color-text-muted);">Lade zielgruppenspezifische Absätze aller Botschaften…</div>';
+                listEl.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--text-muted);">Lade zielgruppenspezifische Absätze aller Botschaften…</div>';
             }
             try {
                 const res = await fetch('data/curated_passages.json');
@@ -61,7 +105,7 @@ window.CompilationBuilder = (function() {
             } catch (err) {
                 console.error('Error loading curated passages:', err);
                 if (listEl) {
-                    listEl.innerHTML = '<p style="text-align:center;color:var(--color-text-muted);padding:2rem;">Absätze konnten nicht geladen werden. Bitte stellen Sie sicher, dass data/curated_passages.json existiert.</p>';
+                    listEl.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:2rem;">Absätze konnten nicht geladen werden. Bitte stellen Sie sicher, dass data/curated_passages.json existiert.</p>';
                 }
             }
         } else {
@@ -73,6 +117,19 @@ window.CompilationBuilder = (function() {
 
     function renderWorkshopUI(container) {
         container.innerHTML = `
+            <!-- Sub-Tab Leiste für Hochformat & Mobile -->
+            <div class="workshop-mobile-tabs" id="workshop-mobile-tabs">
+                <button type="button" class="workshop-tab-btn active" data-tab="catalog" id="wtab-catalog">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
+                    <span>Absatz-Katalog</span>
+                </button>
+                <button type="button" class="workshop-tab-btn" data-tab="draft" id="wtab-draft">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    <span>Manuskript</span>
+                    <span id="workshop-mobile-badge" class="workshop-tab-badge">0</span>
+                </button>
+            </div>
+
             <div class="workshop-layout">
                 <!-- Linke Spalte: Absatz-Katalog & Filter -->
                 <div class="workshop-catalog-pane">
@@ -123,50 +180,63 @@ window.CompilationBuilder = (function() {
                         <span id="draft-stats-badge" class="draft-stats-badge">0 Absätze</span>
                     </div>
 
-                    <div style="margin-bottom: 1rem;">
-                        <label style="font-size: 0.82rem; font-weight: 600; color: var(--color-text-muted); display: block; margin-bottom: 0.25rem;">Titel der Kompilation:</label>
-                        <input type="text" id="draft-title" value="${draft.title}" style="width: 100%; padding: 0.55rem 0.85rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-family: var(--font-serif); font-size: 1.05rem; font-weight: bold; color: var(--color-primary); background: var(--color-surface-alt);">
+                    <div class="draft-field-group">
+                        <label class="draft-field-label">Titel der Kompilation:</label>
+                        <input type="text" id="draft-title" class="draft-title-input" value="${escapeHtml(draft.title)}">
                     </div>
 
-                    <div style="margin-bottom: 1.25rem;">
-                        <label style="font-size: 0.82rem; font-weight: 600; color: var(--color-text-muted); display: block; margin-bottom: 0.25rem;">Einleitung / Thema (optional):</label>
-                        <textarea id="draft-description" placeholder="Kurze Einführung oder Leitfrage für die Andacht / Ratssitzung..." rows="2" style="width: 100%; padding: 0.5rem 0.85rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-family: var(--font-sans); font-size: 0.88rem; color: var(--color-text); background: var(--color-surface-alt); resize: vertical;"></textarea>
+                    <div class="draft-field-group">
+                        <label class="draft-field-label">Einleitung / Thema (optional):</label>
+                        <textarea id="draft-description" class="draft-desc-textarea" placeholder="Kurze Einführung oder Leitfrage für die Andacht / Ratssitzung..." rows="2">${escapeHtml(draft.description || '')}</textarea>
                     </div>
 
                     <!-- Selected Passages Container -->
-                    <div id="draft-passages-container" style="max-height: 480px; overflow-y: auto; padding-right: 0.5rem; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.25rem;">
-                        <p style="text-align: center; color: var(--color-text-muted); padding: 2rem 1rem; font-style: italic; font-size: 0.95rem;">
+                    <div id="draft-passages-container" class="draft-passages-container">
+                        <p class="draft-empty-placeholder">
                             Noch keine Absätze ausgewählt.<br>Klicken Sie links bei einem Absatz auf <strong>„+ In Kompilation“</strong>.
                         </p>
                     </div>
 
                     <!-- Actions & Export Bar -->
-                    <div class="draft-action-buttons" style="display: flex; flex-direction: column; gap: 0.6rem; border-top: 1px solid var(--color-border); padding-top: 1rem;">
-                        <div style="display: flex; gap: 0.5rem;">
-                            <button id="btn-export-print" class="btn-primary" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.6rem;">
+                    <div class="draft-action-buttons">
+                        <div class="draft-actions-primary">
+                            <button id="btn-export-print" class="btn-primary btn-draft-action">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-                                Drucken / PDF
+                                <span>Drucken / PDF</span>
                             </button>
-                            <button id="btn-export-copy" class="btn-secondary" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.6rem;">
+                            <button id="btn-export-copy" class="btn-secondary btn-draft-action">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                                Text kopieren
+                                <span>Text kopieren</span>
                             </button>
                         </div>
-                        <div style="display: flex; gap: 0.5rem;">
-                            <button id="btn-save-draft" class="btn-secondary" style="flex: 1; font-size: 0.85rem; padding: 0.5rem; display: inline-flex; align-items: center; justify-content: center; gap: 0.35rem;">
+                        <div class="draft-actions-secondary">
+                            <button id="btn-save-draft" class="btn-secondary btn-draft-subaction">
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-                                Sichern
+                                <span>Sichern</span>
                             </button>
-                            <button id="btn-load-drafts" class="btn-secondary" style="flex: 1; font-size: 0.85rem; padding: 0.5rem; display: inline-flex; align-items: center; justify-content: center; gap: 0.35rem;">
+                            <button id="btn-load-drafts" class="btn-secondary btn-draft-subaction">
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                                Öffnen
+                                <span>Öffnen</span>
                             </button>
-                            <button id="btn-clear-draft" class="btn-secondary" style="padding: 0.5rem 0.75rem; color: #d93025; display: inline-flex; align-items: center; justify-content: center;" title="Kompilation leeren">
+                            <button id="btn-clear-draft" class="btn-secondary btn-draft-clear" title="Kompilation leeren">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                             </button>
                         </div>
                     </div>
+
+                    <button type="button" id="workshop-back-to-catalog" class="btn-secondary workshop-back-catalog-btn">
+                        ← Weitere Absätze im Katalog suchen
+                    </button>
                 </div>
+            </div>
+
+            <!-- Floating Action Pill im Hochformat -->
+            <div id="workshop-floating-jump" class="workshop-floating-jump">
+                <button type="button" id="workshop-jump-to-draft" class="workshop-jump-btn">
+                    <span class="workshop-jump-text">Manuskript anzeigen</span>
+                    <span class="workshop-jump-badge" id="workshop-jump-count">0</span>
+                    <span class="workshop-jump-arrow">→</span>
+                </button>
             </div>
 
             <!-- Print Preview Container (Hidden during normal browsing) -->
@@ -225,6 +295,32 @@ window.CompilationBuilder = (function() {
             });
         }
 
+        // Subtabs for Mobile / Portrait
+        document.getElementById('wtab-catalog')?.addEventListener('click', () => {
+            switchWorkshopTab('catalog');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        document.getElementById('wtab-draft')?.addEventListener('click', () => {
+            switchWorkshopTab('draft');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        document.getElementById('workshop-jump-to-draft')?.addEventListener('click', () => {
+            switchWorkshopTab('draft');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        document.getElementById('workshop-back-to-catalog')?.addEventListener('click', () => {
+            switchWorkshopTab('catalog');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Responsive orientation & resize sync
+        window.addEventListener('resize', () => {
+            switchWorkshopTab(currentWorkshopTab);
+        });
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => switchWorkshopTab(currentWorkshopTab), 150);
+        });
+
         document.getElementById('btn-export-print')?.addEventListener('click', exportToPrint);
         document.getElementById('btn-export-copy')?.addEventListener('click', exportToClipboard);
         document.getElementById('btn-save-draft')?.addEventListener('click', saveCurrentDraft);
@@ -271,7 +367,7 @@ window.CompilationBuilder = (function() {
 
         const batch = filteredPassages.slice(renderedPassageCount, renderedPassageCount + PASSAGE_PAGE_SIZE);
         if (batch.length === 0 && renderedPassageCount === 0) {
-            listEl.innerHTML = '<p style="text-align:center;color:var(--color-text-muted);padding:3rem;">Keine Absätze für die gewählten Filter gefunden.</p>';
+            listEl.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:3rem;">Keine Absätze für die gewählten Filter gefunden.</p>';
             if (loadMoreBox) loadMoreBox.style.display = 'none';
             return;
         }
@@ -282,31 +378,31 @@ window.CompilationBuilder = (function() {
             const isAdded = draftIds.has(p.id);
             const catBadges = (p.categories || []).map(cid => {
                 const cat = passagesData.categories[cid];
-                return cat ? `<span style="font-size:0.75rem;padding:0.15rem 0.5rem;border-radius:12px;background:var(--color-surface-alt);border:1px solid var(--color-border);color:var(--color-text-muted);font-weight:500;">${cat.label}</span>` : '';
+                return cat ? `<span class="passage-cat-tag">${cat.label}</span>` : '';
             }).join(' ');
 
             return `
-                <div class="passage-card" id="card-${p.id}" style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-sm);padding:1.25rem;transition:var(--transition);display:flex;flex-direction:column;gap:0.75rem;box-shadow:var(--shadow-sm);">
-                    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:0.5rem;flex-wrap:wrap;">
-                        <div>
-                            <span style="font-size:0.78rem;font-weight:600;color:var(--color-accent);background:var(--color-accent-light);padding:0.15rem 0.5rem;border-radius:12px;">${p.date || '—'}</span>
-                            <strong style="font-size:0.95rem;color:var(--color-primary);margin-left:0.4rem;">${escapeHtml(p.title)}</strong>
-                            <span style="font-size:0.8rem;color:var(--color-text-muted);margin-left:0.3rem;">(Absatz ${p.paraIndex})</span>
+                <div class="passage-card" id="card-${p.id}">
+                    <div class="passage-card-header-row">
+                        <div class="passage-meta-info">
+                            <span class="passage-date-badge">${p.date || '—'}</span>
+                            <strong class="passage-title">${escapeHtml(p.title)}</strong>
+                            <span class="passage-para-num">(Absatz ${p.paraIndex})</span>
                         </div>
-                        <div style="display:flex;gap:0.3rem;flex-wrap:wrap;">
+                        <div class="passage-badges">
                             ${catBadges}
                         </div>
                     </div>
 
-                    <div style="font-family:var(--font-serif);font-size:1.02rem;line-height:1.7;color:var(--color-text);text-align:justify;background:var(--color-surface-alt);padding:1rem 1.25rem;border-left:3px solid var(--color-primary-light);border-radius:4px;">
+                    <div class="passage-quote">
                         „${escapeHtml(p.text)}“
                     </div>
 
-                    <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--color-border);padding-top:0.6rem;">
-                        <button onclick="window.openDocument('${p.docId}')" style="background:none;border:none;color:var(--color-primary);font-size:0.82rem;cursor:pointer;font-weight:500;padding:0;display:inline-flex;align-items:center;gap:0.25rem;">
+                    <div class="passage-actions-row">
+                        <button type="button" class="passage-context-btn" onclick="window.openDocument('${p.docId}')">
                             Im Kontext lesen →
                         </button>
-                        <button id="btn-add-${p.id}" onclick="window.CompilationBuilder.togglePassage('${p.id}')" class="${isAdded ? 'btn-secondary' : 'btn-primary'}" style="font-size:0.82rem;padding:0.35rem 0.8rem;font-weight:600;">
+                        <button type="button" id="btn-add-${p.id}" onclick="window.CompilationBuilder.togglePassage('${p.id}')" class="passage-toggle-btn ${isAdded ? 'btn-secondary is-added' : 'btn-primary'}">
                             ${isAdded ? 'Im Entwurf' : '+ In Kompilation'}
                         </button>
                     </div>
@@ -348,7 +444,7 @@ window.CompilationBuilder = (function() {
         const btn = document.getElementById(`btn-add-${passageId}`);
         if (btn) {
             const isAdded = draft.passages.some(p => p.id === passageId);
-            btn.className = isAdded ? 'btn-secondary' : 'btn-primary';
+            btn.className = `passage-toggle-btn ${isAdded ? 'btn-secondary is-added' : 'btn-primary'}`;
             btn.textContent = isAdded ? 'Im Entwurf' : '+ In Kompilation';
         }
 
@@ -377,15 +473,28 @@ window.CompilationBuilder = (function() {
     function updateDraftUI() {
         const container = document.getElementById('draft-passages-container');
         const badge = document.getElementById('draft-stats-badge');
-        if (!container) return;
+        const mobileBadge = document.getElementById('workshop-mobile-badge');
+        const jumpCount = document.getElementById('workshop-jump-count');
+        const jumpEl = document.getElementById('workshop-floating-jump');
 
         if (badge) {
             badge.textContent = `${draft.passages.length} ${draft.passages.length === 1 ? 'Absatz' : 'Absätze'}`;
         }
+        if (mobileBadge) {
+            mobileBadge.textContent = draft.passages.length;
+        }
+        if (jumpCount) {
+            jumpCount.textContent = draft.passages.length;
+        }
+        if (jumpEl && isPortraitMode()) {
+            jumpEl.style.display = (currentWorkshopTab === 'catalog' && draft.passages.length > 0) ? 'flex' : 'none';
+        }
+
+        if (!container) return;
 
         if (draft.passages.length === 0) {
             container.innerHTML = `
-                <p style="text-align: center; color: var(--color-text-muted); padding: 2.5rem 1rem; font-style: italic; font-size: 0.95rem;">
+                <p class="draft-empty-placeholder">
                     Noch keine Absätze ausgewählt.<br>Klicken Sie links bei einem Absatz auf <strong>„+ In Kompilation“</strong>.
                 </p>
             `;
@@ -393,22 +502,22 @@ window.CompilationBuilder = (function() {
         }
 
         container.innerHTML = draft.passages.map((p, idx) => `
-            <div class="draft-item" style="background:var(--color-surface-alt);border:1px solid var(--color-border);border-radius:var(--radius-sm);padding:0.85rem;display:flex;flex-direction:column;gap:0.4rem;">
-                <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.8rem;color:var(--color-text-muted);">
-                    <span><strong>#${idx + 1}</strong> • ${p.date || '—'} — ${escapeHtml(p.title)} (Abs. ${p.paraIndex})</span>
-                    <div style="display:flex;gap:0.25rem;">
-                        ${idx > 0 ? `<button onclick="window.CompilationBuilder.movePassage(${idx}, -1)" class="icon-btn" style="padding:0.2rem 0.4rem;" title="Nach oben"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg></button>` : ''}
-                        ${idx < draft.passages.length - 1 ? `<button onclick="window.CompilationBuilder.movePassage(${idx}, 1)" class="icon-btn" style="padding:0.2rem 0.4rem;" title="Nach unten"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></button>` : ''}
-                        <button onclick="window.CompilationBuilder.removePassage(${idx})" class="icon-btn" style="padding:0.2rem 0.4rem;color:#d93025;" title="Entfernen"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+            <div class="draft-item">
+                <div class="draft-item-header">
+                    <span class="draft-item-meta"><strong>#${idx + 1}</strong> • ${p.date || '—'} — ${escapeHtml(p.title)} (Abs. ${p.paraIndex})</span>
+                    <div class="draft-item-reorder">
+                        ${idx > 0 ? `<button type="button" onclick="window.CompilationBuilder.movePassage(${idx}, -1)" class="draft-step-btn" title="Nach oben"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg></button>` : ''}
+                        ${idx < draft.passages.length - 1 ? `<button type="button" onclick="window.CompilationBuilder.movePassage(${idx}, 1)" class="draft-step-btn" title="Nach unten"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></button>` : ''}
+                        <button type="button" onclick="window.CompilationBuilder.removePassage(${idx})" class="draft-step-btn draft-delete-btn" title="Entfernen"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
                     </div>
                 </div>
 
-                <div style="font-family:var(--font-serif);font-size:0.92rem;line-height:1.45;color:var(--color-text);max-height:80px;overflow:hidden;text-overflow:ellipsis;">
+                <div class="draft-item-quote">
                     „${escapeHtml(p.text)}“
                 </div>
 
-                <div style="margin-top:0.35rem;">
-                    <input type="text" value="${escapeHtml(p.userNote || '')}" onchange="window.CompilationBuilder.updateNote(${idx}, this.value)" placeholder="Notiz / Leitfrage zu diesem Absatz hinzufügen..." style="width:100%;font-size:0.78rem;padding:0.3rem 0.5rem;border:1px dashed var(--color-border);border-radius:3px;background:var(--color-surface);color:var(--color-text);">
+                <div class="draft-item-note-row">
+                    <input type="text" class="draft-item-note-input" value="${escapeHtml(p.userNote || '')}" onchange="window.CompilationBuilder.updateNote(${idx}, this.value)" placeholder="Notiz / Leitfrage zu diesem Absatz hinzufügen...">
                 </div>
             </div>
         `).join('');
@@ -428,7 +537,7 @@ window.CompilationBuilder = (function() {
         if (removed) {
             const btn = document.getElementById(`btn-add-${removed.id}`);
             if (btn) {
-                btn.className = 'btn-primary';
+                btn.className = 'passage-toggle-btn btn-primary';
                 btn.textContent = '+ In Kompilation';
             }
         }
@@ -631,6 +740,7 @@ window.CompilationBuilder = (function() {
         addPassageFromViewer: addPassageFromViewer,
         movePassage: movePassage,
         removePassage: removePassage,
-        updateNote: updateNote
+        updateNote: updateNote,
+        switchTab: switchWorkshopTab
     };
 })();
