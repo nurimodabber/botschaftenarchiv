@@ -356,115 +356,61 @@
 
                     <!-- 3. Aufklappbare Detail-Filter (direkt ansteuerbar über Filter im Suchfeld) -->
                     <div id="library-advanced-drawer" class="command-advanced-drawer" style="display: none;">
-                            <!-- Themen- & Empfänger-Schnellfilter (in die Filter verschoben) -->
-                            <div class="drawer-quick-filter-row">
-                                <label class="command-field-label" data-i18n="drawer.topics_recipients">Themen &amp; Empfänger</label>
-                                <div class="drawer-chips-wrap">
-                                    <!-- Chips für Botschaften des Hauses -->
-                                    <div class="quick-chips-scroller" id="library-quick-chips">
-                                        <button class="quick-chip-btn active" data-chip="all" data-i18n="drawer.chip_all_messages">Alle Botschaften</button>
-                                        <button class="quick-chip-btn" data-chip="ridvan" data-i18n="drawer.chip_ridvan">Riḍván</button>
-                                        <button class="quick-chip-btn" data-chip="world" data-i18n="drawer.chip_world">An die Bahá’í-Welt</button>
-                                        <button class="quick-chip-btn" data-chip="counsellors" data-i18n="drawer.chip_counsellors">Berater &amp; Hilfsamt</button>
-                                        <button class="quick-chip-btn" data-chip="youth" data-i18n="drawer.chip_youth">Jugend</button>
-                                        <button class="quick-chip-btn" data-chip="iran" data-i18n="drawer.chip_iran">Iran</button>
-                                        <button class="quick-chip-btn" data-chip="peace" data-i18n="drawer.chip_peace">Frieden</button>
-                                    </div>
-
-                                    <!-- Autoren-Chips für Heilige Schriften & Bücher -->
-                                    <div class="quick-chips-scroller" id="library-author-chips" style="display: none;">
-                                        <button class="author-chip-btn active" data-author="all">Alle Verfasser</button>
-                                        <button class="author-chip-btn" data-author="bahaullah">Bahá'u'lláh</button>
-                                        <button class="author-chip-btn" data-author="the-bab">Der Báb</button>
-                                        <button class="author-chip-btn" data-author="abdul-baha">‘Abdu’l-Bahá</button>
-                                        <button class="author-chip-btn" data-author="shoghi-effendi">Shoghi Effendi</button>
-                                    </div>
-
-                                    <!-- Themen-Chips für Compilations -->
-                                    <div class="quick-chips-scroller" id="library-comp-chips" style="display: none;">
-                                        <button class="comp-chip-btn active" data-comp="all">Alle Themen</button>
-                                        <button class="comp-chip-btn" data-comp="marriage">Ehe &amp; Familie</button>
-                                        <button class="comp-chip-btn" data-comp="prayer">Gebet &amp; Andacht</button>
-                                        <button class="comp-chip-btn" data-comp="huquq">Ḥuqúqu’lláh</button>
-                                        <button class="comp-chip-btn" data-comp="consultation">Beratung</button>
-                                        <button class="comp-chip-btn" data-comp="women">Frauen</button>
-                                        <button class="comp-chip-btn" data-comp="virtues">Geistige Tugenden</button>
-                                    </div>
-
-                                    <!-- Bände-Chips für Ruhi-Bücher -->
-                                    <div class="quick-chips-scroller" id="library-ruhi-chips" style="display: none;">
-                                        <button class="ruhi-chip-btn active" data-ruhi="all">Alle Bände</button>
-                                        <button class="ruhi-chip-btn" data-ruhi="b1-4">Bücher 1–4 (Grundlagen)</button>
-                                        <button class="ruhi-chip-btn" data-ruhi="b5-8">Bücher 5–8 (Befähigung)</button>
-                                        <button class="ruhi-chip-btn" data-ruhi="b9plus">Bücher 9–14 (Vertiefung)</button>
-                                        <button class="ruhi-chip-btn" data-ruhi="branch">Zweigkurse</button>
-                                    </div>
-                                </div>
-                            </div>
                         <div class="command-filter-grid">
-                            <!-- 1. Empfänger -->
+                            <!-- 1. Empfänger / Verfasser -->
                             <div class="command-field-group">
-                                <label class="command-field-label" data-i18n="drawer.field_recipient">Empfänger</label>
+                                <label class="command-field-label" id="filter-label-recipient" data-i18n="drawer.field_recipient">Empfänger</label>
                                 <div class="command-select-box">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                                     <select id="library-recipient-select" class="command-select">
-                                        <option value="all">Alle Empfänger</option>
-                                        <option value="world">Weltweite Gemeinde</option>
-                                        <option value="nsa">Nationale Geistige Räte</option>
-                                        <option value="counsellors">Berater &amp; Hilfsamt</option>
-                                        <option value="youth">Jugend</option>
-                                        <option value="institutes">Trainingsinstitute</option>
-                                        <option value="iran">Freunde im Iran</option>
-                                        <option value="individual">Einzelne Gläubige</option>
+                                        <option value="all" data-i18n="drawer.opt_all_recipients">Alle Empfänger</option>
+                                        <option value="world" data-i18n="drawer.opt_world">Weltweite Gemeinde</option>
+                                        <option value="nsa" data-i18n="drawer.opt_nsa">Nationale Geistige Räte</option>
+                                        <option value="counsellors" data-i18n="drawer.opt_counsellors">Berater &amp; Hilfsamt</option>
+                                        <option value="youth" data-i18n="drawer.opt_youth">Jugend</option>
+                                        <option value="iran" data-i18n="drawer.opt_iran">Freunde im Iran</option>
+                                        <option value="institutes" data-i18n="drawer.opt_institutes">Trainingsinstitute</option>
+                                        <option value="individual" data-i18n="drawer.opt_individual">Einzelne Gläubige</option>
                                     </select>
                                 </div>
                             </div>
 
                             <!-- 2. Epoche & Plan -->
                             <div class="command-field-group">
-                                <label class="command-field-label" data-i18n="drawer.field_epoch">Epoche &amp; Plan</label>
+                                <label class="command-field-label" id="filter-label-epoch" data-i18n="drawer.field_epoch">Epoche &amp; Plan</label>
                                 <div class="command-select-box">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                                     <select id="library-epoch-select" class="command-select">
-                                        <option value="">Alle Pläne &amp; Epochen</option>
-                                        <option value="nine-year">Neunjahresplan (2022–2031)</option>
-                                        <option value="one-year">Einjahresplan (2021–2022)</option>
-                                        <option value="five-year-16">Fünfjahresplan (2016–2021)</option>
-                                        <option value="plans-00">Pläne 2001–2015</option>
-                                        <option value="era-90s">1990er Jahre</option>
-                                        <option value="era-80s">1980er Jahre</option>
-                                        <option value="era-early">1963–1979</option>
+                                        <option value="" data-i18n="drawer.opt_all_epochs">Alle Pläne &amp; Epochen</option>
+                                        <option value="nine-year" data-i18n="drawer.opt_nine_year">Neunjahresplan (2022–2031)</option>
+                                        <option value="one-year" data-i18n="drawer.opt_one_year">Einjahresplan (2021–2022)</option>
+                                        <option value="five-year-16" data-i18n="drawer.opt_five_year_16">Fünfjahresplan (2016–2021)</option>
+                                        <option value="plans-00" data-i18n="drawer.opt_plans_00">Pläne 2001–2015</option>
+                                        <option value="era-90s" data-i18n="drawer.opt_era_90s">1990er Jahre</option>
+                                        <option value="era-80s" data-i18n="drawer.opt_era_80s">1980er Jahre</option>
+                                        <option value="era-early" data-i18n="drawer.opt_era_early">1963–1979</option>
                                     </select>
                                 </div>
                             </div>
 
-                            <!-- 3. Anlass / Typ -->
+                            <!-- 3. Anlass & Typus -->
                             <div class="command-field-group">
-                                <label class="command-field-label" data-i18n="drawer.field_type">Anlass &amp; Typus</label>
+                                <label class="command-field-label" id="filter-label-type" data-i18n="drawer.field_type">Anlass &amp; Typus</label>
                                 <div class="command-select-box">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/></svg>
                                     <select id="library-type-select" class="command-select">
-                                        <option value="">Alle Anlässe &amp; Typen</option>
-                                        <option value="Riḍván-Botschaft">Riḍván-Botschaften</option>
-                                        <option value="Naw-Rúz-Botschaft">Naw-Rúz-Botschaften</option>
-                                        <option value="Beraterkonferenz-Botschaft">Beraterkonferenzen</option>
-                                        <option value="Friedensbotschaft">Friedensbotschaften</option>
-                                        <option value="Jugendkonferenz-Botschaft">Jugendkonferenzen</option>
-                                        <option value="Botschaft">Allgemeine Botschaften</option>
+                                        <option value="" data-i18n="drawer.opt_all_types">Alle Anlässe &amp; Typen</option>
+                                        <option value="Riḍván-Botschaft" data-i18n="drawer.opt_ridvan_msg">Riḍván-Botschaften</option>
+                                        <option value="Naw-Rúz-Botschaft" data-i18n="drawer.opt_nawruz_msg">Naw-Rúz-Botschaften</option>
+                                        <option value="Beraterkonferenz-Botschaft" data-i18n="drawer.opt_counsellor_msg">Beraterkonferenzen</option>
+                                        <option value="Friedensbotschaft" data-i18n="drawer.opt_peace_msg">Friedensbotschaften</option>
+                                        <option value="Jugendkonferenz-Botschaft" data-i18n="drawer.opt_youth_msg">Jugendkonferenzen</option>
+                                        <option value="Botschaft" data-i18n="drawer.opt_general_msg">Allgemeine Botschaften</option>
                                     </select>
                                 </div>
                             </div>
-
-                            <!-- 4. Sprache -->
-                            <div class="command-field-group">
-                                <label class="command-field-label" data-i18n="drawer.field_lang">Sprachfilter (Archiv)</label>
-                                <div class="command-select-box">
-                                    <select id="library-lang-select" class="command-select">
-                                        <option value="">Alle Sprachen</option>
-                                        <option value="deutsch">Deutsch</option>
-                                        <option value="english">English (Original)</option>
-                                    </select>
-                                </div>
-                            </div>
+                        </div>
                     </div>
-                </div>
             </div>
         </div>
 

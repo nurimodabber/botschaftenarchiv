@@ -189,6 +189,10 @@ function setupAppearance() {
             window.BooksModule.setLang(validLang === 'en' ? 'english' : 'deutsch');
         }
 
+        if (typeof updateDrawerFilterOptions === 'function') {
+            updateDrawerFilterOptions(state.library ? (state.library.segment || 'house') : 'house');
+        }
+
         if (typeof applyLibraryFilters === 'function' && window.state && window.state.documents && window.state.documents.length > 0) {
             applyLibraryFilters();
         }
@@ -572,6 +576,139 @@ function setupAppearance() {
     }
 }
 
+function updateDrawerFilterOptions(segment) {
+    const isEn = (window.I18n && typeof window.I18n.getLanguage === 'function' ? window.I18n.getLanguage() === 'en' : false) || (safeGetStorage('cosmos_master_lang', 'de') === 'en');
+    const recipLabel = document.getElementById('filter-label-recipient');
+    const recipSelect = document.getElementById('library-recipient-select');
+    const epochLabel = document.getElementById('filter-label-epoch');
+    const epochSelect = document.getElementById('library-epoch-select');
+    const typeLabel = document.getElementById('filter-label-type');
+    const typeSelect = document.getElementById('library-type-select');
+
+    if (!recipSelect || !epochSelect || !typeSelect) return;
+
+    if (segment === 'books') {
+        if (recipLabel) recipLabel.textContent = isEn ? 'Author' : 'Autor / Verfasser';
+        recipSelect.innerHTML = `
+            <option value="all">${isEn ? 'All Authors' : 'Alle Verfasser'}</option>
+            <option value="bahaullah">Bahá’u’lláh</option>
+            <option value="the-bab">Der Báb</option>
+            <option value="abdul-baha">‘Abdu’l-Bahá</option>
+            <option value="shoghi-effendi">Shoghi Effendi</option>
+        `;
+        recipSelect.value = state.library.author || 'all';
+
+        if (epochLabel) epochLabel.textContent = isEn ? 'Historical Era' : 'Historische Epoche';
+        epochSelect.innerHTML = `
+            <option value="">${isEn ? 'All Epochs' : 'Alle Epochen'}</option>
+            <option value="bab">${isEn ? 'Era of the Báb (1844–1853)' : 'Epoche des Báb (1844–1853)'}</option>
+            <option value="bahaullah">${isEn ? 'Revelation of Bahá’u’lláh (1853–1892)' : 'Offenbarung Bahá’u’lláhs (1853–1892)'}</option>
+            <option value="abdulbaha">${isEn ? 'Ministry of ‘Abdu’l-Bahá (1892–1921)' : 'Dienstzeit ‘Abdu’l-Bahás (1892–1921)'}</option>
+            <option value="shoghi">${isEn ? 'Guardianship of Shoghi Effendi (1921–1957)' : 'Hüterschaft Shoghi Effendis (1921–1957)'}</option>
+        `;
+        epochSelect.value = state.library.timelineEpoch || '';
+
+        if (typeLabel) typeLabel.textContent = isEn ? 'Category' : 'Werk-Typus';
+        typeSelect.innerHTML = `
+            <option value="">${isEn ? 'All Categories' : 'Alle Werk-Typen'}</option>
+            <option value="scripture">${isEn ? 'Sacred Scripture' : 'Heilige Schriften'}</option>
+            <option value="prayers">${isEn ? 'Prayers & Meditations' : 'Gebete & Andachten'}</option>
+            <option value="letters">${isEn ? 'Letters & Tablets' : 'Briefe & Sendschreiben'}</option>
+        `;
+        typeSelect.value = state.library.type || '';
+    } else if (segment === 'compilations') {
+        if (recipLabel) recipLabel.textContent = isEn ? 'Topic' : 'Themenbereich';
+        recipSelect.innerHTML = `
+            <option value="all">${isEn ? 'All Topics' : 'Alle Themen'}</option>
+            <option value="prayer">${isEn ? 'Prayer & Worship' : 'Gebet & Andacht'}</option>
+            <option value="marriage">${isEn ? 'Marriage & Family' : 'Ehe & Familie'}</option>
+            <option value="huquq">Ḥuqúqu’lláh</option>
+            <option value="consultation">${isEn ? 'Consultation & Assemblies' : 'Beratung & Geistige Räte'}</option>
+            <option value="women">${isEn ? 'Equality & Women' : 'Gleichberechtigung & Frauen'}</option>
+            <option value="virtues">${isEn ? 'Spiritual Virtues' : 'Geistige Eigenschaften & Tugenden'}</option>
+        `;
+        recipSelect.value = state.library.compTopic || 'all';
+
+        if (epochLabel) epochLabel.textContent = isEn ? 'Era' : 'Zeitraum';
+        epochSelect.innerHTML = `
+            <option value="">${isEn ? 'All Eras' : 'Alle Epochen'}</option>
+            <option value="plans-00">${isEn ? '2000 to Present' : 'Ab 2000 bis heute'}</option>
+            <option value="era-90s">${isEn ? '1980–1999' : '1980er & 1990er Jahre'}</option>
+            <option value="era-early">${isEn ? 'Before 1980' : 'Vor 1980'}</option>
+        `;
+        epochSelect.value = state.library.epoch || '';
+
+        if (typeLabel) typeLabel.textContent = isEn ? 'Collection Type' : 'Sammlungs-Typus';
+        typeSelect.innerHTML = `
+            <option value="">${isEn ? 'All Collections' : 'Alle Sammlungen'}</option>
+            <option value="Kompilation">${isEn ? 'Thematic Compilations' : 'Thematische Kompilationen'}</option>
+        `;
+        typeSelect.value = state.library.type || '';
+    } else if (segment === 'ruhi') {
+        if (recipLabel) recipLabel.textContent = isEn ? 'Course Level' : 'Kursstufe';
+        recipSelect.innerHTML = `
+            <option value="all">${isEn ? 'All Books' : 'Alle Bände'}</option>
+            <option value="b1-4">${isEn ? 'Books 1–4 (Foundations)' : 'Bücher 1–4 (Grundkursfolge)'}</option>
+            <option value="b5-8">${isEn ? 'Books 5–8 (Youth & Mentors)' : 'Bücher 5–8 (Jugend & Mentoren)'}</option>
+            <option value="b9plus">${isEn ? 'Books 9–14 (Advanced)' : 'Bücher 9–14 (Höhere Vertiefung)'}</option>
+            <option value="branch">${isEn ? 'Branch Courses' : 'Zweigkurse & Vorjugend'}</option>
+        `;
+        recipSelect.value = state.library.ruhiGroup || 'all';
+
+        if (epochLabel) epochLabel.textContent = isEn ? 'Program' : 'Programm';
+        epochSelect.innerHTML = `
+            <option value="">${isEn ? 'All Programs' : 'Alle Studienzweige'}</option>
+        `;
+        epochSelect.value = '';
+
+        if (typeLabel) typeLabel.textContent = isEn ? 'Material Type' : 'Material-Typus';
+        typeSelect.innerHTML = `
+            <option value="">${isEn ? 'All Materials' : 'Alle Studienmaterialien'}</option>
+            <option value="Ruhi-Buch">${isEn ? 'Main Sequence' : 'Hauptkursbücher'}</option>
+        `;
+        typeSelect.value = state.library.type || '';
+    } else {
+        // 'house' or 'all'
+        if (recipLabel) recipLabel.textContent = isEn ? 'Recipient' : 'Empfänger';
+        recipSelect.innerHTML = `
+            <option value="all">${isEn ? 'All Recipients' : 'Alle Empfänger'}</option>
+            <option value="world">${isEn ? 'Worldwide Community' : 'Weltweite Gemeinde'}</option>
+            <option value="nsa">${isEn ? 'National Spiritual Assemblies' : 'Nationale Geistige Räte'}</option>
+            <option value="counsellors">${isEn ? 'Continental Counsellors' : 'Berater & Hilfsamt'}</option>
+            <option value="youth">${isEn ? 'Youth' : 'Jugend'}</option>
+            <option value="iran">${isEn ? 'Friends in Iran' : 'Freunde im Iran'}</option>
+            <option value="institutes">${isEn ? 'Training Institutes' : 'Trainingsinstitute'}</option>
+            <option value="individual">${isEn ? 'Individual Believers' : 'Einzelne Gläubige'}</option>
+        `;
+        recipSelect.value = state.library.recipient || 'all';
+
+        if (epochLabel) epochLabel.textContent = isEn ? 'Epoch & Plan' : 'Epoche & Plan';
+        epochSelect.innerHTML = `
+            <option value="">${isEn ? 'All Plans & Epochs' : 'Alle Pläne & Epochen'}</option>
+            <option value="nine-year">${isEn ? 'Nine Year Plan (2022–2031)' : 'Neunjahresplan (2022–2031)'}</option>
+            <option value="one-year">${isEn ? 'One Year Plan (2021–2022)' : 'Einjahresplan (2021–2022)'}</option>
+            <option value="five-year-16">${isEn ? 'Five Year Plan (2016–2021)' : 'Fünfjahresplan (2016–2021)'}</option>
+            <option value="plans-00">${isEn ? 'Plans 2001–2015' : 'Pläne 2001–2015'}</option>
+            <option value="era-90s">${isEn ? '1990s' : '1990er Jahre'}</option>
+            <option value="era-80s">${isEn ? '1980s' : '1980er Jahre'}</option>
+            <option value="era-early">${isEn ? '1963–1979' : '1963–1979'}</option>
+        `;
+        epochSelect.value = state.library.epoch || '';
+
+        if (typeLabel) typeLabel.textContent = isEn ? 'Occasion & Type' : 'Anlass & Typus';
+        typeSelect.innerHTML = `
+            <option value="">${isEn ? 'All Occasions & Types' : 'Alle Anlässe & Typen'}</option>
+            <option value="Riḍván-Botschaft">${isEn ? 'Riḍván Messages' : 'Riḍván-Botschaften'}</option>
+            <option value="Naw-Rúz-Botschaft">${isEn ? 'Naw-Rúz Messages' : 'Naw-Rúz-Botschaften'}</option>
+            <option value="Beraterkonferenz-Botschaft">${isEn ? 'Counsellor Conferences' : 'Beraterkonferenzen'}</option>
+            <option value="Friedensbotschaft">${isEn ? 'Peace Messages' : 'Friedensbotschaften'}</option>
+            <option value="Jugendkonferenz-Botschaft">${isEn ? 'Youth Conferences' : 'Jugendkonferenzen'}</option>
+            <option value="Botschaft">${isEn ? 'General Messages' : 'Allgemeine Botschaften'}</option>
+        `;
+        typeSelect.value = state.library.type || '';
+    }
+}
+
 // Navigation & View Switching
 window.switchLibrarySegment = function(segment) {
     if (!state.library) return;
@@ -636,16 +773,8 @@ window.switchLibrarySegment = function(segment) {
         }
     }
 
-    // 4. Kontextuelle Schnellfilter-Chips
-    const quickChips = document.getElementById('library-quick-chips');
-    const authorChips = document.getElementById('library-author-chips');
-    const compChips = document.getElementById('library-comp-chips');
-    const ruhiChips = document.getElementById('library-ruhi-chips');
-
-    if (quickChips) quickChips.style.display = (segment === 'house' || segment === 'all') ? 'flex' : 'none';
-    if (authorChips) authorChips.style.display = (segment === 'books') ? 'flex' : 'none';
-    if (compChips) compChips.style.display = (segment === 'compilations') ? 'flex' : 'none';
-    if (ruhiChips) ruhiChips.style.display = (segment === 'ruhi') ? 'flex' : 'none';
+    // 4. Kontextuelle Filteroptionen im Detail-Drawer aktualisieren
+    updateDrawerFilterOptions(segment);
 
     // 5. Filter anwenden & Ergebnisse rendern
     if (typeof applyLibraryFilters === 'function') {
@@ -818,38 +947,6 @@ function initLibraryView() {
     initInlineTimeline();
 
     // Autoren-Filter für Bücher
-    const authorChips = document.querySelectorAll('#library-author-chips .author-chip-btn');
-    authorChips.forEach(btn => {
-        btn.addEventListener('click', () => {
-            authorChips.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            state.library.author = btn.dataset.author || 'all';
-            applyLibraryFilters();
-        });
-    });
-
-    // Themen-Filter für Kompilationen
-    const compChips = document.querySelectorAll('#library-comp-chips .comp-chip-btn');
-    compChips.forEach(btn => {
-        btn.addEventListener('click', () => {
-            compChips.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            state.library.compTopic = btn.dataset.comp || 'all';
-            applyLibraryFilters();
-        });
-    });
-
-    // Band-Filter für Ruhi-Bücher
-    const ruhiChips = document.querySelectorAll('#library-ruhi-chips .ruhi-chip-btn');
-    ruhiChips.forEach(btn => {
-        btn.addEventListener('click', () => {
-            ruhiChips.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            state.library.ruhiGroup = btn.dataset.ruhi || 'all';
-            applyLibraryFilters();
-        });
-    });
-
     // Detail-Filter Drawer Toggle (Progressive Disclosure)
     const toggleFiltersBtn = document.getElementById('library-toggle-filters-btn');
     const advancedDrawer = document.getElementById('library-advanced-drawer');
@@ -863,51 +960,46 @@ function initLibraryView() {
         });
     }
 
-    // Recipient Select
+    // 1. Recipient / Author / Topic Select
     const recipSelect = document.getElementById('library-recipient-select');
     if (recipSelect) {
-        recipSelect.value = state.library.recipient || 'all';
         recipSelect.addEventListener('change', (e) => {
-            state.library.recipient = e.target.value;
-            syncQuickChipsWithFilters();
+            const seg = state.library.segment || 'house';
+            const val = e.target.value;
+            if (seg === 'books') {
+                state.library.author = val;
+            } else if (seg === 'compilations') {
+                state.library.compTopic = val;
+            } else if (seg === 'ruhi') {
+                state.library.ruhiGroup = val;
+            } else {
+                state.library.recipient = val;
+            }
             applyLibraryFilters();
         });
     }
 
-    // Epoch Select
+    // 2. Epoch / Plan Select
     const epochSelect = document.getElementById('library-epoch-select');
     if (epochSelect) {
-        epochSelect.value = state.library.epoch || '';
         epochSelect.addEventListener('change', (e) => {
-            state.library.epoch = e.target.value;
-            syncQuickChipsWithFilters();
+            const seg = state.library.segment || 'house';
+            const val = e.target.value;
+            if (seg === 'books') {
+                state.library.timelineEpoch = val;
+            } else {
+                state.library.epoch = val;
+            }
             applyLibraryFilters();
         });
     }
 
-    // Type Select
+    // 3. Type / Category Select
     const typeSelect = document.getElementById('library-type-select');
     if (typeSelect) {
-        typeSelect.value = state.library.type || '';
         typeSelect.addEventListener('change', (e) => {
             state.library.type = e.target.value;
-            syncQuickChipsWithFilters();
             applyLibraryFilters();
-        });
-    }
-
-    // Language Select in Filter Drawer
-    const langSelect = document.getElementById('library-lang-select');
-    if (langSelect) {
-        langSelect.value = state.library.lang || '';
-        langSelect.addEventListener('change', (e) => {
-            const chosen = e.target.value;
-            state.library.lang = chosen;
-            if (chosen === 'deutsch' || chosen === 'english') {
-                applyLanguage(chosen === 'english' ? 'en' : 'de');
-            } else {
-                applyLibraryFilters();
-            }
         });
     }
 
@@ -920,54 +1012,6 @@ function initLibraryView() {
             applyLibraryFilters();
         });
     }
-
-    // 1-Klick Smart Quick-Chips
-    const quickChips = document.querySelectorAll('.quick-chip-btn');
-    quickChips.forEach(btn => {
-        btn.addEventListener('click', () => {
-            quickChips.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            const chip = btn.dataset.chip;
-            if (chip === 'all') {
-                state.library.recipient = 'all';
-                state.library.type = '';
-                if (recipSelect) recipSelect.value = 'all';
-                if (typeSelect) typeSelect.value = '';
-            } else if (chip === 'ridvan') {
-                state.library.type = 'Riḍván-Botschaft';
-                if (typeSelect) typeSelect.value = 'Riḍván-Botschaft';
-            } else if (chip === 'world') {
-                state.library.recipient = 'world';
-                if (recipSelect) recipSelect.value = 'world';
-            } else if (chip === 'counsellors') {
-                state.library.recipient = 'counsellors';
-                if (recipSelect) recipSelect.value = 'counsellors';
-            } else if (chip === 'youth') {
-                state.library.recipient = 'youth';
-                if (recipSelect) recipSelect.value = 'youth';
-            } else if (chip === 'iran') {
-                state.library.recipient = 'iran';
-                if (recipSelect) recipSelect.value = 'iran';
-            } else if (chip === 'peace') {
-                state.library.type = 'Friedensbotschaft';
-                if (typeSelect) typeSelect.value = 'Friedensbotschaft';
-            }
-
-            applyLibraryFilters();
-        });
-    });
-
-    // Format Chips Leiste
-    const formatChips = document.querySelectorAll('.format-chip-btn');
-    formatChips.forEach(btn => {
-        btn.addEventListener('click', () => {
-            formatChips.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            state.library.format = btn.dataset.fmt || 'all';
-            applyLibraryFilters();
-        });
-    });
 
     // View Mode Handling (delegates to applyLibraryView)
     const viewGridBtn = document.getElementById('view-mode-grid');
@@ -1053,36 +1097,18 @@ function initLibraryView() {
             state.library.sort = 'date-desc';
             state.library.timelineEpoch = '';
 
+            // Reset select dropdowns & search
+            const recipSelect = document.getElementById('library-recipient-select');
+            const epochSelect = document.getElementById('library-epoch-select');
+            const typeSelect = document.getElementById('library-type-select');
+            const sortSelect = document.getElementById('library-sort-select');
+
             if (recipSelect) recipSelect.value = 'all';
             if (epochSelect) epochSelect.value = '';
             if (typeSelect) typeSelect.value = '';
-            if (langSelect) langSelect.value = '';
             if (sortSelect) sortSelect.value = 'date-desc';
             if (searchInput) searchInput.value = '';
             if (searchClearBtn) searchClearBtn.style.display = 'none';
-
-            // Reset quick chips to 'all'
-            quickChips.forEach(b => {
-                b.classList.toggle('active', b.dataset.chip === 'all');
-            });
-            
-            authorChips.forEach(b => {
-                b.classList.toggle('active', b.dataset.author === 'all');
-            });
-
-            const compChips = document.querySelectorAll('#library-comp-chips .comp-chip-btn');
-            compChips.forEach(b => {
-                b.classList.toggle('active', b.dataset.comp === 'all');
-            });
-
-            const ruhiChips = document.querySelectorAll('#library-ruhi-chips .ruhi-chip-btn');
-            ruhiChips.forEach(b => {
-                b.classList.toggle('active', b.dataset.ruhi === 'all');
-            });
-
-            formatChips.forEach(b => {
-                b.classList.toggle('active', b.dataset.fmt === 'all');
-            });
 
             const inlineEpochBtns = document.querySelectorAll('.inline-epoch-btn');
             inlineEpochBtns.forEach(b => {
@@ -1134,23 +1160,7 @@ function initInlineTimeline() {
     });
 }
 
-function syncQuickChipsWithFilters() {
-    const { recipient, type } = state.library;
-    const quickChips = document.querySelectorAll('.quick-chip-btn');
-    quickChips.forEach(b => {
-        const c = b.dataset.chip;
-        let match = false;
-        if (c === 'ridvan' && type === 'Riḍván-Botschaft') match = true;
-        else if (c === 'world' && recipient === 'world') match = true;
-        else if (c === 'counsellors' && recipient === 'counsellors') match = true;
-        else if (c === 'youth' && recipient === 'youth') match = true;
-        else if (c === 'iran' && recipient === 'iran') match = true;
-        else if (c === 'peace' && type === 'Friedensbotschaft') match = true;
-        else if (c === 'all' && recipient === 'all' && !type) match = true;
 
-        b.classList.toggle('active', match);
-    });
-}
 
 window.loadFullTextSearchIndex = async function() {
     if (window._fullTextLoaded || window._fullTextLoading) return;
