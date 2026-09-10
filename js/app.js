@@ -2213,6 +2213,13 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
         metaParts.push(`<span class="doc-pillar-text">${pillarTag}</span>`);
     }
 
+    // Schlüssel-Botschaft / Meilenstein Tag (laut autorisierten Quellen)
+    if (doc.isMilestone || doc._isMilestone) {
+        const msLabel = (window.I18n && window.I18n.getCurrentLanguage() === 'en') ? 'Key Message' : 'Schlüssel-Botschaft';
+        const msTitle = doc.milestoneReasonDe || doc.milestoneReasonEn || msLabel;
+        metaParts.unshift(`<span class="doc-milestone-tag" title="${escapeDocHtml(msTitle)}">${msLabel}</span>`);
+    }
+
     // Datum (unverzichtbar für chronologische Orientierung)
     if (doc.tier === 'books' && doc.year) {
         metaParts.push(`<span class="doc-date">${doc.year}</span>`);
@@ -2267,9 +2274,10 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
     }
 
     const hasFooter = Boolean(topicsHtml || recipientHtml);
+    const isMilestoneCard = Boolean(doc.isMilestone || doc._isMilestone);
 
     return `
-        <article class="doc-card" style="--i: ${staggerIndex};" onclick="window.openDocument('${doc.id}')">
+        <article class="doc-card ${isMilestoneCard ? 'is-milestone' : ''}" style="--i: ${staggerIndex};" onclick="window.openDocument('${doc.id}')">
             <div class="doc-card-body">
                 <div class="doc-card-header">
                     <div class="doc-meta-editorial">

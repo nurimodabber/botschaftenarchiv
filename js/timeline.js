@@ -762,7 +762,19 @@ window.TimelineModule = (function() {
             results = allDocs.filter(d => d.year >= entity.startYear && d.year <= Math.min(2026, entity.endYear));
         }
 
-        // Chronologische Sortierung (aufsteigend nach Jahr und Datum)
+        // Mit Meilenstein-Metadaten autorisierter Quellen anreichern
+        results.forEach(d => {
+            const ms = getMilestoneInfo(d);
+            if (ms) {
+                d.isMilestone = true;
+                d.milestoneReasonDe = ms.reasonDe;
+                d.milestoneReasonEn = ms.reasonEn;
+            } else {
+                d.isMilestone = false;
+            }
+        });
+
+        // Chronologische Basissortierung (aufsteigend nach Jahr und Datum)
         results.sort((a, b) => {
             const ya = a.year || 0;
             const yb = b.year || 0;
@@ -1160,6 +1172,404 @@ window.TimelineModule = (function() {
         }).join('\n');
     }
 
+    function getMilestoneInfo(doc) {
+        if (!doc) return null;
+        const y = doc.year || 0;
+        const date = doc.date || '';
+        const title = (doc.title || '').toLowerCase();
+        const type = doc.type || '';
+        const tier = doc.tier || '';
+        const author = (doc.author || '').toLowerCase();
+        const recipient = doc.recipient || '';
+        const id = doc.id || '';
+
+        // 1. Kanonische Werke der Zentralgestalten & Shoghi Effendis
+        if (tier === 'books') {
+            if (author.includes('báb') || author.includes('bab') || id.includes('bab')) {
+                return {
+                    isMilestone: true,
+                    reasonDe: 'Kanonisches Hauptwerk des Báb (Auswahl aus Seinen Schriften)',
+                    reasonEn: 'Canonical masterwork of the Báb (Selections from the Writings of the Báb)'
+                };
+            }
+            if (author.includes('bahá') || author.includes('baha') || id.includes('bahaullah')) {
+                if (id.includes('aqdas') || id.includes('iqan') || id.includes('hw') || id.includes('hidden') || id.includes('esw') || id.includes('wolf') ||
+                    title.includes('aqdas') || title.includes('íqán') || title.includes('iqan') || title.includes('verborgene') || title.includes('hidden words') ||
+                    title.includes('sohn des wolfes') || title.includes('son of the wolf') || title.includes('ährenlese') || title.includes('gleanings')) {
+                    return {
+                        isMilestone: true,
+                        reasonDe: 'Kanonisches Hauptwerk der Offenbarung Bahá’u’lláhs',
+                        reasonEn: 'Canonical central work of Bahá’u’lláh’s Revelation'
+                    };
+                }
+            }
+            if (author.includes('abdu') || id.includes('abdul_baha')) {
+                if (id.includes('wt') || id.includes('testament') || id.includes('saq') || id.includes('answered') ||
+                    title.includes('wille und testament') || title.includes('will and testament') ||
+                    title.includes('beantwortete fragen') || title.includes('some answered questions') ||
+                    title.includes('göttlichen plans') || title.includes('divine plan') ||
+                    title.includes('geheimnis') || title.includes('civilization')) {
+                    return {
+                        isMilestone: true,
+                        reasonDe: 'Grundlegendes Werk von ‘Abdu’l-Bahá (Charta der Ordnung & weltweiten Ausbreitung)',
+                        reasonEn: 'Foundational work of ‘Abdu’l-Bahá (Charter of Order & Global Expansion)'
+                    };
+                }
+            }
+            if (author.includes('shoghi') || id.includes('shoghi_effendi')) {
+                if (id.includes('wob') || id.includes('world_order') || id.includes('pdc') || id.includes('promised') || id.includes('gpb') || id.includes('god_passes') ||
+                    title.includes('weltordnung') || title.includes('world order') ||
+                    title.includes('advent') || title.includes('gerechtigkeit') ||
+                    title.includes('verheißene tag') || title.includes('promised day') ||
+                    title.includes('gott geht vorüber') || title.includes('god passes by')) {
+                    return {
+                        isMilestone: true,
+                        reasonDe: 'Epochen-Standardwerk Shoghi Effendis zur Weltordnung und Glaubensgeschichte',
+                        reasonEn: 'Epochal masterwork of Shoghi Effendi on the World Order and Faith history'
+                    };
+                }
+            }
+        }
+
+        // 2. Welthistorische Erklärungen des Universalen Hauses der Gerechtigkeit an die Völker & Führer
+        // 1985-10-01: Die Verheißung des Weltfriedens (The Promise of World Peace)
+        if (y === 1985 && (title.includes('verheißung') || title.includes('promise of world peace') || (date === '1985-10-01' && (recipient === 'world' || title.includes('peoples of the world'))))) {
+            return {
+                isMilestone: true,
+                reasonDe: 'Welthistorische Friedensbotschaft des Universalen Hauses der Gerechtigkeit an die Völker der Welt (Oktober 1985)',
+                reasonEn: 'Landmark peace statement to the peoples of the world on universal peace (October 1985)'
+            };
+        }
+        // 2002-04-01: Schreiben an die religiösen Führer der Welt
+        if (y === 2002 && (title.includes('religiöse') || title.includes('religious leaders') || date === '2002-04-01')) {
+            return {
+                isMilestone: true,
+                reasonDe: 'Aufruf an die religiösen Führer der Welt zur Überwindung des religiösen Fanatismus (April 2002)',
+                reasonEn: 'Historic appeal to the world’s religious leaders regarding religious fanaticism (April 2002)'
+            };
+        }
+        // 2005: Ein gemeinsamer Glaube (One Common Faith)
+        if (y === 2005 && (title.includes('one common faith') || id === 'd2bbb1dcb282' || title.includes('gemeinsamer glaube'))) {
+            return {
+                isMilestone: true,
+                reasonDe: 'Grundlegendes Werk über die Einheit aller Religionen und die Reifung der Menschheit (2005)',
+                reasonEn: 'Major work on the unity of religions and the spiritual maturity of humanity (2005)'
+            };
+        }
+
+        // 3. Epochen-prägende Botschaften an die Konferenz der Kontinentalen Beraterräte
+        // 1995-12-26: Grundsteinlegung der weltweiten Institutskultur
+        if (date === '1995-12-26' || (y === 1995 && date.startsWith('1995-12') && recipient === 'counsellors')) {
+            return {
+                isMilestone: true,
+                reasonDe: 'Epochenwende: Grundsteinlegung der weltweiten Institutskultur an die Beraterkonferenz (Dezember 1995)',
+                reasonEn: 'Historical turning point launching the systematic training institute process (December 1995)'
+            };
+        }
+        // 2010-12-28: Die Architektur des Gemeindeaufbaus
+        if (date === '2010-12-28') {
+            return {
+                isMilestone: true,
+                reasonDe: 'Monumentale Synthese über den Wachstumsprozess und die Architektur des Gemeindeaufbaus an die Berater',
+                reasonEn: 'Comprehensive synthesis on cluster growth and the architecture of community building'
+            };
+        }
+        // 2015-12-29: Strategischer Rahmen für den 2016–2021 Plan
+        if (date === '2015-12-29') {
+            return {
+                isMilestone: true,
+                reasonDe: 'Strategischer Rahmen für den Abschluss der 25-jährigen Plan-Serie (1996–2021)',
+                reasonEn: 'Strategic framework concluding the 25-year series of global plans'
+            };
+        }
+        // 2021-12-30: Charta des Neunjahresplans (2022–2031)
+        if (date === '2021-12-30') {
+            return {
+                isMilestone: true,
+                reasonDe: 'Charta und Fundament des Neunjahresplans (2022–2031) an die Beraterkonferenz',
+                reasonEn: 'The comprehensive charter and foundation of the Nine Year Plan (2022–2031) to the Counsellors'
+            };
+        }
+
+        // 4. Hundertjahr- und Zweihundertjahrfeiern (Zentenar-Meilensteine)
+        // 2017-10: 200. Jahrestag der Geburt Bahá’u’lláhs
+        if (y === 2017 && (date === '2017-10-31' || title.includes('200') || title.includes('bicentenary')) && (recipient === 'world' || title.includes('der welt') || title.includes('world'))) {
+            return {
+                isMilestone: true,
+                reasonDe: 'Zweihundertjahrfeier der Geburt Bahá’u’lláhs (Bicentenary Oktober 2017)',
+                reasonEn: 'Bicentenary of the Birth of Bahá’u’lláh (October 2017)'
+            };
+        }
+        // 2019-10: 200. Jahrestag der Geburt des Báb
+        if (y === 2019 && (date === '2019-10-01' || date === '2019-10-24' || (title.includes('báb') && title.includes('bicentenary')))) {
+            return {
+                isMilestone: true,
+                reasonDe: 'Zweihundertjahrfeier der Geburt des Báb (Bicentenary Oktober 2019)',
+                reasonEn: 'Bicentenary of the Birth of the Báb (October 2019)'
+            };
+        }
+        // 2020-11-25: 100 Jahre Einsetzung des Bündnisses Bahá’u’lláhs
+        if (date === '2020-11-25') {
+            return {
+                isMilestone: true,
+                reasonDe: 'Gedenken zum 100. Jahrestag der Einsetzung des Bündnisses Bahá’u’lláhs (November 2020)',
+                reasonEn: 'Centenary of the institution of the Day of the Covenant (November 2020)'
+            };
+        }
+        // 2021-11-27: 100. Jahrestag des Hinscheidens ‘Abdu’l-Bahás
+        if (date === '2021-11-27' || (y === 2021 && title.includes('tribute') && title.includes('abdu'))) {
+            return {
+                isMilestone: true,
+                reasonDe: 'Huldigung zum 100. Jahrestag des Hinscheidens ‘Abdu’l-Bahás und Seines Bündnisses (November 2021)',
+                reasonEn: 'Tribute to ‘Abdu’l-Bahá on the Centenary of His Passing and Covenant (November 2021)'
+            };
+        }
+        // 2023-11-28: Reflexionen über 100 Jahre Gestaltendes Zeitalter & Grabmal
+        if (date === '2023-11-28') {
+            return {
+                isMilestone: true,
+                reasonDe: 'Reflexion über die ersten 100 Jahre des Gestaltenden Zeitalters und das Grabmal ‘Abdu’l-Bahás',
+                reasonEn: 'Reflections on the first centenary of the Formative Age and the Shrine of ‘Abdu’l-Bahá'
+            };
+        }
+
+        // 5. Globale Kongresse, Einweihung der Terrassen & Konferenzserien
+        // 1963-04-30: Erste Botschaft an den Ersten Bahá'í-Weltkongress in London
+        if (date === '1963-04-30' || (y === 1963 && title.includes('first bahá’í world congress'))) {
+            return {
+                isMilestone: true,
+                reasonDe: 'Erste historische Botschaft des neu gewählten Universalen Hauses der Gerechtigkeit (London, April 1963)',
+                reasonEn: 'First historic message of the newly elected Universal House of Justice (London, April 1963)'
+            };
+        }
+        // 1963-10-01: Erste Botschaft an die Bahá'í der Welt
+        if (date === '1963-10-01' || (y === 1963 && date.startsWith('1963-10') && (recipient === 'world' || title.includes('followers')))) {
+            return {
+                isMilestone: true,
+                reasonDe: 'Erste weltweite Grundsatzbotschaft des Universalen Hauses der Gerechtigkeit (Oktober 1963)',
+                reasonEn: 'First global message to the followers of Bahá’u’lláh following the election (October 1963)'
+            };
+        }
+        // 1992: Botschaft zum Zweiten Bahá'í-Weltkongress in New York
+        if (y === 1992 && (date === '1992-11-23' || title.includes('second bahá’í world congress') || (type === 'Riḍván-Botschaft' && recipient === 'world'))) {
+            return {
+                isMilestone: true,
+                reasonDe: 'Botschaft zum Heiligen Jahr 1992 & Zweiten Bahá’í-Weltkongress in New York',
+                reasonEn: 'Message for the Holy Year 1992 & Second Bahá’í World Congress in New York'
+            };
+        }
+        // 2001-05-24: Einweihung der Terrassen auf dem Berg Karmel
+        if (date === '2001-05-24' || date === '2001-05-22' || (y === 2001 && title.includes('terraces'))) {
+            return {
+                isMilestone: true,
+                reasonDe: 'Vollendung der Bauten des Bogens und Einweihung der Terrassen auf dem Berg Karmel (Mai 2001)',
+                reasonEn: 'Inauguration of the Terraces and completion of the Arc buildings on Mount Carmel (May 2001)'
+            };
+        }
+        // 2008-10-20: Einberufung der 41 regionalen Konferenzen
+        if (date === '2008-10-20') {
+            return {
+                isMilestone: true,
+                reasonDe: 'Historischer Aufruf zur Einberufung der 41 regionalen Konferenzen weltweit (Oktober 2008)',
+                reasonEn: 'Historic convocation of 41 regional conferences worldwide (October 2008)'
+            };
+        }
+        // 2013-02-08: Einberufung der 114 Jugendkonferenzen
+        if (date === '2013-02-08') {
+            return {
+                isMilestone: true,
+                reasonDe: 'Aufruf an die Jugend der Welt zu den 114 weltweiten Jugendkonferenzen (Februar 2013)',
+                reasonEn: 'Historic call convening 114 worldwide youth conferences (February 2013)'
+            };
+        }
+        // 2022-01-04: Einberufung der weltweiten Konferenzwelle
+        if (date === '2022-01-04') {
+            return {
+                isMilestone: true,
+                reasonDe: 'Einberufung der weltweiten Konferenzserie zur Freisetzung der gesellschaftsbildenden Kräfte (Januar 2022)',
+                reasonEn: 'Convocation of the global wave of conferences releasing society-building powers (January 2022)'
+            };
+        }
+
+        // 6. Plan-Auftaktbotschaften (Riḍván & Naw-Rúz beim Start jedes globalen Plans)
+        // 1964: Start des Neunjahresplans
+        if (y === 1964 && (date === '1964-04-21' || (date.startsWith('1964-04') && recipient === 'world'))) {
+            return {
+                isMilestone: true,
+                reasonDe: 'Lancierung des Neunjahresplans (1964–1973) — Erster globaler Plan des Hauses',
+                reasonEn: 'Launch of the Nine Year Plan (1964–1973) — First global plan of the House of Justice'
+            };
+        }
+        // 1968: Riḍván 1968
+        if (y === 1968 && type === 'Riḍván-Botschaft') {
+            return {
+                isMilestone: true,
+                reasonDe: 'Riḍván 1968: Zentenarfeier der Ankunft Bahá’u’lláhs im Heiligen Land',
+                reasonEn: 'Riḍván 1968: Centenary of Bahá’u’lláh’s Arrival in the Holy Land'
+            };
+        }
+        // 1972: Verfassung des Universalen Hauses der Gerechtigkeit
+        if (y === 1972 && type === 'Riḍván-Botschaft') {
+            return {
+                isMilestone: true,
+                reasonDe: 'Riḍván 1972: Vollendung der Verfassung des Universalen Hauses der Gerechtigkeit',
+                reasonEn: 'Riḍván 1972: Finalization of the Constitution of the Universal House of Justice'
+            };
+        }
+        // 1974: Start des Fünfjahresplans
+        if (y === 1974 && (date === '1974-03-21' || type === 'Riḍván-Botschaft' || (title.includes('naw-rúz') && recipient === 'world'))) {
+            return {
+                isMilestone: true,
+                reasonDe: 'Lancierung des Fünfjahresplans (1974–1979) zur Festigung der weltweiten Basis',
+                reasonEn: 'Launch of the Five Year Plan (1974–1979) consolidating the global base'
+            };
+        }
+        // 1979: Start des Siebenjahresplans
+        if (y === 1979 && (date === '1979-03-21' || date === '1979-05-23' || type === 'Riḍván-Botschaft')) {
+            return {
+                isMilestone: true,
+                reasonDe: 'Lancierung des Siebenjahresplans (1979–1986) unter weltweiten Herausforderungen',
+                reasonEn: 'Launch of the Seven Year Plan (1979–1986) amid global upheavals'
+            };
+        }
+        // 1986: Start des Sechsjahresplans
+        if (y === 1986 && type === 'Riḍván-Botschaft') {
+            return {
+                isMilestone: true,
+                reasonDe: 'Riḍván 1986: Lancierung des Sechsjahresplans (1986–1992)',
+                reasonEn: 'Riḍván 1986: Launch of the Six Year Plan (1986–1992)'
+            };
+        }
+        // 1993: Start des Dreijahresplans
+        if (y === 1993 && type === 'Riḍván-Botschaft') {
+            return {
+                isMilestone: true,
+                reasonDe: 'Riḍván 1993: Lancierung des Dreijahresplans (1993–1996)',
+                reasonEn: 'Riḍván 1993: Launch of the Three Year Plan (1993–1996)'
+            };
+        }
+        // 1996: Start des Vierjahresplans & Institutskultur
+        if (y === 1996 && type === 'Riḍván-Botschaft' && (recipient === 'world' || title.includes('der welt') || title.includes('world'))) {
+            return {
+                isMilestone: true,
+                reasonDe: 'Meilenstein Riḍván 1996: Start des Vierjahresplans & Verankerung des Trainingsinstituts',
+                reasonEn: 'Milestone Riḍván 1996 launching the Four Year Plan & training institute process'
+            };
+        }
+        // 2000: Start des Zwölfmonatsplans
+        if (y === 2000 && type === 'Riḍván-Botschaft' && (recipient === 'world' || title.includes('der welt') || title.includes('world'))) {
+            return {
+                isMilestone: true,
+                reasonDe: 'Riḍván 2000: Lancierung des Zwölfmonatsplans zur Vorbereitung der Jahrhundertwende',
+                reasonEn: 'Riḍván 2000: Launch of the Twelve Month Plan preparing the turn of the century'
+            };
+        }
+        // 2001: Start des Fünfjahresplans I
+        if (y === 2001 && type === 'Riḍván-Botschaft' && (recipient === 'world' || title.includes('der welt') || title.includes('world'))) {
+            return {
+                isMilestone: true,
+                reasonDe: 'Riḍván 2001: Beginn der Serie von Fünfjahresplänen & Verankerung der Kernaktivitäten',
+                reasonEn: 'Riḍván 2001: Beginning of the series of Five Year Plans establishing core activities'
+            };
+        }
+        // 2006: Start des Fünfjahresplans II
+        if (y === 2006 && type === 'Riḍván-Botschaft' && (recipient === 'world' || title.includes('der welt') || title.includes('world'))) {
+            return {
+                isMilestone: true,
+                reasonDe: 'Riḍván 2006: Lancierung des Fünfjahresplans (2006–2011) mit Ziel von 1.500 Clustern',
+                reasonEn: 'Riḍván 2006: Launch of the Five Year Plan (2006–2011) targeting 1,500 clusters'
+            };
+        }
+        // 2011: Start des Fünfjahresplans III
+        if (y === 2011 && type === 'Riḍván-Botschaft' && (recipient === 'world' || title.includes('der welt') || title.includes('world'))) {
+            return {
+                isMilestone: true,
+                reasonDe: 'Riḍván 2011: Lancierung des Fünfjahresplans (2011–2016) mit Ziel von 5.000 Clustern',
+                reasonEn: 'Riḍván 2011: Launch of the Five Year Plan (2011–2016) targeting 5,000 clusters'
+            };
+        }
+        // 2016: Start des Fünfjahresplans IV
+        if (y === 2016 && type === 'Riḍván-Botschaft' && (recipient === 'world' || title.includes('der welt') || title.includes('world'))) {
+            return {
+                isMilestone: true,
+                reasonDe: 'Riḍván 2016: Lancierung des letzten Fünfjahresplans der 25-jährigen Serie',
+                reasonEn: 'Riḍván 2016: Launch of the concluding Five Year Plan of the 25-year series'
+            };
+        }
+        // 2021: Start des Einjahresplans
+        if (y === 2021 && type === 'Riḍván-Botschaft' && (recipient === 'world' || title.includes('der welt') || title.includes('world'))) {
+            return {
+                isMilestone: true,
+                reasonDe: 'Riḍván 2021: Lancierung des Einjahresplans (2021–2022) als Brücke der Epochen',
+                reasonEn: 'Riḍván 2021: Launch of the One Year Plan (2021–2022) bridging the epochs'
+            };
+        }
+        // 2022: Start des Neunjahresplans
+        if (y === 2022 && type === 'Riḍván-Botschaft' && (recipient === 'world' || title.includes('der welt') || title.includes('world'))) {
+            return {
+                isMilestone: true,
+                reasonDe: 'Offizieller Auftakt des Neunjahresplans (2022–2031) an die Bahá’í der Welt',
+                reasonEn: 'Official launch of the Nine Year Plan (2022–2031) to the Bahá’ís of the World'
+            };
+        }
+        // Zeitgenössische Riḍván-Botschaften 2024 & 2026
+        if ([2024, 2026].includes(y) && type === 'Riḍván-Botschaft' && (recipient === 'world' || title.includes('der welt') || title.includes('world'))) {
+            return {
+                isMilestone: true,
+                reasonDe: `Orientierung und Vision für den Fortgang des Neunjahresplans (Riḍván ${y})`,
+                reasonEn: `Guidance and vision for the ongoing Nine Year Plan (Riḍván ${y})`
+            };
+        }
+
+        return null;
+    }
+
+    function renderMilestonesSpotlight(docs, isDe) {
+        const uniqueMilestones = [];
+        const seen = new Set();
+        docs.filter(d => d.isMilestone).forEach(d => {
+            const key = d.groupId || d.id;
+            if (!seen.has(key)) {
+                seen.add(key);
+                uniqueMilestones.push(d);
+            }
+        });
+
+        if (uniqueMilestones.length === 0) return '';
+
+        const cardsHtml = uniqueMilestones.map(d => {
+            const title = (isDe ? (d.deTitle || d.title) : (d.enTitle || d.title)) || d.title;
+            const reason = isDe ? (d.milestoneReasonDe || '') : (d.milestoneReasonEn || '');
+            const dateStr = d.date ? d.date : (d.year || '');
+            return `
+                <div class="spotlight-card" onclick="window.openDocument('${d.id}')" title="${escapeHtml(title)}">
+                    <div class="spotlight-card-top">
+                        <span class="spotlight-date">${escapeHtml(dateStr)}</span>
+                        <span class="doc-milestone-tag">${isDe ? 'Schlüssel-Botschaft' : 'Key Message'}</span>
+                    </div>
+                    <h5 class="spotlight-card-title">${escapeHtml(title)}</h5>
+                    ${reason ? `<p class="spotlight-reason">${escapeHtml(reason)}</p>` : ''}
+                    <span class="spotlight-action">${isDe ? 'Jetzt lesen →' : 'Read Now →'}</span>
+                </div>
+            `;
+        }).join('');
+
+        return `
+            <div class="inspector-milestones-spotlight">
+                <div class="spotlight-header">
+                    <h4 class="spotlight-title">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        ${isDe ? "Historische Schlüssel-Botschaften dieser Epoche" : "Key Milestone Messages of this Era"}
+                    </h4>
+                    <span class="spotlight-sub">${isDe ? "Laut autorisierten historischen Quellen der Bahá’í-Gemeinde priorisiert" : "Prioritized according to authorized Bahá’í historical sources"}</span>
+                </div>
+                <div class="spotlight-grid">
+                    ${cardsHtml}
+                </div>
+            </div>
+        `;
+    }
+
     function renderInspector(id) {
         const inspector = document.getElementById('unfold-inspector');
         if (!inspector) return;
@@ -1174,9 +1584,26 @@ window.TimelineModule = (function() {
         const desc = isDe ? entity.descDe : entity.descEn;
 
         // Count categories
+        const milestoneCount = docs.filter(d => d.isMilestone).length;
         const ridvanCount = docs.filter(d => (d.type || '').includes('Riḍván') || (d.title || '').includes('Riḍván')).length;
         const counsellorCount = docs.filter(d => d.recipient === 'counsellors' || d.subTier === 'counsellors' || (d.title || '').includes('Berater')).length;
         const bookCount = docs.filter(d => d.tier === 'books' || d.type === 'Heiliges Buch / Schrift').length;
+
+        // Reset filter if milestones filter is active but no milestones exist
+        if (currentDocFilter === 'milestones' && milestoneCount === 0) {
+            currentDocFilter = 'all';
+        }
+
+        let displayedDocs = docs;
+        if (currentDocFilter === 'milestones' && milestoneCount > 0) {
+            displayedDocs = docs.filter(d => d.isMilestone);
+        } else if (currentDocFilter === 'ridvan') {
+            displayedDocs = docs.filter(d => (d.type || '').includes('Riḍván') || (d.title || '').includes('Riḍván'));
+        } else if (currentDocFilter === 'institutions') {
+            displayedDocs = docs.filter(d => d.recipient === 'counsellors' || d.subTier === 'counsellors' || (d.title || '').includes('Berater'));
+        } else if (currentDocFilter === 'books') {
+            displayedDocs = docs.filter(d => d.tier === 'books' || d.type === 'Heiliges Buch / Schrift');
+        }
 
         inspector.innerHTML = `
             <div class="inspector-header">
@@ -1185,6 +1612,7 @@ window.TimelineModule = (function() {
                     <span class="inspector-period-tag">${sub}</span>
                 </div>
                 <div class="inspector-stats">
+                    ${milestoneCount > 0 ? `<span class="stat-pill stat-pill-milestone"><strong>${milestoneCount}</strong> ${isDe ? (milestoneCount === 1 ? 'Schlüssel-Botschaft' : 'Schlüssel-Botschaften') : 'Key Messages'}</span>` : ''}
                     <span class="stat-pill"><strong>${docs.length}</strong> ${isDe ? (docs.length === 1 ? 'Dokument' : 'Dokumente') : 'Documents'}</span>
                     ${ridvanCount > 0 ? `<span class="stat-pill"><strong>${ridvanCount}</strong> Riḍván</span>` : ''}
                     ${counsellorCount > 0 ? `<span class="stat-pill"><strong>${counsellorCount}</strong> ${isDe ? 'Berateramt' : 'Counsellors'}</span>` : ''}
@@ -1203,6 +1631,9 @@ window.TimelineModule = (function() {
                 </blockquote>
             ` : ''}
 
+            <!-- Schlüssel-Botschaften Spotlight -->
+            ${renderMilestonesSpotlight(docs, isDe)}
+
             <!-- Filter & Document List -->
             <div class="inspector-docs-section">
                 <div class="inspector-docs-header">
@@ -1210,6 +1641,10 @@ window.TimelineModule = (function() {
                         ${isDe ? "Dokumente & Schriften dieses Zeitraums" : "Documents & Writings of this Era"}
                     </h4>
                     <div class="inspector-subfilters">
+                        ${milestoneCount > 0 ? `
+                        <button class="subfilter-btn subfilter-milestones ${currentDocFilter === 'milestones' ? 'active' : ''}" onclick="window.TimelineModule.filterDocs('milestones')">
+                            ${isDe ? 'Schlüssel-Botschaften' : 'Key Messages'} (${milestoneCount})
+                        </button>` : ''}
                         <button class="subfilter-btn ${currentDocFilter === 'all' ? 'active' : ''}" onclick="window.TimelineModule.filterDocs('all')">
                             ${isDe ? 'Alle' : 'All'} (${docs.length})
                         </button>
@@ -1229,7 +1664,7 @@ window.TimelineModule = (function() {
                 </div>
 
                 <div class="inspector-docs-grid" id="inspector-docs-grid">
-                    ${renderDocumentCards(docs)}
+                    ${renderDocumentCards(displayedDocs)}
                 </div>
             </div>
         `;
@@ -1240,7 +1675,9 @@ window.TimelineModule = (function() {
         const entity = ENTITIES[currentSelectedId] || ENTITIES['plan_9yp_22'];
         let docs = getDocumentsForEntity(entity);
 
-        if (type === 'ridvan') {
+        if (type === 'milestones') {
+            docs = docs.filter(d => d.isMilestone);
+        } else if (type === 'ridvan') {
             docs = docs.filter(d => (d.type || '').includes('Riḍván') || (d.title || '').includes('Riḍván'));
         } else if (type === 'institutions') {
             docs = docs.filter(d => d.recipient === 'counsellors' || d.subTier === 'counsellors' || (d.title || '').includes('Berater'));
@@ -1252,7 +1689,14 @@ window.TimelineModule = (function() {
         if (grid) grid.innerHTML = renderDocumentCards(docs);
 
         document.querySelectorAll('.subfilter-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.textContent.toLowerCase().includes(type));
+            const t = btn.textContent.toLowerCase();
+            let active = false;
+            if (type === 'milestones' && (t.includes('schlüssel') || t.includes('key'))) active = true;
+            else if (type === 'all' && (t.includes('alle') || t.includes('all'))) active = true;
+            else if (type === 'ridvan' && t.includes('riḍván')) active = true;
+            else if (type === 'institutions' && (t.includes('berater') || t.includes('institutions'))) active = true;
+            else if (type === 'books' && (t.includes('bücher') || t.includes('books'))) active = true;
+            btn.classList.toggle('active', active);
         });
     }
 
@@ -1286,11 +1730,29 @@ window.TimelineModule = (function() {
                 if (item.formatFiles) Object.assign(mergedFiles, item.formatFiles);
                 if (item.availableFormats) item.availableFormats.forEach(f => mergedFormats.add(f));
             });
+
+            const hasMilestone = docsInGroup.some(item => item.isMilestone);
+            const milestoneItem = docsInGroup.find(item => item.milestoneReasonDe || item.milestoneReasonEn) || docsInGroup.find(item => item.isMilestone);
+
             unifiedList.push(Object.assign({}, primaryDoc, {
                 formatFiles: mergedFiles,
                 availableFormats: Array.from(mergedFormats),
-                siblingCount: docsInGroup.length
+                siblingCount: docsInGroup.length,
+                isMilestone: hasMilestone,
+                milestoneReasonDe: primaryDoc.milestoneReasonDe || (milestoneItem ? milestoneItem.milestoneReasonDe : undefined),
+                milestoneReasonEn: primaryDoc.milestoneReasonEn || (milestoneItem ? milestoneItem.milestoneReasonEn : undefined)
             }));
+        });
+
+        // Priorisiere Schlüssel-Botschaften an oberster Stelle, gefolgt von chronologischer Sortierung
+        unifiedList.sort((a, b) => {
+            const aM = a.isMilestone ? 1 : 0;
+            const bM = b.isMilestone ? 1 : 0;
+            if (aM !== bM) return bM - aM;
+            const ya = a.year || (a.date ? parseInt(a.date.substring(0, 4), 10) : 0);
+            const yb = b.year || (b.date ? parseInt(b.date.substring(0, 4), 10) : 0);
+            if (ya !== yb) return ya - yb;
+            return (a.date || '').localeCompare(b.date || '');
         });
 
         const sample = unifiedList.slice(0, 48);
