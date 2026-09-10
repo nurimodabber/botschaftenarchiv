@@ -310,24 +310,22 @@ html[data-library-view="list"] #library-results .doc-card-footer,
     padding-top: 0;
     margin-top: 0;
     flex-shrink: 0;
-    display: flex;
+    display: flex !important;
     align-items: center;
     gap: 0.75rem;
 }
 
 html[data-library-view="list"] #library-results .doc-topics-cluster,
 #library-results.list-view .doc-topics-cluster {
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
+    display: none;
 }
 
 html[data-library-view="list"] #library-results .doc-recipient-text,
 #library-results.list-view .doc-recipient-text {
     font-family: var(--font-sans);
-    font-size: 0.74rem;
+    font-size: 0.8rem;
     font-weight: 500;
-    color: var(--text-muted);
+    color: var(--text-ink);
     margin-left: auto;
     text-align: right;
     white-space: nowrap;
@@ -952,7 +950,7 @@ body:has(#document-viewer.active) .cosmos-dock-container {
 }
 
 .doc-date {
-    color: var(--text-subtle);
+    color: var(--text-ink);
     font-weight: 500;
     white-space: nowrap;
     flex-shrink: 0;
@@ -3915,7 +3913,7 @@ body:has(#document-viewer.active) .cosmos-dock-container {
         font-family: var(--font-sans) !important;
         font-size: 0.7rem !important;
         font-weight: 500 !important;
-        color: var(--text-muted) !important;
+        color: var(--text-ink) !important;
         margin-left: auto !important;
         text-align: right !important;
         white-space: nowrap !important;
@@ -5436,10 +5434,51 @@ body:has(#document-viewer.active) .cosmos-dock-container {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
+.command-filter-toggle-btn.in-searchbar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.32rem;
+    font-family: var(--font-sans);
+    font-size: 0.76rem;
+    font-weight: 600;
+    padding: 0.26rem 0.68rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-hairline);
+    background: var(--bg-paper);
+    color: var(--text-ink);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.command-filter-toggle-btn.in-searchbar:hover,
+.command-filter-toggle-btn.in-searchbar.active {
+    border-color: var(--accent-gold);
+    background: var(--accent-gold-soft);
+    color: var(--accent-gold);
+}
+
+.command-reset-btn.in-searchbar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.26rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-hairline);
+    background: var(--bg-paper);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.command-reset-btn.in-searchbar:hover {
+    color: var(--accent-gold);
+    border-color: var(--accent-gold);
+}
+
 /* Master Search Bar (Apex Omnisearch) */
 .master-search-row input {
     font-size: 0.98rem;
-    padding: 0.88rem 5.25rem 0.88rem 3.15rem;
+    padding: 0.88rem 11.5rem 0.88rem 3.15rem;
     border-radius: 12px;
 }
 
@@ -6471,7 +6510,7 @@ html[data-active-pillar="all"] {
     font-family: var(--font-sans);
     font-size: 1.05rem;
     font-weight: 500;
-    color: var(--text-muted);
+    color: var(--text-ink);
     display: inline-flex;
     align-items: baseline;
     gap: 0.35rem;
@@ -6480,7 +6519,7 @@ html[data-active-pillar="all"] {
 .results-bar-count strong {
     font-family: var(--font-sans);
     font-variant-numeric: tabular-nums;
-    color: var(--accent-gold);
+    color: var(--text-ink);
     font-weight: 700;
 }
 
@@ -6536,7 +6575,7 @@ html[data-active-pillar="all"] {
 .sort-label {
     font-family: var(--font-sans);
     font-size: 0.74rem;
-    color: var(--text-subtle);
+    color: var(--text-ink);
 }
 
 .sort-select-box {

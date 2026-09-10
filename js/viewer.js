@@ -304,6 +304,12 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
 
     currentViewerDoc = doc;
 
+    try {
+        if (typeof window.recordReadingHistory === 'function') {
+            window.recordReadingHistory(doc);
+        }
+    } catch (e) {}
+
     // URL-Hash aktualisieren (fuer direktes Teilen und Bookmarken)
     try {
         const pHash = targetParagraph ? `&p=${targetParagraph}` : '';

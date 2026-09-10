@@ -42,7 +42,7 @@
     <meta name="twitter:description" content="Digitale Forschungsbibliothek mit 918 Botschaften des Universalen Hauses der Gerechtigkeit, Schriften und Büchern im offiziellen Satzspiegel.">
     <meta name="twitter:image" content="https://bahaibibliothek.vercel.app/assets/icons/og-image.png">
 
-    <link rel="stylesheet" href="css/styles.css?v=3.4">
+    <link rel="stylesheet" href="css/styles.css?v=3.5">
     <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
     <!-- Vercel Web Analytics & Speed Insights -->
     <script>
@@ -280,7 +280,7 @@
                         </div>
                     </div>
 
-                    <!-- 1. Master-Suchleiste (Apex: Omnisearch über alle Werke mit ⌘K & Clear) -->
+                    <!-- 1. Master-Suchleiste (Apex: Omnisearch über alle Werke mit Filter-Button, ⌘K & Clear) -->
                     <div class="command-search-row master-search-row">
                         <svg class="command-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
@@ -289,6 +289,16 @@
                         <div class="command-search-actions">
                             <button id="library-search-clear" class="search-clear-btn" title="Suche leeren" style="display: none;">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            </button>
+                            <button id="library-toggle-filters-btn" class="command-filter-toggle-btn in-searchbar" aria-expanded="false" title="Detail-Filter ein- oder ausblenden">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+                                </svg>
+                                <span>Filter</span>
+                                <span id="library-filter-badge" class="filter-count-badge" style="display: none;">0</span>
+                            </button>
+                            <button id="library-reset-filters-btn" class="command-reset-btn in-searchbar" title="Alle Filter zurücksetzen" style="display: none;">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                             </button>
                             <kbd class="search-kbd-badge" title="Tastatur-Kürzel">⌘K</kbd>
                         </div>
@@ -345,33 +355,8 @@
                         </button>
                     </div>
 
-                    <!-- 3. Werkzeugleiste: Formate & Filter-Schalter -->
-                    <div class="pillar-ecosystem-panel" id="pillar-ecosystem-panel">
-                        <div class="ecosystem-top-row">
-                            <div class="format-chips-group">
-                                <button class="format-chip-btn active" data-fmt="all">Alle</button>
-                                <button class="format-chip-btn" data-fmt="pdf" title="Nur PDF">PDF</button>
-                                <button class="format-chip-btn" data-fmt="docx" title="Nur Word">DOCX</button>
-                                <button class="format-chip-btn" data-fmt="epub" title="Nur E-Book">EPUB</button>
-                            </div>
-
-                            <div class="command-actions-cluster">
-                                <button id="library-toggle-filters-btn" class="command-filter-toggle-btn" aria-expanded="false" title="Detail-Filter ein- oder ausblenden">
-                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
-                                    </svg>
-                                    <span>Filter</span>
-                                    <span id="library-filter-badge" class="filter-count-badge" style="display: none;">0</span>
-                                </button>
-
-                                <button id="library-reset-filters-btn" class="command-reset-btn" title="Alle Filter zurücksetzen" style="display: none;">
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- 4. Aufklappbare Detail-Filter (Progressive Disclosure) -->
-                        <div id="library-advanced-drawer" class="command-advanced-drawer" style="display: none;">
+                    <!-- 3. Aufklappbare Detail-Filter (direkt ansteuerbar über Filter im Suchfeld) -->
+                    <div id="library-advanced-drawer" class="command-advanced-drawer" style="display: none;">
                             <!-- Themen- & Empfänger-Schnellfilter (in die Filter verschoben) -->
                             <div class="drawer-quick-filter-row">
                                 <label class="command-field-label">Themen &amp; Empfänger</label>
@@ -479,14 +464,13 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-            <!-- ERGEBNIS-STATUSZEILE (Zähler links, Sortierung & Ansichts-Umschalter rechts) -->
-            <div id="library-results-info" class="library-results-bar">
+        <!-- ERGEBNIS-STATUSZEILE (Zähler links, Sortierung & Ansichts-Umschalter rechts) -->
+        <div id="library-results-info" class="library-results-bar">
                 <div class="results-bar-left">
                     <span class="results-bar-count">
                         <strong id="library-count-num">1.972</strong> Werke
@@ -576,6 +560,7 @@
                     
                     <div class="subtabs-nav" style="margin-top: 1rem;">
                         <button class="filter-pill active" id="pill-saved-bookmarks" onclick="window.switchSavedTab('bookmarks')">Lesezeichen (<span id="saved-bookmarks-count">0</span>)</button>
+                        <button class="filter-pill" id="pill-saved-history" onclick="window.switchSavedTab('history')">Zuletzt gelesen (<span id="saved-history-count">0</span>)</button>
                         <button class="filter-pill" id="pill-saved-compilations" onclick="window.switchSavedTab('compilations')">Meine Kompilationen (<span id="saved-compilations-count">0</span>)</button>
                     </div>
                 </div>
@@ -585,7 +570,12 @@
                     <div id="bookmarks-list" class="results-grid"></div>
                 </div>
 
-                <!-- Pane 2: Gespeicherte Kompilationen -->
+                <!-- Pane 2: Zuletzt gelesen (Verlauf) -->
+                <div id="saved-pane-history" style="display: none;">
+                    <div id="reading-history-list" class="results-grid"></div>
+                </div>
+
+                <!-- Pane 3: Gespeicherte Kompilationen -->
                 <div id="saved-pane-compilations" style="display: none;">
                     <div id="saved-compilations-list" style="display: flex; flex-direction: column; gap: 1rem;"></div>
                 </div>
@@ -695,6 +685,6 @@
     <script src="js/timeline.js?v=3.1"></script>
     <script src="js/books.js"></script>
     <script src="js/sources.js"></script>
-    <script src="js/app.js?v=3.4"></script>
+    <script src="js/app.js?v=3.5"></script>
 </body>
 </html>

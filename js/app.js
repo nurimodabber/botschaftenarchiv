@@ -174,7 +174,7 @@ function setupAppearance() {
             window.TimelineModule.setLanguage(validLang === 'english' ? 'en' : 'de');
         }
 
-        if (typeof applyLibraryFilters === 'function') {
+        if (typeof applyLibraryFilters === 'function' && window.state && window.state.documents && window.state.documents.length > 0) {
             applyLibraryFilters();
         }
     }
@@ -358,6 +358,7 @@ function setupAppearance() {
             btn.classList.toggle('active', btn.dataset.libView === validView);
         });
     }
+    window.applyLibraryView = applyLibraryView;
 
     // Initialize all settings
     applyDefaultViewerFormat(savedViewerFormat);
@@ -962,7 +963,9 @@ function initLibraryView() {
     const viewListBtn = document.getElementById('view-mode-list');
 
     function applyViewMode(mode) {
-        applyLibraryView(mode === 'list' ? 'list' : 'cards');
+        if (typeof window.applyLibraryView === 'function') {
+            window.applyLibraryView(mode === 'list' ? 'list' : 'cards');
+        }
         if (viewGridBtn) viewGridBtn.classList.toggle('active', mode === 'grid');
         if (viewListBtn) viewListBtn.classList.toggle('active', mode === 'list');
     }
@@ -1133,6 +1136,57 @@ function syncQuickChipsWithFilters() {
     });
 }
 
+function normalizeSearchText(str) {
+    if (!str) return '';
+    return String(str)
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/['’`ʻ‘]/g, '')
+        .toLowerCase()
+        .trim();
+}
+
+const GERMAN_SEARCH_MONTHS = ['Januar', 'Februar', 'März', 'Maerz', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+const ENGLISH_SEARCH_MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+function getDocumentSearchBundle(d) {
+    if (d._searchBundle) return d._searchBundle;
+    let dateVariations = '';
+    if (d.date) {
+        dateVariations += ' ' + d.date;
+        const parts = String(d.date).split('-');
+        if (parts.length === 3) {
+            const y = parseInt(parts[0], 10);
+            const m = parseInt(parts[1], 10) - 1;
+            const day = parseInt(parts[2], 10);
+            if (m >= 0 && m < 12) {
+                dateVariations += ` ${GERMAN_SEARCH_MONTHS[m]} ${ENGLISH_SEARCH_MONTHS[m]} ${day}. ${GERMAN_SEARCH_MONTHS[m]} ${y} ${day}.${m+1}.${y}`;
+            }
+        }
+    }
+    if (d.year) dateVariations += ' ' + d.year;
+
+    const topicsStr = Array.isArray(d.topics) ? d.topics.join(' ') : '';
+    const rawBundle = [
+        d.title || '',
+        d.deTitle || '',
+        d.enTitle || '',
+        d.subTitle || '',
+        d.author || '',
+        topicsStr,
+        d.recipient || '',
+        d.recipientLabel || '',
+        d.type || '',
+        d.compilationTopic || '',
+        d.excerpt || '',
+        (d.text ? d.text.slice(0, 800) : ''),
+        dateVariations
+    ].join(' ');
+
+    d._searchBundle = normalizeSearchText(rawBundle);
+    return d._searchBundle;
+}
+
 function applyLibraryFilters() {
     let list = state.documents;
     const { segment, author, compTopic, ruhiGroup, recipient, epoch, type, lang, format, sort, query } = state.library;
@@ -1268,17 +1322,15 @@ function applyLibraryFilters() {
         });
     }
 
-    // 6. Text-Suche
+    // 6. Universelle Multi-Feld- & Volltext-Suche (Begriffe, Tags, Daten, Empfänger, Thema)
     if (query) {
-        list = list.filter(d => {
-            const title = (d.title || '').toLowerCase();
-            const author = (d.author || '').toLowerCase();
-            const text = (d.text || '').substring(0, 500).toLowerCase();
-            const excerpt = (d.excerpt || '').toLowerCase();
-            const topics = (d.topics || []).join(' ').toLowerCase();
-            const rec = (d.recipientLabel || '').toLowerCase();
-            return title.includes(query) || author.includes(query) || text.includes(query) || excerpt.includes(query) || topics.includes(query) || rec.includes(query);
-        });
+        const queryTokens = normalizeSearchText(query).split(/\s+/).filter(Boolean);
+        if (queryTokens.length > 0) {
+            list = list.filter(d => {
+                const bundle = getDocumentSearchBundle(d);
+                return queryTokens.every(tok => bundle.includes(tok));
+            });
+        }
     }
 
     // 7. Sortierung
@@ -1665,24 +1717,59 @@ function renderStudyMaterial() {
    5. BEREICH: MERKLISTE & GESPEICHERTE KOMPILATIONEN (view-saved)
    ────────────────────────────────────────────────────────────────────────── */
 
+window.recordReadingHistory = function(doc) {
+    if (!doc || !doc.id) return;
+    try {
+        const raw = safeGetStorage('cosmos_reading_history', '[]');
+        let history = JSON.parse(raw);
+        if (!Array.isArray(history)) history = [];
+        history = history.filter(item => item.id !== doc.id && (!doc.groupId || item.groupId !== doc.groupId));
+        history.unshift({
+            id: doc.id,
+            groupId: doc.groupId || null,
+            title: doc.title || doc.deTitle || doc.enTitle || 'Werk',
+            author: doc.author || '',
+            tier: doc.tier || '',
+            date: doc.date || (doc.year ? String(doc.year) : ''),
+            timestamp: Date.now()
+        });
+        if (history.length > 50) history = history.slice(0, 50);
+        safeSetStorage('cosmos_reading_history', JSON.stringify(history));
+
+        const countHistory = document.getElementById('saved-history-count');
+        if (countHistory) countHistory.textContent = history.length;
+    } catch (e) {}
+};
+
+window.clearReadingHistory = function() {
+    safeSetStorage('cosmos_reading_history', '[]');
+    renderReadingHistory();
+    const countHistory = document.getElementById('saved-history-count');
+    if (countHistory) countHistory.textContent = '0';
+};
+
 window.switchSavedTab = function(tab) {
     state.savedTab = tab;
     const pillBookmarks = document.getElementById('pill-saved-bookmarks');
+    const pillHistory = document.getElementById('pill-saved-history');
     const pillCompilations = document.getElementById('pill-saved-compilations');
     const paneBookmarks = document.getElementById('saved-pane-bookmarks');
+    const paneHistory = document.getElementById('saved-pane-history');
     const paneCompilations = document.getElementById('saved-pane-compilations');
 
+    pillBookmarks?.classList.toggle('active', tab === 'bookmarks');
+    pillHistory?.classList.toggle('active', tab === 'history');
+    pillCompilations?.classList.toggle('active', tab === 'compilations');
+
+    if (paneBookmarks) paneBookmarks.style.display = (tab === 'bookmarks') ? 'block' : 'none';
+    if (paneHistory) paneHistory.style.display = (tab === 'history') ? 'block' : 'none';
+    if (paneCompilations) paneCompilations.style.display = (tab === 'compilations') ? 'block' : 'none';
+
     if (tab === 'bookmarks') {
-        pillBookmarks?.classList.add('active');
-        pillCompilations?.classList.remove('active');
-        if (paneBookmarks) paneBookmarks.style.display = 'block';
-        if (paneCompilations) paneCompilations.style.display = 'none';
         renderBookmarks();
+    } else if (tab === 'history') {
+        renderReadingHistory();
     } else {
-        pillBookmarks?.classList.remove('active');
-        pillCompilations?.classList.add('active');
-        if (paneBookmarks) paneBookmarks.style.display = 'none';
-        if (paneCompilations) paneCompilations.style.display = 'block';
         renderSavedCompilationsList();
     }
 };
@@ -1690,10 +1777,18 @@ window.switchSavedTab = function(tab) {
 function renderSavedView() {
     // Update counts
     const countBookmarks = document.getElementById('saved-bookmarks-count');
+    const countHistory = document.getElementById('saved-history-count');
     const countComps = document.getElementById('saved-compilations-count');
     
     if (countBookmarks) countBookmarks.textContent = state.bookmarks.length;
     
+    try {
+        const history = JSON.parse(safeGetStorage('cosmos_reading_history', '[]'));
+        if (countHistory) countHistory.textContent = history.length;
+    } catch (e) {
+        if (countHistory) countHistory.textContent = '0';
+    }
+
     let compList = [];
     try {
         compList = JSON.parse(safeGetStorage('my_compilations', '[]'));
@@ -1701,6 +1796,47 @@ function renderSavedView() {
     if (countComps) countComps.textContent = compList.length;
 
     window.switchSavedTab(state.savedTab || 'bookmarks');
+}
+
+function renderReadingHistory() {
+    const container = document.getElementById('reading-history-list');
+    if (!container) return;
+
+    let history = [];
+    try {
+        history = JSON.parse(safeGetStorage('cosmos_reading_history', '[]'));
+    } catch (e) {}
+
+    const countHistory = document.getElementById('saved-history-count');
+    if (countHistory) countHistory.textContent = history.length;
+
+    if (history.length === 0) {
+        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 3rem;">Noch kein Leseverlauf vorhanden. Gelesene Bücher und Botschaften werden hier aufgeführt.</p>';
+        return;
+    }
+
+    const docMap = new Map();
+    state.documents.forEach(d => docMap.set(d.id, d));
+
+    const htmlCards = history.map((item, idx) => {
+        const fullDoc = docMap.get(item.id);
+        if (fullDoc) {
+            return window.createDocCard(fullDoc, '', idx);
+        }
+        return `
+            <article class="doc-card" style="--i: ${idx % 30}; cursor: pointer;" onclick="window.openDocument('${item.id}')">
+                <div class="doc-card-body">
+                    <div class="doc-card-header">
+                        <div class="doc-meta-editorial">${item.date ? `<span class="doc-date">${escapeDocHtml(item.date)}</span>` : ''}</div>
+                    </div>
+                    <h3 class="doc-title">${escapeDocHtml(item.title)}</h3>
+                    ${item.author ? `<div class="doc-sub-title">${escapeDocHtml(item.author)}</div>` : ''}
+                </div>
+            </article>
+        `;
+    }).join('');
+
+    container.innerHTML = htmlCards;
 }
 
 function renderBookmarks() {
