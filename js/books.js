@@ -103,15 +103,23 @@ window.BooksModule = (function() {
             });
         }
 
-        // Filter: Suche
+        // Filter: Suche (Titel, Untertitel, Autor, Auszug & Volltext)
         if (currentSearchQuery.trim()) {
             const q = currentSearchQuery.trim().toLowerCase();
-            books = books.filter(b =>
-                (b.title && b.title.toLowerCase().includes(q)) ||
-                (b.subtitle && b.subtitle.toLowerCase().includes(q)) ||
-                (b.author && b.author.toLowerCase().includes(q)) ||
-                (b.excerpt && b.excerpt.toLowerCase().includes(q))
-            );
+            const qNorm = window.normalizeSearchText ? window.normalizeSearchText(q) : q;
+            const fullTexts = window.state ? window.state.fullTexts : null;
+            const normTexts = window.state ? window.state.normalizedFullTexts : null;
+
+            books = books.filter(b => {
+                const titleMatch = (b.title && b.title.toLowerCase().includes(q)) ||
+                                   (b.subtitle && b.subtitle.toLowerCase().includes(q)) ||
+                                   (b.author && b.author.toLowerCase().includes(q)) ||
+                                   (b.excerpt && b.excerpt.toLowerCase().includes(q));
+                if (titleMatch) return true;
+                if (normTexts && normTexts[b.id] && normTexts[b.id].includes(qNorm)) return true;
+                if (fullTexts && fullTexts[b.id] && fullTexts[b.id].toLowerCase().includes(q)) return true;
+                return false;
+            });
         }
 
         // Sortierung

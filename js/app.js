@@ -80,6 +80,13 @@ async function initApp() {
                 state.idAliases = await aliasResp.json();
             }
         } catch (e) {}
+
+        // Volltext-Suchindex im Hintergrund laden fuer blitzschnelle Auszug- und Volltextsuche
+        setTimeout(() => {
+            if (typeof window.loadFullTextSearchIndex === 'function') {
+                window.loadFullTextSearchIndex();
+            }
+        }, 120);
     } catch (error) {
         console.error('Error loading documents:', error);
         const resultsEl = document.getElementById('library-results');
@@ -984,6 +991,11 @@ function initLibraryView() {
 
     if (searchInput) {
         let timeout = null;
+        searchInput.addEventListener('focus', () => {
+            if (!window._fullTextLoaded && !window._fullTextLoading && typeof window.loadFullTextSearchIndex === 'function') {
+                window.loadFullTextSearchIndex();
+            }
+        });
         searchInput.addEventListener('input', (e) => {
             const val = e.target.value.trim();
             if (searchClearBtn) {
@@ -993,7 +1005,7 @@ function initLibraryView() {
             timeout = setTimeout(() => {
                 state.library.query = val.toLowerCase();
                 applyLibraryFilters();
-            }, 200);
+            }, 180);
         });
     }
 
@@ -1140,15 +1152,107 @@ function syncQuickChipsWithFilters() {
     });
 }
 
+window.loadFullTextSearchIndex = async function() {
+    if (window._fullTextLoaded || window._fullTextLoading) return;
+    window._fullTextLoading = true;
+
+    try {
+        let cache = null;
+        let response = null;
+        if ('caches' in window) {
+            try {
+                cache = await caches.open('cosmos-fulltext-v1');
+                response = await cache.match('data/search_texts.json');
+            } catch (e) {}
+        }
+
+        if (!response) {
+            response = await fetch('data/search_texts.json').catch(() => null);
+            if (!response || !response.ok) {
+                response = await fetch('/data/search_texts.json').catch(() => null);
+            }
+            if (response && response.ok && cache) {
+                try {
+                    cache.put('data/search_texts.json', response.clone());
+                } catch (e) {}
+            }
+        }
+
+        if (response && response.ok) {
+            const data = await response.json();
+            window.state.fullTexts = data;
+            window.state.normalizedFullTexts = {};
+            for (const id in data) {
+                window.state.normalizedFullTexts[id] = normalizeSearchText(data[id]);
+            }
+            window._fullTextLoaded = true;
+            window._fullTextLoading = false;
+
+            // Falls während des Ladens bereits eine Suche aktiv ist, sofort reaktiv aktualisieren
+            if (state.library && state.library.query && typeof applyLibraryFilters === 'function') {
+                applyLibraryFilters();
+            }
+        }
+    } catch (err) {
+        console.warn('Volltext-Index Ladefehler:', err);
+        window._fullTextLoading = false;
+    }
+};
+
+function escapeRegex(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function extractSearchSnippet(rawText, normText, queryNorm, tokens) {
+    if (!rawText) return '';
+    let matchIdx = -1;
+    let matchLen = queryNorm ? queryNorm.length : 0;
+
+    // 1. Zuerst prüfen, ob die exakte Phrase im Volltext vorkommt (z.B. bei Auszügen)
+    if (normText && queryNorm) {
+        matchIdx = normText.indexOf(queryNorm);
+    }
+    // 2. Falls kein Phrasen-Treffer, nimm den ersten Token-Treffer
+    if (matchIdx === -1 && normText && tokens.length > 0) {
+        for (const tok of tokens) {
+            const idx = normText.indexOf(tok);
+            if (idx !== -1) {
+                matchIdx = idx;
+                matchLen = tok.length;
+                break;
+            }
+        }
+    }
+
+    if (matchIdx === -1) {
+        return escapeDocHtml(rawText.slice(0, 160).replace(/\s+/g, ' ')) + '…';
+    }
+
+    const start = Math.max(0, matchIdx - 70);
+    const end = Math.min(rawText.length, matchIdx + matchLen + 90);
+    let slice = rawText.slice(start, end).replace(/\s+/g, ' ');
+    let escaped = escapeDocHtml(slice);
+
+    // Hervorhebung für alle Suchbegriffe
+    for (const tok of tokens) {
+        if (tok.length < 2) continue;
+        const re = new RegExp('(' + escapeRegex(escapeDocHtml(tok)) + ')', 'gi');
+        escaped = escaped.replace(re, '<mark class="search-highlight">$1</mark>');
+    }
+
+    return (start > 0 ? '…' : '') + escaped.trim() + (end < rawText.length ? '…' : '');
+}
+
 function normalizeSearchText(str) {
     if (!str) return '';
     return String(str)
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
-        .replace(/['’`ʻ‘]/g, '')
+        .replace(/['’`ʻ‘"“”„«»]/g, '')
         .toLowerCase()
         .trim();
 }
+window.normalizeSearchText = normalizeSearchText;
 
 const GERMAN_SEARCH_MONTHS = ['Januar', 'Februar', 'März', 'Maerz', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
 const ENGLISH_SEARCH_MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -1196,20 +1300,24 @@ function applyLibraryFilters() {
     const { segment, author, compTopic, ruhiGroup, recipient, epoch, type, lang, format, sort, query } = state.library;
 
     // 0. Segment-Filter
-    if (segment === 'house') {
-        list = list.filter(d => d.tier === 'house' || d.tier === 'institutions');
-    } else if (segment === 'books') {
-        list = list.filter(d => d.tier === 'books');
-    } else if (segment === 'compilations') {
-        list = list.filter(d => d.tier === 'compilations');
-    } else if (segment === 'ruhi') {
-        list = list.filter(d => d.tier === 'ruhi');
-    } else if (segment === 'collections') {
-        list = list.filter(d => d.tier === 'compilations' || d.tier === 'ruhi' || d.tier === 'study');
+    // Wenn eine Suche aktiv ist (query vorhanden), durchsuchen wir ALLE Texte des gesamten Archivs
+    // (Botschaften, Bücher, Kompilationen, Ruhi-Kurse), genau wie vom Benutzer gewünscht!
+    if (!query) {
+        if (segment === 'house') {
+            list = list.filter(d => d.tier === 'house' || d.tier === 'institutions');
+        } else if (segment === 'books') {
+            list = list.filter(d => d.tier === 'books');
+        } else if (segment === 'compilations') {
+            list = list.filter(d => d.tier === 'compilations');
+        } else if (segment === 'ruhi') {
+            list = list.filter(d => d.tier === 'ruhi');
+        } else if (segment === 'collections') {
+            list = list.filter(d => d.tier === 'compilations' || d.tier === 'ruhi' || d.tier === 'study');
+        }
     }
 
     // 0b. Autoren-Filter (für Bücher)
-    if (segment === 'books' && author && author !== 'all') {
+    if (author && author !== 'all') {
         list = list.filter(d => {
             const auth = ((d.author || '') + ' ' + (d.title || '')).toLowerCase();
             if (author === 'bahaullah') return auth.includes("bahá'u'lláh") || auth.includes("baha'u'llah") || auth.includes("bahaullah");
@@ -1221,7 +1329,7 @@ function applyLibraryFilters() {
     }
 
     // 0c. Themen-Filter (für Kompilationen)
-    if (segment === 'compilations' && compTopic && compTopic !== 'all') {
+    if (compTopic && compTopic !== 'all') {
         list = list.filter(d => {
             const str = ((d.title || '') + ' ' + (d.compilationTopic || '')).toLowerCase();
             if (compTopic === 'marriage') return str.includes('ehe') || str.includes('marriage');
@@ -1235,7 +1343,7 @@ function applyLibraryFilters() {
     }
 
     // 0d. Band-Filter (für Ruhi-Bücher)
-    if (segment === 'ruhi' && ruhiGroup && ruhiGroup !== 'all') {
+    if (ruhiGroup && ruhiGroup !== 'all') {
         list = list.filter(d => {
             const t = (d.title || '').toLowerCase();
             if (ruhiGroup === 'b1-4') return /buch 0?[1-4]\b|book 0?[1-4]\b/i.test(t);
@@ -1326,24 +1434,123 @@ function applyLibraryFilters() {
         });
     }
 
-    // 6. Universelle Multi-Feld- & Volltext-Suche (Begriffe, Tags, Daten, Empfänger, Thema)
+    // 6. Universelle Multi-Feld- & Volltext-Suche (Begriffe, Auszüge, Tags, Daten, Empfänger, Thema)
     if (query) {
-        const queryTokens = normalizeSearchText(query).split(/\s+/).filter(Boolean);
+        const queryNorm = normalizeSearchText(query);
+        const queryTokens = queryNorm.split(/\s+/).filter(Boolean);
+        const isPhrase = queryTokens.length > 1;
+        const fullTexts = window.state.fullTexts;
+        const normTexts = window.state.normalizedFullTexts;
+
         if (queryTokens.length > 0) {
-            list = list.filter(d => {
-                const bundle = getDocumentSearchBundle(d);
-                return queryTokens.every(tok => bundle.includes(tok));
-            });
+            const matchedList = [];
+
+            for (const d of list) {
+                const rawText = (fullTexts && fullTexts[d.id]) || d.text || '';
+                const normText = (normTexts && normTexts[d.id]) || (d.text ? normalizeSearchText(d.text) : '');
+                const titleNorm = normalizeSearchText(d.title || '');
+                const deTitleNorm = normalizeSearchText(d.deTitle || '');
+                const enTitleNorm = normalizeSearchText(d.enTitle || '');
+                const authorNorm = normalizeSearchText(d.author || '');
+                const recNorm = normalizeSearchText(d.recipientLabel || d.recipient || '');
+                const topicsNorm = normalizeSearchText(Array.isArray(d.topics) ? d.topics.join(' ') : '');
+                const dateStr = String(d.date || '') + ' ' + String(d.year || '');
+                const excerptNorm = normalizeSearchText(d.excerpt || '');
+
+                let score = 0;
+                let matchedInText = false;
+
+                // 1. Exakter Phrasentreffer im Titel / Alternativtitel (höchste Relevanz)
+                if (titleNorm.includes(queryNorm) || deTitleNorm.includes(queryNorm) || enTitleNorm.includes(queryNorm)) {
+                    score += 200;
+                }
+
+                // 2. Exakter Phrasentreffer im Volltext (für Auszüge, Zitate oder Redewendungen)
+                if (normText && isPhrase && normText.includes(queryNorm)) {
+                    score += 150;
+                    matchedInText = true;
+                }
+
+                // 3. Multi-Wort Token-Matching
+                if (isPhrase) {
+                    const allInMeta = queryTokens.every(t => 
+                        titleNorm.includes(t) || authorNorm.includes(t) || 
+                        topicsNorm.includes(t) || recNorm.includes(t) || 
+                        dateStr.includes(t) || excerptNorm.includes(t)
+                    );
+                    if (allInMeta) {
+                        score += 80;
+                    } else if (normText) {
+                        let textTokensCount = 0;
+                        for (const t of queryTokens) {
+                            if (normText.includes(t)) textTokensCount++;
+                        }
+                        if (textTokensCount === queryTokens.length) {
+                            score += 70;
+                            matchedInText = true;
+                        } else if (queryTokens.length >= 4 && (textTokensCount / queryTokens.length) >= 0.75) {
+                            score += 35;
+                            matchedInText = true;
+                        }
+                    }
+                } else {
+                    // Einzelner Suchbegriff (z.B. "Gerechtigkeit", "Klimawandel", "Seele")
+                    const tok = queryTokens[0];
+                    if (titleNorm.includes(tok) || deTitleNorm.includes(tok) || enTitleNorm.includes(tok)) {
+                        score += 120;
+                    }
+                    if (authorNorm.includes(tok) || recNorm.includes(tok) || topicsNorm.includes(tok) || dateStr.includes(tok)) {
+                        score += 60;
+                    }
+                    if (excerptNorm.includes(tok)) {
+                        score += 40;
+                    }
+                    if (normText && normText.includes(tok)) {
+                        score += 50;
+                        matchedInText = true;
+                    }
+                }
+
+                // Fallback: Wenn Volltext noch lädt, mit Bundle suchen
+                if (!fullTexts && score === 0) {
+                    const bundle = getDocumentSearchBundle(d);
+                    if (queryTokens.every(tok => bundle.includes(tok))) {
+                        score = 20;
+                    }
+                }
+
+                if (score > 0) {
+                    d._searchScore = score;
+                    d._searchSnippet = matchedInText ? extractSearchSnippet(rawText, normText, queryNorm, queryTokens) : (d.excerpt ? escapeDocHtml(d.excerpt) : '');
+                    matchedList.push(d);
+                } else {
+                    d._searchScore = 0;
+                    d._searchSnippet = '';
+                }
+            }
+
+            list = matchedList;
         }
     }
 
     // 7. Sortierung
-    if (sort === 'date-desc') {
-        list.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
-    } else if (sort === 'date-asc') {
-        list.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
-    } else if (sort === 'title') {
-        list.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'de'));
+    if (query) {
+        if (sort === 'date-desc') {
+            // Standard bei Suche: Nach Relevanz sortieren (höchster Relevanz-Score zuerst), sekundär nach Datum
+            list.sort((a, b) => (b._searchScore || 0) - (a._searchScore || 0) || (b.date || '').localeCompare(a.date || ''));
+        } else if (sort === 'date-asc') {
+            list.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+        } else if (sort === 'title') {
+            list.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'de'));
+        }
+    } else {
+        if (sort === 'date-desc') {
+            list.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+        } else if (sort === 'date-asc') {
+            list.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+        } else if (sort === 'title') {
+            list.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'de'));
+        }
     }
 
     // 8. Zweisprachige Zusammenführung (gleiche Dokumente als ein Werk darstellen)
@@ -1359,7 +1566,11 @@ function applyLibraryFilters() {
     const unifiedList = [];
     unifiedMap.forEach(docsInGroup => {
         let primaryDoc;
-        if (lang && lang.toLowerCase() === 'english') {
+        // Wenn ein Dokument in der Gruppe einen konkreten Volltext-Snippet-Treffer hat, dieses bevorzugen!
+        const hitDoc = docsInGroup.find(d => (d._searchScore || 0) > 0 && d._searchSnippet);
+        if (hitDoc) {
+            primaryDoc = hitDoc;
+        } else if (lang && lang.toLowerCase() === 'english') {
             primaryDoc = docsInGroup.find(d => (d.language || '').toLowerCase() === 'english') || docsInGroup[0];
         } else {
             primaryDoc = docsInGroup.find(d => (d.language || '').toLowerCase() === 'deutsch') || docsInGroup[0];
@@ -1372,14 +1583,21 @@ function applyLibraryFilters() {
             if (item.availableFormats) item.availableFormats.forEach(f => mergedFormats.add(f));
         });
 
+        const maxScore = Math.max(...docsInGroup.map(d => d._searchScore || 0));
         const unifiedDoc = Object.assign({}, primaryDoc, {
             formatFiles: mergedFiles,
             availableFormats: Array.from(mergedFormats),
-            siblingCount: docsInGroup.length
+            siblingCount: docsInGroup.length,
+            _searchScore: maxScore,
+            _searchSnippet: primaryDoc._searchSnippet || (hitDoc ? hitDoc._searchSnippet : '')
         });
 
         unifiedList.push(unifiedDoc);
     });
+
+    if (query && sort === 'date-desc') {
+        unifiedList.sort((a, b) => (b._searchScore || 0) - (a._searchScore || 0) || (b.date || '').localeCompare(a.date || ''));
+    }
 
     list = unifiedList;
 
@@ -1503,7 +1721,7 @@ function renderMoreLibraryResults() {
     
     let html = '';
     nextBatch.forEach((doc, idx) => {
-        html += window.createDocCard(doc, '', idx);
+        html += window.createDocCard(doc, doc._searchSnippet || '', idx);
     });
 
     const tempDiv = document.createElement('div');
@@ -1976,12 +2194,12 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
     // 1. Ruhige, informative Metazeile (nur das Wesentliche: Datum & Kontext)
     const metaParts = [];
 
-    // Säulen-Zuordnung nur bei Master-Gesamtsuche ("all") zur Orientierung
-    if (state.library && state.library.segment === 'all') {
-        let pillarTag = 'Botschaft';
-        if (doc.tier === 'books') pillarTag = 'Heilige Schrift';
-        else if (doc.tier === 'compilations') pillarTag = 'Kompilation';
-        else if (doc.tier === 'ruhi') pillarTag = 'Ruhi-Buch';
+    // Säulen-Zuordnung bei Master-Gesamtsuche ("all") ODER wenn eine Suche aktiv ist
+    if ((state.library && state.library.segment === 'all') || (state.library && state.library.query)) {
+        let pillarTag = (window.I18n && window.I18n.getCurrentLanguage() === 'en') ? 'Message' : 'Botschaft';
+        if (doc.tier === 'books') pillarTag = (window.I18n && window.I18n.getCurrentLanguage() === 'en') ? 'Holy Book' : 'Heilige Schrift';
+        else if (doc.tier === 'compilations') pillarTag = (window.I18n && window.I18n.getCurrentLanguage() === 'en') ? 'Compilation' : 'Kompilation';
+        else if (doc.tier === 'ruhi') pillarTag = (window.I18n && window.I18n.getCurrentLanguage() === 'en') ? 'Ruhi Course' : 'Ruhi-Buch';
         metaParts.push(`<span class="doc-pillar-text">${pillarTag}</span>`);
     }
 
@@ -2011,7 +2229,8 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
     const bilingualBadge = hasBoth ? `<span class="doc-bilingual-badge" title="Zweisprachig verfügbar (Deutsch & Englisch)">DE · EN</span>` : '';
 
     const staggerIndex = typeof index === 'number' ? (index % 30) : 0;
-    const previewText = snippet ? `…${snippet}…` : (doc.excerpt ? `${escapeDocHtml(doc.excerpt)}…` : '');
+    const activeSnippet = snippet || doc._searchSnippet || '';
+    const previewText = activeSnippet ? (activeSnippet.startsWith('…') ? activeSnippet : `…${activeSnippet}…`) : (doc.excerpt ? `${escapeDocHtml(doc.excerpt)}…` : '');
 
     // Zweitsprachiger Titel ohne redundante Datumsdoppelung
     let subTitleHtml = '';
@@ -2050,7 +2269,7 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
                 </div>
                 <h3 class="doc-title">${escapeDocHtml(doc.title)}</h3>
                 ${subTitleHtml}
-                ${previewText ? `<p class="doc-excerpt">${previewText}</p>` : ''}
+                ${previewText ? `<p class="doc-excerpt ${activeSnippet ? 'doc-search-snippet' : ''}">${previewText}</p>` : ''}
             </div>
             ${hasFooter ? `
             <div class="doc-card-footer">

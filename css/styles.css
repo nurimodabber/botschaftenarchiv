@@ -1041,6 +1041,21 @@ body:has(#document-viewer.active) .cosmos-dock-container {
     margin-bottom: 0.25rem;
 }
 
+.doc-excerpt.doc-search-snippet {
+    height: auto;
+    max-height: 4.8em;
+    -webkit-line-clamp: 3;
+    color: var(--text-secondary);
+}
+
+mark.search-highlight {
+    background: rgba(200, 155, 60, 0.28);
+    color: var(--text-ink);
+    font-weight: 600;
+    border-radius: 3px;
+    padding: 0.05em 0.2em;
+}
+
 /* Card Footer */
 .doc-footer {
     display: flex;
