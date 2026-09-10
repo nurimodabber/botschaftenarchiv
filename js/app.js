@@ -142,28 +142,31 @@ function setupAppearance() {
         });
     }
 
-    // 0b. Preferred Language Setting (all / deutsch / english)
-    // Standard ist 'all' (Alle Sprachen anzeigen), damit die Bibliothek beim Oeffnen nicht auf 232 Werke begrenzt wird.
-    let storedLang = safeGetStorage('cosmos_preferred_lang_v2', null);
-    if (!storedLang) {
-        // Einmalige Bereinigung eines frueheren automatischen 'deutsch'-Eintrags
-        storedLang = 'all';
-        safeSetStorage('cosmos_preferred_lang_v2', 'all');
-        safeSetStorage('cosmos_preferred_lang', 'all');
-    }
-    const savedLanguage = (storedLang === 'deutsch' || storedLang === 'english') ? storedLang : 'all';
+    // 0b. Master-Language Setting (Deutsch 'de' / English 'en')
+    // Steuert die Sprache der gesamten Benutzeroberflaeche sowie die Standard-Lesesprache
+    let storedLang = safeGetStorage('cosmos_master_lang', safeGetStorage('cosmos_preferred_lang_v2', safeGetStorage('cosmos_preferred_lang', 'de')));
+    if (storedLang === 'english') storedLang = 'en';
+    if (storedLang === 'deutsch' || storedLang === 'all' || !storedLang) storedLang = 'de';
+    const savedLanguage = (storedLang === 'en') ? 'en' : 'de';
 
     function applyLanguage(langVal) {
-        const validLang = (langVal === 'english' || langVal === 'deutsch') ? langVal : 'all';
+        const validLang = (langVal === 'en' || langVal === 'english') ? 'en' : 'de';
+        safeSetStorage('cosmos_master_lang', validLang);
+        safeSetStorage('cosmos_preferred_lang', validLang === 'en' ? 'english' : 'deutsch');
         safeSetStorage('cosmos_preferred_lang_v2', validLang);
-        safeSetStorage('cosmos_preferred_lang', validLang);
+
+        if (window.I18n && window.I18n.setLanguage) {
+            window.I18n.setLanguage(validLang);
+        }
 
         document.querySelectorAll('#appearance-language-group .appearance-opt-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.langVal === validLang);
+            const val = btn.dataset.langVal;
+            const isActive = (val === validLang) || (val === 'english' && validLang === 'en') || (val === 'deutsch' && validLang === 'de');
+            btn.classList.toggle('active', isActive);
         });
 
         // Synchronize with library state and filter select
-        state.library.lang = (validLang === 'all') ? '' : validLang;
+        state.library.lang = (validLang === 'en' ? 'english' : 'deutsch');
         const langSelect = document.getElementById('library-lang-select');
         if (langSelect) {
             langSelect.value = state.library.lang;
@@ -171,7 +174,12 @@ function setupAppearance() {
 
         // Synchronize with timeline if available
         if (window.TimelineModule && window.TimelineModule.setLanguage) {
-            window.TimelineModule.setLanguage(validLang === 'english' ? 'en' : 'de');
+            window.TimelineModule.setLanguage(validLang);
+        }
+
+        // Synchronize with books if available
+        if (window.BooksModule && window.BooksModule.setLang) {
+            window.BooksModule.setLang(validLang === 'en' ? 'english' : 'deutsch');
         }
 
         if (typeof applyLibraryFilters === 'function' && window.state && window.state.documents && window.state.documents.length > 0) {
@@ -544,7 +552,7 @@ function setupAppearance() {
     if (resetBtn) {
         resetBtn.addEventListener('click', () => {
             applyDefaultViewerFormat('pdf');
-            applyLanguage('all');
+            applyLanguage('de');
             applyTheme('light');
             applyAccentColor(defaultColor);
             applyReaderFont('serif');
@@ -881,22 +889,18 @@ function initLibraryView() {
         });
     }
 
-    // Language Select
+    // Language Select in Filter Drawer
     const langSelect = document.getElementById('library-lang-select');
     if (langSelect) {
         langSelect.value = state.library.lang || '';
         langSelect.addEventListener('change', (e) => {
             const chosen = e.target.value;
             state.library.lang = chosen;
-            const prefLang = (chosen === 'english' || chosen === 'all') ? chosen : (chosen === '' ? 'all' : 'deutsch');
-            safeSetStorage('cosmos_preferred_lang', prefLang);
-            document.querySelectorAll('#appearance-language-group .appearance-opt-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.langVal === prefLang);
-            });
-            if (window.TimelineModule && window.TimelineModule.setLanguage) {
-                window.TimelineModule.setLanguage(prefLang === 'english' ? 'en' : 'de');
+            if (chosen === 'deutsch' || chosen === 'english') {
+                applyLanguage(chosen === 'english' ? 'en' : 'de');
+            } else {
+                applyLibraryFilters();
             }
-            applyLibraryFilters();
         });
     }
 
@@ -1459,8 +1463,9 @@ function applyLibraryFilters() {
     }
 
     // Ergebnisse-Statuszeile aktualisieren
+    const isEn = window.I18n && window.I18n.getLanguage() === 'en';
     const countNumEl = document.getElementById('library-count-num');
-    if (countNumEl) countNumEl.textContent = list.length.toLocaleString('de-DE');
+    if (countNumEl) countNumEl.textContent = list.length.toLocaleString(isEn ? 'en-US' : 'de-DE');
 
     const tagsContainer = document.getElementById('library-active-tags');
     if (tagsContainer) {
@@ -1479,9 +1484,11 @@ function applyLibraryFilters() {
 
     if (list.length === 0) {
         if (container) {
-            container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 3rem;">Keine Werke oder Dokumente gefunden, die den gewählten Kriterien entsprechen.</p>';
+            const emptyMsg = window.I18n ? window.I18n.t('results.empty_desc') : 'Keine Werke oder Dokumente gefunden, die den gewählten Kriterien entsprechen.';
+            container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 3rem;">${emptyMsg}</p>`;
         }
         updateLibraryLoadMore();
+        if (window.I18n && window.I18n.applyToDOM) window.I18n.applyToDOM();
         return;
     }
 

@@ -65,7 +65,7 @@
 <body data-active-view="library">
     <div class="cosmos-dock-container">
         <header class="cosmos-dock" role="banner">
-            <button class="dock-brand" onclick="window.switchView('library')" title="Zurück zur Bibliothek" aria-label="Zurück zur Bibliothek">
+            <button class="dock-brand" onclick="window.switchView('library')" title="Zurück zur Bibliothek" aria-label="Zurück zur Bibliothek" data-i18n-title="nav.brand_title" data-i18n-aria="nav.brand_title">
                 <div class="dock-star">
                     <svg width="18" height="18" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path d="M50.00,4.00L58.21,27.45L79.57,14.76L70.78,38.00L95.30,42.01L73.64,54.17L89.84,73.00L65.43,68.39L65.73,93.23L50.00,74.00L34.27,93.23L34.57,68.39L10.16,73.00L26.36,54.17L4.70,42.01L29.22,38.00L20.43,14.76L41.79,27.45Z" fill="currentColor"/>
@@ -76,36 +76,36 @@
             <div class="dock-divider"></div>
 
             <nav class="cosmos-nav" aria-label="Hauptnavigation">
-                <button class="nav-btn active" data-view="library" title="Bibliothek (Botschaften des Hauses)">
+                <button class="nav-btn active" data-view="library" title="Bibliothek (Botschaften des Hauses)" data-i18n-title="nav.library_title">
                     <span class="nav-icon-circle">
                         <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
                     </span>
-                    <span class="nav-label">Bibliothek</span>
+                    <span class="nav-label" data-i18n="nav.library">Bibliothek</span>
                 </button>
 
-                <button class="nav-btn" data-view="timeline" title="Historischer Zeitstrahl &amp; Epochen-Explorer (1844–2044)">
+                <button class="nav-btn" data-view="timeline" title="Historischer Zeitstrahl &amp; Epochen-Explorer (1844–2044)" data-i18n-title="nav.timeline_title">
                     <span class="nav-icon-circle">
                         <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12"/><circle cx="6" cy="12" r="3" fill="currentColor"/><circle cx="12" cy="12" r="3" fill="currentColor"/><circle cx="18" cy="12" r="3" fill="currentColor"/></svg>
                     </span>
-                    <span class="nav-label">Zeitstrahl</span>
+                    <span class="nav-label" data-i18n="nav.timeline">Zeitstrahl</span>
                 </button>
-                <button class="nav-btn btn-nav-workshop" data-view="workshop" title="Kompilations-Werkstatt">
+                <button class="nav-btn btn-nav-workshop" data-view="workshop" title="Kompilations-Werkstatt" data-i18n-title="nav.workshop_title">
                     <span class="nav-icon-circle">
                         <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
                     </span>
-                    <span class="nav-label">Werkstatt</span>
+                    <span class="nav-label" data-i18n="nav.workshop">Werkstatt</span>
                 </button>
-                <button class="nav-btn" data-view="sources" title="Offizielle Bahá'í-Quellen &amp; Repositorien">
+                <button class="nav-btn" data-view="sources" title="Offizielle Bahá'í-Quellen &amp; Repositorien" data-i18n-title="nav.sources_title">
                     <span class="nav-icon-circle">
                         <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"/></svg>
                     </span>
-                    <span class="nav-label">Quellen</span>
+                    <span class="nav-label" data-i18n="nav.sources">Quellen</span>
                 </button>
-                <button class="nav-btn" data-view="saved" title="Merkliste &amp; Gespeichertes">
+                <button class="nav-btn" data-view="saved" title="Merkliste &amp; Gespeichertes" data-i18n-title="nav.saved_title">
                     <span class="nav-icon-circle">
                         <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
                     </span>
-                    <span class="nav-label">Merkliste</span>
+                    <span class="nav-label" data-i18n="nav.saved">Merkliste</span>
                 </button>
             </nav>
 
@@ -114,69 +114,68 @@
             <div class="dock-actions">
                 <!-- Vereintes Einstellungs-Menü (Standard-Format, Sprache, Thema, Farbauswahl, Typografie, Lesebreite, Zeilenabstand, Layout) -->
                 <div class="appearance-wrapper">
-                    <button id="appearance-btn" class="appearance-dock-btn nav-btn" data-view="settings" aria-label="Einstellungen" title="Einstellungen">
+                    <button id="appearance-btn" class="appearance-dock-btn nav-btn" data-view="settings" aria-label="Einstellungen" title="Einstellungen" data-i18n-title="nav.settings_title" data-i18n-aria="nav.settings_title">
                         <span class="nav-icon-circle">
                             <svg class="appearance-settings-icon nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="12" cy="12" r="3"></circle>
                                 <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
                             </svg>
                         </span>
-                        <span class="nav-label">Einstellungen</span>
+                        <span class="nav-label" data-i18n="nav.settings">Einstellungen</span>
                     </button>
                     <div id="appearance-popover" class="appearance-popover" hidden>
                         <div id="settings-panel-content" class="settings-panel-content">
                             <div class="appearance-popover-header">
-                                <span class="appearance-popover-title">Einstellungen</span>
-                                <button id="appearance-reset-btn" class="appearance-reset-btn" title="Auf Standard zurücksetzen">Zurücksetzen</button>
+                                <span class="appearance-popover-title" data-i18n="settings.title">Einstellungen</span>
+                                <button id="appearance-reset-btn" class="appearance-reset-btn" title="Auf Standard zurücksetzen" data-i18n="settings.reset" data-i18n-title="settings.reset_title">Zurücksetzen</button>
                             </div>
 
                         <!-- 0. Standard-Leseformat beim Öffnen von Dokumenten -->
                         <div class="appearance-section">
-                            <label class="appearance-section-label">Standard-Leseformat</label>
+                            <label class="appearance-section-label" data-i18n="settings.format_label">Standard-Leseformat</label>
                             <div class="appearance-segment-group two-col" id="appearance-format-group">
-                                <button class="appearance-opt-btn active" data-format-val="pdf" title="Original-Dokument im offiziellen PDF-Layout betrachten">Original-PDF</button>
-                                <button class="appearance-opt-btn" data-format-val="text" title="Als Fließtext im Web-Reader lesen">Fließtext</button>
-                                <button class="appearance-opt-btn" data-format-val="web" title="Autorisierte Original-Webseite aufrufen">Webseite</button>
-                                <button class="appearance-opt-btn" data-format-val="auto" title="Automatisch je nach Originalquelle auswählen">Automatisch</button>
+                                <button class="appearance-opt-btn active" data-format-val="pdf" title="Original-Dokument im offiziellen PDF-Layout betrachten" data-i18n="settings.format_pdf" data-i18n-title="settings.format_pdf_title">Original-PDF</button>
+                                <button class="appearance-opt-btn" data-format-val="text" title="Als Fließtext im Web-Reader lesen" data-i18n="settings.format_text" data-i18n-title="settings.format_text_title">Fließtext</button>
+                                <button class="appearance-opt-btn" data-format-val="web" title="Autorisierte Original-Webseite aufrufen" data-i18n="settings.format_web" data-i18n-title="settings.format_web_title">Webseite</button>
+                                <button class="appearance-opt-btn" data-format-val="auto" title="Automatisch je nach Originalquelle auswählen" data-i18n="settings.format_auto" data-i18n-title="settings.format_auto_title">Automatisch</button>
                             </div>
                         </div>
 
-                        <!-- 0b. Sprachauswahl -->
+                        <!-- 0b. Sprachauswahl (Master-Sprache für Webseite & Lesetexte) -->
                         <div class="appearance-section">
-                            <label class="appearance-section-label">Sprache</label>
-                            <div class="appearance-segment-group" id="appearance-language-group">
-                                <button class="appearance-opt-btn active" data-lang-val="all" title="Alle Sprachen im Archiv anzeigen">Alle</button>
-                                <button class="appearance-opt-btn" data-lang-val="deutsch" title="Deutsche Ausgaben bevorzugen">Deutsch</button>
-                                <button class="appearance-opt-btn" data-lang-val="english" title="Englische Originaltexte bevorzugen">English</button>
+                            <label class="appearance-section-label" data-i18n="settings.language_label">Sprache (Webseite &amp; Leser)</label>
+                            <div class="appearance-segment-group two-col" id="appearance-language-group">
+                                <button class="appearance-opt-btn active" data-lang-val="de" data-i18n="settings.lang_de" data-i18n-title="settings.lang_de_title" title="Deutsche Benutzeroberfläche &amp; Lesetexte bevorzugen">Deutsch</button>
+                                <button class="appearance-opt-btn" data-lang-val="en" data-i18n="settings.lang_en" data-i18n-title="settings.lang_en_title" title="English user interface &amp; original texts preferred">English</button>
                             </div>
                         </div>
 
                         <!-- 1. Design-Modus (Hell, Sepia, Dunkel, OLED) -->
                         <div class="appearance-section">
-                            <label class="appearance-section-label">Erscheinungsbild</label>
+                            <label class="appearance-section-label" data-i18n="settings.appearance_label">Erscheinungsbild</label>
                             <div class="appearance-theme-tabs four-col" id="appearance-theme-tabs">
                                 <button class="theme-tab-btn active" data-theme-val="light" title="Helles, klares Bibliotheksweiß">
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
-                                    <span>Hell</span>
+                                    <span data-i18n="settings.theme_light">Hell</span>
                                 </button>
                                 <button class="theme-tab-btn" data-theme-val="sepia" title="Warmes Buchpapier (schont die Augen)">
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/></svg>
-                                    <span>Sepia</span>
+                                    <span data-i18n="settings.theme_sepia">Sepia</span>
                                 </button>
                                 <button class="theme-tab-btn" data-theme-val="dark" title="Augenschonendes dunkles Design">
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                                    <span>Dunkel</span>
+                                    <span data-i18n="settings.theme_dark">Dunkel</span>
                                 </button>
                                 <button class="theme-tab-btn" data-theme-val="oled" title="Reines OLED-Tiefschwarz für Nachtlesen">
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 0 20z" fill="currentColor"/></svg>
-                                    <span>OLED</span>
+                                    <span data-i18n="settings.theme_oled">OLED</span>
                                 </button>
                             </div>
                         </div>
 
                         <!-- 2. Akzentfarbe -->
                         <div class="appearance-section">
-                            <label class="appearance-section-label">Akzentfarbe</label>
+                            <label class="appearance-section-label" data-i18n="settings.accent_label">Akzentfarbe</label>
                             <div class="accent-swatches">
                                 <button type="button" class="accent-swatch active" data-color="#C5A059" title="Klassisches Gold" style="background: #C5A059;"></button>
                                 <button type="button" class="accent-swatch" data-color="#2B4C7E" title="Persischblau" style="background: #2B4C7E;"></button>
@@ -196,7 +195,7 @@
 
                         <!-- 3. Schriftart (Lesetypografie) -->
                         <div class="appearance-section">
-                            <label class="appearance-section-label">Leseschriftart</label>
+                            <label class="appearance-section-label" data-i18n="settings.font_label">Leseschriftart</label>
                             <div class="appearance-segment-group" id="appearance-font-group">
                                 <button class="appearance-opt-btn active" data-font-val="serif">Serif (Buch)</button>
                                 <button class="appearance-opt-btn" data-font-val="sans">Sans (Klar)</button>
@@ -206,7 +205,7 @@
 
                         <!-- 4. Zeilenabstand im Reader -->
                         <div class="appearance-section">
-                            <label class="appearance-section-label">Zeilenabstand</label>
+                            <label class="appearance-section-label" data-i18n="settings.line_height_label">Zeilenabstand</label>
                             <div class="appearance-segment-group" id="appearance-line-height-group">
                                 <button class="appearance-opt-btn" data-lh-val="compact">Kompakt</button>
                                 <button class="appearance-opt-btn active" data-lh-val="normal">Standard</button>
@@ -248,10 +247,10 @@
 
                         <!-- 8. Darstellung (Kompakt vs. Geräumig) -->
                         <div class="appearance-section">
-                            <label class="appearance-section-label">Darstellung</label>
+                            <label class="appearance-section-label" data-i18n="settings.layout_label">Darstellung</label>
                             <div class="appearance-segment-group two-col" id="appearance-library-view-group">
-                                <button class="appearance-opt-btn" data-lib-view="list">Kompakt</button>
-                                <button class="appearance-opt-btn active" data-lib-view="cards">Geräumig</button>
+                                <button class="appearance-opt-btn" data-lib-view="list" data-i18n="settings.layout_compact">Kompakt</button>
+                                <button class="appearance-opt-btn active" data-lib-view="cards" data-i18n="settings.layout_spacious">Geräumig</button>
                             </div>
                         </div>
                     </div><!-- /#settings-panel-content -->
@@ -265,7 +264,7 @@
         <!-- 1. BEREICH: BOTSCHAFTEN-BIBLIOTHEK (Vereinte Bibliothek aller Botschaften) -->
         <section id="view-library" class="view active">
             <div class="view-header library-hero-header">
-                <h2 class="editorial-headline">Bibliothek</h2>
+                <h2 class="editorial-headline" data-i18n="library.title">Bibliothek</h2>
 
                 <!-- DIE UNIFIED COMMAND & MASTER-SEARCH SURFACE -->
                 <div class="library-command-surface">
@@ -274,9 +273,9 @@
                     <div class="library-realm-header" id="library-realm-header">
                         <div class="realm-lead-badge">
                             <span class="realm-lead-dot"></span>
-                            <span class="realm-lead-title" id="realm-lead-title">Botschaften des Hauses</span>
+                            <span class="realm-lead-title" id="realm-lead-title" data-i18n="library.realm_house">Botschaften des Hauses</span>
                             <span class="realm-lead-sep">•</span>
-                            <span class="realm-lead-subtitle" id="realm-lead-subtitle">Botschaften des Universalen Hauses der Gerechtigkeit (1963–2026)</span>
+                            <span class="realm-lead-subtitle" id="realm-lead-subtitle" data-i18n="library.realm_house_sub">Botschaften des Universalen Hauses der Gerechtigkeit (1963–2026)</span>
                         </div>
                     </div>
 
@@ -285,16 +284,16 @@
                         <svg class="command-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
                         </svg>
-                        <input type="text" id="library-search-input" placeholder="In Botschaften des Hauses (1963–2026) suchen..." autocomplete="off">
+                        <input type="text" id="library-search-input" placeholder="In Botschaften des Hauses (1963–2026) suchen..." data-i18n-placeholder="library.search_placeholder" autocomplete="off">
                         <div class="command-search-actions">
-                            <button id="library-search-clear" class="search-clear-btn" title="Suche leeren" style="display: none;">
+                            <button id="library-search-clear" class="search-clear-btn" title="Suche leeren" data-i18n-title="library.clear_search" style="display: none;">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                             </button>
                             <button id="library-toggle-filters-btn" class="command-filter-toggle-btn in-searchbar" aria-expanded="false" title="Detail-Filter ein- oder ausblenden">
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
                                 </svg>
-                                <span>Filter</span>
+                                <span data-i18n="library.filter_btn">Filter</span>
                                 <span id="library-filter-badge" class="filter-count-badge" style="display: none;">0</span>
                             </button>
                             <button id="library-reset-filters-btn" class="command-reset-btn in-searchbar" title="Alle Filter zurücksetzen" style="display: none;">
@@ -311,10 +310,10 @@
                             <div class="pillar-card-content">
                                 <div class="pillar-card-title-row">
                                     <span class="pillar-dot house"></span>
-                                    <span class="pillar-card-title">Botschaften des Hauses</span>
+                                    <span class="pillar-card-title" data-i18n="pillar.house_title">Botschaften des Hauses</span>
                                     <span class="pillar-active-chip">Aktiv</span>
                                 </div>
-                                <span class="pillar-card-sub">Universales Haus der Gerechtigkeit</span>
+                                <span class="pillar-card-sub" data-i18n="pillar.house_sub">Universales Haus der Gerechtigkeit</span>
                             </div>
                         </button>
 
@@ -323,10 +322,10 @@
                             <div class="pillar-card-content">
                                 <div class="pillar-card-title-row">
                                     <span class="pillar-dot compilations"></span>
-                                    <span class="pillar-card-title">Compilations des Hauses</span>
+                                    <span class="pillar-card-title" data-i18n="pillar.comp_title">Compilations des Hauses</span>
                                     <span class="pillar-active-chip">Aktiv</span>
                                 </div>
-                                <span class="pillar-card-sub">Thematische Textsammlungen</span>
+                                <span class="pillar-card-sub" data-i18n="pillar.comp_sub">Thematische Textsammlungen</span>
                             </div>
                         </button>
 
@@ -335,10 +334,10 @@
                             <div class="pillar-card-content">
                                 <div class="pillar-card-title-row">
                                     <span class="pillar-dot books"></span>
-                                    <span class="pillar-card-title">Heilige Schriften &amp; Bücher</span>
+                                    <span class="pillar-card-title" data-i18n="pillar.books_title">Heilige Schriften &amp; Bücher</span>
                                     <span class="pillar-active-chip">Aktiv</span>
                                 </div>
-                                <span class="pillar-card-sub">Zentrale Gestalten &amp; Shoghi Effendi</span>
+                                <span class="pillar-card-sub" data-i18n="pillar.books_sub">Zentrale Gestalten &amp; Shoghi Effendi</span>
                             </div>
                         </button>
 
@@ -347,10 +346,10 @@
                             <div class="pillar-card-content">
                                 <div class="pillar-card-title-row">
                                     <span class="pillar-dot ruhi"></span>
-                                    <span class="pillar-card-title">Ruhi-Bücher</span>
+                                    <span class="pillar-card-title" data-i18n="pillar.ruhi_title">Ruhi-Bücher</span>
                                     <span class="pillar-active-chip">Aktiv</span>
                                 </div>
-                                <span class="pillar-card-sub">Institut &amp; Kursmaterialien</span>
+                                <span class="pillar-card-sub" data-i18n="pillar.ruhi_sub">Institut &amp; Kursmaterialien</span>
                             </div>
                         </button>
                     </div>
@@ -359,17 +358,17 @@
                     <div id="library-advanced-drawer" class="command-advanced-drawer" style="display: none;">
                             <!-- Themen- & Empfänger-Schnellfilter (in die Filter verschoben) -->
                             <div class="drawer-quick-filter-row">
-                                <label class="command-field-label">Themen &amp; Empfänger</label>
+                                <label class="command-field-label" data-i18n="drawer.topics_recipients">Themen &amp; Empfänger</label>
                                 <div class="drawer-chips-wrap">
                                     <!-- Chips für Botschaften des Hauses -->
                                     <div class="quick-chips-scroller" id="library-quick-chips">
-                                        <button class="quick-chip-btn active" data-chip="all">Alle Botschaften</button>
-                                        <button class="quick-chip-btn" data-chip="ridvan">Riḍván</button>
-                                        <button class="quick-chip-btn" data-chip="world">An die Bahá’í-Welt</button>
-                                        <button class="quick-chip-btn" data-chip="counsellors">Berater &amp; Hilfsamt</button>
-                                        <button class="quick-chip-btn" data-chip="youth">Jugend</button>
-                                        <button class="quick-chip-btn" data-chip="iran">Iran</button>
-                                        <button class="quick-chip-btn" data-chip="peace">Frieden</button>
+                                        <button class="quick-chip-btn active" data-chip="all" data-i18n="drawer.chip_all_messages">Alle Botschaften</button>
+                                        <button class="quick-chip-btn" data-chip="ridvan" data-i18n="drawer.chip_ridvan">Riḍván</button>
+                                        <button class="quick-chip-btn" data-chip="world" data-i18n="drawer.chip_world">An die Bahá’í-Welt</button>
+                                        <button class="quick-chip-btn" data-chip="counsellors" data-i18n="drawer.chip_counsellors">Berater &amp; Hilfsamt</button>
+                                        <button class="quick-chip-btn" data-chip="youth" data-i18n="drawer.chip_youth">Jugend</button>
+                                        <button class="quick-chip-btn" data-chip="iran" data-i18n="drawer.chip_iran">Iran</button>
+                                        <button class="quick-chip-btn" data-chip="peace" data-i18n="drawer.chip_peace">Frieden</button>
                                     </div>
 
                                     <!-- Autoren-Chips für Heilige Schriften & Bücher -->
@@ -405,7 +404,7 @@
                         <div class="command-filter-grid">
                             <!-- 1. Empfänger -->
                             <div class="command-field-group">
-                                <label class="command-field-label">Empfänger</label>
+                                <label class="command-field-label" data-i18n="drawer.field_recipient">Empfänger</label>
                                 <div class="command-select-box">
                                     <select id="library-recipient-select" class="command-select">
                                         <option value="all">Alle Empfänger</option>
@@ -422,7 +421,7 @@
 
                             <!-- 2. Epoche & Plan -->
                             <div class="command-field-group">
-                                <label class="command-field-label">Epoche &amp; Plan</label>
+                                <label class="command-field-label" data-i18n="drawer.field_epoch">Epoche &amp; Plan</label>
                                 <div class="command-select-box">
                                     <select id="library-epoch-select" class="command-select">
                                         <option value="">Alle Pläne &amp; Epochen</option>
@@ -439,7 +438,7 @@
 
                             <!-- 3. Anlass / Typ -->
                             <div class="command-field-group">
-                                <label class="command-field-label">Anlass &amp; Typus</label>
+                                <label class="command-field-label" data-i18n="drawer.field_type">Anlass &amp; Typus</label>
                                 <div class="command-select-box">
                                     <select id="library-type-select" class="command-select">
                                         <option value="">Alle Anlässe &amp; Typen</option>
@@ -455,7 +454,7 @@
 
                             <!-- 4. Sprache -->
                             <div class="command-field-group">
-                                <label class="command-field-label">Sprache</label>
+                                <label class="command-field-label" data-i18n="drawer.field_lang">Sprachfilter (Archiv)</label>
                                 <div class="command-select-box">
                                     <select id="library-lang-select" class="command-select">
                                         <option value="">Alle Sprachen</option>
@@ -473,7 +472,7 @@
         <div id="library-results-info" class="library-results-bar">
                 <div class="results-bar-left">
                     <span class="results-bar-count">
-                        <strong id="library-count-num">1.972</strong> Werke
+                        <strong id="library-count-num">1.972</strong> <span data-i18n="results.count_suffix">Werke</span>
                     </span>
                     <div id="library-active-tags" class="results-active-tags"></div>
                 </div>
@@ -481,12 +480,12 @@
                 <div class="results-bar-right">
                     <!-- Saubere Sortier-Auswahl -->
                     <div class="results-sort-wrapper">
-                        <span class="sort-label">Sortierung:</span>
+                        <span class="sort-label" data-i18n="results.sort_label">Sortierung:</span>
                         <div class="sort-select-box">
                             <select id="library-sort-select" class="sort-select">
-                                <option value="date-desc">Neueste zuerst</option>
-                                <option value="date-asc">Älteste zuerst</option>
-                                <option value="title">Titel A–Z</option>
+                                <option value="date-desc" data-i18n="results.sort_date_desc">Neueste zuerst</option>
+                                <option value="date-asc" data-i18n="results.sort_date_asc">Älteste zuerst</option>
+                                <option value="title" data-i18n="results.sort_title">Titel A–Z</option>
                             </select>
                         </div>
                     </div>
@@ -495,7 +494,7 @@
 
             <div id="library-results" class="results-grid"></div>
             <div class="load-more-container" id="library-load-more" style="display: none;">
-                <button id="library-load-more-btn" class="btn-secondary">Mehr Botschaften anzeigen</button>
+                <button id="library-load-more-btn" class="btn-secondary" data-i18n="results.load_more">Mehr Botschaften anzeigen</button>
             </div>
         </section>
 
@@ -539,8 +538,8 @@
         <!-- 3. BEREICH: KOMPILATIONS-WERKSTATT -->
         <section id="view-workshop" class="view">
             <div class="view-header workshop-hero-header">
-                <h2 class="editorial-headline">Kompilations-Werkstatt</h2>
-                <p class="workshop-view-subtitle">Thematische Sammlungen und eigene Manuskripte aus autorisierten Botschaften zusammenstellen, mit Leitgedanken versehen und exportieren.</p>
+                <h2 class="editorial-headline" data-i18n="workshop.title">Kompilations-Werkstatt</h2>
+                <p class="workshop-view-subtitle" data-i18n="workshop.subtitle">Thematische Sammlungen und eigene Manuskripte aus autorisierten Botschaften zusammenstellen, mit Leitgedanken versehen und exportieren.</p>
             </div>
             <div id="compilation-workshop" class="workshop-mount-container">
                 <!-- Dynamically initialized by compilation_builder.js -->
@@ -556,7 +555,7 @@
         <section id="view-saved" class="view">
             <div class="bookmarks-container">
                 <div class="view-header">
-                    <h2 class="editorial-headline">Merkliste &amp; Manuskripte</h2>
+                    <h2 class="editorial-headline" data-i18n="saved.title">Merkliste &amp; Manuskripte</h2>
                     
                     <div class="subtabs-nav" style="margin-top: 1rem;">
                         <button class="filter-pill active" id="pill-saved-bookmarks" onclick="window.switchSavedTab('bookmarks')">Lesezeichen (<span id="saved-bookmarks-count">0</span>)</button>
@@ -616,10 +615,10 @@
                             <h2 id="viewer-title" class="reader-modal-title">Dokumenttitel</h2>
                         </div>
                         <div class="modal-header-quick-actions">
-                            <button id="viewer-bookmark" class="dock-icon-btn" title="Lesezeichen setzen" aria-label="Lesezeichen">
+                            <button id="viewer-bookmark" class="dock-icon-btn" title="Lesezeichen setzen" aria-label="Lesezeichen" data-i18n-title="viewer.btn_bookmark">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
                             </button>
-                            <button id="viewer-close" class="dock-icon-btn close-modal-btn" title="Schließen (Esc)" aria-label="Schließen">
+                            <button id="viewer-close" class="dock-icon-btn close-modal-btn" title="Schließen (Esc)" aria-label="Schließen" data-i18n-title="viewer.btn_close">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                             </button>
                         </div>
@@ -627,15 +626,15 @@
                     <div class="modal-actions" id="viewer-modal-actions">
                         <!-- 1. Lesemodus: Fließtext vs. Original-PDF (Schlank, ohne verwirrende Icons) -->
                         <div class="viewer-segmented-pill" id="viewer-layout-mode-pill">
-                            <button id="btn-mode-text" class="viewer-segment-tab active" title="Als lesefreundlichen Fließtext anzeigen">Fließtext</button>
-                            <button id="btn-mode-pdf" class="viewer-segment-tab" title="Im Original-PDF-Layout betrachten">Original-PDF</button>
-                            <button id="btn-mode-web" class="viewer-segment-tab" style="display: none;" title="Original-Webseite aufrufen">Webseite</button>
+                            <button id="btn-mode-text" class="viewer-segment-tab active" title="Als lesefreundlichen Fließtext anzeigen" data-i18n="viewer.btn_mode_text" data-i18n-title="viewer.btn_mode_text_title">Fließtext</button>
+                            <button id="btn-mode-pdf" class="viewer-segment-tab" title="Im Original-PDF-Layout betrachten" data-i18n="viewer.btn_mode_pdf" data-i18n-title="viewer.btn_mode_pdf_title">Original-PDF</button>
+                            <button id="btn-mode-web" class="viewer-segment-tab" style="display: none;" title="Original-Webseite aufrufen" data-i18n="viewer.btn_mode_web" data-i18n-title="viewer.btn_mode_web_title">Webseite</button>
                         </div>
 
                         <!-- 2. Zweisprachig-Umschalter DE / EN -->
                         <div class="viewer-segmented-pill" id="viewer-lang-pill" style="display: none;">
-                            <button id="btn-viewer-lang-de" class="viewer-segment-tab active" title="Deutsche Fassung">DE</button>
-                            <button id="btn-viewer-lang-en" class="viewer-segment-tab" title="English version">EN</button>
+                            <button id="btn-viewer-lang-de" class="viewer-segment-tab active" title="Deutsche Fassung" data-i18n-title="viewer.lang_de_title">DE</button>
+                            <button id="btn-viewer-lang-en" class="viewer-segment-tab" title="English version" data-i18n-title="viewer.lang_en_title">EN</button>
                         </div>
 
                         <!-- 3. Aufgeräumtes Download- & Export-Menü (PDF, EPUB, DOCX, Web) -->
@@ -649,7 +648,7 @@
                         </div>
 
                         <!-- 4. Text kopieren -->
-                        <button id="viewer-copy" class="dock-icon-btn" title="Gesamten Text kopieren" aria-label="Text kopieren">
+                        <button id="viewer-copy" class="dock-icon-btn" title="Gesamten Text kopieren" aria-label="Text kopieren" data-i18n-title="viewer.btn_copy">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                         </button>
                     </div>
@@ -665,10 +664,10 @@
         <div class="footer-container">
             <div class="footer-initiative-box">
                 <p class="footer-initiative-desc">
-                    Unabhängiges, privates Arbeits- und Studienarchiv. Kein offizieller Webauftritt einer Bahá'í-Institution.
+                    <span data-i18n="footer.notice">Unabhängiges, privates Arbeits- und Studienarchiv. Kein offizieller Webauftritt einer Bahá'í-Institution.</span>
                 </p>
                 <div class="footer-official-links">
-                    <span>Offizielle Quellen:</span>
+                    <span data-i18n="footer.official_sources">Offizielle Quellen:</span>
                     <a href="https://www.bahai.org" target="_blank" rel="noopener">Bahá'í World Centre (bahai.org)</a>
                     &bull;
                     <a href="https://www.bahai.org/library/" target="_blank" rel="noopener">Bahá'í Reference Library</a>
@@ -679,6 +678,7 @@
         </div>
     </footer>
 
+    <script src="js/i18n.js"></script>
     <script src="js/viewer.js"></script>
     <script src="js/search.js"></script>
     <script src="js/compilation_builder.js?v=2.6"></script>

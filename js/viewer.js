@@ -289,11 +289,14 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
     const initialDoc = window.state.documents.find(d => d.id === id);
     const effectiveLang = preferredLang || (function() {
         try {
+            const master = localStorage.getItem('cosmos_master_lang');
+            if (master === 'en' || master === 'english') return 'en';
+            if (master === 'de' || master === 'deutsch') return 'de';
             const saved = localStorage.getItem('cosmos_preferred_lang');
-            if (saved === 'english') return 'en';
-            if (saved === 'deutsch') return 'de';
+            if (saved === 'english' || saved === 'en') return 'en';
+            if (saved === 'deutsch' || saved === 'de') return 'de';
         } catch (e) {}
-        return null;
+        return (window.I18n ? window.I18n.getLanguage() : 'de');
     })();
 
     if (initialDoc && effectiveLang && initialDoc.translations && initialDoc.translations[effectiveLang]) {
@@ -341,11 +344,21 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
     const dlGroup = document.getElementById('viewer-download-group');
 
     // Header-Metadaten setzen
+    const isEn = window.I18n ? window.I18n.getCurrentLanguage() === 'en' : (localStorage.getItem('cosmos_master_lang') === 'en');
     const isRuhi = doc.tier === 'ruhi' || doc.type === 'Ruhi-Buch' || 
                    (doc.title && (doc.title.startsWith('Ruhi Buch') || doc.title.startsWith('Ruhi Book')));
 
     if (typeBadge) {
-        typeBadge.textContent = isRuhi ? 'Ruhi-Institut' : (doc.type || 'Botschaft');
+        if (isRuhi) {
+            typeBadge.textContent = isEn ? 'Ruhi Institute' : 'Ruhi-Institut';
+        } else if (isEn) {
+            if (doc.type === 'Botschaft' || !doc.type) typeBadge.textContent = 'Message';
+            else if (doc.type === 'Buch') typeBadge.textContent = 'Book';
+            else if (doc.type === 'Kompilation') typeBadge.textContent = 'Compilation';
+            else typeBadge.textContent = doc.type;
+        } else {
+            typeBadge.textContent = doc.type || 'Botschaft';
+        }
     }
     if (metaDate) {
         metaDate.textContent = formatViewerDate(doc.date);
@@ -354,7 +367,7 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
         metaSource.textContent = doc.source || 'UHG';
     }
     if (titleEl) {
-        titleEl.textContent = doc.title || 'Ohne Titel';
+        titleEl.textContent = doc.title || (isEn ? 'Untitled' : 'Ohne Titel');
         titleEl.title = doc.title || '';
     }
 
@@ -534,6 +547,9 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
         headerEl.classList.remove('header-hidden');
     }
     lastScrollTop = 0;
+    if (window.I18n && window.I18n.applyToDOM && modal) {
+        window.I18n.applyToDOM(modal);
+    }
 };
 
 window.openViewer = window.openDocument;
@@ -1010,12 +1026,13 @@ window.addViewerParagraphToWorkshop = function(paraIdx) {
 };
 
 function formatViewerDate(dateString) {
-    if (!dateString) return 'Undatiert';
+    const isEn = window.I18n && window.I18n.getLanguage() === 'en';
+    if (!dateString) return isEn ? 'Undated' : 'Undatiert';
     const parts = dateString.split('-');
     if (parts.length === 3) {
         const d = new Date(parts[0], parts[1] - 1, parts[2]);
         if (!isNaN(d.getTime())) {
-            return d.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' });
+            return d.toLocaleDateString(isEn ? 'en-US' : 'de-DE', { year: 'numeric', month: 'long', day: 'numeric' });
         }
     }
     return dateString;

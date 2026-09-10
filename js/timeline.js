@@ -631,6 +631,16 @@ window.TimelineModule = (function() {
     };
 
     function init() {
+        if (window.I18n && window.I18n.getCurrentLanguage) {
+            currentLang = window.I18n.getCurrentLanguage() || 'de';
+        } else if (localStorage.getItem('cosmos_master_lang')) {
+            currentLang = localStorage.getItem('cosmos_master_lang');
+        }
+        if (window.I18n && window.I18n.onLanguageChange) {
+            window.I18n.onLanguageChange(function(lang) {
+                setLanguage(lang);
+            });
+        }
         renderTimelineView();
         selectEntity(currentSelectedId);
     }
