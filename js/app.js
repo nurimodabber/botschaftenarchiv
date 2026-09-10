@@ -1258,6 +1258,55 @@ function initLibraryView() {
     // Search Input & Clear Button
     const searchInput = document.getElementById('library-search-input');
     const searchClearBtn = document.getElementById('library-search-clear');
+    const suggestionsBox = document.getElementById('search-suggestions-dropdown');
+
+    // Helper: Dropdown für Suchvorschläge aktualisieren
+    function updateSearchSuggestions(val) {
+        if (!suggestionsBox) return;
+        if (!val || val.trim().length < 2 || !window.SearchEngine || !state.documents) {
+            suggestionsBox.hidden = true;
+            suggestionsBox.innerHTML = '';
+            return;
+        }
+
+        const suggestions = window.SearchEngine.suggest(val, state.documents, 6);
+        if (suggestions.length === 0) {
+            suggestionsBox.hidden = true;
+            suggestionsBox.innerHTML = '';
+            return;
+        }
+
+        const isEn = window.I18n && window.I18n.getCurrentLanguage() === 'en';
+        suggestionsBox.innerHTML = suggestions.map((s, idx) => {
+            let badgeText = isEn ? 'Message' : 'Botschaft';
+            if (s.tier === 'books') badgeText = isEn ? 'Book' : 'Buch';
+            else if (s.tier === 'compilations') badgeText = isEn ? 'Compilation' : 'Kompilation';
+            else if (s.tier === 'ruhi') badgeText = isEn ? 'Ruhi' : 'Ruhi';
+
+            return `
+                <div class="search-suggestion-item" data-id="${s.id}" data-idx="${idx}" role="option">
+                    <div class="suggestion-main">
+                        <span class="suggestion-title">${escapeDocHtml(s.title)}</span>
+                        ${s.sub ? `<span class="suggestion-sub">${escapeDocHtml(s.sub)}</span>` : ''}
+                    </div>
+                    <span class="suggestion-badge">${badgeText}</span>
+                </div>
+            `;
+        }).join('');
+
+        suggestionsBox.hidden = false;
+
+        // Klick auf Vorschlag öffnet das Dokument direkt im Reader
+        suggestionsBox.querySelectorAll('.search-suggestion-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const docId = item.dataset.id;
+                suggestionsBox.hidden = true;
+                if (docId && window.openDocument) {
+                    window.openDocument(docId);
+                }
+            });
+        });
+    }
 
     if (searchInput) {
         let timeout = null;
@@ -1265,17 +1314,62 @@ function initLibraryView() {
             if (!window._fullTextLoaded && !window._fullTextLoading && typeof window.loadFullTextSearchIndex === 'function') {
                 window.loadFullTextSearchIndex();
             }
+            if (searchInput.value.trim().length >= 2) {
+                updateSearchSuggestions(searchInput.value.trim());
+            }
         });
+
         searchInput.addEventListener('input', (e) => {
             const val = e.target.value.trim();
             if (searchClearBtn) {
                 searchClearBtn.style.display = val.length > 0 ? 'inline-flex' : 'none';
             }
+            updateSearchSuggestions(val);
             clearTimeout(timeout);
             timeout = setTimeout(() => {
-                state.library.query = val.toLowerCase();
+                state.library.query = val;
                 applyLibraryFilters();
             }, 180);
+        });
+
+        // Schließen bei Klick außerhalb
+        document.addEventListener('click', (e) => {
+            if (suggestionsBox && !suggestionsBox.hidden && !searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+                suggestionsBox.hidden = true;
+            }
+        });
+
+        // Tastaturnavigation in den Vorschlägen (Pfeil runter / Pfeil hoch / Enter)
+        searchInput.addEventListener('keydown', (e) => {
+            if (!suggestionsBox || suggestionsBox.hidden) return;
+            const items = suggestionsBox.querySelectorAll('.search-suggestion-item');
+            if (items.length === 0) return;
+
+            let selected = suggestionsBox.querySelector('.search-suggestion-item.selected');
+            let idx = selected ? parseInt(selected.dataset.idx, 10) : -1;
+
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                idx = (idx + 1) % items.length;
+                items.forEach(it => it.classList.remove('selected'));
+                items[idx].classList.add('selected');
+                items[idx].scrollIntoView({ block: 'nearest' });
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                idx = (idx - 1 + items.length) % items.length;
+                items.forEach(it => it.classList.remove('selected'));
+                items[idx].classList.add('selected');
+                items[idx].scrollIntoView({ block: 'nearest' });
+            } else if (e.key === 'Enter') {
+                if (selected) {
+                    e.preventDefault();
+                    selected.click();
+                } else {
+                    suggestionsBox.hidden = true;
+                }
+            } else if (e.key === 'Escape') {
+                suggestionsBox.hidden = true;
+            }
         });
     }
 
@@ -1283,6 +1377,7 @@ function initLibraryView() {
         searchClearBtn.addEventListener('click', () => {
             searchInput.value = '';
             searchClearBtn.style.display = 'none';
+            if (suggestionsBox) suggestionsBox.hidden = true;
             state.library.query = '';
             searchInput.focus();
             applyLibraryFilters();
@@ -1481,11 +1576,20 @@ function extractSearchSnippet(rawText, normText, queryNorm, tokens) {
 
 function normalizeSearchText(str) {
     if (!str) return '';
+    if (window.SearchEngine && typeof window.SearchEngine.normalize === 'function') {
+        return window.SearchEngine.normalize(str);
+    }
     return String(str)
+        .replace(/ä|Ä/g, 'ae')
+        .replace(/ö|Ö/g, 'oe')
+        .replace(/ü|Ü/g, 'ue')
+        .replace(/ß/g, 'ss')
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
-        .replace(/['’`ʻ‘"“”„«»]/g, '')
         .toLowerCase()
+        .replace(/['’`ʻ‘"“”„«»]/g, '')
+        .replace(/schoghi/g, 'shoghi')
+        .replace(/\s+/g, ' ')
         .trim();
 }
 window.normalizeSearchText = normalizeSearchText;
@@ -1670,102 +1774,29 @@ function applyLibraryFilters() {
         });
     }
 
-    // 6. Universelle Multi-Feld- & Volltext-Suche (Begriffe, Auszüge, Tags, Daten, Empfänger, Thema)
+    // 6. Omnisearch 2.0: Universelle Volltext- & Relevanz-Suche
+    let lastSearchStats = null;
     if (query) {
-        const queryNorm = normalizeSearchText(query);
-        const queryTokens = queryNorm.split(/\s+/).filter(Boolean);
-        const isPhrase = queryTokens.length > 1;
-        const fullTexts = window.state.fullTexts;
-        const normTexts = window.state.normalizedFullTexts;
-
-        if (queryTokens.length > 0) {
-            const matchedList = [];
-
-            for (const d of list) {
-                const rawText = (fullTexts && fullTexts[d.id]) || d.text || '';
-                const normText = (normTexts && normTexts[d.id]) || (d.text ? normalizeSearchText(d.text) : '');
-                const titleNorm = normalizeSearchText(d.title || '');
-                const deTitleNorm = normalizeSearchText(d.deTitle || '');
-                const enTitleNorm = normalizeSearchText(d.enTitle || '');
-                const authorNorm = normalizeSearchText(d.author || '');
-                const recNorm = normalizeSearchText(d.recipientLabel || d.recipient || '');
-                const topicsNorm = normalizeSearchText(Array.isArray(d.topics) ? d.topics.join(' ') : '');
-                const dateStr = String(d.date || '') + ' ' + String(d.year || '');
-                const excerptNorm = normalizeSearchText(d.excerpt || '');
-
-                let score = 0;
-                let matchedInText = false;
-
-                // 1. Exakter Phrasentreffer im Titel / Alternativtitel (höchste Relevanz)
-                if (titleNorm.includes(queryNorm) || deTitleNorm.includes(queryNorm) || enTitleNorm.includes(queryNorm)) {
-                    score += 200;
-                }
-
-                // 2. Exakter Phrasentreffer im Volltext (für Auszüge, Zitate oder Redewendungen)
-                if (normText && isPhrase && normText.includes(queryNorm)) {
-                    score += 150;
-                    matchedInText = true;
-                }
-
-                // 3. Multi-Wort Token-Matching
-                if (isPhrase) {
-                    const allInMeta = queryTokens.every(t => 
-                        titleNorm.includes(t) || authorNorm.includes(t) || 
-                        topicsNorm.includes(t) || recNorm.includes(t) || 
-                        dateStr.includes(t) || excerptNorm.includes(t)
-                    );
-                    if (allInMeta) {
-                        score += 80;
-                    } else if (normText) {
-                        let textTokensCount = 0;
-                        for (const t of queryTokens) {
-                            if (normText.includes(t)) textTokensCount++;
-                        }
-                        if (textTokensCount === queryTokens.length) {
-                            score += 70;
-                            matchedInText = true;
-                        } else if (queryTokens.length >= 4 && (textTokensCount / queryTokens.length) >= 0.75) {
-                            score += 35;
-                            matchedInText = true;
-                        }
-                    }
-                } else {
-                    // Einzelner Suchbegriff (z.B. "Gerechtigkeit", "Klimawandel", "Seele")
-                    const tok = queryTokens[0];
-                    if (titleNorm.includes(tok) || deTitleNorm.includes(tok) || enTitleNorm.includes(tok)) {
-                        score += 120;
-                    }
-                    if (authorNorm.includes(tok) || recNorm.includes(tok) || topicsNorm.includes(tok) || dateStr.includes(tok)) {
-                        score += 60;
-                    }
-                    if (excerptNorm.includes(tok)) {
-                        score += 40;
-                    }
-                    if (normText && normText.includes(tok)) {
-                        score += 50;
-                        matchedInText = true;
-                    }
-                }
-
-                // Fallback: Wenn Volltext noch lädt, mit Bundle suchen
-                if (!fullTexts && score === 0) {
+        if (window.SearchEngine && typeof window.SearchEngine.search === 'function') {
+            const searchRes = window.SearchEngine.search(
+                list,
+                window.state.fullTexts,
+                window.state.normalizedFullTexts,
+                query,
+                state.library
+            );
+            list = searchRes.results;
+            lastSearchStats = searchRes.stats;
+        } else {
+            // Fallback auf Basissuche
+            const queryNorm = normalizeSearchText(query);
+            const queryTokens = queryNorm.split(/\s+/).filter(Boolean);
+            if (queryTokens.length > 0) {
+                list = list.filter(d => {
                     const bundle = getDocumentSearchBundle(d);
-                    if (queryTokens.every(tok => bundle.includes(tok))) {
-                        score = 20;
-                    }
-                }
-
-                if (score > 0) {
-                    d._searchScore = score;
-                    d._searchSnippet = matchedInText ? extractSearchSnippet(rawText, normText, queryNorm, queryTokens) : (d.excerpt ? escapeDocHtml(d.excerpt) : '');
-                    matchedList.push(d);
-                } else {
-                    d._searchScore = 0;
-                    d._searchSnippet = '';
-                }
+                    return queryTokens.every(tok => bundle.includes(tok));
+                });
             }
-
-            list = matchedList;
         }
     }
 
@@ -1916,10 +1947,81 @@ function applyLibraryFilters() {
         resetBtnEl.style.display = activeFilterCount > 0 ? 'inline-flex' : 'none';
     }
 
-    // Ergebnisse-Statuszeile aktualisieren
+    // Ergebnisse-Statuszeile & Omnisearch 2.0 Statistikleiste aktualisieren
     const isEn = window.I18n && window.I18n.getLanguage() === 'en';
     const countNumEl = document.getElementById('library-count-num');
     if (countNumEl) countNumEl.textContent = list.length.toLocaleString(isEn ? 'en-US' : 'de-DE');
+
+    const searchStatsBar = document.getElementById('search-stats-bar');
+    if (searchStatsBar) {
+        if (query && lastSearchStats) {
+            const timeStr = isEn ? `${lastSearchStats.tookMs} ms` : `${lastSearchStats.tookMs} ms`;
+            const countStr = isEn 
+                ? `${lastSearchStats.totalMatches} result${lastSearchStats.totalMatches === 1 ? '' : 's'}`
+                : `${lastSearchStats.totalMatches} Treffer`;
+            const counts = lastSearchStats.countByPillar || {};
+
+            searchStatsBar.innerHTML = `
+                <div class="search-stats-info">
+                    <span class="search-stats-count">${countStr}</span>
+                    <span class="search-stats-time">(in ${timeStr})</span>
+                </div>
+                <div class="search-pillar-pills">
+                    <button type="button" class="search-pillar-pill ${(!state.library.searchPillarFilter || state.library.searchPillarFilter === 'all') ? 'active' : ''}" data-pillar-filter="all">
+                        <span>${isEn ? 'All' : 'Alle'}</span>
+                        <span class="pill-count">${counts.all || list.length}</span>
+                    </button>
+                    ${counts.house > 0 ? `
+                    <button type="button" class="search-pillar-pill ${(state.library.searchPillarFilter === 'house') ? 'active' : ''}" data-pillar-filter="house">
+                        <span>${isEn ? 'Messages' : 'Botschaften'}</span>
+                        <span class="pill-count">${counts.house}</span>
+                    </button>` : ''}
+                    ${counts.books > 0 ? `
+                    <button type="button" class="search-pillar-pill ${(state.library.searchPillarFilter === 'books') ? 'active' : ''}" data-pillar-filter="books">
+                        <span>${isEn ? 'Books' : 'Bücher'}</span>
+                        <span class="pill-count">${counts.books}</span>
+                    </button>` : ''}
+                    ${counts.compilations > 0 ? `
+                    <button type="button" class="search-pillar-pill ${(state.library.searchPillarFilter === 'compilations') ? 'active' : ''}" data-pillar-filter="compilations">
+                        <span>${isEn ? 'Compilations' : 'Kompilationen'}</span>
+                        <span class="pill-count">${counts.compilations}</span>
+                    </button>` : ''}
+                    ${counts.ruhi > 0 ? `
+                    <button type="button" class="search-pillar-pill ${(state.library.searchPillarFilter === 'ruhi') ? 'active' : ''}" data-pillar-filter="ruhi">
+                        <span>Ruhi</span>
+                        <span class="pill-count">${counts.ruhi}</span>
+                    </button>` : ''}
+                </div>
+            `;
+            searchStatsBar.style.display = 'flex';
+
+            // Event-Listener für Pillar-Pills innerhalb der Suche
+            searchStatsBar.querySelectorAll('.search-pillar-pill').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const pFilter = btn.dataset.pillarFilter;
+                    state.library.searchPillarFilter = pFilter;
+                    applyLibraryFilters();
+                });
+            });
+        } else {
+            searchStatsBar.style.display = 'none';
+            searchStatsBar.innerHTML = '';
+            state.library.searchPillarFilter = null;
+        }
+    }
+
+    // Wenn ein Quick-Pillar-Filter aktiv ist, wende ihn an
+    if (query && state.library.searchPillarFilter && state.library.searchPillarFilter !== 'all') {
+        const pf = state.library.searchPillarFilter;
+        list = list.filter(d => {
+            const tier = (d.tier || '').toLowerCase();
+            if (pf === 'house') return tier === 'house' || tier === 'institutions';
+            if (pf === 'books') return tier === 'books';
+            if (pf === 'compilations') return tier === 'compilations';
+            if (pf === 'ruhi') return tier === 'ruhi';
+            return true;
+        });
+    }
 
     const tagsContainer = document.getElementById('library-active-tags');
     if (tagsContainer) {
@@ -2502,6 +2604,10 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
     const hasFooter = Boolean(topicsHtml || recipientHtml);
     const isMilestoneCard = Boolean(doc.isMilestone || doc._isMilestone);
 
+    const matchCountBadge = (doc._searchMatchCount && doc._searchMatchCount > 1)
+        ? `<span class="snippet-hit-count" title="${doc._searchMatchCount} Fundstellen im Werk">${doc._searchMatchCount}×</span>`
+        : '';
+
     return `
         <article class="doc-card ${isMilestoneCard ? 'is-milestone' : ''}" style="--i: ${staggerIndex};" onclick="window.openDocument('${doc.id}')">
             <div class="doc-card-body">
@@ -2513,7 +2619,7 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
                 </div>
                 <h3 class="doc-title">${escapeDocHtml(doc.title)}</h3>
                 ${subTitleHtml}
-                ${previewText ? `<p class="doc-excerpt ${activeSnippet ? 'doc-search-snippet' : ''}">${previewText}</p>` : ''}
+                ${previewText ? `<p class="doc-excerpt ${activeSnippet ? 'doc-search-snippet' : ''}">${previewText}${matchCountBadge}</p>` : ''}
             </div>
             ${hasFooter ? `
             <div class="doc-card-footer">

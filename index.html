@@ -331,7 +331,13 @@
                             </button>
                             <kbd class="search-kbd-badge" title="Tastatur-Kürzel">⌘K</kbd>
                         </div>
+
+                        <!-- Autocomplete Suchvorschläge Dropdown -->
+                        <div id="search-suggestions-dropdown" class="search-suggestions-dropdown" hidden role="listbox" aria-label="Suchvorschläge"></div>
                     </div>
+
+                    <!-- Omnisearch 2.0 Statistik- & Säulen-Leiste (bei aktiver Suche) -->
+                    <div id="search-stats-bar" class="search-stats-bar" style="display: none;"></div>
 
                     <!-- 2. Die Vier Hauptsäulen (Unterkategorien der Masterleiste) -->
                     <div class="pillar-cards-grid" id="pillar-cards-grid" role="tablist" aria-label="Vier Hauptbereiche">
@@ -665,6 +671,7 @@
     </footer>
 
     <script src="js/i18n.js"></script>
+    <script src="js/search_engine.js?v=2.0"></script>
     <script src="js/viewer.js"></script>
     <script src="js/search.js"></script>
     <script src="js/compilation_builder.js?v=2.6"></script>

@@ -729,10 +729,27 @@ function renderDocumentText(doc, targetParagraph) {
             const p = rawP.replace(/^(\d+(?:\.\d+)?:\d+(?:_\d+)?|f\.(?:\w+:)?\d+(?:_\d+)?|0_\d+)\s+/, '').trim();
             const originalParaUrl = getOriginalParagraphUrl(doc, pNum, p);
 
+            // Suchbegriff-Hervorhebung wenn aus Suche geöffnet
+            let highlightedPara = null;
+            let activeQueryTokens = [];
+            const activeQuery = (window.state && window.state.library && window.state.library.query) ? window.state.library.query : '';
+            if (activeQuery && window.SearchEngine && typeof window.SearchEngine.parseQuery === 'function') {
+                const qObj = window.SearchEngine.parseQuery(activeQuery);
+                activeQueryTokens = [...qObj.phrases, ...qObj.allTokens].filter(t => t.length >= 2);
+            }
+
+            let renderedParaText = escapeHtml(p);
+            if (activeQueryTokens.length > 0) {
+                for (const tok of activeQueryTokens) {
+                    const re = new RegExp('(' + tok.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+                    renderedParaText = renderedParaText.replace(re, '<mark class="search-highlight">$1</mark>');
+                }
+            }
+
             return `
                 <div class="viewer-paragraph" id="viewer-para-${pNum}" data-pnum="${pNum}">
                     <span class="para-gutter-num">${pNum}</span>
-                    <p class="para-text">${escapeHtml(p)}</p>
+                    <p class="para-text">${renderedParaText}</p>
                     <div class="para-hover-actions">
                         <a href="${escapeHtml(originalParaUrl)}" target="_blank" rel="noopener noreferrer" class="para-pill-btn" title="Diesen Absatz in der autorisierten Originalquelle im Web oeffnen">Original ↗</a>
                         <button class="para-pill-btn" onclick="window.copyParagraphCitation(${pNum})" title="Absatz samt formaler Quellenangabe kopieren">
@@ -777,6 +794,19 @@ function renderDocumentText(doc, targetParagraph) {
                     setTimeout(() => targetEl.classList.remove('highlight-target'), 3500);
                 }
             }, 300);
+        } else if (window.state && window.state.library && window.state.library.query) {
+            // Falls aus einer Suche geöffnet: zum ersten Paragraphen mit Treffer scrollen
+            setTimeout(() => {
+                const firstMark = canvas.querySelector('.viewer-paragraph mark.search-highlight');
+                if (firstMark) {
+                    const parentPara = firstMark.closest('.viewer-paragraph');
+                    if (parentPara) {
+                        parentPara.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        parentPara.classList.add('highlight-target');
+                        setTimeout(() => parentPara.classList.remove('highlight-target'), 3000);
+                    }
+                }
+            }, 350);
         }
     }
 
