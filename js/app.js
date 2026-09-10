@@ -257,16 +257,20 @@ function setupAppearance() {
 
         safeSetStorage('cosmos_accent_color', fullHex);
 
-        const wheelInput = document.getElementById('accent-color-input');
         const hexInput = document.getElementById('accent-hex-input');
-        if (wheelInput && wheelInput.value !== fullHex) wheelInput.value = fullHex;
-        if (hexInput && hexInput.value.toLowerCase() !== fullHex.toLowerCase()) hexInput.value = fullHex.toUpperCase();
+        if (hexInput && document.activeElement !== hexInput && hexInput.value.toLowerCase() !== fullHex.toLowerCase()) {
+            hexInput.value = fullHex.toUpperCase();
+        }
 
-        // Update Dock Pill Color Dot
-        const dockDot = document.getElementById('dock-accent-dot');
-        if (dockDot) {
-            dockDot.style.backgroundColor = fullHex;
-            dockDot.style.boxShadow = `0 0 6px ${fullHex}`;
+        const previewBadge = document.getElementById('accent-current-preview-badge');
+        if (previewBadge) {
+            previewBadge.style.backgroundColor = fullHex;
+            previewBadge.style.boxShadow = `0 0 5px ${fullHex}`;
+        }
+
+        const wheelBox = document.getElementById('wheel-color-preview-box');
+        if (wheelBox) {
+            wheelBox.style.backgroundColor = fullHex;
         }
 
         const standardColors = ['#c5a059', '#2b4c7e', '#c86432'];
@@ -373,6 +377,11 @@ function setupAppearance() {
             resultsGrid.classList.toggle('list-view', validView === 'list');
         }
 
+        const cardsBtn = document.getElementById('view-mode-cards-btn');
+        const listBtn = document.getElementById('view-mode-list-btn');
+        if (cardsBtn) cardsBtn.classList.toggle('active', validView === 'cards');
+        if (listBtn) listBtn.classList.toggle('active', validView === 'list');
+
         document.querySelectorAll('#appearance-library-view-group .appearance-opt-btn').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.libView === validView);
         });
@@ -462,29 +471,246 @@ function setupAppearance() {
         });
     });
 
-    // 4. Custom Swatch (Farbrad & Picker Trigger)
-    const customSwatchBtn = document.getElementById('accent-swatch-custom');
-    const colorInput = document.getElementById('accent-color-input');
-    if (customSwatchBtn && colorInput) {
-        customSwatchBtn.addEventListener('click', () => {
-            colorInput.click();
-        });
+    // Color conversion helpers for Pop-up Farbrad
+    function hslToRgb(h, s, l) {
+        s = Math.max(0, Math.min(1, s));
+        l = Math.max(0, Math.min(1, l));
+        const c = (1 - Math.abs(2 * l - 1)) * s;
+        const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+        const m = l - c / 2;
+        let r = 0, g = 0, b = 0;
+        if (0 <= h && h < 60) { r = c; g = x; b = 0; }
+        else if (60 <= h && h < 120) { r = x; g = c; b = 0; }
+        else if (120 <= h && h < 180) { r = 0; g = c; b = x; }
+        else if (180 <= h && h < 240) { r = 0; g = x; b = c; }
+        else if (240 <= h && h < 300) { r = x; g = 0; b = c; }
+        else if (300 <= h && h <= 360) { r = c; g = 0; b = x; }
+        return [
+            Math.round((r + m) * 255),
+            Math.round((g + m) * 255),
+            Math.round((b + m) * 255)
+        ];
     }
 
-    // Color Wheel & Hex
-    if (colorInput) {
-        colorInput.addEventListener('input', (e) => applyAccentColor(e.target.value));
-        colorInput.addEventListener('change', (e) => applyAccentColor(e.target.value));
+    function hslToHex(h, s, l) {
+        const rgb = hslToRgb(h, s, l);
+        const toHex = val => val.toString(16).padStart(2, '0');
+        return `#${toHex(rgb[0])}${toHex(rgb[1])}${toHex(rgb[2])}`;
     }
 
-    const hexInput = document.getElementById('accent-hex-input');
-    if (hexInput) {
-        hexInput.addEventListener('input', (e) => {
-            let val = e.target.value.trim();
-            if (!val.startsWith('#')) val = '#' + val;
-            if (/^#[0-9A-Fa-f]{6}$/.test(val)) applyAccentColor(val);
-        });
+    function hexToHsl(hex) {
+        let c = hex.replace('#', '');
+        if (c.length === 3) c = c.split('').map(x => x + x).join('');
+        const num = parseInt(c, 16);
+        const r = ((num >> 16) & 255) / 255;
+        const g = ((num >> 8) & 255) / 255;
+        const b = (num & 255) / 255;
+        const max = Math.max(r, g, b), min = Math.min(r, g, b);
+        let h = 0, s = 0, l = (max + min) / 2;
+        if (max !== min) {
+            const d = max - min;
+            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+            switch (max) {
+                case r: h = ((g - b) / d + (g < b ? 6 : 0)) * 60; break;
+                case g: h = ((b - r) / d + 2) * 60; break;
+                case b: h = ((r - g) / d + 4) * 60; break;
+            }
+        }
+        return { h: Math.round(h), s: Math.round(s * 100) / 100, l: Math.round(l * 100) / 100 };
     }
+
+    // 4. Interaktives Pop-up Farbrad für Akzentfarbe
+    function initColorWheel() {
+        const canvas = document.getElementById('color-wheel-canvas');
+        const popover = document.getElementById('accent-color-wheel-popover');
+        const customSwatch = document.getElementById('accent-swatch-custom');
+        const crosshair = document.getElementById('wheel-crosshair');
+        const slider = document.getElementById('wheel-lightness-slider');
+        const previewBox = document.getElementById('wheel-color-preview-box');
+        const hexInput = document.getElementById('accent-hex-input');
+        const applyBtn = document.getElementById('wheel-apply-btn');
+        const closeBtn = document.getElementById('wheel-close-btn');
+
+        if (!canvas || !popover || !customSwatch) return;
+
+        const ctx = canvas.getContext('2d');
+        const width = canvas.width;
+        const height = canvas.height;
+        const cx = width / 2;
+        const cy = height / 2;
+        const radius = cx - 4;
+
+        // Farbrad einmalig auf das Canvas zeichnen
+        const imgData = ctx.createImageData(width, height);
+        const d = imgData.data;
+
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                const dx = x - cx;
+                const dy = y - cy;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                const idx = (y * width + x) * 4;
+
+                if (dist <= radius) {
+                    let angle = Math.atan2(dy, dx) * (180 / Math.PI);
+                    if (angle < 0) angle += 360;
+                    const sat = dist / radius;
+                    const rgb = hslToRgb(angle, sat, 0.5);
+                    d[idx] = rgb[0];
+                    d[idx + 1] = rgb[1];
+                    d[idx + 2] = rgb[2];
+                    d[idx + 3] = (radius - dist < 1.2) ? Math.round((radius - dist) * 255) : 255;
+                } else {
+                    d[idx + 3] = 0;
+                }
+            }
+        }
+        ctx.putImageData(imgData, 0, 0);
+
+        let currentHue = 42;
+        let currentSat = 0.55;
+        let currentLightness = 0.56;
+        let isDragging = false;
+
+        function updateCrosshair(h, s) {
+            if (!crosshair) return;
+            const angleRad = h * (Math.PI / 180);
+            const dist = s * radius;
+            const px = cx + Math.cos(angleRad) * dist;
+            const py = cy + Math.sin(angleRad) * dist;
+            crosshair.style.left = `${px}px`;
+            crosshair.style.top = `${py}px`;
+        }
+
+        function syncFromHex(hex) {
+            const hsl = hexToHsl(hex);
+            currentHue = hsl.h;
+            currentSat = hsl.s;
+            currentLightness = Math.max(0.18, Math.min(0.82, hsl.l));
+            updateCrosshair(currentHue, currentSat);
+            if (slider) slider.value = Math.round(currentLightness * 100);
+            if (previewBox) previewBox.style.backgroundColor = hex;
+            if (hexInput && document.activeElement !== hexInput) hexInput.value = hex.toUpperCase();
+        }
+
+        function handlePointer(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = width / rect.width;
+            const scaleY = height / rect.height;
+            const px = (e.clientX - rect.left) * scaleX;
+            const py = (e.clientY - rect.top) * scaleY;
+            const dx = px - cx;
+            const dy = py - cy;
+            const dist = Math.min(radius, Math.sqrt(dx * dx + dy * dy));
+            let angle = Math.atan2(dy, dx) * (180 / Math.PI);
+            if (angle < 0) angle += 360;
+
+            currentHue = angle;
+            currentSat = dist / radius;
+            updateCrosshair(currentHue, currentSat);
+
+            const hex = hslToHex(currentHue, currentSat, currentLightness);
+            if (previewBox) previewBox.style.backgroundColor = hex;
+            if (hexInput && document.activeElement !== hexInput) hexInput.value = hex.toUpperCase();
+            applyAccentColor(hex);
+        }
+
+        canvas.addEventListener('pointerdown', (e) => {
+            isDragging = true;
+            canvas.setPointerCapture(e.pointerId);
+            handlePointer(e);
+        });
+
+        canvas.addEventListener('pointermove', (e) => {
+            if (!isDragging) return;
+            handlePointer(e);
+        });
+
+        canvas.addEventListener('pointerup', (e) => {
+            isDragging = false;
+            try { canvas.releasePointerCapture(e.pointerId); } catch (err) {}
+        });
+
+        canvas.addEventListener('pointercancel', () => {
+            isDragging = false;
+        });
+
+        if (slider) {
+            slider.addEventListener('input', (e) => {
+                currentLightness = parseInt(e.target.value, 10) / 100;
+                const hex = hslToHex(currentHue, currentSat, currentLightness);
+                if (previewBox) previewBox.style.backgroundColor = hex;
+                if (hexInput && document.activeElement !== hexInput) hexInput.value = hex.toUpperCase();
+                applyAccentColor(hex);
+            });
+        }
+
+        if (hexInput) {
+            hexInput.addEventListener('input', (e) => {
+                let val = e.target.value.trim();
+                if (!val.startsWith('#')) val = '#' + val;
+                if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+                    syncFromHex(val);
+                    applyAccentColor(val);
+                }
+            });
+        }
+
+        document.querySelectorAll('.wheel-preset-dot').forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const col = dot.dataset.presetColor;
+                if (col) {
+                    syncFromHex(col);
+                    applyAccentColor(col);
+                }
+            });
+        });
+
+        customSwatch.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = !popover.hidden;
+            popover.hidden = isOpen;
+            customSwatch.setAttribute('aria-expanded', String(!isOpen));
+            if (!isOpen) {
+                const cur = safeGetStorage('cosmos_accent_color', defaultColor);
+                syncFromHex(cur);
+            }
+        });
+
+        popover.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                popover.hidden = true;
+                customSwatch.setAttribute('aria-expanded', 'false');
+            });
+        }
+
+        if (applyBtn) {
+            applyBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                popover.hidden = true;
+                customSwatch.setAttribute('aria-expanded', 'false');
+            });
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!popover.hidden && !popover.contains(e.target) && !customSwatch.contains(e.target)) {
+                popover.hidden = true;
+                customSwatch.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Initialize state with current accent color
+        const initialCol = safeGetStorage('cosmos_accent_color', defaultColor);
+        syncFromHex(initialCol);
+    }
+
+    initColorWheel();
 
     // Default Viewer Format selection
     document.querySelectorAll('#appearance-format-group .appearance-opt-btn').forEach(btn => {

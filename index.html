@@ -130,14 +130,14 @@
                                 <button id="appearance-reset-btn" class="appearance-reset-btn" title="Auf Standard zurücksetzen" data-i18n="settings.reset" data-i18n-title="settings.reset_title">Zurücksetzen</button>
                             </div>
 
-                        <!-- 0. Standard-Leseformat beim Öffnen von Dokumenten -->
-                        <div class="appearance-section">
+                        <!-- 0. Standard-Leseformat (Kompakte 1-Zeilen-Auswahl) -->
+                        <div class="appearance-section appearance-section-format">
                             <label class="appearance-section-label" data-i18n="settings.format_label">Standard-Leseformat</label>
-                            <div class="appearance-segment-group two-col" id="appearance-format-group">
-                                <button class="appearance-opt-btn active" data-format-val="pdf" title="Original-Dokument im offiziellen PDF-Layout betrachten" data-i18n="settings.format_pdf" data-i18n-title="settings.format_pdf_title">Original-PDF</button>
+                            <div class="appearance-segment-group four-col appearance-format-compact" id="appearance-format-group">
+                                <button class="appearance-opt-btn active" data-format-val="pdf" title="Original-Dokument im offiziellen PDF-Layout betrachten" data-i18n="settings.format_pdf" data-i18n-title="settings.format_pdf_title">PDF</button>
                                 <button class="appearance-opt-btn" data-format-val="text" title="Als Fließtext im Web-Reader lesen" data-i18n="settings.format_text" data-i18n-title="settings.format_text_title">Fließtext</button>
-                                <button class="appearance-opt-btn" data-format-val="web" title="Autorisierte Original-Webseite aufrufen" data-i18n="settings.format_web" data-i18n-title="settings.format_web_title">Webseite</button>
-                                <button class="appearance-opt-btn" data-format-val="auto" title="Automatisch je nach Originalquelle auswählen" data-i18n="settings.format_auto" data-i18n-title="settings.format_auto_title">Automatisch</button>
+                                <button class="appearance-opt-btn" data-format-val="web" title="Autorisierte Original-Webseite aufrufen" data-i18n="settings.format_web" data-i18n-title="settings.format_web_title">Web</button>
+                                <button class="appearance-opt-btn" data-format-val="auto" title="Automatisch je nach Originalquelle auswählen" data-i18n="settings.format_auto" data-i18n-title="settings.format_auto_title">Auto</button>
                             </div>
                         </div>
 
@@ -173,23 +173,62 @@
                             </div>
                         </div>
 
-                        <!-- 2. Akzentfarbe -->
-                        <div class="appearance-section">
-                            <label class="appearance-section-label" data-i18n="settings.accent_label">Akzentfarbe</label>
+                        <!-- 2. Akzentfarbe mit Pop-up Farbrad -->
+                        <div class="appearance-section accent-picker-section" style="position: relative;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <label class="appearance-section-label" data-i18n="settings.accent_label" style="margin: 0;">Akzentfarbe</label>
+                                <span id="accent-current-preview-badge" class="accent-current-preview-badge" title="Aktive Farbe"></span>
+                            </div>
                             <div class="accent-swatches">
                                 <button type="button" class="accent-swatch active" data-color="#C5A059" title="Klassisches Gold" style="background: #C5A059;"></button>
                                 <button type="button" class="accent-swatch" data-color="#2B4C7E" title="Persischblau" style="background: #2B4C7E;"></button>
                                 <button type="button" class="accent-swatch" data-color="#C86432" title="Terracotta" style="background: #C86432;"></button>
-                                <button type="button" class="accent-swatch accent-swatch-custom" id="accent-swatch-custom" title="Eigene Farbe wählen (Farbrad &amp; Palette)">
+                                <button type="button" class="accent-swatch accent-swatch-custom" id="accent-swatch-custom" title="Eigene Farbe wählen (Farbrad öffnen)" aria-haspopup="dialog" aria-expanded="false">
                                     <span class="custom-swatch-icon" aria-hidden="true">
-                                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
                                     </span>
                                 </button>
-                                <input type="color" id="accent-color-input" value="#C5A059" style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;">
                             </div>
-                            <div class="accent-wheel-row">
-                                <span class="accent-custom-hint">Farbcode (Hex):</span>
-                                <input type="text" id="accent-hex-input" class="accent-hex-input" value="#C5A059" maxlength="7" spellcheck="false" placeholder="#C5A059">
+
+                            <!-- Pop-up Farbrad Modal -->
+                            <div id="accent-color-wheel-popover" class="accent-wheel-popover" hidden role="dialog" aria-label="Farbrad Akzentfarbe">
+                                <div class="wheel-popover-header">
+                                    <span class="wheel-popover-title" data-i18n="settings.color_wheel_title">Farbrad &amp; Eigene Farbe</span>
+                                    <button type="button" id="wheel-close-btn" class="wheel-close-btn" title="Schließen" aria-label="Schließen">
+                                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                    </button>
+                                </div>
+
+                                <div class="wheel-canvas-container">
+                                    <canvas id="color-wheel-canvas" width="168" height="168" class="color-wheel-canvas"></canvas>
+                                    <div id="wheel-crosshair" class="wheel-crosshair"></div>
+                                </div>
+
+                                <!-- Helligkeits-Regler -->
+                                <div class="wheel-lightness-row">
+                                    <span class="wheel-control-label" data-i18n="settings.color_wheel_lightness">Helligkeit</span>
+                                    <input type="range" id="wheel-lightness-slider" min="18" max="82" value="50" class="unfold-slider wheel-slider">
+                                </div>
+
+                                <!-- Farbcode & Live-Vorschau -->
+                                <div class="wheel-code-preview-row">
+                                    <div class="wheel-color-preview-box" id="wheel-color-preview-box" title="Farbvorschau"></div>
+                                    <input type="text" id="accent-hex-input" class="accent-hex-input" value="#C5A059" maxlength="7" spellcheck="false" placeholder="#C5A059" title="Hex-Farbcode">
+                                    <button type="button" id="wheel-apply-btn" class="wheel-apply-btn" data-i18n="settings.color_wheel_apply">Übernehmen</button>
+                                </div>
+
+                                <!-- Harmonische Töne (Schnellauswahl) -->
+                                <div class="wheel-presets-row">
+                                    <span class="wheel-presets-label" data-i18n="settings.color_wheel_presets">Harmonische Töne:</span>
+                                    <div class="wheel-presets-grid">
+                                        <button type="button" class="wheel-preset-dot" data-preset-color="#9B2226" title="Karminrot" style="background:#9B2226;"></button>
+                                        <button type="button" class="wheel-preset-dot" data-preset-color="#2A9D8F" title="Smaragd-Türkis" style="background:#2A9D8F;"></button>
+                                        <button type="button" class="wheel-preset-dot" data-preset-color="#457B9D" title="Meeresblau" style="background:#457B9D;"></button>
+                                        <button type="button" class="wheel-preset-dot" data-preset-color="#7209B7" title="Kaiser-Amethyst" style="background:#7209B7;"></button>
+                                        <button type="button" class="wheel-preset-dot" data-preset-color="#D4A373" title="Bernstein" style="background:#D4A373;"></button>
+                                        <button type="button" class="wheel-preset-dot" data-preset-color="#588157" title="Wald-Salbei" style="background:#588157;"></button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -242,15 +281,6 @@
                                 <button id="appearance-size-dec" class="size-step-btn" title="Schrift verkleinern">A−</button>
                                 <input type="range" id="appearance-size-slider" min="85" max="135" step="5" value="100" class="unfold-slider">
                                 <button id="appearance-size-inc" class="size-step-btn" title="Schrift vergrößern">A+</button>
-                            </div>
-                        </div>
-
-                        <!-- 8. Darstellung (Kompakt vs. Geräumig) -->
-                        <div class="appearance-section">
-                            <label class="appearance-section-label" data-i18n="settings.layout_label">Darstellung</label>
-                            <div class="appearance-segment-group two-col" id="appearance-library-view-group">
-                                <button class="appearance-opt-btn" data-lib-view="list" data-i18n="settings.layout_compact">Kompakt</button>
-                                <button class="appearance-opt-btn active" data-lib-view="cards" data-i18n="settings.layout_spacious">Geräumig</button>
                             </div>
                         </div>
                     </div><!-- /#settings-panel-content -->
@@ -424,6 +454,16 @@
                 </div>
 
                 <div class="results-bar-right">
+                    <!-- Ansichts-Umschalter (Geräumiges Raster vs. Kompakte Liste) -->
+                    <div class="library-view-mode-toggle" id="library-view-mode-toggle" role="group" aria-label="Ansicht">
+                        <button type="button" id="view-mode-cards-btn" class="view-mode-btn active" title="Rasteransicht" aria-label="Rasteransicht" onclick="window.applyLibraryView('cards')">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                        </button>
+                        <button type="button" id="view-mode-list-btn" class="view-mode-btn" title="Listenansicht" aria-label="Listenansicht" onclick="window.applyLibraryView('list')">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                        </button>
+                    </div>
+
                     <!-- Saubere Sortier-Auswahl -->
                     <div class="results-sort-wrapper">
                         <span class="sort-label" data-i18n="results.sort_label">Sortierung:</span>
