@@ -14,3 +14,12 @@ Thumbs.db
 # Node / Dependencies
 node_modules/
 package-lock.json
+
+# Text and heavy runtime datasets
+data/texts/
+data/search_texts.json
+documents/formats/
+
+# Logs & build
+*.log
+.vercel/

@@ -1541,8 +1541,9 @@ window.TimelineModule = (function() {
             const title = (isDe ? (d.deTitle || d.title) : (d.enTitle || d.title)) || d.title;
             const reason = isDe ? (d.milestoneReasonDe || '') : (d.milestoneReasonEn || '');
             const dateStr = d.date ? d.date : (d.year || '');
+            const safeDocId = (d.id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
             return `
-                <div class="spotlight-card" onclick="window.openDocument('${d.id}')" title="${escapeHtml(title)}">
+                <div class="spotlight-card" data-doc-id="${escapeHtml(d.id)}" onclick="window.openDocument('${safeDocId}')" title="${escapeHtml(title)}">
                     <div class="spotlight-card-top">
                         <span class="spotlight-date">${escapeHtml(dateStr)}</span>
                         <span class="doc-milestone-tag">${isDe ? 'Schlüssel-Botschaft' : 'Key Message'}</span>

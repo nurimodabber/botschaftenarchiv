@@ -1,0 +1,9 @@
+# Universal Ignore for ripgrep and search tools
+node_modules/
+package-lock.json
+data/texts/
+data/search_texts.json
+documents/
+.vercel/
+*.log
+.DS_Store

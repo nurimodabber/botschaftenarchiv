@@ -213,7 +213,11 @@ window.closeViewer = closeViewer;
 function updateBookmarkBtnState(id) {
     const bookmarkBtn = document.getElementById('viewer-bookmark');
     if (!bookmarkBtn) return;
-    bookmarkBtn.dataset.id = id;
+    if (bookmarkBtn.dataset) {
+        bookmarkBtn.dataset.id = id;
+    } else {
+        bookmarkBtn.setAttribute('data-id', id);
+    }
     const isB = (window.isBookmarked && window.isBookmarked(id)) || 
                 (window.state && Array.isArray(window.state.bookmarks) && window.state.bookmarks.includes(id));
     if (isB) {
@@ -279,7 +283,15 @@ function getDocOriginalFormat(doc) {
 window.getDocOriginalFormat = getDocOriginalFormat;
 
 window.openDocument = function(id, targetParagraph, preferredMode, preferredLang) {
-    if (!window.state || !window.state.documents) return;
+    if (!id) return;
+    if (!window.state || !window.state.documents || window.state.documents.length === 0) {
+        setTimeout(() => {
+            if (typeof window.openDocument === 'function') {
+                window.openDocument(id, targetParagraph, preferredMode, preferredLang);
+            }
+        }, 120);
+        return;
+    }
 
     if (window.state.idAliases && window.state.idAliases[id]) {
         id = window.state.idAliases[id];

@@ -672,11 +672,13 @@ window.SourcesModule = (function() {
         const words = doc.wordCount ? `<span>• ca. ${doc.wordCount.toLocaleString('de-DE')} Wörter</span>` : '';
         const dateStr = doc.date ? `<span class="source-doc-date">${escapeHtml(doc.date)}</span> • ` : '';
 
+        const safeDocId = (doc.id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+
         return `
-            <div class="source-list-row" data-id="${doc.id}">
+            <div class="source-list-row" data-id="${doc.id}" data-doc-id="${escapeHtml(doc.id)}">
                 <div class="source-row-info">
                     <div class="source-row-title-bar">
-                        <a href="javascript:void(0)" onclick="window.openDocument('${doc.id}')" class="source-row-title" title="Im Reader öffnen">
+                        <a href="javascript:void(0)" onclick="window.openDocument('${safeDocId}')" class="source-row-title" title="Im Reader öffnen">
                             ${escapeHtml(doc.title)}
                         </a>
                         ${langBadge}
@@ -694,7 +696,7 @@ window.SourcesModule = (function() {
                         <span>${escapeHtml(sourcePlatform)}</span>
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                     </a>
-                    <button class="source-read-btn" onclick="window.openDocument('${doc.id}')" title="Im Volltext-Reader öffnen">
+                    <button class="source-read-btn" onclick="window.openDocument('${safeDocId}')" title="Im Volltext-Reader öffnen">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
                         <span>Lesen</span>
                     </button>

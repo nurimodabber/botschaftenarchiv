@@ -185,8 +185,10 @@ window.BooksModule = (function() {
         if (files.epub) formatPills.push(`<a href="${files.epub}" download class="format-pill-btn" title="${isMasterEn ? 'Download E-Book (.epub)' : 'E-Book (.epub) herunterladen'}">EPUB</a>`);
         if (files.txt) formatPills.push(`<a href="${files.txt}" download class="format-pill-btn" title="${isMasterEn ? 'Download Full Text (.txt)' : 'Volltext (.txt) herunterladen'}">TXT</a>`);
 
+        const safeBookId = (book.id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+
         return `
-            <article class="book-plate-card" data-id="${book.id}">
+            <article class="book-plate-card" data-id="${book.id}" data-doc-id="${escapeHtml(book.id)}">
                 <div class="book-card-spine"></div>
                 <div class="book-card-content">
                     <div class="book-card-header">
@@ -202,7 +204,7 @@ window.BooksModule = (function() {
                         </div>
                     </div>
 
-                    <h3 class="book-card-title" onclick="window.openDocument('${book.id}')" title="${escapeHtml(book.title)}">${escapeHtml(book.title)}</h3>
+                    <h3 class="book-card-title" onclick="window.openDocument('${safeBookId}')" title="${escapeHtml(book.title)}">${escapeHtml(book.title)}</h3>
                     ${book.subtitle ? `<div class="book-card-subtitle">${escapeHtml(book.subtitle)}</div>` : ''}
 
                     ${book.excerpt && book.excerpt !== 'Vollständiges autorisiertes Werk im Studienarchiv verfügbar.' && book.excerpt.trim().length > 0 ? `
@@ -221,7 +223,7 @@ window.BooksModule = (function() {
                     ` : ''}
 
                     <div class="book-card-actions">
-                        <button class="book-read-btn" onclick="window.openDocument('${book.id}')" title="${isMasterEn ? 'Read in reader (full text &amp; paragraphs)' : 'Im Reader lesen (Volltext &amp; Absätze)'}">
+                        <button class="book-read-btn" onclick="window.openDocument('${safeBookId}')" title="${isMasterEn ? 'Read in reader (full text &amp; paragraphs)' : 'Im Reader lesen (Volltext &amp; Absätze)'}">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
                             <span>${isMasterEn ? 'Read' : 'Lesen'}</span>
                         </button>
@@ -230,7 +232,7 @@ window.BooksModule = (function() {
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             </a>
                         ` : ''}
-                        <button class="book-bookmark-btn ${window.isBookmarked && window.isBookmarked(book.id) ? 'bookmarked' : ''}" onclick="window.toggleBookmark('${book.id}'); this.classList.toggle('bookmarked');" title="${isMasterEn ? 'Add to bookmarks' : 'Zur Merkliste hinzufügen'}">
+                        <button class="book-bookmark-btn ${window.isBookmarked && window.isBookmarked(book.id) ? 'bookmarked' : ''}" onclick="window.toggleBookmark('${safeBookId}'); this.classList.toggle('bookmarked');" title="${isMasterEn ? 'Add to bookmarks' : 'Zur Merkliste hinzufügen'}">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
                         </button>
                     </div>

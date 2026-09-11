@@ -1,8 +1,8 @@
-const CACHE_NAME = 'bahai-bib-v3.5';
+const CACHE_NAME = 'bahai-bib-v3.6';
 const SHELL_ASSETS = [
   '/',
   '/index.html',
-  '/css/styles.css?v=3.5',
+  '/css/styles.css?v=3.6',
   '/css/styles.css',
   '/manifest.webmanifest',
   '/favicon.ico',
@@ -11,15 +11,18 @@ const SHELL_ASSETS = [
   '/assets/icons/icon-512-maskable.png',
   '/assets/icons/apple-touch-icon.png',
   '/assets/icons/favicon.svg',
-  '/js/app.js?v=3.5',
+  '/js/app.js?v=3.6',
   '/js/app.js',
+  '/js/viewer.js?v=3.6',
   '/js/viewer.js',
   '/js/search.js',
   '/js/compilation_builder.js?v=2.6',
   '/js/compilation_builder.js',
   '/js/timeline.js?v=3.1',
   '/js/timeline.js',
+  '/js/books.js?v=3.6',
   '/js/books.js',
+  '/js/sources.js?v=3.6',
   '/js/sources.js'
 ];
 

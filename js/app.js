@@ -34,7 +34,7 @@ window.state = {
     theme: safeGetStorage('theme', 'light'),
     currentView: 'library',
     library: {
-        segment: 'all',
+        segment: 'house',
         author: 'all',
         compTopic: 'all',
         ruhiGroup: 'all',
@@ -60,6 +60,21 @@ async function initApp() {
     setupAppearance();
     setupNavigation();
     setupKeyboardShortcuts();
+
+    // Ensure pristine filter state on application start (guarantees NO sticky filters on launch)
+    if (state.library) {
+        state.library.lang = '';
+        state.library.query = '';
+        state.library.recipient = 'all';
+        state.library.epoch = '';
+        state.library.type = '';
+        state.library.author = 'all';
+        state.library.compTopic = 'all';
+        state.library.ruhiGroup = 'all';
+        state.library.format = 'all';
+        state.library.sort = 'date-desc';
+        state.library.timelineEpoch = '';
+    }
     
     // 1. Load Document Index
     try {
@@ -172,14 +187,7 @@ function setupAppearance() {
             btn.classList.toggle('active', isActive);
         });
 
-        // Synchronize with library state and filter select
-        state.library.lang = (validLang === 'en' ? 'english' : 'deutsch');
-        const langSelect = document.getElementById('library-lang-select');
-        if (langSelect) {
-            langSelect.value = state.library.lang;
-        }
-
-        // Synchronize with timeline if available
+        // Synchronize timeline and books if available (library filter remains clean/unfiltered on startup)
         if (window.TimelineModule && window.TimelineModule.setLanguage) {
             window.TimelineModule.setLanguage(validLang);
         }
@@ -1111,9 +1119,22 @@ function handleDeepLink() {
     // 3. If docId specified, open document and scroll to paragraph
     if (docId && typeof window.openDocument === 'function') {
         const pInt = paraNum ? parseInt(paraNum, 10) : null;
-        const exists = state.documents && state.documents.some(d => d.id === docId);
+        let resolvedId = docId;
+        if (state.idAliases && state.idAliases[docId]) {
+            resolvedId = state.idAliases[docId];
+        }
+        const exists = state.documents && state.documents.some(d => d.id === resolvedId || d.id === docId);
         if (exists) {
-            window.openDocument(docId, pInt);
+            window.openDocument(resolvedId, pInt);
+        } else if (state.documents && state.documents.length > 0) {
+            // Fallback: decode URI component if URL-encoded
+            try {
+                const dec = decodeURIComponent(docId);
+                const decResolved = (state.idAliases && state.idAliases[dec]) ? state.idAliases[dec] : dec;
+                if (state.documents.some(d => d.id === decResolved || d.id === dec)) {
+                    window.openDocument(decResolved, pInt);
+                }
+            } catch (e) {}
         }
     }
 }
@@ -2174,8 +2195,10 @@ function renderCompilations() {
 
         const wordsLabel = totalWords >= 1000 ? `~${(totalWords / 1000).toFixed(0)}k Wörter` : (totalWords > 0 ? `${totalWords} Wörter` : '');
 
+        const safeCompId = (mainDoc.id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+
         return `
-            <div class="doc-card compilation-card" style="--i: ${idx % 30}; cursor: pointer;" onclick="window.openDocument('${mainDoc.id}')">
+            <div class="doc-card compilation-card" style="--i: ${idx % 30}; cursor: pointer;" data-doc-id="${escapeDocHtml(mainDoc.id)}" onclick="window.openDocument('${safeCompId}')">
                 <div>
                     <div class="doc-meta">
                         <span class="source-badge source-forschungsabteilung">Kompilation</span>
@@ -2219,9 +2242,10 @@ function renderRuhiBooks() {
 
         const badgeLabel = isBranch ? `Zweigkurs ${bookNum}` : (bookNum ? `Buch ${bookNum}` : 'Ruhi');
         const excerptText = doc.description || doc.excerpt || (doc.text || '').substring(0, 150);
+        const safeRuhiId = (doc.id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 
         return `
-            <div class="ruhi-card" style="--i: ${idx % 30};" onclick="window.openDocument('${doc.id}')">
+            <div class="ruhi-card" style="--i: ${idx % 30};" data-doc-id="${escapeDocHtml(doc.id)}" onclick="window.openDocument('${safeRuhiId}')">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.85rem;">
                     <span style="font-family: var(--font-sans); font-weight: 700; font-size: 0.95rem; color: var(--color-accent); background: var(--color-accent-light); padding: 0.25rem 0.75rem; border-radius: 20px;">
                         ${badgeLabel}
@@ -2386,8 +2410,9 @@ function renderReadingHistory() {
         if (fullDoc) {
             return window.createDocCard(fullDoc, '', idx);
         }
+        const safeItemId = (item.id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
         return `
-            <article class="doc-card" style="--i: ${idx % 30}; cursor: pointer;" onclick="window.openDocument('${item.id}')">
+            <article class="doc-card" style="--i: ${idx % 30}; cursor: pointer;" data-doc-id="${escapeDocHtml(item.id)}" onclick="window.openDocument('${safeItemId}')">
                 <div class="doc-card-body">
                     <div class="doc-card-header">
                         <div class="doc-meta-editorial">${item.date ? `<span class="doc-date">${escapeDocHtml(item.date)}</span>` : ''}</div>
@@ -2608,8 +2633,10 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
         ? `<span class="snippet-hit-count" title="${doc._searchMatchCount} Fundstellen im Werk">${doc._searchMatchCount}×</span>`
         : '';
 
+    const safeDocId = (doc.id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+
     return `
-        <article class="doc-card ${isMilestoneCard ? 'is-milestone' : ''}" style="--i: ${staggerIndex};" onclick="window.openDocument('${doc.id}')">
+        <article class="doc-card ${isMilestoneCard ? 'is-milestone' : ''}" style="--i: ${staggerIndex};" data-doc-id="${escapeDocHtml(doc.id)}" onclick="window.openDocument('${safeDocId}')">
             <div class="doc-card-body">
                 <div class="doc-card-header">
                     <div class="doc-meta-editorial">
@@ -2654,6 +2681,17 @@ function escapeDocHtml(str) {
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;');
 }
+
+// Universelle Klick-Delegation für alle Dokument-Karten (Bibliothek, Bücher, Kompilationen, Ruhi, Merkliste, Zeitstrahl)
+document.addEventListener('click', (e) => {
+    const card = e.target.closest('[data-doc-id]');
+    if (!card) return;
+    if (e.target.closest('button, a, input, select, textarea, .para-pill-btn')) return;
+    const docId = card.getAttribute('data-doc-id');
+    if (docId && typeof window.openDocument === 'function') {
+        window.openDocument(docId);
+    }
+});
 
 // Start app
 if (document.readyState === 'loading') {
