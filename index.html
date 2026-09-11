@@ -42,8 +42,7 @@
     <meta name="twitter:description" content="Digitale Forschungsbibliothek mit 918 Botschaften des Universalen Hauses der Gerechtigkeit, Schriften und Büchern im offiziellen Satzspiegel.">
     <meta name="twitter:image" content="https://bahaibibliothek.vercel.app/assets/icons/og-image.png">
 
-    <link rel="stylesheet" href="css/styles.css?v=3.5">
-    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+    <link rel="stylesheet" href="css/styles.css?v=4.2">
     <!-- Vercel Web Analytics & Speed Insights -->
     <script>
         window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -63,13 +62,67 @@
     </script>
 </head>
 <body data-active-view="library">
+    <!-- Reusable SVG Symbol Sprite Sheet for zero-overhead token-efficient rendering -->
+    <svg style="display: none;" aria-hidden="true">
+        <defs>
+            <symbol id="icon-star" viewBox="0 0 100 100">
+                <path d="M50.00,4.00L58.21,27.45L79.57,14.76L70.78,38.00L95.30,42.01L73.64,54.17L89.84,73.00L65.43,68.39L65.73,93.23L50.00,74.00L34.27,93.23L34.57,68.39L10.16,73.00L26.36,54.17L4.70,42.01L29.22,38.00L20.43,14.76L41.79,27.45Z" fill="currentColor"/>
+            </symbol>
+            <symbol id="icon-book" viewBox="0 0 24 24">
+                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/>
+            </symbol>
+            <symbol id="icon-timeline" viewBox="0 0 24 24">
+                <line x1="2" y1="12" x2="22" y2="12"/><circle cx="6" cy="12" r="3" fill="currentColor"/><circle cx="12" cy="12" r="3" fill="currentColor"/><circle cx="18" cy="12" r="3" fill="currentColor"/>
+            </symbol>
+            <symbol id="icon-workshop" viewBox="0 0 24 24">
+                <path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+            </symbol>
+            <symbol id="icon-sources" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"/>
+            </symbol>
+            <symbol id="icon-bookmark" viewBox="0 0 24 24">
+                <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
+            </symbol>
+            <symbol id="icon-settings" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </symbol>
+            <symbol id="icon-sun" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+            </symbol>
+            <symbol id="icon-moon" viewBox="0 0 24 24">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </symbol>
+            <symbol id="icon-oled" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 0 20z" fill="currentColor"/>
+            </symbol>
+            <symbol id="icon-plus" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/>
+            </symbol>
+            <symbol id="icon-x" viewBox="0 0 24 24">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </symbol>
+            <symbol id="icon-search" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </symbol>
+            <symbol id="icon-filter" viewBox="0 0 24 24">
+                <line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>
+            </symbol>
+            <symbol id="icon-download" viewBox="0 0 24 24">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            </symbol>
+            <symbol id="icon-copy" viewBox="0 0 24 24">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </symbol>
+            <symbol id="icon-chevron-down" viewBox="0 0 24 24">
+                <path d="m6 9 6 6 6-6"/>
+            </symbol>
+        </defs>
+    </svg>
     <div class="cosmos-dock-container">
         <header class="cosmos-dock" role="banner">
             <button class="dock-brand" onclick="window.switchView('library')" title="Zurück zur Bibliothek" aria-label="Zurück zur Bibliothek" data-i18n-title="nav.brand_title" data-i18n-aria="nav.brand_title">
                 <div class="dock-star">
-                    <svg width="18" height="18" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M50.00,4.00L58.21,27.45L79.57,14.76L70.78,38.00L95.30,42.01L73.64,54.17L89.84,73.00L65.43,68.39L65.73,93.23L50.00,74.00L34.27,93.23L34.57,68.39L10.16,73.00L26.36,54.17L4.70,42.01L29.22,38.00L20.43,14.76L41.79,27.45Z" fill="currentColor"/>
-                    </svg>
+                    <svg width="18" height="18" aria-hidden="true"><use href="#icon-star"></use></svg>
                 </div>
             </button>
 
@@ -78,32 +131,32 @@
             <nav class="cosmos-nav" aria-label="Hauptnavigation">
                 <button class="nav-btn active" data-view="library" title="Bibliothek (Botschaften des Hauses)" data-i18n-title="nav.library_title">
                     <span class="nav-icon-circle">
-                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
+                        <svg class="nav-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-book"></use></svg>
                     </span>
                     <span class="nav-label" data-i18n="nav.library">Bibliothek</span>
                 </button>
 
                 <button class="nav-btn" data-view="timeline" title="Historischer Zeitstrahl &amp; Epochen-Explorer (1844–2044)" data-i18n-title="nav.timeline_title">
                     <span class="nav-icon-circle">
-                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12"/><circle cx="6" cy="12" r="3" fill="currentColor"/><circle cx="12" cy="12" r="3" fill="currentColor"/><circle cx="18" cy="12" r="3" fill="currentColor"/></svg>
+                        <svg class="nav-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-timeline"></use></svg>
                     </span>
                     <span class="nav-label" data-i18n="nav.timeline">Zeitstrahl</span>
                 </button>
                 <button class="nav-btn btn-nav-workshop" data-view="workshop" title="Kompilations-Werkstatt" data-i18n-title="nav.workshop_title">
                     <span class="nav-icon-circle">
-                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                        <svg class="nav-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-workshop"></use></svg>
                     </span>
                     <span class="nav-label" data-i18n="nav.workshop">Werkstatt</span>
                 </button>
                 <button class="nav-btn" data-view="sources" title="Offizielle Bahá'í-Quellen &amp; Repositorien" data-i18n-title="nav.sources_title">
                     <span class="nav-icon-circle">
-                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        <svg class="nav-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-sources"></use></svg>
                     </span>
                     <span class="nav-label" data-i18n="nav.sources">Quellen</span>
                 </button>
                 <button class="nav-btn" data-view="saved" title="Merkliste &amp; Gespeichertes" data-i18n-title="nav.saved_title">
                     <span class="nav-icon-circle">
-                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                        <svg class="nav-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-bookmark"></use></svg>
                     </span>
                     <span class="nav-label" data-i18n="nav.saved">Merkliste</span>
                 </button>
@@ -116,10 +169,7 @@
                 <div class="appearance-wrapper">
                     <button id="appearance-btn" class="appearance-dock-btn nav-btn" data-view="settings" aria-label="Einstellungen" title="Einstellungen" data-i18n-title="nav.settings_title" data-i18n-aria="nav.settings_title">
                         <span class="nav-icon-circle">
-                            <svg class="appearance-settings-icon nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="3"></circle>
-                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                            </svg>
+                            <svg class="appearance-settings-icon nav-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-settings"></use></svg>
                         </span>
                         <span class="nav-label" data-i18n="nav.settings">Einstellungen</span>
                     </button>
@@ -303,9 +353,9 @@
                     <div class="library-realm-header" id="library-realm-header">
                         <div class="realm-lead-badge">
                             <span class="realm-lead-dot"></span>
-                            <span class="realm-lead-title" id="realm-lead-title" data-i18n="library.realm_house">Botschaften des Hauses</span>
+                            <span class="realm-lead-title" id="realm-lead-title" data-i18n="library.realm_all">Gesamtes Archiv</span>
                             <span class="realm-lead-sep">•</span>
-                            <span class="realm-lead-subtitle" id="realm-lead-subtitle" data-i18n="library.realm_house_sub">Botschaften des Universalen Hauses der Gerechtigkeit (1963–2026)</span>
+                            <span class="realm-lead-subtitle" id="realm-lead-subtitle" data-i18n="library.realm_all_sub">Dokumente, Schriften, Bücher und thematische Sammlungen</span>
                         </div>
                     </div>
 
@@ -314,7 +364,7 @@
                         <svg class="command-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
                         </svg>
-                        <input type="text" id="library-search-input" placeholder="In Botschaften des Hauses (1963–2026) suchen..." data-i18n-placeholder="library.search_placeholder" autocomplete="off">
+                        <input type="text" id="library-search-input" placeholder="In allen Dokumenten, Schriften &amp; Volltexten suchen..." data-i18n-placeholder="library.search_placeholder_all" autocomplete="off">
                         <div class="command-search-actions">
                             <button id="library-search-clear" class="search-clear-btn" title="Suche leeren" data-i18n-title="library.clear_search" style="display: none;">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -342,7 +392,7 @@
                     <!-- 2. Die Vier Hauptsäulen (Unterkategorien der Masterleiste) -->
                     <div class="pillar-cards-grid" id="pillar-cards-grid" role="tablist" aria-label="Vier Hauptbereiche">
                         <!-- Säule 1: Botschaften des Hauses -->
-                        <button class="pillar-card active" data-pillar="house" role="tab" aria-selected="true" title="Botschaften des Universalen Hauses der Gerechtigkeit (1963–2026)">
+                        <button class="pillar-card" data-pillar="house" role="tab" aria-selected="false" title="Botschaften des Universalen Hauses der Gerechtigkeit (1963–2026)">
                             <div class="pillar-card-content">
                                 <div class="pillar-card-title-row">
                                     <span class="pillar-dot house"></span>
@@ -670,14 +720,18 @@
         </div>
     </footer>
 
-    <script src="js/i18n.js?v=3.6"></script>
-    <script src="js/search_engine.js?v=2.0"></script>
-    <script src="js/viewer.js?v=3.6"></script>
-    <script src="js/search.js?v=3.6"></script>
-    <script src="js/compilation_builder.js?v=2.6"></script>
-    <script src="js/timeline.js?v=3.1"></script>
-    <script src="js/books.js?v=3.6"></script>
-    <script src="js/sources.js?v=3.6"></script>
-    <script src="js/app.js?v=3.6"></script>
+    <script src="js/state.js?v=4.2"></script>
+    <script src="js/i18n.js?v=4.2"></script>
+    <script src="js/settings.js?v=4.2"></script>
+    <script src="js/filters.js?v=4.2"></script>
+    <script src="js/search_engine.js?v=4.2"></script>
+    <script src="js/viewer.js?v=4.2"></script>
+    <script src="js/collections.js?v=4.2"></script>
+    <script src="js/compilation_builder.js?v=4.2"></script>
+    <script src="js/timeline_data.js?v=4.2"></script>
+    <script src="js/timeline.js?v=4.2"></script>
+    <script src="js/books.js?v=4.2"></script>
+    <script src="js/sources.js?v=4.2"></script>
+    <script src="js/app.js?v=4.2"></script>
 </body>
 </html>

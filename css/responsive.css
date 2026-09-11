@@ -1,0 +1,1424 @@
+/* responsive.css — Mobile Media Queries & PWA Ergonomie */
+/* ─── Responsive Queries ─────────────────────────────────────────────────── */
+
+@media (min-width: 769px) and (max-width: 1200px) {
+    .cosmos-dock {
+        padding: 0.3rem 0.45rem;
+        gap: 0.2rem;
+    }
+    .nav-btn {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.78rem;
+        gap: 0.35rem;
+    }
+    .dock-title {
+        font-size: 0.88rem;
+    }
+}
+
+@media (max-width: 768px), (orientation: landscape) and (max-height: 500px) {
+    /* ─── Mobile Floating Navigation Bar (Schwebende Taskbar im modernen Dark-Mode-Design) ─── */
+    .cosmos-dock-container {
+        position: fixed !important;
+        top: auto !important;
+        bottom: 14px !important;
+        bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        padding: 0 12px !important;
+        box-sizing: border-box !important;
+        z-index: 1000 !important;
+        display: flex !important;
+        justify-content: center !important;
+        pointer-events: none !important;
+        transform: translateY(0) !important;
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, visibility 0.35s !important;
+    }
+
+    /* Unten liegende Taskbar waehrend Dokument-Preview / Reader sanft nach unten ausblenden */
+    body.viewer-open .cosmos-dock-container,
+    body:has(#document-viewer.active) .cosmos-dock-container {
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transform: translateY(180%) !important;
+        visibility: hidden !important;
+    }
+
+    .cosmos-dock {
+        pointer-events: auto !important;
+        width: 100% !important;
+        max-width: 480px !important;
+        height: 66px !important;
+        min-height: 66px !important;
+        max-height: 66px !important;
+        box-sizing: border-box !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 0 !important;
+        border-radius: 9999px !important;
+        border: 1px solid var(--border-hairline) !important;
+        background: var(--bg-paper) !important;
+        box-shadow: var(--shadow-dock), 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+        padding: 0 6px !important;
+        position: relative !important;
+    }
+
+    [data-theme="light"] .cosmos-dock {
+        background: var(--bg-paper) !important;
+        border: 1px solid var(--border-hairline) !important;
+        box-shadow: var(--shadow-dock), 0 4px 16px rgba(0, 0, 0, 0.06) !important;
+    }
+
+    [data-theme="sepia"] .cosmos-dock {
+        background: var(--bg-paper) !important;
+        border: 1px solid var(--border-hairline) !important;
+        box-shadow: var(--shadow-dock), 0 4px 16px rgba(74, 52, 28, 0.08) !important;
+    }
+
+    [data-theme="oled"] .cosmos-dock {
+        background: #000000 !important;
+        border: 1px solid var(--border-hairline) !important;
+        box-shadow: var(--shadow-dock), 0 4px 24px rgba(0, 0, 0, 0.8) !important;
+    }
+
+    .dock-brand,
+    .dock-divider,
+    .dock-title {
+        display: none !important;
+    }
+
+    .cosmos-nav {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-around !important;
+        flex: 5 !important;
+        width: auto !important;
+        height: 100% !important;
+        gap: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .dock-actions {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex: 1 !important;
+        height: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .appearance-wrapper {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    /* Navigation Buttons: Vertikal gestapelt (Rundes Icon oben, Label unten) */
+    .cosmos-nav .nav-btn,
+    .appearance-dock-btn {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 3px !important;
+        padding: 4px 1px !important;
+        height: 100% !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        transform: none !important;
+        min-width: 0 !important;
+        width: 100% !important;
+        max-width: none !important;
+        color: var(--text-muted) !important;
+        text-decoration: none !important;
+        touch-action: manipulation !important;
+        -webkit-tap-highlight-color: transparent !important;
+        cursor: pointer !important;
+        box-sizing: border-box !important;
+        transition: color var(--transition-fast) !important;
+    }
+
+    .cosmos-nav .nav-btn:hover,
+    .appearance-dock-btn:hover {
+        color: var(--text-ink) !important;
+    }
+
+    .appearance-dock-btn:hover,
+    .appearance-dock-btn.active {
+        transform: none !important;
+        background: transparent !important;
+        border: none !important;
+    }
+
+    /* RUNDES ICON-CONTAINER-ELEMENT (Inaktiver Zustand) */
+    .nav-icon-circle {
+        width: 36px !important;
+        height: 36px !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: rgba(255, 255, 255, 0.03) !important;
+        border: 1px solid var(--border-subtle) !important;
+        color: var(--text-muted) !important;
+        transition: all var(--transition-fast) !important;
+        flex-shrink: 0 !important;
+        box-sizing: border-box !important;
+        margin: 0 auto !important;
+    }
+
+    [data-theme="light"] .nav-icon-circle {
+        background: rgba(0, 0, 0, 0.02) !important;
+        border: 1px solid var(--border-subtle) !important;
+    }
+
+    [data-theme="sepia"] .nav-icon-circle {
+        background: rgba(74, 52, 28, 0.04) !important;
+        border: 1px solid var(--border-subtle) !important;
+    }
+
+    .cosmos-nav .nav-btn:hover .nav-icon-circle,
+    .appearance-dock-btn:hover .nav-icon-circle {
+        color: var(--text-ink) !important;
+        background: var(--bg-subtle) !important;
+        border-color: var(--border-hover) !important;
+    }
+
+    .cosmos-nav .nav-btn .nav-icon,
+    .appearance-dock-btn .appearance-settings-icon {
+        width: 18px !important;
+        height: 18px !important;
+        stroke-width: 1.8 !important;
+        color: inherit !important;
+        display: block !important;
+        margin: auto !important;
+    }
+
+    /* Text-Labels unter den runden Icons */
+    .nav-label {
+        display: block !important;
+        font-size: 0.58rem !important;
+        font-weight: 500 !important;
+        line-height: 1.1 !important;
+        letter-spacing: -0.01em !important;
+        color: var(--text-muted) !important;
+        white-space: nowrap !important;
+        text-align: center !important;
+        margin-top: 1px !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        transition: color var(--transition-fast), font-weight var(--transition-fast) !important;
+    }
+
+    .cosmos-nav .nav-btn:hover .nav-label,
+    .appearance-dock-btn:hover .nav-label {
+        color: var(--text-ink) !important;
+    }
+
+    /* AKTIVER TASTEN-STATUS: Angepasst an die Farb- und Oberflaechen-Gestaltung des Landscape Docks */
+    .cosmos-nav .nav-btn.active,
+    .appearance-dock-btn.active {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 4px 1px !important;
+    }
+
+    .cosmos-nav .nav-btn.active .nav-icon-circle,
+    .appearance-dock-btn.active .nav-icon-circle {
+        background: var(--bg-subtle) !important;
+        border: 1px solid var(--border-hover) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35) !important;
+        color: var(--text-ink) !important;
+        transform: scale(1.04) !important;
+    }
+
+    [data-theme="light"] .cosmos-nav .nav-btn.active .nav-icon-circle,
+    [data-theme="light"] .appearance-dock-btn.active .nav-icon-circle {
+        background: var(--bg-subtle) !important;
+        border: 1px solid var(--border-hairline) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07) !important;
+        color: var(--text-ink) !important;
+        transform: scale(1.04) !important;
+    }
+
+    [data-theme="sepia"] .cosmos-nav .nav-btn.active .nav-icon-circle,
+    [data-theme="sepia"] .appearance-dock-btn.active .nav-icon-circle {
+        background: var(--bg-subtle) !important;
+        border: 1px solid var(--border-hairline) !important;
+        box-shadow: 0 2px 8px rgba(74, 52, 28, 0.08) !important;
+        color: var(--text-ink) !important;
+        transform: scale(1.04) !important;
+    }
+
+    [data-theme="oled"] .cosmos-nav .nav-btn.active .nav-icon-circle,
+    [data-theme="oled"] .appearance-dock-btn.active .nav-icon-circle {
+        background: var(--bg-subtle) !important;
+        border: 1px solid var(--border-hover) !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8) !important;
+        color: var(--text-ink) !important;
+        transform: scale(1.04) !important;
+    }
+
+    .cosmos-nav .nav-btn.active .nav-label,
+    .appearance-dock-btn.active .nav-label {
+        color: var(--text-ink) !important;
+        font-weight: 600 !important;
+    }
+
+    @media (max-width: 360px) {
+        .nav-icon-circle {
+            width: 32px !important;
+            height: 32px !important;
+        }
+        .cosmos-nav .nav-btn .nav-icon,
+        .appearance-dock-btn .appearance-settings-icon {
+            width: 16px !important;
+            height: 16px !important;
+        }
+        .nav-label {
+            font-size: 0.52rem !important;
+        }
+    }
+
+    /* Im Landscape Mode: Text vom Einstellungsbutton ausblenden */
+    @media (orientation: landscape) {
+        .appearance-dock-btn .nav-label {
+            display: none !important;
+        }
+    }
+
+    /* Auf Mobile: Kein Einstellungs-Popover, sondern vollwertige separate Seite (#view-settings) */
+    .appearance-popover {
+        display: none !important;
+    }
+
+    .editorial-headline {
+        font-size: 2.1rem;
+    }
+
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Hauptinhalt mit Freiraum für die untere Taskbar und Notch oben */
+    #app-content {
+        padding: max(1.25rem, env(safe-area-inset-top, 0px)) max(0.85rem, env(safe-area-inset-right, 0px)) calc(6.5rem + env(safe-area-inset-bottom, 0px)) max(0.85rem, env(safe-area-inset-left, 0px)) !important;
+    }
+
+    .app-footer {
+        padding-bottom: calc(6.5rem + env(safe-area-inset-bottom, 0px)) !important;
+    }
+
+    /* ─── Mobile Document Viewer / Preview Modal (Vollständig repariert) ─── */
+    .modal {
+        padding: 0 !important;
+        z-index: 2000 !important;
+    }
+
+    .modal-content {
+        max-height: 100vh !important;
+        max-height: 100dvh !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        border-radius: 0 !important;
+        border: none !important;
+        padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+    }
+
+    .modal-header {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 60 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0.45rem !important;
+        padding: max(0.6rem, env(safe-area-inset-top, 0px)) 0.85rem 0.55rem !important;
+        background: var(--bg-paper) !important;
+        border-bottom: 1px solid var(--border-subtle) !important;
+    }
+
+    .modal-header-main {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+        gap: 0.5rem !important;
+    }
+
+    .modal-header-left {
+        flex: 1 !important;
+        min-width: 0 !important;
+    }
+
+    .reader-modal-title {
+        font-size: 1.05rem !important;
+        font-weight: 600 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        max-width: calc(100vw - 120px) !important;
+        margin: 0 !important;
+        line-height: 1.25 !important;
+    }
+
+    .reader-doc-meta-bar {
+        font-size: 0.68rem !important;
+        gap: 0.35rem !important;
+        margin-bottom: 2px !important;
+    }
+
+    .modal-header-quick-actions {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.4rem !important;
+        flex-shrink: 0 !important;
+    }
+
+    .modal-header-quick-actions .dock-icon-btn {
+        width: 36px !important;
+        height: 36px !important;
+        border-radius: var(--radius-full) !important;
+        background: var(--bg-subtle) !important;
+        border: 1px solid var(--border-hairline) !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        color: var(--text-ink) !important;
+        cursor: pointer !important;
+        touch-action: manipulation !important;
+    }
+
+    .modal-header-quick-actions .close-modal-btn {
+        color: var(--accent-gold) !important;
+        border-color: rgba(200, 157, 92, 0.4) !important;
+    }
+
+    .modal-actions {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 0.4rem !important;
+        width: 100% !important;
+        border-top: 1px solid var(--border-hairline) !important;
+        padding-top: 0.35rem !important;
+        overflow-x: auto !important;
+        scrollbar-width: none !important;
+    }
+
+    .modal-actions::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    .viewer-segmented-pill {
+        padding: 2px !important;
+        gap: 2px !important;
+        flex-shrink: 0 !important;
+    }
+
+    .viewer-segment-tab {
+        font-size: 0.72rem !important;
+        padding: 0.25rem 0.6rem !important;
+    }
+
+    .viewer-export-btn {
+        padding: 0.25rem 0.65rem !important;
+        font-size: 0.72rem !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Lesebereich mit ausreichend oberem Abstand unter dem Header */
+    .viewer-body {
+        padding: calc(6.5rem + env(safe-area-inset-top, 0px)) 1rem calc(4rem + env(safe-area-inset-bottom, 0px)) !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        box-sizing: border-box !important;
+        width: 100% !important;
+    }
+
+    .viewer-reading-canvas {
+        max-width: 100% !important;
+        font-size: 1.04rem !important;
+        line-height: 1.78 !important;
+        margin: 0 !important;
+    }
+
+    .viewer-paragraph {
+        padding: 0.35rem 0.35rem 0.35rem 2.4rem !important;
+        margin-bottom: 1.2rem !important;
+    }
+
+    .para-gutter-num {
+        left: 0.25rem !important;
+        top: 0.45rem !important;
+        font-size: 0.68rem !important;
+        opacity: 0.75 !important;
+    }
+
+    .para-text {
+        text-align: left !important;
+    }
+
+    /* Mobile PDF Ansicht Card */
+    .mobile-pdf-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 60vh;
+        padding: 1.5rem 1rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .mobile-pdf-card {
+        background: var(--bg-paper);
+        border: 1px solid var(--border-subtle);
+        border-radius: 18px;
+        padding: 2.2rem 1.4rem;
+        text-align: center;
+        max-width: 420px;
+        width: 100%;
+        box-shadow: var(--shadow-plate);
+    }
+
+    .mobile-pdf-icon-badge {
+        width: 64px;
+        height: 64px;
+        border-radius: 18px;
+        background: rgba(200, 157, 92, 0.14);
+        color: var(--accent-gold);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.2rem;
+    }
+
+    .mobile-pdf-title {
+        font-family: var(--font-serif-display);
+        font-size: 1.25rem;
+        color: var(--text-ink);
+        margin-bottom: 0.5rem;
+        line-height: 1.3;
+    }
+
+    .mobile-pdf-desc {
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        margin-bottom: 1.6rem;
+        line-height: 1.5;
+    }
+
+    .mobile-pdf-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        width: 100%;
+    }
+
+    .mobile-pdf-btn {
+        width: 100%;
+        padding: 0.8rem 1.2rem;
+        border-radius: 12px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        cursor: pointer;
+        touch-action: manipulation;
+        font-size: 0.88rem;
+    }
+
+    .mobile-pdf-btn.primary {
+        background: var(--accent-gold);
+        color: #121417;
+        border: 1px solid var(--accent-gold);
+    }
+
+    .mobile-pdf-btn.secondary {
+        background: var(--bg-subtle);
+        color: var(--text-ink);
+        border: 1px solid var(--border-hairline);
+    }
+
+    /* ─── Mobile Omnisearch & Filter Bar ─── */
+    .search-kbd-badge {
+        display: none !important;
+    }
+
+    .master-search-row input {
+        font-size: 0.92rem !important;
+        padding: 0.78rem 2.85rem 0.78rem 2.65rem !important;
+        border-radius: 12px !important;
+    }
+
+    .master-search-row .command-search-icon {
+        left: 0.95rem !important;
+        width: 18px !important;
+        height: 18px !important;
+    }
+
+    /* ─── Mobile Ergebnis-Toolbar (Bibliothek) ─── */
+    .library-results-bar {
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        margin: 1rem 0 1.25rem !important;
+        padding-bottom: 0.65rem !important;
+    }
+
+    .results-bar-left {
+        gap: 0.35rem !important;
+    }
+
+    .results-bar-count {
+        font-size: 1.02rem !important;
+    }
+
+    .results-bar-sub {
+        font-size: 0.72rem !important;
+    }
+
+    .results-bar-right {
+        gap: 0.4rem !important;
+    }
+
+    .sort-label {
+        display: none !important;
+    }
+
+    .sort-select {
+        font-size: 0.74rem !important;
+        padding: 0.32rem 1.3rem 0.32rem 0.55rem !important;
+    }
+
+    .view-mode-toggle {
+        padding: 0.1rem !important;
+    }
+
+    .view-mode-btn {
+        padding: 0.28rem !important;
+    }
+
+    /* ─── Mobile Karten & Raster (Bibliothek, Bücher & Ruhi) ─── */
+    .books-grid,
+    .ruhi-books-grid,
+    .inspector-docs-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+
+    .doc-card {
+        padding: 1.15rem 1.2rem !important;
+        gap: 0.85rem !important;
+    }
+
+    .doc-title {
+        font-size: 1.08rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    /* ─── Mobile Hochkant-Listenansicht (Kompakte 3-Zeilen-Indexstreifen) ─── */
+    html[data-library-view="list"] #library-results,
+    #library-results.list-view {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.45rem !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-card,
+    #library-results.list-view .doc-card {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        justify-content: flex-start !important;
+        padding: 0.72rem 0.95rem !important;
+        gap: 0.28rem !important;
+        min-height: auto !important;
+        border-radius: 12px !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-card-body,
+    #library-results.list-view .doc-card-body {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0.22rem !important;
+        width: 100% !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-card-header,
+    #library-results.list-view .doc-card-header {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        margin-bottom: 0 !important;
+        min-width: 0 !important;
+        width: 100% !important;
+        gap: 0.5rem !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-meta-editorial,
+    #library-results.list-view .doc-meta-editorial {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.35rem 0.45rem !important;
+        font-size: 0.72rem !important;
+        flex-wrap: wrap !important;
+        min-width: 0 !important;
+        line-height: 1.3 !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-bilingual-badge,
+    #library-results.list-view .doc-bilingual-badge {
+        font-size: 0.62rem !important;
+        padding: 0.08rem 0.38rem !important;
+        flex-shrink: 0 !important;
+        margin-left: auto !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-title,
+    #library-results.list-view .doc-title {
+        font-size: 0.95rem !important;
+        font-weight: 600 !important;
+        line-height: 1.35 !important;
+        margin: 0.08rem 0 0.05rem 0 !important;
+        white-space: normal !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        width: 100% !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-excerpt,
+    #library-results.list-view .doc-excerpt,
+    html[data-library-view="list"] #library-results .doc-sub-title,
+    #library-results.list-view .doc-sub-title {
+        display: none !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-card-footer,
+    #library-results.list-view .doc-card-footer {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 0.45rem !important;
+        border-top: none !important;
+        padding-top: 0.15rem !important;
+        margin-top: 0 !important;
+        flex-wrap: nowrap !important;
+        width: 100% !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-topics-cluster,
+    #library-results.list-view .doc-topics-cluster {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.3rem !important;
+        flex-wrap: nowrap !important;
+        overflow: hidden !important;
+        min-width: 0 !important;
+        flex: 1 !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-topic-pill,
+    #library-results.list-view .doc-topic-pill {
+        font-size: 0.68rem !important;
+        padding: 0.1rem 0.42rem !important;
+        border-radius: var(--radius-full) !important;
+        max-width: 120px !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-topic-more,
+    #library-results.list-view .doc-topic-more {
+        font-size: 0.64rem !important;
+        color: var(--text-subtle) !important;
+        flex-shrink: 0 !important;
+    }
+
+    html[data-library-view="list"] #library-results .doc-recipient-text,
+    #library-results.list-view .doc-recipient-text {
+        font-family: var(--font-sans) !important;
+        font-size: 0.7rem !important;
+        font-weight: 500 !important;
+        color: var(--text-ink) !important;
+        margin-left: auto !important;
+        text-align: right !important;
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+        line-height: 1.2 !important;
+    }
+
+    .book-plate-card,
+    .ruhi-card {
+        padding: 1.25rem 1.15rem !important;
+    }
+
+    .books-filter-bar {
+        padding: 1rem 1.1rem !important;
+        gap: 0.75rem !important;
+    }
+
+    .books-secondary-filters {
+        gap: 0.5rem !important;
+    }
+
+    .books-filter-select {
+        width: 100% !important;
+    }
+
+    .load-more-container {
+        margin: 1.75rem 0 !important;
+    }
+
+    .load-more-container button {
+        width: 100% !important;
+        max-width: 320px !important;
+        min-height: 44px !important;
+    }
+
+    /* ─── Mobile Historischer Zeitstrahl (Vector Timeline) ─── */
+    .unfold-toolbar {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0.85rem !important;
+        padding: 0.85rem 1rem !important;
+        margin-bottom: 1.25rem !important;
+    }
+
+    .unfold-lang-switch {
+        justify-content: space-between !important;
+        width: 100% !important;
+    }
+
+    .unfold-scrubber-box {
+        max-width: 100% !important;
+        width: 100% !important;
+        justify-content: space-between !important;
+        gap: 0.6rem !important;
+    }
+
+    .unfold-slider {
+        max-width: none !important;
+        flex: 1 !important;
+    }
+
+    .unfold-svg-container {
+        padding: 0.85rem 0.5rem !important;
+        margin-bottom: 1.25rem !important;
+        border-radius: var(--radius-md) !important;
+    }
+
+    .unfold-inspector-card {
+        padding: 1.25rem 1rem !important;
+        border-radius: var(--radius-md) !important;
+    }
+
+    .inspector-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.75rem !important;
+        padding-bottom: 0.85rem !important;
+    }
+
+    .inspector-title {
+        font-size: 1.35rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .inspector-desc {
+        font-size: 0.88rem !important;
+        line-height: 1.6 !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .inspector-quote {
+        padding: 0.85rem 1rem !important;
+        font-size: 0.92rem !important;
+        margin-bottom: 1.25rem !important;
+    }
+
+    .inspector-docs-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.65rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .inspector-subfilters {
+        width: 100% !important;
+        overflow-x: auto !important;
+        flex-wrap: nowrap !important;
+        padding-bottom: 0.25rem !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    .subfilter-btn {
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* ─── Mobile Kompilations-Werkstatt ─── */
+    .workshop-filters {
+        padding: 1rem !important;
+    }
+
+    .target-pills {
+        overflow-x: auto !important;
+        flex-wrap: nowrap !important;
+        padding-bottom: 0.35rem !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    .target-pills .filter-pill {
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+    }
+
+    .workshop-search-row {
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+    }
+
+    .workshop-search-input {
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+
+    .workshop-rec-select {
+        width: 100% !important;
+    }
+
+    .workshop-draft-pane {
+        padding: 1.15rem 1rem !important;
+    }
+
+    .passage-card {
+        padding: 1.15rem 1rem !important;
+    }
+
+    .draft-item {
+        padding: 0.85rem !important;
+    }
+
+    .draft-action-buttons button {
+        padding: 0.55rem !important;
+        font-size: 0.8rem !important;
+    }
+
+    /* ─── Mobile Quellen & Repositorien ─── */
+    .sources-controls-card {
+        padding: 1rem 1.1rem !important;
+        gap: 0.75rem !important;
+        margin-bottom: 1.25rem !important;
+    }
+
+    .sources-search-row {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0.75rem !important;
+    }
+
+    .sources-search-box {
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+
+    .sources-expand-collapse-group {
+        width: 100% !important;
+        justify-content: space-between !important;
+    }
+
+    .sources-tool-btn {
+        flex: 1 !important;
+        justify-content: center !important;
+        font-size: 0.75rem !important;
+        padding: 0.45rem 0.6rem !important;
+    }
+
+    .sources-jump-pills {
+        gap: 0.35rem !important;
+        overflow-x: auto !important;
+        flex-wrap: nowrap !important;
+        padding-bottom: 0.25rem !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    .jump-label {
+        display: none !important;
+    }
+
+    .jump-pill {
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+        font-size: 0.75rem !important;
+        padding: 0.25rem 0.65rem !important;
+    }
+
+    .sources-accordion-summary {
+        padding: 1rem 0.85rem !important;
+    }
+
+    .summary-left {
+        gap: 0.75rem !important;
+    }
+
+    .summary-icon-box {
+        width: 36px !important;
+        height: 36px !important;
+    }
+
+    .summary-icon-box svg {
+        width: 18px !important;
+        height: 18px !important;
+    }
+
+    .summary-title {
+        font-size: 1.1rem !important;
+    }
+
+    .summary-desc {
+        font-size: 0.75rem !important;
+    }
+
+    .summary-right {
+        gap: 0.5rem !important;
+    }
+
+    .summary-counter-badge {
+        font-size: 0.7rem !important;
+        padding: 0.2rem 0.55rem !important;
+    }
+
+    .sources-accordion-body {
+        padding: 0.5rem 0.65rem 1rem !important;
+    }
+
+    .source-sub-summary {
+        padding: 0.75rem 0.85rem !important;
+    }
+
+    .source-sub-title {
+        font-size: 0.88rem !important;
+    }
+
+    /* ─── Mobile Merkliste & Manuskripte ─── */
+    .subtabs-nav {
+        flex-wrap: wrap !important;
+        gap: 0.4rem !important;
+        margin-top: 1rem !important;
+    }
+
+    .subtabs-nav .filter-pill {
+        font-size: 0.78rem !important;
+        padding: 0.4rem 0.85rem !important;
+    }
+}
+
+
+
+/* ─── Bibliothek im Hochformat: Formatauswahl links & Filter-Button rechts auf gleicher Höhe ─── */
+@media (orientation: portrait), (max-width: 768px) {
+    .ecosystem-top-row {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 0.45rem !important;
+        flex-wrap: nowrap !important;
+        width: 100% !important;
+    }
+
+    .format-chips-group {
+        display: inline-flex !important;
+        align-items: center !important;
+        flex-shrink: 0 !important;
+        gap: 0.2rem !important;
+        padding: 0.18rem !important;
+    }
+
+    .format-chip-btn {
+        padding: 0.24rem 0.52rem !important;
+        font-size: 0.72rem !important;
+        white-space: nowrap !important;
+    }
+
+    .command-actions-cluster {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 0.35rem !important;
+        flex-shrink: 0 !important;
+        margin-left: auto !important;
+    }
+
+    .command-filter-toggle-btn {
+        padding: 0.26rem 0.65rem !important;
+        font-size: 0.75rem !important;
+        white-space: nowrap !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 0.3rem !important;
+    }
+}
+
+/* C. Schlanke Schnellfilter- & Formatleiste */
+.command-quick-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.quick-chips-scroller {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.quick-chips-scroller::-webkit-scrollbar {
+    display: none;
+}
+
+.quick-chip-btn, .author-chip-btn, .comp-chip-btn, .ruhi-chip-btn {
+    font-family: var(--font-sans);
+    font-size: 0.76rem;
+    font-weight: 500;
+    padding: 0.32rem 0.8rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-hairline);
+    background: var(--bg-canvas);
+    color: var(--text-muted);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.quick-chip-btn:hover, .author-chip-btn:hover, .comp-chip-btn:hover, .ruhi-chip-btn:hover {
+    border-color: var(--accent-gold);
+    color: var(--text-ink);
+    background: var(--bg-subtle);
+}
+
+.quick-chip-btn.active, .author-chip-btn.active, .comp-chip-btn.active, .ruhi-chip-btn.active {
+    background: var(--accent-gold);
+    border-color: var(--accent-gold);
+    color: #121417;
+    font-weight: 600;
+    box-shadow: 0 0 12px var(--accent-gold-glow);
+}
+
+.command-actions-cluster {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-shrink: 0;
+}
+
+.format-chips-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    background: var(--bg-canvas);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-full);
+    padding: 0.2rem;
+}
+
+.format-chip-btn {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 0.22rem 0.55rem;
+    border-radius: var(--radius-full);
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.format-chip-btn:hover {
+    color: var(--text-ink);
+    background: var(--bg-subtle);
+}
+
+.format-chip-btn.active {
+    background: var(--bg-paper);
+    color: var(--accent-gold);
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Detail-Filter Drawer Toggle Button */
+.command-filter-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-sans);
+    font-size: 0.76rem;
+    font-weight: 600;
+    padding: 0.32rem 0.75rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-hairline);
+    background: var(--bg-canvas);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.command-filter-toggle-btn:hover,
+.command-filter-toggle-btn.active {
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
+    background: var(--accent-gold-soft);
+}
+
+.filter-count-badge {
+    font-family: var(--font-sans);
+    font-variant-numeric: tabular-nums;
+    font-size: 0.66rem;
+    font-weight: 700;
+    background: var(--accent-gold);
+    color: #121417;
+    border-radius: var(--radius-full);
+    padding: 0.1rem 0.4rem;
+}
+
+.command-reset-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--accent-gold);
+    background: var(--accent-gold-soft);
+    color: var(--accent-gold);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.command-reset-btn:hover {
+    background: var(--accent-gold);
+    color: #121417;
+}
+
+/* D. Aufklappbare Detail-Filter (Progressive Disclosure) */
+.command-advanced-drawer {
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--border-subtle);
+    animation: cosmosFadeIn 0.25s var(--ease-cosmos);
+}
+
+.drawer-quick-filter-row {
+    margin-bottom: 0.95rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--border-hairline);
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.drawer-chips-wrap {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    width: 100%;
+    scrollbar-width: thin;
+    padding-bottom: 0.2rem;
+}
+
+.command-filter-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+}
+
+@media (max-width: 860px) {
+    .command-filter-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.command-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.command-field-label {
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-subtle);
+}
+
+.command-select-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: var(--bg-canvas);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-sm);
+    padding: 0.42rem 0.65rem;
+    transition: all var(--transition-fast);
+}
+
+[data-theme="dark"] .command-select-box {
+    background: var(--bg-subtle);
+    border-color: var(--border-hairline);
+}
+
+.command-select-box svg {
+    color: var(--text-subtle);
+    flex-shrink: 0;
+    margin-right: 0.45rem;
+    pointer-events: none;
+}
+
+.command-select-box:hover,
+.command-select-box:focus-within {
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 0 2px var(--accent-gold-soft);
+    background: var(--bg-paper);
+}
+
+.command-select {
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    background: transparent;
+    color: var(--text-ink);
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding-right: 1.25rem;
+    cursor: pointer;
+    outline: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238A8883' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 11px;
+}
+
+.command-select option {
+    background: var(--bg-paper);
+    color: var(--text-ink);
+}
+
+
+
+/* ─── Mobile WebApp & PWA Ergonomics ─────────────────────────────────────── */
+
+html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+body {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    overflow-x: hidden;
+}
+
+/* Eliminate 300ms mobile touch delay on interactive controls */
+button,
+.nav-btn,
+.nav-icon-circle,
+.dock-brand,
+.filter-chip,
+.command-btn,
+.format-pill-btn,
+.source-link-icon-btn,
+.pillar-card,
+.doc-card,
+.close-modal-btn,
+.dock-icon-btn,
+.subfilter-btn,
+.jump-pill,
+.quick-chip-btn,
+.author-chip-btn,
+.comp-chip-btn,
+.ruhi-chip-btn {
+    touch-action: manipulation;
+}
+
+/* Smooth momentum scrolling for iOS containers */
+.viewer-body,
+.quick-chips-scroller,
+.advanced-filters-panel,
+.books-subnav,
+.tab-scroller,
+.unfold-svg-container,
+.target-pills,
+.sources-jump-pills,
+.inspector-subfilters,
+.modal-actions {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Standalone PWA display mode (when opened from mobile Home Screen) */
+@media (display-mode: standalone) {
+    body {
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    /* Keep text in reading canvas selectable */
+    .viewer-reading-canvas,
+    .doc-card-title,
+    .doc-preview-snippet,
+    .quote-content,
+    input,
+    textarea {
+        user-select: text;
+        -webkit-user-select: text;
+    }
+
+    /* In standalone mode, retain floating dock clearance */
+    @media (max-width: 768px) {
+        .cosmos-dock-container {
+            bottom: 14px !important;
+            bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important;
+            top: auto !important;
+        }
+    }
+
+    /* Generous bottom padding for home indicator bar */
+    .app-footer {
+        padding-bottom: max(2rem, env(safe-area-inset-bottom, 0px));
+    }
+}
+

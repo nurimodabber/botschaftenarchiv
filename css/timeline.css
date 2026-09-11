@@ -1,0 +1,820 @@
+/* timeline.css — Historischer Vektor-Zeitstrahl & Epochen-Explorer */
+/* ─── Timeline / Entfaltung des Glaubens (Diagram & Selector) ────────────── */
+
+/* ─── Timeline / Unfoldment of the Bahá'í Faith (Authentic Vector Canvas) ─ */
+
+.unfold-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    background: var(--bg-paper);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1.25rem;
+    margin: 0 auto 1.5rem;
+    max-width: 1150px;
+    box-shadow: var(--shadow-plate);
+}
+
+.unfold-tool-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.unfold-lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.unfold-lang-btn {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-full);
+    background: var(--bg-canvas);
+    border: 1px solid var(--border-hairline);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.unfold-lang-btn:hover {
+    border-color: var(--accent-gold);
+    color: var(--text-ink);
+}
+
+.unfold-lang-btn.active {
+    background: var(--accent-gold);
+    border-color: var(--accent-gold);
+    color: #FFFFFF;
+    box-shadow: 0 2px 6px var(--accent-gold-glow);
+}
+
+[data-theme="dark"] .unfold-lang-btn.active {
+    color: #121417;
+}
+
+.unfold-scrubber-box {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex: 1;
+    max-width: 480px;
+    justify-content: flex-end;
+}
+
+.unfold-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    max-width: 240px;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--bg-subtle);
+    outline: none;
+    cursor: pointer;
+    border: 1px solid var(--border-hairline);
+}
+
+.unfold-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent-gold);
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    cursor: pointer;
+    transition: transform var(--transition-fast);
+}
+
+.unfold-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.25);
+}
+
+/* SVG Graphic Canvas */
+.unfold-svg-container {
+    background: var(--bg-paper);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem 1.25rem 1.25rem;
+    box-shadow: var(--shadow-plate);
+    max-width: 1400px;
+    margin: 0 auto 2rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    transition: background-color var(--transition-normal), border-color var(--transition-normal);
+}
+
+.unfold-svg {
+    min-width: 1100px;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.unfold-node {
+    transition: transform var(--transition-fast), filter var(--transition-fast), opacity var(--transition-fast);
+}
+
+.unfold-node:hover {
+    opacity: 0.92;
+    filter: drop-shadow(0 4px 10px rgba(197, 160, 89, 0.45));
+}
+
+.unfold-node.active-node .svg-bar,
+.unfold-node.active-node .svg-plan-rect {
+    stroke: var(--accent-gold) !important;
+    stroke-width: 2.5px !important;
+    filter: drop-shadow(0 0 8px var(--accent-gold-glow));
+}
+
+.svg-text-bold {
+    font-family: var(--font-serif-display);
+    font-weight: 700;
+    font-size: 11.5px;
+    letter-spacing: 0.03em;
+}
+
+.svg-ruler-text {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    fill: var(--text-muted);
+}
+
+.svg-vertical-text {
+    font-family: var(--font-serif-display);
+    font-size: 10.5px;
+    font-weight: 600;
+    fill: var(--text-ink);
+    letter-spacing: 0.04em;
+}
+
+.svg-bracket-text {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    fill: var(--text-ink);
+}
+
+.svg-bracket-text-red {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 700;
+    fill: #E53935;
+}
+
+.svg-axis-label {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    font-weight: 600;
+    fill: var(--text-muted);
+}
+
+/* Inspector Card */
+.unfold-inspector-card {
+    background: var(--bg-paper);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-lg);
+    padding: 2.25rem;
+    box-shadow: var(--shadow-plate);
+    max-width: 1400px;
+    margin: 0 auto;
+    transition: all var(--transition-normal);
+}
+
+.inspector-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.inspector-meta-left {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+}
+
+.inspector-category-badge {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-gold);
+    background: var(--accent-gold-soft);
+    padding: 0.25rem 0.65rem;
+    border-radius: 4px;
+    border: 1px solid rgba(197, 160, 89, 0.25);
+}
+
+.inspector-period-tag {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.inspector-stats {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.stat-pill {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--radius-full);
+    background: var(--bg-canvas);
+    border: 1px solid var(--border-hairline);
+    color: var(--text-ink);
+}
+
+.inspector-title {
+    font-family: var(--font-serif-display);
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--text-ink);
+    margin: 0 0 0.85rem;
+}
+
+.inspector-desc {
+    font-family: var(--font-sans);
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin: 0 0 1.25rem;
+    max-width: 900px;
+}
+
+.inspector-quote {
+    background: var(--bg-canvas);
+    border-left: 3px solid var(--accent-gold);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 1.15rem 1.5rem;
+    margin: 0 0 2rem;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--text-ink);
+}
+
+.inspector-quote cite {
+    display: block;
+    margin-top: 0.5rem;
+    font-family: var(--font-mono);
+    font-style: normal;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.inspector-docs-section {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.inspector-docs-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.inspector-docs-heading {
+    font-family: var(--font-serif-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-ink);
+    margin: 0;
+}
+
+.inspector-subfilters {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.subfilter-btn {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: var(--radius-full);
+    background: var(--bg-canvas);
+    border: 1px solid var(--border-hairline);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.subfilter-btn:hover {
+    border-color: var(--accent-gold);
+    color: var(--text-ink);
+}
+
+.subfilter-btn.active {
+    background: var(--text-ink);
+    color: var(--bg-paper);
+    border-color: var(--text-ink);
+}
+
+[data-theme="dark"] .subfilter-btn.active {
+    background: var(--accent-gold);
+    color: #121417;
+    border-color: var(--accent-gold);
+}
+
+.subfilter-btn.subfilter-milestones {
+    background: var(--accent-gold-soft);
+    color: var(--accent-gold);
+    border-color: rgba(197, 160, 89, 0.45);
+    font-weight: 600;
+}
+
+.subfilter-btn.subfilter-milestones:hover {
+    border-color: var(--accent-gold);
+    background: var(--accent-gold);
+    color: #fff;
+}
+
+.subfilter-btn.subfilter-milestones.active {
+    background: var(--accent-gold);
+    color: #121417;
+    border-color: var(--accent-gold);
+    font-weight: 700;
+}
+
+.stat-pill.stat-pill-milestone {
+    background: var(--accent-gold-soft);
+    color: var(--accent-gold);
+    border-color: rgba(197, 160, 89, 0.35);
+}
+
+/* Schlüssel-Botschaft Tag */
+.doc-milestone-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.12rem 0.45rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: var(--radius-xs);
+    background: var(--accent-gold-soft);
+    color: var(--accent-gold);
+    border: 1px solid rgba(197, 160, 89, 0.3);
+}
+
+/* Card Highlight für Schlüssel-Botschaften */
+.doc-card.is-milestone {
+    border-color: rgba(197, 160, 89, 0.35);
+    background: linear-gradient(to bottom, var(--bg-paper), var(--bg-canvas));
+}
+
+.doc-card.is-milestone:hover {
+    border-color: var(--accent-gold);
+    box-shadow: 0 4px 18px rgba(197, 160, 89, 0.14);
+}
+
+/* Meilensteine-Spotlight im Timeline-Inspektor */
+.inspector-milestones-spotlight {
+    margin-bottom: 2rem;
+    background: var(--bg-canvas);
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+}
+
+.spotlight-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-hairline);
+    padding-bottom: 0.65rem;
+}
+
+.spotlight-title {
+    font-family: var(--font-serif-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--accent-gold);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.spotlight-sub {
+    font-family: var(--font-sans);
+    font-size: 0.76rem;
+    color: var(--text-muted);
+}
+
+.spotlight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 0.85rem;
+}
+
+.spotlight-card {
+    background: var(--bg-paper);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-sm);
+    padding: 0.95rem 1.15rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.65rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.spotlight-card:hover {
+    border-color: var(--accent-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.spotlight-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.spotlight-date {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent-gold);
+    font-weight: 600;
+}
+
+.spotlight-card-title {
+    font-family: var(--font-serif-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--text-ink);
+    margin: 0;
+}
+
+.spotlight-reason {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.spotlight-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.2rem;
+}
+
+.inspector-docs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.25rem;
+}
+
+
+
+/* ─── Präziser Zeitstrahl (Historical Continuity) ────────────────────────── */
+
+.t-century-btn {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--radius-xs);
+    background: var(--bg-paper);
+    border: 1px solid var(--border-hairline);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.t-century-btn:hover:not(:disabled) {
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
+}
+
+.t-century-btn.active-century {
+    background: var(--accent-gold-soft);
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
+    font-weight: 700;
+}
+
+.t-century-future {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-style: dashed;
+}
+
+.t-age-card {
+    border-radius: var(--radius-sm);
+    padding: 0.85rem 1.15rem;
+    border: 1px solid var(--border-hairline);
+    background: var(--bg-subtle);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.t-age-card:hover {
+    border-color: var(--accent-gold);
+    transform: translateY(-1px);
+}
+
+.t-age-heroic {
+    flex: 1.2;
+}
+
+.t-age-formative {
+    flex: 3.2;
+}
+
+.t-age-formative.active-age {
+    background: var(--accent-gold-soft);
+    border-color: var(--accent-gold);
+}
+
+.t-age-golden {
+    flex: 1;
+    border-style: dashed;
+    opacity: 0.7;
+    cursor: default;
+}
+
+.t-age-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.t-age-title {
+    font-family: var(--font-serif-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-ink);
+}
+
+.t-age-sub {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+.t-epoch-pill {
+    flex: 1;
+    min-width: 120px;
+    background: var(--bg-paper);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-sm);
+    padding: 0.65rem 0.85rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.t-epoch-pill:hover {
+    border-color: var(--accent-gold);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-plate);
+}
+
+.t-epoch-pill.active-epoch {
+    background: var(--text-ink);
+    border-color: var(--text-ink);
+    color: var(--bg-paper);
+}
+
+[data-theme="dark"] .t-epoch-pill.active-epoch {
+    background: var(--accent-gold);
+    border-color: var(--accent-gold);
+    color: #121417;
+}
+
+.t-epoch-pill.active-epoch .epoch-pill-title,
+.t-epoch-pill.active-epoch .epoch-pill-years {
+    color: inherit;
+}
+
+.epoch-pill-title {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--text-ink);
+}
+
+.epoch-pill-years {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    margin-top: 0.15rem;
+}
+
+.t-epoch-static {
+    opacity: 0.8;
+}
+
+.epoch-current-badge {
+    position: relative;
+    border-color: #D93025 !important;
+}
+
+/* Tafeln des Göttlichen Plans Segmente */
+.t-divine-label {
+    font-family: var(--font-serif-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-ink);
+}
+
+.t-divine-segments {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.t-divine-pill {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: var(--radius-xs);
+    background: var(--bg-paper);
+    border: 1px solid var(--border-hairline);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.t-divine-pill:hover {
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
+}
+
+.t-divine-pill.active-divine {
+    background: rgba(43, 76, 126, 0.08);
+    border-color: #2B4C7E;
+    color: #2B4C7E;
+    font-weight: 600;
+}
+
+.t-divine-pill.active-red {
+    background: rgba(217, 48, 37, 0.08);
+    border-color: #D93025;
+    color: #D93025;
+    font-weight: 600;
+}
+
+.t-divine-pill.active-selected-divine {
+    box-shadow: 0 0 0 2px var(--accent-gold);
+}
+
+/* Lehrpläne Reihe */
+.t-plans-carousel-container {
+    overflow-x: auto;
+    padding: 0.6rem 0.2rem 1rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+}
+
+.t-plans-carousel-container::-webkit-scrollbar {
+    height: 5px;
+}
+
+.t-plans-carousel-container::-webkit-scrollbar-thumb {
+    background: var(--border-hover);
+    border-radius: var(--radius-full);
+}
+
+.t-plans-chain {
+    display: flex;
+    gap: 0.6rem;
+    min-width: max-content;
+    padding: 0.25rem 0.25rem;
+}
+
+.t-plan-card {
+    background: var(--bg-paper);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 0.95rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    min-width: 105px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.t-plan-card:hover {
+    border-color: var(--accent-gold);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+.t-plan-card.active-plan {
+    border-color: var(--accent-gold);
+    background: var(--accent-gold);
+    color: #FFFFFF;
+    box-shadow: 0 6px 18px var(--accent-gold-glow);
+    transform: translateY(-2px);
+}
+
+.t-plan-card.active-plan .plan-code-badge,
+.t-plan-card.active-plan .plan-years-text,
+.t-plan-card.active-plan .plan-count-chip {
+    color: #FFFFFF;
+}
+
+.t-plan-card.plan-transition {
+    border-color: #E67E22;
+}
+
+.t-plan-card.plan-current {
+    border-color: #D93025;
+}
+
+.t-plan-card.plan-current.active-plan {
+    background: #D93025;
+    border-color: #D93025;
+}
+
+.plan-card-top {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.plan-code-badge {
+    font-family: var(--font-mono);
+    font-weight: 800;
+    font-size: 0.88rem;
+    color: var(--text-ink);
+}
+
+.plan-current-tag {
+    background: #D93025;
+    color: #FFFFFF;
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    font-weight: 800;
+    padding: 1px 4px;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+}
+
+.plan-years-text {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+.plan-count-chip {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-full);
+    background: var(--bg-subtle);
+    color: var(--text-subtle);
+    white-space: nowrap;
+}
+

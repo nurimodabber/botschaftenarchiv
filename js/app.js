@@ -1,59 +1,15 @@
-// Safe LocalStorage helpers
-function safeGetStorage(key, defaultVal) {
-    try {
-        const val = localStorage.getItem(key);
-        return val !== null ? val : defaultVal;
-    } catch (e) {
-        return defaultVal;
-    }
-}
-function safeSetStorage(key, val) {
-    try {
-        localStorage.setItem(key, val);
-    } catch (e) {}
-}
-window.safeGetStorage = safeGetStorage;
-window.safeSetStorage = safeSetStorage;
+/**
+ * app.js
+ * Haupt-Controller fuer Bibliothek, Filterung, Routing und Volltextsuche.
+ */
+(function() {
+    const state = window.state;
+    const safeGetStorage = window.safeGetStorage;
+    const safeSetStorage = window.safeSetStorage;
 
-// Analytics Helper (Vercel Web Analytics)
-window.trackEvent = function(name, data = {}) {
-    if (typeof window.va === 'function') {
-        try {
-            window.va('event', { name, ...data });
-        } catch (e) {}
-    }
-};
-
-// Global Application State
-window.state = {
-    documents: [],
-    bookmarks: (() => {
-        try { return JSON.parse(safeGetStorage('bookmarks', '[]')); }
-        catch (e) { return []; }
-    })(),
-    theme: safeGetStorage('theme', 'light'),
-    currentView: 'library',
-    library: {
-        segment: 'house',
-        author: 'all',
-        compTopic: 'all',
-        ruhiGroup: 'all',
-        advancedFiltersOpen: false,
-        recipient: 'all',
-        epoch: '',
-        type: '',
-        lang: '',
-        format: 'all',
-        sort: 'date-desc',
-        query: '',
-        results: [],
-        renderedCount: 0
-    },
-    savedTab: 'bookmarks',
-    collectionsSubView: 'compilations'
-};
-const state = window.state;
+// State & Storage Helpers aus modularer state.js
 const APP_PAGE_SIZE = 30;
+
 
 // Initialize Application
 async function initApp() {
@@ -63,6 +19,7 @@ async function initApp() {
 
     // Ensure pristine filter state on application start (guarantees NO sticky filters on launch)
     if (state.library) {
+        state.library.segment = 'all';
         state.library.lang = '';
         state.library.query = '';
         state.library.recipient = 'all';
@@ -113,7 +70,6 @@ async function initApp() {
     
     // 2. Safely initialize modules
     try {
-        if (window.initSearch) window.initSearch(state.documents);
     } catch (e) { console.warn('Search init:', e); }
 
     try {
@@ -149,799 +105,18 @@ async function initApp() {
 }
 
 // ─── Unified Appearance & Visual Customizations ────────────────────────────
+// ─── Ausgelagerte Module: Settings, Filters & Snippets ──────────────────
 function setupAppearance() {
-    const html = document.documentElement;
-
-    // 0. Default Viewer Format Setting (pdf / text / web / auto)
-    const savedViewerFormat = safeGetStorage('cosmos_default_viewer_mode', 'pdf');
-
-    function applyDefaultViewerFormat(fmt) {
-        const validFormat = (fmt === 'text' || fmt === 'web' || fmt === 'auto' || fmt === 'pdf') ? fmt : 'pdf';
-        safeSetStorage('cosmos_default_viewer_mode', validFormat);
-
-        document.querySelectorAll('#appearance-format-group .appearance-opt-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.formatVal === validFormat);
-        });
+    if (window.SettingsModule && typeof window.SettingsModule.setupAppearance === 'function') {
+        window.SettingsModule.setupAppearance();
     }
-
-    // 0b. Master-Language Setting (Deutsch 'de' / English 'en')
-    // Steuert die Sprache der gesamten Benutzeroberflaeche sowie die Standard-Lesesprache
-    let storedLang = safeGetStorage('cosmos_master_lang', safeGetStorage('cosmos_preferred_lang_v2', safeGetStorage('cosmos_preferred_lang', 'de')));
-    if (storedLang === 'english') storedLang = 'en';
-    if (storedLang === 'deutsch' || storedLang === 'all' || !storedLang) storedLang = 'de';
-    const savedLanguage = (storedLang === 'en') ? 'en' : 'de';
-
-    function applyLanguage(langVal) {
-        const validLang = (langVal === 'en' || langVal === 'english') ? 'en' : 'de';
-        safeSetStorage('cosmos_master_lang', validLang);
-        safeSetStorage('cosmos_preferred_lang', validLang === 'en' ? 'english' : 'deutsch');
-        safeSetStorage('cosmos_preferred_lang_v2', validLang);
-
-        if (window.I18n && window.I18n.setLanguage) {
-            window.I18n.setLanguage(validLang);
-        }
-
-        document.querySelectorAll('#appearance-language-group .appearance-opt-btn').forEach(btn => {
-            const val = btn.dataset.langVal;
-            const isActive = (val === validLang) || (val === 'english' && validLang === 'en') || (val === 'deutsch' && validLang === 'de');
-            btn.classList.toggle('active', isActive);
-        });
-
-        // Synchronize timeline and books if available (library filter remains clean/unfiltered on startup)
-        if (window.TimelineModule && window.TimelineModule.setLanguage) {
-            window.TimelineModule.setLanguage(validLang);
-        }
-
-        // Synchronize with books if available
-        if (window.BooksModule && window.BooksModule.setLang) {
-            window.BooksModule.setLang(validLang === 'en' ? 'english' : 'deutsch');
-        }
-
-        if (typeof updateDrawerFilterOptions === 'function') {
-            updateDrawerFilterOptions(state.library ? (state.library.segment || 'house') : 'house');
-        }
-
-        if (typeof applyLibraryFilters === 'function' && window.state && window.state.documents && window.state.documents.length > 0) {
-            applyLibraryFilters();
-        }
-    }
-
-    // 1. Theme Setting (light / sepia / dark / oled)
-    const savedTheme = safeGetStorage('cosmos_theme', safeGetStorage('theme', 'light'));
-    
-    function applyTheme(theme) {
-        const validTheme = (theme === 'dark' || theme === 'sepia' || theme === 'oled') ? theme : 'light';
-        html.setAttribute('data-theme', validTheme);
-        safeSetStorage('cosmos_theme', validTheme);
-        safeSetStorage('theme', validTheme);
-        state.theme = validTheme;
-
-        // Update Theme Tab Buttons
-        document.querySelectorAll('#appearance-theme-tabs .theme-tab-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.themeVal === validTheme);
-        });
-
-        // Update Dock Pill Icon
-        const dockThemeIcon = document.getElementById('dock-theme-icon');
-        if (dockThemeIcon) {
-            if (validTheme === 'light') {
-                dockThemeIcon.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>`;
-            } else if (validTheme === 'sepia') {
-                dockThemeIcon.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/></svg>`;
-            } else if (validTheme === 'dark') {
-                dockThemeIcon.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
-            } else if (validTheme === 'oled') {
-                dockThemeIcon.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 0 20z" fill="currentColor"/></svg>`;
-            }
-        }
-    }
-
-    // 2. Accent Color Setting
-    const defaultColor = '#C5A059';
-    const savedColor = safeGetStorage('cosmos_accent_color', defaultColor);
-
-    function applyAccentColor(hex) {
-        if (!hex || !hex.startsWith('#') || (hex.length !== 7 && hex.length !== 4)) return;
-        
-        let fullHex = hex;
-        if (hex.length === 4) {
-            fullHex = '#' + hex[1] + hex[1] + hex[2] + hex[2] + hex[3] + hex[3];
-        }
-
-        const r = parseInt(fullHex.slice(1, 3), 16) || 197;
-        const g = parseInt(fullHex.slice(3, 5), 16) || 160;
-        const b = parseInt(fullHex.slice(5, 7), 16) || 89;
-
-        const rH = Math.max(0, Math.min(255, Math.round(r * 1.12)));
-        const gH = Math.max(0, Math.min(255, Math.round(g * 1.12)));
-        const bH = Math.max(0, Math.min(255, Math.round(b * 1.12)));
-        const hexHover = `rgb(${rH}, ${gH}, ${bH})`;
-
-        html.style.setProperty('--accent-gold', fullHex);
-        html.style.setProperty('--accent-gold-hover', hexHover);
-        html.style.setProperty('--accent-gold-soft', `rgba(${r}, ${g}, ${b}, 0.14)`);
-        html.style.setProperty('--accent-gold-glow', `rgba(${r}, ${g}, ${b}, 0.28)`);
-        html.style.setProperty('--border-focus', `rgba(${r}, ${g}, ${b}, 0.55)`);
-
-        safeSetStorage('cosmos_accent_color', fullHex);
-
-        const hexInput = document.getElementById('accent-hex-input');
-        if (hexInput && document.activeElement !== hexInput && hexInput.value.toLowerCase() !== fullHex.toLowerCase()) {
-            hexInput.value = fullHex.toUpperCase();
-        }
-
-        const previewBadge = document.getElementById('accent-current-preview-badge');
-        if (previewBadge) {
-            previewBadge.style.backgroundColor = fullHex;
-            previewBadge.style.boxShadow = `0 0 5px ${fullHex}`;
-        }
-
-        const wheelBox = document.getElementById('wheel-color-preview-box');
-        if (wheelBox) {
-            wheelBox.style.backgroundColor = fullHex;
-        }
-
-        const standardColors = ['#c5a059', '#2b4c7e', '#c86432'];
-        const isStandard = standardColors.includes(fullHex.toLowerCase());
-
-        document.querySelectorAll('.accent-swatch').forEach(sw => {
-            if (sw.classList.contains('accent-swatch-custom')) {
-                sw.classList.toggle('active', !isStandard);
-                if (!isStandard) {
-                    sw.style.background = fullHex;
-                } else {
-                    sw.style.background = 'conic-gradient(from 180deg at 50% 50%, #E53935, #FB8C00, #FDD835, #43A047, #1E88E5, #8E24AA, #E53935)';
-                }
-            } else {
-                sw.classList.toggle('active', (sw.dataset.color || '').toLowerCase() === fullHex.toLowerCase());
-            }
-        });
-    }
-
-    // 3. Reader Font Setting (serif / sans / classic)
-    const savedFont = safeGetStorage('cosmos_reader_font', 'serif');
-
-    function applyReaderFont(font) {
-        const validFont = (font === 'sans' || font === 'classic') ? font : 'serif';
-        html.setAttribute('data-reader-font', validFont);
-        safeSetStorage('cosmos_reader_font', validFont);
-
-        document.querySelectorAll('#appearance-font-group .appearance-opt-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.fontVal === validFont);
-        });
-    }
-
-    // 4. Reader Line Height (compact / normal / relaxed)
-    const savedLh = safeGetStorage('cosmos_reader_lh', 'normal');
-
-    function applyLineHeight(lh) {
-        const validLh = (lh === 'compact' || lh === 'relaxed') ? lh : 'normal';
-        html.setAttribute('data-reader-lh', validLh);
-        safeSetStorage('cosmos_reader_lh', validLh);
-
-        document.querySelectorAll('#appearance-line-height-group .appearance-opt-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.lhVal === validLh);
-        });
-    }
-
-    // 5. Reader Text Alignment (justify / left)
-    const savedAlign = safeGetStorage('cosmos_reader_align', 'justify');
-
-    function applyTextAlign(align) {
-        const validAlign = (align === 'left') ? 'left' : 'justify';
-        html.setAttribute('data-reader-align', validAlign);
-        safeSetStorage('cosmos_reader_align', validAlign);
-
-        document.querySelectorAll('#appearance-align-group .appearance-opt-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.alignVal === validAlign);
-        });
-    }
-
-    // 6. Reader Width Setting (normal / wide / full)
-    const savedWidth = safeGetStorage('cosmos_reader_width', 'normal');
-
-    function applyReaderWidth(width) {
-        const validWidth = (width === 'wide' || width === 'full') ? width : 'normal';
-        html.setAttribute('data-reader-width', validWidth);
-        safeSetStorage('cosmos_reader_width', validWidth);
-
-        document.querySelectorAll('#appearance-width-group .appearance-opt-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.widthVal === validWidth);
-        });
-    }
-
-    // 7. Font Scale Setting (85% to 135%)
-    const savedScale = parseInt(safeGetStorage('cosmos_reader_font_scale', '100'), 10) || 100;
-
-    function applyFontScale(scaleVal) {
-        const clamped = Math.max(85, Math.min(135, scaleVal));
-        html.style.setProperty('--reader-font-scale', (clamped / 100).toString());
-        safeSetStorage('cosmos_reader_font_scale', clamped.toString());
-
-        const display = document.getElementById('appearance-size-display');
-        if (display) display.textContent = `${clamped}%`;
-
-        const slider = document.getElementById('appearance-size-slider');
-        if (slider && parseInt(slider.value, 10) !== clamped) slider.value = clamped;
-    }
-
-    // 8. Library View Mode (cards / list)
-    const savedLibView = (() => {
-        const raw = safeGetStorage('cosmos_library_view', safeGetStorage('cosmos_library_view_mode', 'cards'));
-        return raw === 'list' ? 'list' : 'cards';
-    })();
-
-    function applyLibraryView(viewMode) {
-        const validView = (viewMode === 'list') ? 'list' : 'cards';
-        html.setAttribute('data-library-view', validView);
-        safeSetStorage('cosmos_library_view', validView);
-        if (window.state && window.state.library) {
-            window.state.library.viewMode = (validView === 'list' ? 'list' : 'grid');
-        }
-        safeSetStorage('cosmos_library_view_mode', validView === 'list' ? 'list' : 'grid');
-
-        const resultsGrid = document.getElementById('library-results');
-        if (resultsGrid) {
-            resultsGrid.classList.toggle('list-view', validView === 'list');
-        }
-
-        const cardsBtn = document.getElementById('view-mode-cards-btn');
-        const listBtn = document.getElementById('view-mode-list-btn');
-        if (cardsBtn) cardsBtn.classList.toggle('active', validView === 'cards');
-        if (listBtn) listBtn.classList.toggle('active', validView === 'list');
-
-        document.querySelectorAll('#appearance-library-view-group .appearance-opt-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.libView === validView);
-        });
-    }
-    window.applyLibraryView = applyLibraryView;
-
-    // Initialize all settings
-    applyDefaultViewerFormat(savedViewerFormat);
-    applyLanguage(savedLanguage);
-    applyTheme(savedTheme);
-    applyAccentColor(savedColor);
-    applyReaderFont(savedFont);
-    applyLineHeight(savedLh);
-    applyTextAlign(savedAlign);
-    applyReaderWidth(savedWidth);
-    applyFontScale(savedScale);
-    applyLibraryView(savedLibView);
-
-    // Wire up Popover Toggle & Events
-    const toggleBtn = document.getElementById('appearance-btn');
-    const popover = document.getElementById('appearance-popover');
-    const resetBtn = document.getElementById('appearance-reset-btn');
-
-    function syncSettingsContainer() {
-        const isMobile = window.innerWidth <= 768;
-        const panel = document.getElementById('settings-panel-content');
-        const pop = document.getElementById('appearance-popover');
-        const pageMount = document.getElementById('settings-page-mount');
-        if (!panel || !pop || !pageMount) return;
-
-        if (isMobile) {
-            if (panel.parentElement !== pageMount) {
-                pageMount.appendChild(panel);
-            }
-            pop.hidden = true;
-        } else {
-            if (panel.parentElement !== pop) {
-                pop.appendChild(panel);
-            }
-            if (state.currentView === 'settings') {
-                window.switchView('library');
-            }
-        }
-    }
-
-    syncSettingsContainer();
-    window.addEventListener('resize', syncSettingsContainer);
-
-    if (toggleBtn && popover) {
-        toggleBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (window.innerWidth <= 768) {
-                window.switchView('settings');
-            } else {
-                const isHidden = popover.hidden;
-                popover.hidden = !isHidden;
-                toggleBtn.classList.toggle('active', !popover.hidden);
-            }
-        });
-
-        document.addEventListener('click', (e) => {
-            if (window.innerWidth > 768 && !popover.hidden && !popover.contains(e.target) && !toggleBtn.contains(e.target)) {
-                popover.hidden = true;
-                toggleBtn.classList.remove('active');
-            }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !popover.hidden) {
-                popover.hidden = true;
-                toggleBtn.classList.remove('active');
-            }
-        });
-    }
-
-    // Theme Button Clicks
-    document.querySelectorAll('#appearance-theme-tabs .theme-tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            applyTheme(btn.dataset.themeVal);
-        });
-    });
-
-    // Swatches (3 Standardempfehlungen)
-    document.querySelectorAll('.accent-swatch:not(.accent-swatch-custom)').forEach(sw => {
-        sw.addEventListener('click', () => {
-            if (sw.dataset.color) applyAccentColor(sw.dataset.color);
-        });
-    });
-
-    // Color conversion helpers for Pop-up Farbrad
-    function hslToRgb(h, s, l) {
-        s = Math.max(0, Math.min(1, s));
-        l = Math.max(0, Math.min(1, l));
-        const c = (1 - Math.abs(2 * l - 1)) * s;
-        const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
-        const m = l - c / 2;
-        let r = 0, g = 0, b = 0;
-        if (0 <= h && h < 60) { r = c; g = x; b = 0; }
-        else if (60 <= h && h < 120) { r = x; g = c; b = 0; }
-        else if (120 <= h && h < 180) { r = 0; g = c; b = x; }
-        else if (180 <= h && h < 240) { r = 0; g = x; b = c; }
-        else if (240 <= h && h < 300) { r = x; g = 0; b = c; }
-        else if (300 <= h && h <= 360) { r = c; g = 0; b = x; }
-        return [
-            Math.round((r + m) * 255),
-            Math.round((g + m) * 255),
-            Math.round((b + m) * 255)
-        ];
-    }
-
-    function hslToHex(h, s, l) {
-        const rgb = hslToRgb(h, s, l);
-        const toHex = val => val.toString(16).padStart(2, '0');
-        return `#${toHex(rgb[0])}${toHex(rgb[1])}${toHex(rgb[2])}`;
-    }
-
-    function hexToHsl(hex) {
-        let c = hex.replace('#', '');
-        if (c.length === 3) c = c.split('').map(x => x + x).join('');
-        const num = parseInt(c, 16);
-        const r = ((num >> 16) & 255) / 255;
-        const g = ((num >> 8) & 255) / 255;
-        const b = (num & 255) / 255;
-        const max = Math.max(r, g, b), min = Math.min(r, g, b);
-        let h = 0, s = 0, l = (max + min) / 2;
-        if (max !== min) {
-            const d = max - min;
-            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-            switch (max) {
-                case r: h = ((g - b) / d + (g < b ? 6 : 0)) * 60; break;
-                case g: h = ((b - r) / d + 2) * 60; break;
-                case b: h = ((r - g) / d + 4) * 60; break;
-            }
-        }
-        return { h: Math.round(h), s: Math.round(s * 100) / 100, l: Math.round(l * 100) / 100 };
-    }
-
-    // 4. Interaktives Pop-up Farbrad für Akzentfarbe
-    function initColorWheel() {
-        const canvas = document.getElementById('color-wheel-canvas');
-        const popover = document.getElementById('accent-color-wheel-popover');
-        const customSwatch = document.getElementById('accent-swatch-custom');
-        const crosshair = document.getElementById('wheel-crosshair');
-        const slider = document.getElementById('wheel-lightness-slider');
-        const previewBox = document.getElementById('wheel-color-preview-box');
-        const hexInput = document.getElementById('accent-hex-input');
-        const applyBtn = document.getElementById('wheel-apply-btn');
-        const closeBtn = document.getElementById('wheel-close-btn');
-
-        if (!canvas || !popover || !customSwatch) return;
-
-        const ctx = canvas.getContext('2d');
-        const width = canvas.width;
-        const height = canvas.height;
-        const cx = width / 2;
-        const cy = height / 2;
-        const radius = cx - 4;
-
-        // Farbrad einmalig auf das Canvas zeichnen
-        const imgData = ctx.createImageData(width, height);
-        const d = imgData.data;
-
-        for (let y = 0; y < height; y++) {
-            for (let x = 0; x < width; x++) {
-                const dx = x - cx;
-                const dy = y - cy;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                const idx = (y * width + x) * 4;
-
-                if (dist <= radius) {
-                    let angle = Math.atan2(dy, dx) * (180 / Math.PI);
-                    if (angle < 0) angle += 360;
-                    const sat = dist / radius;
-                    const rgb = hslToRgb(angle, sat, 0.5);
-                    d[idx] = rgb[0];
-                    d[idx + 1] = rgb[1];
-                    d[idx + 2] = rgb[2];
-                    d[idx + 3] = (radius - dist < 1.2) ? Math.round((radius - dist) * 255) : 255;
-                } else {
-                    d[idx + 3] = 0;
-                }
-            }
-        }
-        ctx.putImageData(imgData, 0, 0);
-
-        let currentHue = 42;
-        let currentSat = 0.55;
-        let currentLightness = 0.56;
-        let isDragging = false;
-
-        function updateCrosshair(h, s) {
-            if (!crosshair) return;
-            const angleRad = h * (Math.PI / 180);
-            const dist = s * radius;
-            const px = cx + Math.cos(angleRad) * dist;
-            const py = cy + Math.sin(angleRad) * dist;
-            crosshair.style.left = `${px}px`;
-            crosshair.style.top = `${py}px`;
-        }
-
-        function syncFromHex(hex) {
-            const hsl = hexToHsl(hex);
-            currentHue = hsl.h;
-            currentSat = hsl.s;
-            currentLightness = Math.max(0.18, Math.min(0.82, hsl.l));
-            updateCrosshair(currentHue, currentSat);
-            if (slider) slider.value = Math.round(currentLightness * 100);
-            if (previewBox) previewBox.style.backgroundColor = hex;
-            if (hexInput && document.activeElement !== hexInput) hexInput.value = hex.toUpperCase();
-        }
-
-        function handlePointer(e) {
-            const rect = canvas.getBoundingClientRect();
-            const scaleX = width / rect.width;
-            const scaleY = height / rect.height;
-            const px = (e.clientX - rect.left) * scaleX;
-            const py = (e.clientY - rect.top) * scaleY;
-            const dx = px - cx;
-            const dy = py - cy;
-            const dist = Math.min(radius, Math.sqrt(dx * dx + dy * dy));
-            let angle = Math.atan2(dy, dx) * (180 / Math.PI);
-            if (angle < 0) angle += 360;
-
-            currentHue = angle;
-            currentSat = dist / radius;
-            updateCrosshair(currentHue, currentSat);
-
-            const hex = hslToHex(currentHue, currentSat, currentLightness);
-            if (previewBox) previewBox.style.backgroundColor = hex;
-            if (hexInput && document.activeElement !== hexInput) hexInput.value = hex.toUpperCase();
-            applyAccentColor(hex);
-        }
-
-        canvas.addEventListener('pointerdown', (e) => {
-            isDragging = true;
-            canvas.setPointerCapture(e.pointerId);
-            handlePointer(e);
-        });
-
-        canvas.addEventListener('pointermove', (e) => {
-            if (!isDragging) return;
-            handlePointer(e);
-        });
-
-        canvas.addEventListener('pointerup', (e) => {
-            isDragging = false;
-            try { canvas.releasePointerCapture(e.pointerId); } catch (err) {}
-        });
-
-        canvas.addEventListener('pointercancel', () => {
-            isDragging = false;
-        });
-
-        if (slider) {
-            slider.addEventListener('input', (e) => {
-                currentLightness = parseInt(e.target.value, 10) / 100;
-                const hex = hslToHex(currentHue, currentSat, currentLightness);
-                if (previewBox) previewBox.style.backgroundColor = hex;
-                if (hexInput && document.activeElement !== hexInput) hexInput.value = hex.toUpperCase();
-                applyAccentColor(hex);
-            });
-        }
-
-        if (hexInput) {
-            hexInput.addEventListener('input', (e) => {
-                let val = e.target.value.trim();
-                if (!val.startsWith('#')) val = '#' + val;
-                if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
-                    syncFromHex(val);
-                    applyAccentColor(val);
-                }
-            });
-        }
-
-        document.querySelectorAll('.wheel-preset-dot').forEach(dot => {
-            dot.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const col = dot.dataset.presetColor;
-                if (col) {
-                    syncFromHex(col);
-                    applyAccentColor(col);
-                }
-            });
-        });
-
-        customSwatch.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const isOpen = !popover.hidden;
-            popover.hidden = isOpen;
-            customSwatch.setAttribute('aria-expanded', String(!isOpen));
-            if (!isOpen) {
-                const cur = safeGetStorage('cosmos_accent_color', defaultColor);
-                syncFromHex(cur);
-            }
-        });
-
-        popover.addEventListener('click', (e) => {
-            e.stopPropagation();
-        });
-
-        if (closeBtn) {
-            closeBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                popover.hidden = true;
-                customSwatch.setAttribute('aria-expanded', 'false');
-            });
-        }
-
-        if (applyBtn) {
-            applyBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                popover.hidden = true;
-                customSwatch.setAttribute('aria-expanded', 'false');
-            });
-        }
-
-        document.addEventListener('click', (e) => {
-            if (!popover.hidden && !popover.contains(e.target) && !customSwatch.contains(e.target)) {
-                popover.hidden = true;
-                customSwatch.setAttribute('aria-expanded', 'false');
-            }
-        });
-
-        // Initialize state with current accent color
-        const initialCol = safeGetStorage('cosmos_accent_color', defaultColor);
-        syncFromHex(initialCol);
-    }
-
-    initColorWheel();
-
-    // Default Viewer Format selection
-    document.querySelectorAll('#appearance-format-group .appearance-opt-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            applyDefaultViewerFormat(btn.dataset.formatVal);
-        });
-    });
-
-    // Language selection
-    document.querySelectorAll('#appearance-language-group .appearance-opt-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            applyLanguage(btn.dataset.langVal);
-        });
-    });
-
-    // Font selection
-    document.querySelectorAll('#appearance-font-group .appearance-opt-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            applyReaderFont(btn.dataset.fontVal);
-        });
-    });
-
-    // Line Height selection
-    document.querySelectorAll('#appearance-line-height-group .appearance-opt-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            applyLineHeight(btn.dataset.lhVal);
-        });
-    });
-
-    // Text Alignment selection
-    document.querySelectorAll('#appearance-align-group .appearance-opt-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            applyTextAlign(btn.dataset.alignVal);
-        });
-    });
-
-    // Width selection
-    document.querySelectorAll('#appearance-width-group .appearance-opt-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            applyReaderWidth(btn.dataset.widthVal);
-        });
-    });
-
-    // Size Stepper & Slider
-    const sizeSlider = document.getElementById('appearance-size-slider');
-    if (sizeSlider) {
-        sizeSlider.addEventListener('input', (e) => {
-            applyFontScale(parseInt(e.target.value, 10));
-        });
-    }
-
-    const sizeDecBtn = document.getElementById('appearance-size-dec');
-    if (sizeDecBtn) {
-        sizeDecBtn.addEventListener('click', () => {
-            const cur = parseInt(safeGetStorage('cosmos_reader_font_scale', '100'), 10) || 100;
-            applyFontScale(cur - 5);
-        });
-    }
-
-    const sizeIncBtn = document.getElementById('appearance-size-inc');
-    if (sizeIncBtn) {
-        sizeIncBtn.addEventListener('click', () => {
-            const cur = parseInt(safeGetStorage('cosmos_reader_font_scale', '100'), 10) || 100;
-            applyFontScale(cur + 5);
-        });
-    }
-
-    // Library View Mode (cards / list)
-    document.querySelectorAll('#appearance-library-view-group .appearance-opt-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            applyLibraryView(btn.dataset.libView);
-        });
-    });
-
-    // Reset Button
-    if (resetBtn) {
-        resetBtn.addEventListener('click', () => {
-            applyDefaultViewerFormat('pdf');
-            applyLanguage('de');
-            applyTheme('light');
-            applyAccentColor(defaultColor);
-            applyReaderFont('serif');
-            applyLineHeight('normal');
-            applyTextAlign('justify');
-            applyReaderWidth('normal');
-            applyFontScale(100);
-            applyLibraryView('cards');
-        });
+}
+function updateDrawerFilterOptions(seg) {
+    if (window.FiltersModule && typeof window.FiltersModule.updateDrawerFilterOptions === 'function') {
+        window.FiltersModule.updateDrawerFilterOptions(seg);
     }
 }
 
-function updateDrawerFilterOptions(segment) {
-    const isEn = (window.I18n && typeof window.I18n.getLanguage === 'function' ? window.I18n.getLanguage() === 'en' : false) || (safeGetStorage('cosmos_master_lang', 'de') === 'en');
-    const recipLabel = document.getElementById('filter-label-recipient');
-    const recipSelect = document.getElementById('library-recipient-select');
-    const epochLabel = document.getElementById('filter-label-epoch');
-    const epochSelect = document.getElementById('library-epoch-select');
-    const typeLabel = document.getElementById('filter-label-type');
-    const typeSelect = document.getElementById('library-type-select');
-
-    if (!recipSelect || !epochSelect || !typeSelect) return;
-
-    if (segment === 'books') {
-        if (recipLabel) recipLabel.textContent = isEn ? 'Author' : 'Autor / Verfasser';
-        recipSelect.innerHTML = `
-            <option value="all">${isEn ? 'All Authors' : 'Alle Verfasser'}</option>
-            <option value="bahaullah">Bahá’u’lláh</option>
-            <option value="the-bab">Der Báb</option>
-            <option value="abdul-baha">‘Abdu’l-Bahá</option>
-            <option value="shoghi-effendi">Shoghi Effendi</option>
-        `;
-        recipSelect.value = state.library.author || 'all';
-
-        if (epochLabel) epochLabel.textContent = isEn ? 'Historical Era' : 'Historische Epoche';
-        epochSelect.innerHTML = `
-            <option value="">${isEn ? 'All Epochs' : 'Alle Epochen'}</option>
-            <option value="bab">${isEn ? 'Era of the Báb (1844–1853)' : 'Epoche des Báb (1844–1853)'}</option>
-            <option value="bahaullah">${isEn ? 'Revelation of Bahá’u’lláh (1853–1892)' : 'Offenbarung Bahá’u’lláhs (1853–1892)'}</option>
-            <option value="abdulbaha">${isEn ? 'Ministry of ‘Abdu’l-Bahá (1892–1921)' : 'Dienstzeit ‘Abdu’l-Bahás (1892–1921)'}</option>
-            <option value="shoghi">${isEn ? 'Guardianship of Shoghi Effendi (1921–1957)' : 'Hüterschaft Shoghi Effendis (1921–1957)'}</option>
-        `;
-        epochSelect.value = state.library.timelineEpoch || '';
-
-        if (typeLabel) typeLabel.textContent = isEn ? 'Category' : 'Werk-Typus';
-        typeSelect.innerHTML = `
-            <option value="">${isEn ? 'All Categories' : 'Alle Werk-Typen'}</option>
-            <option value="scripture">${isEn ? 'Sacred Scripture' : 'Heilige Schriften'}</option>
-            <option value="prayers">${isEn ? 'Prayers & Meditations' : 'Gebete & Andachten'}</option>
-            <option value="letters">${isEn ? 'Letters & Tablets' : 'Briefe & Sendschreiben'}</option>
-        `;
-        typeSelect.value = state.library.type || '';
-    } else if (segment === 'compilations') {
-        if (recipLabel) recipLabel.textContent = isEn ? 'Topic' : 'Themenbereich';
-        recipSelect.innerHTML = `
-            <option value="all">${isEn ? 'All Topics' : 'Alle Themen'}</option>
-            <option value="prayer">${isEn ? 'Prayer & Worship' : 'Gebet & Andacht'}</option>
-            <option value="marriage">${isEn ? 'Marriage & Family' : 'Ehe & Familie'}</option>
-            <option value="huquq">Ḥuqúqu’lláh</option>
-            <option value="consultation">${isEn ? 'Consultation & Assemblies' : 'Beratung & Geistige Räte'}</option>
-            <option value="women">${isEn ? 'Equality & Women' : 'Gleichberechtigung & Frauen'}</option>
-            <option value="virtues">${isEn ? 'Spiritual Virtues' : 'Geistige Eigenschaften & Tugenden'}</option>
-        `;
-        recipSelect.value = state.library.compTopic || 'all';
-
-        if (epochLabel) epochLabel.textContent = isEn ? 'Era' : 'Zeitraum';
-        epochSelect.innerHTML = `
-            <option value="">${isEn ? 'All Eras' : 'Alle Epochen'}</option>
-            <option value="plans-00">${isEn ? '2000 to Present' : 'Ab 2000 bis heute'}</option>
-            <option value="era-90s">${isEn ? '1980–1999' : '1980er & 1990er Jahre'}</option>
-            <option value="era-early">${isEn ? 'Before 1980' : 'Vor 1980'}</option>
-        `;
-        epochSelect.value = state.library.epoch || '';
-
-        if (typeLabel) typeLabel.textContent = isEn ? 'Collection Type' : 'Sammlungs-Typus';
-        typeSelect.innerHTML = `
-            <option value="">${isEn ? 'All Collections' : 'Alle Sammlungen'}</option>
-            <option value="Kompilation">${isEn ? 'Thematic Compilations' : 'Thematische Kompilationen'}</option>
-        `;
-        typeSelect.value = state.library.type || '';
-    } else if (segment === 'ruhi') {
-        if (recipLabel) recipLabel.textContent = isEn ? 'Course Level' : 'Kursstufe';
-        recipSelect.innerHTML = `
-            <option value="all">${isEn ? 'All Books' : 'Alle Bände'}</option>
-            <option value="b1-4">${isEn ? 'Books 1–4 (Foundations)' : 'Bücher 1–4 (Grundkursfolge)'}</option>
-            <option value="b5-8">${isEn ? 'Books 5–8 (Youth & Mentors)' : 'Bücher 5–8 (Jugend & Mentoren)'}</option>
-            <option value="b9plus">${isEn ? 'Books 9–14 (Advanced)' : 'Bücher 9–14 (Höhere Vertiefung)'}</option>
-            <option value="branch">${isEn ? 'Branch Courses' : 'Zweigkurse & Vorjugend'}</option>
-        `;
-        recipSelect.value = state.library.ruhiGroup || 'all';
-
-        if (epochLabel) epochLabel.textContent = isEn ? 'Program' : 'Programm';
-        epochSelect.innerHTML = `
-            <option value="">${isEn ? 'All Programs' : 'Alle Studienzweige'}</option>
-        `;
-        epochSelect.value = '';
-
-        if (typeLabel) typeLabel.textContent = isEn ? 'Material Type' : 'Material-Typus';
-        typeSelect.innerHTML = `
-            <option value="">${isEn ? 'All Materials' : 'Alle Studienmaterialien'}</option>
-            <option value="Ruhi-Buch">${isEn ? 'Main Sequence' : 'Hauptkursbücher'}</option>
-        `;
-        typeSelect.value = state.library.type || '';
-    } else {
-        // 'house' or 'all'
-        if (recipLabel) recipLabel.textContent = isEn ? 'Recipient' : 'Empfänger';
-        recipSelect.innerHTML = `
-            <option value="all">${isEn ? 'All Recipients' : 'Alle Empfänger'}</option>
-            <option value="world">${isEn ? 'Worldwide Community' : 'Weltweite Gemeinde'}</option>
-            <option value="nsa">${isEn ? 'National Spiritual Assemblies' : 'Nationale Geistige Räte'}</option>
-            <option value="counsellors">${isEn ? 'Continental Counsellors' : 'Berater & Hilfsamt'}</option>
-            <option value="youth">${isEn ? 'Youth' : 'Jugend'}</option>
-            <option value="iran">${isEn ? 'Friends in Iran' : 'Freunde im Iran'}</option>
-            <option value="institutes">${isEn ? 'Training Institutes' : 'Trainingsinstitute'}</option>
-            <option value="individual">${isEn ? 'Individual Believers' : 'Einzelne Gläubige'}</option>
-        `;
-        recipSelect.value = state.library.recipient || 'all';
-
-        if (epochLabel) epochLabel.textContent = isEn ? 'Epoch & Plan' : 'Epoche & Plan';
-        epochSelect.innerHTML = `
-            <option value="">${isEn ? 'All Plans & Epochs' : 'Alle Pläne & Epochen'}</option>
-            <option value="nine-year">${isEn ? 'Nine Year Plan (2022–2031)' : 'Neunjahresplan (2022–2031)'}</option>
-            <option value="one-year">${isEn ? 'One Year Plan (2021–2022)' : 'Einjahresplan (2021–2022)'}</option>
-            <option value="five-year-16">${isEn ? 'Five Year Plan (2016–2021)' : 'Fünfjahresplan (2016–2021)'}</option>
-            <option value="plans-00">${isEn ? 'Plans 2001–2015' : 'Pläne 2001–2015'}</option>
-            <option value="era-90s">${isEn ? '1990s' : '1990er Jahre'}</option>
-            <option value="era-80s">${isEn ? '1980s' : '1980er Jahre'}</option>
-            <option value="era-early">${isEn ? '1963–1979' : '1963–1979'}</option>
-        `;
-        epochSelect.value = state.library.epoch || '';
-
-        if (typeLabel) typeLabel.textContent = isEn ? 'Occasion & Type' : 'Anlass & Typus';
-        typeSelect.innerHTML = `
-            <option value="">${isEn ? 'All Occasions & Types' : 'Alle Anlässe & Typen'}</option>
-            <option value="Riḍván-Botschaft">${isEn ? 'Riḍván Messages' : 'Riḍván-Botschaften'}</option>
-            <option value="Naw-Rúz-Botschaft">${isEn ? 'Naw-Rúz Messages' : 'Naw-Rúz-Botschaften'}</option>
-            <option value="Beraterkonferenz-Botschaft">${isEn ? 'Counsellor Conferences' : 'Beraterkonferenzen'}</option>
-            <option value="Friedensbotschaft">${isEn ? 'Peace Messages' : 'Friedensbotschaften'}</option>
-            <option value="Jugendkonferenz-Botschaft">${isEn ? 'Youth Conferences' : 'Jugendkonferenzen'}</option>
-            <option value="Botschaft">${isEn ? 'General Messages' : 'Allgemeine Botschaften'}</option>
-        `;
-        typeSelect.value = state.library.type || '';
-    }
-}
 
 // Navigation & View Switching
 window.switchLibrarySegment = function(segment) {
@@ -949,7 +124,7 @@ window.switchLibrarySegment = function(segment) {
     state.library.segment = segment;
     
     // 0. Thema der gesamten Seite dem aktiven Realm anpassen
-    document.documentElement.setAttribute('data-active-pillar', segment);
+    if (segment === 'all') { document.documentElement.removeAttribute('data-active-pillar'); } else { document.documentElement.setAttribute('data-active-pillar', segment); }
 
     // 1. Die vier Hauptsäulen (Pillar Cards) aktualisieren
     const pillarCards = document.querySelectorAll('#pillar-cards-grid .pillar-card');
@@ -974,20 +149,30 @@ window.switchLibrarySegment = function(segment) {
     const realmSub = document.getElementById('realm-lead-subtitle');
     if (realmTitle && realmSub) {
         if (segment === 'house') {
-            realmTitle.textContent = 'Botschaften des Hauses';
-            realmSub.textContent = 'Botschaften des Universalen Hauses der Gerechtigkeit (1963–2026)';
+            realmTitle.setAttribute('data-i18n', 'library.realm_house');
+            realmSub.setAttribute('data-i18n', 'library.realm_house_sub');
+            realmTitle.textContent = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('library.realm_house') : 'Botschaften des Hauses';
+            realmSub.textContent = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('library.realm_house_sub') : 'Botschaften des Universalen Hauses der Gerechtigkeit (1963–2026)';
         } else if (segment === 'compilations') {
-            realmTitle.textContent = 'Compilations des Hauses';
-            realmSub.textContent = 'Autorisierte thematische Sammlungen der Forschungsabteilung';
+            realmTitle.setAttribute('data-i18n', 'pillar.comp_title');
+            realmSub.setAttribute('data-i18n', 'pillar.comp_sub');
+            realmTitle.textContent = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('pillar.comp_title') : 'Compilations des Hauses';
+            realmSub.textContent = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('pillar.comp_sub') : 'Autorisierte thematische Sammlungen der Forschungsabteilung';
         } else if (segment === 'books') {
-            realmTitle.textContent = 'Heilige Schriften & Bücher';
-            realmSub.textContent = 'Autorisierte Schriften der Zentralen Gestalten & Shoghi Effendis';
+            realmTitle.setAttribute('data-i18n', 'pillar.books_title');
+            realmSub.setAttribute('data-i18n', 'pillar.books_sub');
+            realmTitle.textContent = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('pillar.books_title') : 'Heilige Schriften & Bücher';
+            realmSub.textContent = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('pillar.books_sub') : 'Autorisierte Schriften der Zentralen Gestalten & Shoghi Effendis';
         } else if (segment === 'ruhi') {
-            realmTitle.textContent = 'Ruhi-Bücher';
-            realmSub.textContent = 'Studienmaterialien des Ruhi-Instituts (Hauptkurse & Zweigkurse)';
+            realmTitle.setAttribute('data-i18n', 'pillar.ruhi_title');
+            realmSub.setAttribute('data-i18n', 'pillar.ruhi_sub');
+            realmTitle.textContent = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('pillar.ruhi_title') : 'Ruhi-Bücher';
+            realmSub.textContent = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('pillar.ruhi_sub') : 'Studienmaterialien des Ruhi-Instituts (Hauptkurse & Zweigkurse)';
         } else {
-            realmTitle.textContent = 'Gesamtes Archiv';
-            realmSub.textContent = 'Dokumente, Schriften, Bücher und thematische Sammlungen';
+            realmTitle.setAttribute('data-i18n', 'library.realm_all');
+            realmSub.setAttribute('data-i18n', 'library.realm_all_sub');
+            realmTitle.textContent = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('library.realm_all') : 'Gesamtes Archiv';
+            realmSub.textContent = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('library.realm_all_sub') : 'Dokumente, Schriften, Bücher und thematische Sammlungen';
         }
     }
 
@@ -995,15 +180,20 @@ window.switchLibrarySegment = function(segment) {
     const searchInput = document.getElementById('library-search-input');
     if (searchInput) {
         if (segment === 'house') {
-            searchInput.placeholder = 'In Botschaften des Hauses (1963–2026) suchen...';
+            searchInput.setAttribute('data-i18n-placeholder', 'library.search_placeholder');
+            searchInput.placeholder = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('library.search_placeholder') : 'In Botschaften des Hauses (1963–2026) suchen...';
         } else if (segment === 'compilations') {
-            searchInput.placeholder = 'In thematischen Compilations & Sammlungen suchen...';
+            searchInput.setAttribute('data-i18n-placeholder', 'library.search_placeholder_comp');
+            searchInput.placeholder = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('library.search_placeholder_comp') : 'In thematischen Compilations & Sammlungen suchen...';
         } else if (segment === 'books') {
-            searchInput.placeholder = 'In Heiligen Schriften & Standardwerken suchen...';
+            searchInput.setAttribute('data-i18n-placeholder', 'library.search_placeholder_books');
+            searchInput.placeholder = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('library.search_placeholder_books') : 'In Heiligen Schriften & Standardwerken suchen...';
         } else if (segment === 'ruhi') {
-            searchInput.placeholder = 'In Ruhi-Büchern & Kursmaterialien suchen...';
+            searchInput.setAttribute('data-i18n-placeholder', 'library.search_placeholder_ruhi');
+            searchInput.placeholder = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('library.search_placeholder_ruhi') : 'In Ruhi-Büchern & Kursmaterialien suchen...';
         } else {
-            searchInput.placeholder = 'In allen Dokumenten, Schriften & Volltexten suchen...';
+            searchInput.setAttribute('data-i18n-placeholder', 'library.search_placeholder_all');
+            searchInput.placeholder = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('library.search_placeholder_all') : 'In allen Dokumenten, Schriften & Volltexten suchen...';
         }
     }
 
@@ -1211,7 +401,7 @@ function initLibraryView() {
     const recipSelect = document.getElementById('library-recipient-select');
     if (recipSelect) {
         recipSelect.addEventListener('change', (e) => {
-            const seg = state.library.segment || 'house';
+            const seg = state.library.segment || 'all';
             const val = e.target.value;
             if (seg === 'books') {
                 state.library.author = val;
@@ -1230,7 +420,7 @@ function initLibraryView() {
     const epochSelect = document.getElementById('library-epoch-select');
     if (epochSelect) {
         epochSelect.addEventListener('change', (e) => {
-            const seg = state.library.segment || 'house';
+            const seg = state.library.segment || 'all';
             const val = e.target.value;
             if (seg === 'books') {
                 state.library.timelineEpoch = val;
@@ -1430,7 +620,8 @@ function initLibraryView() {
             state.library.recipient = 'all';
             state.library.epoch = '';
             state.library.type = '';
-            state.library.lang = '';
+            state.library.segment = 'all';
+        state.library.lang = '';
             state.library.format = 'all';
             state.library.query = '';
             state.library.author = 'all';
@@ -1461,14 +652,21 @@ function initLibraryView() {
         });
     }
 
-    // Load More Button
-    const loadMoreBtn = document.getElementById('library-load-more-btn');
-    if (loadMoreBtn) {
-        loadMoreBtn.addEventListener('click', renderMoreLibraryResults);
+    // Robuste Event-Delegation fuer alle Dokumentenkarten
+    const resultsContainer = document.getElementById('library-results');
+    if (resultsContainer) {
+        resultsContainer.addEventListener('click', (e) => {
+            // Ignoriere Klicks auf interaktive Kind-Elemente falls vorhanden
+            if (e.target.closest('button, a, input, select')) return;
+            const card = e.target.closest('.doc-card');
+            if (card && card.dataset.docId && typeof window.openDocument === 'function') {
+                window.openDocument(card.dataset.docId);
+            }
+        });
     }
 
     updateLibrarySegmentBadges();
-    window.switchLibrarySegment(state.library.segment || 'house');
+    window.switchLibrarySegment(state.library.segment || 'all');
 }
 
 function updateLibrarySegmentBadges() {
@@ -1551,109 +749,12 @@ window.loadFullTextSearchIndex = async function() {
     }
 };
 
-function escapeRegex(s) {
-    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+// Such-Snippets, Regex-Helfer & getDocumentSearchBundle wurden ausgelagert nach js/filters.js
+function extractSearchSnippet(...args) {
+    return (window.FiltersModule && typeof window.FiltersModule.extractSearchSnippet === 'function') ? window.FiltersModule.extractSearchSnippet(...args) : "";
 }
-
-function extractSearchSnippet(rawText, normText, queryNorm, tokens) {
-    if (!rawText) return '';
-    let matchIdx = -1;
-    let matchLen = queryNorm ? queryNorm.length : 0;
-
-    // 1. Zuerst prüfen, ob die exakte Phrase im Volltext vorkommt (z.B. bei Auszügen)
-    if (normText && queryNorm) {
-        matchIdx = normText.indexOf(queryNorm);
-    }
-    // 2. Falls kein Phrasen-Treffer, nimm den ersten Token-Treffer
-    if (matchIdx === -1 && normText && tokens.length > 0) {
-        for (const tok of tokens) {
-            const idx = normText.indexOf(tok);
-            if (idx !== -1) {
-                matchIdx = idx;
-                matchLen = tok.length;
-                break;
-            }
-        }
-    }
-
-    if (matchIdx === -1) {
-        return escapeDocHtml(rawText.slice(0, 160).replace(/\s+/g, ' ')) + '…';
-    }
-
-    const start = Math.max(0, matchIdx - 70);
-    const end = Math.min(rawText.length, matchIdx + matchLen + 90);
-    let slice = rawText.slice(start, end).replace(/\s+/g, ' ');
-    let escaped = escapeDocHtml(slice);
-
-    // Hervorhebung für alle Suchbegriffe
-    for (const tok of tokens) {
-        if (tok.length < 2) continue;
-        const re = new RegExp('(' + escapeRegex(escapeDocHtml(tok)) + ')', 'gi');
-        escaped = escaped.replace(re, '<mark class="search-highlight">$1</mark>');
-    }
-
-    return (start > 0 ? '…' : '') + escaped.trim() + (end < rawText.length ? '…' : '');
-}
-
-function normalizeSearchText(str) {
-    if (!str) return '';
-    if (window.SearchEngine && typeof window.SearchEngine.normalize === 'function') {
-        return window.SearchEngine.normalize(str);
-    }
-    return String(str)
-        .replace(/ä|Ä/g, 'ae')
-        .replace(/ö|Ö/g, 'oe')
-        .replace(/ü|Ü/g, 'ue')
-        .replace(/ß/g, 'ss')
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .toLowerCase()
-        .replace(/['’`ʻ‘"“”„«»]/g, '')
-        .replace(/schoghi/g, 'shoghi')
-        .replace(/\s+/g, ' ')
-        .trim();
-}
-window.normalizeSearchText = normalizeSearchText;
-
-const GERMAN_SEARCH_MONTHS = ['Januar', 'Februar', 'März', 'Maerz', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
-const ENGLISH_SEARCH_MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-function getDocumentSearchBundle(d) {
-    if (d._searchBundle) return d._searchBundle;
-    let dateVariations = '';
-    if (d.date) {
-        dateVariations += ' ' + d.date;
-        const parts = String(d.date).split('-');
-        if (parts.length === 3) {
-            const y = parseInt(parts[0], 10);
-            const m = parseInt(parts[1], 10) - 1;
-            const day = parseInt(parts[2], 10);
-            if (m >= 0 && m < 12) {
-                dateVariations += ` ${GERMAN_SEARCH_MONTHS[m]} ${ENGLISH_SEARCH_MONTHS[m]} ${day}. ${GERMAN_SEARCH_MONTHS[m]} ${y} ${day}.${m+1}.${y}`;
-            }
-        }
-    }
-    if (d.year) dateVariations += ' ' + d.year;
-
-    const topicsStr = Array.isArray(d.topics) ? d.topics.join(' ') : '';
-    const rawBundle = [
-        d.title || '',
-        d.deTitle || '',
-        d.enTitle || '',
-        d.subTitle || '',
-        d.author || '',
-        topicsStr,
-        d.recipient || '',
-        d.recipientLabel || '',
-        d.type || '',
-        d.compilationTopic || '',
-        d.excerpt || '',
-        (d.text ? d.text.slice(0, 800) : ''),
-        dateVariations
-    ].join(' ');
-
-    d._searchBundle = normalizeSearchText(rawBundle);
-    return d._searchBundle;
+function getDocumentSearchBundle(...args) {
+    return (window.FiltersModule && typeof window.FiltersModule.getDocumentSearchBundle === 'function') ? window.FiltersModule.getDocumentSearchBundle(...args) : "";
 }
 
 function applyLibraryFilters() {
@@ -2108,431 +1209,13 @@ function updateLibraryLoadMore() {
     }
 }
 
-/* ──────────────────────────────────────────────────────────────────────────
-   2. BEREICH: SAMMLUNGEN & RUHI (view-collections)
-   ────────────────────────────────────────────────────────────────────────── */
-
-function initCollectionsView() {
-    const subtabs = document.querySelectorAll('#collections-subtabs button');
-    subtabs.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const subview = btn.dataset.subview;
-            switchCollectionsSubview(subview);
-        });
-    });
-
-    renderCompilations();
-    renderRuhiBooks();
-    renderStudyMaterial();
-}
-
-function switchCollectionsSubview(subview) {
-    state.collectionsSubView = subview;
-    const subtabs = document.querySelectorAll('#collections-subtabs button');
-    const panes = document.querySelectorAll('.collections-pane');
-
-    subtabs.forEach(btn => {
-        if (btn.dataset.subview === subview) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
-    });
-
-    panes.forEach(p => {
-        if (p.id === `subview-${subview}`) {
-            p.style.display = 'block';
-            p.classList.add('active');
-        } else {
-            p.style.display = 'none';
-            p.classList.remove('active');
-        }
-    });
-}
-
-function renderCompilations() {
-    const grid = document.getElementById('compilations-grid');
-    if (!grid) return;
-
-    const comps = state.documents.filter(d => 
-        d.tier === 'compilations' || d.source === 'Forschungsabteilung' || d.type === 'Kompilation'
-    );
-
-    const topicGroups = {};
-    comps.forEach(doc => {
-        let key = doc.compilationTopic;
-        if (!key) {
-            key = (doc.title || '').replace(/\s*\([^)]*\)$/, '').trim();
-        }
-        if (!topicGroups[key]) topicGroups[key] = [];
-        topicGroups[key].push(doc);
-    });
-
-    const sortedKeys = Object.keys(topicGroups).sort((a, b) => a.localeCompare(b, 'de'));
-
-    grid.innerHTML = sortedKeys.map((key, idx) => {
-        const docs = topicGroups[key];
-        const deDocs = docs.filter(d => d.language === 'deutsch');
-        const enDocs = docs.filter(d => d.language === 'english');
-        const mainDoc = deDocs[0] || enDocs[0] || docs[0];
-        
-        const deWord = deDocs.find(d => d.format === 'docx');
-        const dePdf = deDocs.find(d => d.format === 'pdf');
-        const enWord = enDocs.find(d => d.format === 'docx');
-        const enPdf = enDocs.find(d => d.format === 'pdf');
-        
-        let enSubtitle = '';
-        const enSample = enDocs.find(d => d.title && d.title.includes('('));
-        if (enSample) {
-            const m = enSample.title.match(/\(([^)]+)\)/);
-            if (m) enSubtitle = m[1];
-        } else if (enDocs.length > 0 && enDocs[0].title !== key) {
-            enSubtitle = enDocs[0].title;
-        }
-
-        const totalWords = mainDoc.wordCount || (mainDoc.text ? mainDoc.text.split(/\s+/).length : 0);
-        const excerpt = mainDoc.excerpt || (mainDoc.text || '').replace(/\s+/g, ' ').substring(0, 160).trim();
-
-        const wordsLabel = totalWords >= 1000 ? `~${(totalWords / 1000).toFixed(0)}k Wörter` : (totalWords > 0 ? `${totalWords} Wörter` : '');
-
-        const safeCompId = (mainDoc.id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-
-        return `
-            <div class="doc-card compilation-card" style="--i: ${idx % 30}; cursor: pointer;" data-doc-id="${escapeDocHtml(mainDoc.id)}" onclick="window.openDocument('${safeCompId}')">
-                <div>
-                    <div class="doc-meta">
-                        <span class="source-badge source-forschungsabteilung">Kompilation</span>
-                        ${(dePdf && enPdf) ? `<span class="doc-bilingual-badge">DE · EN</span>` : ''}
-                    </div>
-                    <h3 class="doc-title">${escapeDocHtml(key)}${enSubtitle ? ` (${escapeDocHtml(enSubtitle)})` : ''}</h3>
-                    <p class="doc-excerpt">${escapeDocHtml(excerpt)}…</p>
-                </div>
-                <div class="doc-footer">
-                    <div class="doc-tags">
-                        ${(mainDoc.topics || []).slice(0, 3).map(t => `<span class="tag">${t}</span>`).join('')}
-                    </div>
-                    ${wordsLabel ? `<span style="font-family: var(--font-sans); font-size: 0.72rem; color: var(--text-subtle);">${wordsLabel}</span>` : ''}
-                </div>
-            </div>
-        `;
-    }).join('');
-}
-
-function renderRuhiBooks() {
-    const grid = document.getElementById('ruhi-books-grid');
-    if (!grid) return;
-
-    const ruhiDocs = state.documents.filter(d => 
-        d.tier === 'ruhi' || d.source === 'Ruhi-Institut' || d.type === 'Ruhi-Buch' || (d.title && d.title.startsWith('Ruhi Buch')) || (d.title && d.title.startsWith('Ruhi Book'))
-    ).sort((a, b) => (a.title || '').localeCompare(b.title || '', 'de'));
-
-    if (ruhiDocs.length === 0) {
-        grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--color-text-muted);">Keine Ruhi-Bücher gefunden.</p>';
-        return;
-    }
-
-    grid.innerHTML = ruhiDocs.map((doc, idx) => {
-        const wordCount = doc.wordCount || (doc.text ? doc.text.split(/\s+/).length : 0);
-        const bookNumMatch = doc.title.match(/Ruhi (?:Buch|Book) (\d+(?:\.\d+)?)/i);
-        const bookNum = bookNumMatch ? bookNumMatch[1] : '';
-        const isBranch = doc.title.toLowerCase().includes('zweigkurs') || doc.title.toLowerCase().includes('branch');
-        const isEnglish = doc.language === 'english';
-        
-        const pdfPath = doc.filePath && doc.filePath.toLowerCase().endsWith('.pdf') ? doc.filePath : null;
-
-        const badgeLabel = isBranch ? `Zweigkurs ${bookNum}` : (bookNum ? `Buch ${bookNum}` : 'Ruhi');
-        const excerptText = doc.description || doc.excerpt || (doc.text || '').substring(0, 150);
-        const safeRuhiId = (doc.id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-
-        return `
-            <div class="ruhi-card" style="--i: ${idx % 30};" data-doc-id="${escapeDocHtml(doc.id)}" onclick="window.openDocument('${safeRuhiId}')">
-                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.85rem;">
-                    <span style="font-family: var(--font-sans); font-weight: 700; font-size: 0.95rem; color: var(--color-accent); background: var(--color-accent-light); padding: 0.25rem 0.75rem; border-radius: 20px;">
-                        ${badgeLabel}
-                    </span>
-                    <div style="display: flex; gap: 0.35rem; align-items: center;">
-                        <span class="badge badge-${isEnglish ? 'english' : 'deutsch'}" style="font-size: 0.72rem;">${isEnglish ? 'EN' : 'DE'}</span>
-                        <span style="font-family: var(--font-sans); font-size: 0.8rem; color: var(--color-text-muted);">
-                            ~${(wordCount / 1000).toFixed(0)}k Wörter
-                        </span>
-                    </div>
-                </div>
-                <h3 style="font-size: 1.2rem; color: var(--color-primary); margin-bottom: 0.6rem; line-height: 1.4;">
-                    ${escapeDocHtml(doc.title)}
-                </h3>
-                <p style="font-size: 0.88rem; color: var(--color-text-muted); margin-bottom: 1.25rem; flex: 1; line-height: 1.5;">
-                    ${escapeDocHtml(excerptText)}${excerptText.length >= 140 ? '…' : ''}
-                </p>
-                ${doc.units && doc.units.length > 0 ? `
-                <div style="margin-bottom: 1rem; font-size: 0.8rem; color: var(--color-text-muted); background: rgba(0,0,0,0.02); padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); border-left: 3px solid var(--color-accent);">
-                    <strong style="color: var(--color-text);">Einheiten / Kapitel:</strong>
-                    <ul style="margin: 0.25rem 0 0 1rem; padding: 0; list-style-type: disc;">
-                        ${doc.units.map(u => `<li>${u}</li>`).join('')}
-                    </ul>
-                </div>
-                ` : ''}
-                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--color-border); padding-top: 1rem; margin-top: auto;">
-                    <span style="font-size: 0.85rem; font-family: var(--font-sans); color: var(--color-primary); font-weight: 600; display: inline-flex; align-items: center; gap: 0.35rem;">
-                        PDF einsehen →
-                    </span>
-                    <div style="display: flex; gap: 0.35rem;" onclick="event.stopPropagation();">
-                        ${pdfPath ? `<a href="${pdfPath}" target="_blank" class="format-badge" style="text-decoration:none; background: var(--accent-gold-soft); color: var(--accent-gold); padding: 0.2rem 0.55rem; font-size: 0.75rem; border-radius: 4px; font-weight: 600; border: 1px solid rgba(154, 122, 56, 0.25);" title="PDF-Studienausgabe in neuem Tab öffnen">PDF</a>` : ''}
-                    </div>
-                </div>
-            </div>
-        `;
-    }).join('');
-}
-
-function renderStudyMaterial() {
-    const grid = document.getElementById('study-grid');
-    if (!grid) return;
-
-    const studyDocs = state.documents.filter(d => 
-        d.tier === 'study' || d.source === 'Studienmaterial' || d.type === 'Studienmaterial' || d.type === 'Studiendokument'
-    ).sort((a, b) => (a.title || '').localeCompare(b.title || '', 'de'));
-
-    if (studyDocs.length === 0) {
-        grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--color-text-muted); padding: 3rem;">Kein Studienmaterial gefunden.</p>';
-        return;
-    }
-
-    grid.innerHTML = studyDocs.map((doc, idx) => window.createDocCard(doc, '', idx)).join('');
-}
-
-/* ──────────────────────────────────────────────────────────────────────────
-   5. BEREICH: MERKLISTE & GESPEICHERTE KOMPILATIONEN (view-saved)
-   ────────────────────────────────────────────────────────────────────────── */
-
-window.recordReadingHistory = function(doc) {
-    if (!doc || !doc.id) return;
-    try {
-        const raw = safeGetStorage('cosmos_reading_history', '[]');
-        let history = JSON.parse(raw);
-        if (!Array.isArray(history)) history = [];
-        history = history.filter(item => item.id !== doc.id && (!doc.groupId || item.groupId !== doc.groupId));
-        history.unshift({
-            id: doc.id,
-            groupId: doc.groupId || null,
-            title: doc.title || doc.deTitle || doc.enTitle || 'Werk',
-            author: doc.author || '',
-            tier: doc.tier || '',
-            date: doc.date || (doc.year ? String(doc.year) : ''),
-            timestamp: Date.now()
-        });
-        if (history.length > 50) history = history.slice(0, 50);
-        safeSetStorage('cosmos_reading_history', JSON.stringify(history));
-
-        const countHistory = document.getElementById('saved-history-count');
-        if (countHistory) countHistory.textContent = history.length;
-    } catch (e) {}
-};
-
-window.clearReadingHistory = function() {
-    safeSetStorage('cosmos_reading_history', '[]');
-    renderReadingHistory();
-    const countHistory = document.getElementById('saved-history-count');
-    if (countHistory) countHistory.textContent = '0';
-};
-
-window.switchSavedTab = function(tab) {
-    state.savedTab = tab;
-    const pillBookmarks = document.getElementById('pill-saved-bookmarks');
-    const pillHistory = document.getElementById('pill-saved-history');
-    const pillCompilations = document.getElementById('pill-saved-compilations');
-    const paneBookmarks = document.getElementById('saved-pane-bookmarks');
-    const paneHistory = document.getElementById('saved-pane-history');
-    const paneCompilations = document.getElementById('saved-pane-compilations');
-
-    pillBookmarks?.classList.toggle('active', tab === 'bookmarks');
-    pillHistory?.classList.toggle('active', tab === 'history');
-    pillCompilations?.classList.toggle('active', tab === 'compilations');
-
-    if (paneBookmarks) paneBookmarks.style.display = (tab === 'bookmarks') ? 'block' : 'none';
-    if (paneHistory) paneHistory.style.display = (tab === 'history') ? 'block' : 'none';
-    if (paneCompilations) paneCompilations.style.display = (tab === 'compilations') ? 'block' : 'none';
-
-    if (tab === 'bookmarks') {
-        renderBookmarks();
-    } else if (tab === 'history') {
-        renderReadingHistory();
-    } else {
-        renderSavedCompilationsList();
-    }
-};
-
+// Sammlungen, Ruhi & Merkliste wurden ausgelagert nach js/collections.js
 function renderSavedView() {
-    // Update counts
-    const countBookmarks = document.getElementById('saved-bookmarks-count');
-    const countHistory = document.getElementById('saved-history-count');
-    const countComps = document.getElementById('saved-compilations-count');
-    
-    if (countBookmarks) countBookmarks.textContent = state.bookmarks.length;
-    
-    try {
-        const history = JSON.parse(safeGetStorage('cosmos_reading_history', '[]'));
-        if (countHistory) countHistory.textContent = history.length;
-    } catch (e) {
-        if (countHistory) countHistory.textContent = '0';
+    if (window.CollectionsModule && typeof window.CollectionsModule.renderSavedView === 'function') {
+        window.CollectionsModule.renderSavedView();
     }
-
-    let compList = [];
-    try {
-        compList = JSON.parse(safeGetStorage('my_compilations', '[]'));
-    } catch (e) {}
-    if (countComps) countComps.textContent = compList.length;
-
-    window.switchSavedTab(state.savedTab || 'bookmarks');
 }
 
-function renderReadingHistory() {
-    const container = document.getElementById('reading-history-list');
-    if (!container) return;
-
-    let history = [];
-    try {
-        history = JSON.parse(safeGetStorage('cosmos_reading_history', '[]'));
-    } catch (e) {}
-
-    const countHistory = document.getElementById('saved-history-count');
-    if (countHistory) countHistory.textContent = history.length;
-
-    if (history.length === 0) {
-        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 3rem;">Noch kein Leseverlauf vorhanden. Gelesene Bücher und Botschaften werden hier aufgeführt.</p>';
-        return;
-    }
-
-    const docMap = new Map();
-    state.documents.forEach(d => docMap.set(d.id, d));
-
-    const htmlCards = history.map((item, idx) => {
-        const fullDoc = docMap.get(item.id);
-        if (fullDoc) {
-            return window.createDocCard(fullDoc, '', idx);
-        }
-        const safeItemId = (item.id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-        return `
-            <article class="doc-card" style="--i: ${idx % 30}; cursor: pointer;" data-doc-id="${escapeDocHtml(item.id)}" onclick="window.openDocument('${safeItemId}')">
-                <div class="doc-card-body">
-                    <div class="doc-card-header">
-                        <div class="doc-meta-editorial">${item.date ? `<span class="doc-date">${escapeDocHtml(item.date)}</span>` : ''}</div>
-                    </div>
-                    <h3 class="doc-title">${escapeDocHtml(item.title)}</h3>
-                    ${item.author ? `<div class="doc-sub-title">${escapeDocHtml(item.author)}</div>` : ''}
-                </div>
-            </article>
-        `;
-    }).join('');
-
-    container.innerHTML = htmlCards;
-}
-
-function renderBookmarks() {
-    const container = document.getElementById('bookmarks-list');
-    if (!container) return;
-
-    const bookmarkedDocs = state.documents.filter(doc => state.bookmarks.includes(doc.id));
-
-    if (bookmarkedDocs.length === 0) {
-        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--color-text-muted); padding: 3rem;">Noch keine Lesezeichen gespeichert. Klicken Sie bei einem Dokument auf das Lesezeichen-Symbol, um es hier abzulegen.</p>';
-        return;
-    }
-
-    container.innerHTML = bookmarkedDocs.map((doc, idx) => window.createDocCard(doc, '', idx)).join('');
-}
-
-function renderSavedCompilationsList() {
-    const container = document.getElementById('saved-compilations-list');
-    if (!container) return;
-
-    let compList = [];
-    try {
-        compList = JSON.parse(safeGetStorage('my_compilations', '[]'));
-    } catch (e) {}
-
-    if (compList.length === 0) {
-        container.innerHTML = `
-            <div style="text-align: center; color: var(--color-text-secondary); padding: 3.5rem 1.5rem; background: var(--color-surface); border-radius: var(--radius-md); border: 1px solid var(--color-border);">
-                <div style="font-family: var(--font-sans); font-size: 0.8rem; font-weight: 600; color: var(--color-accent); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">Keine Manuskripte</div>
-                <p style="font-size: 1.05rem; font-family: var(--font-serif); color: var(--color-text); margin-bottom: 0.4rem;">Noch keine eigenen Kompilationen gespeichert.</p>
-                <p style="font-size: 0.88rem; color: var(--color-text-secondary); max-width: 480px; margin: 0 auto 1.5rem;">In der Kompilations-Werkstatt können Sie Absätze aus allen Botschaften zusammenstellen und dauerhaft sichern.</p>
-                <button onclick="window.switchView('workshop')" class="btn-primary">Zur Kompilations-Werkstatt</button>
-            </div>
-        `;
-        return;
-    }
-
-    container.innerHTML = compList.map((comp, idx) => `
-        <div class="saved-comp-card" style="background: var(--color-surface); border: 1px solid var(--color-border); border-left: 3px solid var(--color-accent); border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-sm); display: flex; justify-content: space-between; align-items: center; gap: 1.25rem; flex-wrap: wrap;">
-            <div>
-                <div style="font-size: 0.78rem; color: var(--color-text-tertiary); margin-bottom: 0.3rem;">
-                    Zuletzt bearbeitet: ${comp.updatedAt ? new Date(comp.updatedAt).toLocaleDateString('de-DE') : '—'} · ${comp.passages.length} ${comp.passages.length === 1 ? 'Absatz' : 'Absätze'}
-                </div>
-                <h3 style="font-family: var(--font-serif); font-size: 1.25rem; color: var(--color-text); margin: 0 0 0.35rem 0; font-weight: 500;">${escapeDocHtml(comp.title)}</h3>
-                ${comp.description ? `<p style="font-size: 0.88rem; color: var(--color-text-secondary); margin: 0; font-style: italic;">${escapeDocHtml(comp.description)}</p>` : ''}
-            </div>
-            <div style="display: flex; gap: 0.6rem; align-items: center;">
-                <button onclick="window.openSavedInWorkshop(${idx})" class="btn-primary" style="font-size: 0.82rem; padding: 0.45rem 1rem;">
-                    Öffnen
-                </button>
-                <button onclick="window.deleteSavedCompilation(${idx})" class="btn-secondary" style="font-size: 0.82rem; padding: 0.45rem 0.9rem;" title="Kompilation löschen">
-                    Löschen
-                </button>
-            </div>
-        </div>
-    `).join('');
-}
-
-window.openSavedInWorkshop = function(idx) {
-    try {
-        const compList = JSON.parse(safeGetStorage('my_compilations', '[]'));
-        if (compList[idx]) {
-            safeSetStorage('workshop_active_draft', JSON.stringify(compList[idx]));
-            window.switchView('workshop');
-            setTimeout(() => {
-                if (window.CompilationBuilder && window.CompilationBuilder.init) {
-                    window.CompilationBuilder.init();
-                }
-            }, 100);
-        }
-    } catch (e) {}
-};
-
-window.deleteSavedCompilation = function(idx) {
-    if (!confirm('Möchten Sie diese gespeicherte Kompilation wirklich löschen?')) return;
-    try {
-        const compList = JSON.parse(safeGetStorage('my_compilations', '[]'));
-        compList.splice(idx, 1);
-        safeSetStorage('my_compilations', JSON.stringify(compList));
-        renderSavedView();
-    } catch (e) {}
-};
-
-window.toggleBookmark = function(id) {
-    const index = state.bookmarks.indexOf(id);
-    if (index > -1) {
-        state.bookmarks.splice(index, 1);
-    } else {
-        state.bookmarks.push(id);
-    }
-    safeSetStorage('bookmarks', JSON.stringify(state.bookmarks));
-    
-    // Update viewer icon if open
-    const bookmarkBtn = document.getElementById('viewer-bookmark');
-    if (bookmarkBtn) {
-        if (state.bookmarks.includes(id)) {
-            bookmarkBtn.style.color = 'var(--color-primary)';
-            bookmarkBtn.querySelector('svg')?.setAttribute('fill', 'currentColor');
-        } else {
-            bookmarkBtn.style.color = '';
-            bookmarkBtn.querySelector('svg')?.setAttribute('fill', 'none');
-        }
-    }
-    
-    if (state.currentView === 'saved') {
-        renderSavedView();
-    }
-};
 
 /* ──────────────────────────────────────────────────────────────────────────
    GEMEINSAME ELEMENTE & CARD RENDERER
@@ -2699,3 +1382,4 @@ if (document.readyState === 'loading') {
 } else {
     initApp();
 }
+})();

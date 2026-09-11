@@ -82,10 +82,15 @@ window.I18n = (function() {
 
             // Bibliothek & Suche
             'library.title': 'Bibliothek',
+            'library.realm_all': 'Gesamtes Archiv',
+            'library.realm_all_sub': 'Dokumente, Schriften, Bücher und thematische Sammlungen',
             'library.realm_house': 'Botschaften des Hauses',
             'library.realm_house_sub': 'Botschaften des Universalen Hauses der Gerechtigkeit (1963–2026)',
             'library.search_placeholder': 'In Botschaften des Hauses (1963–2026) suchen...',
-            'library.search_placeholder_all': 'In allen Werken suchen...',
+            'library.search_placeholder_all': 'In allen Dokumenten, Schriften & Volltexten suchen...',
+            'library.search_placeholder_comp': 'In thematischen Compilations & Sammlungen suchen...',
+            'library.search_placeholder_books': 'In Heiligen Schriften & Standardwerken suchen...',
+            'library.search_placeholder_ruhi': 'In Ruhi-Büchern & Kursmaterialien suchen...',
             'library.clear_search': 'Suche leeren',
             'library.filter_btn': 'Filter',
             'library.filter_btn_title': 'Detail-Filter ein- oder ausblenden',
@@ -304,10 +309,15 @@ window.I18n = (function() {
 
             // Library & Search
             'library.title': 'Library',
+            'library.realm_all': 'Complete Archive',
+            'library.realm_all_sub': 'Documents, writings, books and thematic collections',
             'library.realm_house': 'Messages of the House',
             'library.realm_house_sub': 'Messages of the Universal House of Justice (1963–2026)',
             'library.search_placeholder': 'Search messages of the House (1963–2026)...',
-            'library.search_placeholder_all': 'Search all works...',
+            'library.search_placeholder_all': 'Search all documents, writings & texts...',
+            'library.search_placeholder_comp': 'Search thematic compilations & collections...',
+            'library.search_placeholder_books': 'Search holy writings & standard works...',
+            'library.search_placeholder_ruhi': 'Search Ruhi books & course materials...',
             'library.clear_search': 'Clear search',
             'library.filter_btn': 'Filter',
             'library.filter_btn_title': 'Show or hide detailed filters',
@@ -510,30 +520,32 @@ window.I18n = (function() {
         }
     }
 
-    function applyToDOM() {
+    function applyToDOM(container) {
+        const root = (container && container.querySelectorAll) ? container : document;
+
         // Translate text content
-        document.querySelectorAll('[data-i18n]').forEach(el => {
+        root.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
             const trans = t(key);
             if (trans) el.textContent = trans;
         });
 
         // Translate placeholders
-        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        root.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
             const key = el.dataset.i18nPlaceholder;
             const trans = t(key);
             if (trans) el.placeholder = trans;
         });
 
         // Translate titles / tooltips
-        document.querySelectorAll('[data-i18n-title]').forEach(el => {
+        root.querySelectorAll('[data-i18n-title]').forEach(el => {
             const key = el.dataset.i18nTitle;
             const trans = t(key);
             if (trans) el.title = trans;
         });
 
         // Translate aria-labels
-        document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+        root.querySelectorAll('[data-i18n-aria]').forEach(el => {
             const key = el.dataset.i18nAria;
             const trans = t(key);
             if (trans) el.setAttribute('aria-label', trans);
@@ -557,6 +569,7 @@ window.I18n = (function() {
     return {
         t: t,
         getLanguage: () => currentLang,
+        getCurrentLanguage: () => currentLang,
         setLanguage: setLanguage,
         onLanguageChange: onLanguageChange,
         applyToDOM: applyToDOM,

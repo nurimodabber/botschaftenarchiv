@@ -1,0 +1,462 @@
+/* base.css — Globaler Reset, Body, Cosmos Dock Navigation & Footer */
+/* ─── Global Reset & Body ────────────────────────────────────────────────── */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    position: relative;
+    font-family: var(--font-sans);
+    background-color: var(--bg-canvas);
+    color: var(--text-ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* ─── Nahtlose Ambient Hero Aura (Bibliothek & Realms) ────────────────────────── */
+/* Beginnt nahtlos am obersten Rand des Fensters (top: 0) hinter dem Nav-Dock
+   und verlaeuft sanft und vollstaendig nach unten und zur Seite in die Canvas-Farbe,
+   sodass keinerlei Kanten oder abgeschnittene Farbbereiche entstehen. */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 560px;
+    background: radial-gradient(ellipse 75% 65% at 50% 0%, var(--pillar-accent-glow), transparent 75%);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease, background 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body[data-active-view="library"]::before,
+body:not([data-active-view])::before {
+    opacity: 0.95;
+}
+
+/* ─── Cosmos Kinetic Keyframes ───────────────────────────────────────────── */
+
+@keyframes cosmosBlurIn {
+    0% {
+        opacity: 0;
+        filter: blur(10px);
+        transform: translateY(16px);
+    }
+    100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+    }
+}
+
+@keyframes cosmosStaggerUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.99);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes cosmosFadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes cosmosLightboxIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.97) translateY(14px);
+        filter: blur(6px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+    }
+}
+
+/* ─── Floating Pill Dock Navigation (Cosmos Dock) ────────────────────────── */
+
+.cosmos-dock-container {
+    position: sticky;
+    top: max(0.85rem, env(safe-area-inset-top, 0px));
+    z-index: 1000;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+    padding: 0 max(1rem, env(safe-area-inset-right, 0px)) 0 max(1rem, env(safe-area-inset-left, 0px));
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, visibility 0.35s;
+    will-change: transform, opacity;
+}
+
+/* Obere Taskbar (Dock) waehrend Dokument-Preview / Reader ausblenden */
+body.viewer-open .cosmos-dock-container,
+body:has(#document-viewer.active) .cosmos-dock-container {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateY(-130%) !important;
+    visibility: hidden !important;
+}
+
+.cosmos-dock {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.55rem;
+    background: var(--bg-glass-dock);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-dock);
+    transition: transform var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.cosmos-dock:hover {
+    border-color: var(--border-hover);
+    box-shadow: 0 16px 44px -8px rgba(0, 0, 0, 0.1);
+}
+
+/* Dock Brand Monogram */
+.dock-brand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border-radius: var(--radius-full);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-ink);
+    text-decoration: none;
+    transition: opacity var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.dock-brand:hover {
+    opacity: 0.95;
+    background: var(--bg-hover);
+}
+
+.dock-star {
+    color: var(--accent-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s var(--ease-spring);
+}
+
+.dock-brand:hover .dock-star {
+    transform: rotate(20deg) scale(1.1);
+}
+
+.dock-brand-text {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.dock-title {
+    font-family: var(--font-serif-display);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+}
+
+.dock-pill {
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.15rem 0.45rem;
+    border-radius: var(--radius-full);
+    background: var(--accent-gold-soft);
+    color: var(--accent-gold);
+    border: 1px solid rgba(154, 122, 56, 0.2);
+    white-space: nowrap;
+}
+
+.dock-divider {
+    width: 1px;
+    height: 18px;
+    background: var(--border-hairline);
+    margin: 0 0.15rem;
+}
+
+/* Main Nav Segmented Buttons */
+.cosmos-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    position: relative;
+}
+
+.nav-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.85rem;
+    font-family: var(--font-sans);
+    font-size: 0.84rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.nav-btn:hover {
+    color: var(--text-ink);
+    background: var(--bg-subtle);
+}
+
+.nav-btn.active {
+    color: var(--text-ink);
+    background: var(--bg-canvas);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    font-weight: 600;
+}
+
+[data-theme="dark"] .nav-btn.active {
+    background: var(--bg-subtle);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.nav-btn .nav-icon {
+    display: inline-flex;
+    opacity: 0.7;
+    transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.nav-icon-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn:hover .nav-icon,
+.nav-btn.active .nav-icon {
+    opacity: 1;
+}
+
+.dock-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+/* Icon Buttons (Theme toggle, etc.) */
+.dock-icon-btn,
+.icon-btn {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+    text-decoration: none;
+}
+
+.dock-icon-btn:hover,
+.icon-btn:hover {
+    color: var(--text-ink);
+    background: var(--bg-subtle);
+    transform: scale(1.05);
+}
+
+/* ─── Main Content Canvas ────────────────────────────────────────────────── */
+
+#app-content {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 6rem;
+}
+
+.view {
+    display: none;
+    opacity: 0;
+}
+
+.view.active {
+    display: block;
+    animation: cosmosFadeIn 0.4s var(--ease-cosmos) forwards;
+}
+
+
+
+/* ─── Buttons & Controls ─────────────────────────────────────────────────── */
+
+.btn-primary {
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 0.6rem 1.4rem;
+    border-radius: var(--radius-full);
+    background: var(--text-ink);
+    color: var(--bg-canvas);
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--shadow-plate);
+    transition: all var(--transition-fast);
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    font-family: var(--font-sans);
+    font-size: 0.86rem;
+    font-weight: 500;
+    padding: 0.6rem 1.4rem;
+    border-radius: var(--radius-full);
+    background: var(--bg-paper);
+    color: var(--text-ink);
+    border: 1px solid var(--border-hairline);
+    cursor: pointer;
+    box-shadow: var(--shadow-plate);
+    transition: all var(--transition-fast);
+}
+
+.btn-secondary:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-1px);
+}
+
+.load-more-container {
+    text-align: center;
+    margin: 3rem 0;
+}
+
+
+
+/* ─── Footer ─────────────────────────────────────────────────────────────── */
+
+.app-footer {
+    border-top: 1px solid var(--border-hairline);
+    background: var(--bg-paper);
+    padding: 2.5rem 1.5rem;
+    margin-top: auto;
+}
+
+.footer-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    text-align: center;
+}
+
+.footer-initiative-box {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.75rem;
+    width: 100%;
+}
+
+.footer-initiative-title {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-gold);
+    margin-bottom: 0.5rem;
+}
+
+.footer-initiative-desc {
+    font-family: var(--font-sans);
+    font-size: 0.84rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 0.85rem;
+}
+
+.footer-official-links {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-subtle);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--border-hairline);
+}
+
+.footer-official-links a {
+    color: var(--accent-gold);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.footer-copyright {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-subtle);
+    letter-spacing: 0.04em;
+}
+
+.viewer-disclaimer-footnote {
+    margin-top: 3rem;
+    padding: 1.25rem 1rem;
+    border-top: 1px solid var(--border-hairline);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-subtle);
+    text-align: center;
+    line-height: 1.6;
+}
+
+.viewer-disclaimer-footnote a {
+    color: var(--accent-gold);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+

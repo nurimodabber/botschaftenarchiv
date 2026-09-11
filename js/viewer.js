@@ -209,6 +209,7 @@ function closeViewer() {
     }
 }
 window.closeViewer = closeViewer;
+window.closeDocumentViewer = closeViewer;
 
 function updateBookmarkBtnState(id) {
     const bookmarkBtn = document.getElementById('viewer-bookmark');
@@ -356,7 +357,11 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
     const dlGroup = document.getElementById('viewer-download-group');
 
     // Header-Metadaten setzen
-    const isEn = window.I18n ? window.I18n.getCurrentLanguage() === 'en' : (localStorage.getItem('cosmos_master_lang') === 'en');
+    const isEn = (window.I18n && typeof window.I18n.getCurrentLanguage === 'function')
+        ? window.I18n.getCurrentLanguage() === 'en'
+        : ((window.I18n && typeof window.I18n.getLanguage === 'function')
+            ? window.I18n.getLanguage() === 'en'
+            : (localStorage.getItem('cosmos_master_lang') === 'en'));
     const isRuhi = doc.tier === 'ruhi' || doc.type === 'Ruhi-Buch' || 
                    (doc.title && (doc.title.startsWith('Ruhi Buch') || doc.title.startsWith('Ruhi Book')));
 
