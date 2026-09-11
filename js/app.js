@@ -613,42 +613,99 @@ function initLibraryView() {
         }
     });
 
-    // Reset Filters Button
+    // Reset Filters & Individual Tag Clear
+    window.resetAllLibraryFilters = function() {
+        state.library.recipient = 'all';
+        state.library.epoch = '';
+        state.library.type = '';
+        state.library.segment = 'all';
+        state.library.lang = '';
+        state.library.format = 'all';
+        state.library.query = '';
+        state.library.author = 'all';
+        state.library.compTopic = 'all';
+        state.library.ruhiGroup = 'all';
+        state.library.sort = 'date-desc';
+        state.library.timelineEpoch = '';
+        state.library.searchPillarFilter = null;
+
+        // Reset select dropdowns & search
+        const recipSelect = document.getElementById('library-recipient-select');
+        const epochSelect = document.getElementById('library-epoch-select');
+        const typeSelect = document.getElementById('library-type-select');
+        const sortSelect = document.getElementById('library-sort-select');
+
+        if (recipSelect) recipSelect.value = 'all';
+        if (epochSelect) epochSelect.value = '';
+        if (typeSelect) typeSelect.value = '';
+        if (sortSelect) sortSelect.value = 'date-desc';
+        if (searchInput) searchInput.value = '';
+        if (searchClearBtn) searchClearBtn.style.display = 'none';
+
+        const inlineEpochBtns = document.querySelectorAll('.inline-epoch-btn');
+        inlineEpochBtns.forEach(b => {
+            b.classList.toggle('active', b.dataset.epochFilter === 'all');
+        });
+
+        const formatChips = document.querySelectorAll('.format-chip-btn');
+        formatChips.forEach(b => {
+            b.classList.toggle('active', b.dataset.fmt === 'all');
+        });
+
+        applyLibraryFilters();
+    };
+
+    window.removeFilterByKey = function(key) {
+        if (key === 'query') {
+            state.library.query = '';
+            if (searchInput) searchInput.value = '';
+            if (searchClearBtn) searchClearBtn.style.display = 'none';
+        } else if (key === 'recipient') {
+            state.library.recipient = 'all';
+            const recipSelect = document.getElementById('library-recipient-select');
+            if (recipSelect) recipSelect.value = 'all';
+        } else if (key === 'epoch') {
+            state.library.epoch = '';
+            const epochSelect = document.getElementById('library-epoch-select');
+            if (epochSelect) epochSelect.value = '';
+        } else if (key === 'type') {
+            state.library.type = '';
+            const typeSelect = document.getElementById('library-type-select');
+            if (typeSelect) typeSelect.value = '';
+        } else if (key === 'lang') {
+            state.library.lang = '';
+        } else if (key === 'format') {
+            state.library.format = 'all';
+            document.querySelectorAll('.format-chip-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.fmt === 'all');
+            });
+        } else if (key === 'author') {
+            state.library.author = 'all';
+            const recipSelect = document.getElementById('library-recipient-select');
+            if (recipSelect && state.library.segment === 'books') recipSelect.value = 'all';
+        } else if (key === 'compTopic') {
+            state.library.compTopic = 'all';
+            const recipSelect = document.getElementById('library-recipient-select');
+            if (recipSelect && state.library.segment === 'compilations') recipSelect.value = 'all';
+        } else if (key === 'ruhiGroup') {
+            state.library.ruhiGroup = 'all';
+            const recipSelect = document.getElementById('library-recipient-select');
+            if (recipSelect && state.library.segment === 'ruhi') recipSelect.value = 'all';
+        } else if (key === 'timelineEpoch') {
+            state.library.timelineEpoch = '';
+            const epochSelect = document.getElementById('library-epoch-select');
+            if (epochSelect && state.library.segment === 'books') epochSelect.value = '';
+            document.querySelectorAll('.inline-epoch-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.epochFilter === 'all');
+            });
+        }
+        applyLibraryFilters();
+    };
+
     const resetBtn = document.getElementById('library-reset-filters-btn');
     if (resetBtn) {
         resetBtn.addEventListener('click', () => {
-            state.library.recipient = 'all';
-            state.library.epoch = '';
-            state.library.type = '';
-            state.library.segment = 'all';
-        state.library.lang = '';
-            state.library.format = 'all';
-            state.library.query = '';
-            state.library.author = 'all';
-            state.library.compTopic = 'all';
-            state.library.ruhiGroup = 'all';
-            state.library.sort = 'date-desc';
-            state.library.timelineEpoch = '';
-
-            // Reset select dropdowns & search
-            const recipSelect = document.getElementById('library-recipient-select');
-            const epochSelect = document.getElementById('library-epoch-select');
-            const typeSelect = document.getElementById('library-type-select');
-            const sortSelect = document.getElementById('library-sort-select');
-
-            if (recipSelect) recipSelect.value = 'all';
-            if (epochSelect) epochSelect.value = '';
-            if (typeSelect) typeSelect.value = '';
-            if (sortSelect) sortSelect.value = 'date-desc';
-            if (searchInput) searchInput.value = '';
-            if (searchClearBtn) searchClearBtn.style.display = 'none';
-
-            const inlineEpochBtns = document.querySelectorAll('.inline-epoch-btn');
-            inlineEpochBtns.forEach(b => {
-                b.classList.toggle('active', b.dataset.epochFilter === 'all');
-            });
-
-            applyLibraryFilters();
+            window.resetAllLibraryFilters();
         });
     }
 
@@ -1312,11 +1369,38 @@ function applyLibraryFilters() {
 
     const tagsContainer = document.getElementById('library-active-tags');
     if (tagsContainer) {
-        tagsContainer.innerHTML = activeTags.map(tag => `
-            <span class="active-tag-pill">
-                ${tag.label}
-            </span>
-        `).join('');
+        if (activeTags.length > 0) {
+            tagsContainer.innerHTML = activeTags.map(tag => `
+                <span class="active-tag-pill">
+                    <span>${tag.label}</span>
+                    <span class="active-tag-close" data-tag-key="${tag.key}" title="Filter entfernen">&times;</span>
+                </span>
+            `).join('') + `
+                <button type="button" class="active-tags-reset-all-btn" id="active-tags-reset-btn" title="Alle Filter zurücksetzen">
+                    ${isEn ? 'Reset all' : 'Alle zurücksetzen'}
+                </button>
+            `;
+
+            tagsContainer.querySelectorAll('.active-tag-close').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (typeof window.removeFilterByKey === 'function') {
+                        window.removeFilterByKey(btn.dataset.tagKey);
+                    }
+                });
+            });
+
+            const allResetBtn = document.getElementById('active-tags-reset-btn');
+            if (allResetBtn) {
+                allResetBtn.addEventListener('click', () => {
+                    if (typeof window.resetAllLibraryFilters === 'function') {
+                        window.resetAllLibraryFilters();
+                    }
+                });
+            }
+        } else {
+            tagsContainer.innerHTML = '';
+        }
     }
 
     state.library.results = list;

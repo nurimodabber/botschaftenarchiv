@@ -42,7 +42,7 @@
     <meta name="twitter:description" content="Digitale Forschungsbibliothek mit 918 Botschaften des Universalen Hauses der Gerechtigkeit, Schriften und Büchern im offiziellen Satzspiegel.">
     <meta name="twitter:image" content="https://bahaibibliothek.vercel.app/assets/icons/og-image.png">
 
-    <link rel="stylesheet" href="css/styles.css?v=4.4">
+    <link rel="stylesheet" href="css/styles.css?v=4.5">
     <!-- Vercel Web Analytics & Speed Insights -->
     <script>
         window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -376,9 +376,6 @@
                                 <span data-i18n="library.filter_btn">Filter</span>
                                 <span id="library-filter-badge" class="filter-count-badge" style="display: none;">0</span>
                             </button>
-                            <button id="library-reset-filters-btn" class="command-reset-btn in-searchbar" title="Alle Filter zurücksetzen" style="display: none;">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                            </button>
                             <kbd class="search-kbd-badge" title="Tastatur-Kürzel">⌘K</kbd>
                         </div>
 
@@ -496,6 +493,12 @@
                                     </select>
                                 </div>
                             </div>
+                        </div>
+                        <div class="command-drawer-footer">
+                            <button id="library-reset-filters-btn" class="command-drawer-reset-btn" type="button" title="Alle Filter zurücksetzen" style="display: none;">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                                <span data-i18n="library.reset_filters">Filter zurücksetzen</span>
+                            </button>
                         </div>
                     </div>
             </div>
@@ -721,18 +724,18 @@
         </div>
     </footer>
 
-    <script src="js/state.js?v=4.4"></script>
-    <script src="js/i18n.js?v=4.4"></script>
-    <script src="js/settings.js?v=4.4"></script>
-    <script src="js/filters.js?v=4.4"></script>
-    <script src="js/search_engine.js?v=4.4"></script>
-    <script src="js/viewer.js?v=4.4"></script>
-    <script src="js/collections.js?v=4.4"></script>
-    <script src="js/compilation_builder.js?v=4.4"></script>
-    <script src="js/timeline_data.js?v=4.4"></script>
-    <script src="js/timeline.js?v=4.4"></script>
-    <script src="js/books.js?v=4.4"></script>
-    <script src="js/sources.js?v=4.4"></script>
-    <script src="js/app.js?v=4.4"></script>
+    <script src="js/state.js?v=4.5"></script>
+    <script src="js/i18n.js?v=4.5"></script>
+    <script src="js/settings.js?v=4.5"></script>
+    <script src="js/filters.js?v=4.5"></script>
+    <script src="js/search_engine.js?v=4.5"></script>
+    <script src="js/viewer.js?v=4.5"></script>
+    <script src="js/collections.js?v=4.5"></script>
+    <script src="js/compilation_builder.js?v=4.5"></script>
+    <script src="js/timeline_data.js?v=4.5"></script>
+    <script src="js/timeline.js?v=4.5"></script>
+    <script src="js/books.js?v=4.5"></script>
+    <script src="js/sources.js?v=4.5"></script>
+    <script src="js/app.js?v=4.5"></script>
 </body>
 </html>

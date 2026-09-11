@@ -1212,21 +1212,25 @@
     padding: 0.1rem 0.4rem;
 }
 
-.command-reset-btn {
+.command-reset-btn,
+.command-drawer-reset-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
+    gap: 0.35rem;
+    padding: 0.35rem 0.85rem;
     border-radius: var(--radius-full);
     border: 1px solid var(--accent-gold);
     background: var(--accent-gold-soft);
     color: var(--accent-gold);
     cursor: pointer;
+    font-size: 0.78rem;
+    font-weight: 500;
     transition: all var(--transition-fast);
 }
 
-.command-reset-btn:hover {
+.command-reset-btn:hover,
+.command-drawer-reset-btn:hover {
     background: var(--accent-gold);
     color: #121417;
 }

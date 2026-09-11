@@ -731,11 +731,23 @@ mark.search-highlight {
     color: var(--accent-gold);
 }
 
-.command-reset-btn.in-searchbar {
+.command-drawer-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 0.85rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-hairline);
+}
+
+.command-drawer-reset-btn {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    padding: 0.26rem;
+    gap: 0.38rem;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 0.35rem 0.85rem;
     border-radius: var(--radius-full);
     border: 1px solid var(--border-hairline);
     background: var(--bg-paper);
@@ -744,9 +756,10 @@ mark.search-highlight {
     transition: all var(--transition-fast);
 }
 
-.command-reset-btn.in-searchbar:hover {
+.command-drawer-reset-btn:hover {
     color: var(--accent-gold);
     border-color: var(--accent-gold);
+    background: var(--accent-gold-soft);
 }
 
 /* Master Search Bar (Apex Omnisearch) */
@@ -1024,6 +1037,23 @@ mark.search-highlight {
 
 .active-tag-close:hover {
     opacity: 1;
+}
+
+.active-tags-reset-all-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    padding: 0.15rem 0.4rem;
+    transition: color var(--transition-fast);
+}
+
+.active-tags-reset-all-btn:hover {
+    color: var(--accent-gold);
 }
 
 .results-bar-right {
