@@ -757,6 +757,7 @@ function getDocumentSearchBundle(...args) {
     return (window.FiltersModule && typeof window.FiltersModule.getDocumentSearchBundle === 'function') ? window.FiltersModule.getDocumentSearchBundle(...args) : "";
 }
 
+window.applyLibraryFilters = applyLibraryFilters;
 function applyLibraryFilters() {
     let list = state.documents;
     const { segment, author, compTopic, ruhiGroup, recipient, epoch, type, lang, format, sort, query } = state.library;
@@ -923,20 +924,61 @@ function applyLibraryFilters() {
     }
 
     // 7. Sortierung
-    if (query) {
+    if (segment === 'ruhi') {
+        // Ruhi-Kurse: Standardmäßig und bei Datums-Sortierung nach Kurs-Sequenz (Buch 1, 2, 3, 3.1, 4...)
+        if (sort === 'title') {
+            list.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'de'));
+        } else {
+            list.sort((a, b) => {
+                const numA = (typeof a.bookNumber === 'number') ? a.bookNumber : parseFloat(a.bookNumber) || 999;
+                const numB = (typeof b.bookNumber === 'number') ? b.bookNumber : parseFloat(b.bookNumber) || 999;
+                if (numA !== numB) return numA - numB;
+                return (a.title || '').localeCompare(b.title || '', 'de');
+            });
+        }
+    } else if (segment === 'compilations') {
+        // Kompilationen: Standardmäßig alphabetisch A–Z
+        if (sort === 'date-asc') {
+            list.sort((a, b) => (b.title || '').localeCompare(a.title || '', 'de'));
+        } else {
+            list.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'de'));
+        }
+    } else if (query) {
         if (sort === 'date-desc') {
             // Standard bei Suche: Nach Relevanz sortieren (höchster Relevanz-Score zuerst), sekundär nach Datum
-            list.sort((a, b) => (b._searchScore || 0) - (a._searchScore || 0) || (b.date || '').localeCompare(a.date || ''));
+            list.sort((a, b) => {
+                const scoreDiff = (b._searchScore || 0) - (a._searchScore || 0);
+                if (scoreDiff !== 0) return scoreDiff;
+                if (!a.date && !b.date) return (a.title || '').localeCompare(b.title || '', 'de');
+                if (!a.date) return 1;
+                if (!b.date) return -1;
+                return (b.date || '').localeCompare(a.date || '');
+            });
         } else if (sort === 'date-asc') {
-            list.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+            list.sort((a, b) => {
+                if (!a.date && !b.date) return (a.title || '').localeCompare(b.title || '', 'de');
+                if (!a.date) return 1;
+                if (!b.date) return -1;
+                return (a.date || '').localeCompare(b.date || '');
+            });
         } else if (sort === 'title') {
             list.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'de'));
         }
     } else {
         if (sort === 'date-desc') {
-            list.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+            list.sort((a, b) => {
+                if (!a.date && !b.date) return (a.title || '').localeCompare(b.title || '', 'de');
+                if (!a.date) return 1;
+                if (!b.date) return -1;
+                return (b.date || '').localeCompare(a.date || '');
+            });
         } else if (sort === 'date-asc') {
-            list.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+            list.sort((a, b) => {
+                if (!a.date && !b.date) return (a.title || '').localeCompare(b.title || '', 'de');
+                if (!a.date) return 1;
+                if (!b.date) return -1;
+                return (a.date || '').localeCompare(b.date || '');
+            });
         } else if (sort === 'title') {
             list.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'de'));
         }
@@ -1222,7 +1264,7 @@ function renderSavedView() {
    ────────────────────────────────────────────────────────────────────────── */
 
 function formatDate(dateString) {
-    if (!dateString) return 'Undatiert';
+    if (!dateString) return '';
     const parts = dateString.split('-');
     if (parts.length === 3) {
         const d = new Date(parts[0], parts[1] - 1, parts[2]);
@@ -1256,16 +1298,25 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
         metaParts.unshift(`<span class="doc-milestone-tag" title="${escapeDocHtml(msTitle)}">${msLabel}</span>`);
     }
 
-    // Datum (unverzichtbar für chronologische Orientierung)
+    // Datum / Band / Editions-Kennzeichnung (unverzichtbar für Orientierung)
     if (doc.tier === 'books' && doc.year) {
         metaParts.push(`<span class="doc-date">${doc.year}</span>`);
+    } else if (doc.tier === 'ruhi') {
+        const ruhiBadge = doc.bookNumber ? `Buch ${doc.bookNumber}` : 'Ruhi-Kurs';
+        metaParts.push(`<span class="doc-date">${ruhiBadge}</span>`);
+    } else if (doc.tier === 'compilations' || doc.type === 'Kompilation') {
+        metaParts.push(`<span class="doc-date">${isEn ? 'Compilation' : 'Kompilation'}</span>`);
     } else if (doc.date) {
         metaParts.push(`<span class="doc-date">${formatDate(doc.date)}</span>`);
     }
     
     // Spezifischer Anlass / Empfänger / Autor (nur falls aussagekräftig)
     let contextLabel = '';
-    if (doc.tier === 'books') {
+    if (doc.tier === 'ruhi') {
+        contextLabel = 'Ruhi-Institut';
+    } else if (doc.tier === 'compilations' || doc.type === 'Kompilation') {
+        contextLabel = isEn ? 'Research Department' : 'Forschungsabteilung';
+    } else if (doc.tier === 'books') {
         if (doc.author) contextLabel = doc.author;
     } else if (doc.type && doc.type !== 'Botschaft' && !doc.type.includes('Botschaft')) {
         contextLabel = doc.type;

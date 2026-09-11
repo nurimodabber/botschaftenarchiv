@@ -378,10 +378,26 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
         }
     }
     if (metaDate) {
-        metaDate.textContent = formatViewerDate(doc.date);
+        if (isRuhi) {
+            metaDate.textContent = isEn ? 'Ruhi Institute Study Material' : 'Studienmaterial des Ruhi-Instituts';
+        } else if (doc.tier === 'compilations' || doc.type === 'Kompilation') {
+            metaDate.textContent = isEn ? 'Thematic Compilation' : 'Thematische Textsammlung';
+        } else if (doc.tier === 'books' && doc.year) {
+            metaDate.textContent = doc.year;
+        } else if (doc.date) {
+            metaDate.textContent = formatViewerDate(doc.date);
+        } else {
+            metaDate.textContent = '';
+        }
     }
     if (metaSource) {
-        metaSource.textContent = doc.source || 'UHG';
+        if (isRuhi) {
+            metaSource.textContent = 'Ruhi-Institut';
+        } else if (doc.tier === 'compilations' || doc.type === 'Kompilation') {
+            metaSource.textContent = isEn ? 'Research Department' : 'Forschungsabteilung';
+        } else {
+            metaSource.textContent = doc.source || 'UHG';
+        }
     }
     if (titleEl) {
         titleEl.textContent = doc.title || (isEn ? 'Untitled' : 'Ohne Titel');
@@ -1074,7 +1090,7 @@ window.addViewerParagraphToWorkshop = function(paraIdx) {
 
 function formatViewerDate(dateString) {
     const isEn = window.I18n && window.I18n.getLanguage() === 'en';
-    if (!dateString) return isEn ? 'Undated' : 'Undatiert';
+    if (!dateString) return '';
     const parts = dateString.split('-');
     if (parts.length === 3) {
         const d = new Date(parts[0], parts[1] - 1, parts[2]);
