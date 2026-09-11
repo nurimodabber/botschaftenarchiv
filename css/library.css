@@ -1459,3 +1459,18 @@ mark.search-highlight {
     opacity: 0.8;
 }
 
+/* Plan-Rahmenbotschaften & Plan-Auftakt Badges */
+.doc-milestone-tag.plan-charter {
+    background: rgba(154, 122, 56, 0.14);
+    color: var(--accent-gold);
+    border: 1px solid rgba(154, 122, 56, 0.35);
+    font-weight: 700;
+}
+
+.doc-milestone-tag.plan-launch {
+    background: rgba(59, 130, 246, 0.12);
+    color: #2563eb;
+    border: 1px solid rgba(59, 130, 246, 0.32);
+    font-weight: 700;
+}
+

@@ -121,10 +121,11 @@ function updateDrawerFilterOptions(segment) {
             <option value="nine-year">${isEn ? 'Nine Year Plan (2022–2031)' : 'Neunjahresplan (2022–2031)'}</option>
             <option value="one-year">${isEn ? 'One Year Plan (2021–2022)' : 'Einjahresplan (2021–2022)'}</option>
             <option value="five-year-16">${isEn ? 'Five Year Plan (2016–2021)' : 'Fünfjahresplan (2016–2021)'}</option>
-            <option value="plans-00">${isEn ? 'Plans 2001–2015' : 'Pläne 2001–2015'}</option>
-            <option value="era-90s">${isEn ? '1990s' : '1990er Jahre'}</option>
-            <option value="era-80s">${isEn ? '1980s' : '1980er Jahre'}</option>
-            <option value="era-early">${isEn ? '1963–1979' : '1963–1979'}</option>
+            <option value="five-year-11">${isEn ? 'Five Year Plan (2011–2016)' : 'Fünfjahresplan (2011–2016)'}</option>
+            <option value="five-year-06">${isEn ? 'Five Year Plan (2006–2011)' : 'Fünfjahresplan (2006–2011)'}</option>
+            <option value="five-year-01">${isEn ? 'Five Year Plan (2001–2006)' : 'Fünfjahresplan (2001–2006)'}</option>
+            <option value="four-year-96">${isEn ? 'Four Year Plan (1996–2000)' : 'Vierjahresplan (1996–2000)'}</option>
+            <option value="plans-early">${isEn ? 'Early Plans (1963–1995)' : 'Frühere Pläne (1963–1995)'}</option>
         `;
         epochSelect.value = (window.state && window.state.library).epoch || '';
 
