@@ -327,6 +327,226 @@
     background: var(--accent-gold);
     color: #121417;
     border-color: var(--accent-gold);
+/* ─── Cloud-Synchronisation (Geräte & Accounts) ─── */
+.account-sync-card {
+    background: var(--bg-canvas);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 0.95rem 1.05rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.account-sync-card.active {
+    border-color: rgba(197, 160, 89, 0.35);
+    background: linear-gradient(to bottom, var(--bg-paper), var(--bg-canvas));
+    box-shadow: var(--shadow-plate);
+}
+
+.account-sync-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.account-sync-badge-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.account-sync-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-full);
+    background: var(--bg-subtle);
+    color: var(--text-muted);
+    border: 1px solid var(--border-subtle);
+}
+
+.account-sync-badge.active {
+    background: var(--accent-gold-soft);
+    color: var(--accent-gold);
+    border-color: rgba(197, 160, 89, 0.3);
+}
+
+.sync-dot-pulse {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #10B981;
+    display: inline-block;
+    animation: syncDotPulse 2s infinite ease-in-out;
+}
+
+@keyframes syncDotPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.45; transform: scale(0.8); }
+}
+
+.account-sync-code-display {
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--text-ink);
+}
+
+.account-sync-time {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    color: var(--text-subtle);
+}
+
+.account-sync-desc {
+    font-family: var(--font-sans);
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    line-height: 1.35;
+}
+
+.account-sync-btn-group {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.account-sync-main-btn {
+    flex: 1;
+    min-width: 140px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.6rem 0.95rem;
+    border-radius: var(--radius-sm);
+    border: none;
+    background: var(--text-ink);
+    color: var(--bg-paper);
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    touch-action: manipulation;
+}
+
+.account-sync-main-btn:hover {
+    opacity: 0.92;
+}
+
+.account-sync-main-btn:active {
+    transform: scale(0.97);
+    transition: transform 100ms var(--ease-out);
+}
+
+[data-theme="dark"] .account-sync-main-btn {
+    background: var(--accent-gold);
+    color: #121417;
+}
+
+.account-sync-main-btn svg.spin {
+    animation: syncSpinner 0.8s infinite linear;
+}
+
+@keyframes syncSpinner {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* QR Code Display Card */
+.account-qr-dropdown {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background: var(--bg-paper);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-hairline);
+    margin-top: 0.25rem;
+    gap: 0.75rem;
+    animation: cosmosScaleIn 0.2s var(--ease-out) both;
+}
+
+.account-qr-dropdown.open {
+    display: flex;
+}
+
+.account-qr-img {
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    background: #FFFFFF;
+    padding: 6px;
+    display: block;
+}
+
+.account-qr-help {
+    font-family: var(--font-sans);
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin: 0;
+    max-width: 280px;
+    line-height: 1.4;
+}
+
+.account-sync-link-box {
+    display: flex;
+    gap: 0.4rem;
+    width: 100%;
+}
+
+.account-sync-url-input {
+    flex: 1;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--border-hairline);
+    background: var(--bg-subtle);
+    color: var(--text-muted);
+}
+
+.account-copy-btn {
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--border-hairline);
+    background: var(--bg-canvas);
+    color: var(--text-ink);
+    font-family: var(--font-sans);
+    font-size: 0.74rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+}
+
+.account-copy-btn:hover {
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
+}
+
+.account-copy-btn:active {
+    transform: scale(0.95);
+}
+
+.account-sync-sub-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.15rem;
 }
 
 /* Transfer links */
