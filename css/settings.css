@@ -64,14 +64,15 @@
     overflow-y: auto;
     background: var(--bg-paper);
     border: 1px solid var(--border-hairline);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lightbox);
     padding: 1.15rem;
     z-index: 2500;
     display: flex;
     flex-direction: column;
     gap: 0.95rem;
-    animation: cosmosScaleIn 0.25s var(--ease-cosmos) both;
+    transform-origin: top right;
+    animation: cosmosScaleIn 0.22s var(--ease-out) both;
 }
 
 .appearance-popover[hidden] {
