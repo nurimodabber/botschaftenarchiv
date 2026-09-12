@@ -43,6 +43,8 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     transition: background-color var(--transition-normal), border-color var(--transition-normal);
 }
 
@@ -202,10 +204,17 @@
     transition: all var(--transition-fast);
 }
 
-.sources-tool-btn:hover {
-    border-color: var(--accent-gold);
-    color: var(--accent-gold);
-    background: var(--bg-paper);
+@media (hover: hover) and (pointer: fine) {
+    .sources-tool-btn:hover {
+        border-color: var(--accent-gold);
+        color: var(--accent-gold);
+        background: var(--bg-paper);
+    }
+}
+
+.sources-tool-btn:active {
+    transform: scale(0.96);
+    transition: transform 100ms var(--ease-out);
 }
 
 /* Schnell-Sprung-Pills */
@@ -244,11 +253,23 @@
     transition: all var(--transition-fast);
 }
 
-.jump-pill:hover {
-    border-color: var(--accent-gold);
-    color: var(--accent-gold);
-    background: var(--accent-gold-soft);
-    transform: translateY(-1px);
+@media (hover: hover) and (pointer: fine) {
+    .jump-pill:hover {
+        border-color: var(--accent-gold);
+        color: var(--accent-gold);
+        background: var(--accent-gold-soft);
+        transform: translateY(-1px);
+    }
+
+    .jump-pill:hover .jump-count {
+        background: var(--accent-gold);
+        color: #121417;
+    }
+}
+
+.jump-pill:active {
+    transform: scale(0.96);
+    transition: transform 100ms var(--ease-out);
 }
 
 .jump-count {
@@ -259,11 +280,6 @@
     border-radius: var(--radius-full);
     background: var(--bg-subtle);
     color: var(--text-subtle);
-}
-
-.jump-pill:hover .jump-count {
-    background: var(--accent-gold);
-    color: #121417;
 }
 
 /* ─── Haupt-Accordion (Große Dropdown-Sektionen) ─── */
@@ -373,7 +389,7 @@
 
 .summary-chevron {
     color: var(--text-subtle);
-    transition: transform 0.25s ease, color 0.25s ease;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.25s ease;
 }
 
 .sources-accordion[open] > .sources-accordion-summary .summary-chevron {
@@ -455,7 +471,7 @@
 
 .source-sub-chevron {
     color: var(--text-subtle);
-    transition: transform 0.2s ease;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.25s ease;
 }
 
 .source-sub-accordion[open] > .source-sub-summary .source-sub-chevron {

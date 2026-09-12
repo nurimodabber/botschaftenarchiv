@@ -36,11 +36,15 @@
     --border-hover: rgba(20, 20, 19, 0.18);
     --border-focus: rgba(154, 122, 56, 0.45);
 
+    /* Micro-Highlights & Bevels (Apple Hairline Surface Reflections) */
+    --highlight-surface: inset 0 1px 0 0 rgba(255, 255, 255, 0.7);
+    --highlight-subtle: inset 0 1px 0 0 rgba(255, 255, 255, 0.35);
+
     /* Shadows (Multi-layered Airy & Tactile Apple Elevation) */
-    --shadow-plate: 0 1px 2px rgba(20, 20, 19, 0.03), 0 4px 16px rgba(20, 20, 19, 0.025);
-    --shadow-hover: 0 4px 12px rgba(20, 20, 19, 0.04), 0 18px 38px -8px rgba(20, 20, 19, 0.08);
-    --shadow-dock: 0 10px 30px -4px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.03);
-    --shadow-lightbox: 0 24px 70px -12px rgba(0, 0, 0, 0.2), 0 8px 24px -4px rgba(0, 0, 0, 0.08);
+    --shadow-plate: var(--highlight-surface), 0 1px 2px rgba(20, 20, 19, 0.03), 0 4px 16px rgba(20, 20, 19, 0.025);
+    --shadow-hover: var(--highlight-surface), 0 4px 12px rgba(20, 20, 19, 0.04), 0 18px 38px -8px rgba(20, 20, 19, 0.08);
+    --shadow-dock: var(--highlight-surface), 0 10px 30px -4px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.03);
+    --shadow-lightbox: var(--highlight-surface), 0 24px 70px -12px rgba(0, 0, 0, 0.2), 0 8px 24px -4px rgba(0, 0, 0, 0.08);
 
     /* Border Radii */
     --radius-xs: 6px;
@@ -112,11 +116,15 @@
     --border-hover: rgba(255, 255, 255, 0.18);
     --border-focus: rgba(197, 160, 89, 0.5);
 
+    /* Micro-Highlights & Bevels (Hairline Reflections for Dark Surfaces) */
+    --highlight-surface: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    --highlight-subtle: inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+
     /* Shadows (Deep Airy Layering) */
-    --shadow-plate: 0 1px 3px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 0, 0, 0.35);
-    --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.55), 0 20px 48px -10px rgba(0, 0, 0, 0.75);
-    --shadow-dock: 0 16px 44px -8px rgba(0, 0, 0, 0.8), 0 4px 12px rgba(0, 0, 0, 0.5);
-    --shadow-lightbox: 0 32px 80px -12px rgba(0, 0, 0, 0.95);
+    --shadow-plate: var(--highlight-surface), 0 1px 3px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 0, 0, 0.35);
+    --shadow-hover: var(--highlight-surface), 0 4px 16px rgba(0, 0, 0, 0.55), 0 20px 48px -10px rgba(0, 0, 0, 0.75);
+    --shadow-dock: var(--highlight-surface), 0 16px 44px -8px rgba(0, 0, 0, 0.8), 0 4px 12px rgba(0, 0, 0, 0.5);
+    --shadow-lightbox: var(--highlight-surface), 0 32px 80px -12px rgba(0, 0, 0, 0.95);
 }
 
 [data-theme="sepia"] {
@@ -148,11 +156,15 @@
     --border-hover: rgba(74, 52, 28, 0.22);
     --border-focus: rgba(158, 107, 32, 0.5);
 
+    /* Micro-Highlights & Bevels */
+    --highlight-surface: inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
+    --highlight-subtle: inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
+
     /* Shadows */
-    --shadow-plate: 0 2px 10px rgba(74, 52, 28, 0.04);
-    --shadow-hover: 0 20px 44px -12px rgba(74, 52, 28, 0.12);
-    --shadow-dock: 0 12px 36px -6px rgba(74, 52, 28, 0.08);
-    --shadow-lightbox: 0 32px 80px -16px rgba(45, 33, 20, 0.35);
+    --shadow-plate: var(--highlight-surface), 0 2px 10px rgba(74, 52, 28, 0.04);
+    --shadow-hover: var(--highlight-surface), 0 20px 44px -12px rgba(74, 52, 28, 0.12);
+    --shadow-dock: var(--highlight-surface), 0 12px 36px -6px rgba(74, 52, 28, 0.08);
+    --shadow-lightbox: var(--highlight-surface), 0 32px 80px -16px rgba(45, 33, 20, 0.35);
 }
 
 [data-theme="oled"] {
@@ -184,11 +196,15 @@
     --border-hover: rgba(255, 255, 255, 0.28);
     --border-focus: rgba(216, 178, 107, 0.6);
 
+    /* Micro-Highlights & Bevels */
+    --highlight-surface: inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+    --highlight-subtle: inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+
     /* Shadows */
-    --shadow-plate: 0 2px 10px rgba(0, 0, 0, 0.8);
-    --shadow-hover: 0 20px 48px -10px rgba(0, 0, 0, 0.95);
-    --shadow-dock: 0 16px 40px -8px rgba(0, 0, 0, 0.9);
-    --shadow-lightbox: 0 32px 80px -16px rgba(0, 0, 0, 1);
+    --shadow-plate: var(--highlight-surface), 0 2px 10px rgba(0, 0, 0, 0.8);
+    --shadow-hover: var(--highlight-surface), 0 20px 48px -10px rgba(0, 0, 0, 0.95);
+    --shadow-dock: var(--highlight-surface), 0 16px 40px -8px rgba(0, 0, 0, 0.9);
+    --shadow-lightbox: var(--highlight-surface), 0 32px 80px -16px rgba(0, 0, 0, 1);
 }
 
 /* ─── Reader Typografie & Format-Customizations ────────────────────────────── */

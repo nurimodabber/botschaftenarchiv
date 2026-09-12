@@ -9,10 +9,12 @@
 
 .books-authors-nav-wrapper {
     overflow-x: auto;
-    padding: 0.5rem 0 1rem;
+    padding: 0.5rem 0.25rem 1rem;
     margin-bottom: 1.5rem;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
+    mask-image: linear-gradient(to right, transparent, black 16px, black calc(100% - 16px), transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 16px, black calc(100% - 16px), transparent);
 }
 
 .books-authors-nav-wrapper::-webkit-scrollbar {
@@ -105,6 +107,8 @@
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-plate);
     margin-bottom: 1.5rem;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
 }
 
 .books-search-box {
@@ -209,8 +213,8 @@
     left: 0;
     bottom: 0;
     width: 5px;
-    background: linear-gradient(180deg, var(--accent-gold) 0%, rgba(184, 134, 11, 0.4) 50%, var(--accent-gold) 100%);
-    opacity: 0.7;
+    background: linear-gradient(180deg, var(--accent-gold) 0%, rgba(229, 192, 123, 0.75) 50%, var(--accent-gold) 100%);
+    opacity: 0.75;
     transition: width var(--transition-fast), opacity var(--transition-fast);
 }
 
@@ -590,10 +594,59 @@
     transition: all var(--transition-fast);
 }
 
-.book-read-btn:hover {
-    opacity: 0.92;
-    transform: translateY(-1px);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+@media (hover: hover) and (pointer: fine) {
+    .book-read-btn:hover {
+        opacity: 0.92;
+        transform: translateY(-1px);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+    }
+
+    .book-read-btn.read-btn-de:hover {
+        background: #84682E;
+        box-shadow: 0 3px 10px rgba(154, 122, 56, 0.3);
+    }
+
+    .book-read-btn.read-btn-en:hover {
+        background: #1F385C;
+        box-shadow: 0 3px 10px rgba(43, 76, 126, 0.3);
+    }
+
+    [data-theme="dark"] .book-read-btn.read-btn-de:hover {
+        background: #E5C07B;
+        color: #121417;
+        border-color: #E5C07B;
+        box-shadow: 0 3px 10px rgba(229, 192, 123, 0.3);
+    }
+
+    [data-theme="dark"] .book-read-btn.read-btn-en:hover {
+        background: #8EB4E3;
+        color: #121417;
+        border-color: #8EB4E3;
+        box-shadow: 0 3px 10px rgba(107, 158, 222, 0.3);
+    }
+
+    .format-pill-btn:hover {
+        background: var(--accent-gold);
+        color: #FFFFFF;
+        border-color: var(--accent-gold);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .source-link-icon-btn:hover {
+        border-color: var(--accent-gold);
+        color: var(--accent-gold);
+        background: var(--accent-gold-soft);
+        transform: translateY(-1px);
+    }
+
+    .book-dl-btn:hover,
+    .book-bookmark-btn:hover {
+        border-color: var(--accent-gold);
+        color: var(--accent-gold);
+        background: var(--accent-gold-soft);
+        transform: translateY(-1px);
+    }
 }
 
 .book-read-btn.read-btn-de {
@@ -601,19 +654,9 @@
     color: #FFFFFF;
 }
 
-.book-read-btn.read-btn-de:hover {
-    background: #84682E;
-    box-shadow: 0 3px 10px rgba(154, 122, 56, 0.3);
-}
-
 .book-read-btn.read-btn-en {
     background: #2B4C7E;
     color: #FFFFFF;
-}
-
-.book-read-btn.read-btn-en:hover {
-    background: #1F385C;
-    box-shadow: 0 3px 10px rgba(43, 76, 126, 0.3);
 }
 
 [data-theme="dark"] .book-read-btn {
@@ -627,24 +670,10 @@
     border: 1px solid rgba(229, 192, 123, 0.4);
 }
 
-[data-theme="dark"] .book-read-btn.read-btn-de:hover {
-    background: #E5C07B;
-    color: #121417;
-    border-color: #E5C07B;
-    box-shadow: 0 3px 10px rgba(229, 192, 123, 0.3);
-}
-
 [data-theme="dark"] .book-read-btn.read-btn-en {
     background: rgba(107, 158, 222, 0.22);
     color: #8EB4E3;
     border: 1px solid rgba(107, 158, 222, 0.4);
-}
-
-[data-theme="dark"] .book-read-btn.read-btn-en:hover {
-    background: #8EB4E3;
-    color: #121417;
-    border-color: #8EB4E3;
-    box-shadow: 0 3px 10px rgba(107, 158, 222, 0.3);
 }
 
 .format-pill-btn {
@@ -663,14 +692,6 @@
     border: 1px solid var(--border-hairline);
     text-decoration: none;
     transition: all var(--transition-fast);
-}
-
-.format-pill-btn:hover {
-    background: var(--accent-gold);
-    color: #FFFFFF;
-    border-color: var(--accent-gold);
-    transform: translateY(-1px);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 [data-theme="dark"] .format-pill-btn:hover {
@@ -692,13 +713,6 @@
     text-decoration: none;
 }
 
-.source-link-icon-btn:hover {
-    border-color: var(--accent-gold);
-    color: var(--accent-gold);
-    background: var(--accent-gold-soft);
-    transform: translateY(-1px);
-}
-
 .book-dl-btn,
 .book-bookmark-btn {
     display: inline-flex;
@@ -715,12 +729,13 @@
     text-decoration: none;
 }
 
-.book-dl-btn:hover,
-.book-bookmark-btn:hover {
-    border-color: var(--accent-gold);
-    color: var(--accent-gold);
-    background: var(--accent-gold-soft);
-    transform: translateY(-1px);
+.book-read-btn:active,
+.format-pill-btn:active,
+.source-link-icon-btn:active,
+.book-dl-btn:active,
+.book-bookmark-btn:active {
+    transform: scale(0.96);
+    transition: transform 100ms var(--ease-out);
 }
 
 .book-bookmark-btn.bookmarked {
