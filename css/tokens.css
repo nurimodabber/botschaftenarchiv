@@ -529,214 +529,197 @@ html[data-active-pillar="all"] {
     color: var(--accent-gold) !important;
 }
 
-/* B. Die Vier Hauptsäulen (4-Spalten Desktop Grid & Fluid Stage) */
-.pillar-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.65rem;
-    width: 100%;
-    position: relative;
-    z-index: 1;
-    padding: 2px 2px 4px 2px;
-}
+/* ═══════════════════════════════════════════════════════════════════════════
+   UNIFIED LIBRARY SEGMENTED BAR & PROGRESSIVE DISCLOSURE SUB-FILTERS
+   Apple Design: Translucent segmented chrome, tactile physics, fluid layout
+   ═══════════════════════════════════════════════════════════════════════════ */
 
-.pillar-card {
-    position: relative;
+.library-segmented-bar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-    padding: 0.75rem 0.95rem;
+    gap: 0.35rem;
+    padding: 4px;
     background: var(--bg-paper);
     border: 1px solid var(--border-hairline);
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    text-align: left;
-    outline: none;
-    overflow: hidden;
-    user-select: none;
-    width: 100%;
-    min-width: 0;
-    opacity: 0.85;
+    border-radius: var(--radius-full);
     box-shadow: var(--shadow-plate);
-    transition: 
-        opacity var(--transition-fast),
-        transform var(--transition-fast),
-        border-color var(--transition-fast),
-        background-color var(--transition-fast),
-        box-shadow var(--transition-normal);
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    user-select: none;
 }
 
-[data-theme="dark"] .pillar-card {
-    background: rgba(28, 28, 26, 0.85);
-    border-color: rgba(255, 255, 255, 0.07);
-}
-
-@media (hover: hover) and (pointer: fine) {
-    .pillar-card:not(.active):hover {
-        opacity: 1;
-        transform: translateY(-2px);
-        border-color: var(--border-hover);
-        box-shadow: var(--shadow-hover);
-    }
-}
-
-.pillar-card:active {
-    transform: scale(0.98);
-    transition: transform 100ms var(--ease-out);
-}
-
-/* Farbige Saeulen-Identitaets-Punkte */
-.pillar-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    transition: transform 0.2s var(--ease-out);
-}
-
-@media (hover: hover) and (pointer: fine) {
-    .pillar-card:hover .pillar-dot {
-        transform: scale(1.25);
-    }
-}
-
-.pillar-dot.house { background: #7A1E3A; box-shadow: 0 0 6px rgba(122, 30, 58, 0.35); }
-.pillar-dot.compilations { background: #1E5E4B; box-shadow: 0 0 6px rgba(30, 94, 75, 0.35); }
-.pillar-dot.books { background: #1A365D; box-shadow: 0 0 6px rgba(26, 54, 93, 0.35); }
-.pillar-dot.ruhi { background: #A84A25; box-shadow: 0 0 6px rgba(168, 74, 37, 0.35); }
-
-.pillar-card-content {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    flex: 1;
-    overflow: hidden;
-}
-
-.pillar-card-title-row {
-    display: flex;
-    align-items: center;
-    gap: 0.45rem;
-    min-width: 0;
-}
-
-.pillar-card-title {
-    font-family: var(--font-sans);
-    font-size: 0.84rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    color: var(--text-muted);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.25;
-    transition: color var(--transition-fast);
-}
-
-/* Inactive cards: Subtitle gracefully collapsed so it is a tidy single-line pill */
-.pillar-card:not(.active) .pillar-card-sub {
-    max-height: 0;
-    opacity: 0;
-    margin-top: 0;
-    overflow: hidden;
-    pointer-events: none;
-    transition: max-height var(--transition-fast), opacity var(--transition-fast), margin-top var(--transition-fast);
-}
-
-.pillar-card:not(.active) .pillar-active-chip {
+.library-segmented-bar::-webkit-scrollbar {
     display: none;
 }
 
-/* Active State: The dominant central focus card */
-.pillar-card.active {
-    opacity: 1;
-    transform: translateY(-1px);
-    cursor: default;
-    background: var(--bg-paper);
-    border-color: var(--pillar-accent);
-    box-shadow: 0 6px 22px var(--pillar-accent-glow), 0 2px 6px rgba(0, 0, 0, 0.04);
+[data-theme="dark"] .library-segmented-bar {
+    background: rgba(22, 22, 20, 0.85);
+    border-color: rgba(255, 255, 255, 0.08);
 }
 
-[data-theme="dark"] .pillar-card.active {
-    background: rgba(28, 32, 40, 0.95);
-    border-color: var(--pillar-accent);
-    box-shadow: 0 6px 24px var(--pillar-accent-glow);
-}
-
-/* Active indicator accent on the left */
-.pillar-card.active::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 4px;
-    background: var(--pillar-accent);
-    border-top-left-radius: var(--radius-md);
-    border-bottom-left-radius: var(--radius-md);
-    transition: background var(--transition-normal);
-}
-
-.pillar-card.active .pillar-card-title {
-    font-size: 0.94rem;
-    font-weight: 700;
-    color: var(--text-ink);
-}
-
-.pillar-card.active .pillar-card-sub {
-    max-height: 24px;
-    opacity: 1;
-    margin-top: 0.18rem;
-    font-family: var(--font-sans);
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.25;
-    transition: max-height 0.3s ease, opacity 0.25s ease, margin-top 0.3s ease;
-}
-
-.pillar-active-chip {
+.seg-pill {
     display: inline-flex;
     align-items: center;
-    font-family: var(--font-mono);
-    font-size: 0.60rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.1rem 0.4rem;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.95rem;
     border-radius: var(--radius-full);
-    background: var(--pillar-accent-soft);
-    color: var(--pillar-accent);
-    border: 1px solid var(--pillar-accent-border);
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
     flex-shrink: 0;
-    animation: fadeInScale 0.25s ease;
+    transition: color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-@keyframes fadeInScale {
-    from { opacity: 0; transform: scale(0.85); }
-    to { opacity: 1; transform: scale(1); }
+@media (hover: hover) and (pointer: fine) {
+    .seg-pill:hover {
+        color: var(--text-ink);
+        background: var(--bg-subtle);
+    }
 }
 
-.pillar-badge {
+.seg-pill:active {
+    transform: scale(0.96);
+    transition: transform 80ms var(--ease-out);
+}
+
+.seg-pill.active {
+    background: var(--bg-canvas);
+    color: var(--text-ink);
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 0 1px var(--border-hairline);
+}
+
+[data-theme="dark"] .seg-pill.active {
+    background: var(--bg-paper);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+}
+
+.seg-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: transform 0.16s var(--ease-out);
+}
+
+.seg-dot.books { background: #1A365D; box-shadow: 0 0 5px rgba(26, 54, 93, 0.4); }
+.seg-dot.house { background: #7A1E3A; box-shadow: 0 0 5px rgba(122, 30, 58, 0.4); }
+.seg-dot.compilations { background: #1E5E4B; box-shadow: 0 0 5px rgba(30, 94, 75, 0.4); }
+.seg-dot.ruhi { background: #A84A25; box-shadow: 0 0 5px rgba(168, 74, 37, 0.4); }
+
+.seg-pill.active .seg-dot {
+    transform: scale(1.25);
+}
+
+/* Progressive Disclosure Sub-Filters Container */
+.pillar-subfilters-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 0.45rem;
+    animation: cosmosFadeIn 0.22s var(--ease-out) both;
+}
+
+.pillar-subfilters-container[hidden] {
+    display: none !important;
+}
+
+.subfilter-chips-scroll {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding: 2px 0 4px 0;
+}
+
+.subfilter-chips-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.subfilter-lead-label {
     font-family: var(--font-mono);
     font-size: 0.68rem;
     font-weight: 600;
-    padding: 0.15rem 0.45rem;
-    border-radius: var(--radius-full);
-    background: var(--bg-subtle);
     color: var(--text-subtle);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-right: 0.2rem;
+    white-space: nowrap;
     flex-shrink: 0;
-    transition: all 0.25s ease;
 }
 
-.pillar-card.active .pillar-badge {
-    background: var(--pillar-badge-bg);
-    color: var(--pillar-badge-text);
-    font-weight: 700;
-    box-shadow: 0 2px 6px var(--pillar-accent-glow);
+.subfilter-chip {
+    font-family: var(--font-sans);
+    font-size: 0.74rem;
+    font-weight: 500;
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-hairline);
+    background: var(--bg-paper);
+    color: var(--text-muted);
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: all var(--transition-fast);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .subfilter-chip:hover {
+        color: var(--text-ink);
+        border-color: var(--border-hover);
+        background: var(--bg-subtle);
+    }
+}
+
+.subfilter-chip:active {
+    transform: scale(0.95);
+}
+
+.subfilter-chip.active {
+    background: var(--accent-gold);
+    color: #FFFFFF;
+    border-color: var(--accent-gold);
+    font-weight: 600;
+    box-shadow: 0 2px 6px var(--accent-gold-glow);
+}
+
+/* Realm Sources Button */
+.realm-sources-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: transparent;
+    border: 1px solid var(--border-subtle);
+    padding: 0.22rem 0.6rem;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.realm-sources-btn:hover {
+    color: var(--accent-gold);
+    border-color: var(--accent-gold);
+    background: var(--accent-gold-soft);
+}
+
+.realm-sources-btn:active {
+    transform: scale(0.96);
 }
 
 /* C. Säulen-Ecosystem: Subfilter, Original-Quellen & Fach-Werkzeuge */
@@ -999,28 +982,7 @@ html[data-active-pillar="all"] {
     color: #FFFFFF;
 }
 
-/* Responsive 2x2 Raster bei schmaleren Bildschirmen:
-   ALLE 4 Saeulen (insbesondere auch Ruhi-Buecher) sind IMMER sofort sichtbar und nie abgeschnitten oder versteckt! */
 @media (max-width: 900px) {
-    .pillar-cards-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.55rem;
-        overflow-x: visible;
-        padding-bottom: 0;
-    }
-    .pillar-card {
-        width: 100%;
-        min-width: 0;
-        padding: 0.7rem 0.85rem;
-    }
-    .pillar-card.active {
-        width: 100%;
-        min-width: 0;
-    }
-    .pillar-card-title {
-        white-space: normal;
-    }
     .realm-lead-subtitle {
         display: none;
     }
@@ -1030,31 +992,17 @@ html[data-active-pillar="all"] {
 }
 
 @media (max-width: 480px) {
-    .pillar-cards-grid {
-        gap: 0.45rem;
+    .library-segmented-bar {
+        padding: 3px;
+        gap: 0.25rem;
     }
-    .pillar-card {
-        padding: 0.55rem 0.65rem;
+    .seg-pill {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.76rem;
     }
-    .pillar-card-title {
-        font-size: 0.78rem;
-    }
-    .pillar-card.active .pillar-card-title {
-        font-size: 0.82rem;
-    }
-    .pillar-card.active .pillar-card-sub {
-        font-size: 0.68rem;
-    }
-    .ecosystem-top-row {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        gap: 0.4rem;
-        flex-wrap: nowrap;
-    }
-    .ecosystem-resources-bar {
-        flex-direction: column;
-        align-items: stretch;
+    .subfilter-chip {
+        padding: 0.2rem 0.55rem;
+        font-size: 0.72rem;
     }
 }
 

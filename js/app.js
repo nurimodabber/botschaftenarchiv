@@ -136,27 +136,32 @@ window.switchLibrarySegment = function(segment) {
     state.library.segment = segment;
     
     // 0. Thema der gesamten Seite dem aktiven Realm anpassen
-    if (segment === 'all') { document.documentElement.removeAttribute('data-active-pillar'); } else { document.documentElement.setAttribute('data-active-pillar', segment); }
-
-    // 1. Die vier Hauptsäulen (Pillar Cards) aktualisieren
-    const pillarCards = document.querySelectorAll('#pillar-cards-grid .pillar-card');
-    pillarCards.forEach(card => {
-        const isActive = (segment !== 'all') && (card.dataset.pillar === segment);
-        card.classList.toggle('active', isActive);
-        card.setAttribute('aria-selected', isActive ? 'true' : 'false');
-    });
-
-    // Aktive Karte sanft ins Blickfeld gleiten lassen
-    if (segment !== 'all') {
-        const activeCard = document.querySelector(`#pillar-cards-grid .pillar-card[data-pillar="${segment}"]`);
-        if (activeCard && typeof activeCard.scrollIntoView === 'function') {
-            try {
-                activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-            } catch (e) {}
-        }
+    if (segment === 'all') {
+        document.documentElement.removeAttribute('data-active-pillar');
+    } else {
+        document.documentElement.setAttribute('data-active-pillar', segment);
     }
 
-    // 2. Dynamisches Realm-Banner oben aktualisieren (ohne Mengenangaben)
+    // 1. Segment-Pills der Hauptleiste aktualisieren
+    const segPills = document.querySelectorAll('#library-segmented-bar .seg-pill');
+    segPills.forEach(pill => {
+        const isActive = (pill.dataset.pillar === segment);
+        pill.classList.toggle('active', isActive);
+        pill.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+
+    // Aktiven Pill sanft ins Sichtfeld scrollen (für Mobilgeräte mit horizontalem Scroll)
+    const activePill = document.querySelector(`#library-segmented-bar .seg-pill[data-pillar="${segment}"]`);
+    if (activePill && typeof activePill.scrollIntoView === 'function') {
+        try {
+            activePill.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        } catch (e) {}
+    }
+
+    // 2. Progressive Disclosure Sub-Filter (Autoren, Themen, Kurse) rendern
+    renderSubfilters(segment);
+
+    // 3. Dynamisches Realm-Banner oben aktualisieren
     const realmTitle = document.getElementById('realm-lead-title');
     const realmSub = document.getElementById('realm-lead-subtitle');
     if (realmTitle && realmSub) {
@@ -188,7 +193,7 @@ window.switchLibrarySegment = function(segment) {
         }
     }
 
-    // 3. Platzhalter der Master-Suchleiste an den aktiven Bereich anpassen (ohne Mengenangaben)
+    // 4. Platzhalter der Master-Suchleiste anpassen
     const searchInput = document.getElementById('library-search-input');
     if (searchInput) {
         if (segment === 'house') {
@@ -209,17 +214,127 @@ window.switchLibrarySegment = function(segment) {
         }
     }
 
-    // 4. Kontextuelle Filteroptionen im Detail-Drawer aktualisieren
+    // 5. Kontextuelle Filteroptionen im Detail-Drawer aktualisieren
     updateDrawerFilterOptions(segment);
 
-    // 5. Filter anwenden & Ergebnisse rendern
+    // 6. Filter anwenden & Ergebnisse rendern
     if (typeof applyLibraryFilters === 'function') {
         applyLibraryFilters();
     }
 };
 
+function renderSubfilters(segment) {
+    const container = document.getElementById('pillar-subfilters-container');
+    if (!container) return;
+
+    if (segment === 'books') {
+        const cur = state.library.author || 'all';
+        const items = [
+            { id: 'all', label: 'Alle Autoren' },
+            { id: 'bahaullah', label: "Bahá'u'lláh" },
+            { id: 'the-bab', label: 'Der Báb' },
+            { id: 'abdul-baha', label: "‘Abdu’l-Bahá" },
+            { id: 'shoghi-effendi', label: 'Shoghi Effendi' }
+        ];
+        container.innerHTML = `
+            <div class="subfilter-chips-scroll" role="group" aria-label="Autorinnen & Autoren">
+                <span class="subfilter-lead-label">Autoren:</span>
+                ${items.map(it => `
+                    <button type="button" class="subfilter-chip ${cur === it.id ? 'active' : ''}" data-key="author" data-val="${it.id}">
+                        ${it.label}
+                    </button>
+                `).join('')}
+            </div>
+        `;
+        container.hidden = false;
+    } else if (segment === 'compilations') {
+        const cur = state.library.compTopic || 'all';
+        const items = [
+            { id: 'all', label: 'Alle Themen' },
+            { id: 'prayer', label: 'Gebet & Andacht' },
+            { id: 'marriage', label: 'Ehe & Familie' },
+            { id: 'huquq', label: 'Ḥuqúqu’lláh' },
+            { id: 'consultation', label: 'Beratung' },
+            { id: 'virtues', label: 'Tugenden' },
+            { id: 'women', label: 'Frauen' }
+        ];
+        container.innerHTML = `
+            <div class="subfilter-chips-scroll" role="group" aria-label="Kompilationsthemen">
+                <span class="subfilter-lead-label">Themen:</span>
+                ${items.map(it => `
+                    <button type="button" class="subfilter-chip ${cur === it.id ? 'active' : ''}" data-key="compTopic" data-val="${it.id}">
+                        ${it.label}
+                    </button>
+                `).join('')}
+            </div>
+        `;
+        container.hidden = false;
+    } else if (segment === 'ruhi') {
+        const cur = state.library.ruhiGroup || 'all';
+        const items = [
+            { id: 'all', label: 'Alle Bände' },
+            { id: 'b1-4', label: 'Bücher 1–4' },
+            { id: 'b5-8', label: 'Bücher 5–8' },
+            { id: 'b9plus', label: 'Bücher 9–14' },
+            { id: 'branch', label: 'Zweigkurse' }
+        ];
+        container.innerHTML = `
+            <div class="subfilter-chips-scroll" role="group" aria-label="Ruhi-Institut Bände">
+                <span class="subfilter-lead-label">Kurse:</span>
+                ${items.map(it => `
+                    <button type="button" class="subfilter-chip ${cur === it.id ? 'active' : ''}" data-key="ruhiGroup" data-val="${it.id}">
+                        ${it.label}
+                    </button>
+                `).join('')}
+            </div>
+        `;
+        container.hidden = false;
+    } else if (segment === 'house') {
+        const cur = state.library.recipient || 'all';
+        const items = [
+            { id: 'all', label: 'Alle Botschaften' },
+            { id: 'all-believers', label: 'Weltweite Gemeinde' },
+            { id: 'counsellors', label: 'Beraterkonferenz' },
+            { id: 'nsa', label: 'Geistige Räte (NSAs)' }
+        ];
+        container.innerHTML = `
+            <div class="subfilter-chips-scroll" role="group" aria-label="Empfängerkreis">
+                <span class="subfilter-lead-label">Anlass:</span>
+                ${items.map(it => `
+                    <button type="button" class="subfilter-chip ${cur === it.id ? 'active' : ''}" data-key="recipient" data-val="${it.id}">
+                        ${it.label}
+                    </button>
+                `).join('')}
+            </div>
+        `;
+        container.hidden = false;
+    } else {
+        container.hidden = true;
+        container.innerHTML = '';
+    }
+
+    container.querySelectorAll('.subfilter-chip').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const key = btn.dataset.key;
+            const val = btn.dataset.val;
+            if (key && val) {
+                state.library[key] = val;
+                const recipSelect = document.getElementById('library-recipient-select');
+                if (recipSelect) recipSelect.value = val;
+                renderSubfilters(segment);
+                applyLibraryFilters();
+            }
+        });
+    });
+}
+
 window.switchView = function(targetView) {
     // Redirection shortcuts to keep interface unified
+    if (targetView === 'books') {
+        window.switchView('library');
+        window.switchLibrarySegment('books');
+        return;
+    }
     if (targetView === 'search') {
         window.switchView('library');
         const s = document.getElementById('library-search-input');
@@ -375,18 +490,15 @@ function setupKeyboardShortcuts() {
    ────────────────────────────────────────────────────────────────────────── */
 
 function initLibraryView() {
-    // 1. Die vier Hauptsäulen (Pillar Cards) mit Toggle-Funktion
-    const pillarCards = document.querySelectorAll('#pillar-cards-grid .pillar-card');
-    pillarCards.forEach(card => {
-        card.addEventListener('click', () => {
-            if (card.dataset.pillar === 'books') {
-                window.switchView('books');
-                return;
-            }
-            if (state.library && state.library.segment === card.dataset.pillar) {
+    // 1. Die Hauptbereichs-Segmentleiste (Segmented Bar) mit Toggle-Funktion
+    const segPills = document.querySelectorAll('#library-segmented-bar .seg-pill');
+    segPills.forEach(pill => {
+        pill.addEventListener('click', () => {
+            const pillar = pill.dataset.pillar;
+            if (state.library && state.library.segment === pillar && pillar !== 'all') {
                 window.switchLibrarySegment('all');
             } else {
-                window.switchLibrarySegment(card.dataset.pillar);
+                window.switchLibrarySegment(pillar);
             }
         });
     });
@@ -658,11 +770,7 @@ function initLibraryView() {
             b.classList.toggle('active', b.dataset.epochFilter === 'all');
         });
 
-        const formatChips = document.querySelectorAll('.format-chip-btn');
-        formatChips.forEach(b => {
-            b.classList.toggle('active', b.dataset.fmt === 'all');
-        });
-
+        renderSubfilters(state.library.segment);
         applyLibraryFilters();
     };
 
@@ -710,6 +818,7 @@ function initLibraryView() {
                 b.classList.toggle('active', b.dataset.epochFilter === 'all');
             });
         }
+        renderSubfilters(state.library.segment);
         applyLibraryFilters();
     };
 

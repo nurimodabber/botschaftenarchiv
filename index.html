@@ -42,7 +42,7 @@
     <meta name="twitter:description" content="Digitale Forschungsbibliothek mit 918 Botschaften des Universalen Hauses der Gerechtigkeit, Schriften und Büchern im offiziellen Satzspiegel.">
     <meta name="twitter:image" content="https://bahaibibliothek.vercel.app/assets/icons/og-image.png">
 
-    <link rel="stylesheet" href="css/styles.css?v=5.7">
+    <link rel="stylesheet" href="css/styles.css?v=5.8">
 
     <!-- Vercel Web Analytics & Speed Insights -->
     <script>
@@ -140,18 +140,11 @@
             <div class="dock-divider"></div>
 
             <nav class="cosmos-nav" aria-label="Hauptnavigation">
-                <button class="nav-btn active" data-view="library" title="Bibliothek (Botschaften des Hauses)" data-i18n-title="nav.library_title">
+                <button class="nav-btn active" data-view="library" title="Bibliothek (Gesamtes Archiv)" data-i18n-title="nav.library_title">
                     <span class="nav-icon-circle">
                         <svg class="nav-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-book"></use></svg>
                     </span>
                     <span class="nav-label" data-i18n="nav.library">Bibliothek</span>
-                </button>
-
-                <button class="nav-btn" data-view="books" title="Heilige Schriften &amp; Bücher" data-i18n-title="nav.books_title">
-                    <span class="nav-icon-circle">
-                        <svg class="nav-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-book-open"></use></svg>
-                    </span>
-                    <span class="nav-label" data-i18n="nav.books">Bücher</span>
                 </button>
 
                 <button class="nav-btn" data-view="timeline" title="Historischer Zeitstrahl &amp; Epochen-Explorer (1844–2044)" data-i18n-title="nav.timeline_title">
@@ -160,18 +153,14 @@
                     </span>
                     <span class="nav-label" data-i18n="nav.timeline">Zeitstrahl</span>
                 </button>
+
                 <button class="nav-btn btn-nav-workshop" data-view="workshop" title="Kompilations-Werkstatt" data-i18n-title="nav.workshop_title">
                     <span class="nav-icon-circle">
                         <svg class="nav-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-workshop"></use></svg>
                     </span>
                     <span class="nav-label" data-i18n="nav.workshop">Werkstatt</span>
                 </button>
-                <button class="nav-btn" data-view="sources" title="Offizielle Bahá'í-Quellen &amp; Repositorien" data-i18n-title="nav.sources_title">
-                    <span class="nav-icon-circle">
-                        <svg class="nav-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-sources"></use></svg>
-                    </span>
-                    <span class="nav-label" data-i18n="nav.sources">Quellen</span>
-                </button>
+
                 <button class="nav-btn" data-view="saved" title="Merkliste &amp; Gespeichertes" data-i18n-title="nav.saved_title">
                     <span class="nav-icon-circle">
                         <svg class="nav-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-bookmark"></use></svg>
@@ -387,7 +376,7 @@
                 <!-- DIE UNIFIED COMMAND & MASTER-SEARCH SURFACE -->
                 <div class="library-command-surface">
                     
-                    <!-- Aktiver Bereich Banner -->
+                    <!-- Aktiver Bereich Banner & Quellen-Verzeichnis -->
                     <div class="library-realm-header" id="library-realm-header">
                         <div class="realm-lead-badge">
                             <span class="realm-lead-dot"></span>
@@ -395,6 +384,10 @@
                             <span class="realm-lead-sep">•</span>
                             <span class="realm-lead-subtitle" id="realm-lead-subtitle" data-i18n="library.realm_all_sub">Dokumente, Schriften, Bücher und thematische Sammlungen</span>
                         </div>
+                        <button type="button" class="realm-sources-btn" onclick="window.switchView('sources')" title="Offizielle Bahá'í-Quellen &amp; Repositorien aufrufen">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"/></svg>
+                            <span data-i18n="nav.sources">Quellen &amp; Repositorien</span>
+                        </button>
                     </div>
 
                     <!-- 1. Master-Suchleiste (Apex: Omnisearch über alle Werke mit Filter-Button, ⌘K & Clear) -->
@@ -424,56 +417,31 @@
                     <!-- Omnisearch 2.0 Statistik- & Säulen-Leiste (bei aktiver Suche) -->
                     <div id="search-stats-bar" class="search-stats-bar" style="display: none;"></div>
 
-                    <!-- 2. Die Vier Hauptsäulen (Unterkategorien der Masterleiste) -->
-                    <div class="pillar-cards-grid" id="pillar-cards-grid" role="tablist" aria-label="Vier Hauptbereiche">
-                        <!-- Säule 1: Botschaften des Hauses -->
-                        <button class="pillar-card" data-pillar="house" role="tab" aria-selected="false" title="Botschaften des Universalen Hauses der Gerechtigkeit (1963–2026)">
-                            <div class="pillar-card-content">
-                                <div class="pillar-card-title-row">
-                                    <span class="pillar-dot house"></span>
-                                    <span class="pillar-card-title" data-i18n="pillar.house_title">Botschaften des Hauses</span>
-                                    <span class="pillar-active-chip">Aktiv</span>
-                                </div>
-                                <span class="pillar-card-sub" data-i18n="pillar.house_sub">Universales Haus der Gerechtigkeit</span>
-                            </div>
+                    <!-- 2. Die Hauptbereiche: Elegante Segmentleiste (Alle, Schriften & Bücher, Botschaften, Kompilationen, Ruhi) -->
+                    <div class="library-segmented-bar" id="library-segmented-bar" role="tablist" aria-label="Bereichs-Filter">
+                        <button class="seg-pill active" data-pillar="all" role="tab" aria-selected="true" title="Gesamtes Archiv durchsuchen">
+                            <span class="seg-pill-label">Alle Werke</span>
                         </button>
-
-                        <!-- Säule 2: Compilations des Hauses -->
-                        <button class="pillar-card" data-pillar="compilations" role="tab" aria-selected="false" title="Thematische Sammlungen der Forschungsabteilung und des Hauses">
-                            <div class="pillar-card-content">
-                                <div class="pillar-card-title-row">
-                                    <span class="pillar-dot compilations"></span>
-                                    <span class="pillar-card-title" data-i18n="pillar.comp_title">Compilations des Hauses</span>
-                                    <span class="pillar-active-chip">Aktiv</span>
-                                </div>
-                                <span class="pillar-card-sub" data-i18n="pillar.comp_sub">Thematische Textsammlungen</span>
-                            </div>
+                        <button class="seg-pill" data-pillar="books" role="tab" aria-selected="false" title="Heilige Schriften der Zentralen Gestalten &amp; Shoghi Effendi">
+                            <span class="seg-dot books"></span>
+                            <span class="seg-pill-label">Schriften &amp; Bücher</span>
                         </button>
-
-                        <!-- Säule 3: Heilige Schriften und Bücher -->
-                        <button class="pillar-card" data-pillar="books" role="tab" aria-selected="false" title="Autorisierte Heilige Schriften und Standardwerke der Zentralen Gestalten &amp; Shoghi Effendis">
-                            <div class="pillar-card-content">
-                                <div class="pillar-card-title-row">
-                                    <span class="pillar-dot books"></span>
-                                    <span class="pillar-card-title" data-i18n="pillar.books_title">Heilige Schriften &amp; Bücher</span>
-                                    <span class="pillar-active-chip">Aktiv</span>
-                                </div>
-                                <span class="pillar-card-sub" data-i18n="pillar.books_sub">Zentrale Gestalten &amp; Shoghi Effendi</span>
-                            </div>
+                        <button class="seg-pill" data-pillar="house" role="tab" aria-selected="false" title="Botschaften des Universalen Hauses der Gerechtigkeit (1963–2026)">
+                            <span class="seg-dot house"></span>
+                            <span class="seg-pill-label">Botschaften</span>
                         </button>
-
-                        <!-- Säule 4: Ruhi-Bücher -->
-                        <button class="pillar-card" data-pillar="ruhi" role="tab" aria-selected="false" title="Ruhi-Institut Studienmaterialien, Hauptkursfolge &amp; Zweigkurse">
-                            <div class="pillar-card-content">
-                                <div class="pillar-card-title-row">
-                                    <span class="pillar-dot ruhi"></span>
-                                    <span class="pillar-card-title" data-i18n="pillar.ruhi_title">Ruhi-Bücher</span>
-                                    <span class="pillar-active-chip">Aktiv</span>
-                                </div>
-                                <span class="pillar-card-sub" data-i18n="pillar.ruhi_sub">Institut &amp; Kursmaterialien</span>
-                            </div>
+                        <button class="seg-pill" data-pillar="compilations" role="tab" aria-selected="false" title="Thematische Sammlungen der Forschungsabteilung">
+                            <span class="seg-dot compilations"></span>
+                            <span class="seg-pill-label">Kompilationen</span>
+                        </button>
+                        <button class="seg-pill" data-pillar="ruhi" role="tab" aria-selected="false" title="Ruhi-Institut Kursmaterialien">
+                            <span class="seg-dot ruhi"></span>
+                            <span class="seg-pill-label">Ruhi-Bücher</span>
                         </button>
                     </div>
+
+                    <!-- 2b. Progressive Disclosure Sub-Filter (Autoren, Themen, Kurse) -->
+                    <div id="pillar-subfilters-container" class="pillar-subfilters-container" hidden aria-live="polite"></div>
 
                     <!-- 3. Aufklappbare Detail-Filter (direkt ansteuerbar über Filter im Suchfeld) -->
                     <div id="library-advanced-drawer" class="command-advanced-drawer" style="display: none;">
@@ -775,7 +743,7 @@
     <script src="js/books.js?v=5.1"></script>
     <script src="js/sources.js?v=5.1"></script>
     <script src="js/account.js?v=5.6"></script>
-    <script src="js/app.js?v=5.1"></script>
+    <script src="js/app.js?v=5.8"></script>
 </body>
 </html>
 
