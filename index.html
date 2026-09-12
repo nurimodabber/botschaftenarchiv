@@ -42,7 +42,7 @@
     <meta name="twitter:description" content="Digitale Forschungsbibliothek mit 918 Botschaften des Universalen Hauses der Gerechtigkeit, Schriften und Büchern im offiziellen Satzspiegel.">
     <meta name="twitter:image" content="https://bahaibibliothek.vercel.app/assets/icons/og-image.png">
 
-    <link rel="stylesheet" href="css/styles.css?v=5.9">
+    <link rel="stylesheet" href="css/styles.css?v=6.0">
 
     <!-- Vercel Web Analytics & Speed Insights -->
     <script>
@@ -647,6 +647,9 @@
         <!-- Document Viewer Modal (Großzügiger, aufgeräumter Reader mit wegklappendem Header) -->
         <div id="document-viewer" class="modal" role="dialog" aria-modal="true" aria-labelledby="viewer-title">
             <div class="modal-content">
+                <div class="mobile-sheet-drag-handle" id="viewer-drag-handle" aria-hidden="true">
+                    <span class="drag-handle-pill"></span>
+                </div>
                 <div id="viewer-progress-bar" class="viewer-progress-bar"></div>
                 <div id="viewer-top-trigger" class="viewer-top-trigger" title="Header einblenden"></div>
                 <header class="modal-header" id="viewer-header">
@@ -683,10 +686,11 @@
                             <button id="btn-mode-web" class="viewer-segment-tab" style="display: none;" title="Original-Webseite aufrufen" data-i18n="viewer.btn_mode_web" data-i18n-title="viewer.btn_mode_web_title">Webseite</button>
                         </div>
 
-                        <!-- 2. Zweisprachig-Umschalter DE / EN -->
+                        <!-- 2. Zweisprachig-Umschalter DE / EN / Split -->
                         <div class="viewer-segmented-pill" id="viewer-lang-pill" style="display: none;">
                             <button id="btn-viewer-lang-de" class="viewer-segment-tab active" title="Deutsche Fassung" data-i18n-title="viewer.lang_de_title">DE</button>
                             <button id="btn-viewer-lang-en" class="viewer-segment-tab" title="English version" data-i18n-title="viewer.lang_en_title">EN</button>
+                            <button id="btn-viewer-lang-split" class="viewer-segment-tab split-tab" title="Zweisprachige Gegenüberstellung (DE | EN)" data-i18n-title="viewer.lang_split_title">DE · EN</button>
                         </div>
 
                         <!-- 3. Aufgeräumtes Download- & Export-Menü (PDF, EPUB, DOCX, Web) -->
@@ -735,7 +739,7 @@
     <script src="js/settings.js?v=5.9"></script>
     <script src="js/filters.js?v=5.1"></script>
     <script src="js/search_engine.js?v=5.1"></script>
-    <script src="js/viewer.js?v=5.1"></script>
+    <script src="js/viewer.js?v=6.0"></script>
     <script src="js/collections.js?v=5.1"></script>
     <script src="js/compilation_builder.js?v=5.1"></script>
     <script src="js/timeline_data.js?v=5.1"></script>

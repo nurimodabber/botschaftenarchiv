@@ -335,22 +335,37 @@
         padding-bottom: calc(6.5rem + env(safe-area-inset-bottom, 0px)) !important;
     }
 
-    /* ─── Mobile Document Viewer / Preview Modal (Vollständig repariert) ─── */
+    /* ─── Mobile Document Viewer / Apple Bottom Sheet ─── */
     .modal {
         padding: 0 !important;
         z-index: 2000 !important;
+        background: rgba(0, 0, 0, 0.6) !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        align-items: flex-end !important;
     }
 
     .modal-content {
-        max-height: 100vh !important;
-        max-height: 100dvh !important;
-        height: 100vh !important;
-        height: 100dvh !important;
+        max-height: 94vh !important;
+        max-height: 94dvh !important;
+        height: 94vh !important;
+        height: 94dvh !important;
         width: 100vw !important;
         max-width: 100vw !important;
-        border-radius: 0 !important;
-        border: none !important;
+        border-top-left-radius: 22px !important;
+        border-top-right-radius: 22px !important;
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+        border: 1px solid var(--border-hairline) !important;
+        border-bottom: none !important;
+        box-shadow: 0 -8px 36px rgba(0, 0, 0, 0.45) !important;
         padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+        animation: mobileSheetSlideUp 0.32s cubic-bezier(0.32, 0.72, 0, 1) both !important;
+    }
+
+    @keyframes mobileSheetSlideUp {
+        from { transform: translateY(100%); }
+        to { transform: translateY(0); }
     }
 
     .modal-header {
@@ -363,7 +378,7 @@
         flex-direction: column !important;
         align-items: stretch !important;
         gap: 0.45rem !important;
-        padding: max(0.6rem, env(safe-area-inset-top, 0px)) 0.85rem 0.55rem !important;
+        padding: max(1.4rem, calc(env(safe-area-inset-top, 0px) + 1.25rem)) 0.85rem 0.55rem !important;
         background: var(--bg-paper) !important;
         border-bottom: 1px solid var(--border-subtle) !important;
     }
@@ -459,7 +474,7 @@
 
     /* Lesebereich mit ausreichend oberem Abstand unter dem Header */
     .viewer-body {
-        padding: calc(6.5rem + env(safe-area-inset-top, 0px)) 1rem calc(4rem + env(safe-area-inset-bottom, 0px)) !important;
+        padding: calc(7.2rem + env(safe-area-inset-top, 0px)) 1rem calc(4rem + env(safe-area-inset-bottom, 0px)) !important;
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch !important;
         box-sizing: border-box !important;
