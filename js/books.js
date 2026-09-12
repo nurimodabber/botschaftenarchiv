@@ -103,6 +103,37 @@ window.BooksModule = (function() {
             });
         }
 
+        // Konsolidierung bei "Alle Sprachen", um Duplikate bei zweisprachig vorliegenden Werken zu vermeiden
+        const isMasterEn = window.I18n ? window.I18n.getCurrentLanguage() === 'en' : (localStorage.getItem('cosmos_master_lang') === 'en');
+        if (currentLang === 'all') {
+            const map = new Map();
+            books.forEach(b => {
+                const key = b.groupId || b.id;
+                if (!map.has(key)) map.set(key, []);
+                map.get(key).push(b);
+            });
+
+            const consolidated = [];
+            map.forEach((groupDocs) => {
+                const deDoc = groupDocs.find(d => (d.language || '').toLowerCase() === 'deutsch' || (d.language || '').toLowerCase() === 'german');
+                const enDoc = groupDocs.find(d => (d.language || '').toLowerCase() === 'english');
+                const hasBoth = Boolean(deDoc && enDoc);
+
+                const primaryDoc = isMasterEn ? (enDoc || deDoc || groupDocs[0]) : (deDoc || enDoc || groupDocs[0]);
+                const altDoc = (primaryDoc === deDoc) ? enDoc : deDoc;
+
+                consolidated.push({
+                    ...primaryDoc,
+                    _hasBoth: hasBoth,
+                    _deDoc: deDoc,
+                    _enDoc: enDoc,
+                    _altDoc: altDoc,
+                    _groupDocs: groupDocs
+                });
+            });
+            books = consolidated;
+        }
+
         // Filter: Suche (Titel, Untertitel, Autor, Auszug & Volltext)
         if (currentSearchQuery.trim()) {
             const q = currentSearchQuery.trim().toLowerCase();
@@ -113,6 +144,7 @@ window.BooksModule = (function() {
             books = books.filter(b => {
                 const titleMatch = (b.title && b.title.toLowerCase().includes(q)) ||
                                    (b.subtitle && b.subtitle.toLowerCase().includes(q)) ||
+                                   (b._altDoc && b._altDoc.title && b._altDoc.title.toLowerCase().includes(q)) ||
                                    (b.author && b.author.toLowerCase().includes(q)) ||
                                    (b.excerpt && b.excerpt.toLowerCase().includes(q));
                 if (titleMatch) return true;
@@ -149,9 +181,8 @@ window.BooksModule = (function() {
         }
 
         // Ergebnis-Zähler
-        const isMasterEn = window.I18n ? window.I18n.getCurrentLanguage() === 'en' : (localStorage.getItem('cosmos_master_lang') === 'en');
         info.innerHTML = `
-            <span><strong>${books.length}</strong> ${isMasterEn ? 'authorized works &amp; publications found' : 'autorisierte Werke &amp; Publikationen gefunden'}</span>
+            <span><strong>${books.length}</strong> ${isMasterEn ? 'authorized works &amp; publications' : 'autorisierte Werke &amp; Schriften'}</span>
             ${currentAuthor !== 'all' || currentLang !== 'all' || currentSearchQuery ? `<button class="btn-clear-filter" onclick="window.BooksModule.resetFilters()">${isMasterEn ? 'Reset filters' : 'Filter zurücksetzen'}</button>` : ''}
         `;
 
@@ -168,24 +199,96 @@ window.BooksModule = (function() {
         grid.innerHTML = books.map((book, idx) => createBookCard(book, idx)).join('');
     }
 
+    const escapeHtml = window.escapeHtml || function(str) {
+        if (!str) return '';
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    };
+
+    const cleanPath = (p) => p ? String(p).replace(/^\.\.\//, '') : '';
+
     function createBookCard(book, idx) {
         const isMasterEn = window.I18n ? window.I18n.getCurrentLanguage() === 'en' : (localStorage.getItem('cosmos_master_lang') === 'en');
+        const hasBoth = Boolean(book._hasBoth);
+        const deDoc = book._deDoc;
+        const enDoc = book._enDoc;
+        const altDoc = book._altDoc;
         const isEn = (book.language || '').toLowerCase() === 'english';
-        const langBadge = isEn ? '<span class="book-lang-badge en">EN</span>' : '<span class="book-lang-badge de">DE</span>';
+        const files = book.formatFiles || {};
+
+        const langBadge = hasBoth
+            ? '<span class="book-lang-badge de">DE</span><span class="book-lang-badge en">EN</span>'
+            : (isEn ? '<span class="book-lang-badge en">EN</span>' : '<span class="book-lang-badge de">DE</span>');
+
         const authorName = book.author || (isMasterEn ? 'Bahá\'í Literature' : 'Bahá\'í-Literatur');
         const authorRole = book.role ? `<span class="book-author-role">${book.role}</span>` : '';
         const words = book.wordCount ? `&bull; ${isMasterEn ? '~' : 'ca.'} ${book.wordCount.toLocaleString(isMasterEn ? 'en-US' : 'de-DE')} ${isMasterEn ? 'words' : 'Wörter'}` : '';
         const sourceLabel = book.sourcePlatform || (book.source === 'bahai.org' ? 'Bahá\'í Reference Library' : 'Bahá\'í-Bibliothek');
 
         // Multi-format buttons
-        const files = book.formatFiles || {};
         const formatPills = [];
-        if (files.pdf || book.filePath) formatPills.push(`<a href="${files.pdf || book.filePath}" download class="format-pill-btn" title="${isMasterEn ? 'Download PDF' : 'PDF herunterladen'}">PDF</a>`);
-        if (files.docx) formatPills.push(`<a href="${files.docx}" download class="format-pill-btn" title="${isMasterEn ? 'Download Word (.docx)' : 'Word (.docx) herunterladen'}">DOCX</a>`);
-        if (files.epub) formatPills.push(`<a href="${files.epub}" download class="format-pill-btn" title="${isMasterEn ? 'Download E-Book (.epub)' : 'E-Book (.epub) herunterladen'}">EPUB</a>`);
-        if (files.txt) formatPills.push(`<a href="${files.txt}" download class="format-pill-btn" title="${isMasterEn ? 'Download Full Text (.txt)' : 'Volltext (.txt) herunterladen'}">TXT</a>`);
+        if (hasBoth) {
+            const df = (deDoc && deDoc.formatFiles) || {};
+            const ef = (enDoc && enDoc.formatFiles) || {};
+            const dePdf = cleanPath(df.pdf || (deDoc && deDoc.filePath));
+            const deEpub = cleanPath(df.epub);
+            const deDocx = cleanPath(df.docx);
+
+            const enPdf = cleanPath(ef.pdf || (enDoc && enDoc.filePath));
+            const enEpub = cleanPath(ef.epub);
+            const enDocx = cleanPath(ef.docx);
+
+            if (dePdf) formatPills.push(`<a href="${dePdf}" download class="format-pill-btn" title="PDF herunterladen (Deutsch)">PDF (DE)</a>`);
+            if (deEpub) formatPills.push(`<a href="${deEpub}" download class="format-pill-btn" title="EPUB herunterladen (Deutsch)">EPUB (DE)</a>`);
+            if (deDocx) formatPills.push(`<a href="${deDocx}" download class="format-pill-btn" title="Word herunterladen (Deutsch)">DOCX (DE)</a>`);
+
+            if (enPdf) formatPills.push(`<a href="${enPdf}" download class="format-pill-btn" title="Download PDF (English)">PDF (EN)</a>`);
+            if (enEpub) formatPills.push(`<a href="${enEpub}" download class="format-pill-btn" title="Download EPUB (English)">EPUB (EN)</a>`);
+            if (enDocx) formatPills.push(`<a href="${enDocx}" download class="format-pill-btn" title="Download Word (English)">DOCX (EN)</a>`);
+        } else {
+            const pdfFile = cleanPath(files.pdf || book.filePath);
+            const docxFile = cleanPath(files.docx);
+            const epubFile = cleanPath(files.epub);
+            const txtFile = cleanPath(files.txt);
+
+            if (pdfFile) formatPills.push(`<a href="${pdfFile}" download class="format-pill-btn" title="${isMasterEn ? 'Download PDF' : 'PDF herunterladen'}">PDF</a>`);
+            if (docxFile) formatPills.push(`<a href="${docxFile}" download class="format-pill-btn" title="${isMasterEn ? 'Download Word (.docx)' : 'Word (.docx) herunterladen'}">DOCX</a>`);
+            if (epubFile) formatPills.push(`<a href="${epubFile}" download class="format-pill-btn" title="${isMasterEn ? 'Download E-Book (.epub)' : 'E-Book (.epub) herunterladen'}">EPUB</a>`);
+            if (txtFile) formatPills.push(`<a href="${txtFile}" download class="format-pill-btn" title="${isMasterEn ? 'Download Full Text (.txt)' : 'Volltext (.txt) herunterladen'}">TXT</a>`);
+        }
 
         const safeBookId = (book.id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+
+        let altTitleHtml = '';
+        if (hasBoth && altDoc && altDoc.title !== book.title) {
+            const altLang = (altDoc === enDoc) ? 'EN' : 'DE';
+            altTitleHtml = `<div class="book-card-subtitle" style="font-style: italic; opacity: 0.85;"><span style="font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; color: var(--accent-gold); margin-right: 0.25rem;">${altLang}:</span> ${escapeHtml(altDoc.title)}</div>`;
+        }
+
+        let readActionsHtml = '';
+        if (hasBoth && deDoc && enDoc) {
+            const safeDeId = (deDoc.id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+            const safeEnId = (enDoc.id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+            readActionsHtml = `
+                <button class="book-read-btn read-btn-de" onclick="window.openDocument('${safeDeId}', null, null, 'de')" title="Deutsche Ausgabe lesen">
+                    <span>Lesen (DE)</span>
+                </button>
+                <button class="book-read-btn read-btn-en" onclick="window.openDocument('${safeEnId}', null, null, 'en')" title="Read English edition">
+                    <span>Read (EN)</span>
+                </button>
+            `;
+        } else {
+            readActionsHtml = `
+                <button class="book-read-btn" onclick="window.openDocument('${safeBookId}', null, null, '${isEn ? 'en' : 'de'}')" title="${isMasterEn ? 'Read in reader (full text &amp; paragraphs)' : 'Im Reader lesen (Volltext &amp; Absätze)'}">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    <span>${isMasterEn ? 'Read' : 'Lesen'}</span>
+                </button>
+            `;
+        }
 
         return `
             <article class="book-plate-card" data-id="${book.id}" data-doc-id="${escapeHtml(book.id)}">
@@ -198,14 +301,15 @@ window.BooksModule = (function() {
                         </div>
                         <div style="display: flex; gap: 0.35rem; align-items: center;">
                             <span class="book-format-badge">PDF</span>
-                            ${files.epub ? `<span class="book-format-badge epub">EPUB</span>` : ''}
+                            ${(files.epub || (hasBoth && ((deDoc && deDoc.formatFiles && deDoc.formatFiles.epub) || (enDoc && enDoc.formatFiles && enDoc.formatFiles.epub)))) ? `<span class="book-format-badge epub">EPUB</span>` : ''}
                             ${book.year ? `<span class="book-year-badge">${book.year}</span>` : ''}
-                            ${langBadge}
+                            <div style="display: inline-flex; gap: 0.2rem;">${langBadge}</div>
                         </div>
                     </div>
 
-                    <h3 class="book-card-title" onclick="window.openDocument('${safeBookId}')" title="${escapeHtml(book.title)}">${escapeHtml(book.title)}</h3>
+                    <h3 class="book-card-title" onclick="window.openDocument('${safeBookId}', null, null, '${isEn ? 'en' : 'de'}')" title="${escapeHtml(book.title)}">${escapeHtml(book.title)}</h3>
                     ${book.subtitle ? `<div class="book-card-subtitle">${escapeHtml(book.subtitle)}</div>` : ''}
+                    ${altTitleHtml}
 
                     ${book.excerpt && book.excerpt !== 'Vollständiges autorisiertes Werk im Studienarchiv verfügbar.' && book.excerpt.trim().length > 0 ? `
                         <p class="book-card-excerpt">${escapeHtml(book.excerpt)}</p>
@@ -223,10 +327,7 @@ window.BooksModule = (function() {
                     ` : ''}
 
                     <div class="book-card-actions">
-                        <button class="book-read-btn" onclick="window.openDocument('${safeBookId}')" title="${isMasterEn ? 'Read in reader (full text &amp; paragraphs)' : 'Im Reader lesen (Volltext &amp; Absätze)'}">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-                            <span>${isMasterEn ? 'Read' : 'Lesen'}</span>
-                        </button>
+                        ${readActionsHtml}
                         ${book.sourceUrl ? `
                             <a href="${escapeHtml(book.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="source-link-icon-btn" title="${isMasterEn ? `Open on official source (${escapeHtml(book.sourcePlatform || 'Official Source')})` : `Auf autorisierter Original-Website öffnen (${escapeHtml(book.sourcePlatform || 'Offizielle Quelle')})`}">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>

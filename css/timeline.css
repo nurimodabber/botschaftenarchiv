@@ -385,6 +385,23 @@
     border: 1px solid rgba(197, 160, 89, 0.3);
 }
 
+.doc-milestone-tag.tag-charta {
+    background: rgba(229, 57, 53, 0.12);
+    color: #E53935;
+    border-color: rgba(229, 57, 53, 0.4);
+    font-weight: 800;
+}
+
+.spotlight-card.is-charta {
+    border-color: rgba(229, 57, 53, 0.35);
+    background: linear-gradient(135deg, rgba(229, 57, 53, 0.04) 0%, var(--bg-card) 100%);
+}
+
+.spotlight-card.is-charta:hover {
+    border-color: #E53935;
+    box-shadow: 0 6px 20px rgba(229, 57, 53, 0.12);
+}
+
 /* Card Highlight für Schlüssel-Botschaften */
 .doc-card.is-milestone {
     border-color: rgba(197, 160, 89, 0.35);

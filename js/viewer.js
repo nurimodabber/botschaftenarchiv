@@ -121,14 +121,18 @@ window.initViewer = function() {
     // 6. Sprach-Umschaltung: DE vs. EN
     if (btnLangDe) {
         btnLangDe.addEventListener('click', () => {
-            if (currentViewerDoc && currentViewerDoc.language !== 'deutsch' && currentViewerDoc.translations && currentViewerDoc.translations.de) {
+            if (!currentViewerDoc) return;
+            const isDe = (currentViewerDoc.language || '').toLowerCase() === 'deutsch' || (currentViewerDoc.language || '').toLowerCase() === 'german';
+            if (!isDe && currentViewerDoc.translations && currentViewerDoc.translations.de) {
                 window.openDocument(currentViewerDoc.translations.de, null, currentViewerMode, 'de');
             }
         });
     }
     if (btnLangEn) {
         btnLangEn.addEventListener('click', () => {
-            if (currentViewerDoc && currentViewerDoc.language === 'deutsch' && currentViewerDoc.translations && currentViewerDoc.translations.en) {
+            if (!currentViewerDoc) return;
+            const isDe = (currentViewerDoc.language || '').toLowerCase() === 'deutsch' || (currentViewerDoc.language || '').toLowerCase() === 'german';
+            if (isDe && currentViewerDoc.translations && currentViewerDoc.translations.en) {
                 window.openDocument(currentViewerDoc.translations.en, null, currentViewerMode, 'en');
             }
         });
@@ -234,11 +238,15 @@ function updateBookmarkBtnState(id) {
 
 function resolvePdfPath(doc) {
     if (!doc) return null;
-    if (doc.filePath && doc.filePath.toLowerCase().endsWith('.pdf')) {
-        return doc.filePath.replace(/^\.\.\//, '');
-    }
+    const clean = (p) => p ? String(p).replace(/^\.\.\//, '') : null;
     if (doc.formatFiles && doc.formatFiles.pdf) {
-        return doc.formatFiles.pdf.replace(/^\.\.\//, '');
+        return clean(doc.formatFiles.pdf);
+    }
+    if (doc.filePath && doc.filePath.toLowerCase().endsWith('.pdf')) {
+        return clean(doc.filePath);
+    }
+    if (doc.tier === 'books' || doc.tier === 'ruhi') {
+        return null;
     }
     if (doc.id) {
         return `documents/formats/pdf/${doc.id}.pdf`;
@@ -300,20 +308,8 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
 
     let targetId = id;
     const initialDoc = window.state.documents.find(d => d.id === id);
-    const effectiveLang = preferredLang || (function() {
-        try {
-            const master = localStorage.getItem('cosmos_master_lang');
-            if (master === 'en' || master === 'english') return 'en';
-            if (master === 'de' || master === 'deutsch') return 'de';
-            const saved = localStorage.getItem('cosmos_preferred_lang');
-            if (saved === 'english' || saved === 'en') return 'en';
-            if (saved === 'deutsch' || saved === 'de') return 'de';
-        } catch (e) {}
-        return (window.I18n ? window.I18n.getLanguage() : 'de');
-    })();
-
-    if (initialDoc && effectiveLang && initialDoc.translations && initialDoc.translations[effectiveLang]) {
-        targetId = initialDoc.translations[effectiveLang];
+    if (preferredLang && initialDoc && initialDoc.translations && initialDoc.translations[preferredLang]) {
+        targetId = initialDoc.translations[preferredLang];
     }
     const doc = window.state.documents.find(d => d.id === targetId) || initialDoc;
     if (!doc) return;
@@ -425,8 +421,21 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
         btnModePdf.style.display = pdfPath ? 'inline-flex' : 'none';
     }
     if (btnModeWeb) {
-        // Nur anzeigen, falls kein PDF vorhanden ist (reines Web-Dokument)
-        btnModeWeb.style.display = (!pdfPath && doc.sourceUrl) ? 'inline-flex' : 'none';
+        // Anzeigen, sobald eine externe Quelle (BRL oder Bahá'í-Bibliothek) hinterlegt ist
+        btnModeWeb.style.display = doc.sourceUrl ? 'inline-flex' : 'none';
+        if (doc.sourceUrl) {
+            const isBrl = doc.sourceUrl.includes('bahai.org') || (doc.sourcePlatform && doc.sourcePlatform.includes('Reference Library'));
+            if (isBrl) {
+                btnModeWeb.textContent = 'Reference Library';
+                btnModeWeb.title = 'In der Bahá’í Reference Library Ansicht öffnen';
+            } else if (doc.sourceUrl.includes('bibliothek.bahai.de')) {
+                btnModeWeb.textContent = 'Webseite';
+                btnModeWeb.title = 'Original-Webseite (Bahá’í-Bibliothek) aufrufen';
+            } else {
+                btnModeWeb.textContent = 'Webseite';
+                btnModeWeb.title = 'Original-Webseite aufrufen';
+            }
+        }
     }
 
     if (modePill) {
@@ -434,11 +443,12 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
     }
 
     // Sprach-Pill (DE / EN)
-    const hasBothLangs = doc.availableLanguages && doc.availableLanguages.includes('de') && doc.availableLanguages.includes('en');
+    const hasBothLangs = (doc.availableLanguages && doc.availableLanguages.includes('de') && doc.availableLanguages.includes('en')) ||
+                         (doc.translations && doc.translations.de && doc.translations.en);
     if (langPill) {
         if (hasBothLangs) {
             langPill.style.display = 'inline-flex';
-            const isDe = doc.language === 'deutsch';
+            const isDe = (doc.language || '').toLowerCase() === 'deutsch' || (doc.language || '').toLowerCase() === 'german';
             if (btnLangDe) btnLangDe.classList.toggle('active', isDe);
             if (btnLangEn) btnLangEn.classList.toggle('active', !isDe);
         } else {
@@ -659,31 +669,128 @@ function setViewerMode(mode, targetParagraph) {
             const isBibliothek = currentViewerDoc.sourceUrl.includes('bibliothek.bahai.de');
             if (isBibliothek) {
                 bodyEl.innerHTML = `
-                    <div style="width: 100%; height: calc(100vh - 80px); display: flex; flex-direction: column;">
-                        <div style="background: var(--bg-surface); padding: 0.5rem 1.25rem; border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem;">
-                            <span style="color: var(--text-secondary); font-family: var(--font-sans);">Originalfassung auf <strong>${escapeHtml(currentViewerDoc.sourcePlatform || 'Bahá’í-Bibliothek Deutschland')}</strong></span>
-                            <a href="${escapeHtml(currentViewerDoc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="padding: 0.25rem 0.75rem; font-size: 0.75rem; text-decoration: none;">Im neuen Tab öffnen ↗</a>
+                    <div class="brl-web-wrapper">
+                        <div class="brl-web-topbar">
+                            <div class="brl-web-badge">
+                                <span class="brl-web-badge-dot" style="background:#B38E46;"></span>
+                                <span>Originalfassung auf <strong>${escapeHtml(currentViewerDoc.sourcePlatform || 'Bahá’í-Bibliothek Deutschland')}</strong></span>
+                            </div>
+                            <div class="brl-web-actions">
+                                <a href="${escapeHtml(currentViewerDoc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="brl-action-btn secondary">Im neuen Tab öffnen ↗</a>
+                            </div>
                         </div>
-                        <iframe src="${currentViewerDoc.sourceUrl}" class="viewer-pdf-frame" style="flex: 1; border: none;" title="Autorisierte Original-Webseite"></iframe>
+                        <iframe src="${currentViewerDoc.sourceUrl}" class="brl-web-frame" title="Autorisierte Original-Webseite (Bahá’í-Bibliothek)"></iframe>
+                    </div>
+                `;
+            } else if (isMobile) {
+                // Mobile Darstellung für BRL
+                bodyEl.innerHTML = `
+                    <div class="mobile-pdf-container">
+                        <div class="mobile-pdf-card">
+                            <div class="mobile-pdf-icon-badge" style="background: rgba(43,76,126,0.1); color: #2B4C7E;">
+                                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                            </div>
+                            <h3 class="mobile-pdf-title">${escapeHtml(currentViewerDoc.title || 'Bahá’í Reference Library')}</h3>
+                            <p class="mobile-pdf-desc">Offizielle Publikation der Bahá’í Reference Library (bahai.org).</p>
+                            <div class="mobile-pdf-actions">
+                                <a href="${escapeHtml(currentViewerDoc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="mobile-web-btn primary">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                    <span>Auf bahai.org aufrufen ↗</span>
+                                </a>
+                                <button class="mobile-web-btn secondary" onclick="setViewerMode('text')">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="21" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="21" y1="18" x2="3" y2="18"/></svg>
+                                    <span>Im Lesemodus lesen</span>
+                                </button>
+                                ${pdfPath ? `
+                                <button class="mobile-web-btn secondary" onclick="setViewerMode('pdf')">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                    <span>Original-PDF öffnen</span>
+                                </button>
+                                ` : ''}
+                            </div>
+                        </div>
                     </div>
                 `;
             } else {
+                // Desktop: Eingebetteter BRL-Kartenleser mit authentischem Kopf, Typografie und bahai.org Link
                 bodyEl.innerHTML = `
-                    <div style="max-width: 820px; margin: 3rem auto; padding: 2.5rem; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 12px; text-align: center;">
-                        <span class="doc-origin-tag" style="display: inline-block; margin-bottom: 0.75rem;">Autorisierte Webpublikation</span>
-                        <h3 style="font-family: var(--font-serif-display); font-size: 1.6rem; margin-bottom: 0.75rem; color: var(--text-primary);">${escapeHtml(currentViewerDoc.title)}</h3>
-                        <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">
-                            Dieses Dokument wurde auf der offiziellen <strong>${escapeHtml(currentViewerDoc.sourcePlatform || 'Bahá’í Reference Library')}</strong> im Web veröffentlicht.
-                        </p>
-                        <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
-                            <a href="${escapeHtml(currentViewerDoc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="btn-primary" style="padding: 0.65rem 1.4rem; text-decoration: none; font-weight: 600;">
-                                Auf ${escapeHtml(currentViewerDoc.sourcePlatform || 'Bahá’í Reference Library')} öffnen ↗
-                            </a>
-                            ${pdfPath ? `<button class="btn-secondary" onclick="setViewerMode('pdf')" style="padding: 0.65rem 1.2rem;">Original-PDF betrachten</button>` : ''}
-                            <button class="btn-secondary" onclick="setViewerMode('text')" style="padding: 0.65rem 1.2rem;">Als Fließtext lesen</button>
+                    <div class="brl-embedded-container">
+                        <div class="brl-embedded-topbar">
+                            <div class="brl-web-badge">
+                                <span class="brl-web-badge-dot"></span>
+                                <span>Originalfassung auf <strong>${escapeHtml(currentViewerDoc.sourcePlatform || 'Bahá’í Reference Library (bahai.org)')}</strong></span>
+                            </div>
+                            <div class="brl-web-actions">
+                                <a href="${escapeHtml(currentViewerDoc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="brl-action-btn primary" title="Offizielle Seite auf bahai.org in neuem Tab öffnen">
+                                    <span>Auf bahai.org öffnen ↗</span>
+                                </a>
+                                ${pdfPath ? `<button class="brl-action-btn secondary" onclick="setViewerMode('pdf')">Original-PDF</button>` : ''}
+                                <button class="brl-action-btn secondary" onclick="setViewerMode('text')">Fließtext</button>
+                            </div>
+                        </div>
+                        <div class="brl-embedded-scroll-area">
+                            <article class="brl-embedded-card">
+                                <header class="brl-embedded-header">
+                                    <span class="brl-embedded-source-pill">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                                        Bahá’í Reference Library
+                                    </span>
+                                    <h2 class="brl-embedded-title">${escapeHtml(currentViewerDoc.title)}</h2>
+                                    <div class="brl-embedded-meta">
+                                        ${escapeHtml(currentViewerDoc.source || 'The Universal House of Justice')} &bull; ${formatViewerDate(currentViewerDoc.date) || ''}
+                                    </div>
+                                </header>
+                                <div class="brl-embedded-body" id="brl-embedded-body">
+                                    <p style="color:var(--text-muted);font-style:italic;text-align:center;padding:2rem 0;">Text wird geladen…</p>
+                                </div>
+                                <footer class="brl-embedded-footer">
+                                    <span>Autorisierte englischsprachige Veröffentlichung auf bahai.org</span>
+                                    <a href="${escapeHtml(currentViewerDoc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="brl-action-btn secondary">
+                                        Quelle im Web verifizieren ↗
+                                    </a>
+                                </footer>
+                            </article>
                         </div>
                     </div>
                 `;
+
+                // Inhalt des BRL-Kartenlesers mit den Absätzen befüllen
+                const brlBody = document.getElementById('brl-embedded-body');
+                if (brlBody) {
+                    const renderBrlText = (rawText) => {
+                        const structure = parseDocumentStructure(rawText);
+                        let bodyHtml = '';
+                        if (structure.salutation) {
+                            bodyHtml += `<p style="font-style: italic; font-weight: 500; margin-bottom: 1.5rem;">${escapeHtml(structure.salutation)}</p>`;
+                        }
+                        bodyHtml += structure.body.map((rawP) => {
+                            const p = rawP.replace(/^(\d+(?:\.\d+)?:\d+(?:_\d+)?|f\.(?:\w+:)?\d+(?:_\d+)?|0_\d+)\s+/, '').trim();
+                            return `<p>${escapeHtml(p)}</p>`;
+                        }).join('');
+                        if (structure.closings && structure.closings.length > 0) {
+                            bodyHtml += `<div style="margin-top: 2rem; font-style: italic; text-align: right; color: var(--text-muted);">${structure.closings.map(c => `<div>${escapeHtml(c)}</div>`).join('')}</div>`;
+                        }
+                        brlBody.innerHTML = bodyHtml || '<p>Kein Textinhalt verfügbar.</p>';
+                    };
+
+                    if (currentViewerDoc.text) {
+                        renderBrlText(currentViewerDoc.text);
+                    } else if (currentViewerDoc.hasText !== false && currentViewerDoc.id) {
+                        const relUrl = `data/texts/${currentViewerDoc.id}.txt`;
+                        const absUrl = `/data/texts/${currentViewerDoc.id}.txt`;
+                        fetch(relUrl)
+                            .then(r => r.ok ? r.text() : fetch(absUrl).then(r2 => r2.ok ? r2.text() : Promise.reject('not found')))
+                            .then(t => {
+                                currentViewerDoc.text = t;
+                                renderBrlText(t);
+                            })
+                            .catch(() => {
+                                brlBody.innerHTML = '<p style="color:var(--text-muted);font-style:italic;text-align:center;">Volltext konnte nicht geladen werden.</p>';
+                            });
+                    } else {
+                        brlBody.innerHTML = '<p style="color:var(--text-muted);font-style:italic;text-align:center;">Kein Textinhalt hinterlegt.</p>';
+                    }
+                }
             }
         }
     } else if (mode === 'epub') {

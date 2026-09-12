@@ -249,6 +249,7 @@ window.SourcesModule = (function() {
 
     let cachedDocs = null;
     let searchQuery = '';
+    let selectedLang = 'all'; // 'all' | 'deutsch' | 'english'
 
     function escapeHtml(str) {
         if (!str) return '';
@@ -260,10 +261,112 @@ window.SourcesModule = (function() {
             .replace(/'/g, '&#39;');
     }
 
+    // Konsolidierung von Sprachausgaben (z. B. deutsches und englisches Werk unter einer groupId als 1 Eintrag vereinen)
+    function consolidateDocs(docList, targetLang = 'all') {
+        const map = new Map();
+        docList.forEach(doc => {
+            const key = doc.groupId || doc.id;
+            if (!map.has(key)) map.set(key, []);
+            map.get(key).push(doc);
+        });
+
+        const isUiEn = window.I18n ? window.I18n.getCurrentLanguage() === 'en' : (localStorage.getItem('cosmos_master_lang') === 'en');
+        const result = [];
+
+        map.forEach((groupDocs, key) => {
+            const deDoc = groupDocs.find(d => {
+                const l = (d.language || '').toLowerCase();
+                return l === 'deutsch' || l === 'german';
+            });
+            const enDoc = groupDocs.find(d => {
+                const l = (d.language || '').toLowerCase();
+                return l === 'english';
+            });
+
+            const hasDe = Boolean(deDoc);
+            const hasEn = Boolean(enDoc);
+            const hasBoth = hasDe && hasEn;
+
+            // Nach Sprachfilter filtern
+            if (targetLang === 'deutsch' && !hasDe) return;
+            if (targetLang === 'english' && !hasEn) return;
+
+            let primaryDoc;
+            if (targetLang === 'english') {
+                primaryDoc = enDoc || groupDocs[0];
+            } else if (targetLang === 'deutsch') {
+                primaryDoc = deDoc || groupDocs[0];
+            } else if (isUiEn) {
+                primaryDoc = enDoc || deDoc || groupDocs[0];
+            } else {
+                primaryDoc = deDoc || enDoc || groupDocs[0];
+            }
+
+            const altDoc = (primaryDoc === deDoc) ? enDoc : deDoc;
+
+            const deFiles = deDoc ? getDocFormats(deDoc) : {};
+            const enFiles = enDoc ? getDocFormats(enDoc) : {};
+
+            result.push({
+                ...primaryDoc,
+                _groupId: key,
+                _groupDocs: groupDocs,
+                _deDoc: deDoc,
+                _enDoc: enDoc,
+                _altDoc: altDoc,
+                _hasDe: hasDe,
+                _hasEn: hasEn,
+                _hasBoth: hasBoth,
+                _deFiles: deFiles,
+                _enFiles: enFiles
+            });
+        });
+
+        return result;
+    }
+
+    function getDocFormats(doc) {
+        if (!doc) return {};
+        const ff = Object.assign({}, doc.formatFiles || {});
+        if (!ff.pdf && doc.filePath && doc.filePath.toLowerCase().endsWith('.pdf')) {
+            ff.pdf = doc.filePath;
+        }
+        if (!ff.docx && doc.filePath && doc.filePath.toLowerCase().endsWith('.docx')) {
+            ff.docx = doc.filePath;
+        }
+        if (!ff.epub && doc.filePath && doc.filePath.toLowerCase().endsWith('.epub')) {
+            ff.epub = doc.filePath;
+        }
+        if (!ff.txt && doc.filePath && doc.filePath.toLowerCase().endsWith('.txt')) {
+            ff.txt = doc.filePath;
+        }
+        return ff;
+    }
+
+    function getCleanAltTitle(mainTitle, altTitle) {
+        if (!altTitle || altTitle === mainTitle) return '';
+        const parenMatch = altTitle.match(/\(([^)]+)\)/);
+        if (parenMatch && altTitle.startsWith(mainTitle)) {
+            return parenMatch[1].trim();
+        }
+        let cleaned = altTitle.replace(/^Ruhi (?:Buch|Book)\s+\d+(?:\.\d+)?\s*[–-]\s*(?:\[[A-Z]{2}\]\s*[–-]\s*)?/i, '').trim();
+        if (!cleaned) cleaned = altTitle;
+        return cleaned;
+    }
+
+    function filterWebsites(websites, targetLang) {
+        if (targetLang === 'deutsch') {
+            return websites.filter(w => (w.languages || []).some(l => l.toLowerCase().includes('deutsch')));
+        }
+        if (targetLang === 'english') {
+            return websites.filter(w => (w.languages || []).some(l => l.toLowerCase().includes('english')));
+        }
+        return websites;
+    }
+
     async function init() {
         const container = document.getElementById('view-sources');
         if (!container) return;
-        if (container.dataset.rendered === 'true') return;
 
         if (window.state && window.state.documents && window.state.documents.length > 0) {
             cachedDocs = window.state.documents;
@@ -278,6 +381,15 @@ window.SourcesModule = (function() {
             }
         }
 
+        if (window.I18n && window.I18n.onLanguageChange) {
+            window.I18n.onLanguageChange(function() {
+                const c = document.getElementById('view-sources');
+                if (c && c.dataset.rendered === 'true') {
+                    render(c);
+                }
+            });
+        }
+
         container.dataset.rendered = 'true';
         render(container);
     }
@@ -285,34 +397,35 @@ window.SourcesModule = (function() {
     function render(container) {
         const docs = cachedDocs || [];
 
-        // 1. Bücher
-        const books = docs.filter(d => d.tier === 'books');
+        // Rohbestände
+        const rawBooks = docs.filter(d => d.tier === 'books');
+        const rawMessages = docs.filter(d => d.tier === 'house' || d.tier === 'institutions' || d.tier === 'study');
+        const rawCompilations = docs.filter(d => d.tier === 'compilations');
+        const rawRuhi = docs.filter(d => d.tier === 'ruhi');
+        const rawWebsites = OFFICIAL_WEBSITES;
 
-        // 2. Botschaften des Hauses
-        const messages = docs.filter(d => d.tier === 'house' || d.tier === 'institutions' || d.tier === 'study');
+        // Konsolidierte Werke je nach gewählter Sprache
+        const books = consolidateDocs(rawBooks, selectedLang);
+        const messages = consolidateDocs(rawMessages, selectedLang);
+        const compilations = consolidateDocs(rawCompilations, selectedLang);
+        const ruhi = consolidateDocs(rawRuhi, selectedLang);
+        const websites = filterWebsites(rawWebsites, selectedLang);
 
-        // 3. Kompilationen
-        const compilations = docs.filter(d => d.tier === 'compilations');
-
-        // 4. Ruhi-Institut
-        const ruhi = docs.filter(d => d.tier === 'ruhi');
-
-        // 5. Webseiten
-        const websites = OFFICIAL_WEBSITES;
+        const isUiEn = window.I18n ? window.I18n.getCurrentLanguage() === 'en' : (localStorage.getItem('cosmos_master_lang') === 'en');
 
         container.innerHTML = `
             <div class="sources-master-container">
                 <!-- Header -->
                 <div class="view-header" style="max-width: 960px; margin: 0 auto 1.25rem; text-align: center;">
-                    <h2 class="editorial-headline">Quellen &amp; Dokumente</h2>
+                    <h2 class="editorial-headline">${isUiEn ? 'Sources &amp; Authorized Documents' : 'Quellen &amp; Dokumente'}</h2>
                 </div>
 
-                <!-- Steuerungsleiste: Suche, Schnellnavigation & Aufklapp-Aktionen -->
+                <!-- Steuerungsleiste: Suche, Sprachfilter, Schnellnavigation & Aufklapp-Aktionen -->
                 <div class="sources-controls-card">
                     <div class="sources-search-row">
                         <div class="sources-search-box">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                            <input type="text" id="sources-search-input" placeholder="In allen Titeln, Autoren, Botschaften, Themen oder Webseiten suchen..." value="${escapeHtml(searchQuery)}">
+                            <input type="text" id="sources-search-input" placeholder="${isUiEn ? 'Search all titles, authors, messages, themes or portals...' : 'In allen Titeln, Autoren, Botschaften, Themen oder Webseiten suchen...'}" value="${escapeHtml(searchQuery)}">
                             ${searchQuery ? `<button class="search-clear-btn" onclick="window.SourcesModule.clearSearch()" title="Suche leeren"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>` : ''}
                         </div>
                         <div class="sources-expand-collapse-group">
@@ -327,43 +440,60 @@ window.SourcesModule = (function() {
                         </div>
                     </div>
 
-                    <!-- Schnell-Sprung-Pills mit Zählern -->
-                    <div class="sources-jump-pills">
-                        <span class="jump-label">Direktsprung:</span>
-                        <button class="jump-pill" onclick="window.SourcesModule.jumpToSection('sec-books')">
-                            <span>Bücher</span>
-                            <span class="jump-count">${books.length}</span>
-                        </button>
-                        <button class="jump-pill" onclick="window.SourcesModule.jumpToSection('sec-messages')">
-                            <span>Botschaften</span>
-                            <span class="jump-count">${messages.length}</span>
-                        </button>
-                        <button class="jump-pill" onclick="window.SourcesModule.jumpToSection('sec-compilations')">
-                            <span>Kompilationen</span>
-                            <span class="jump-count">${compilations.length}</span>
-                        </button>
-                        <button class="jump-pill" onclick="window.SourcesModule.jumpToSection('sec-ruhi')">
-                            <span>Ruhi-Bücher</span>
-                            <span class="jump-count">${ruhi.length}</span>
-                        </button>
-                        <button class="jump-pill" onclick="window.SourcesModule.jumpToSection('sec-websites')">
-                            <span>Webseiten</span>
-                            <span class="jump-count">${websites.length}</span>
-                        </button>
+                    <!-- Sprach-Filter & Schnell-Sprung-Pills -->
+                    <div class="sources-filter-row">
+                        <div class="sources-lang-segmented" role="radiogroup" aria-label="Sprachfilter">
+                            <button type="button" class="sources-lang-btn ${selectedLang === 'all' ? 'active' : ''}" onclick="window.SourcesModule.setLangFilter('all')" title="Alle Sprachen anzeigen (zweisprachig vereint)">
+                                <span>${isUiEn ? 'All Languages' : 'Alle Sprachen'}</span>
+                            </button>
+                            <button type="button" class="sources-lang-btn ${selectedLang === 'deutsch' ? 'active' : ''}" onclick="window.SourcesModule.setLangFilter('deutsch')" title="Nur deutschsprachige Ausgaben anzeigen">
+                                <span class="source-lang-badge de">DE</span>
+                                <span>Deutsch</span>
+                            </button>
+                            <button type="button" class="sources-lang-btn ${selectedLang === 'english' ? 'active' : ''}" onclick="window.SourcesModule.setLangFilter('english')" title="Only show English editions">
+                                <span class="source-lang-badge en">EN</span>
+                                <span>English</span>
+                            </button>
+                        </div>
+
+                        <!-- Schnell-Sprung-Pills mit dynamischen Zählern -->
+                        <div class="sources-jump-pills" style="border-top: none; padding-top: 0;">
+                            <span class="jump-label">${isUiEn ? 'Jump to:' : 'Direktsprung:'}</span>
+                            <button class="jump-pill" onclick="window.SourcesModule.jumpToSection('sec-books')">
+                                <span>${isUiEn ? 'Books' : 'Bücher'}</span>
+                                <span class="jump-count">${books.length}</span>
+                            </button>
+                            <button class="jump-pill" onclick="window.SourcesModule.jumpToSection('sec-messages')">
+                                <span>${isUiEn ? 'Messages' : 'Botschaften'}</span>
+                                <span class="jump-count">${messages.length}</span>
+                            </button>
+                            <button class="jump-pill" onclick="window.SourcesModule.jumpToSection('sec-compilations')">
+                                <span>${isUiEn ? 'Compilations' : 'Kompilationen'}</span>
+                                <span class="jump-count">${compilations.length}</span>
+                            </button>
+                            <button class="jump-pill" onclick="window.SourcesModule.jumpToSection('sec-ruhi')">
+                                <span>${isUiEn ? 'Ruhi Courses' : 'Ruhi-Bücher'}</span>
+                                <span class="jump-count">${ruhi.length}</span>
+                            </button>
+                            <button class="jump-pill" onclick="window.SourcesModule.jumpToSection('sec-websites')">
+                                <span>${isUiEn ? 'Websites' : 'Webseiten'}</span>
+                                <span class="jump-count">${websites.length}</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- 1. BÜCHER & HEILIGE SCHRIFTEN -->
-                ${renderBooksAccordion(books)}
+                ${renderBooksAccordion(books, rawBooks.length)}
 
                 <!-- 2. BOTSCHAFTEN DES UNIVERSALEN HAUSES DER GERECHTIGKEIT -->
-                ${renderMessagesAccordion(messages)}
+                ${renderMessagesAccordion(messages, rawMessages.length)}
 
                 <!-- 3. THEMATISCHE KOMPILATIONEN -->
-                ${renderCompilationsAccordion(compilations)}
+                ${renderCompilationsAccordion(compilations, rawCompilations.length)}
 
                 <!-- 4. RUHI-INSTITUT & STUDIENREIHEN -->
-                ${renderRuhiAccordion(ruhi)}
+                ${renderRuhiAccordion(ruhi, rawRuhi.length)}
 
                 <!-- 5. OFFIZIELLE WEBSEITEN & PORTALE -->
                 ${renderWebsitesAccordion(websites)}
@@ -383,21 +513,23 @@ window.SourcesModule = (function() {
     // --- ACCORDION-BUILDER ---
 
     // 1. Bücher Accordion (Gruppiert nach Verfassern)
-    function renderBooksAccordion(books) {
+    function renderBooksAccordion(books, totalRaw) {
         const authors = [
-            { id: 'bahaullah', name: "Bahá'u'lláh", match: d => d.author === "Bahá'u'lláh" },
-            { id: 'the-bab', name: "Der Báb", match: d => d.author === "Der Báb" },
-            { id: 'abdul-baha', name: "‘Abdu’l-Bahá", match: d => d.author === "‘Abdu’l-Bahá" },
-            { id: 'shoghi-effendi', name: "Shoghi Effendi", match: d => d.author === "Shoghi Effendi" },
-            { id: 'uhj', name: "Universales Haus der Gerechtigkeit", match: d => d.author === "Universales Haus der Gerechtigkeit" },
-            { id: 'prayers', name: "Gebete & Andacht", match: d => d.author === "Gebete & Andacht" },
-            { id: 'compilations-books', name: "Textzusammenstellungen", match: d => d.author === "Textzusammenstellungen" }
+            { id: 'bahaullah', name: "Bahá'u'lláh", match: d => d.author === "Bahá'u'lláh" || (d._deDoc && d._deDoc.author === "Bahá'u'lláh") || (d._enDoc && d._enDoc.author === "Bahá'u'lláh") },
+            { id: 'the-bab', name: "Der Báb", match: d => d.author === "Der Báb" || (d._deDoc && d._deDoc.author === "Der Báb") || (d._enDoc && d._enDoc.author === "Der Báb") },
+            { id: 'abdul-baha', name: "‘Abdu’l-Bahá", match: d => d.author === "‘Abdu’l-Bahá" || (d._deDoc && d._deDoc.author === "‘Abdu’l-Bahá") || (d._enDoc && d._enDoc.author === "‘Abdu’l-Bahá") },
+            { id: 'shoghi-effendi', name: "Shoghi Effendi", match: d => d.author === "Shoghi Effendi" || (d._deDoc && d._deDoc.author === "Shoghi Effendi") || (d._enDoc && d._enDoc.author === "Shoghi Effendi") },
+            { id: 'uhj', name: "Universales Haus der Gerechtigkeit", match: d => d.author === "Universales Haus der Gerechtigkeit" || (d._deDoc && d._deDoc.author === "Universales Haus der Gerechtigkeit") || (d._enDoc && d._enDoc.author === "Universales Haus der Gerechtigkeit") },
+            { id: 'prayers', name: "Gebete & Andacht", match: d => d.author === "Gebete & Andacht" || (d._deDoc && d._deDoc.author === "Gebete & Andacht") || (d._enDoc && d._enDoc.author === "Gebete & Andacht") },
+            { id: 'compilations-books', name: "Textzusammenstellungen", match: d => d.author === "Textzusammenstellungen" || (d._deDoc && d._deDoc.author === "Textzusammenstellungen") || (d._enDoc && d._enDoc.author === "Textzusammenstellungen") }
         ];
 
         const authorGroups = authors.map(a => {
             const items = books.filter(a.match);
             return { ...a, items };
         }).filter(g => g.items.length > 0);
+
+        const editionsNote = selectedLang === 'all' && totalRaw > books.length ? ` (${totalRaw} Editionen DE/EN)` : '';
 
         return `
             <details class="sources-accordion" id="sec-books" open>
@@ -411,7 +543,7 @@ window.SourcesModule = (function() {
                         </div>
                     </div>
                     <div class="summary-right">
-                        <span class="summary-counter-badge" id="counter-books">${books.length} Werke</span>
+                        <span class="summary-counter-badge" id="counter-books">${books.length} Werke${editionsNote}</span>
                         <svg class="summary-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
                     </div>
                 </summary>
@@ -436,12 +568,16 @@ window.SourcesModule = (function() {
     }
 
     // 2. Botschaften Accordion (Gruppiert nach Dekaden)
-    function renderMessagesAccordion(messages) {
+    function renderMessagesAccordion(messages, totalRaw) {
         const getYear = (m) => {
             if (m.year) return parseInt(m.year, 10);
             const parts = (m.date || '').split('.');
             if (parts.length >= 3) {
                 const parsed = parseInt(parts[parts.length - 1].trim(), 10);
+                if (!isNaN(parsed)) return parsed;
+            }
+            if (m.date && m.date.includes('-')) {
+                const parsed = parseInt(m.date.split('-')[0], 10);
                 if (!isNaN(parsed)) return parsed;
             }
             return 2000;
@@ -465,6 +601,8 @@ window.SourcesModule = (function() {
             return { ...range, items };
         }).filter(g => g.items.length > 0);
 
+        const editionsNote = selectedLang === 'all' && totalRaw > messages.length ? ` (${totalRaw} Dokumente DE/EN)` : '';
+
         return `
             <details class="sources-accordion" id="sec-messages">
                 <summary class="sources-accordion-summary">
@@ -477,7 +615,7 @@ window.SourcesModule = (function() {
                         </div>
                     </div>
                     <div class="summary-right">
-                        <span class="summary-counter-badge" id="counter-messages">${messages.length} Dokumente</span>
+                        <span class="summary-counter-badge" id="counter-messages">${messages.length} Botschaften${editionsNote}</span>
                         <svg class="summary-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
                     </div>
                 </summary>
@@ -502,9 +640,9 @@ window.SourcesModule = (function() {
     }
 
     // 3. Kompilationen Accordion
-    function renderCompilationsAccordion(compilations) {
-        // Sort alphabetically by title
+    function renderCompilationsAccordion(compilations, totalRaw) {
         const sorted = [...compilations].sort((a, b) => (a.title || '').localeCompare(b.title || '', 'de'));
+        const editionsNote = selectedLang === 'all' && totalRaw > compilations.length ? ` (${totalRaw} Sammlungen DE/EN)` : '';
 
         return `
             <details class="sources-accordion" id="sec-compilations">
@@ -518,7 +656,7 @@ window.SourcesModule = (function() {
                         </div>
                     </div>
                     <div class="summary-right">
-                        <span class="summary-counter-badge" id="counter-compilations">${compilations.length} Sammlungen</span>
+                        <span class="summary-counter-badge" id="counter-compilations">${compilations.length} Sammlungen${editionsNote}</span>
                         <svg class="summary-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
                     </div>
                 </summary>
@@ -532,14 +670,14 @@ window.SourcesModule = (function() {
     }
 
     // 4. Ruhi-Institut Accordion
-    function renderRuhiAccordion(ruhi) {
-        const isMain = r => {
-            const t = (r.title || '').toLowerCase();
-            return (t.includes('buch 0') || t.includes('book ') || t.includes('buch 1') || t.includes('buch 2') || t.includes('buch 3') || t.includes('buch 4') || t.includes('buch 5') || t.includes('buch 6') || t.includes('buch 7') || t.includes('buch 8')) && !t.includes('zweig');
-        };
+    function renderRuhiAccordion(ruhi, totalRaw) {
         const isBranch = r => {
             const t = (r.title || '').toLowerCase();
             return t.includes('zweig') || t.includes('branch');
+        };
+        const isMain = r => {
+            const t = (r.title || '').toLowerCase();
+            return !isBranch(r) && !t.includes('09') && !t.includes('buch 9') && !t.includes('book 9') && !t.includes('buch 10') && (t.includes('buch 01') || t.includes('buch 02') || t.includes('buch 03') || t.includes('buch 04') || t.includes('buch 05') || t.includes('buch 06') || t.includes('buch 07') || t.includes('buch 08') || t.includes('book 1') || t.includes('book 2') || t.includes('book 3') || t.includes('book 4') || t.includes('book 5') || t.includes('book 6') || t.includes('book 7') || t.includes('book 8'));
         };
 
         const mainBooks = ruhi.filter(isMain);
@@ -549,8 +687,10 @@ window.SourcesModule = (function() {
         const groups = [
             { name: "Hauptcurriculum für Studienkreise (Bücher 1–8)", desc: "Grundkurs-Sequenz des Ruhi-Instituts in deutscher und englischer Fassung", items: mainBooks },
             { name: "Zweigkurse für Kinderklassen-Lehrende", desc: "Spezialisierte Vertiefungskurse für Stufe 2 und Stufe 3", items: branchBooks },
-            { name: "Vorjugendprogramm & Ergänzungsbände", desc: "Texte zur geistigen Befähigung von Jugendlichen und Begleitmaterialien", items: youthAndOther }
+            { name: "Vorjugendprogramm & Fortgeschrittene Bände (Bücher 9+)", desc: "Texte zur geistigen Befähigung von Jugendlichen und Begleitmaterialien", items: youthAndOther }
         ].filter(g => g.items.length > 0);
+
+        const editionsNote = selectedLang === 'all' && totalRaw > ruhi.length ? ` (${totalRaw} Bände DE/EN)` : '';
 
         return `
             <details class="sources-accordion" id="sec-ruhi">
@@ -564,7 +704,7 @@ window.SourcesModule = (function() {
                         </div>
                     </div>
                     <div class="summary-right">
-                        <span class="summary-counter-badge" id="counter-ruhi">${ruhi.length} Bände</span>
+                        <span class="summary-counter-badge" id="counter-ruhi">${ruhi.length} Kurse${editionsNote}</span>
                         <svg class="summary-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
                     </div>
                 </summary>
@@ -639,49 +779,151 @@ window.SourcesModule = (function() {
         `;
     }
 
-    // --- REIHE FÜR EIN EINZELNES DOKUMENT ---
+    // --- REIHE FÜR EIN KONSOLIDIERTES DOKUMENT ---
     function renderDocRow(doc) {
-        const isEn = (doc.language || '').toLowerCase() === 'english';
-        const langBadge = isEn
-            ? '<span class="source-lang-badge en">EN</span>'
-            : '<span class="source-lang-badge de">DE</span>';
+        const hasBoth = doc._hasBoth;
+        const deDoc = doc._deDoc;
+        const enDoc = doc._enDoc;
+        const altDoc = doc._altDoc;
 
-        const sourceUrl = doc.sourceUrl || 'https://www.bahai.org/library/';
-        let sourcePlatform = doc.sourcePlatform;
-        if (!sourcePlatform) {
-            if (sourceUrl.includes('ruhi.org')) sourcePlatform = 'Ruhi Institute';
-            else if (sourceUrl.includes('bibliothek.bahai.de')) sourcePlatform = 'Bahá’í-Bibliothek';
-            else sourcePlatform = 'Bahá’í Reference Library';
+        // 1. Sprach-Badges
+        let langBadgeHtml = '';
+        if (hasBoth) {
+            langBadgeHtml = `
+                <div class="source-lang-badge-group">
+                    <span class="source-lang-badge de is-active" title="Deutsche Ausgabe verfügbar">DE</span>
+                    <span class="source-lang-badge en is-active" title="English edition available">EN</span>
+                </div>
+            `;
+        } else if (doc._hasEn) {
+            langBadgeHtml = `<span class="source-lang-badge en is-active" title="Edition in English">EN</span>`;
+        } else {
+            langBadgeHtml = `<span class="source-lang-badge de is-active" title="Deutsche Ausgabe">DE</span>`;
         }
 
-        const files = doc.formatFiles || {};
+        // 2. Untertitel & Alternativer Titel
+        let subtitleHtml = '';
+        const cleanAlt = altDoc ? getCleanAltTitle(doc.title, altDoc.title) : '';
+        if (hasBoth && cleanAlt && cleanAlt !== doc.title) {
+            const altLang = (altDoc === enDoc) ? 'EN' : 'DE';
+            subtitleHtml = `
+                <div class="source-row-subtitle">
+                    ${doc.subtitle ? `<span class="source-sub-desc">${escapeHtml(doc.subtitle)}</span> <span class="source-sub-sep">&bull;</span> ` : ''}
+                    <span class="source-alt-title" title="Titel der zweiten Sprachausgabe">
+                        <span class="source-alt-lang-tag">${altLang}:</span>
+                        <em>${escapeHtml(cleanAlt)}</em>
+                    </span>
+                </div>
+            `;
+        } else if (doc.subtitle) {
+            subtitleHtml = `<div class="source-row-subtitle">${escapeHtml(doc.subtitle)}</div>`;
+        }
+
+        // 3. Quellen-Links (Plattformen)
+        let sourceLinksHtml = '';
+        if (hasBoth && deDoc && enDoc) {
+            const deUrl = deDoc.sourceUrl || (deDoc.source === 'bahai.org' ? 'https://www.bahai.org/library/' : 'https://bibliothek.bahai.de');
+            let dePlatform = deDoc.sourcePlatform || (deUrl.includes('bibliothek.bahai.de') ? 'Bahá’í-Bibliothek' : 'Bahá’í Reference Library');
+            if (deUrl.includes('ruhi.org')) dePlatform = 'Ruhi Institute';
+
+            const enUrl = enDoc.sourceUrl || 'https://www.bahai.org/library/';
+            let enPlatform = enDoc.sourcePlatform || (enUrl.includes('ruhi.org') ? 'Ruhi Institute' : 'Reference Library');
+
+            if (deUrl === enUrl) {
+                sourceLinksHtml = `
+                    <a href="${escapeHtml(deUrl)}" target="_blank" rel="noopener noreferrer" class="source-origin-link" title="Offizielle Quelle aufrufen">
+                        <span>${escapeHtml(dePlatform)}</span>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    </a>
+                `;
+            } else {
+                sourceLinksHtml = `
+                    <a href="${escapeHtml(deUrl)}" target="_blank" rel="noopener noreferrer" class="source-origin-link de" title="Deutsche Ausgabe auf ${escapeHtml(dePlatform)}">
+                        <span>DE: ${escapeHtml(dePlatform)}</span>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    </a>
+                    <a href="${escapeHtml(enUrl)}" target="_blank" rel="noopener noreferrer" class="source-origin-link en" title="English edition on ${escapeHtml(enPlatform)}">
+                        <span>EN: ${escapeHtml(enPlatform)}</span>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    </a>
+                `;
+            }
+        } else {
+            const sUrl = doc.sourceUrl || (doc.language === 'deutsch' ? 'https://bibliothek.bahai.de' : 'https://www.bahai.org/library/');
+            let sPlatform = doc.sourcePlatform;
+            if (!sPlatform) {
+                if (sUrl.includes('ruhi.org')) sPlatform = 'Ruhi Institute';
+                else if (sUrl.includes('bibliothek.bahai.de')) sPlatform = 'Bahá’í-Bibliothek';
+                else sPlatform = 'Bahá’í Reference Library';
+            }
+            sourceLinksHtml = `
+                <a href="${escapeHtml(sUrl)}" target="_blank" rel="noopener noreferrer" class="source-origin-link" title="Original auf ${escapeHtml(sPlatform)} aufrufen">
+                    <span>${escapeHtml(sPlatform)}</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+            `;
+        }
+
+        // 4. Lesen-Buttons
+        let readButtonsHtml = '';
+        const safePrimaryId = (doc.id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        if (hasBoth && deDoc && enDoc) {
+            const safeDeId = (deDoc.id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+            const safeEnId = (enDoc.id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+            readButtonsHtml = `
+                <div class="source-read-group">
+                    <button class="source-read-btn de" onclick="window.openDocument('${safeDeId}', null, null, 'de')" title="Deutsche Fassung im Volltext-Reader öffnen">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                        <span>Lesen (DE)</span>
+                    </button>
+                    <button class="source-read-btn en" onclick="window.openDocument('${safeEnId}', null, null, 'en')" title="Read English edition in full text reader">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                        <span>Read (EN)</span>
+                    </button>
+                </div>
+            `;
+        } else {
+            readButtonsHtml = `
+                <button class="source-read-btn" onclick="window.openDocument('${safePrimaryId}')" title="Im Volltext-Reader öffnen">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    <span>${doc._hasEn ? 'Read' : 'Lesen'}</span>
+                </button>
+            `;
+        }
+
+        // 5. Download Format-Pills
         const formatPills = [];
-        if (files.pdf || doc.filePath) {
-            formatPills.push(`<a href="${files.pdf || doc.filePath}" download class="source-pill-dl" title="PDF herunterladen">PDF</a>`);
-        }
-        if (files.docx) {
-            formatPills.push(`<a href="${files.docx}" download class="source-pill-dl" title="Word (.docx) herunterladen">DOCX</a>`);
-        }
-        if (files.epub) {
-            formatPills.push(`<a href="${files.epub}" download class="source-pill-dl" title="E-Book (.epub) herunterladen">EPUB</a>`);
-        }
-        if (files.txt) {
-            formatPills.push(`<a href="${files.txt}" download class="source-pill-dl" title="Volltext (.txt) herunterladen">TXT</a>`);
+        if (hasBoth) {
+            const df = doc._deFiles || {};
+            const ef = doc._enFiles || {};
+            if (df.pdf) formatPills.push(`<a href="${df.pdf}" download class="source-pill-dl de" title="PDF herunterladen (Deutsch)">PDF <span class="pill-lang">DE</span></a>`);
+            if (df.epub) formatPills.push(`<a href="${df.epub}" download class="source-pill-dl de" title="EPUB herunterladen (Deutsch)">EPUB <span class="pill-lang">DE</span></a>`);
+            if (df.docx) formatPills.push(`<a href="${df.docx}" download class="source-pill-dl de" title="Word (.docx) herunterladen (Deutsch)">DOCX <span class="pill-lang">DE</span></a>`);
+            if (df.txt) formatPills.push(`<a href="${df.txt}" download class="source-pill-dl de" title="Volltext herunterladen (Deutsch)">TXT <span class="pill-lang">DE</span></a>`);
+
+            if (ef.pdf) formatPills.push(`<a href="${ef.pdf}" download class="source-pill-dl en" title="Download PDF (English)">PDF <span class="pill-lang">EN</span></a>`);
+            if (ef.epub) formatPills.push(`<a href="${ef.epub}" download class="source-pill-dl en" title="Download EPUB (English)">EPUB <span class="pill-lang">EN</span></a>`);
+            if (ef.docx) formatPills.push(`<a href="${ef.docx}" download class="source-pill-dl en" title="Download Word (.docx) (English)">DOCX <span class="pill-lang">EN</span></a>`);
+            if (ef.txt) formatPills.push(`<a href="${ef.txt}" download class="source-pill-dl en" title="Download Full Text (English)">TXT <span class="pill-lang">EN</span></a>`);
+        } else {
+            const files = doc._hasDe ? (doc._deFiles || {}) : (doc._enFiles || {});
+            if (files.pdf || doc.filePath) formatPills.push(`<a href="${files.pdf || doc.filePath}" download class="source-pill-dl" title="PDF herunterladen">PDF</a>`);
+            if (files.docx) formatPills.push(`<a href="${files.docx}" download class="source-pill-dl" title="Word (.docx) herunterladen">DOCX</a>`);
+            if (files.epub) formatPills.push(`<a href="${files.epub}" download class="source-pill-dl" title="E-Book (.epub) herunterladen">EPUB</a>`);
+            if (files.txt) formatPills.push(`<a href="${files.txt}" download class="source-pill-dl" title="Volltext (.txt) herunterladen">TXT</a>`);
         }
 
         const words = doc.wordCount ? `<span>• ca. ${doc.wordCount.toLocaleString('de-DE')} Wörter</span>` : '';
         const dateStr = doc.date ? `<span class="source-doc-date">${escapeHtml(doc.date)}</span> • ` : '';
 
-        const safeDocId = (doc.id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-
         return `
             <div class="source-list-row" data-id="${doc.id}" data-doc-id="${escapeHtml(doc.id)}">
                 <div class="source-row-info">
                     <div class="source-row-title-bar">
-                        <a href="javascript:void(0)" onclick="window.openDocument('${safeDocId}')" class="source-row-title" title="Im Reader öffnen">
+                        <a href="javascript:void(0)" onclick="window.openDocument('${safePrimaryId}')" class="source-row-title" title="Im Reader öffnen">
                             ${escapeHtml(doc.title)}
                         </a>
-                        ${langBadge}
+                        ${langBadgeHtml}
                     </div>
                     <div class="source-row-meta">
                         ${dateStr}
@@ -689,20 +931,12 @@ window.SourcesModule = (function() {
                         ${doc.category ? `<span>• ${escapeHtml(doc.category)}</span>` : ''}
                         ${words}
                     </div>
-                    ${doc.subtitle ? `<div class="source-row-subtitle">${escapeHtml(doc.subtitle)}</div>` : ''}
+                    ${subtitleHtml}
                 </div>
                 <div class="source-row-actions">
-                    <a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer" class="source-origin-link" title="Original auf ${escapeHtml(sourcePlatform)} aufrufen">
-                        <span>${escapeHtml(sourcePlatform)}</span>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                    </a>
-                    <button class="source-read-btn" onclick="window.openDocument('${safeDocId}')" title="Im Volltext-Reader öffnen">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-                        <span>Lesen</span>
-                    </button>
-                    <div class="source-row-formats">
-                        ${formatPills.join('')}
-                    </div>
+                    ${sourceLinksHtml}
+                    ${readButtonsHtml}
+                    ${formatPills.length > 0 ? `<div class="source-row-formats">${formatPills.join('')}</div>` : ''}
                 </div>
             </div>
         `;
@@ -731,6 +965,17 @@ window.SourcesModule = (function() {
     }
 
     // --- INTERAKTIVE METHODEN ---
+
+    function setLangFilter(lang) {
+        selectedLang = lang;
+        const container = document.getElementById('view-sources');
+        if (container) {
+            render(container);
+            if (searchQuery) {
+                applyFilter(searchQuery);
+            }
+        }
+    }
 
     function setAllAccordions(openState) {
         const accordions = document.querySelectorAll('.sources-accordion, .source-sub-accordion');
@@ -792,6 +1037,7 @@ window.SourcesModule = (function() {
         init: init,
         setAllAccordions: setAllAccordions,
         jumpToSection: jumpToSection,
-        clearSearch: clearSearch
+        clearSearch: clearSearch,
+        setLangFilter: setLangFilter
     };
 })();

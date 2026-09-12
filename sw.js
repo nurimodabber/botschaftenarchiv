@@ -1,8 +1,8 @@
-const CACHE_NAME = 'bahai-bib-v4.5';
+const CACHE_NAME = 'bahai-bib-v5.2';
 const SHELL_ASSETS = [
   '/',
   '/index.html',
-  '/css/styles.css?v=4.5',
+  '/css/styles.css?v=5.1',
   '/css/styles.css',
   '/css/tokens.css',
   '/css/base.css',
@@ -14,6 +14,7 @@ const SHELL_ASSETS = [
   '/css/sources.css',
   '/css/settings.css',
   '/css/responsive.css',
+  '/css/account.css',
   '/manifest.webmanifest',
   '/favicon.ico',
   '/assets/icons/icon-192.png',
@@ -21,33 +22,36 @@ const SHELL_ASSETS = [
   '/assets/icons/icon-512-maskable.png',
   '/assets/icons/apple-touch-icon.png',
   '/assets/icons/favicon.svg',
-  '/js/state.js?v=4.5',
+  '/js/state.js?v=5.0',
   '/js/state.js',
-  '/js/i18n.js?v=4.5',
+  '/js/i18n.js?v=5.0',
   '/js/i18n.js',
-  '/js/settings.js?v=4.5',
+  '/js/settings.js?v=5.0',
   '/js/settings.js',
-  '/js/filters.js?v=4.5',
+  '/js/filters.js?v=5.0',
   '/js/filters.js',
-  '/js/search_engine.js?v=4.5',
+  '/js/search_engine.js?v=5.0',
   '/js/search_engine.js',
-  '/js/viewer.js?v=4.5',
+  '/js/viewer.js?v=5.0',
   '/js/viewer.js',
-  '/js/collections.js?v=4.5',
+  '/js/collections.js?v=5.0',
   '/js/collections.js',
-  '/js/compilation_builder.js?v=4.5',
+  '/js/compilation_builder.js?v=5.0',
   '/js/compilation_builder.js',
-  '/js/timeline_data.js?v=4.5',
+  '/js/timeline_data.js?v=5.0',
   '/js/timeline_data.js',
-  '/js/timeline.js?v=4.5',
+  '/js/timeline.js?v=5.0',
   '/js/timeline.js',
-  '/js/books.js?v=4.5',
+  '/js/books.js?v=5.0',
   '/js/books.js',
-  '/js/sources.js?v=4.5',
+  '/js/sources.js?v=5.0',
   '/js/sources.js',
-  '/js/app.js?v=4.5',
+  '/js/account.js?v=5.0',
+  '/js/account.js',
+  '/js/app.js?v=5.0',
   '/js/app.js'
 ];
+
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -109,20 +113,38 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Static assets (CSS, JS, WebManifest, Images, Fonts) -> Stale-while-revalidate
+  // Application code & data (JS, CSS, JSON) -> Network-First with Cache Fallback
+  // This guarantees updates are active immediately without serving stale scripts
+  if (url.pathname.endsWith('.js') || url.pathname.endsWith('.css') || url.pathname.endsWith('.json')) {
+    event.respondWith(
+      fetch(request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const copy = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+          }
+          return networkResponse;
+        })
+        .catch(async () => {
+          const cached = await caches.match(request);
+          if (cached) return cached;
+          return new Response('Network offline and asset not cached', { status: 503 });
+        })
+    );
+    return;
+  }
+
+  // Static images, fonts, icons -> Cache-First with network fallback
   event.respondWith(
     caches.match(request).then((cachedResponse) => {
-      const fetchPromise = fetch(request).then((networkResponse) => {
+      if (cachedResponse) return cachedResponse;
+      return fetch(request).then((networkResponse) => {
         if (networkResponse && networkResponse.status === 200) {
-          const responseToCache = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(request, responseToCache);
-          });
+          const copy = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
         }
         return networkResponse;
-      }).catch(() => cachedResponse);
-
-      return cachedResponse || fetchPromise;
+      });
     })
   );
 });

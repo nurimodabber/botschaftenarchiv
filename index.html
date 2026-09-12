@@ -42,7 +42,8 @@
     <meta name="twitter:description" content="Digitale Forschungsbibliothek mit 918 Botschaften des Universalen Hauses der Gerechtigkeit, Schriften und Büchern im offiziellen Satzspiegel.">
     <meta name="twitter:image" content="https://bahaibibliothek.vercel.app/assets/icons/og-image.png">
 
-    <link rel="stylesheet" href="css/styles.css?v=4.5">
+    <link rel="stylesheet" href="css/styles.css?v=5.1">
+
     <!-- Vercel Web Analytics & Speed Insights -->
     <script>
         window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -53,6 +54,13 @@
     <!-- Service Worker Registration for PWA / Mobile Web App -->
     <script>
         if ('serviceWorker' in navigator) {
+            let refreshing = false;
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                if (!refreshing) {
+                    refreshing = true;
+                    window.location.reload();
+                }
+            });
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js').then((reg) => {
                     reg.update().catch(() => {});
@@ -70,6 +78,9 @@
             </symbol>
             <symbol id="icon-book" viewBox="0 0 24 24">
                 <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/>
+            </symbol>
+            <symbol id="icon-book-open" viewBox="0 0 24 24">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
             </symbol>
             <symbol id="icon-timeline" viewBox="0 0 24 24">
                 <line x1="2" y1="12" x2="22" y2="12"/><circle cx="6" cy="12" r="3" fill="currentColor"/><circle cx="12" cy="12" r="3" fill="currentColor"/><circle cx="18" cy="12" r="3" fill="currentColor"/>
@@ -136,6 +147,13 @@
                     <span class="nav-label" data-i18n="nav.library">Bibliothek</span>
                 </button>
 
+                <button class="nav-btn" data-view="books" title="Heilige Schriften &amp; Bücher" data-i18n-title="nav.books_title">
+                    <span class="nav-icon-circle">
+                        <svg class="nav-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-book-open"></use></svg>
+                    </span>
+                    <span class="nav-label" data-i18n="nav.books">Bücher</span>
+                </button>
+
                 <button class="nav-btn" data-view="timeline" title="Historischer Zeitstrahl &amp; Epochen-Explorer (1844–2044)" data-i18n-title="nav.timeline_title">
                     <span class="nav-icon-circle">
                         <svg class="nav-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-timeline"></use></svg>
@@ -165,8 +183,12 @@
             <div class="dock-divider"></div>
 
             <div class="dock-actions">
+                <!-- Studienkonto, Synchronisation & DSGVO-Datenschutz -->
+                <button id="dock-account-btn" class="dock-account-btn" aria-label="Studienkonto &amp; Datenschutz" title="Studienkonto &amp; Datenschutz"></button>
+
                 <!-- Vereintes Einstellungs-Menü (Standard-Format, Sprache, Thema, Farbauswahl, Typografie, Lesebreite, Zeilenabstand, Layout) -->
                 <div class="appearance-wrapper">
+
                     <button id="appearance-btn" class="appearance-dock-btn nav-btn" data-view="settings" aria-label="Einstellungen" title="Einstellungen" data-i18n-title="nav.settings_title" data-i18n-aria="nav.settings_title">
                         <span class="nav-icon-circle">
                             <svg class="appearance-settings-icon nav-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-settings"></use></svg>
@@ -333,8 +355,25 @@
                                 <button id="appearance-size-inc" class="size-step-btn" title="Schrift vergrößern">A+</button>
                             </div>
                         </div>
+
+                        <!-- 8. Studienkonto & Datenschutz (DSGVO) -->
+                        <div class="appearance-section" style="border-top: 1px solid var(--border-hairline); padding-top: 0.85rem; margin-top: 0.5rem;">
+
+                            <label class="appearance-section-label" style="display: flex; align-items: center; justify-content: space-between;">
+                                <span>Studienkonto &amp; DSGVO</span>
+                                <span style="font-size: 0.68rem; color: #10B981; font-weight: 600;">Lokal / DSGVO-konform</span>
+                            </label>
+                            <button type="button" class="account-settings-launcher-btn" onclick="window.AccountModule ? window.AccountModule.openModal('profile') : null" style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0.65rem 0.85rem; border-radius: 10px; border: 1px solid var(--border-hairline); background: var(--bg-canvas); color: var(--text-ink); cursor: pointer; font-size: 0.82rem; font-weight: 600; transition: all 0.18s ease; margin-top: 0.35rem;">
+                                <span style="display: flex; align-items: center; gap: 0.55rem;">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                    <span>Konto- &amp; Datenschutz-Center</span>
+                                </span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </button>
+                        </div>
                     </div><!-- /#settings-panel-content -->
                 </div><!-- /#appearance-popover -->
+
             </div>
         </div>
         </header>
@@ -724,18 +763,20 @@
         </div>
     </footer>
 
-    <script src="js/state.js?v=4.5"></script>
-    <script src="js/i18n.js?v=4.5"></script>
-    <script src="js/settings.js?v=4.5"></script>
-    <script src="js/filters.js?v=4.5"></script>
-    <script src="js/search_engine.js?v=4.5"></script>
-    <script src="js/viewer.js?v=4.5"></script>
-    <script src="js/collections.js?v=4.5"></script>
-    <script src="js/compilation_builder.js?v=4.5"></script>
-    <script src="js/timeline_data.js?v=4.5"></script>
-    <script src="js/timeline.js?v=4.5"></script>
-    <script src="js/books.js?v=4.5"></script>
-    <script src="js/sources.js?v=4.5"></script>
-    <script src="js/app.js?v=4.5"></script>
+    <script src="js/state.js?v=5.1"></script>
+    <script src="js/i18n.js?v=5.1"></script>
+    <script src="js/settings.js?v=5.1"></script>
+    <script src="js/filters.js?v=5.1"></script>
+    <script src="js/search_engine.js?v=5.1"></script>
+    <script src="js/viewer.js?v=5.1"></script>
+    <script src="js/collections.js?v=5.1"></script>
+    <script src="js/compilation_builder.js?v=5.1"></script>
+    <script src="js/timeline_data.js?v=5.1"></script>
+    <script src="js/timeline.js?v=5.1"></script>
+    <script src="js/books.js?v=5.1"></script>
+    <script src="js/sources.js?v=5.1"></script>
+    <script src="js/account.js?v=5.1"></script>
+    <script src="js/app.js?v=5.1"></script>
 </body>
 </html>
+

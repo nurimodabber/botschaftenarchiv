@@ -515,7 +515,7 @@ window.TimelineData = (function() {
             categoryDe: "2. Epoche der Tafeln des Göttlichen Plans",
             categoryEn: "2nd Epoch of the Tablets of the Divine Plan",
             periodDe: "1996–2000", periodEn: "1996–2000",
-            startYear: 1996, endYear: 2000, startDate: "1996-04-21", endDate: "2000-04-20",
+            startYear: 1995, endYear: 2000, startDate: "1995-12-26", endDate: "2000-04-20",
             descDe: "Der historische Wendepunkt: Etablierung des Trainingsinstituts als primäres Instrument zur Entfaltung menschlicher Ressourcen.",
             descEn: "A watershed moment establishing training institutes as the engine of systematic growth."
         },
@@ -528,7 +528,7 @@ window.TimelineData = (function() {
             categoryDe: "2. Epoche der Tafeln des Göttlichen Plans",
             categoryEn: "2nd Epoch of the Tablets of the Divine Plan",
             periodDe: "2000–2001", periodEn: "2000–2001",
-            startYear: 2000, endYear: 2001, startDate: "2000-04-21", endDate: "2001-04-20",
+            startYear: 2000, endYear: 2001, startDate: "2000-04-21", endDate: "2001-01-08",
             descDe: "Übergangsplan an der Schwelle des neuen Jahrtausends zur Vorbereitung der Serie von Fünfjahresplänen.",
             descEn: "Transition plan bridging into the 21st century and the four Five Year Plans."
         },
@@ -541,7 +541,7 @@ window.TimelineData = (function() {
             categoryDe: "2. Epoche der Tafeln des Göttlichen Plans",
             categoryEn: "2nd Epoch of the Tablets of the Divine Plan",
             periodDe: "2001–2006", periodEn: "2001–2006",
-            startYear: 2001, endYear: 2006, startDate: "2001-04-21", endDate: "2006-04-20",
+            startYear: 2001, endYear: 2006, startDate: "2001-01-09", endDate: "2005-12-26",
             descDe: "Einführung des Cluster-Konzepts und der Kernaktivitäten (Studienkreise, Andachten, Kinderklassen).",
             descEn: "Introduction of clusters and core activities as the standard framework of growth."
         },
@@ -554,7 +554,7 @@ window.TimelineData = (function() {
             categoryDe: "2. Epoche der Tafeln des Göttlichen Plans",
             categoryEn: "2nd Epoch of the Tablets of the Divine Plan",
             periodDe: "2006–2011", periodEn: "2006–2011",
-            startYear: 2006, endYear: 2011, startDate: "2006-04-21", endDate: "2011-04-20",
+            startYear: 2005, endYear: 2011, startDate: "2005-12-27", endDate: "2010-12-27",
             descDe: "Etablierung des Vorjugendprogramms und intensive Programme des Wachstums in hunderten Clustern.",
             descEn: "Emergence of the Junior Youth Spiritual Empowerment Programme and intensive programmes of growth."
         },
@@ -567,7 +567,7 @@ window.TimelineData = (function() {
             categoryDe: "2. Epoche der Tafeln des Göttlichen Plans",
             categoryEn: "2nd Epoch of the Tablets of the Divine Plan",
             periodDe: "2011–2016", periodEn: "2011–2016",
-            startYear: 2011, endYear: 2016, startDate: "2011-04-21", endDate: "2016-04-20",
+            startYear: 2010, endYear: 2016, startDate: "2010-12-28", endDate: "2015-12-28",
             descDe: "Weltweite Jugendkonferenzen 2013 und Entstehung von Zentren intensiver Aktivität in Nachbarschaften.",
             descEn: "Historic 2013 youth conferences and neighborhood-level community building."
         },
@@ -580,7 +580,7 @@ window.TimelineData = (function() {
             categoryDe: "2. Epoche der Tafeln des Göttlichen Plans",
             categoryEn: "2nd Epoch of the Tablets of the Divine Plan",
             periodDe: "2016–2021", periodEn: "2016–2021",
-            startYear: 2016, endYear: 2021, startDate: "2016-04-21", endDate: "2021-04-20",
+            startYear: 2015, endYear: 2021, startDate: "2015-12-29", endDate: "2021-04-20",
             descDe: "Zweihundertjahrfeiern der Geburt Bahá'u'lláhs (2017) und des Báb (2019). Über 5.000 Cluster mit Wachstumsprogrammen.",
             descEn: "Twin Bicentenary celebrations of Bahá'u'lláh and the Báb; surpassing 5,000 intensive growth clusters."
         },
@@ -593,7 +593,7 @@ window.TimelineData = (function() {
             categoryDe: "3. Epoche der Tafeln des Göttlichen Plans",
             categoryEn: "3rd Epoch of the Tablets of the Divine Plan",
             periodDe: "2021–2022", periodEn: "2021–2022",
-            startYear: 2021, endYear: 2022, startDate: "2021-04-21", endDate: "2022-04-20",
+            startYear: 2021, endYear: 2021, startDate: "2021-04-21", endDate: "2021-12-29",
             descDe: "Eröffnung der 3. Epoche des Göttlichen Plans, Hundertjahrfeier des Hinscheidens 'Abdu'l-Bahás und Start in das 2. Jahrhundert des Gestaltenden Zeitalters.",
             descEn: "Opening the 3rd Epoch of the Divine Plan, centenary of the Ascension of 'Abdu'l-Bahá, and inauguration of the 2nd Century of the Formative Age."
         },
@@ -606,7 +606,7 @@ window.TimelineData = (function() {
             categoryDe: "3. Epoche der Tafeln des Göttlichen Plans",
             categoryEn: "3rd Epoch of the Tablets of the Divine Plan",
             periodDe: "2022–2031", periodEn: "2022–2031",
-            startYear: 2022, endYear: 2031, startDate: "2022-04-21", endDate: "2031-12-31",
+            startYear: 2021, endYear: 2031, startDate: "2021-12-30", endDate: "2031-12-31",
             descDe: "Der aktuelle globale Lehrplan der 3. Epoche des Göttlichen Plans. Erster Plan einer neuen 25-jährigen Serie bis 2046 zur Freisetzung gesellschaftsbildender Kraft.",
             descEn: "The current active global plan in the 3rd Epoch of the Divine Plan, first in a 25-year series through 2046 to release society-building power."
         }

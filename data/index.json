@@ -7176,33 +7176,6 @@
     "groupId": "msg-2021-04-21"
   },
   {
-    "id": "185691155c28",
-    "title": "Riḍván Message 2021 (To the Bahá’ís of the World)",
-    "date": "2021-04-20",
-    "year": 2021,
-    "source": "bahai.org",
-    "type": "Riḍván-Botschaft",
-    "topics": [
-      "Messages",
-      "Riḍván-Botschaft"
-    ],
-    "language": "english",
-    "format": "pdf",
-    "fileSize": 83438,
-    "filePath": "../documents/2021/2021.04.20-E-UHG-Riḍván Message 2021-eng.pdf",
-    "originalFilename": "2021.04.20-E-UHG-Riḍván Message 2021-eng.pdf",
-    "tier": "house",
-    "tierName": "Botschaften des Hauses",
-    "subTier": null,
-    "subTierName": null,
-    "hasText": true,
-    "recipient": "world",
-    "recipientLabel": "Weltweite Bahá'í-Gemeinde",
-    "keyPassagesCount": 9,
-    "excerpt": "The final words in a most memorable chapter in the history of the Cause have now been written, and the page turns. This Riḍván marks the conclusion of an extraordinary year, of a F…",
-    "wordCount": 5003
-  },
-  {
     "id": "211b6c061633",
     "title": "Zum Abschluss der Restaurierungsarbeiten am Haus von ‘Abbúd (An alle Nationalen Geistigen Räte)",
     "date": "2021-04-02",
@@ -8531,33 +8504,6 @@
     "groupId": "msg-ridvan-2020"
   },
   {
-    "id": "ac8d7af2dffb",
-    "title": "Riḍván Message 2020 (To the Bahá’ís of the World)",
-    "date": "2020-04-20",
-    "year": 2020,
-    "source": "bahai.org",
-    "type": "Riḍván-Botschaft",
-    "topics": [
-      "Messages",
-      "Riḍván-Botschaft"
-    ],
-    "language": "english",
-    "format": "pdf",
-    "fileSize": 32829,
-    "filePath": "../documents/2020/2020.04.20-E-UHG-Riḍván Message 2020-eng.pdf",
-    "originalFilename": "2020.04.20-E-UHG-Riḍván Message 2020-eng.pdf",
-    "tier": "house",
-    "tierName": "Botschaften des Hauses",
-    "subTier": null,
-    "subTierName": null,
-    "hasText": true,
-    "recipient": "world",
-    "recipientLabel": "Weltweite Bahá'í-Gemeinde",
-    "keyPassagesCount": 3,
-    "excerpt": "Two emerging realities have prompted us to address these words to you. The first reality is the growing consciousness around the world of the looming and appalling dangers carried…",
-    "wordCount": 824
-  },
-  {
     "id": "4b79b2bb45c1",
     "title": "Naw-Rúz-Botschaft 177 (An die Bahá’í der Welt)",
     "date": "2020-03-20",
@@ -9282,7 +9228,8 @@
     "recipientLabel": "An alle, die dem Herold des Anbruchs eines neuen Tages Ehre erweisen",
     "keyPassagesCount": 4,
     "excerpt": "lassen Sie uns gemeinsam überlegen. Immer wenn ein göttlicher Erzieher auf der Welt erscheint, eine Gestalt, Deren Lehren menschliches Denken und Handeln noch für Jahrhunderte präg…",
-    "wordCount": 1389
+    "wordCount": 1389,
+    "groupId": "msg-2019-10-01"
   },
   {
     "id": "2801df99b441",
@@ -9897,33 +9844,6 @@
     "deTitle": "Riḍván-Botschaft 2019 (An die Bahá’í der Welt)",
     "enTitle": "Riḍván Message 2019",
     "groupId": "msg-ridvan-2019"
-  },
-  {
-    "id": "cf6396133eaf",
-    "title": "Riḍván Message 2019 (To the Bahá’ís of the World)",
-    "date": "2019-04-20",
-    "year": 2019,
-    "source": "bahai.org",
-    "type": "Riḍván-Botschaft",
-    "topics": [
-      "Messages",
-      "Riḍván-Botschaft"
-    ],
-    "language": "english",
-    "format": "pdf",
-    "fileSize": 36256,
-    "filePath": "../documents/2019/2019.04.20-E-UHG-Riḍván Message 2019-eng.pdf",
-    "originalFilename": "2019.04.20-E-UHG-Riḍván Message 2019-eng.pdf",
-    "tier": "house",
-    "tierName": "Botschaften des Hauses",
-    "subTier": null,
-    "subTierName": null,
-    "hasText": true,
-    "recipient": "world",
-    "recipientLabel": "Weltweite Bahá'í-Gemeinde",
-    "keyPassagesCount": 4,
-    "excerpt": "As the Most Great Festival has drawn closer, we have been transported by feelings of gratitude and anticipation—gratitude for the wonders that Bahá’u’lláh has enabled His followers…",
-    "wordCount": 1149
   },
   {
     "id": "1be65f23a0c3",
@@ -12666,33 +12586,6 @@
     "enTitle": "Riḍván Message 2017"
   },
   {
-    "id": "b413207b0c55",
-    "title": "Riḍván Message 2017 (To the Bahá’ís of the World)",
-    "date": "2017-04-20",
-    "year": 2017,
-    "source": "bahai.org",
-    "type": "Riḍván-Botschaft",
-    "topics": [
-      "Messages",
-      "Riḍván-Botschaft"
-    ],
-    "language": "english",
-    "format": "pdf",
-    "fileSize": 34276,
-    "filePath": "../documents/2017/2017.04.20-E-UHG-Riḍván Message 2017-eng.pdf",
-    "originalFilename": "2017.04.20-E-UHG-Riḍván Message 2017-eng.pdf",
-    "tier": "house",
-    "tierName": "Botschaften des Hauses",
-    "subTier": null,
-    "subTierName": null,
-    "hasText": true,
-    "recipient": "world",
-    "recipientLabel": "Weltweite Bahá'í-Gemeinde",
-    "keyPassagesCount": 3,
-    "excerpt": "See how the community of the Greatest Name arises! With but one year elapsed since the inception of the new Plan, reports testify to the scale of what is being attempted and beginn…",
-    "wordCount": 953
-  },
-  {
     "id": "9a05df99acc8",
     "title": "Release from Service of a Member of the International Teaching Centre",
     "date": "2017-04-17",
@@ -14412,33 +14305,6 @@
     "groupId": "msg-ridvan-2016",
     "deTitle": "Riḍván-Botschaft 2016 (An die Bahá’í der Welt)",
     "enTitle": "Riḍván Message 2016"
-  },
-  {
-    "id": "7721fbb3d014",
-    "title": "Riḍván Message 2016 (To the Bahá’ís of the World)",
-    "date": "2016-04-20",
-    "year": 2016,
-    "source": "bahai.org",
-    "type": "Riḍván-Botschaft",
-    "topics": [
-      "Messages",
-      "Riḍván-Botschaft"
-    ],
-    "language": "english",
-    "format": "pdf",
-    "fileSize": 36210,
-    "filePath": "../documents/2016/2016.04.20-E-UHG-Riḍván Message 2016-eng.pdf",
-    "originalFilename": "2016.04.20-E-UHG-Riḍván Message 2016-eng.pdf",
-    "tier": "house",
-    "tierName": "Botschaften des Hauses",
-    "subTier": null,
-    "subTierName": null,
-    "hasText": true,
-    "recipient": "world",
-    "recipientLabel": "Weltweite Bahá'í-Gemeinde",
-    "keyPassagesCount": 4,
-    "excerpt": "With the advent of the King of Festivals, the period of preparation for the next global Plan is over: we now summon the friends of God to a new five-year commitment of courage, res…",
-    "wordCount": 1139
   },
   {
     "id": "8b295cfa492b",
@@ -18484,33 +18350,6 @@
     "groupId": "msg-ridvan-2013"
   },
   {
-    "id": "ded68bbf5f0c",
-    "title": "Riḍván Message 2013 (To the Bahá’ís of the World)",
-    "date": "2013-04-21",
-    "year": 2013,
-    "source": "bahai.org",
-    "type": "Riḍván-Botschaft",
-    "topics": [
-      "Messages",
-      "Riḍván-Botschaft"
-    ],
-    "language": "english",
-    "format": "pdf",
-    "fileSize": 57623,
-    "filePath": "../documents/2013/2013.04.21-E-UHG-Riḍván Message 2013-eng.pdf",
-    "originalFilename": "2013.04.21-E-UHG-Riḍván Message 2013-eng.pdf",
-    "tier": "house",
-    "tierName": "Botschaften des Hauses",
-    "subTier": null,
-    "subTierName": null,
-    "hasText": true,
-    "recipient": "world",
-    "recipientLabel": "Weltweite Bahá'í-Gemeinde",
-    "keyPassagesCount": 6,
-    "excerpt": "“The Book of God is wide open, and His Word is summoning mankind unto Him.” In such exhilarating terms does the Supreme Pen describe the advent of the day of union and ingathering…",
-    "wordCount": 2852
-  },
-  {
     "id": "32435c5b998b",
     "title": "Adhering to Bahá’í Standards of Morality",
     "date": "2013-04-19",
@@ -21762,33 +21601,6 @@
     "groupId": "msg-ridvan-2010"
   },
   {
-    "id": "e0a3c29bc6f9",
-    "title": "Riḍván Message 2010 (To the Bahá’ís of the World)",
-    "date": "2010-04-21",
-    "year": 2010,
-    "source": "bahai.org",
-    "type": "Riḍván-Botschaft",
-    "topics": [
-      "Messages",
-      "Riḍván-Botschaft"
-    ],
-    "language": "english",
-    "format": "pdf",
-    "fileSize": 109520,
-    "filePath": "../documents/2010/2010.04.21-E-UHG-Riḍván Message 2010-eng.pdf",
-    "originalFilename": "2010.04.21-E-UHG-Riḍván Message 2010-eng.pdf",
-    "tier": "house",
-    "tierName": "Botschaften des Hauses",
-    "subTier": null,
-    "subTierName": null,
-    "hasText": true,
-    "recipient": "world",
-    "recipientLabel": "Weltweite Bahá'í-Gemeinde",
-    "keyPassagesCount": 13,
-    "excerpt": "With hearts filled with admiration for the followers of Bahá’u’lláh, we are pleased to announce that, as this most joyous Riḍván season opens, there is in every continent of the gl…",
-    "wordCount": 6657
-  },
-  {
     "id": "5af49d3e405d",
     "title": "Familienleben, Reichtum, Materialismus und Gerechtigkeit (An die Gläubigen in der Wiege des Glaubens)",
     "date": "2010-04-02",
@@ -24638,7 +24450,8 @@
     "recipientLabel": "Weltweite Bahá'í-Gemeinde",
     "keyPassagesCount": 3,
     "excerpt": "am heutigen Tag, dem Jahrestag der Geburt des Báb, stehen wir auf der Hälfte des Weges in der fünf Jahre dauernden Unternehmung, mit der die Bahá’í-Welt bis Ridván 2011 befasst sei…",
-    "wordCount": 969
+    "wordCount": 969,
+    "groupId": "msg-2008-10-20"
   },
   {
     "id": "991853aa2b04",
@@ -28735,7 +28548,7 @@
   },
   {
     "id": "d2bbb1dcb282",
-    "title": "uhj-ocf-de",
+    "title": "Ein gemeinsamer Glaube",
     "date": "2005-04-01",
     "year": 2005,
     "source": "UHG",
@@ -28788,7 +28601,7 @@
       "en"
     ],
     "groupId": "msg-one-common-faith-2005",
-    "deTitle": "uhj-ocf-de",
+    "deTitle": "Ein gemeinsamer Glaube",
     "enTitle": "Publication of One Common Faith"
   },
   {
@@ -28888,7 +28701,7 @@
       "en"
     ],
     "groupId": "msg-one-common-faith-2005",
-    "deTitle": "uhj-ocf-de",
+    "deTitle": "Ein gemeinsamer Glaube",
     "enTitle": "Publication of One Common Faith"
   },
   {
@@ -31968,11 +31781,11 @@
     ],
     "deTitle": "Das Universale Haus der Gerechtigkeit",
     "enTitle": "To the Believers Gathered for the Events Marking t",
-    "groupId": "msg-2001-05-24"
+    "groupId": "msg-terraces-2001"
   },
   {
     "id": "ec23ee40706f",
-    "title": "Das Universale Haus der Gerechtigkeit",
+    "title": "Botschaft zur Eröffnung der Terrassen des Schreins des Báb",
     "date": "2001-05-24",
     "year": 2001,
     "source": "UHG",
@@ -32026,9 +31839,9 @@
       "de",
       "en"
     ],
-    "deTitle": "Das Universale Haus der Gerechtigkeit",
+    "deTitle": "Botschaft zur Eröffnung der Terrassen des Schreins des Báb",
     "enTitle": "To the Believers Gathered for the Events Marking t",
-    "groupId": "msg-2001-05-24"
+    "groupId": "msg-terraces-2001"
   },
   {
     "id": "c3532f3a5ff8",
@@ -32079,7 +31892,7 @@
     "availableLanguages": [
       "en"
     ],
-    "groupId": "msg-2001-05-22"
+    "groupId": "msg-terraces-2001"
   },
   {
     "id": "bad26cdaa39f",
@@ -32596,7 +32409,7 @@
   },
   {
     "id": "32b2b92a1119",
-    "title": "uhj-ioc-de",
+    "title": "Die Institution des Berateramts",
     "date": "2001-01-01",
     "year": 2001,
     "source": "UHG",
@@ -32646,8 +32459,8 @@
       "de",
       "en"
     ],
-    "groupId": "msg-2001-01-01",
-    "deTitle": "uhj-ioc-de",
+    "groupId": "doc-institution-counsellors",
+    "deTitle": "Die Institution des Berateramts",
     "enTitle": "[EN] [UHG] The Institution of the Counsellors"
   },
   {
@@ -40025,8 +39838,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * Bahá’í Prayers A Selection of Prayers Revealed by Bahá’u’lláh, the Báb, and ‘Abdu’l‑Bahá Blessed is the spot, and the house, and the place, and the city, and the heart, and the mountain, and the refuge, and the cave, and the valley, a",
-    "wordCount": 52786,
+    "excerpt": "Bahá’í Prayers A Selection of Prayers Revealed by Bahá’u’lláh, the Báb, and ‘Abdu’l‑Bahá…",
+    "wordCount": 52760,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": null,
@@ -40036,7 +39849,8 @@
       "en"
     ],
     "date": "1990-01-01",
-    "groupId": "book-gebeteandacht-bahai-prayers-tablets-chi"
+    "groupId": "book-gebeteandacht-bahai-prayers-tablets-chi",
+    "paragraphsCount": 1238
   },
   {
     "id": "358a259c3ff8",
@@ -41756,7 +41570,7 @@
   },
   {
     "id": "ed538b085b76",
-    "title": "uhj-clh-de",
+    "title": "Systematische Darstellung des Ḥuqúqu’lláh-Gesetzes",
     "date": "1987-03-25",
     "year": 1987,
     "source": "UHG",
@@ -41805,8 +41619,8 @@
       "de",
       "en"
     ],
-    "groupId": "msg-1987-03-25",
-    "deTitle": "uhj-clh-de",
+    "groupId": "doc-codification-huququllah",
+    "deTitle": "Systematische Darstellung des Ḥuqúqu’lláh-Gesetzes",
     "enTitle": "To all National Spiritual Assemblies"
   },
   {
@@ -43216,126 +43030,6 @@
     "groupId": "msg-1985-10-24"
   },
   {
-    "id": "7c464bafbfdd",
-    "title": "uhj-pwp-de",
-    "date": "1985-10-01",
-    "year": 1985,
-    "source": "UHG",
-    "type": "Botschaft",
-    "topics": [
-      "Einheit",
-      "Erziehung",
-      "Familie",
-      "Frieden",
-      "Jugend",
-      "Trainingsinstitut",
-      "Wahlen",
-      "Wirtschaft",
-      "ʻAbdu'l-Bahá"
-    ],
-    "language": "deutsch",
-    "format": "docx",
-    "fileSize": 68301,
-    "filePath": "documents/Deutsch_Online/1985-10-01_Die Verheißung des Weltfriedens.docx",
-    "originalFilename": "1985-10-01_Die Verheißung des Weltfriedens.docx",
-    "tier": "house",
-    "tierName": "Botschaften des Hauses",
-    "subTier": null,
-    "subTierName": null,
-    "hasText": true,
-    "recipient": "nsa",
-    "recipientLabel": "Nationale Geistige Räte",
-    "keyPassagesCount": 4,
-    "excerpt": "F.tp:2Die Verheißung des Weltfriedens",
-    "wordCount": 3363,
-    "sourceUrl": "https://bibliothek.bahai.de/pubReader.php?titleLangUri=uhj-pwp-de",
-    "formatFiles": {
-      "docx": "documents/Deutsch_Online/1985-10-01_Die Verheißung des Weltfriedens.docx",
-      "txt": "data/texts/7c464bafbfdd.txt",
-      "pdf": "documents/formats/pdf/7c464bafbfdd.pdf",
-      "epub": "documents/formats/epub/7c464bafbfdd.epub"
-    },
-    "availableFormats": [
-      "pdf",
-      "docx",
-      "epub",
-      "txt"
-    ],
-    "sourcePlatform": "Bahá’í-Bibliothek Deutschland",
-    "translations": {
-      "de": "7c464bafbfdd",
-      "en": "ebbb59596e5f"
-    },
-    "availableLanguages": [
-      "de",
-      "en"
-    ],
-    "groupId": "msg-1985-10-01",
-    "deTitle": "uhj-pwp-de",
-    "enTitle": "October 1985 – To the Peoples of the World"
-  },
-  {
-    "id": "ebbb59596e5f",
-    "title": "October 1985 – To the Peoples of the World",
-    "date": "1985-10-01",
-    "year": 1985,
-    "source": "UHG",
-    "type": "Friedensbotschaft",
-    "topics": [
-      "Einheit",
-      "Erziehung",
-      "Familie",
-      "Frieden",
-      "Jugend",
-      "Klimawandel",
-      "Politik",
-      "Trainingsinstitut",
-      "Wahlen",
-      "Wirtschaft",
-      "ʻAbdu'l-Bahá"
-    ],
-    "language": "english",
-    "format": "docx",
-    "fileSize": 65754,
-    "filePath": "documents/English/Online_Messages/1985-10-01_19851001_001_The Promise of World Peace (To the Peoples of the World).docx",
-    "originalFilename": "1985-10-01_19851001_001_The Promise of World Peace (To the Peoples of the World).docx",
-    "tier": "house",
-    "tierName": "Botschaften des Hauses",
-    "subTier": null,
-    "subTierName": null,
-    "hasText": true,
-    "recipient": "world",
-    "recipientLabel": "Weltweite Bahá'í-Gemeinde",
-    "keyPassagesCount": 18,
-    "excerpt": "The Great Peace towards which people of goodwill throughout the centuries have inclined their hearts, of which seers and poets for countless generations have expressed their vision",
-    "wordCount": 6722,
-    "sourceUrl": "https://www.bahai.org/library/authoritative-texts/the-universal-house-of-justice/messages/19851001_001/1",
-    "formatFiles": {
-      "docx": "documents/English/Online_Messages/1985-10-01_19851001_001_The Promise of World Peace (To the Peoples of the World).docx",
-      "txt": "data/texts/ebbb59596e5f.txt",
-      "pdf": "documents/formats/pdf/ebbb59596e5f.pdf",
-      "epub": "documents/formats/epub/ebbb59596e5f.epub"
-    },
-    "availableFormats": [
-      "pdf",
-      "docx",
-      "epub",
-      "txt"
-    ],
-    "sourcePlatform": "Bahá’í Reference Library",
-    "translations": {
-      "de": "7c464bafbfdd",
-      "en": "ebbb59596e5f"
-    },
-    "availableLanguages": [
-      "de",
-      "en"
-    ],
-    "groupId": "msg-1985-10-01",
-    "deTitle": "uhj-pwp-de",
-    "enTitle": "October 1985 – To the Peoples of the World"
-  },
-  {
     "id": "42aa3b201707",
     "title": "Die Verheißung des Weltfriedens (An die Völker der Welt)",
     "date": "1985-10-01",
@@ -43435,8 +43129,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "THE UNIVERSAL HOUSE OF JUSTICE October 1985 To the Peoples of the World The Great Peace towards which people of goodwill throughout the centuries have inclined their hearts, of which seers and poets for countless generations have expressed",
-    "wordCount": 6734,
+    "excerpt": "THE UNIVERSAL HOUSE OF JUSTICE…",
+    "wordCount": 6708,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": "42aa3b201707",
@@ -43449,7 +43143,8 @@
     "date": "1985-10-01",
     "groupId": "msg-peace-statement-1985",
     "deTitle": "Die Verheißung des Weltfriedens (An die Völker der Welt)",
-    "enTitle": "The Promise of World Peace"
+    "enTitle": "The Promise of World Peace",
+    "paragraphsCount": 70
   },
   {
     "id": "036bee3a3213",
@@ -53715,8 +53410,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * This Decisive Hour Messages from Shoghi Effendi to the North American Bahá’ís 1932–1946 Shoghi Effendi List of topics 1. The Passing of Abu’l-Qásim Khurásání, 26 February 1932 2. Nabíl’s Narrative, 20 June 1932 3. Immortal Spirit, 15",
-    "wordCount": 52764,
+    "excerpt": "This Decisive Hour Messages from Shoghi Effendi to the North American Bahá’ís 1932–1946 Shoghi Effendi…",
+    "wordCount": 52737,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": null,
@@ -53726,7 +53421,8 @@
       "en"
     ],
     "date": "1952-01-01",
-    "groupId": "book-shoghieffendi-decisive-hour"
+    "groupId": "book-shoghieffendi-decisive-hour",
+    "paragraphsCount": 880
   },
   {
     "id": "book_shoghi_effendi_citadel_faith_eng",
@@ -53769,8 +53465,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * Citadel of Faith Messages to America 1947–1957 Shoghi Effendi List of topics Believers’ Generous Response to Temple Fund Call to Fuller Participation Consolidation in Europe Participation in Second Seven Year Plan NSA Must Control Cre",
-    "wordCount": 60490,
+    "excerpt": "Citadel of Faith Messages to America 1947–1957 Shoghi Effendi…",
+    "wordCount": 60457,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": null,
@@ -53780,7 +53476,8 @@
       "en"
     ],
     "date": "1950-01-01",
-    "groupId": "book-citadel-faith"
+    "groupId": "book-citadel-faith",
+    "paragraphsCount": 704
   },
   {
     "id": "book_bahaullah_bahai_sacred_writings_eng",
@@ -53823,8 +53520,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * *Bahá’í Sacred Writings Preface I. Selections from the Writings of Bahá’u’lláh 1 God and His Manifestations God’s Unknowable Essence The Relationship Between God and His Manifestations The Oneness of the Manifestations of God The Purpos",
-    "wordCount": 27694,
+    "excerpt": "Bahá’í Sacred Writings…",
+    "wordCount": 175612,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": null,
@@ -53834,7 +53531,8 @@
       "en"
     ],
     "date": "1945-01-01",
-    "groupId": "book-bahullh-bahá-í-sacred-writings"
+    "groupId": "book-bahullh-bahá-í-sacred-writings",
+    "paragraphsCount": 2001
   },
   {
     "id": "book_shoghi_effendi_sho_ll_de_dtsch",
@@ -53988,8 +53686,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * God Passes By Shoghi Effendi Foreword First Period: The Ministry of the Báb 1844–1853 I. The Birth of the Bábí Revelation Declaration of the Báb’s Mission—Enrollment of the Letters of the Living—The Báb’s pilgrimage to Mecca—The Báb’s",
-    "wordCount": 174254,
+    "excerpt": "God Passes By Shoghi Effendi…",
+    "wordCount": 174221,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": "book_shoghi_effendi_sho_gpb_de_dtsch",
@@ -54002,7 +53700,8 @@
     "deTitle": "Gott geht vorüber",
     "enTitle": "God Passes By",
     "date": "1944-01-01",
-    "groupId": "book-god-passes-by"
+    "groupId": "book-god-passes-by",
+    "paragraphsCount": 1003
   },
   {
     "id": "book_shoghi_effendi_sho_pdc_de_dtsch",
@@ -54102,8 +53801,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * * * * The Promised Day is Come By Shoghi Effendi List of sections The Promised Day Is Come This Judgment of God What Response to His Call? Features of This Moving Drama A World Receded from Him Recipients of the Message Tablets to the",
-    "wordCount": 52031,
+    "excerpt": "The Promised Day is Come By Shoghi Effendi…",
+    "wordCount": 51999,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": "book_shoghi_effendi_sho_pdc_de_dtsch",
@@ -54116,7 +53815,8 @@
     "deTitle": "Der verheißene Tag ist gekommen",
     "enTitle": "Promised Day Come",
     "date": "1941-01-01",
-    "groupId": "book-promised-day"
+    "groupId": "book-promised-day",
+    "paragraphsCount": 393
   },
   {
     "id": "book_shoghi_effendi_sho_ldg1_de_dtsch",
@@ -54160,7 +53860,7 @@
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 125,
     "excerpt": "f.tp:1 Shoghi Effendi f.tp:2 Das Licht göttlicher Führung (Band 1) f.tp:3 Briefe des Hüters des Bahá’í-Glaubens an einzelne Gläubige, Gruppen und Bahá’í-Gemeinden in Deutschland und Österreich f.tp:4 1:0_1 Ihr Gesegneten und Geliebten ‘",
-    "wordCount": 33696,
+    "wordCount": 75374,
     "sourcePlatform": "Bahá’í-Bibliothek Deutschland",
     "translations": {
       "de": "book_shoghi_effendi_sho_ldg1_de_dtsch",
@@ -54170,7 +53870,8 @@
       "de"
     ],
     "date": "1940-01-01",
-    "groupId": "book-shoghieffendi-licht-göttlicher-führung-"
+    "groupId": "book-shoghieffendi-licht-göttlicher-führung-",
+    "paragraphsCount": 1980
   },
   {
     "id": "book_shoghi_effendi_sho_adj_de_dtsch",
@@ -54270,8 +53971,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * The Advent of Divine Justice by Shoghi Effendi Overview of the North American Bahá’í Community—Its Successes, Responsibilities, and Glorious Future Overview of the North American Bahá’í Community—Its Successes, Responsibilities, and G",
-    "wordCount": 33320,
+    "excerpt": "The Advent of Divine Justice by Shoghi Effendi…",
+    "wordCount": 33288,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": "book_shoghi_effendi_sho_adj_de_dtsch",
@@ -54284,7 +53985,8 @@
     "deTitle": "Das Kommen Göttlicher Gerechtigkeit",
     "enTitle": "Advent Divine Justice",
     "date": "1938-01-01",
-    "groupId": "book-advent-justice"
+    "groupId": "book-advent-justice",
+    "paragraphsCount": 176
   },
   {
     "id": "book_shoghi_effendi_sho_wob_de_dtsch",
@@ -54384,8 +54086,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * * * * * * * The World Order of Bahá’u’lláh Selected Letters by Shoghi Effendi The World Order of Bahá’u’lláh The World Order of Bahá’u’lláh: Further Considerations The Goal of a New World Order The Golden Age of the Cause of Bahá’u’ll",
-    "wordCount": 72303,
+    "excerpt": "The World Order of Bahá’u’lláh Selected Letters by Shoghi Effendi…",
+    "wordCount": 72268,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": "book_shoghi_effendi_sho_wob_de_dtsch",
@@ -54398,7 +54100,8 @@
     "deTitle": "Die Weltordnung Bahá’u’lláhs",
     "enTitle": "World Order Bahá'U'Lláh",
     "date": "1938-01-01",
-    "groupId": "book-world-order"
+    "groupId": "book-world-order",
+    "paragraphsCount": 591
   },
   {
     "id": "book_shoghi_effendi_bahai_administration_eng",
@@ -54441,8 +54144,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * * * * Bahá’í Administration Selected Messages 1922–1932 Shoghi Effendi Part One: Excerpts from the Will and Testament of ‘Abdu’l‑Bahá Part Two: Letters from Shoghi Effendi Part One Excerpts from the Will and Testament of ‘Abdu’l‑Bahá",
-    "wordCount": 70872,
+    "excerpt": "Bahá’í Administration Selected Messages 1922–1932 Shoghi Effendi…",
+    "wordCount": 70840,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": null,
@@ -54452,7 +54155,8 @@
       "en"
     ],
     "date": "1928-01-01",
-    "groupId": "book-bahai-admin"
+    "groupId": "book-bahai-admin",
+    "paragraphsCount": 1026
   },
   {
     "id": "book_abdul_baha_tablet_auguste_forel_eng",
@@ -54495,18 +54199,20 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * * * * ‘Abdu’l‑Bahá’s Tablet to Dr. Forel Original Persian text first published Cairo 1922. This translation taken from The Bahá’í World, Vol. XV, pp. 37–43. O REVERED personage, lover of truth! Thy letter dated 28 July 1921 hath been",
-    "wordCount": 4936,
+    "excerpt": "‘Abdu’l‑Bahá’s Tablet to Dr. Forel…",
+    "wordCount": 4903,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
-      "de": null,
+      "de": "book_abdul_baha_abd_taf_de_dtsch",
       "en": "book_abdul_baha_tablet_auguste_forel_eng"
     },
     "availableLanguages": [
+      "de",
       "en"
     ],
     "date": "1921-01-01",
-    "groupId": "book-tablet-auguste-forel"
+    "groupId": "book-tablet-forel",
+    "paragraphsCount": 45
   },
   {
     "id": "book_abdul_baha_abd_taf_de_dtsch",
@@ -54554,13 +54260,14 @@
     "sourcePlatform": "Bahá’í-Bibliothek Deutschland",
     "translations": {
       "de": "book_abdul_baha_abd_taf_de_dtsch",
-      "en": null
+      "en": "book_abdul_baha_tablet_auguste_forel_eng"
     },
     "availableLanguages": [
-      "de"
+      "de",
+      "en"
     ],
     "date": "1921-01-01",
-    "groupId": "book-abdulbah-sendschreiben-an-forel"
+    "groupId": "book-tablet-forel"
   },
   {
     "id": "book_abdul_baha_twelve_table_talks_‘abdu’l_bahá_eng",
@@ -54603,8 +54310,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * Twelve Table Talks Given by ‘Abdu’l‑Bahá in ‘Akká – 1 – The Three Kinds of Prophets QUESTION: HOW MANY kinds of divine Prophets are there? Answer: There are three kinds of divine Prophets. One kind are the universal Manifestations, wh",
-    "wordCount": 8922,
+    "excerpt": "Twelve Table Talks Given by ‘Abdu’l‑Bahá in ‘Akká…",
+    "wordCount": 8905,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": null,
@@ -54614,7 +54321,8 @@
       "en"
     ],
     "date": "1919-01-01",
-    "groupId": "book-abdulbah-twelve-table-talks-abdu-l"
+    "groupId": "book-abdulbah-twelve-table-talks-abdu-l",
+    "paragraphsCount": 106
   },
   {
     "id": "book_abdul_baha_tablets_hague_‘abdu’l_bahá_eng",
@@ -54657,18 +54365,20 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * * * * ‘Abdu’l‑Bahá’s Tablets to The Hague 1. First Tablet to The Hague – 17 December 1919 2. Second Tablet to The Hague – 1 July 1920 First Tablet to The Hague 17 December 1919 O YE esteemed ones who are pioneers among the well-wisher",
-    "wordCount": 6635,
+    "excerpt": "‘Abdu’l‑Bahá’s Tablets to The Hague…",
+    "wordCount": 6596,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
-      "de": null,
+      "de": "book_abdul_baha_abd_tah_de_dtsch",
       "en": "book_abdul_baha_tablets_hague_‘abdu’l_bahá_eng"
     },
     "availableLanguages": [
+      "de",
       "en"
     ],
     "date": "1919-01-01",
-    "groupId": "book-abdulbah-tablets-hague-abdu-l-bahá"
+    "groupId": "book-tablets-hague",
+    "paragraphsCount": 77
   },
   {
     "id": "book_abdul_baha_abd_tah_de_dtsch",
@@ -54716,13 +54426,14 @@
     "sourcePlatform": "Bahá’í-Bibliothek Deutschland",
     "translations": {
       "de": "book_abdul_baha_abd_tah_de_dtsch",
-      "en": null
+      "en": "book_abdul_baha_tablets_hague_‘abdu’l_bahá_eng"
     },
     "availableLanguages": [
-      "de"
+      "de",
+      "en"
     ],
     "date": "1919-01-01",
-    "groupId": "book-abdulbah-sendbriefe-an-die-zentral"
+    "groupId": "book-tablets-hague"
   },
   {
     "id": "book_abdul_baha_tablets_divine_plan_eng",
@@ -54765,8 +54476,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * * * * * * * * * * Tablets of the Divine Plan ‘Abdu’l‑Bahá 1. Tablet to the Bahá’ís of the Northeastern States 2. Tablet to the Bahá’ís of the Southern States 3. Tablet to the Bahá’ís of the Central States 4. Tablet to the Bahá’ís of t",
-    "wordCount": 16560,
+    "excerpt": "Tablets of the Divine Plan ‘Abdu’l‑Bahá…",
+    "wordCount": 16443,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": "book_abdul_baha_abd_tdp_de_dtsch",
@@ -54779,7 +54490,8 @@
     "deTitle": "Sendschreiben zum Göttlichen Plan",
     "enTitle": "Tablets Divine Plan",
     "date": "1916-01-01",
-    "groupId": "book-divine-plan"
+    "groupId": "book-divine-plan",
+    "paragraphsCount": 249
   },
   {
     "id": "book_abdul_baha_abd_tdp_de_dtsch",
@@ -54936,8 +54648,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * Memorials of the Faithful by ‘Abdu’l‑Bahá Translated from the original Persian text and annotated by Marzieh Gail List of individuals 1. Nabíl-i-Akbar 2. Ismu’lláhu’l-Aṣdaq 3. Mullá ‘Alí-Akbar 4. Shaykh Salmán 5. Mírzá Muḥammad-‘Alí,",
-    "wordCount": 58209,
+    "excerpt": "Memorials of the Faithful by ‘Abdu’l‑Bahá Translated from the original Persian text and annotated by Marzieh Gail…",
+    "wordCount": 58159,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": "book_abdul_baha_abd_mf_de_dtsch",
@@ -54950,7 +54662,8 @@
     "deTitle": "Vorbilder der Treue",
     "enTitle": "Memorials Faithful",
     "date": "1915-01-01",
-    "groupId": "book-memorials-faithful"
+    "groupId": "book-memorials-faithful",
+    "paragraphsCount": 783
   },
   {
     "id": "book_abdul_baha_selections_writings_‘abdu’l_bahá_eng",
@@ -54993,18 +54706,20 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * * * * Selections from the Writings of ‘Abdu’l‑Bahá Compiled by the Research Department of the Universal House of Justice Translated by a Committee at the Bahá’í World Centre and by Marzieh Gail Preface Selections from the Writings of",
-    "wordCount": 98430,
+    "excerpt": "Selections from the Writings of ‘Abdu’l‑Bahá Compiled by the Research Department of the Universal House of Justice Translated by a Committee at the Bahá’í World Centre and by Marzieh Gail…",
+    "wordCount": 98421,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
-      "de": null,
+      "de": "book_abdul_baha_abd_swa_de_dtsch",
       "en": "book_abdul_baha_selections_writings_‘abdu’l_bahá_eng"
     },
     "availableLanguages": [
+      "de",
       "en"
     ],
     "date": "1914-01-01",
-    "groupId": "book-abdulbah-selections-writings-abdu-"
+    "groupId": "book-selections-abdul-baha",
+    "paragraphsCount": 1531
   },
   {
     "id": "book_abdul_baha_abd_swa_de_dtsch",
@@ -55052,13 +54767,14 @@
     "sourcePlatform": "Bahá’í-Bibliothek Deutschland",
     "translations": {
       "de": "book_abdul_baha_abd_swa_de_dtsch",
-      "en": null
+      "en": "book_abdul_baha_selections_writings_‘abdu’l_bahá_eng"
     },
     "availableLanguages": [
-      "de"
+      "de",
+      "en"
     ],
     "date": "1914-01-01",
-    "groupId": "book-abdulbah-briefe-und-botschaften"
+    "groupId": "book-selections-abdul-baha"
   },
   {
     "id": "book_abdul_baha_abd_pup_de_dtsch",
@@ -55158,8 +54874,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * The Promulgation of Universal Peace Talks Delivered by ‘Abdu’l‑Bahá during His Visit to the United States and Canada in 1912 Compiled by Howard MacNutt Talks in New York and Brooklyn, 11—19 April 1912 1. Home of Mr. and Mrs. Edward B.",
-    "wordCount": 202285,
+    "excerpt": "The Promulgation of Universal Peace Talks Delivered by ‘Abdu’l‑Bahá during His Visit to the United States and Canada in 1912 Compiled by Howard MacNutt…",
+    "wordCount": 202226,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": "book_abdul_baha_abd_pup_de_dtsch",
@@ -55172,7 +54888,8 @@
     "deTitle": "Die Verkündigung des Weltfriedens",
     "enTitle": "Promulgation Universal Peace",
     "date": "1912-01-01",
-    "groupId": "book-promulgation"
+    "groupId": "book-promulgation",
+    "paragraphsCount": 1951
   },
   {
     "id": "book_abdul_baha_paris_talks_eng",
@@ -55215,8 +54932,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * Paris Talks Addresses Given by ‘Abdu’l‑Bahá in 1911 Part One 1. The Duty of Kindness and Sympathy towards Strangers and Foreigners 2. The Power and Value of True Thought Depend upon Its Manifestation in Action 3. God Is the Great Comp",
-    "wordCount": 43033,
+    "excerpt": "Paris Talks Addresses Given by ‘Abdu’l‑Bahá in 1911…",
+    "wordCount": 42972,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": "book_abdul_baha_abd_pt_de_dtsch",
@@ -55229,7 +54946,8 @@
     "deTitle": "Ansprachen in Paris",
     "enTitle": "Paris Talks",
     "date": "1911-01-01",
-    "groupId": "book-paris-talks"
+    "groupId": "book-paris-talks",
+    "paragraphsCount": 1000
   },
   {
     "id": "book_abdul_baha_abd_al_de_dtsch",
@@ -55327,7 +55045,7 @@
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 131,
     "excerpt": "f.tp:1 ‘Abdu’l-Bahá f.tp:2 Ansprachen in Paris f.tp:3 f.tp:4 1:0_1 16. und 17. Oktober 1911 1:1 Wenn sich ein Mensch zu Gott hinwendet, findet er überall Sonnenschein. Alle Menschen sind seine Brüder. Vermeidet, wenn ihr mit Ausländern",
-    "wordCount": 35608,
+    "wordCount": 41274,
     "sourcePlatform": "Bahá’í-Bibliothek Deutschland",
     "translations": {
       "de": "book_abdul_baha_abd_pt_de_dtsch",
@@ -55340,7 +55058,8 @@
     "deTitle": "Ansprachen in Paris",
     "enTitle": "Paris Talks",
     "date": "1911-01-01",
-    "groupId": "book-paris-talks"
+    "groupId": "book-paris-talks",
+    "paragraphsCount": 908
   },
   {
     "id": "book_abdul_baha_light_of_the_world_eng",
@@ -55383,8 +55102,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * Light of the World: Selected Tablets of ‘Abdu’l‑Bahá Preface On 29 May 1892, after four decades of bountiful radiance, from the first intimation of its rising glory in the Síyáh-Chál and Baghdad to its midday splendour in Adrianople a",
-    "wordCount": 51045,
+    "excerpt": "Light of the World: Selected Tablets of ‘Abdu’l‑Bahá…",
+    "wordCount": 51158,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": null,
@@ -55394,7 +55113,8 @@
       "en"
     ],
     "date": "1910-01-01",
-    "groupId": "book-light-world"
+    "groupId": "book-light-world",
+    "paragraphsCount": 531
   },
   {
     "id": "book_abdul_baha_abd_saq_de_dtsch",
@@ -55494,8 +55214,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * Some Answered Questions ‘Abdu’l‑Bahá Collected and translated from the Persian by Laura Clifford Barney Newly Revised by a Committee at the Bahá’í World Centre Foreword Author’s Preface to the First Edition Part 1: On the Influence of",
-    "wordCount": 83517,
+    "excerpt": "Some Answered Questions ‘Abdu’l‑Bahá Collected and translated from the Persian by Laura Clifford Barney Newly Revised by a Committee at the Bahá’í World Centre…",
+    "wordCount": 83600,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": "book_abdul_baha_abd_saq_de_dtsch",
@@ -55508,7 +55228,8 @@
     "deTitle": "Beantwortete Fragen",
     "enTitle": "Some Answered Questions",
     "date": "1906-01-01",
-    "groupId": "book-some-answered-questions"
+    "groupId": "book-some-answered-questions",
+    "paragraphsCount": 1083
   },
   {
     "id": "book_abdul_baha_will_testament_‘abdu’l_bahá_eng",
@@ -55551,18 +55272,20 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * Will and Testament of ‘Abdu’l‑Bahá Herein Follow the Tablets and Testament of ‘Abdu’l‑Bahá: [Part One] All praise to Him Who, by the Shield of His Covenant, hath guarded the Temple of His Cause from the darts of doubtfulness; Who by t",
-    "wordCount": 8965,
+    "excerpt": "Will and Testament of ‘Abdu’l‑Bahá…",
+    "wordCount": 8880,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
-      "de": null,
+      "de": "book_abdul_baha_abd_wt_de_dtsch",
       "en": "book_abdul_baha_will_testament_‘abdu’l_bahá_eng"
     },
     "availableLanguages": [
+      "de",
       "en"
     ],
     "date": "1901-01-01",
-    "groupId": "book-abdulbah-will-testament-abdu-l-bah"
+    "groupId": "book-will-and-testament",
+    "paragraphsCount": 71
   },
   {
     "id": "book_abdul_baha_abd_wt_de_dtsch",
@@ -55610,13 +55333,14 @@
     "sourcePlatform": "Bahá’í-Bibliothek Deutschland",
     "translations": {
       "de": "book_abdul_baha_abd_wt_de_dtsch",
-      "en": null
+      "en": "book_abdul_baha_will_testament_‘abdu’l_bahá_eng"
     },
     "availableLanguages": [
-      "de"
+      "de",
+      "en"
     ],
     "date": "1901-01-01",
-    "groupId": "book-will-testament"
+    "groupId": "book-will-and-testament"
   },
   {
     "id": "book_bahaullah_bah_esw_de_dtsch",
@@ -55716,8 +55440,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * *Epistle to the Son of the Wolf by Bahá’u’lláh Translated by Shoghi Effendi IN THE NAME OF GOD, THE ONE, THE INCOMPARABLE, THE ALL-POWERFUL, THE ALL-KNOWING, THE ALL-WISE. PRAISE be to God, the Eternal that perisheth not, the Everlastin",
-    "wordCount": 34350,
+    "excerpt": "Epistle to the Son of the Wolf by Bahá’u’lláh Translated by Shoghi Effendi…",
+    "wordCount": 46263,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": "book_bahaullah_bah_esw_de_dtsch",
@@ -55730,7 +55454,8 @@
     "deTitle": "Brief an den Sohn des Wolfes",
     "enTitle": "Epistle to the Son of the Wolf",
     "date": "1891-01-01",
-    "groupId": "book-son-of-wolf"
+    "groupId": "book-son-of-wolf",
+    "paragraphsCount": 315
   },
   {
     "id": "book_abdul_baha_abd_tn_de_dtsch",
@@ -55778,13 +55503,14 @@
     "sourcePlatform": "Bahá’í-Bibliothek Deutschland",
     "translations": {
       "de": "book_abdul_baha_abd_tn_de_dtsch",
-      "en": null
+      "en": "book_abdul_baha_travelers_narrative_eng"
     },
     "availableLanguages": [
-      "de"
+      "de",
+      "en"
     ],
     "date": "1886-01-01",
-    "groupId": "book-abdulbah-auf-den-pfaden-der-gottes"
+    "groupId": "book-travelers-narrative"
   },
   {
     "id": "book_abdul_baha_travelers_narrative_eng",
@@ -55827,18 +55553,20 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * A Traveler’s Narrative Written to Illustrate the Episode of the Báb by ‘Abdu’l‑Bahá Translated by Edward G. Browne TOUCHING the individual known as the Báb and the true nature of this sect diverse tales are on the tongues and in the m",
-    "wordCount": 31460,
+    "excerpt": "A Traveler’s Narrative Written to Illustrate the Episode of the Báb by ‘Abdu’l‑Bahá Translated by Edward G. Browne…",
+    "wordCount": 31477,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
-      "de": null,
+      "de": "book_abdul_baha_abd_tn_de_dtsch",
       "en": "book_abdul_baha_travelers_narrative_eng"
     },
     "availableLanguages": [
+      "de",
       "en"
     ],
     "date": "1886-01-01",
-    "groupId": "book-abdulbah-travelers-narrative"
+    "groupId": "book-travelers-narrative",
+    "paragraphsCount": 211
   },
   {
     "id": "book_bahaullah_prayers_meditations_eng",
@@ -55881,8 +55609,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * *Prayers and Meditations by Bahá’u’lláh Translated by Shoghi Effendi from the original Persian and Arabic – I – GLORIFIED art Thou, O Lord my God! Every man of insight confesseth Thy sovereignty and Thy dominion, and every discerning ey",
-    "wordCount": 31163,
+    "excerpt": "Prayers and Meditations by Bahá’u’lláh Translated by Shoghi Effendi from the original Persian and Arabic…",
+    "wordCount": 79324,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": "book_bahaullah_bah_pm_de_dtsch",
@@ -55895,7 +55623,8 @@
     "deTitle": "Gebete und Meditationen",
     "enTitle": "Prayers and Meditations",
     "date": "1885-01-01",
-    "groupId": "book-prayers-meditations"
+    "groupId": "book-prayers-meditations",
+    "paragraphsCount": 924
   },
   {
     "id": "book_bahaullah_bah_pm_de_dtsch",
@@ -56052,8 +55781,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * *Gleanings from the Writings of Bahá’u’lláh Translated By Shoghi Effendi – I – LAUDED and gloriﬁed art Thou, O Lord, my God! How can I make mention of Thee, assured as I am that no tongue, however deep its wisdom, can beﬁttingly magnify",
-    "wordCount": 31786,
+    "excerpt": "Gleanings from the Writings of Bahá’u’lláh Translated By Shoghi Effendi…",
+    "wordCount": 85906,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": "book_bahaullah_bah_gwb_de_dtsch",
@@ -56066,7 +55795,8 @@
     "deTitle": "Ährenlese aus den Schriften Bahá’u’lláhs",
     "enTitle": "Gleanings from the Writings of Bahá’u’lláh",
     "date": "1880-01-01",
-    "groupId": "book-gleanings"
+    "groupId": "book-gleanings",
+    "paragraphsCount": 810
   },
   {
     "id": "book_bahaullah_bah_tb_de_dtsch",
@@ -56114,13 +55844,14 @@
     "sourcePlatform": "Bahá’í-Bibliothek Deutschland",
     "translations": {
       "de": "book_bahaullah_bah_tb_de_dtsch",
-      "en": null
+      "en": "book_bahaullah_tablets_bahá'u'lláh_eng"
     },
     "availableLanguages": [
-      "de"
+      "de",
+      "en"
     ],
     "date": "1878-01-01",
-    "groupId": "book-bahullh-botschaften-aus-akká"
+    "groupId": "book-tablets-bahaullah"
   },
   {
     "id": "book_bahaullah_tablets_bahá'u'lláh_eng",
@@ -56163,18 +55894,20 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * * * * Tablets of Bahá’u’lláh revealed after the Kitáb-i-Aqdas Compiled by the Research Department of the Universal House of Justice and translated by Habib Taherzadeh with the assistance of a Committee at the Bahá’í World Centre 1. La",
-    "wordCount": 67037,
+    "excerpt": "Tablets of Bahá’u’lláh revealed after the Kitáb-i-Aqdas Compiled by the Research Department of the Universal House of Justice and translated by Habib Taherzadeh with the assistance of a Committee at the Bahá’í World Cent…",
+    "wordCount": 67028,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
-      "de": null,
+      "de": "book_bahaullah_bah_tb_de_dtsch",
       "en": "book_bahaullah_tablets_bahá'u'lláh_eng"
     },
     "availableLanguages": [
+      "de",
       "en"
     ],
     "date": "1878-01-01",
-    "groupId": "book-bahullh-tablets-bahá-u-lláh"
+    "groupId": "book-tablets-bahaullah",
+    "paragraphsCount": 902
   },
   {
     "id": "book_bahaullah_bah_tu_de_dtsch",
@@ -56222,13 +55955,14 @@
     "sourcePlatform": "Bahá’í-Bibliothek Deutschland",
     "translations": {
       "de": "book_bahaullah_bah_tu_de_dtsch",
-      "en": null
+      "en": "book_bahaullah_tabernacle_unity_eng"
     },
     "availableLanguages": [
-      "de"
+      "de",
+      "en"
     ],
     "date": "1877-01-01",
-    "groupId": "book-bahullh-tabernakel-der-einheit"
+    "groupId": "book-tabernacle-unity"
   },
   {
     "id": "book_bahaullah_tabernacle_unity_eng",
@@ -56271,18 +56005,20 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * * * *The Tabernacle of Unity Bahá’u’lláh Introduction 1. Tablet to Mánikchí Ṣáḥib 2. Responses to questions of Mánikchí Ṣáḥib from a Tablet to Mírzá Abu’l-Faḍl 3. Tablet of the Seven Questions 4.–5. Two Other Tablets Notes Key to Pass",
-    "wordCount": 14741,
+    "excerpt": "The Tabernacle of Unity Bahá’u’lláh…",
+    "wordCount": 14601,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
-      "de": null,
+      "de": "book_bahaullah_bah_tu_de_dtsch",
       "en": "book_bahaullah_tabernacle_unity_eng"
     },
     "availableLanguages": [
+      "de",
       "en"
     ],
     "date": "1877-01-01",
-    "groupId": "book-tabernacle"
+    "groupId": "book-tabernacle-unity",
+    "paragraphsCount": 219
   },
   {
     "id": "book_abdul_baha_secret_divine_civilization_eng",
@@ -56325,8 +56061,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * The Secret of Divine Civilization ‘Abdu’l‑Bahá Translated from the Persian by Marzieh Gail in consultation with Ali-Kuli Khan IN THE NAME OF GOD THE CLEMENT, THE MERCIFUL PRAISE and thanksgiving be unto Providence that out of all the",
-    "wordCount": 28696,
+    "excerpt": "The Secret of Divine Civilization ‘Abdu’l‑Bahá Translated from the Persian by Marzieh Gail in consultation with Ali-Kuli Khan…",
+    "wordCount": 28732,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": "book_abdul_baha_abd_sdc_de_dtsch",
@@ -56339,7 +56075,8 @@
     "deTitle": "Das Geheimnis göttlicher Kultur",
     "enTitle": "Secret Divine Civilization",
     "date": "1875-01-01",
-    "groupId": "book-secret-civilization"
+    "groupId": "book-secret-civilization",
+    "paragraphsCount": 256
   },
   {
     "id": "book_abdul_baha_abd_sdc_de_dtsch",
@@ -56439,8 +56176,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * * * *The Kitáb-i-Aqdas The Most Holy Book Bahá’u’lláh Preface Introduction A Description of the Kitáb-i-Aqdas by Shoghi Effendi The Kitáb-i-Aqdas Some Supplementary Texts Questions and Answers A Synopsis and Codiﬁcation of the Laws an",
-    "wordCount": 29113,
+    "excerpt": "The Kitáb-i-Aqdas The Most Holy Book Bahá’u’lláh…",
+    "wordCount": 65281,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": "book_bahaullah_bah_ka_de_dtsch",
@@ -56453,7 +56190,8 @@
     "deTitle": "Kitáb-i-Aqdas",
     "enTitle": "The Kitáb-i-Aqdas",
     "date": "1873-01-01",
-    "groupId": "book-aqdas"
+    "groupId": "book-aqdas",
+    "paragraphsCount": 1093
   },
   {
     "id": "book_bahaullah_bah_ka_de_dtsch",
@@ -56497,7 +56235,7 @@
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 119,
     "excerpt": "f.tp:1 Bahá’u’lláh f.tp:2 Kitáb-i-Aqdas f.tp:3 Das Heiligste Buch f.tp:4 1:1 Als Shoghi Effendi , der Hüter des Bahá’í- Glaubens, 1953 den Zehnjahresplan aufstellte, war eines der von ihm gesteckten Ziele die Erarbeitung einer Inhaltsüb",
-    "wordCount": 34406,
+    "wordCount": 60686,
     "sourcePlatform": "Bahá’í-Bibliothek Deutschland",
     "translations": {
       "de": "book_bahaullah_bah_ka_de_dtsch",
@@ -56510,7 +56248,8 @@
     "deTitle": "Kitáb-i-Aqdas",
     "enTitle": "The Kitáb-i-Aqdas",
     "date": "1873-01-01",
-    "groupId": "book-aqdas"
+    "groupId": "book-aqdas",
+    "paragraphsCount": 1398
   },
   {
     "id": "book_bahaullah_bah_pb_de_dtsch",
@@ -56661,8 +56400,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * *Days of Remembrance Selections from the Writings of Bahá’u’lláh for Bahá’í Holy Days Preface Naw-Rúz 1. “He is the Almighty. Praised be Thou, O my God …” 2. “I am the Most Holy, the Most Great, the Most Glorious …” 3. “He is the Most H",
-    "wordCount": 30217,
+    "excerpt": "Days of Remembrance Selections from the Writings of Bahá’u’lláh for Bahá’í Holy Days…",
+    "wordCount": 53830,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": null,
@@ -56672,7 +56411,8 @@
       "en"
     ],
     "date": "1868-01-01",
-    "groupId": "book-days-remembrance"
+    "groupId": "book-days-remembrance",
+    "paragraphsCount": 690
   },
   {
     "id": "book_bahaullah_summons_lord_hosts_eng",
@@ -56715,18 +56455,20 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * * * *The Summons of the Lord of Hosts Tablets of Bahá’u’lláh Introduction Súriy-i-Haykal / Súrih of the Temple Pope Pius IX Napoleon III Czar Alexander II Queen Victoria Náṣiri’d-Dín Sháh / Lawḥ-i-Sulṭán Súriy-i-Ra’ís Lawḥ-i-Ra’ís Law",
-    "wordCount": 32926,
+    "excerpt": "The Summons of the Lord of Hosts Tablets of Bahá’u’lláh…",
+    "wordCount": 63303,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
-      "de": null,
+      "de": "book_bahaullah_bah_slh_de_dtsch",
       "en": "book_bahaullah_summons_lord_hosts_eng"
     },
     "availableLanguages": [
+      "de",
       "en"
     ],
     "date": "1868-01-01",
-    "groupId": "book-summons"
+    "groupId": "book-summons-lord-hosts",
+    "paragraphsCount": 739
   },
   {
     "id": "book_bahaullah_bah_slh_de_dtsch",
@@ -56774,13 +56516,14 @@
     "sourcePlatform": "Bahá’í-Bibliothek Deutschland",
     "translations": {
       "de": "book_bahaullah_bah_slh_de_dtsch",
-      "en": null
+      "en": "book_bahaullah_summons_lord_hosts_eng"
     },
     "availableLanguages": [
-      "de"
+      "de",
+      "en"
     ],
     "date": "1868-01-01",
-    "groupId": "book-bahullh-anspruch-und-verkündigung"
+    "groupId": "book-summons-lord-hosts"
   },
   {
     "id": "book_bahaullah_call_divine_beloved_eng",
@@ -56823,8 +56566,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * * * *The Call of the Divine Beloved Selected Mystical Works of Bahá’u’lláh Preface Rashḥ-i-‘Amá (The Clouds of the Realms Above) The Seven Valleys From the Letter Bá’ to the Letter Há’ Three Other Tablets The Four Valleys Notes Prefac",
-    "wordCount": 18700,
+    "excerpt": "The Call of the Divine Beloved Selected Mystical Works of Bahá’u’lláh…",
+    "wordCount": 18452,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": null,
@@ -56834,7 +56577,8 @@
       "en"
     ],
     "date": "1863-01-01",
-    "groupId": "book-call-beloved"
+    "groupId": "book-call-beloved",
+    "paragraphsCount": 306
   },
   {
     "id": "book_bahaullah_bah_ki_de_dtsch",
@@ -56934,8 +56678,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * * * * * * * * * *The Kitáb-i-Íqán The Book of Certitude By Bahá’u’lláh Translated by Shoghi Effendi Part One Part Two This is the Day in which the testimony of the Lord hath been fulﬁlled, the Day in which the Word of God hath been ma",
-    "wordCount": 32537,
+    "excerpt": "The Kitáb-i-Íqán The Book of Certitude By Bahá’u’lláh Translated by Shoghi Effendi…",
+    "wordCount": 51322,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": "book_bahaullah_bah_ki_de_dtsch",
@@ -56948,7 +56692,8 @@
     "deTitle": "Kitáb-i-Íqán",
     "enTitle": "The Kitáb-i-Íqán",
     "date": "1861-01-01",
-    "groupId": "book-iqan"
+    "groupId": "book-iqan",
+    "paragraphsCount": 367
   },
   {
     "id": "book_bahaullah_gems_divine_mysteries_eng",
@@ -56991,8 +56736,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * * * *Gems of Divine Mysteries Javáhiru’l-Asrár by Bahá’u’lláh Introduction Gems of Divine Mysteries Notes Introduction The decade-long exile of Bahá’u’lláh in ‘Iráq began under the harshest of conditions and at the lowest ebb in the f",
-    "wordCount": 16891,
+    "excerpt": "Gems of Divine Mysteries Javáhiru’l-Asrár by Bahá’u’lláh…",
+    "wordCount": 16761,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": "book_bahaullah_bah_gdm_de_dtsch",
@@ -57005,7 +56750,8 @@
     "deTitle": "Edelsteine göttlicher Geheimnisse",
     "enTitle": "Gems of Divine Mysteries",
     "date": "1859-01-01",
-    "groupId": "book-gems"
+    "groupId": "book-gems",
+    "paragraphsCount": 160
   },
   {
     "id": "book_bahaullah_bah_gdm_de_dtsch",
@@ -57162,8 +56908,8 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * * * *The Hidden Words Bahá’u’lláh Translated by Shoghi Effendi with the assistance of some English friends Part One: From the Arabic Part Two: From the Persian * * *Part One From the Arabic HE IS THE GLORY OF GLORIES THIS is that whi",
-    "wordCount": 8419,
+    "excerpt": "The Hidden Words Bahá’u’lláh Translated by Shoghi Effendi with the assistance of some English friends…",
+    "wordCount": 8244,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
       "de": "book_bahaullah_bah_hw_de_dtsch",
@@ -57176,7 +56922,8 @@
     "deTitle": "Die Verborgenen Worte",
     "enTitle": "The Hidden Words",
     "date": "1858-01-01",
-    "groupId": "book-hidden-words"
+    "groupId": "book-hidden-words",
+    "paragraphsCount": 171
   },
   {
     "id": "book_bahaullah_bah_svfv_de_dtsch",
@@ -57273,18 +57020,20 @@
     "recipient": "world",
     "recipientLabel": "Alle Menschen",
     "keyPassagesCount": 1,
-    "excerpt": "* * * * * * Selections from the Writings of the Báb Compiled by the Research Department of the Universal House of Justice and translated by Habib Taherzadeh with the assistance of a Committee at the Bahá’í World Centre 1. Tablets and Addres",
-    "wordCount": 55985,
+    "excerpt": "Selections from the Writings of the Báb Compiled by the Research Department of the Universal House of Justice and translated by Habib Taherzadeh with the assistance of a Committee at the Bahá’í World Centre…",
+    "wordCount": 55966,
     "sourcePlatform": "Bahá’í Reference Library",
     "translations": {
-      "de": null,
+      "de": "book_der_bab_bab_swb_de_dtsch",
       "en": "book_der_bab_selections_writings_bab_eng"
     },
     "availableLanguages": [
+      "de",
       "en"
     ],
     "date": "1847-01-01",
-    "groupId": "book-selections-bab"
+    "groupId": "book-bab-selections",
+    "paragraphsCount": 809
   },
   {
     "id": "book_der_bab_bab_swb_de_dtsch",
@@ -57332,12 +57081,13 @@
     "sourcePlatform": "Bahá’í-Bibliothek Deutschland",
     "translations": {
       "de": "book_der_bab_bab_swb_de_dtsch",
-      "en": null
+      "en": "book_der_bab_selections_writings_bab_eng"
     },
     "availableLanguages": [
-      "de"
+      "de",
+      "en"
     ],
     "date": "1847-01-01",
-    "groupId": "book-derbb-auswahl-aus-seinen-schrif"
+    "groupId": "book-bab-selections"
   }
 ]

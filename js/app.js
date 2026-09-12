@@ -53,6 +53,18 @@ async function initApp() {
             }
         } catch (e) {}
 
+        // Dokumente mit Meilenstein-Informationen anreichern (falls Timeline-Modul geladen)
+        if (typeof window.getMilestoneInfo === 'function' && Array.isArray(state.documents)) {
+            state.documents.forEach(doc => {
+                const ms = window.getMilestoneInfo(doc);
+                if (ms) {
+                    doc._isMilestone = true;
+                    doc.milestoneReasonDe = ms.reasonDe;
+                    doc.milestoneReasonEn = ms.reasonEn;
+                }
+            });
+        }
+
         // Volltext-Suchindex im Hintergrund laden fuer blitzschnelle Auszug- und Volltextsuche
         setTimeout(() => {
             if (typeof window.loadFullTextSearchIndex === 'function') {
@@ -219,11 +231,6 @@ window.switchView = function(targetView) {
         window.switchLibrarySegment('compilations');
         return;
     }
-    if (targetView === 'books') {
-        window.switchView('library');
-        window.switchLibrarySegment('books');
-        return;
-    }
 
     if (targetView === 'settings' && window.innerWidth > 768) {
         targetView = 'library';
@@ -372,6 +379,10 @@ function initLibraryView() {
     const pillarCards = document.querySelectorAll('#pillar-cards-grid .pillar-card');
     pillarCards.forEach(card => {
         card.addEventListener('click', () => {
+            if (card.dataset.pillar === 'books') {
+                window.switchView('books');
+                return;
+            }
             if (state.library && state.library.segment === card.dataset.pillar) {
                 window.switchLibrarySegment('all');
             } else {
@@ -830,55 +841,79 @@ function getPlanDocumentPriority(doc, activeEpoch) {
 
     // 1. Neunjahresplan (2022–2031)
     if (activeEpoch === 'nine-year') {
-        if (date === '2021-12-30') return 1; // Charta an die Beraterkonferenz
-        if (date === '2022-01-04') return 2; // Schreiben an alle NSAs
-        if (date.startsWith('2022-04') && type.includes('Riḍván')) return 3; // Auftakt-Riḍván
-        if (type.includes('Riḍván')) return 4; // Jährliche Riḍván-Botschaften
+        // Rang 1: Die beiden monumentalen Rahmenbotschaften an die Konferenz der Kontinentalen Beraterräte
+        if (date === '2025-12-31') return 1; // Halbzeit-Charta / Strategischer Rahmen Phase 2 (bis 2031)
+        if (date === '2021-12-30') return 1; // Grundlegende Charta des Neunjahresplans (Auftakt der 25-Jahres-Reihe)
+        // Rang 2: Die weltweiten Umsetzungs- und Mobilisierungsschreiben an alle NSAs
+        if (date === '2026-01-04') return 2; // Umsetzungsschreiben Halbzeit Neunjahresplan
+        if (date === '2022-01-04') return 2; // Begleitschreiben zu weltweiten Konferenzen & Planstart
+        // Rang 3: Auftakt-Riḍván-Botschaft
+        if (date.startsWith('2022-04') && type.includes('Riḍván')) return 3; // Offizieller Planstart Riḍván 2022
+        // Rang 4: Historische Jahrhundert-Erklärung
+        if (date === '2023-11-28') return 4; // 100 Jahre Formative Epoche & Schrein 'Abdu'l-Bahás
+        // Rang 5: Jährliche Riḍván-Botschaften
+        if (type.includes('Riḍván')) return 5;
         return 10;
     }
 
-    // 2. Fünfjahresplan (2016–2021)
+    // 2. Einjahresplan (2021–2022)
+    if (activeEpoch === 'one-year') {
+        if (date.startsWith('2021-04') && type.includes('Riḍván')) return 1; // Auftakt-Riḍván 2021
+        if (date === '2021-11-27') return 2; // 100. Jahrestag des Hinscheidens 'Abdu'l-Bahás
+        if (type.includes('Riḍván')) return 3;
+        return 10;
+    }
+
+    // 3. Fünfjahresplan (2016–2021)
     if (activeEpoch === 'five-year-16') {
         if (date === '2015-12-29') return 1; // Charta an die Beraterkonferenz
-        if (date.startsWith('2016-04') && type.includes('Riḍván')) return 2; // Auftakt-Riḍván
-        if (type.includes('Riḍván')) return 4;
+        if (date === '2016-01-02') return 2; // Schreiben an die Bahá'í der Welt
+        if (date.startsWith('2016-04') && type.includes('Riḍván')) return 3; // Auftakt-Riḍván
+        if (date === '2017-10-31' || date === '2019-10-24') return 4; // Zweihundertjahrfeiern
+        if (date === '2020-11-25') return 4; // 100. Jahrestag Tag des Bündnisses
+        if (type.includes('Riḍván')) return 5;
         return 10;
     }
 
-    // 3. Fünfjahresplan (2011–2016)
+    // 4. Fünfjahresplan (2011–2016)
     if (activeEpoch === 'five-year-11') {
         if (date === '2010-12-28') return 1; // Charta an die Beraterkonferenz
-        if (date.startsWith('2011-04') && type.includes('Riḍván')) return 2;
-        if (type.includes('Riḍván')) return 4;
+        if (date === '2011-01-04') return 2; // Begleitschreiben an alle NSAs
+        if (date.startsWith('2011-04') && type.includes('Riḍván')) return 3; // Auftakt-Riḍván
+        if (type.includes('Riḍván')) return 5;
         return 10;
     }
 
-    // 4. Fünfjahresplan (2006–2011)
+    // 5. Fünfjahresplan (2006–2011)
     if (activeEpoch === 'five-year-06') {
         if (date === '2005-12-27') return 1; // Charta an die Beraterkonferenz
-        if (date.startsWith('2006-04') && type.includes('Riḍván')) return 2;
-        if (type.includes('Riḍván')) return 4;
+        if (date === '2005-12-28') return 2; // Begleitschreiben an alle NSAs
+        if (date.startsWith('2006-04') && type.includes('Riḍván')) return 3; // Auftakt-Riḍván
+        if (type.includes('Riḍván')) return 5;
         return 10;
     }
 
-    // 5. Fünfjahresplan (2001–2006)
+    // 6. Fünfjahresplan (2001–2006)
     if (activeEpoch === 'five-year-01' || activeEpoch === 'plans-00') {
-        if (date.startsWith('2001-04') && type.includes('Riḍván')) return 1;
-        if (date === '2001-05-24') return 2;
-        if (type.includes('Riḍván')) return 4;
+        if (date === '2001-01-09') return 1; // Charta an die Beraterkonferenz (Cluster-System)
+        if (date.startsWith('2001-04') && type.includes('Riḍván')) return 2; // Auftakt-Riḍván
+        if (date === '2001-05-24') return 3; // Einweihung der Terrassen auf dem Berg Karmel
+        if (date.startsWith('2002-04')) return 3; // Botschaft an die Religionsführer der Welt
+        if (type.includes('Riḍván')) return 5;
         return 10;
     }
 
-    // 6. Vierjahresplan (1996–2000)
+    // 7. Vierjahresplan (1996–2000)
     if (activeEpoch === 'four-year-96') {
         if (date === '1995-12-26') return 1; // Charta an die Beraterkonferenz (Grundsteinlegung Institute)
-        if (date.startsWith('1996-04') && type.includes('Riḍván')) return 2;
-        if (type.includes('Riḍván')) return 4;
+        if (date === '1995-12-31') return 2; // Begleitschreiben an alle NSAs
+        if (date.startsWith('1996-04') && type.includes('Riḍván')) return 3; // Auftakt-Riḍván
+        if (type.includes('Riḍván')) return 5;
         return 10;
     }
 
-    // Generisch für alle Pläne: Riḍván-Botschaften priorisieren
-    if (activeEpoch && type.includes('Riḍván')) return 4;
+    // Generisch fuer alle Plaene: Riḍván-Botschaften priorisieren
+    if (activeEpoch && type.includes('Riḍván')) return 5;
 
     return 10;
 }
@@ -1499,8 +1534,8 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
     }
 
     // Auszeichnung für Plan-Rahmenbotschaften, Plan-Auftakt & historische Erklärungen
-    const isPlanCharter = (doc.date === '2021-12-30' || doc.date === '2015-12-29' || doc.date === '2010-12-28' || doc.date === '2005-12-27' || doc.date === '1995-12-26');
-    const isPlanLaunch = (doc.date === '2022-01-04' || (doc.date && (doc.date.startsWith('2022-04') || doc.date.startsWith('2016-04') || doc.date.startsWith('2011-04') || doc.date.startsWith('2006-04') || doc.date.startsWith('1996-04')) && (doc.type || '').includes('Riḍván')));
+    const isPlanCharter = (doc.date === '2025-12-31' || doc.date === '2021-12-30' || doc.date === '2015-12-29' || doc.date === '2010-12-28' || doc.date === '2005-12-27' || doc.date === '2001-01-09' || doc.date === '1995-12-26');
+    const isPlanLaunch = (doc.date === '2026-01-04' || doc.date === '2022-01-04' || doc.date === '2016-01-02' || (doc.date && (doc.date.startsWith('2022-04') || doc.date.startsWith('2021-04') || doc.date.startsWith('2016-04') || doc.date.startsWith('2011-04') || doc.date.startsWith('2006-04') || doc.date.startsWith('2001-04') || doc.date.startsWith('1996-04')) && (doc.type || '').includes('Riḍván')));
 
     if (isPlanCharter) {
         const charterLabel = isEn ? 'Plan Framework' : 'Plan-Rahmenbotschaft';
