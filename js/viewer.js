@@ -826,34 +826,35 @@ function setViewerMode(mode, targetParagraph) {
         }
     } else if (mode === 'web' && currentViewerDoc.sourceUrl) {
         if (bodyEl) {
-            bodyEl.classList.add('pdf-active');
+            bodyEl.classList.remove('pdf-active');
             bodyEl.scrollTop = 0;
             if (headerEl) headerEl.classList.remove('header-hidden');
-            
+
             const isBrl = currentViewerDoc.sourceUrl.includes('bahai.org') || (currentViewerDoc.sourcePlatform && currentViewerDoc.sourcePlatform.includes('Reference Library'));
-            const sourceTitle = isBrl ? "Bahá’í Reference Library" : "Bahá’í-Bibliothek";
+            const sourceLabel = isBrl ? "Bahá'í Reference Library" : "Bahá'í-Bibliothek";
+            const domain = (() => { try { return new URL(currentViewerDoc.sourceUrl).hostname.replace('www.', ''); } catch(e) { return ''; } })();
 
             bodyEl.innerHTML = `
-                <div class="web-source-banner">
-                    <div class="web-banner-info">
-                        <span class="web-banner-badge">Offizielle Quelle</span>
-                        <p class="web-banner-title">${sourceTitle}: <em>${escapeHtml(currentViewerDoc.title || '')}</em></p>
+                <div class="web-open-card">
+                    <div class="web-open-card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                     </div>
-                    <div class="web-banner-actions">
-                        <a href="${escapeHtml(currentViewerDoc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.45rem 1rem;font-size:0.82rem;">
-                            In neuem Tab öffnen ↗
+                    <div class="web-open-card-badge">Offizielle Quelle · ${escapeHtml(domain)}</div>
+                    <h3 class="web-open-card-title">${escapeHtml(currentViewerDoc.title || 'Originaldokument')}</h3>
+                    <p class="web-open-card-desc">Dieses Dokument ist auf <strong>${escapeHtml(sourceLabel)}</strong> veröffentlicht. Externer Inhalt kann nicht direkt eingebettet werden.</p>
+                    <div class="web-open-card-actions">
+                        <a href="${escapeHtml(currentViewerDoc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="web-open-card-btn primary">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                            Original-Webseite öffnen
                         </a>
-                        ${pdfPath ? `<button class="btn-secondary" onclick="setViewerMode('pdf')" style="padding: 0.45rem 0.9rem; font-size: 0.82rem;">Als PDF</button>` : ''}
-                        <button class="btn-secondary" onclick="setViewerMode('text')" style="padding: 0.45rem 0.9rem; font-size: 0.82rem;">Als Fließtext</button>
-                    </div>
-                </div>
-                <div class="web-viewer-wrapper">
-                    <iframe src="${escapeHtml(currentViewerDoc.sourceUrl)}" class="web-viewer-frame" title="Web-Quelle Ansicht" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
-                    <div class="web-viewer-fallback" id="web-viewer-fallback">
-                        <p>Falls die externe Webseite nicht direkt geladen werden kann:</p>
-                        <a href="${escapeHtml(currentViewerDoc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="btn-primary">In separatem Tab öffnen ↗</a>
-                        ${pdfPath ? `<button class="btn-secondary" onclick="setViewerMode('pdf')" style="padding: 0.65rem 1.2rem;">Als Original-PDF öffnen</button>` : ''}
-                        <button class="btn-secondary" onclick="setViewerMode('text')" style="padding: 0.65rem 1.2rem;">Als Fließtext lesen</button>
+                        ${pdfPath ? `<button class="web-open-card-btn secondary" onclick="setViewerMode('pdf')">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                            Als PDF lesen
+                        </button>` : ''}
+                        <button class="web-open-card-btn secondary" onclick="setViewerMode('text')">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>
+                            Als Fließtext lesen
+                        </button>
                     </div>
                 </div>
             `;

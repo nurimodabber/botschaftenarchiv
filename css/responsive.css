@@ -1503,3 +1503,51 @@ button,
     }
 }
 
+/* ─── Mobile: Move account btn into settings, hide from dock ─── */
+@media (max-width: 768px) {
+    /* Hide the standalone account button in the dock on mobile;
+       it is accessible via the Settings panel instead */
+    .dock-account-btn {
+        display: none !important;
+    }
+
+    /* Show an account entry in the settings panel's top section on mobile */
+    .account-settings-launcher-btn {
+        display: flex !important;
+    }
+}
+
+/* Hide account entry in settings panel on desktop (dock button is used there) */
+@media (min-width: 769px) {
+    .account-settings-launcher-btn-mobile-only {
+        display: none !important;
+    }
+}
+
+/* ─── Mobile: Library segmented bar — all pills always visible ─── */
+@media (max-width: 600px) {
+    /* Wrap pills into 2 rows so all 6 are always visible */
+    .library-segmented-bar {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        border-radius: 14px !important;
+        overflow-x: unset !important;
+        gap: 0.25rem !important;
+        padding: 4px !important;
+    }
+
+    /* Tighter pills on small screens */
+    .library-segmented-bar .seg-pill {
+        padding: 0.35rem 0.7rem !important;
+        font-size: 0.74rem !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Keep dots visible but a touch smaller */
+    .library-segmented-bar .seg-dot {
+        width: 6px !important;
+        height: 6px !important;
+    }
+}
+
