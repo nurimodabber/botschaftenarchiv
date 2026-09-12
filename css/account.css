@@ -1,6 +1,6 @@
 /**
  * account.css
- * Styling für das Studienkonto, Synchronisations- & DSGVO-Datenschutz-Center
+ * Styling für das vereinfachte Studienkonto & persönliche Datensicherung
  */
 
 /* ─── Dock / Navigationsleiste Account-Button ─── */
@@ -11,34 +11,41 @@
     justify-content: center;
     width: 36px;
     height: 36px;
-    border-radius: var(--radius-full, 9999px);
-    border: 1px solid var(--border-hairline, rgba(0, 0, 0, 0.08));
-    background: var(--bg-canvas, #FDFCF7);
-    color: var(--text-muted, #6B7280);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-hairline);
+    background: var(--bg-canvas);
+    color: var(--text-muted);
     cursor: pointer;
-    transition: all var(--transition-fast, 0.18s ease);
+    transition: all var(--transition-fast);
     padding: 0;
+    touch-action: manipulation;
 }
 
-.dock-account-btn:hover {
-    border-color: var(--accent-gold, #C5A059);
-    color: var(--accent-gold, #C5A059);
-    background: var(--bg-paper, #FFFFFF);
-    transform: translateY(-1px);
+@media (hover: hover) and (pointer: fine) {
+    .dock-account-btn:hover {
+        border-color: var(--accent-gold);
+        color: var(--accent-gold);
+        background: var(--bg-paper);
+    }
+}
+
+.dock-account-btn:active {
+    transform: scale(0.95);
+    transition: transform 100ms var(--ease-out);
 }
 
 .dock-account-avatar {
     width: 24px;
     height: 24px;
-    border-radius: var(--radius-full, 9999px);
+    border-radius: var(--radius-full);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: var(--font-mono, monospace);
-    font-size: 0.7rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
     font-weight: 700;
-    background: var(--accent-gold-soft, rgba(197, 160, 89, 0.15));
-    color: var(--accent-gold, #C5A059);
+    background: var(--accent-gold-soft);
+    color: var(--accent-gold);
 }
 
 .sync-status-dot {
@@ -49,26 +56,17 @@
     height: 7px;
     border-radius: 50%;
     background: #10B981;
-    border: 1.5px solid var(--bg-paper, #FFFFFF);
-    transition: background-color var(--transition-fast, 0.18s ease);
+    border: 1.5px solid var(--bg-paper);
+    transition: background-color var(--transition-fast);
 }
 
-.sync-status-dot.offline {
-    background: #9CA3AF;
+.sync-status-dot.local {
+    background: var(--text-subtle);
+    opacity: 0.6;
 }
 
-.sync-status-dot.syncing {
-    background: #3B82F6;
-    animation: syncPulse 1.2s infinite ease-in-out;
-}
-
-.sync-status-dot.error {
-    background: #EF4444;
-}
-
-@keyframes syncPulse {
-    0%, 100% { opacity: 0.4; transform: scale(0.9); }
-    50% { opacity: 1; transform: scale(1.15); }
+.sync-status-dot.synced {
+    background: var(--accent-gold);
 }
 
 /* ─── Account Modal Overlay & Dialog ─── */
@@ -76,16 +74,16 @@
     position: fixed;
     inset: 0;
     z-index: 99999;
-    background: rgba(18, 20, 23, 0.55);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: var(--bg-overlay);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 1rem;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.22s ease, visibility 0.22s ease;
+    transition: opacity 0.22s var(--ease-out), visibility 0.22s var(--ease-out);
 }
 
 .account-modal-overlay.open {
@@ -95,17 +93,20 @@
 
 .account-modal-dialog {
     width: 100%;
-    max-width: 640px;
-    max-height: 90vh;
-    background: var(--bg-paper, #FFFFFF);
-    border: 1px solid var(--border-hairline, rgba(0, 0, 0, 0.08));
-    border-radius: 20px;
-    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.16);
+    max-width: 440px;
+    background: var(--bg-paper);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-lg);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.6), var(--shadow-lightbox);
     display: flex;
     flex-direction: column;
     overflow: hidden;
     transform: scale(0.97) translateY(8px);
-    transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.22s var(--ease-out);
+}
+
+[data-theme="dark"] .account-modal-dialog {
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12), var(--shadow-lightbox);
 }
 
 .account-modal-overlay.open .account-modal-dialog {
@@ -114,12 +115,12 @@
 
 /* Modal Header */
 .account-modal-header {
-    padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.06));
+    padding: 1.15rem 1.35rem 0.95rem;
+    border-bottom: 1px solid var(--border-subtle);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: var(--bg-canvas, #FDFCF7);
+    background: var(--bg-canvas);
 }
 
 .account-header-left {
@@ -128,585 +129,282 @@
     gap: 0.75rem;
 }
 
-.account-header-badge-icon {
+.account-avatar-badge {
     width: 36px;
     height: 36px;
-    border-radius: 10px;
-    background: var(--accent-gold-soft, rgba(197, 160, 89, 0.15));
-    color: var(--accent-gold, #C5A059);
+    border-radius: var(--radius-md);
+    background: var(--accent-gold-soft);
+    color: var(--accent-gold);
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 1px solid rgba(197, 160, 89, 0.25);
+    flex-shrink: 0;
 }
 
 .account-modal-title {
-    font-family: var(--font-serif-display, serif);
-    font-size: 1.25rem;
-    font-weight: 700;
+    font-family: var(--font-serif-display);
+    font-size: 1.18rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
     margin: 0;
-    color: var(--text-ink, #121417);
+    color: var(--text-ink);
+    line-height: 1.25;
 }
 
 .account-modal-subtitle {
-    font-family: var(--font-sans, sans-serif);
+    font-family: var(--font-sans);
     font-size: 0.76rem;
-    color: var(--text-muted, #6B7280);
+    color: var(--text-muted);
     margin: 0.15rem 0 0;
+    line-height: 1.3;
 }
 
 .account-close-btn {
-    width: 30px;
-    height: 30px;
-    border-radius: var(--radius-full, 9999px);
-    border: 1px solid var(--border-hairline, rgba(0, 0, 0, 0.08));
-    background: var(--bg-subtle, #F3F1E9);
-    color: var(--text-muted, #6B7280);
-    display: inline-flex;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-hairline);
+    background: var(--bg-paper);
+    color: var(--text-muted);
+    display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all var(--transition-fast, 0.18s ease);
+    transition: all var(--transition-fast);
+    touch-action: manipulation;
 }
 
 .account-close-btn:hover {
-    color: var(--text-ink, #121417);
-    border-color: var(--accent-gold, #C5A059);
+    color: var(--text-ink);
+    border-color: var(--border-hover);
 }
 
-/* Modal Tabs Navigation */
-.account-nav-tabs {
+.account-close-btn:active {
+    transform: scale(0.92);
+}
+
+/* Modal Body */
+.account-modal-body {
+    padding: 1.25rem 1.35rem 1.4rem;
     display: flex;
-    border-bottom: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.06));
-    background: var(--bg-canvas, #FDFCF7);
-    padding: 0 1rem;
+    flex-direction: column;
+    gap: 1.15rem;
+    background: var(--bg-paper);
+}
+
+/* Stats Strip */
+.account-stats-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 0.5rem;
 }
 
-.account-tab-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    font-family: var(--font-sans, sans-serif);
-    font-size: 0.82rem;
-    font-weight: 600;
-    padding: 0.85rem 0.75rem;
-    background: transparent;
-    border: none;
-    border-bottom: 2px solid transparent;
-    color: var(--text-muted, #6B7280);
-    cursor: pointer;
-    transition: all var(--transition-fast, 0.18s ease);
-}
-
-.account-tab-btn:hover {
-    color: var(--text-ink, #121417);
-}
-
-.account-tab-btn.active {
-    color: var(--accent-gold, #C5A059);
-    border-bottom-color: var(--accent-gold, #C5A059);
-}
-
-.account-tab-btn .badge-pill {
-    font-family: var(--font-mono, monospace);
-    font-size: 0.65rem;
-    font-weight: 700;
-    padding: 0.1rem 0.35rem;
-    border-radius: 4px;
-    background: var(--bg-subtle, #F3F1E9);
-    color: var(--text-muted, #6B7280);
-}
-
-.account-tab-btn.active .badge-pill {
-    background: var(--accent-gold-soft, rgba(197, 160, 89, 0.15));
-    color: var(--accent-gold, #C5A059);
-}
-
-/* Modal Scrollable Content */
-.account-modal-body {
-    padding: 1.5rem;
-    overflow-y: auto;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-}
-
-.account-pane {
-    display: none;
-    flex-direction: column;
-    gap: 1.25rem;
-}
-
-.account-pane.active {
-    display: flex;
-}
-
-/* ─── Profile / Status Card ─── */
-.account-user-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.15rem;
-    border-radius: 14px;
-    background: var(--bg-subtle, #F3F1E9);
-    border: 1px solid var(--border-hairline, rgba(0, 0, 0, 0.08));
-}
-
-.account-user-info {
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-}
-
-.account-big-avatar {
-    width: 46px;
-    height: 46px;
-    border-radius: var(--radius-full, 9999px);
-    background: var(--accent-gold, #C5A059);
-    color: #FFFFFF;
-    font-family: var(--font-serif-display, serif);
-    font-size: 1.25rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(197, 160, 89, 0.25);
-}
-
-.account-user-details h4 {
-    margin: 0;
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--text-ink, #121417);
-}
-
-.account-user-details p {
-    margin: 0.15rem 0 0;
-    font-size: 0.78rem;
-    color: var(--text-muted, #6B7280);
-}
-
-.account-status-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-family: var(--font-mono, monospace);
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 0.25rem 0.65rem;
-    border-radius: var(--radius-full, 9999px);
-    background: rgba(16, 185, 129, 0.12);
-    color: #059669;
-    border: 1px solid rgba(16, 185, 129, 0.25);
-}
-
-.account-status-pill.local {
-    background: rgba(197, 160, 89, 0.12);
-    color: #9A7A38;
-    border-color: rgba(197, 160, 89, 0.25);
-}
-
-/* Stat Grid */
-.account-stat-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
-}
-
-.account-stat-box {
-    background: var(--bg-canvas, #FDFCF7);
-    border: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.06));
-    border-radius: 12px;
-    padding: 0.85rem;
+.account-stat-card {
+    background: var(--bg-canvas);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    padding: 0.65rem 0.5rem;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
 }
 
-.account-stat-val {
-    font-family: var(--font-mono, monospace);
-    font-size: 1.25rem;
+.account-stat-num {
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
     font-weight: 700;
-    color: var(--accent-gold, #C5A059);
+    color: var(--accent-gold);
+    line-height: 1.15;
 }
 
 .account-stat-label {
-    font-family: var(--font-sans, sans-serif);
-    font-size: 0.7rem;
-    color: var(--text-muted, #6B7280);
-    margin-top: 0.2rem;
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.04em;
 }
 
-/* Section Cards inside Modal */
-.account-section-box {
-    background: var(--bg-canvas, #FDFCF7);
-    border: 1px solid var(--border-hairline, rgba(0, 0, 0, 0.08));
-    border-radius: 14px;
-    padding: 1.15rem;
+/* Section Box */
+.account-card-section {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-}
-
-.account-box-title {
-    font-family: var(--font-sans, sans-serif);
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: var(--text-ink, #121417);
-    display: flex;
-    align-items: center;
     gap: 0.45rem;
-    margin: 0;
 }
 
-.account-box-desc {
-    font-family: var(--font-sans, sans-serif);
-    font-size: 0.8rem;
-    color: var(--text-muted, #6B7280);
-    line-height: 1.45;
-    margin: 0;
+.account-section-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-subtle);
 }
 
-/* Action Buttons */
-.account-btn-row {
+/* Name Row */
+.account-name-row {
     display: flex;
-    align-items: center;
     gap: 0.5rem;
-    flex-wrap: wrap;
-}
-
-.account-btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-family: var(--font-sans, sans-serif);
-    font-size: 0.82rem;
-    font-weight: 600;
-    padding: 0.5rem 1rem;
-    border-radius: var(--radius-full, 9999px);
-    background: var(--text-ink, #121417);
-    color: var(--bg-paper, #FFFFFF);
-    border: none;
-    cursor: pointer;
-    transition: all var(--transition-fast, 0.18s ease);
-}
-
-.account-btn-primary:hover {
-    opacity: 0.92;
-    transform: translateY(-1px);
-}
-
-.account-btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-family: var(--font-sans, sans-serif);
-    font-size: 0.82rem;
-    font-weight: 500;
-    padding: 0.48rem 0.9rem;
-    border-radius: var(--radius-full, 9999px);
-    background: var(--bg-paper, #FFFFFF);
-    color: var(--text-ink, #121417);
-    border: 1px solid var(--border-hairline, rgba(0, 0, 0, 0.12));
-    cursor: pointer;
-    transition: all var(--transition-fast, 0.18s ease);
-}
-
-.account-btn-secondary:hover {
-    border-color: var(--accent-gold, #C5A059);
-    color: var(--accent-gold, #C5A059);
-}
-
-.account-btn-danger {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-family: var(--font-sans, sans-serif);
-    font-size: 0.82rem;
-    font-weight: 600;
-    padding: 0.5rem 1rem;
-    border-radius: var(--radius-full, 9999px);
-    background: #EF4444;
-    color: #FFFFFF;
-    border: none;
-    cursor: pointer;
-    transition: all var(--transition-fast, 0.18s ease);
-}
-
-.account-btn-danger:hover {
-    background: #DC2626;
-    transform: translateY(-1px);
-}
-
-/* ─── Datenschutz- / Art. 9 DSGVO-Einwilligungsbox ─── */
-.gdpr-consent-card {
-    background: rgba(197, 160, 89, 0.08);
-    border: 1px solid rgba(197, 160, 89, 0.25);
-    border-radius: 12px;
-    padding: 0.95rem 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.65rem;
-}
-
-.gdpr-consent-header {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-family: var(--font-sans, sans-serif);
-    font-size: 0.84rem;
-    font-weight: 700;
-    color: #9A7A38;
-}
-
-.gdpr-consent-text {
-    font-family: var(--font-sans, sans-serif);
-    font-size: 0.78rem;
-    color: var(--text-ink, #121417);
-    line-height: 1.45;
-}
-
-.gdpr-checkbox-label {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.6rem;
-    font-family: var(--font-sans, sans-serif);
-    font-size: 0.78rem;
-    color: var(--text-ink, #121417);
-    cursor: pointer;
-    line-height: 1.4;
-    padding-top: 0.25rem;
-}
-
-.gdpr-checkbox-label input[type="checkbox"] {
-    margin-top: 0.15rem;
-    accent-color: var(--accent-gold, #C5A059);
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-}
-
-/* Form Inputs */
-.account-form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-}
-
-.account-form-label {
-    font-family: var(--font-sans, sans-serif);
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--text-ink, #121417);
 }
 
 .account-input {
-    font-family: var(--font-sans, sans-serif);
-    font-size: 0.85rem;
+    flex: 1;
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
     padding: 0.55rem 0.85rem;
-    border-radius: 8px;
-    border: 1px solid var(--border-hairline, rgba(0, 0, 0, 0.12));
-    background: var(--bg-paper, #FFFFFF);
-    color: var(--text-ink, #121417);
-    outline: none;
-    transition: border-color var(--transition-fast, 0.18s ease);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-hairline);
+    background: var(--bg-canvas);
+    color: var(--text-ink);
+    transition: all var(--transition-fast);
 }
 
 .account-input:focus {
-    border-color: var(--accent-gold, #C5A059);
-    box-shadow: 0 0 0 2px var(--accent-gold-soft, rgba(197, 160, 89, 0.2));
+    outline: none;
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 0 3px var(--accent-gold-soft);
+    background: var(--bg-paper);
 }
 
-/* QR Sync Box */
-.account-qr-card {
-    display: flex;
+/* Action Buttons */
+.account-actions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.55rem;
+}
+
+.account-action-btn {
+    display: inline-flex;
     align-items: center;
-    gap: 1.25rem;
-    padding: 1rem;
-    border-radius: 12px;
-    background: var(--bg-paper, #FFFFFF);
-    border: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.08));
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.55rem 0.85rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-hairline);
+    background: var(--bg-canvas);
+    color: var(--text-ink);
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    touch-action: manipulation;
+    user-select: none;
+    text-align: center;
 }
 
-.account-qr-code-holder {
-    width: 110px;
-    height: 110px;
-    background: #FFFFFF;
-    border: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.12));
-    border-radius: 8px;
+@media (hover: hover) and (pointer: fine) {
+    .account-action-btn:hover {
+        border-color: var(--accent-gold);
+        color: var(--accent-gold);
+        background: var(--bg-paper);
+    }
+}
+
+.account-action-btn:active {
+    transform: scale(0.97);
+    transition: transform 100ms var(--ease-out);
+}
+
+.account-action-btn.primary {
+    background: var(--text-ink);
+    color: var(--bg-paper);
+    border-color: var(--text-ink);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .account-action-btn.primary:hover {
+        opacity: 0.9;
+        color: var(--bg-paper);
+        background: var(--text-ink);
+    }
+}
+
+[data-theme="dark"] .account-action-btn.primary {
+    background: var(--accent-gold);
+    color: #121417;
+    border-color: var(--accent-gold);
+}
+
+/* Transfer links */
+.account-transfer-link-row {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4px;
-    flex-shrink: 0;
+    gap: 0.5rem;
+    margin-top: 0.2rem;
 }
 
-.account-qr-code-holder canvas,
-.account-qr-code-holder svg {
-    width: 100% !important;
-    height: 100% !important;
+.account-link-btn {
+    background: none;
+    border: none;
+    font-family: var(--font-sans);
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0.2rem 0.35rem;
+    transition: color var(--transition-fast);
 }
 
-.account-qr-meta {
-    flex: 1;
+.account-link-btn:hover {
+    color: var(--accent-gold);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.account-link-sep {
+    color: var(--border-hover);
+    font-size: 0.65rem;
+}
+
+/* Privacy Banner */
+.account-privacy-banner {
     display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
+    align-items: flex-start;
+    gap: 0.55rem;
+    padding: 0.65rem 0.8rem;
+    border-radius: var(--radius-sm);
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-subtle);
+    font-size: 0.74rem;
+    line-height: 1.45;
+    color: var(--text-muted);
 }
 
-.account-qr-title {
-    font-size: 0.88rem;
-    font-weight: 700;
-    margin: 0;
-    color: var(--text-ink, #121417);
+.account-privacy-banner svg {
+    color: var(--accent-gold);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
 }
 
-.account-qr-desc {
-    font-size: 0.78rem;
-    color: var(--text-muted, #6B7280);
-    line-height: 1.4;
-    margin: 0;
+.account-privacy-banner strong {
+    color: var(--text-ink);
 }
 
-/* Dark Mode Overrides */
-[data-theme="dark"] .dock-account-btn {
-    background: #1A1D21;
-    border-color: rgba(255, 255, 255, 0.08);
-    color: #9CA3AF;
+/* Danger link footer */
+.account-footer-row {
+    display: flex;
+    justify-content: center;
+    padding-top: 0.25rem;
+    border-top: 1px solid var(--border-subtle);
 }
 
-[data-theme="dark"] .dock-account-btn:hover {
-    background: #24282F;
-    border-color: var(--accent-gold, #E5C07B);
-    color: var(--accent-gold, #E5C07B);
+.account-danger-link {
+    background: none;
+    border: none;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    color: var(--text-subtle);
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    transition: color var(--transition-fast);
 }
 
-[data-theme="dark"] .dock-account-avatar {
-    background: rgba(229, 192, 123, 0.15);
-    color: #E5C07B;
+.account-danger-link:hover {
+    color: #DC2626;
+    text-decoration: underline;
+    text-underline-offset: 2px;
 }
-
-[data-theme="dark"] .sync-status-dot {
-    border-color: #1A1D21;
-}
-
-[data-theme="dark"] .account-modal-dialog {
-    background: #16181D;
-    border-color: rgba(255, 255, 255, 0.08);
-}
-
-[data-theme="dark"] .account-modal-header,
-[data-theme="dark"] .account-nav-tabs {
-    background: #1A1D22;
-    border-color: rgba(255, 255, 255, 0.06);
-}
-
-[data-theme="dark"] .account-user-card,
-[data-theme="dark"] .account-section-box,
-[data-theme="dark"] .account-stat-box,
-[data-theme="dark"] .account-qr-card {
-    background: #1E2127;
-    border-color: rgba(255, 255, 255, 0.06);
-}
-
-[data-theme="dark"] .account-input {
-    background: #14161A;
-    border-color: rgba(255, 255, 255, 0.12);
-    color: #F3F4F6;
-}
-
-[data-theme="dark"] .account-btn-secondary {
-    background: #24282F;
-    color: #F3F4F6;
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
-[data-theme="dark"] .gdpr-consent-card {
-    background: rgba(229, 192, 123, 0.08);
-    border-color: rgba(229, 192, 123, 0.2);
-}
-
-[data-theme="dark"] .gdpr-consent-header {
-    color: #E5C07B;
-}
-
-[data-theme="dark"] .gdpr-consent-text,
-[data-theme="dark"] .gdpr-checkbox-label {
-    color: #D1D5DB;
-}
-
-/* Sepia & OLED Theme Support */
-[data-theme="sepia"] .dock-account-btn {
-    background: #F1E5D0;
-    border-color: rgba(74, 52, 28, 0.15);
-    color: #6B553B;
-}
-
-[data-theme="sepia"] .dock-account-btn:hover {
-    border-color: var(--accent-gold, #9E6B20);
-    color: var(--accent-gold, #9E6B20);
-}
-
-[data-theme="sepia"] .account-modal-dialog {
-    background: #F8EFE0;
-    border-color: rgba(74, 52, 28, 0.18);
-    color: #2E2316;
-}
-
-[data-theme="sepia"] .account-modal-header,
-[data-theme="sepia"] .account-nav-tabs {
-    background: #F1E5D0;
-    border-color: rgba(74, 52, 28, 0.12);
-}
-
-[data-theme="oled"] .dock-account-btn {
-    background: #000000;
-    border-color: rgba(255, 255, 255, 0.15);
-    color: #9E9C96;
-}
-
-[data-theme="oled"] .account-modal-dialog {
-    background: #000000;
-    border-color: rgba(255, 255, 255, 0.15);
-    color: #EDEDEA;
-}
-
-[data-theme="oled"] .account-modal-header,
-[data-theme="oled"] .account-nav-tabs,
-[data-theme="oled"] .account-user-card,
-[data-theme="oled"] .account-section-box,
-[data-theme="oled"] .account-stat-box,
-[data-theme="oled"] .account-qr-card {
-    background: #0A0A0A;
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
-/* ─── Responsive Optimierungen für Mobile ─── */
-@media (max-width: 768px) {
-    .account-modal-overlay {
-        padding: 0;
-        align-items: flex-end;
-    }
-
-    .account-modal-dialog {
-        max-width: 100%;
-        max-height: 85vh;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-
-    .account-stats-row {
-        grid-template-columns: 1fr;
-    }
-
-    .account-qr-card {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .account-actions-row {
-        flex-direction: column;
-    }
-}
-

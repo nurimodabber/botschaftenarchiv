@@ -105,6 +105,17 @@ body:not([data-active-view])::before {
     }
 }
 
+@keyframes cosmosDropdownIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.97) translateY(-6px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
 /* ─── Taktiles Press-Feedback (Apple Design §1 & Emil Kowalski) ─────────── */
 
 button:active,
@@ -112,13 +123,60 @@ button:active,
 .nav-btn:active,
 .dock-brand:active,
 .dock-icon-btn:active,
+.dock-account-btn:active,
 .icon-btn:active,
 .filter-pill:active,
 .author-pill:active,
 .theme-tab-btn:active,
-.appearance-opt-btn:active {
+.appearance-opt-btn:active,
+.search-pillar-pill:active,
+.subfilter-btn:active,
+.jump-pill:active,
+.sources-tool-btn:active,
+.sources-lang-btn:active,
+.unfold-lang-btn:active,
+.spotlight-card:active,
+.passage-toggle-btn:active,
+.card-read-btn:active,
+.book-read-btn:active,
+.view-mode-btn:active,
+.format-pill-btn:active,
+.source-link-icon-btn:active,
+.account-action-btn:active {
     transform: scale(0.97);
     transition: transform 100ms var(--ease-out) !important;
+}
+
+/* ─── Accessibility: Reduced Motion & Reduced Transparency (Apple Design §14) ─── */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    .modal-content,
+    .account-modal-dialog,
+    .appearance-popover,
+    .search-suggestions-dropdown,
+    .viewer-export-menu {
+        transform: none !important;
+        filter: none !important;
+    }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+    .cosmos-dock,
+    .library-command-surface,
+    .modal-header,
+    .search-suggestions-dropdown,
+    .account-modal-dialog,
+    .appearance-popover,
+    .viewer-export-menu {
+        background: var(--bg-paper) !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
 }
 
 /* ─── Floating Pill Dock Navigation (Cosmos Dock) ────────────────────────── */

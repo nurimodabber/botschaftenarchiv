@@ -466,6 +466,12 @@
         width: 100% !important;
     }
 
+    .viewer-body.pdf-active {
+        padding: calc(4.8rem + env(safe-area-inset-top, 0px)) 0 0 0 !important;
+        overflow: hidden !important;
+        height: 100% !important;
+    }
+
     .viewer-reading-canvas {
         max-width: 100% !important;
         font-size: 1.04rem !important;
@@ -606,8 +612,8 @@
 
     .master-search-row input {
         font-size: 0.92rem !important;
-        padding: 0.78rem 2.85rem 0.78rem 2.65rem !important;
-        border-radius: 12px !important;
+        padding: 0.78rem 5.6rem 0.78rem 2.65rem !important;
+        border-radius: var(--radius-full) !important;
     }
 
     .master-search-row .command-search-icon {
@@ -1278,9 +1284,21 @@
 
 /* D. Aufklappbare Detail-Filter (Progressive Disclosure) */
 .command-advanced-drawer {
-    padding-top: 0.85rem;
+    padding-top: 0.95rem;
     border-top: 1px solid var(--border-subtle);
-    animation: cosmosFadeIn 0.25s var(--ease-cosmos);
+    animation: drawerReveal 0.25s var(--ease-drawer) both;
+    transform-origin: top center;
+}
+
+@keyframes drawerReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .drawer-quick-filter-row {

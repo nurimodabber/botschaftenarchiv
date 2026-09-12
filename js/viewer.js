@@ -666,132 +666,34 @@ function setViewerMode(mode, targetParagraph) {
             bodyEl.scrollTop = 0;
             if (headerEl) headerEl.classList.remove('header-hidden');
 
-            const isBibliothek = currentViewerDoc.sourceUrl.includes('bibliothek.bahai.de');
-            if (isBibliothek) {
-                bodyEl.innerHTML = `
-                    <div class="brl-web-wrapper">
-                        <div class="brl-web-topbar">
-                            <div class="brl-web-badge">
-                                <span class="brl-web-badge-dot" style="background:#B38E46;"></span>
-                                <span>Originalfassung auf <strong>${escapeHtml(currentViewerDoc.sourcePlatform || 'Bahá’í-Bibliothek Deutschland')}</strong></span>
-                            </div>
-                            <div class="brl-web-actions">
-                                <a href="${escapeHtml(currentViewerDoc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="brl-action-btn secondary">Im neuen Tab öffnen ↗</a>
-                            </div>
-                        </div>
-                        <iframe src="${currentViewerDoc.sourceUrl}" class="brl-web-frame" title="Autorisierte Original-Webseite (Bahá’í-Bibliothek)"></iframe>
-                    </div>
-                `;
-            } else if (isMobile) {
-                // Mobile Darstellung für BRL
-                bodyEl.innerHTML = `
-                    <div class="mobile-pdf-container">
-                        <div class="mobile-pdf-card">
-                            <div class="mobile-pdf-icon-badge" style="background: rgba(43,76,126,0.1); color: #2B4C7E;">
-                                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-                            </div>
-                            <h3 class="mobile-pdf-title">${escapeHtml(currentViewerDoc.title || 'Bahá’í Reference Library')}</h3>
-                            <p class="mobile-pdf-desc">Offizielle Publikation der Bahá’í Reference Library (bahai.org).</p>
-                            <div class="mobile-pdf-actions">
-                                <a href="${escapeHtml(currentViewerDoc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="mobile-web-btn primary">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                                    <span>Auf bahai.org aufrufen ↗</span>
-                                </a>
-                                <button class="mobile-web-btn secondary" onclick="setViewerMode('text')">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="21" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="21" y1="18" x2="3" y2="18"/></svg>
-                                    <span>Im Lesemodus lesen</span>
-                                </button>
-                                ${pdfPath ? `
-                                <button class="mobile-web-btn secondary" onclick="setViewerMode('pdf')">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                                    <span>Original-PDF öffnen</span>
-                                </button>
-                                ` : ''}
-                            </div>
-                        </div>
-                    </div>
-                `;
-            } else {
-                // Desktop: Eingebetteter BRL-Kartenleser mit authentischem Kopf, Typografie und bahai.org Link
-                bodyEl.innerHTML = `
-                    <div class="brl-embedded-container">
-                        <div class="brl-embedded-topbar">
-                            <div class="brl-web-badge">
-                                <span class="brl-web-badge-dot"></span>
-                                <span>Originalfassung auf <strong>${escapeHtml(currentViewerDoc.sourcePlatform || 'Bahá’í Reference Library (bahai.org)')}</strong></span>
-                            </div>
-                            <div class="brl-web-actions">
-                                <a href="${escapeHtml(currentViewerDoc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="brl-action-btn primary" title="Offizielle Seite auf bahai.org in neuem Tab öffnen">
-                                    <span>Auf bahai.org öffnen ↗</span>
-                                </a>
-                                ${pdfPath ? `<button class="brl-action-btn secondary" onclick="setViewerMode('pdf')">Original-PDF</button>` : ''}
-                                <button class="brl-action-btn secondary" onclick="setViewerMode('text')">Fließtext</button>
-                            </div>
-                        </div>
-                        <div class="brl-embedded-scroll-area">
-                            <article class="brl-embedded-card">
-                                <header class="brl-embedded-header">
-                                    <span class="brl-embedded-source-pill">
-                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                                        Bahá’í Reference Library
-                                    </span>
-                                    <h2 class="brl-embedded-title">${escapeHtml(currentViewerDoc.title)}</h2>
-                                    <div class="brl-embedded-meta">
-                                        ${escapeHtml(currentViewerDoc.source || 'The Universal House of Justice')} &bull; ${formatViewerDate(currentViewerDoc.date) || ''}
-                                    </div>
-                                </header>
-                                <div class="brl-embedded-body" id="brl-embedded-body">
-                                    <p style="color:var(--text-muted);font-style:italic;text-align:center;padding:2rem 0;">Text wird geladen…</p>
-                                </div>
-                                <footer class="brl-embedded-footer">
-                                    <span>Autorisierte englischsprachige Veröffentlichung auf bahai.org</span>
-                                    <a href="${escapeHtml(currentViewerDoc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="brl-action-btn secondary">
-                                        Quelle im Web verifizieren ↗
-                                    </a>
-                                </footer>
-                            </article>
-                        </div>
-                    </div>
-                `;
-
-                // Inhalt des BRL-Kartenlesers mit den Absätzen befüllen
-                const brlBody = document.getElementById('brl-embedded-body');
-                if (brlBody) {
-                    const renderBrlText = (rawText) => {
-                        const structure = parseDocumentStructure(rawText);
-                        let bodyHtml = '';
-                        if (structure.salutation) {
-                            bodyHtml += `<p style="font-style: italic; font-weight: 500; margin-bottom: 1.5rem;">${escapeHtml(structure.salutation)}</p>`;
-                        }
-                        bodyHtml += structure.body.map((rawP) => {
-                            const p = rawP.replace(/^(\d+(?:\.\d+)?:\d+(?:_\d+)?|f\.(?:\w+:)?\d+(?:_\d+)?|0_\d+)\s+/, '').trim();
-                            return `<p>${escapeHtml(p)}</p>`;
-                        }).join('');
-                        if (structure.closings && structure.closings.length > 0) {
-                            bodyHtml += `<div style="margin-top: 2rem; font-style: italic; text-align: right; color: var(--text-muted);">${structure.closings.map(c => `<div>${escapeHtml(c)}</div>`).join('')}</div>`;
-                        }
-                        brlBody.innerHTML = bodyHtml || '<p>Kein Textinhalt verfügbar.</p>';
-                    };
-
-                    if (currentViewerDoc.text) {
-                        renderBrlText(currentViewerDoc.text);
-                    } else if (currentViewerDoc.hasText !== false && currentViewerDoc.id) {
-                        const relUrl = `data/texts/${currentViewerDoc.id}.txt`;
-                        const absUrl = `/data/texts/${currentViewerDoc.id}.txt`;
-                        fetch(relUrl)
-                            .then(r => r.ok ? r.text() : fetch(absUrl).then(r2 => r2.ok ? r2.text() : Promise.reject('not found')))
-                            .then(t => {
-                                currentViewerDoc.text = t;
-                                renderBrlText(t);
-                            })
-                            .catch(() => {
-                                brlBody.innerHTML = '<p style="color:var(--text-muted);font-style:italic;text-align:center;">Volltext konnte nicht geladen werden.</p>';
-                            });
-                    } else {
-                        brlBody.innerHTML = '<p style="color:var(--text-muted);font-style:italic;text-align:center;">Kein Textinhalt hinterlegt.</p>';
-                    }
-                }
+            // Bestimme Embed-URL: Falls bahai.org (sendet X-Frame-Options: DENY), über /api/proxy leiten
+            let embedUrl = currentViewerDoc.sourceUrl;
+            if (embedUrl.includes('bahai.org')) {
+                embedUrl = '/api/proxy?url=' + encodeURIComponent(currentViewerDoc.sourceUrl);
             }
+
+            const platformName = currentViewerDoc.sourcePlatform || 
+                (currentViewerDoc.sourceUrl.includes('bahai.org') ? 'Bahá’í Reference Library (bahai.org)' : 
+                (currentViewerDoc.sourceUrl.includes('bibliothek.bahai.de') ? 'Bahá’í-Bibliothek Deutschland' : 'Autorisierte Online-Quelle'));
+
+            bodyEl.innerHTML = `
+                <div class="brl-web-wrapper">
+                    <div class="brl-web-topbar">
+                        <div class="brl-web-badge">
+                            <span class="brl-web-badge-dot"></span>
+                            <span>Originalfassung auf <strong>${escapeHtml(platformName)}</strong></span>
+                        </div>
+                        <div class="brl-web-actions">
+                            <a href="${escapeHtml(currentViewerDoc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="brl-action-btn primary" title="Offizielle Seite in neuem Tab aufrufen">
+                                <span>Im neuen Tab öffnen ↗</span>
+                            </a>
+                            ${pdfPath ? `<button class="brl-action-btn secondary" onclick="setViewerMode('pdf')">Original-PDF</button>` : ''}
+                            <button class="brl-action-btn secondary" onclick="setViewerMode('text')">Fließtext</button>
+                        </div>
+                    </div>
+                    <iframe src="${embedUrl}" class="brl-web-frame" title="Autorisierte Original-Webseite" loading="lazy" allow="fullscreen" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-downloads"></iframe>
+                </div>
+            `;
         }
     } else if (mode === 'epub') {
         if (bodyEl) {
