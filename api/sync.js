@@ -30,11 +30,20 @@ module.exports = async function handler(req, res) {
             const vault = body.vault || body;
             const syncKey = (body.syncKey || '').trim();
 
-            if (!vault || (!vault.data && !vault.bookmarks && !Array.isArray(vault))) {
+            if (!vault || (!vault.data && !vault.bookmarks && !vault.ciphertext && !vault.encrypted && !Array.isArray(vault))) {
                 return res.status(400).json({ ok: false, error: 'Ungültiges Vault-Format' });
             }
 
-            const vaultPayload = {
+            const vaultPayload = vault.encrypted ? {
+                format: 'bahai-bib-vault',
+                version: '3.0',
+                encrypted: true,
+                updatedAt: new Date().toISOString(),
+                user: vault.user || null,
+                iv: vault.iv,
+                salt: vault.salt,
+                ciphertext: vault.ciphertext
+            } : {
                 format: 'bahai-bib-vault',
                 version: '2.0',
                 updatedAt: new Date().toISOString(),
@@ -143,7 +152,7 @@ module.exports = async function handler(req, res) {
                 if (dpRes.ok) {
                     const text = await dpRes.text();
                     const parsed = JSON.parse(text);
-                    if (parsed && (parsed.data || parsed.bookmarks)) {
+                    if (parsed && (parsed.data || parsed.bookmarks || parsed.ciphertext || parsed.encrypted)) {
                         return res.status(200).json({
                             ok: true,
                             source: 'vault',

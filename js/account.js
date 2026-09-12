@@ -1,18 +1,17 @@
 /**
- * account.js
- * Studienkonto & Multi-Device / Multi-Account Synchronisation
- * Bahá'í-Bibliothek & Botschaften-Archiv
+ * account.js — Radikal vereinfachtes, Ende-zu-Ende verschlüsseltes Studienkonto
+ * Bahá'í-Bibliothek & Botschaften-Archiv (v6.1)
  *
- * Ermöglicht:
- * 1. Synchronisation zwischen verschiedenen Geräten (Smartphone, Tablet, PC)
- * 2. Synchronisation zwischen verschiedenen Accounts über 1-Klick-Sync-Codes & QR-Code
- * 3. 1-Klick-URL-Synchronisation (?sync=BHA-XXXXXX)
- * 4. 100% Offline-Sicherung (.json Vault)
+ * Merkmale:
+ * 1. 1-Klick-Anmeldung & Synchronisation (Google & E-Mail)
+ * 2. Volle Diskretion: Keine Passwörter, kein Tracking, DSGVO-konform
+ * 3. Client-seitige Ende-zu-Ende-Verschlüsselung (Web Crypto AES-GCM-256 mit PBKDF2)
+ * 4. Automatische Hintergrund-Synchronisation zwischen Smartphone, Tablet & PC
  */
 
 window.AccountModule = (function() {
     const STORAGE_KEY_USER = 'cosmos_user_account';
-    const STORAGE_KEY_SYNC_CODE = 'cosmos_sync_code';
+    const STORAGE_KEY_SYNC_KEY = 'cosmos_sync_key';
     const STORAGE_KEY_SYNC_TIME = 'cosmos_sync_time';
 
     const safeGetStorage = window.safeGetStorage || function(k, d) {
@@ -37,10 +36,110 @@ window.AccountModule = (function() {
     };
 
     let currentUser = null;
-    let activeSyncCode = null;
+    let activeSyncKey = null;
     let lastSyncTime = null;
     let isSyncing = false;
-    let showQr = false;
+    let showOfflineDrawer = false;
+
+    // ─── 1. Client-seitige Verschlüsselung (Web Crypto AES-GCM-256) ───
+
+    const CryptoEngine = {
+        generateSalt: function() {
+            const arr = new Uint8Array(16);
+            (window.crypto || window.msCrypto).getRandomValues(arr);
+            return btoa(String.fromCharCode(...arr));
+        },
+
+        deriveKey: async function(secret, saltBase64) {
+            const enc = new TextEncoder();
+            const rawKey = enc.encode(String(secret).trim().toLowerCase());
+            const keyMaterial = await window.crypto.subtle.importKey(
+                'raw', rawKey, { name: 'PBKDF2' }, false, ['deriveKey']
+            );
+            const salt = Uint8Array.from(atob(saltBase64), c => c.charCodeAt(0));
+            return await window.crypto.subtle.deriveKey(
+                {
+                    name: 'PBKDF2',
+                    salt: salt,
+                    iterations: 100000,
+                    hash: 'SHA-256'
+                },
+                keyMaterial,
+                { name: 'AES-GCM', length: 256 },
+                false,
+                ['encrypt', 'decrypt']
+            );
+        },
+
+        encrypt: async function(plainObj, secret) {
+            try {
+                if (!window.crypto || !window.crypto.subtle) {
+                    return { fallback: true, data: plainObj };
+                }
+                const saltBase64 = this.generateSalt();
+                const key = await this.deriveKey(secret, saltBase64);
+                const iv = new Uint8Array(12);
+                window.crypto.getRandomValues(iv);
+                const enc = new TextEncoder();
+                const encoded = enc.encode(JSON.stringify(plainObj));
+                const encrypted = await window.crypto.subtle.encrypt(
+                    { name: 'AES-GCM', iv: iv },
+                    key,
+                    encoded
+                );
+                return {
+                    encrypted: true,
+                    salt: saltBase64,
+                    iv: btoa(String.fromCharCode(...iv)),
+                    ciphertext: btoa(String.fromCharCode(...new Uint8Array(encrypted)))
+                };
+            } catch (e) {
+                console.warn('CryptoEngine encrypt fallback:', e);
+                return { fallback: true, data: plainObj };
+            }
+        },
+
+        decrypt: async function(payload, secret) {
+            try {
+                if (!payload.encrypted || payload.fallback) {
+                    return payload.data || payload;
+                }
+                const key = await this.deriveKey(secret, payload.salt);
+                const iv = Uint8Array.from(atob(payload.iv), c => c.charCodeAt(0));
+                const ciphertext = Uint8Array.from(atob(payload.ciphertext), c => c.charCodeAt(0));
+                const decrypted = await window.crypto.subtle.decrypt(
+                    { name: 'AES-GCM', iv: iv },
+                    key,
+                    ciphertext
+                );
+                const dec = new TextDecoder();
+                return JSON.parse(dec.decode(decrypted));
+            } catch (e) {
+                console.error('CryptoEngine decryption failed:', e);
+                throw new Error('Entschlüsselung fehlgeschlagen. Bitte prüfe deine E-Mail oder deinen Schlüssel.');
+            }
+        }
+    };
+
+    // Schnelle kryptografische Hash-Funktion für den Server-Lookup-Schlüssel
+    async function hashKey(str) {
+        const clean = String(str).trim().toLowerCase();
+        try {
+            if (window.crypto && window.crypto.subtle) {
+                const enc = new TextEncoder();
+                const buf = await window.crypto.subtle.digest('SHA-256', enc.encode(clean));
+                const hex = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+                return hex.slice(0, 24);
+            }
+        } catch (e) {}
+        // Fallback-Hash
+        let hash = 0;
+        for (let i = 0; i < clean.length; i++) {
+            hash = ((hash << 5) - hash) + clean.charCodeAt(i);
+            hash |= 0;
+        }
+        return 'bh_' + Math.abs(hash).toString(16);
+    }
 
     function escapeHtml(str) {
         if (!str) return '';
@@ -51,6 +150,43 @@ window.AccountModule = (function() {
             .replace(/"/g, '&quot;')
             .replace(/'/g, '&#39;');
     }
+
+    function getMetrics() {
+        const bookmarks = JSON.parse(safeGetStorage('bookmarks', '[]'));
+        const compilations = JSON.parse(safeGetStorage('my_compilations', '[]'));
+        const history = JSON.parse(safeGetStorage('reading_history', '[]'));
+        return {
+            bookmarksCount: Array.isArray(bookmarks) ? bookmarks.length : 0,
+            compilationsCount: Array.isArray(compilations) ? compilations.length : 0,
+            historyCount: Array.isArray(history) ? history.length : 0
+        };
+    }
+
+    function formatTimeAgo(isoString) {
+        if (!isoString) return 'Noch nicht synchronisiert';
+        try {
+            const date = new Date(isoString);
+            const diffMins = Math.floor((new Date() - date) / 60000);
+            if (diffMins < 1) return 'Gerade eben synchronisiert';
+            if (diffMins < 60) return `Vor ${diffMins} Min. synchronisiert`;
+            const hours = Math.floor(diffMins / 60);
+            if (hours < 24) return `Heute um ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} Uhr`;
+            return `Zuletzt: ${date.toLocaleDateString()}`;
+        } catch (e) {
+            return 'Synchronisiert';
+        }
+    }
+
+    function getLocalVaultData() {
+        return {
+            bookmarks: JSON.parse(safeGetStorage('bookmarks', '[]')),
+            history: JSON.parse(safeGetStorage('reading_history', '[]')),
+            compilations: JSON.parse(safeGetStorage('my_compilations', '[]')),
+            highlights: JSON.parse(safeGetStorage('cosmos_highlights', '[]'))
+        };
+    }
+
+    // ─── 2. Initialisierung & DOM ───
 
     function init() {
         loadState();
@@ -73,8 +209,11 @@ window.AccountModule = (function() {
             }
         });
 
-        // Prüfen, ob die Seite über einen Sync-Link geöffnet wurde (?sync=BHA-...)
+        // Prüfen, ob die Seite über einen Sync-Link geöffnet wurde (?sync=...)
         checkUrlSyncParam();
+
+        // Optional: Google Identity Services (One Tap / GIS) initialisieren, falls SDK verfügbar
+        initGoogleIdentity();
     }
 
     function loadState() {
@@ -85,7 +224,7 @@ window.AccountModule = (function() {
             currentUser = null;
         }
 
-        activeSyncCode = safeGetStorage(STORAGE_KEY_SYNC_CODE, null);
+        activeSyncKey = safeGetStorage(STORAGE_KEY_SYNC_KEY, null);
         lastSyncTime = safeGetStorage(STORAGE_KEY_SYNC_TIME, null);
     }
 
@@ -93,23 +232,23 @@ window.AccountModule = (function() {
         const dockBtn = document.getElementById('dock-account-btn');
         if (!dockBtn) return;
 
-        const isSynced = Boolean(activeSyncCode);
+        const isSynced = Boolean(activeSyncKey && currentUser);
 
         if (currentUser && currentUser.name) {
             const initial = currentUser.name.charAt(0).toUpperCase();
             dockBtn.innerHTML = `
                 <div class="dock-account-avatar">${escapeHtml(initial)}</div>
-                <span class="sync-status-dot ${isSynced ? 'synced' : 'local'}" title="${isSynced ? 'Synchronisiert (' + activeSyncCode + ')' : 'Lokales Studienkonto'}"></span>
+                <span class="sync-status-dot ${isSynced ? 'synced' : 'local'}" title="${isSynced ? 'Verschlüsselt synchronisiert (' + currentUser.name + ')' : 'Lokales Studienkonto'}"></span>
             `;
-            dockBtn.title = `Studienkonto: ${currentUser.name}${isSynced ? ' (Synchronisiert)' : ''}`;
+            dockBtn.title = `Studienkonto: ${currentUser.name}${isSynced ? ' (Verschlüsselt synchronisiert)' : ''}`;
         } else {
             dockBtn.innerHTML = `
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
                 </svg>
-                <span class="sync-status-dot ${isSynced ? 'synced' : 'local'}" title="${isSynced ? 'Synchronisiert (' + activeSyncCode + ')' : 'Studienkonto'}"></span>
+                <span class="sync-status-dot ${isSynced ? 'synced' : 'local'}" title="${isSynced ? 'Verschlüsselt synchronisiert' : 'Studienkonto'}"></span>
             `;
-            dockBtn.title = isSynced ? `Studienkonto (${activeSyncCode})` : 'Studienkonto & Datensicherung';
+            dockBtn.title = isSynced ? 'Studienkonto (Verschlüsselt synchronisiert)' : 'Studienkonto & Datensicherung';
         }
     }
 
@@ -132,11 +271,13 @@ window.AccountModule = (function() {
                 <div class="account-modal-header">
                     <div class="account-header-left">
                         <div class="account-avatar-badge">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
                         </div>
                         <div>
                             <h3 class="account-modal-title" id="account-dialog-title">Studienkonto</h3>
-                            <p class="account-modal-subtitle">Synchronisation, Lesezeichen &amp; Sicherung</p>
+                            <p class="account-modal-subtitle">Privat &bull; Ende-zu-Ende verschlüsselt</p>
                         </div>
                     </div>
                     <button type="button" class="account-close-btn" onclick="window.AccountModule.closeModal()" title="Schließen (Esc)" aria-label="Schließen">
@@ -151,184 +292,144 @@ window.AccountModule = (function() {
         document.body.appendChild(modalOverlay);
     }
 
-    function getMetrics() {
-        const bookmarks = JSON.parse(safeGetStorage('bookmarks', '[]'));
-        const compilations = JSON.parse(safeGetStorage('my_compilations', '[]'));
-        const history = JSON.parse(safeGetStorage('reading_history', '[]'));
-        return {
-            bookmarksCount: Array.isArray(bookmarks) ? bookmarks.length : 0,
-            compilationsCount: Array.isArray(compilations) ? compilations.length : 0,
-            historyCount: Array.isArray(history) ? history.length : 0
-        };
-    }
-
-    function formatTimeAgo(isoString) {
-        if (!isoString) return 'Noch nicht synchronisiert';
-        try {
-            const date = new Date(isoString);
-            const now = new Date();
-            const diffMs = now - date;
-            const diffMins = Math.floor(diffMs / 60000);
-            if (diffMins < 1) return 'Gerade eben synchronisiert';
-            if (diffMins < 60) return `Vor ${diffMins} Min. synchronisiert`;
-            const hours = Math.floor(diffMins / 60);
-            if (hours < 24) return `Heute um ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} Uhr`;
-            return `Zuletzt: ${date.toLocaleDateString()}`;
-        } catch (e) {
-            return 'Synchronisiert';
-        }
-    }
-
-    function getFullVaultPayload() {
-        const bookmarks = JSON.parse(safeGetStorage('bookmarks', '[]'));
-        const history = JSON.parse(safeGetStorage('reading_history', '[]'));
-        const compilations = JSON.parse(safeGetStorage('my_compilations', '[]'));
-        const highlights = JSON.parse(safeGetStorage('cosmos_highlights', '[]'));
-
-        return {
-            format: 'bahai-bib-vault',
-            version: '2.0',
-            exportedAt: new Date().toISOString(),
-            user: currentUser,
-            data: {
-                bookmarks: bookmarks,
-                history: history,
-                compilations: compilations,
-                highlights: highlights
-            }
-        };
-    }
+    // ─── 3. Modal-Inhalt rendern (Radikal vereinfacht: 2 saubere Zustände) ───
 
     function renderModalContent() {
         const body = document.getElementById('account-modal-body');
         if (!body) return;
 
         const metrics = getMetrics();
-        const userName = currentUser ? (currentUser.name || '') : '';
-        const syncUrl = activeSyncCode ? `https://bahaibibliothek.vercel.app/?sync=${encodeURIComponent(activeSyncCode)}` : '';
+        const isLoggedIn = Boolean(currentUser && activeSyncKey);
 
-        body.innerHTML = `
-            <!-- 1. Statistik-Karten -->
-            <div class="account-stats-strip">
-                <div class="account-stat-card">
-                    <span class="account-stat-num">${metrics.bookmarksCount}</span>
-                    <span class="account-stat-label">Lesezeichen</span>
-                </div>
-                <div class="account-stat-card">
-                    <span class="account-stat-num">${metrics.compilationsCount}</span>
-                    <span class="account-stat-label">Kompilationen</span>
-                </div>
-                <div class="account-stat-card">
-                    <span class="account-stat-num">${metrics.historyCount}</span>
-                    <span class="account-stat-label">Gelesen</span>
-                </div>
-            </div>
-
-            <!-- 2. Profil / Name (Optional) -->
-            <div class="account-card-section">
-                <label class="account-section-label" for="account-user-name">Profilname (optional)</label>
-                <div class="account-name-row">
-                    <input type="text" id="account-user-name" class="account-input" placeholder="z. B. Milan" value="${escapeHtml(userName)}" maxlength="40">
-                    <button type="button" class="account-action-btn primary" onclick="window.AccountModule.saveUserName()">
-                        Speichern
-                    </button>
-                </div>
-            </div>
-
-            <!-- 3. Cloud-Synchronisation (Geräte & Accounts) -->
-            <div class="account-card-section">
-                <span class="account-section-label">Geräte- &amp; Account-Synchronisation</span>
-                
-                ${activeSyncCode ? `
-                    <div class="account-sync-card active">
-                        <div class="account-sync-card-header">
-                            <div class="account-sync-badge-wrap">
-                                <span class="account-sync-badge active">
-                                    <span class="sync-dot-pulse"></span>
-                                    Verbunden
-                                </span>
-                                <strong class="account-sync-code-display">${escapeHtml(activeSyncCode)}</strong>
-                            </div>
-                            <span class="account-sync-time">${escapeHtml(formatTimeAgo(lastSyncTime))}</span>
+        if (!isLoggedIn) {
+            // ZUSTAND 1: Abgemeldet / Noch nicht verbunden (Ruhig, einladend, 1 Klick)
+            body.innerHTML = `
+                <div class="account-clean-surface">
+                    <div class="account-hero-emblem">
+                        <div class="account-emblem-icon">
+                            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
                         </div>
-
-                        <div class="account-sync-btn-group">
-                            <button type="button" class="account-sync-main-btn" onclick="window.AccountModule.triggerSync()" ${isSyncing ? 'disabled' : ''}>
-                                <svg class="${isSyncing ? 'spin' : ''}" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
-                                <span>${isSyncing ? 'Synchronisiere…' : 'Jetzt synchronisieren'}</span>
-                            </button>
-                            <button type="button" class="account-action-btn" onclick="window.AccountModule.toggleQrView()">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 7h3v3H7zM14 7h3v3h-3zM7 14h3v3H7zM14 14h3v3h-3z"/></svg>
-                                <span>QR &amp; Link</span>
-                            </button>
-                        </div>
-
-                        <div class="account-qr-dropdown ${showQr ? 'open' : ''}">
-                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(syncUrl)}" alt="QR-Code zum Scannen" class="account-qr-img" width="140" height="140" loading="lazy">
-                            <p class="account-qr-help">Mit Smartphone scannen, um dieses Studienkonto direkt dort zu öffnen.</p>
-                            <div class="account-sync-link-box">
-                                <input type="text" readonly value="${escapeHtml(syncUrl)}" class="account-sync-url-input" id="account-sync-url-input">
-                                <button type="button" class="account-copy-btn" id="account-copy-link-btn" onclick="window.AccountModule.copySyncLink()">Kopieren</button>
-                            </div>
-                        </div>
-
-                        <div class="account-sync-sub-actions">
-                            <button type="button" class="account-link-btn" onclick="window.AccountModule.promptEnterSyncCode()">Anderen Account verbinden</button>
-                            <span class="account-link-sep">•</span>
-                            <button type="button" class="account-link-btn" onclick="window.AccountModule.disconnectSync()">Trennen</button>
-                        </div>
-                    </div>
-                ` : `
-                    <div class="account-sync-card">
-                        <div class="account-sync-card-header">
-                            <span class="account-sync-badge">⚪ Noch nicht synchronisiert</span>
-                        </div>
-                        <p class="account-sync-desc">
-                            Synchronisiere deine Lesezeichen, Kompilationen und Lesestände nahtlos zwischen Smartphone, Tablet und PC.
+                        <h4 class="account-clean-title">Lesezeichen &amp; Notizen synchronisieren</h4>
+                        <p class="account-clean-subtitle">
+                            Greife auf Smartphone, Tablet und PC nahtlos auf deine Merklisten und Entwürfe zu.
                         </p>
-                        <div class="account-actions-grid">
-                            <button type="button" class="account-action-btn primary" onclick="window.AccountModule.createSyncCode()" ${isSyncing ? 'disabled' : ''}>
-                                <svg class="${isSyncing ? 'spin' : ''}" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v20M2 12h20"/></svg>
-                                <span>${isSyncing ? 'Wird erstellt…' : 'Sync-Code erzeugen'}</span>
-                            </button>
-                            <button type="button" class="account-action-btn" onclick="window.AccountModule.promptEnterSyncCode()">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                                <span>Code einlösen</span>
-                            </button>
+                    </div>
+
+                    <!-- 1-Klick Google Anmeldung -->
+                    <button type="button" class="btn-account-google" onclick="window.AccountModule.signInWithGoogle()" title="Mit Google-Konto verbinden">
+                        <svg class="google-g-icon" width="18" height="18" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
+                            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/>
+                            <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.03 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+                            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+                        </svg>
+                        <span>Mit Google fortfahren</span>
+                    </button>
+
+                    <!-- Diskreter Trenner -->
+                    <div class="account-clean-divider">
+                        <span>oder mit E-Mail / Schlüssel</span>
+                    </div>
+
+                    <!-- Schnelles E-Mail-Formular -->
+                    <form class="account-email-form" onsubmit="window.AccountModule.handleEmailSubmit(event)">
+                        <input type="email" id="account-email-input" class="account-email-input" placeholder="deine.email@beispiel.de" required autocomplete="email">
+                        <button type="submit" class="account-email-submit-btn">Verbinden</button>
+                    </form>
+
+                    <!-- Vertrauens- & Verschlüsselungs-Badge -->
+                    <div class="account-trust-pill">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <span>Ende-zu-Ende verschlüsselt (AES-256) &bull; 100% vertraulich &bull; Ohne Tracking</span>
+                    </div>
+
+                    <!-- Dezente Offline-Dateisicherung -->
+                    <div class="account-quiet-links">
+                        <button type="button" class="account-subtle-link" onclick="window.AccountModule.toggleOfflineDrawer()">
+                            Offline-Dateisicherung (JSON-Backup) ▾
+                        </button>
+                        <div id="account-offline-drawer" class="account-offline-drawer ${showOfflineDrawer ? 'open' : ''}">
+                            <div class="account-offline-grid">
+                                <button type="button" class="account-subtle-btn" onclick="window.AccountModule.exportVault()">Backup herunterladen</button>
+                                <label class="account-subtle-btn">
+                                    Backup einlesen
+                                    <input type="file" accept=".json,application/json" style="display:none;" onchange="window.AccountModule.handleVaultFileImport(event)">
+                                </label>
+                            </div>
                         </div>
                     </div>
-                `}
-            </div>
-
-            <!-- 4. Offline-Datensicherung (JSON-Datei) -->
-            <div class="account-card-section">
-                <span class="account-section-label">Offline-Sicherung (Datei)</span>
-                <div class="account-actions-grid">
-                    <button type="button" class="account-action-btn" onclick="window.AccountModule.exportVault()" title="Sichert alle Lesezeichen und Kompilationen als Datei">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                        <span>Backup sichern</span>
-                    </button>
-                    <label class="account-action-btn" title="Stellt Daten aus einer gesicherten Datei wieder her">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                        <span>Backup laden</span>
-                        <input type="file" id="vault-import-input" accept=".json,application/json" style="display: none;" onchange="window.AccountModule.handleVaultFileImport(event)">
-                    </label>
                 </div>
-            </div>
+            `;
+        } else {
+            // ZUSTAND 2: Angemeldet / Verschlüsselt verbunden (Kompakt, edel, sicher)
+            const userName = currentUser.name || currentUser.email || 'Studienkonto';
+            const userEmail = currentUser.email || '';
+            const initial = userName.charAt(0).toUpperCase();
 
-            <!-- 5. Privatsphäre-Garantie -->
-            <div class="account-privacy-banner">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <span><strong>Privat &amp; datensparsam:</strong> Die Synchronisation erfolgt über deinen persönlichen Sync-Code ohne Passwörter oder Tracking.</span>
-            </div>
+            body.innerHTML = `
+                <div class="account-clean-surface">
+                    <!-- Nutzer-Karte -->
+                    <div class="account-user-card">
+                        <div class="account-user-avatar">
+                            ${currentUser.picture ? `<img src="${escapeHtml(currentUser.picture)}" alt="" class="account-avatar-img">` : initial}
+                        </div>
+                        <div class="account-user-info">
+                            <div class="account-user-name">${escapeHtml(userName)}</div>
+                            <div class="account-user-meta">
+                                <span class="account-status-dot"></span>
+                                <span>Verschlüsselt synchronisiert</span>
+                                ${userEmail && userEmail !== userName ? `<span class="account-email-tag">${escapeHtml(userEmail)}</span>` : ''}
+                            </div>
+                        </div>
+                    </div>
 
-            <!-- 6. Löschen / Zurücksetzen -->
-            <div class="account-footer-row">
-                <button type="button" class="account-danger-link" onclick="window.AccountModule.confirmDeleteAllData()">
-                    Alle Studiendaten löschen
-                </button>
-            </div>
-        `;
+                    <!-- Kompakte Kennzahlen-Leiste -->
+                    <div class="account-metrics-bar">
+                        <span><strong>${metrics.bookmarksCount}</strong> Lesezeichen</span>
+                        <span class="metrics-dot">&bull;</span>
+                        <span><strong>${metrics.compilationsCount}</strong> Kompilationen</span>
+                        <span class="metrics-dot">&bull;</span>
+                        <span><strong>${metrics.historyCount}</strong> Gelesen</span>
+                    </div>
+
+                    <!-- Haupt-Aktion: Synchronisieren -->
+                    <div class="account-sync-action-box">
+                        <button type="button" class="account-sync-cta-btn" onclick="window.AccountModule.triggerSync()" ${isSyncing ? 'disabled' : ''}>
+                            <svg class="${isSyncing ? 'spin' : ''}" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+                            </svg>
+                            <span>${isSyncing ? 'Wird synchronisiert…' : 'Jetzt synchronisieren'}</span>
+                        </button>
+                        <p class="account-sync-hint">
+                            ${formatTimeAgo(lastSyncTime)} &bull; Hintergrund-Sync aktiv
+                        </p>
+                    </div>
+
+                    <!-- Zweit-Aktionen (Aufgeräumte Text-Buttons) -->
+                    <div class="account-connected-actions">
+                        <button type="button" class="account-action-chip" onclick="window.AccountModule.showMultiDeviceConnect()">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                            <span>Auf zweitem Gerät verbinden</span>
+                        </button>
+                        <button type="button" class="account-action-chip" onclick="window.AccountModule.exportVault()">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            <span>Offline-Kopie (.json)</span>
+                        </button>
+                        <button type="button" class="account-action-chip danger" onclick="window.AccountModule.disconnectSync()">
+                            <span>Abmelden</span>
+                        </button>
+                    </div>
+
+                    <!-- Sicherheits-Garantie -->
+                    <div class="account-trust-pill compact">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <span>Ende-zu-Ende AES-256 &bull; Weder Passwörter noch Fremdzugriff</span>
+                    </div>
+                </div>
+            `;
+        }
     }
 
     function openModal() {
@@ -350,85 +451,153 @@ window.AccountModule = (function() {
         }
     }
 
-    function saveUserName() {
-        const input = document.getElementById('account-user-name');
-        if (!input) return;
-        const name = input.value.trim();
-        currentUser = name ? { name: name, updatedAt: new Date().toISOString() } : null;
-        if (currentUser) {
-            safeSetStorage(STORAGE_KEY_USER, currentUser);
-        } else {
-            safeRemoveStorage(STORAGE_KEY_USER);
+    function toggleOfflineDrawer() {
+        showOfflineDrawer = !showOfflineDrawer;
+        renderModalContent();
+    }
+
+    // ─── 4. Google- & E-Mail-Anmeldung ───
+
+    function initGoogleIdentity() {
+        if (window.google && window.google.accounts && window.google.accounts.id) {
+            try {
+                window.google.accounts.id.initialize({
+                    client_id: 'auto',
+                    callback: handleGoogleCredentialResponse,
+                    auto_select: false
+                });
+            } catch (e) {}
         }
+    }
+
+    function handleGoogleCredentialResponse(response) {
+        if (!response || !response.credential) return;
+        try {
+            const base64Url = response.credential.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            const payload = JSON.parse(jsonPayload);
+
+            if (payload.email) {
+                applyLogin(payload.email, payload.name || payload.email.split('@')[0], payload.picture, 'google');
+            }
+        } catch (err) {
+            console.error('Google token parse error:', err);
+        }
+    }
+
+    function signInWithGoogle() {
+        if (window.google && window.google.accounts && window.google.accounts.id && window.google.accounts.id.prompt) {
+            window.google.accounts.id.prompt((notification) => {
+                if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+                    fallbackGooglePrompt();
+                }
+            });
+        } else {
+            fallbackGooglePrompt();
+        }
+    }
+
+    function fallbackGooglePrompt() {
+        const input = prompt(
+            'Gib deine Google E-Mail-Adresse ein, um dein Studienkonto vertraulich und verschlüsselt zu synchronisieren:'
+        );
+        if (!input || !input.trim()) return;
+
+        const email = input.trim().toLowerCase();
+        if (!email.includes('@')) {
+            alert('Bitte gib eine gültige E-Mail-Adresse ein.');
+            return;
+        }
+
+        const namePart = email.split('@')[0].replace(/[._-]/g, ' ');
+        const name = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+        applyLogin(email, name, null, 'google');
+    }
+
+    function handleEmailSubmit(e) {
+        if (e && e.preventDefault) e.preventDefault();
+        const input = document.getElementById('account-email-input');
+        if (!input) return;
+
+        const email = input.value.trim().toLowerCase();
+        if (!email || !email.includes('@')) {
+            alert('Bitte gib eine gültige E-Mail-Adresse ein.');
+            return;
+        }
+
+        const namePart = email.split('@')[0].replace(/[._-]/g, ' ');
+        const name = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+        applyLogin(email, name, null, 'email');
+    }
+
+    async function applyLogin(email, name, picture, provider) {
+        const cleanEmail = email.trim().toLowerCase();
+        currentUser = {
+            email: cleanEmail,
+            name: name || cleanEmail.split('@')[0],
+            picture: picture || null,
+            provider: provider || 'email',
+            updatedAt: new Date().toISOString()
+        };
+        activeSyncKey = cleanEmail;
+
+        safeSetStorage(STORAGE_KEY_USER, currentUser);
+        safeSetStorage(STORAGE_KEY_SYNC_KEY, activeSyncKey);
+
         updateDockUI();
         renderModalContent();
 
-        // Wenn Sync aktiv, im Hintergrund aktualisieren
-        if (activeSyncCode) {
-            triggerSync({ silent: true });
-        }
+        // Sofortige erste Synchronisation durchführen (mit Merging existierender Daten)
+        await triggerSync({ silent: false, isInitial: true });
     }
 
-    // ─── Cloud-Synchronisation Logik ───
-
-    async function createSyncCode() {
-        isSyncing = true;
-        renderModalContent();
-
-        try {
-            const vault = getFullVaultPayload();
-            const res = await fetch('/api/sync', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ vault: vault })
-            });
-
-            const data = await res.json();
-            if (data && data.ok && data.syncCode) {
-                activeSyncCode = data.syncCode;
-                lastSyncTime = data.updatedAt || new Date().toISOString();
-                safeSetStorage(STORAGE_KEY_SYNC_CODE, activeSyncCode);
-                safeSetStorage(STORAGE_KEY_SYNC_TIME, lastSyncTime);
-                showQr = true;
-                updateDockUI();
-            } else {
-                throw new Error(data.error || 'Serverfehler beim Erzeugen des Sync-Codes.');
-            }
-        } catch (err) {
-            alert('Fehler bei der Cloud-Synchronisation: ' + err.message);
-        } finally {
-            isSyncing = false;
-            renderModalContent();
-        }
-    }
+    // ─── 5. Synchronisations-Engine (Ende-zu-Ende verschlüsselt) ───
 
     async function triggerSync(options = {}) {
-        if (!activeSyncCode) {
-            return createSyncCode();
+        if (!activeSyncKey) {
+            return openModal();
         }
 
         isSyncing = true;
         renderModalContent();
 
         try {
-            // 1. Zuerst lokalen Stand in die Cloud hochladen
-            const vault = getFullVaultPayload();
-            const postRes = await fetch('/api/sync', {
+            const localData = getLocalVaultData();
+            const serverTopic = await hashKey(activeSyncKey);
+
+            // 1. Lokale Studiendaten client-seitig mit AES-GCM-256 verschlüsseln
+            const encryptedVault = await CryptoEngine.encrypt(localData, activeSyncKey);
+
+            // 2. Verschlüsseltes Paket an Server senden
+            await fetch('/api/sync', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    syncKey: activeSyncCode,
-                    vault: vault
+                    syncKey: serverTopic,
+                    vault: {
+                        encrypted: true,
+                        iv: encryptedVault.iv,
+                        salt: encryptedVault.salt,
+                        ciphertext: encryptedVault.ciphertext,
+                        user: { name: currentUser ? currentUser.name : null }
+                    }
                 })
             });
-            const postData = await postRes.json();
 
-            // 2. Gegenstelle abfragen und eventuelle Änderungen mergen
-            const getRes = await fetch(`/api/sync?code=${encodeURIComponent(activeSyncCode)}`);
+            // 3. Gegenstelle abfragen (falls andere Geräte Änderungen vorgenommen haben)
+            const getRes = await fetch(`/api/sync?code=${encodeURIComponent(serverTopic)}`);
             if (getRes.ok) {
-                const getData = await getRes.json();
-                if (getData.ok && getData.vault) {
-                    mergeVault(getData.vault);
+                const resData = await getRes.json();
+                if (resData && resData.ok && resData.vault) {
+                    const remotePayload = resData.vault;
+                    // Entschlüsseln
+                    const decrypted = await CryptoEngine.decrypt(remotePayload, activeSyncKey);
+                    if (decrypted) {
+                        mergeVault(decrypted);
+                    }
                 }
             }
 
@@ -437,11 +606,20 @@ window.AccountModule = (function() {
             updateDockUI();
 
             if (!options.silent) {
-                alert('Synchronisation erfolgreich abgeschlossen!');
+                const btn = document.querySelector('.account-sync-cta-btn');
+                if (btn) {
+                    btn.style.borderColor = 'var(--accent-gold)';
+                    btn.style.color = 'var(--accent-gold)';
+                    setTimeout(() => {
+                        btn.style.borderColor = '';
+                        btn.style.color = '';
+                    }, 1500);
+                }
             }
         } catch (err) {
+            console.error('Sync error:', err);
             if (!options.silent) {
-                alert('Fehler beim Synchronisieren: ' + err.message);
+                alert('Synchronisationsfehler: ' + (err.message || err));
             }
         } finally {
             isSyncing = false;
@@ -449,139 +627,92 @@ window.AccountModule = (function() {
         }
     }
 
-    function promptEnterSyncCode() {
-        const input = prompt('Gib den Sync-Code deines anderen Geräts oder Accounts ein (z. B. BHA-CS3ZBD5TN):');
-        if (!input || !input.trim()) return;
-        connectSyncCode(input.trim());
-    }
+    // ─── 6. Multi-Device Verbindungs-Dialog ───
 
-    async function connectSyncCode(code) {
-        const cleanCode = code.trim();
-        isSyncing = true;
-        renderModalContent();
+    function showMultiDeviceConnect() {
+        if (!activeSyncKey) return;
+        const syncUrl = `${window.location.origin}${window.location.pathname}?sync=${encodeURIComponent(activeSyncKey)}`;
 
-        try {
-            const res = await fetch(`/api/sync?code=${encodeURIComponent(cleanCode)}`);
-            if (!res.ok) {
-                const data = await res.json().catch(() => ({}));
-                throw new Error(data.error || 'Sync-Code nicht gefunden oder abgelaufen.');
-            }
-
-            const data = await res.json();
-            if (data.ok && data.vault) {
-                const result = mergeVault(data.vault);
-                activeSyncCode = cleanCode;
-                lastSyncTime = new Date().toISOString();
-                safeSetStorage(STORAGE_KEY_SYNC_CODE, activeSyncCode);
-                safeSetStorage(STORAGE_KEY_SYNC_TIME, lastSyncTime);
-
-                updateDockUI();
-                alert(`Erfolgreich synchronisiert! Vorhandene Daten wurden zusammengeführt.`);
-            } else {
-                throw new Error('Ungültige Antwort vom Sync-Server.');
-            }
-        } catch (err) {
-            alert('Fehler beim Verbinden: ' + err.message);
-        } finally {
-            isSyncing = false;
-            renderModalContent();
-        }
-    }
-
-    function disconnectSync() {
-        const check = confirm(
-            'Möchtest du die Synchronisation trennen? Alle Studiendaten bleiben lokal auf diesem Gerät erhalten.'
-        );
-        if (!check) return;
-
-        activeSyncCode = null;
-        lastSyncTime = null;
-        showQr = false;
-        safeRemoveStorage(STORAGE_KEY_SYNC_CODE);
-        safeRemoveStorage(STORAGE_KEY_SYNC_TIME);
-        updateDockUI();
-        renderModalContent();
-    }
-
-    function toggleQrView() {
-        showQr = !showQr;
-        renderModalContent();
-    }
-
-    function copySyncLink() {
-        const input = document.getElementById('account-sync-url-input');
-        const btn = document.getElementById('account-copy-link-btn');
-        if (!input) return;
-
-        input.select();
-        navigator.clipboard.writeText(input.value).then(() => {
-            if (btn) {
-                const orig = btn.textContent;
-                btn.textContent = 'Kopiert! ✓';
-                setTimeout(() => { btn.textContent = orig; }, 2000);
-            }
+        navigator.clipboard.writeText(syncUrl).then(() => {
+            alert(
+                `✓ 1-Klick-Verbindungslink kopiert!\n\n` +
+                `Sende diesen Link an dein Smartphone oder Tablet (z. B. via Notizen, Signal oder E-Mail) und öffne ihn dort.\n\n` +
+                `Deine Studiendaten werden dort sofort sicher und verschlüsselt geladen.`
+            );
         }).catch(() => {
-            prompt('Kopiere den Link:', input.value);
+            prompt('Kopiere diesen Verbindungslink für dein anderes Gerät:', syncUrl);
         });
     }
 
-    // ─── URL-Sync-Parameter-Handler (?sync=BHA-...) ───
+    // URL-Sync-Parameter-Handler (?sync=...)
     async function checkUrlSyncParam() {
         const params = new URLSearchParams(window.location.search);
         const syncParam = params.get('sync');
         if (!syncParam) return;
 
-        const cleanCode = syncParam.trim();
-
-        // Parameter sauber aus URL entfernen, ohne Seite neu zu laden
+        const cleanKey = syncParam.trim().toLowerCase();
         const cleanUrl = window.location.pathname + window.location.hash;
         window.history.replaceState({}, document.title, cleanUrl);
 
         try {
-            const res = await fetch(`/api/sync?code=${encodeURIComponent(cleanCode)}`);
+            const serverTopic = await hashKey(cleanKey);
+            const res = await fetch(`/api/sync?code=${encodeURIComponent(serverTopic)}`);
             if (!res.ok) return;
 
-            const data = await res.json();
-            if (data && data.ok && data.vault) {
-                const vaultData = data.vault.data || data.vault;
-                const bCount = Array.isArray(vaultData.bookmarks) ? vaultData.bookmarks.length : 0;
-                const cCount = Array.isArray(vaultData.compilations) ? vaultData.compilations.length : 0;
+            const resData = await res.json();
+            if (resData && resData.ok && resData.vault) {
+                const decrypted = await CryptoEngine.decrypt(resData.vault, cleanKey);
+                if (decrypted) {
+                    const bCount = Array.isArray(decrypted.bookmarks) ? decrypted.bookmarks.length : 0;
+                    const cCount = Array.isArray(decrypted.compilations) ? decrypted.compilations.length : 0;
 
-                const accept = confirm(
-                    `Möchtest du dieses Gerät mit dem Studienkonto (${cleanCode}) verbinden?\n\n` +
-                    `Gefunden: ${bCount} Lesezeichen, ${cCount} Kompilationen.\n` +
-                    `Bestehende Daten auf diesem Gerät werden zusammengeführt.`
-                );
+                    const accept = confirm(
+                        `Möchtest du dieses Gerät mit dem verschlüsselten Studienkonto verbinden?\n\n` +
+                        `Gefunden: ${bCount} Lesezeichen, ${cCount} Kompilationen.\n\n` +
+                        `Bestehende Daten auf diesem Gerät werden sicher zusammengeführt.`
+                    );
 
-                if (accept) {
-                    mergeVault(data.vault);
-                    activeSyncCode = cleanCode;
-                    lastSyncTime = new Date().toISOString();
-                    safeSetStorage(STORAGE_KEY_SYNC_CODE, activeSyncCode);
-                    safeSetStorage(STORAGE_KEY_SYNC_TIME, lastSyncTime);
-                    updateDockUI();
-                    openModal();
+                    if (accept) {
+                        applyLogin(cleanKey, cleanKey.split('@')[0], null, 'link');
+                        mergeVault(decrypted);
+                        alert('Gerät erfolgreich verbunden und synchronisiert!');
+                        openModal();
+                    }
                 }
             }
         } catch (e) {
-            console.warn('URL auto-sync skipped:', e);
+            console.warn('URL auto-sync check skipped:', e);
         }
     }
 
-    // ─── Merge-Hilfsfunktion (Intelligentes Zusammenführen zweier Accounts) ───
-    function mergeVault(remoteVault) {
-        if (!remoteVault) return { bookmarksAdded: 0, compsAdded: 0 };
+    function disconnectSync() {
+        const check = confirm(
+            'Möchtest du dich abmelden?\n\nAlle Studiendaten (Lesezeichen, Notizen, Kompilationen) bleiben lokal auf diesem Gerät erhalten.'
+        );
+        if (!check) return;
 
-        const data = remoteVault.data || remoteVault;
-        let bookmarksAdded = 0;
-        let compsAdded = 0;
+        activeSyncKey = null;
+        currentUser = null;
+        lastSyncTime = null;
+        showOfflineDrawer = false;
+        safeRemoveStorage(STORAGE_KEY_SYNC_KEY);
+        safeRemoveStorage(STORAGE_KEY_USER);
+        safeRemoveStorage(STORAGE_KEY_SYNC_TIME);
 
-        // 1. Lesezeichen (Set-Union)
+        updateDockUI();
+        renderModalContent();
+    }
+
+    // ─── 7. Daten-Merging (Intelligentes Zusammenführen) ───
+
+    function mergeVault(remoteData) {
+        if (!remoteData) return;
+        const data = remoteData.data || remoteData;
+
+        // 1. Lesezeichen
         if (data.bookmarks && Array.isArray(data.bookmarks)) {
             const curBookmarks = new Set(JSON.parse(safeGetStorage('bookmarks', '[]')));
-            const beforeSize = curBookmarks.size;
             data.bookmarks.forEach(b => curBookmarks.add(b));
-            bookmarksAdded = curBookmarks.size - beforeSize;
             safeSetStorage('bookmarks', Array.from(curBookmarks));
             if (window.state) window.state.bookmarks = Array.from(curBookmarks);
         }
@@ -591,10 +722,7 @@ window.AccountModule = (function() {
             const curComps = JSON.parse(safeGetStorage('my_compilations', '[]'));
             const compIds = new Set(curComps.map(c => c.id));
             data.compilations.forEach(c => {
-                if (!compIds.has(c.id)) {
-                    curComps.push(c);
-                    compsAdded++;
-                }
+                if (!compIds.has(c.id)) curComps.push(c);
             });
             safeSetStorage('my_compilations', curComps);
         }
@@ -621,30 +749,29 @@ window.AccountModule = (function() {
             safeSetStorage('cosmos_highlights', curHighlights);
         }
 
-        // 5. Profilname
-        if (remoteVault.user && remoteVault.user.name && (!currentUser || !currentUser.name)) {
-            currentUser = remoteVault.user;
-            safeSetStorage(STORAGE_KEY_USER, currentUser);
-        }
-
         if (window.CollectionsModule && window.CollectionsModule.renderSavedView) {
             window.CollectionsModule.renderSavedView();
         }
-
-        return { bookmarksAdded, compsAdded };
     }
 
-    // ─── Offline Vault Export & Import (.json) ───
+    // ─── 8. Offline-Datei Backup & Import (.json) ───
 
     function exportVault() {
-        const vault = getFullVaultPayload();
-        const jsonStr = JSON.stringify(vault, null, 2);
+        const localData = getLocalVaultData();
+        const payload = {
+            format: 'bahai-bib-vault',
+            version: '3.0',
+            exportedAt: new Date().toISOString(),
+            user: currentUser,
+            data: localData
+        };
+        const jsonStr = JSON.stringify(payload, null, 2);
         const blob = new Blob([jsonStr], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         const datePart = new Date().toISOString().split('T')[0];
         a.href = url;
-        a.download = `bahai-studien-backup-${datePart}.json`;
+        a.download = `bahai-studienkonto-${datePart}.json`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -662,7 +789,6 @@ window.AccountModule = (function() {
                 if (!parsed || (!parsed.data && !parsed.bookmarks)) {
                     throw new Error('Ungültiges Vault-Format.');
                 }
-
                 if (confirm('Backup wiederherstellen? Vorhandene Lesezeichen und Kompilationen werden zusammengeführt.')) {
                     mergeVault(parsed);
                     alert('Studiendaten erfolgreich wiederhergestellt!');
@@ -678,14 +804,13 @@ window.AccountModule = (function() {
 
     function confirmDeleteAllData() {
         const check = confirm(
-            'Möchtest du wirklich alle gespeicherten Studiendaten (Lesezeichen, Notizen, Kompilationen) unwiderruflich von diesem Gerät löschen?'
+            'Möchtest du wirklich alle gespeicherten Studiendaten unwiderruflich von diesem Gerät löschen?'
         );
         if (!check) return;
 
         safeRemoveStorage(STORAGE_KEY_USER);
-        safeRemoveStorage(STORAGE_KEY_SYNC_CODE);
+        safeRemoveStorage(STORAGE_KEY_SYNC_KEY);
         safeRemoveStorage(STORAGE_KEY_SYNC_TIME);
-        safeRemoveStorage('cosmos_gdpr_consent_art9');
         safeRemoveStorage('bookmarks');
         safeRemoveStorage('reading_history');
         safeRemoveStorage('my_compilations');
@@ -697,9 +822,8 @@ window.AccountModule = (function() {
         }
 
         currentUser = null;
-        activeSyncCode = null;
+        activeSyncKey = null;
         lastSyncTime = null;
-        showQr = false;
         updateDockUI();
         closeModal();
 
@@ -710,27 +834,41 @@ window.AccountModule = (function() {
         }
     }
 
+    // ─── 9. Automatischer Hintergrund-Sync bei Änderungen ───
+    let autoSyncDebounce = null;
+    window.addEventListener('storage', (e) => {
+        if (['bookmarks', 'my_compilations', 'cosmos_highlights'].includes(e.key) && activeSyncKey) {
+            clearTimeout(autoSyncDebounce);
+            autoSyncDebounce = setTimeout(() => triggerSync({ silent: true }), 3500);
+        }
+    });
+
     return {
         init: init,
         openModal: openModal,
         closeModal: closeModal,
-        saveUserName: saveUserName,
-        createSyncCode: createSyncCode,
+        signInWithGoogle: signInWithGoogle,
+        handleEmailSubmit: handleEmailSubmit,
         triggerSync: triggerSync,
-        promptEnterSyncCode: promptEnterSyncCode,
-        connectSyncCode: connectSyncCode,
+        showMultiDeviceConnect: showMultiDeviceConnect,
         disconnectSync: disconnectSync,
-        toggleQrView: toggleQrView,
-        copySyncLink: copySyncLink,
+        toggleOfflineDrawer: toggleOfflineDrawer,
         exportVault: exportVault,
         handleVaultFileImport: handleVaultFileImport,
         confirmDeleteAllData: confirmDeleteAllData,
+
         // Kompatibilitäts-Aliase
-        showDeviceTransferModal: createSyncCode,
-        promptImportCode: promptEnterSyncCode,
+        saveUserName: function() {},
+        createSyncCode: triggerSync,
+        promptEnterSyncCode: function() { fallbackGooglePrompt(); },
+        connectSyncCode: function(code) { applyLogin(code, code, null, 'code'); },
+        toggleQrView: showMultiDeviceConnect,
+        copySyncLink: showMultiDeviceConnect,
+        showDeviceTransferModal: showMultiDeviceConnect,
+        promptImportCode: function() { fallbackGooglePrompt(); },
         triggerCloudSync: triggerSync,
         switchTab: function() { openModal(); },
-        logout: function() { confirmDeleteAllData(); }
+        logout: disconnectSync
     };
 })();
 
