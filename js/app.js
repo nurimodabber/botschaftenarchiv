@@ -136,7 +136,7 @@ window.switchLibrarySegment = function(segment) {
     state.library.segment = segment;
     
     // 0. Thema der gesamten Seite dem aktiven Realm anpassen
-    if (segment === 'all') {
+    if (segment === 'all' || segment === 'sources') {
         document.documentElement.removeAttribute('data-active-pillar');
     } else {
         document.documentElement.setAttribute('data-active-pillar', segment);
@@ -161,36 +161,28 @@ window.switchLibrarySegment = function(segment) {
     // 2. Progressive Disclosure Sub-Filter (Autoren, Themen, Kurse) rendern
     renderSubfilters(segment);
 
-    // 3. Dynamisches Realm-Banner oben aktualisieren
-    const realmTitle = document.getElementById('realm-lead-title');
-    const realmSub = document.getElementById('realm-lead-subtitle');
-    if (realmTitle && realmSub) {
-        if (segment === 'house') {
-            realmTitle.setAttribute('data-i18n', 'library.realm_house');
-            realmSub.setAttribute('data-i18n', 'library.realm_house_sub');
-            realmTitle.textContent = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('library.realm_house') : 'Botschaften des Hauses';
-            realmSub.textContent = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('library.realm_house_sub') : 'Botschaften des Universalen Hauses der Gerechtigkeit (1963–2026)';
-        } else if (segment === 'compilations') {
-            realmTitle.setAttribute('data-i18n', 'pillar.comp_title');
-            realmSub.setAttribute('data-i18n', 'pillar.comp_sub');
-            realmTitle.textContent = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('pillar.comp_title') : 'Compilations des Hauses';
-            realmSub.textContent = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('pillar.comp_sub') : 'Autorisierte thematische Sammlungen der Forschungsabteilung';
-        } else if (segment === 'books') {
-            realmTitle.setAttribute('data-i18n', 'pillar.books_title');
-            realmSub.setAttribute('data-i18n', 'pillar.books_sub');
-            realmTitle.textContent = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('pillar.books_title') : 'Heilige Schriften & Bücher';
-            realmSub.textContent = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('pillar.books_sub') : 'Autorisierte Schriften der Zentralen Gestalten & Shoghi Effendis';
-        } else if (segment === 'ruhi') {
-            realmTitle.setAttribute('data-i18n', 'pillar.ruhi_title');
-            realmSub.setAttribute('data-i18n', 'pillar.ruhi_sub');
-            realmTitle.textContent = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('pillar.ruhi_title') : 'Ruhi-Bücher';
-            realmSub.textContent = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('pillar.ruhi_sub') : 'Studienmaterialien des Ruhi-Instituts (Hauptkurse & Zweigkurse)';
-        } else {
-            realmTitle.setAttribute('data-i18n', 'library.realm_all');
-            realmSub.setAttribute('data-i18n', 'library.realm_all_sub');
-            realmTitle.textContent = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('library.realm_all') : 'Gesamtes Archiv';
-            realmSub.textContent = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('library.realm_all_sub') : 'Dokumente, Schriften, Bücher und thematische Sammlungen';
+    // 3. Quellen-Panel vs. Dokument-Ergebnis-Raster umschalten
+    const sourcesPanel = document.getElementById('library-sources-panel');
+    const resultsGrid = document.getElementById('library-results');
+    const resultsInfo = document.getElementById('library-results-info');
+    const loadMore = document.getElementById('library-load-more');
+    const advDrawer = document.getElementById('library-advanced-drawer');
+
+    if (segment === 'sources') {
+        if (resultsGrid) resultsGrid.style.display = 'none';
+        if (resultsInfo) resultsInfo.style.display = 'none';
+        if (loadMore) loadMore.style.display = 'none';
+        if (advDrawer) advDrawer.style.display = 'none';
+        if (sourcesPanel) {
+            sourcesPanel.style.display = 'block';
+            if (window.SourcesModule && typeof window.SourcesModule.renderInLibrary === 'function') {
+                window.SourcesModule.renderInLibrary(sourcesPanel);
+            }
         }
+    } else {
+        if (sourcesPanel) sourcesPanel.style.display = 'none';
+        if (resultsGrid) resultsGrid.style.display = '';
+        if (resultsInfo) resultsInfo.style.display = '';
     }
 
     // 4. Platzhalter der Master-Suchleiste anpassen
@@ -208,6 +200,9 @@ window.switchLibrarySegment = function(segment) {
         } else if (segment === 'ruhi') {
             searchInput.setAttribute('data-i18n-placeholder', 'library.search_placeholder_ruhi');
             searchInput.placeholder = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('library.search_placeholder_ruhi') : 'In Ruhi-Büchern & Kursmaterialien suchen...';
+        } else if (segment === 'sources') {
+            searchInput.setAttribute('data-i18n-placeholder', 'sources.search_placeholder');
+            searchInput.placeholder = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('sources.search_placeholder') : 'In offiziellen Bahá\'í-Quellen, Portalen & Repositorien suchen...';
         } else {
             searchInput.setAttribute('data-i18n-placeholder', 'library.search_placeholder_all');
             searchInput.placeholder = (window.I18n && typeof window.I18n.t === 'function') ? window.I18n.t('library.search_placeholder_all') : 'In allen Dokumenten, Schriften & Volltexten suchen...';
@@ -217,8 +212,8 @@ window.switchLibrarySegment = function(segment) {
     // 5. Kontextuelle Filteroptionen im Detail-Drawer aktualisieren
     updateDrawerFilterOptions(segment);
 
-    // 6. Filter anwenden & Ergebnisse rendern
-    if (typeof applyLibraryFilters === 'function') {
+    // 6. Filter anwenden & Ergebnisse rendern (nur wenn nicht in sources)
+    if (segment !== 'sources' && typeof applyLibraryFilters === 'function') {
         applyLibraryFilters();
     }
 };
@@ -333,6 +328,11 @@ window.switchView = function(targetView) {
     if (targetView === 'books') {
         window.switchView('library');
         window.switchLibrarySegment('books');
+        return;
+    }
+    if (targetView === 'sources') {
+        window.switchView('library');
+        window.switchLibrarySegment('sources');
         return;
     }
     if (targetView === 'search') {
@@ -662,7 +662,11 @@ function initLibraryView() {
             clearTimeout(timeout);
             timeout = setTimeout(() => {
                 state.library.query = val;
-                applyLibraryFilters();
+                if (state.library.segment === 'sources' && window.SourcesModule && typeof window.SourcesModule.filterPortals === 'function') {
+                    window.SourcesModule.filterPortals(val);
+                } else {
+                    applyLibraryFilters();
+                }
             }, 180);
         });
 
@@ -714,7 +718,11 @@ function initLibraryView() {
             if (suggestionsBox) suggestionsBox.hidden = true;
             state.library.query = '';
             searchInput.focus();
-            applyLibraryFilters();
+            if (state.library.segment === 'sources' && window.SourcesModule && typeof window.SourcesModule.filterPortals === 'function') {
+                window.SourcesModule.filterPortals('');
+            } else {
+                applyLibraryFilters();
+            }
         });
     }
 

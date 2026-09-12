@@ -1299,6 +1299,8 @@
 
 /* D. Aufklappbare Detail-Filter (Progressive Disclosure) */
 .command-advanced-drawer {
+    width: 100%;
+    text-align: left;
     padding-top: 0.95rem;
     border-top: 1px solid var(--border-subtle);
     animation: drawerReveal 0.25s var(--ease-drawer) both;

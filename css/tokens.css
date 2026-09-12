@@ -535,15 +535,17 @@ html[data-active-pillar="all"] {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 .library-segmented-bar {
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.35rem;
     padding: 4px;
     background: var(--bg-paper);
     border: 1px solid var(--border-hairline);
     border-radius: var(--radius-full);
     box-shadow: var(--shadow-plate);
-    width: 100%;
+    margin: 0 auto;
+    max-width: 100%;
     overflow-x: auto;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
@@ -614,6 +616,13 @@ html[data-active-pillar="all"] {
 .seg-dot.house { background: #7A1E3A; box-shadow: 0 0 5px rgba(122, 30, 58, 0.4); }
 .seg-dot.compilations { background: #1E5E4B; box-shadow: 0 0 5px rgba(30, 94, 75, 0.4); }
 .seg-dot.ruhi { background: #A84A25; box-shadow: 0 0 5px rgba(168, 74, 37, 0.4); }
+.seg-dot.sources { background: #B8860B; box-shadow: 0 0 5px rgba(184, 134, 11, 0.4); }
+
+[data-theme="dark"] .seg-dot.books { background: #60A5FA; box-shadow: 0 0 8px rgba(96, 165, 250, 0.45); }
+[data-theme="dark"] .seg-dot.house { background: #F472B6; box-shadow: 0 0 8px rgba(244, 114, 182, 0.45); }
+[data-theme="dark"] .seg-dot.compilations { background: #34D399; box-shadow: 0 0 8px rgba(52, 211, 153, 0.45); }
+[data-theme="dark"] .seg-dot.ruhi { background: #FB923C; box-shadow: 0 0 8px rgba(251, 146, 60, 0.45); }
+[data-theme="dark"] .seg-dot.sources { background: #FBBF24; box-shadow: 0 0 8px rgba(251, 191, 36, 0.45); }
 
 .seg-pill.active .seg-dot {
     transform: scale(1.25);

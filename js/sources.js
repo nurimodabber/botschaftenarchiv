@@ -1033,11 +1033,259 @@ window.SourcesModule = (function() {
         });
     }
 
+    let selectedPortalCategory = 'all';
+    let portalSearchQuery = '';
+
+    function renderInLibrary(container) {
+        if (!container) return;
+
+        const isUiEn = window.I18n ? window.I18n.getCurrentLanguage() === 'en' : (localStorage.getItem('cosmos_master_lang') === 'en');
+
+        const categories = [
+            { key: 'all', label: isUiEn ? 'Alle' : 'Alle', count: OFFICIAL_WEBSITES.length },
+            { key: 'libraries', label: isUiEn ? 'Primary Texts & Libraries' : 'Primärschriften & Bibliotheken', count: OFFICIAL_WEBSITES.filter(w => w.category === 'libraries').length },
+            { key: 'study', label: isUiEn ? 'Studies & Action Fields' : 'Studien & Curricula', count: OFFICIAL_WEBSITES.filter(w => w.category === 'study').length },
+            { key: 'discourse', label: isUiEn ? 'Social Discourse & UN' : 'Gesellschaftlicher Diskurs & UNO', count: OFFICIAL_WEBSITES.filter(w => w.category === 'discourse').length },
+            { key: 'media', label: isUiEn ? 'News & Media' : 'Nachrichten & Medien', count: OFFICIAL_WEBSITES.filter(w => w.category === 'media').length },
+            { key: 'national', label: isUiEn ? 'National Bodies & Publishers' : 'Nationale Gremien & Verlage', count: OFFICIAL_WEBSITES.filter(w => w.category === 'national').length }
+        ];
+
+        let html = `
+        <div class="library-sources-wrapper">
+            <!-- Header Intro -->
+            <div class="sources-library-header">
+                <div class="sources-library-badge">
+                    <span class="sources-badge-dot"></span>
+                    <span>${isUiEn ? '18 Official Repositories & Portals' : '18 Offizielle Repositorien & Portale'}</span>
+                </div>
+                <h2 class="sources-library-title">${isUiEn ? 'Authorised Global Bahá\'í Portals' : 'Offizielle Quellen & Weltweite Portale'}</h2>
+                <p class="sources-library-subtitle">
+                    ${isUiEn 
+                        ? 'The primary authoritative repositories, publishers, and institutions providing the official texts, translations, and publications.' 
+                        : 'Die maßgeblichen weltweiten Online-Bibliotheken, Verlage, Diskursbüros und nationalen Körperschaften, aus denen die Texte dieses Archivs stammen.'}
+                </p>
+            </div>
+
+            <!-- Filter Chips Bar -->
+            <div class="sources-cat-chips-bar" role="tablist" aria-label="Portal-Kategorien">
+                ${categories.map(cat => `
+                    <button type="button" 
+                            class="sources-cat-chip ${selectedPortalCategory === cat.key ? 'active' : ''}" 
+                            data-cat="${cat.key}"
+                            onclick="window.SourcesModule.setPortalCategory('${cat.key}')">
+                        <span>${cat.label}</span>
+                        <span class="sources-chip-count">${cat.count}</span>
+                    </button>
+                `).join('')}
+            </div>
+
+            <!-- Portals Grid -->
+            <div id="portal-cards-grid" class="portal-cards-grid">
+                <!-- Cards rendered dynamically -->
+            </div>
+
+            <!-- Provenance & Trust Card -->
+            <div class="sources-provenance-card">
+                <div class="provenance-card-header">
+                    <div class="provenance-seal-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            <path d="m9 12 2 2 4-4"/>
+                        </svg>
+                    </div>
+                    <div class="provenance-header-text">
+                        <h3 class="provenance-title">${isUiEn ? 'Authenticity & Archival Fidelity' : 'Authentizität & Autorisierung der Bestände'}</h3>
+                        <p class="provenance-lead">
+                            ${isUiEn 
+                                ? 'All 1,972 documents, writings, and messages in this library originate 100% directly from authorized Bahá\'í repositories and verified publications.' 
+                                : 'Alle 1.972 Dokumente, Schriften und Botschaften in dieser Bibliothek stammen zu 100 % aus den autorisierten Beständen der Bahá\'í Reference Library, der Bahá\'í-Bibliothek Deutschland und des Universalen Hauses der Gerechtigkeit.'}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="provenance-pillars-grid">
+                    <div class="provenance-pillar-item">
+                        <div class="provenance-item-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="m9 12 2 2 4-4"/>
+                            </svg>
+                        </div>
+                        <div class="provenance-item-content">
+                            <h4>${isUiEn ? '1:1 Authorized Translations' : '1:1 Autorisierte Übersetzungen'}</h4>
+                            <p>${isUiEn 
+                                ? 'Full text fidelity matching the officially approved German and English editions without alterations.' 
+                                : 'Volltext-Originaltreue gemäß den vom Nationalen Geistigen Rat und dem Weltzentrum autorisierten Druck- und Digitalausgaben.'}</p>
+                        </div>
+                    </div>
+
+                    <div class="provenance-pillar-item">
+                        <div class="provenance-item-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="4" x2="20" y1="6" y2="6"/>
+                                <line x1="4" x2="20" y1="12" y2="12"/>
+                                <line x1="4" x2="20" y1="18" y2="18"/>
+                            </svg>
+                        </div>
+                        <div class="provenance-item-content">
+                            <h4>${isUiEn ? 'Synchronous Paragraph Numbering' : 'Synchrone Absatznummerierung'}</h4>
+                            <p>${isUiEn 
+                                ? 'Exact matching paragraph identifiers for academic referencing, deep linking, and cross-language study.' 
+                                : 'Durchgängige Kennzeichnung aller Paragraphen für wissenschaftliche Zitierbarkeit, synchrone zweisprachige Gegenüberstellung und Studienkreise.'}</p>
+                        </div>
+                    </div>
+
+                    <div class="provenance-pillar-item">
+                        <div class="provenance-item-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" x2="12" y1="15" y2="3"/>
+                            </svg>
+                        </div>
+                        <div class="provenance-item-content">
+                            <h4>${isUiEn ? 'Open-Access Verified Formats' : 'Freier Zugang & Originalformate'}</h4>
+                            <p>${isUiEn 
+                                ? 'Immediate access to reader views, offline EPUBs, and verified links directly into the global repositories.' 
+                                : 'Direkter Zugang zu Lesemodi, Offline-Verfügbarkeit und verifizierte Primärlinks zu den jeweiligen Trägerinstitutionen.'}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+
+        container.innerHTML = html;
+        renderPortalCards();
+    }
+
+    function renderPortalCards() {
+        const grid = document.getElementById('portal-cards-grid');
+        if (!grid) return;
+
+        const isUiEn = window.I18n ? window.I18n.getCurrentLanguage() === 'en' : (localStorage.getItem('cosmos_master_lang') === 'en');
+
+        let filtered = OFFICIAL_WEBSITES.filter(site => {
+            const matchesCat = selectedPortalCategory === 'all' || site.category === selectedPortalCategory;
+            if (!matchesCat) return false;
+
+            if (!portalSearchQuery) return true;
+
+            const q = portalSearchQuery;
+            const searchHaystack = [
+                site.name,
+                site.subtitle,
+                site.description,
+                site.badge,
+                site.categoryLabel,
+                ...(site.features || []),
+                ...(site.formats || []),
+                ...(site.languages || [])
+            ].join(' ').toLowerCase();
+
+            return searchHaystack.includes(q);
+        });
+
+        if (filtered.length === 0) {
+            grid.innerHTML = `
+                <div class="portal-empty-state">
+                    <div class="portal-empty-icon">🔍</div>
+                    <h4 class="portal-empty-title">${isUiEn ? 'No portals found' : 'Keine Portale gefunden'}</h4>
+                    <p class="portal-empty-desc">${isUiEn ? 'Try adjusting your search query or select another category.' : 'Versuchen Sie einen anderen Suchbegriff oder wählen Sie eine andere Kategorie.'}</p>
+                    <button type="button" class="portal-reset-btn" onclick="window.SourcesModule.filterPortals(''); const inp = document.getElementById('library-search-input'); if (inp) inp.value = '';">
+                        ${isUiEn ? 'Clear Filter' : 'Filter zurücksetzen'}
+                    </button>
+                </div>
+            `;
+            return;
+        }
+
+        grid.innerHTML = filtered.map(site => {
+            const featuresHtml = (site.features || []).map(f => `<span class="portal-feature-pill">${escapeHtml(f)}</span>`).join('');
+            const formatsHtml = (site.formats || []).map(fmt => `<span class="portal-format-tag">${escapeHtml(fmt)}</span>`).join('');
+            const langsHtml = (site.languages || []).map(l => `<span class="portal-lang-tag">${escapeHtml(l)}</span>`).join('');
+
+            return `
+                <article class="portal-card" data-category="${escapeHtml(site.category)}">
+                    <div class="portal-card-top">
+                        <span class="portal-badge badge-${escapeHtml(site.category)}">${escapeHtml(site.badge)}</span>
+                        <span class="portal-cat-label">${escapeHtml(site.categoryLabel)}</span>
+                    </div>
+
+                    <div class="portal-card-body">
+                        <h3 class="portal-card-title">
+                            <a href="${escapeHtml(site.url)}" target="_blank" rel="noopener noreferrer" class="portal-title-link">
+                                <span>${escapeHtml(site.name)}</span>
+                                <svg class="portal-ext-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                    <polyline points="15 3 21 3 21 9"/>
+                                    <line x1="10" x2="21" y1="14" y2="3"/>
+                                </svg>
+                            </a>
+                        </h3>
+                        <div class="portal-card-subtitle">${escapeHtml(site.subtitle)}</div>
+                        <p class="portal-card-desc">${escapeHtml(site.description)}</p>
+
+                        ${featuresHtml ? `<div class="portal-features-list">${featuresHtml}</div>` : ''}
+
+                        <div class="portal-card-meta">
+                            ${langsHtml ? `
+                                <div class="portal-meta-row">
+                                    <span class="portal-meta-label">${isUiEn ? 'Languages:' : 'Sprachen:'}</span>
+                                    <div class="portal-meta-tags">${langsHtml}</div>
+                                </div>
+                            ` : ''}
+                            ${formatsHtml ? `
+                                <div class="portal-meta-row">
+                                    <span class="portal-meta-label">${isUiEn ? 'Formats:' : 'Formate:'}</span>
+                                    <div class="portal-meta-tags">${formatsHtml}</div>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+
+                    <div class="portal-card-footer">
+                        <a href="${escapeHtml(site.url)}" target="_blank" rel="noopener noreferrer" class="portal-card-action-btn">
+                            <span>${isUiEn ? 'Open Portal' : 'Portal öffnen'}</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                <polyline points="15 3 21 3 21 9"/>
+                                <line x1="10" x2="21" y1="14" y2="3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+            `;
+        }).join('');
+    }
+
+    function setPortalCategory(catKey) {
+        selectedPortalCategory = catKey;
+        // Update active chip style
+        const chips = document.querySelectorAll('.sources-cat-chip');
+        chips.forEach(chip => {
+            if (chip.getAttribute('data-cat') === catKey) {
+                chip.classList.add('active');
+            } else {
+                chip.classList.remove('active');
+            }
+        });
+        renderPortalCards();
+    }
+
+    function filterPortals(query) {
+        portalSearchQuery = (query || '').trim().toLowerCase();
+        renderPortalCards();
+    }
+
     return {
         init: init,
         setAllAccordions: setAllAccordions,
         jumpToSection: jumpToSection,
         clearSearch: clearSearch,
-        setLangFilter: setLangFilter
+        setLangFilter: setLangFilter,
+        renderInLibrary: renderInLibrary,
+        setPortalCategory: setPortalCategory,
+        filterPortals: filterPortals
     };
 })();

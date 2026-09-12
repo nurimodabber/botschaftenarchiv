@@ -42,7 +42,7 @@
     <meta name="twitter:description" content="Digitale Forschungsbibliothek mit 918 Botschaften des Universalen Hauses der Gerechtigkeit, Schriften und Büchern im offiziellen Satzspiegel.">
     <meta name="twitter:image" content="https://bahaibibliothek.vercel.app/assets/icons/og-image.png">
 
-    <link rel="stylesheet" href="css/styles.css?v=6.2">
+    <link rel="stylesheet" href="css/styles.css?v=6.3">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <!-- Vercel Web Analytics & Speed Insights -->
@@ -376,20 +376,6 @@
 
                 <!-- DIE UNIFIED COMMAND & MASTER-SEARCH SURFACE -->
                 <div class="library-command-surface">
-                    
-                    <!-- Aktiver Bereich Banner & Quellen-Verzeichnis -->
-                    <div class="library-realm-header" id="library-realm-header">
-                        <div class="realm-lead-badge">
-                            <span class="realm-lead-dot"></span>
-                            <span class="realm-lead-title" id="realm-lead-title" data-i18n="library.realm_all">Gesamtes Archiv</span>
-                            <span class="realm-lead-sep">•</span>
-                            <span class="realm-lead-subtitle" id="realm-lead-subtitle" data-i18n="library.realm_all_sub">Dokumente, Schriften, Bücher und thematische Sammlungen</span>
-                        </div>
-                        <button type="button" class="realm-sources-btn" onclick="window.switchView('sources')" title="Offizielle Bahá'í-Quellen &amp; Repositorien aufrufen">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"/></svg>
-                            <span data-i18n="nav.sources">Quellen &amp; Repositorien</span>
-                        </button>
-                    </div>
 
                     <!-- 1. Master-Suchleiste (Apex: Omnisearch über alle Werke mit Filter-Button, ⌘K & Clear) -->
                     <div class="command-search-row master-search-row">
@@ -418,7 +404,7 @@
                     <!-- Omnisearch 2.0 Statistik- & Säulen-Leiste (bei aktiver Suche) -->
                     <div id="search-stats-bar" class="search-stats-bar" style="display: none;"></div>
 
-                    <!-- 2. Die Hauptbereiche: Elegante Segmentleiste (Alle, Schriften & Bücher, Botschaften, Kompilationen, Ruhi) -->
+                    <!-- 2. Die Hauptbereiche: Elegante zentrierte Segmentleiste (Alle, Schriften & Bücher, Botschaften, Kompilationen, Ruhi, Quellen) -->
                     <div class="library-segmented-bar" id="library-segmented-bar" role="tablist" aria-label="Bereichs-Filter">
                         <button class="seg-pill active" data-pillar="all" role="tab" aria-selected="true" title="Gesamtes Archiv durchsuchen">
                             <span class="seg-pill-label">Alle Werke</span>
@@ -438,6 +424,10 @@
                         <button class="seg-pill" data-pillar="ruhi" role="tab" aria-selected="false" title="Ruhi-Institut Kursmaterialien">
                             <span class="seg-dot ruhi"></span>
                             <span class="seg-pill-label">Ruhi-Bücher</span>
+                        </button>
+                        <button class="seg-pill" data-pillar="sources" role="tab" aria-selected="false" title="Offizielle Bahá'í-Quellen, Repositorien &amp; Portale">
+                            <span class="seg-dot sources"></span>
+                            <span class="seg-pill-label" data-i18n="nav.sources">Quellen &amp; Portale</span>
                         </button>
                     </div>
 
@@ -546,6 +536,7 @@
             </div>
 
             <div id="library-results" class="results-grid"></div>
+            <div id="library-sources-panel" class="library-sources-panel" style="display: none;"></div>
             <div class="load-more-container" id="library-load-more" style="display: none;">
                 <button id="library-load-more-btn" class="btn-secondary" data-i18n="results.load_more">Mehr Botschaften anzeigen</button>
             </div>
@@ -746,9 +737,9 @@
     <script src="js/timeline_data.js?v=5.1"></script>
     <script src="js/timeline.js?v=5.1"></script>
     <script src="js/books.js?v=5.1"></script>
-    <script src="js/sources.js?v=5.1"></script>
+    <script src="js/sources.js?v=6.3"></script>
     <script src="js/account.js?v=6.1"></script>
-    <script src="js/app.js?v=6.2"></script>
+    <script src="js/app.js?v=6.3"></script>
 </body>
 </html>
 
