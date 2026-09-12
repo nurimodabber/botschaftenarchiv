@@ -330,12 +330,6 @@ function setupAppearance() {
         });
     });
 
-    // Swatches (3 Standardempfehlungen)
-    document.querySelectorAll('.accent-swatch:not(.accent-swatch-custom)').forEach(sw => {
-        sw.addEventListener('click', () => {
-            if (sw.dataset.color) applyAccentColor(sw.dataset.color);
-        });
-    });
 
     // Color conversion helpers for Pop-up Farbrad
     function hslToRgb(h, s, l) {
@@ -385,7 +379,7 @@ function setupAppearance() {
         return { h: Math.round(h), s: Math.round(s * 100) / 100, l: Math.round(l * 100) / 100 };
     }
 
-    // 4. Interaktives Pop-up Farbrad für Akzentfarbe
+    // 4. Interaktives Farbrad-Studio für Akzentfarbe (Retina-optimiert, Apple-Design)
     function initColorWheel() {
         const canvas = document.getElementById('color-wheel-canvas');
         const popover = document.getElementById('accent-color-wheel-popover');
@@ -401,13 +395,26 @@ function setupAppearance() {
 
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
-        const width = canvas.width;
-        const height = canvas.height;
+
+        // Retina / High-DPI Support for crisp rendering on Mac & iPhone
+        const dpr = Math.min(window.devicePixelRatio || 1, 3);
+        const cssSize = 170;
+        const width = cssSize * dpr;
+        const height = cssSize * dpr;
+        canvas.width = width;
+        canvas.height = height;
+        canvas.style.width = `${cssSize}px`;
+        canvas.style.height = `${cssSize}px`;
+
         const cx = width / 2;
         const cy = height / 2;
-        const radius = cx - 4;
+        const radius = cx - (2 * dpr);
 
-        // Farbrad einmalig auf das Canvas zeichnen
+        const cssRadius = (cssSize / 2) - 2;
+        const cssCx = cssSize / 2;
+        const cssCy = cssSize / 2;
+
+        // Farbrad einmalig auf das Canvas zeichnen mit Kantenglättung (Anti-Aliasing)
         const imgData = ctx.createImageData(width, height);
         const d = imgData.data;
 
@@ -421,12 +428,13 @@ function setupAppearance() {
                 if (dist <= radius) {
                     let angle = Math.atan2(dy, dx) * (180 / Math.PI);
                     if (angle < 0) angle += 360;
-                    const sat = dist / radius;
+                    const sat = Math.min(1, dist / radius);
                     const rgb = hslToRgb(angle, sat, 0.5);
                     d[idx] = rgb[0];
                     d[idx + 1] = rgb[1];
                     d[idx + 2] = rgb[2];
-                    d[idx + 3] = (radius - dist < 1.2) ? Math.round((radius - dist) * 255) : 255;
+                    const edgeDist = radius - dist;
+                    d[idx + 3] = edgeDist < (1.5 * dpr) ? Math.round((edgeDist / (1.5 * dpr)) * 255) : 255;
                 } else {
                     d[idx + 3] = 0;
                 }
@@ -442,11 +450,24 @@ function setupAppearance() {
         function updateCrosshair(h, s) {
             if (!crosshair) return;
             const angleRad = h * (Math.PI / 180);
-            const dist = s * radius;
-            const px = cx + Math.cos(angleRad) * dist;
-            const py = cy + Math.sin(angleRad) * dist;
+            const dist = Math.min(1, s) * cssRadius;
+            const px = cssCx + Math.cos(angleRad) * dist;
+            const py = cssCy + Math.sin(angleRad) * dist;
             crosshair.style.left = `${px}px`;
             crosshair.style.top = `${py}px`;
+            const curHex = hslToHex(h, s, currentLightness);
+            crosshair.style.backgroundColor = curHex;
+        }
+
+        function updateSliderTrack(h, s) {
+            if (!slider) return;
+            const pureHex = hslToHex(h, s, 0.5);
+            slider.style.background = `linear-gradient(to right, #050505 0%, ${pureHex} 50%, #FAFAFA 100%)`;
+        }
+
+        function updateApplyBtnContrast(l) {
+            if (!applyBtn) return;
+            applyBtn.style.color = l > 0.55 ? '#111315' : '#FFFFFF';
         }
 
         function syncFromHex(hex) {
@@ -455,6 +476,8 @@ function setupAppearance() {
             currentSat = hsl.s;
             currentLightness = Math.max(0.18, Math.min(0.82, hsl.l));
             updateCrosshair(currentHue, currentSat);
+            updateSliderTrack(currentHue, currentSat);
+            updateApplyBtnContrast(currentLightness);
             if (slider) slider.value = Math.round(currentLightness * 100);
             if (previewBox) previewBox.style.backgroundColor = hex;
             if (hexInput && document.activeElement !== hexInput) hexInput.value = hex.toUpperCase();
@@ -462,28 +485,29 @@ function setupAppearance() {
 
         function handlePointer(e) {
             const rect = canvas.getBoundingClientRect();
-            const scaleX = width / rect.width;
-            const scaleY = height / rect.height;
-            const px = (e.clientX - rect.left) * scaleX;
-            const py = (e.clientY - rect.top) * scaleY;
-            const dx = px - cx;
-            const dy = py - cy;
-            const dist = Math.min(radius, Math.sqrt(dx * dx + dy * dy));
+            const px = e.clientX - rect.left;
+            const py = e.clientY - rect.top;
+            const dx = px - cssCx;
+            const dy = py - cssCy;
+            const dist = Math.min(cssRadius, Math.sqrt(dx * dx + dy * dy));
             let angle = Math.atan2(dy, dx) * (180 / Math.PI);
             if (angle < 0) angle += 360;
 
             currentHue = angle;
-            currentSat = dist / radius;
+            currentSat = dist / cssRadius;
             updateCrosshair(currentHue, currentSat);
+            updateSliderTrack(currentHue, currentSat);
 
             const hex = hslToHex(currentHue, currentSat, currentLightness);
             if (previewBox) previewBox.style.backgroundColor = hex;
             if (hexInput && document.activeElement !== hexInput) hexInput.value = hex.toUpperCase();
+            updateApplyBtnContrast(currentLightness);
             applyAccentColor(hex);
         }
 
         canvas.addEventListener('pointerdown', (e) => {
             isDragging = true;
+            crosshair.classList.add('is-dragging');
             canvas.setPointerCapture(e.pointerId);
             handlePointer(e);
         });
@@ -495,19 +519,23 @@ function setupAppearance() {
 
         canvas.addEventListener('pointerup', (e) => {
             isDragging = false;
+            crosshair.classList.remove('is-dragging');
             try { canvas.releasePointerCapture(e.pointerId); } catch (err) {}
         });
 
         canvas.addEventListener('pointercancel', () => {
             isDragging = false;
+            crosshair.classList.remove('is-dragging');
         });
 
         if (slider) {
             slider.addEventListener('input', (e) => {
                 currentLightness = parseInt(e.target.value, 10) / 100;
+                updateCrosshair(currentHue, currentSat);
                 const hex = hslToHex(currentHue, currentSat, currentLightness);
                 if (previewBox) previewBox.style.backgroundColor = hex;
                 if (hexInput && document.activeElement !== hexInput) hexInput.value = hex.toUpperCase();
+                updateApplyBtnContrast(currentLightness);
                 applyAccentColor(hex);
             });
         }
@@ -565,8 +593,22 @@ function setupAppearance() {
             });
         }
 
+        // Standard-Swatches: Schließen das Farbrad automatisch beim Klick auf eine vordefinierte Farbe
+        document.querySelectorAll('.accent-swatch:not(.accent-swatch-custom)').forEach(sw => {
+            sw.addEventListener('click', () => {
+                if (sw.dataset.color) {
+                    applyAccentColor(sw.dataset.color);
+                    if (!popover.hidden) {
+                        popover.hidden = true;
+                        customSwatch.setAttribute('aria-expanded', 'false');
+                    }
+                }
+            });
+        });
+
+        // Klick außerhalb schließt das Farbrad nur auf Desktop (auf Mobile ist es ein In-Flow-Element)
         document.addEventListener('click', (e) => {
-            if (!popover.hidden && !popover.contains(e.target) && !customSwatch.contains(e.target)) {
+            if (window.innerWidth > 768 && !popover.hidden && !popover.contains(e.target) && !customSwatch.contains(e.target)) {
                 popover.hidden = true;
                 customSwatch.setAttribute('aria-expanded', 'false');
             }
