@@ -43,7 +43,7 @@ jobs:
             git add data/ documents/
             git commit -m "chore(sync): automatische Aktualisierung neuer Botschaften und Dokumente von Bahá'í Reference Library & bibliothek.bahai.de [skip ci]"
             git push origin main
-            echo "Erfolgreich auf origin main gepusht. Vercel & Netlify Deployments wurden ausgelöst."
+            echo "Erfolgreich auf origin main gepusht. Vercel Deployment wurde ausgelöst."
           else
             echo "Keine neuen Botschaften gefunden. Das Archiv ist aktuell."
           fi

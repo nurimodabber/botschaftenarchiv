@@ -29,7 +29,6 @@ INDEX_FILE = DATA_DIR / "index.json"
 TEXTS_DIR = DATA_DIR / "texts"
 REPO_DOCS_DIR = REPO_DIR / "documents"
 WORKSPACE_DOCS_DIR = REPO_DIR.parent / "documents"
-NETLIFY_DOCS_DIR = Path.home() / "Desktop/bahai_botschaften_netlify_deploy/documents"
 
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 
@@ -60,18 +59,12 @@ def save_document_to_destinations(relative_subpath: Path, content_bytes: bytes) 
     Saves document binary content (PDF/DOCX) to:
     1. REPO_DOCS_DIR / relative_subpath (inside git repo)
     2. WORKSPACE_DOCS_DIR / relative_subpath (user's personal OneDrive folder!)
-    3. NETLIFY_DOCS_DIR / relative_subpath (if deploy directory exists)
     Returns web relative path e.g. '../documents/2026/filename.pdf'
     """
     targets = [REPO_DOCS_DIR / relative_subpath]
     try:
         if WORKSPACE_DOCS_DIR.exists() and WORKSPACE_DOCS_DIR.resolve() != REPO_DOCS_DIR.resolve():
             targets.append(WORKSPACE_DOCS_DIR / relative_subpath)
-    except Exception:
-        pass
-    try:
-        if NETLIFY_DOCS_DIR.exists():
-            targets.append(NETLIFY_DOCS_DIR / relative_subpath)
     except Exception:
         pass
 

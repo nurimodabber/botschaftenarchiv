@@ -10,7 +10,6 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 WORKSPACE_DIR="$(cd "$REPO_DIR/.." && pwd)"
-DEPLOY_DIR="$HOME/Desktop/bahai_botschaften_netlify_deploy"
 
 echo "=== [$(date '+%Y-%m-%d %H:%M:%S')] Starte lokalen Botschaften-Sync ==="
 
@@ -30,12 +29,6 @@ python3 "$REPO_DIR/scripts/sync_messages.py"
 if [ -d "$REPO_DIR/documents" ] && [ "$REPO_DIR/documents" != "$WORKSPACE_DIR/documents" ]; then
     echo "📁 Synchronisiere Dokumente in den OneDrive-Ordner..."
     rsync -av --update "$REPO_DIR/documents/" "$WORKSPACE_DIR/documents/"
-fi
-
-# 4. Optional: Deployment-Ordner auf dem Schreibtisch aktualisieren
-if [ -d "$DEPLOY_DIR/documents" ]; then
-    rsync -av --update "$REPO_DIR/documents/" "$DEPLOY_DIR/documents/"
-    cp -f "$REPO_DIR/data/index.json" "$DEPLOY_DIR/data/index.json" 2>/dev/null || true
 fi
 
 # 5. Falls lokal neue Dateien erzeugt wurden, committen und pushen

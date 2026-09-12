@@ -32,7 +32,6 @@ INDEX_FILE = DATA_DIR / "index.json"
 TEXTS_DIR = DATA_DIR / "texts"
 DOCS_DIR = REPO_DIR / "documents"
 ONEDRIVE_DOCS_DIR = REPO_DIR.parent / "documents"
-DESKTOP_DOCS_DIR = Path.home() / "Desktop/bahai_botschaften_netlify_deploy/documents"
 
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
 
@@ -115,8 +114,6 @@ def save_to_destinations(rel_subpath: Path, content_bytes: bytes) -> list:
         DOCS_DIR / rel_subpath,
         ONEDRIVE_DOCS_DIR / rel_subpath
     ]
-    if DESKTOP_DOCS_DIR.parent.exists():
-        targets.append(DESKTOP_DOCS_DIR / rel_subpath)
 
     saved_paths = []
     for t in targets:

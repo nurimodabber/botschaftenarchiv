@@ -30,7 +30,6 @@ INDEX_FILE = DATA_DIR / "index.json"
 TEXTS_DIR = DATA_DIR / "texts"
 REPO_DOCS_DIR = REPO_DIR / "documents" / "Buecher"
 WORKSPACE_DOCS_DIR = REPO_DIR.parent / "documents" / "Buecher"
-NETLIFY_DOCS_DIR = Path.home() / "Desktop/bahai_botschaften_netlify_deploy/documents/Buecher"
 
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 
@@ -179,8 +178,6 @@ def save_pdf_to_destinations(folder_name: str, filename: str, content_bytes: byt
         REPO_DOCS_DIR.parent / rel_subpath,
         WORKSPACE_DOCS_DIR.parent / rel_subpath
     ]
-    if NETLIFY_DOCS_DIR.parent.exists():
-        targets.append(NETLIFY_DOCS_DIR.parent / rel_subpath)
 
     for target in targets:
         try:
