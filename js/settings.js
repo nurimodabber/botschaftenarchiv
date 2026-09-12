@@ -291,6 +291,12 @@ function setupAppearance() {
                 window.switchView('library');
             }
         }
+
+        if (typeof window._drawColorWheel === 'function') {
+            requestAnimationFrame(() => {
+                window._drawColorWheel();
+            });
+        }
     }
 
     syncSettingsContainer();
@@ -401,46 +407,71 @@ function setupAppearance() {
         const cssSize = 170;
         const width = cssSize * dpr;
         const height = cssSize * dpr;
-        canvas.width = width;
-        canvas.height = height;
-        canvas.style.width = `${cssSize}px`;
-        canvas.style.height = `${cssSize}px`;
-
-        const cx = width / 2;
-        const cy = height / 2;
-        const radius = cx - (2 * dpr);
 
         const cssRadius = (cssSize / 2) - 2;
         const cssCx = cssSize / 2;
         const cssCy = cssSize / 2;
 
-        // Farbrad einmalig auf das Canvas zeichnen mit Kantenglättung (Anti-Aliasing)
-        const imgData = ctx.createImageData(width, height);
-        const d = imgData.data;
+        function drawWheel() {
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
 
-        for (let y = 0; y < height; y++) {
-            for (let x = 0; x < width; x++) {
-                const dx = x - cx;
-                const dy = y - cy;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                const idx = (y * width + x) * 4;
+            if (canvas.width !== width || canvas.height !== height) {
+                canvas.width = width;
+                canvas.height = height;
+            }
+            canvas.style.width = `${cssSize}px`;
+            canvas.style.height = `${cssSize}px`;
 
-                if (dist <= radius) {
-                    let angle = Math.atan2(dy, dx) * (180 / Math.PI);
-                    if (angle < 0) angle += 360;
-                    const sat = Math.min(1, dist / radius);
-                    const rgb = hslToRgb(angle, sat, 0.5);
-                    d[idx] = rgb[0];
-                    d[idx + 1] = rgb[1];
-                    d[idx + 2] = rgb[2];
-                    const edgeDist = radius - dist;
-                    d[idx + 3] = edgeDist < (1.5 * dpr) ? Math.round((edgeDist / (1.5 * dpr)) * 255) : 255;
-                } else {
-                    d[idx + 3] = 0;
+            const cx = width / 2;
+            const cy = height / 2;
+            const radius = cx - (1 * dpr);
+
+            ctx.clearRect(0, 0, width, height);
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+            ctx.clip();
+
+            // 1. Conic gradient for hue (from 0 rad = 3 o'clock, matching atan2)
+            if (typeof ctx.createConicGradient === 'function') {
+                const conic = ctx.createConicGradient(0, cx, cy);
+                conic.addColorStop(0, '#FF0000');
+                conic.addColorStop(1 / 6, '#FFFF00');
+                conic.addColorStop(2 / 6, '#00FF00');
+                conic.addColorStop(3 / 6, '#00FFFF');
+                conic.addColorStop(4 / 6, '#0000FF');
+                conic.addColorStop(5 / 6, '#FF00FF');
+                conic.addColorStop(1, '#FF0000');
+                ctx.fillStyle = conic;
+                ctx.fillRect(0, 0, width, height);
+            } else {
+                for (let a = 0; a < 360; a += 1) {
+                    const startRad = (a - 0.5) * (Math.PI / 180);
+                    const endRad = (a + 1.5) * (Math.PI / 180);
+                    ctx.beginPath();
+                    ctx.moveTo(cx, cy);
+                    ctx.arc(cx, cy, radius, startRad, endRad);
+                    ctx.closePath();
+                    ctx.fillStyle = `hsl(${a}, 100%, 50%)`;
+                    ctx.fill();
                 }
             }
+
+            // 2. Radial gradient for saturation (pure white at center, transparent at perimeter)
+            const radial = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
+            radial.addColorStop(0, 'rgba(255, 255, 255, 1)');
+            radial.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            ctx.fillStyle = radial;
+            ctx.fillRect(0, 0, width, height);
+
+            ctx.restore();
         }
-        ctx.putImageData(imgData, 0, 0);
+
+        window._drawColorWheel = drawWheel;
+        drawWheel();
 
         let currentHue = 42;
         let currentSat = 0.55;
@@ -568,8 +599,11 @@ function setupAppearance() {
             popover.hidden = isOpen;
             customSwatch.setAttribute('aria-expanded', String(!isOpen));
             if (!isOpen) {
-                const cur = safeGetStorage('cosmos_accent_color', defaultColor);
-                syncFromHex(cur);
+                requestAnimationFrame(() => {
+                    drawWheel();
+                    const cur = safeGetStorage('cosmos_accent_color', defaultColor);
+                    syncFromHex(cur);
+                });
             }
         });
 
