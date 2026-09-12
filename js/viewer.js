@@ -65,10 +65,7 @@ window.initViewer = function() {
     if (copyBtn) {
         copyBtn.addEventListener('click', () => {
             if (!currentViewerDoc) return;
-            let textToCopy = currentViewerDoc.text;
-            if (currentViewerMode === 'split' && window.currentSplitBilingualText) {
-                textToCopy = window.currentSplitBilingualText;
-            }
+            const textToCopy = currentViewerDoc.text;
             if (!textToCopy) return;
             navigator.clipboard.writeText(textToCopy).then(() => {
                 const origSvg = copyBtn.innerHTML;
@@ -83,64 +80,45 @@ window.initViewer = function() {
     }
 
     // 4. Modus-Umschaltung: Fließtext vs. Original-PDF
-    if (btnModeText) {
-        btnModeText.addEventListener('click', () => {
-            if (currentViewerDoc) setViewerMode('text');
-        });
-    }
     if (btnModePdf) {
-        btnModePdf.addEventListener('click', () => {
-            if (currentViewerDoc) setViewerMode('pdf');
-        });
+        btnModePdf.addEventListener('click', () => setViewerMode('pdf'));
     }
     if (btnModeWeb) {
-        btnModeWeb.addEventListener('click', () => {
-            if (currentViewerDoc) setViewerMode('web');
-        });
+        btnModeWeb.addEventListener('click', () => setViewerMode('web'));
+    }
+    if (btnModeText) {
+        btnModeText.addEventListener('click', () => setViewerMode('text'));
     }
 
-    // 5. Download- & Export-Dropdown Umschaltung
+    // 5. Download- & Export-Dropdown öffnen/schließen
+    const exportWrapper = document.getElementById('viewer-export-dropdown-wrapper');
+
     if (exportBtn && exportMenu) {
         exportBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            const isCurrentlyHidden = exportMenu.hidden;
-            exportMenu.hidden = !isCurrentlyHidden;
-            exportBtn.setAttribute('aria-expanded', isCurrentlyHidden ? 'true' : 'false');
+            const isExpanded = exportBtn.getAttribute('aria-expanded') === 'true';
+            exportMenu.hidden = isExpanded;
+            exportBtn.setAttribute('aria-expanded', !isExpanded);
         });
 
         document.addEventListener('click', (e) => {
-            if (!exportMenu.hidden && !exportBtn.contains(e.target) && !exportMenu.contains(e.target)) {
-                exportMenu.hidden = true;
-                exportBtn.setAttribute('aria-expanded', 'false');
-            }
-        });
-
-        exportMenu.addEventListener('click', (e) => {
-            if (e.target.closest('a')) {
+            if (exportWrapper && !exportWrapper.contains(e.target)) {
                 exportMenu.hidden = true;
                 exportBtn.setAttribute('aria-expanded', 'false');
             }
         });
     }
 
-    // 6. Sprach-Umschaltung: DE vs. EN vs. DE · EN (Gegenüberstellung)
-    const btnLangSplit = document.getElementById('btn-viewer-lang-split');
+    // 6. Sprach-Umschaltung: DE vs. EN
     if (btnLangDe) {
         btnLangDe.addEventListener('click', () => {
             if (!currentViewerDoc) return;
             const isDe = (currentViewerDoc.language || '').toLowerCase() === 'deutsch' || (currentViewerDoc.language || '').toLowerCase() === 'german';
-            if (currentViewerMode === 'split') {
-                if (isDe) {
-                    setViewerMode('text');
-                } else if (currentViewerDoc.translations && currentViewerDoc.translations.de) {
-                    window.openDocument(currentViewerDoc.translations.de, null, 'text', 'de');
-                } else {
-                    setViewerMode('text');
-                }
-                return;
-            }
-            if (!isDe && currentViewerDoc.translations && currentViewerDoc.translations.de) {
-                window.openDocument(currentViewerDoc.translations.de, null, currentViewerMode, 'de');
+            if (isDe) return;
+            const deId = getCounterpartDocId(currentViewerDoc, 'de');
+            if (deId) {
+                const curPara = getCurrentVisibleParagraph();
+                window.openDocument(deId, curPara, currentViewerMode, 'de');
             }
         });
     }
@@ -148,25 +126,12 @@ window.initViewer = function() {
         btnLangEn.addEventListener('click', () => {
             if (!currentViewerDoc) return;
             const isDe = (currentViewerDoc.language || '').toLowerCase() === 'deutsch' || (currentViewerDoc.language || '').toLowerCase() === 'german';
-            if (currentViewerMode === 'split') {
-                if (!isDe) {
-                    setViewerMode('text');
-                } else if (currentViewerDoc.translations && currentViewerDoc.translations.en) {
-                    window.openDocument(currentViewerDoc.translations.en, null, 'text', 'en');
-                } else {
-                    setViewerMode('text');
-                }
-                return;
+            if (!isDe) return;
+            const enId = getCounterpartDocId(currentViewerDoc, 'en');
+            if (enId) {
+                const curPara = getCurrentVisibleParagraph();
+                window.openDocument(enId, curPara, currentViewerMode, 'en');
             }
-            if (isDe && currentViewerDoc.translations && currentViewerDoc.translations.en) {
-                window.openDocument(currentViewerDoc.translations.en, null, currentViewerMode, 'en');
-            }
-        });
-    }
-    if (btnLangSplit) {
-        btnLangSplit.addEventListener('click', () => {
-            if (!currentViewerDoc) return;
-            setViewerMode('split');
         });
     }
 
@@ -446,6 +411,39 @@ function getDocOriginalFormat(doc) {
 }
 window.getDocOriginalFormat = getDocOriginalFormat;
 
+function getCounterpartDocId(doc, targetLang) {
+    if (!doc) return null;
+    if (doc.translations && doc.translations[targetLang]) {
+        return doc.translations[targetLang];
+    }
+    if (doc.groupId && window.state && Array.isArray(window.state.documents)) {
+        const counterpart = window.state.documents.find(d => {
+            if (d.groupId !== doc.groupId) return false;
+            const l = (d.language || '').toLowerCase();
+            return targetLang === 'de' ? (l === 'deutsch' || l === 'german') : (l === 'english');
+        });
+        if (counterpart) return counterpart.id;
+    }
+    return null;
+}
+window.getCounterpartDocId = getCounterpartDocId;
+
+function getCurrentVisibleParagraph() {
+    const bodyEl = document.getElementById('viewer-body');
+    if (!bodyEl) return null;
+    const paras = bodyEl.querySelectorAll('.viewer-paragraph[data-pnum]');
+    const bodyTop = bodyEl.getBoundingClientRect().top;
+    for (const p of paras) {
+        const rect = p.getBoundingClientRect();
+        if (rect.bottom > bodyTop + 60) {
+            const pNum = parseInt(p.getAttribute('data-pnum'), 10);
+            if (!isNaN(pNum)) return pNum;
+        }
+    }
+    return null;
+}
+window.getCurrentVisibleParagraph = getCurrentVisibleParagraph;
+
 window.openDocument = function(id, targetParagraph, preferredMode, preferredLang) {
     if (!id) return;
     if (!window.state || !window.state.documents || window.state.documents.length === 0) {
@@ -597,29 +595,67 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
         modePill.style.display = 'inline-flex';
     }
 
-    // Sprach-Pill (DE / EN / Split)
+    // Standard-Leseformat gemaess Benutzereinstellung (Original-PDF, Fliesstext, Webseite, Automatisch)
+    let targetMode = (preferredMode === 'split') ? 'text' : preferredMode;
+    const isMobile = (window.innerWidth <= 768) || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    if (!targetMode) {
+        if (targetParagraph) {
+            targetMode = 'text';
+        } else if (isMobile) {
+            // Auf Mobilgeraeten: IMMER Fliesstext als Standard, da iOS Safari & Android Chrome keine PDFs in Iframes unterstuetzen
+            targetMode = 'text';
+        } else {
+            const defaultFmt = getStoredDefaultViewerMode();
+            if (defaultFmt === 'pdf') {
+                if (pdfPath) {
+                    targetMode = 'pdf';
+                } else if (doc.sourceUrl) {
+                    targetMode = 'web';
+                } else {
+                    targetMode = 'text';
+                }
+            } else if (defaultFmt === 'text') {
+                targetMode = 'text';
+            } else if (defaultFmt === 'web') {
+                if (doc.sourceUrl) {
+                    targetMode = 'web';
+                } else if (pdfPath) {
+                    targetMode = 'pdf';
+                } else {
+                    targetMode = 'text';
+                }
+            } else if (defaultFmt === 'auto') {
+                if (origFmt === 'PDF' && pdfPath) {
+                    targetMode = 'pdf';
+                } else if (origFmt === 'Webseite') {
+                    if (doc.sourceUrl && doc.sourceUrl.includes('bibliothek.bahai.de')) {
+                        targetMode = 'web';
+                    } else if (pdfPath) {
+                        targetMode = 'pdf';
+                    } else {
+                        targetMode = 'text';
+                    }
+                } else if (pdfPath) {
+                    targetMode = 'pdf';
+                } else {
+                    targetMode = 'text';
+                }
+            } else {
+                targetMode = pdfPath ? 'pdf' : 'text';
+            }
+        }
+    }
+
+    // Sprach-Pill (DE / EN)
     const hasBothLangs = (doc.availableLanguages && doc.availableLanguages.includes('de') && doc.availableLanguages.includes('en')) ||
                          (doc.translations && doc.translations.de && doc.translations.en);
     if (langPill) {
         if (hasBothLangs) {
             langPill.style.display = 'inline-flex';
             const isDe = (doc.language || '').toLowerCase() === 'deutsch' || (doc.language || '').toLowerCase() === 'german';
-            const btnLangSplit = document.getElementById('btn-viewer-lang-split');
-            if (targetMode === 'split') {
-                if (btnLangDe) btnLangDe.classList.remove('active');
-                if (btnLangEn) btnLangEn.classList.remove('active');
-                if (btnLangSplit) {
-                    btnLangSplit.style.display = 'inline-flex';
-                    btnLangSplit.classList.add('active');
-                }
-            } else {
-                if (btnLangDe) btnLangDe.classList.toggle('active', isDe);
-                if (btnLangEn) btnLangEn.classList.toggle('active', !isDe);
-                if (btnLangSplit) {
-                    btnLangSplit.style.display = 'inline-flex';
-                    btnLangSplit.classList.remove('active');
-                }
-            }
+            if (btnLangDe) btnLangDe.classList.toggle('active', isDe);
+            if (btnLangEn) btnLangEn.classList.toggle('active', !isDe);
         } else {
             langPill.style.display = 'none';
         }
@@ -695,58 +731,6 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
     // Lesezeichen-Zustand aktualisieren
     updateBookmarkBtnState(doc.id);
 
-    // Standard-Leseformat gemaess Benutzereinstellung (Original-PDF, Fliesstext, Webseite, Automatisch)
-    let targetMode = preferredMode;
-    const isMobile = (window.innerWidth <= 768) || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-    if (!targetMode) {
-        if (targetParagraph) {
-            targetMode = 'text';
-        } else if (isMobile) {
-            // Auf Mobilgeraeten: IMMER Fliesstext als Standard, da iOS Safari & Android Chrome keine PDFs in Iframes unterstuetzen
-            targetMode = 'text';
-        } else {
-            const defaultFmt = getStoredDefaultViewerMode();
-            if (defaultFmt === 'pdf') {
-                if (pdfPath) {
-                    targetMode = 'pdf';
-                } else if (doc.sourceUrl) {
-                    targetMode = 'web';
-                } else {
-                    targetMode = 'text';
-                }
-            } else if (defaultFmt === 'text') {
-                targetMode = 'text';
-            } else if (defaultFmt === 'web') {
-                if (doc.sourceUrl) {
-                    targetMode = 'web';
-                } else if (pdfPath) {
-                    targetMode = 'pdf';
-                } else {
-                    targetMode = 'text';
-                }
-            } else if (defaultFmt === 'auto') {
-                if (origFmt === 'PDF' && pdfPath) {
-                    targetMode = 'pdf';
-                } else if (origFmt === 'Webseite') {
-                    if (doc.sourceUrl && doc.sourceUrl.includes('bibliothek.bahai.de')) {
-                        targetMode = 'web';
-                    } else if (pdfPath) {
-                        targetMode = 'pdf';
-                    } else {
-                        targetMode = 'text';
-                    }
-                } else if (pdfPath) {
-                    targetMode = 'pdf';
-                } else {
-                    targetMode = 'text';
-                }
-            } else {
-                targetMode = pdfPath ? 'pdf' : 'text';
-            }
-        }
-    }
-
     setViewerMode(targetMode, targetParagraph);
 
     // Modal anzeigen & Header zuruecksetzen
@@ -767,6 +751,7 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
 window.openViewer = window.openDocument;
 
 function setViewerMode(mode, targetParagraph) {
+    if (mode === 'split') mode = 'text';
     currentViewerMode = mode;
     const modal = document.getElementById('document-viewer');
     const bodyEl = document.getElementById('viewer-body');
@@ -777,7 +762,6 @@ function setViewerMode(mode, targetParagraph) {
     const btnModeText = document.getElementById('btn-mode-text');
     const btnLangDe = document.getElementById('btn-viewer-lang-de');
     const btnLangEn = document.getElementById('btn-viewer-lang-en');
-    const btnLangSplit = document.getElementById('btn-viewer-lang-split');
     const copyBtn = document.getElementById('viewer-copy');
 
     if (btnModePdf) btnModePdf.classList.toggle('active', mode === 'pdf');
@@ -785,18 +769,17 @@ function setViewerMode(mode, targetParagraph) {
     if (btnModeEpub) btnModeEpub.classList.toggle('active', mode === 'epub');
     if (btnModeText) btnModeText.classList.toggle('active', mode === 'text');
 
-    if (btnLangSplit) btnLangSplit.classList.toggle('active', mode === 'split');
     if (btnLangDe) {
         const isDe = currentViewerDoc && ((currentViewerDoc.language || '').toLowerCase() === 'deutsch' || (currentViewerDoc.language || '').toLowerCase() === 'german');
-        btnLangDe.classList.toggle('active', mode !== 'split' && isDe);
+        btnLangDe.classList.toggle('active', isDe);
     }
     if (btnLangEn) {
         const isDe = currentViewerDoc && ((currentViewerDoc.language || '').toLowerCase() === 'deutsch' || (currentViewerDoc.language || '').toLowerCase() === 'german');
-        btnLangEn.classList.toggle('active', mode !== 'split' && !isDe);
+        btnLangEn.classList.toggle('active', !isDe);
     }
     
-    if (modal) modal.classList.toggle('modal-wide', mode === 'pdf' || mode === 'web' || mode === 'split');
-    if (copyBtn) copyBtn.style.display = (mode === 'text' || mode === 'split') ? '' : 'none';
+    if (modal) modal.classList.toggle('modal-wide', mode === 'pdf' || mode === 'web');
+    if (copyBtn) copyBtn.style.display = (mode === 'text') ? '' : 'none';
 
     const pdfPath = resolvePdfPath(currentViewerDoc);
     const epubPath = resolveEpubPath(currentViewerDoc);
@@ -820,60 +803,58 @@ function setViewerMode(mode, targetParagraph) {
                             <div class="mobile-pdf-actions">
                                 <a href="${pdfPath}" target="_blank" rel="noopener" class="mobile-pdf-btn primary">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                                    <span>PDF im Vollbild öffnen ↗</span>
+                                    In PDF-Viewer öffnen
                                 </a>
-                                <button class="mobile-pdf-btn secondary" onclick="setViewerMode('text')">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="21" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="21" y1="18" x2="3" y2="18"/></svg>
-                                    <span>Als Fließtext lesen</span>
-                                </button>
                                 <a href="${pdfPath}" download class="mobile-pdf-btn secondary">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                                    <span>Herunterladen</span>
+                                    PDF herunterladen
                                 </a>
+                                <button onclick="setViewerMode('text')" class="mobile-pdf-btn text-fallback">
+                                    Stattdessen als Fließtext lesen
+                                </button>
                             </div>
                         </div>
                     </div>
                 `;
             } else {
                 bodyEl.innerHTML = `
-                    <div class="ruhi-pdf-view-wrapper">
-                        <iframe src="${pdfPath}#toolbar=1&navpanes=0" class="viewer-pdf-frame" title="${escapeHtml(currentViewerDoc.title || 'Original-PDF')}"></iframe>
+                    <div class="pdf-viewer-wrapper">
+                        <iframe src="${pdfPath}#toolbar=1&navpanes=0&view=FitH" class="pdf-viewer-frame" title="PDF Ansicht"></iframe>
                     </div>
                 `;
             }
         }
-    } else if (mode === 'web' && currentViewerDoc && currentViewerDoc.sourceUrl) {
+    } else if (mode === 'web' && currentViewerDoc.sourceUrl) {
         if (bodyEl) {
             bodyEl.classList.add('pdf-active');
             bodyEl.scrollTop = 0;
             if (headerEl) headerEl.classList.remove('header-hidden');
-
-            // Bestimme Embed-URL: Falls bahai.org (sendet X-Frame-Options: DENY), über /api/proxy leiten
-            let embedUrl = currentViewerDoc.sourceUrl;
-            if (embedUrl.includes('bahai.org')) {
-                embedUrl = '/api/proxy?url=' + encodeURIComponent(currentViewerDoc.sourceUrl);
-            }
-
-            const platformName = currentViewerDoc.sourcePlatform || 
-                (currentViewerDoc.sourceUrl.includes('bahai.org') ? 'Bahá’í Reference Library (bahai.org)' : 
-                (currentViewerDoc.sourceUrl.includes('bibliothek.bahai.de') ? 'Bahá’í-Bibliothek Deutschland' : 'Autorisierte Online-Quelle'));
+            
+            const isBrl = currentViewerDoc.sourceUrl.includes('bahai.org') || (currentViewerDoc.sourcePlatform && currentViewerDoc.sourcePlatform.includes('Reference Library'));
+            const sourceTitle = isBrl ? "Bahá’í Reference Library" : "Bahá’í-Bibliothek";
 
             bodyEl.innerHTML = `
-                <div class="brl-web-wrapper">
-                    <div class="brl-web-topbar">
-                        <div class="brl-web-badge">
-                            <span class="brl-web-badge-dot"></span>
-                            <span>Originalfassung auf <strong>${escapeHtml(platformName)}</strong></span>
-                        </div>
-                        <div class="brl-web-actions">
-                            <a href="${escapeHtml(currentViewerDoc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="brl-action-btn primary" title="Offizielle Seite in neuem Tab aufrufen">
-                                <span>Im neuen Tab öffnen ↗</span>
-                            </a>
-                            ${pdfPath ? `<button class="brl-action-btn secondary" onclick="setViewerMode('pdf')">Original-PDF</button>` : ''}
-                            <button class="brl-action-btn secondary" onclick="setViewerMode('text')">Fließtext</button>
-                        </div>
+                <div class="web-source-banner">
+                    <div class="web-banner-info">
+                        <span class="web-banner-badge">Offizielle Quelle</span>
+                        <p class="web-banner-title">${sourceTitle}: <em>${escapeHtml(currentViewerDoc.title || '')}</em></p>
                     </div>
-                    <iframe src="${embedUrl}" class="brl-web-frame" title="Autorisierte Original-Webseite" loading="lazy" allow="fullscreen" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-downloads"></iframe>
+                    <div class="web-banner-actions">
+                        <a href="${escapeHtml(currentViewerDoc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.45rem 1rem;font-size:0.82rem;">
+                            In neuem Tab öffnen ↗
+                        </a>
+                        ${pdfPath ? `<button class="btn-secondary" onclick="setViewerMode('pdf')" style="padding: 0.45rem 0.9rem; font-size: 0.82rem;">Als PDF</button>` : ''}
+                        <button class="btn-secondary" onclick="setViewerMode('text')" style="padding: 0.45rem 0.9rem; font-size: 0.82rem;">Als Fließtext</button>
+                    </div>
+                </div>
+                <div class="web-viewer-wrapper">
+                    <iframe src="${escapeHtml(currentViewerDoc.sourceUrl)}" class="web-viewer-frame" title="Web-Quelle Ansicht" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+                    <div class="web-viewer-fallback" id="web-viewer-fallback">
+                        <p>Falls die externe Webseite nicht direkt geladen werden kann:</p>
+                        <a href="${escapeHtml(currentViewerDoc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="btn-primary">In separatem Tab öffnen ↗</a>
+                        ${pdfPath ? `<button class="btn-secondary" onclick="setViewerMode('pdf')" style="padding: 0.65rem 1.2rem;">Als Original-PDF öffnen</button>` : ''}
+                        <button class="btn-secondary" onclick="setViewerMode('text')" style="padding: 0.65rem 1.2rem;">Als Fließtext lesen</button>
+                    </div>
                 </div>
             `;
         }
@@ -899,18 +880,6 @@ function setViewerMode(mode, targetParagraph) {
                 </div>
             `;
         }
-    } else if (mode === 'split') {
-        if (bodyEl) {
-            bodyEl.classList.remove('pdf-active');
-            bodyEl.scrollTop = 0;
-            if (headerEl) headerEl.classList.remove('header-hidden');
-            bodyEl.innerHTML = `
-                <div class="split-bilingual-canvas" id="split-bilingual-canvas">
-                    <p style="color:var(--text-muted);font-style:italic;text-align:center;padding:4rem 0;">Zweisprachige Gegenüberstellung wird geladen…</p>
-                </div>
-            `;
-            renderSplitBilingualText(currentViewerDoc, targetParagraph);
-        }
     } else {
         // mode === 'text'
         if (bodyEl) {
@@ -926,204 +895,7 @@ function setViewerMode(mode, targetParagraph) {
 }
 
 function renderSplitBilingualText(doc, targetParagraph) {
-    const canvas = document.getElementById('split-bilingual-canvas');
-    if (!canvas || !doc) return;
-
-    const isCurrentDe = (doc.language || '').toLowerCase() === 'deutsch' || (doc.language || '').toLowerCase() === 'german';
-    const deId = (doc.translations && doc.translations.de) ? doc.translations.de : (isCurrentDe ? doc.id : null);
-    const enId = (doc.translations && doc.translations.en) ? doc.translations.en : (!isCurrentDe ? doc.id : null);
-
-    if (!deId || !enId) {
-        canvas.innerHTML = '<p style="color:var(--text-muted);font-style:italic;text-align:center;padding:4rem 0;">Für dieses Dokument ist keine zweisprachige Fassung (DE/EN) verfügbar.</p>';
-        return;
-    }
-
-    function fetchText(docId) {
-        if (window.state && window.state.fullTexts && window.state.fullTexts[docId]) {
-            return Promise.resolve(window.state.fullTexts[docId]);
-        }
-        const found = window.state && window.state.documents && window.state.documents.find(d => d.id === docId);
-        if (found && found.text) return Promise.resolve(found.text);
-
-        const relUrl = `data/texts/${docId}.txt`;
-        const absUrl = `/data/texts/${docId}.txt`;
-        return fetch(relUrl)
-            .then(r => r.ok ? r.text() : fetch(absUrl).then(r2 => r2.ok ? r2.text() : Promise.reject('not found')))
-            .then(txt => {
-                if (window.state) {
-                    if (!window.state.fullTexts) window.state.fullTexts = {};
-                    window.state.fullTexts[docId] = txt;
-                }
-                if (found) found.text = txt;
-                return txt;
-            });
-    }
-
-    Promise.all([fetchText(deId), fetchText(enId)])
-        .then(([deText, enText]) => {
-            const deStructure = parseDocumentStructure(deText);
-            const enStructure = parseDocumentStructure(enText);
-
-            // Keep paragraphs array on currentViewerDoc for citation/workshop compatibility
-            doc.paragraphs = deStructure.body;
-            doc.enParagraphs = enStructure.body;
-
-            const deParas = deStructure.body;
-            const enParas = enStructure.body;
-            const maxParas = Math.max(deParas.length, enParas.length);
-
-            // Prepare full combined text for global copy action
-            const combinedLines = [];
-            for (let i = 0; i < maxParas; i++) {
-                combinedLines.push(`[§ ${i + 1}]`);
-                if (deParas[i]) combinedLines.push(`DE: ${deParas[i]}`);
-                if (enParas[i]) combinedLines.push(`EN: ${enParas[i]}`);
-                combinedLines.push('');
-            }
-            window.currentSplitBilingualText = combinedLines.join('\n');
-
-            // Search highlight tokens
-            let activeQueryTokens = [];
-            const activeQuery = (window.state && window.state.library && window.state.library.query) ? window.state.library.query : '';
-            if (activeQuery && window.SearchEngine && typeof window.SearchEngine.parseQuery === 'function') {
-                const qObj = window.SearchEngine.parseQuery(activeQuery);
-                activeQueryTokens = [...qObj.phrases, ...qObj.allTokens].filter(t => t.length >= 2);
-            }
-
-            function formatPara(rawP) {
-                if (!rawP) return '';
-                const p = rawP.replace(/^(\d+(?:\.\d+)?:\d+(?:_\d+)?|f\.(?:\w+:)?\d+(?:_\d+)?|0_\d+)\s+/, '').trim();
-                let rendered = escapeHtml(p);
-                if (activeQueryTokens.length > 0) {
-                    for (const tok of activeQueryTokens) {
-                        const re = new RegExp('(' + tok.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
-                        rendered = rendered.replace(re, '<mark class="search-highlight">$1</mark>');
-                    }
-                }
-                return rendered;
-            }
-
-            let html = '';
-
-            // 1. Column header indicators
-            html += `
-                <div class="split-bilingual-header">
-                    <div class="split-col-title">
-                        <span class="split-flag-dot" style="background: #e67e22;"></span>
-                        <span>Deutsch (Übersetzung)</span>
-                    </div>
-                    <div class="split-col-title">
-                        <span class="split-flag-dot" style="background: #3498db;"></span>
-                        <span>English (Original)</span>
-                    </div>
-                </div>
-            `;
-
-            // 2. Prologue (Institution / Date / Salutation)
-            const hasPrologue = deStructure.salutation || enStructure.salutation || deStructure.headers.length > 0 || enStructure.headers.length > 0;
-            if (hasPrologue) {
-                const deSal = deStructure.salutation || (deStructure.headers[0] ? deStructure.headers[0].text : '');
-                const enSal = enStructure.salutation || (enStructure.headers[0] ? enStructure.headers[0].text : '');
-                html += `
-                    <div class="split-bilingual-row split-prologue-row" style="border-bottom: 1px solid var(--border-subtle); margin-bottom: 1.5rem; padding-bottom: 1.25rem;">
-                        <div class="split-col" style="padding-left: 0; font-family: var(--font-serif-display); font-style: italic; color: var(--accent-gold); font-size: 1.05rem;">
-                            ${escapeHtml(deSal)}
-                        </div>
-                        <div class="split-col" style="padding-left: 0; font-family: var(--font-serif-display); font-style: italic; color: var(--accent-gold); font-size: 1.05rem;">
-                            ${escapeHtml(enSal)}
-                        </div>
-                    </div>
-                `;
-            }
-
-            // 3. Grid of aligned paragraphs
-            html += '<div class="split-bilingual-grid">';
-            for (let i = 0; i < maxParas; i++) {
-                const pNum = i + 1;
-                const deP = deParas[i] || '';
-                const enP = enParas[i] || '';
-                const formattedDe = formatPara(deP);
-                const formattedEn = formatPara(enP);
-
-                const origParaUrl = getOriginalParagraphUrl(doc, pNum, enP || deP);
-
-                html += `
-                    <div class="split-bilingual-row" id="split-para-row-${pNum}" data-pnum="${pNum}">
-                        <div class="split-col split-col-de">
-                            <span class="split-para-badge">§ ${pNum}</span>
-                            <div class="split-para-text">${formattedDe || '<em style="opacity:0.4;">—</em>'}</div>
-                        </div>
-                        <div class="split-col split-col-en">
-                            <span class="split-para-badge">§ ${pNum}</span>
-                            <div class="split-para-text">${formattedEn || '<em style="opacity:0.4;">—</em>'}</div>
-                        </div>
-                        <div class="para-hover-actions">
-                            <a href="${escapeHtml(origParaUrl)}" target="_blank" rel="noopener noreferrer" class="para-pill-btn" title="Originalquelle im Web aufrufen">Original ↗</a>
-                            <button class="para-pill-btn" onclick="window.copyParagraphCitation(${pNum})" title="Deutschen Absatz samt formaler Quellenangabe kopieren">
-                                <span id="para-copy-label-${pNum}">Zitieren (DE)</span>
-                            </button>
-                            <button class="para-pill-btn" onclick="window.copyParagraphDeepLink(${pNum})" title="Direktlink zu diesem Absatz im Archiv kopieren">
-                                <span id="para-link-label-${pNum}">Link</span>
-                            </button>
-                            <button id="viewer-para-btn-${pNum}" onclick="window.addViewerParagraphToWorkshop(${pNum})" class="para-pill-btn btn-add-workshop" title="Diesen Absatz zur Kompilations-Werkstatt hinzufügen">+ Werkstatt</button>
-                        </div>
-                    </div>
-                `;
-            }
-            html += '</div>';
-
-            // 4. Epilogue / Closings
-            if (deStructure.closings.length > 0 || enStructure.closings.length > 0) {
-                html += `
-                    <div class="split-bilingual-row split-epilogue-row" style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-subtle);">
-                        <div class="split-col" style="padding-left: 0; font-family: var(--font-serif-display); font-style: italic; color: var(--text-muted); font-size: 0.92rem; line-height: 1.6;">
-                            ${deStructure.closings.map(c => `<div>${escapeHtml(c)}</div>`).join('')}
-                        </div>
-                        <div class="split-col" style="padding-left: 0; font-family: var(--font-serif-display); font-style: italic; color: var(--text-muted); font-size: 0.92rem; line-height: 1.6;">
-                            ${enStructure.closings.map(c => `<div>${escapeHtml(c)}</div>`).join('')}
-                        </div>
-                    </div>
-                `;
-            }
-
-            // 5. Autorisierter Herkunftshinweis
-            const sourceName = doc.sourcePlatform || (doc.sourceUrl && doc.sourceUrl.includes('bibliothek.bahai.de') ? 'Bahá’í-Bibliothek Deutschland' : 'Bahá’í Reference Library');
-            const sourceUrl = doc.sourceUrl || 'https://www.bahai.org/library/';
-            html += `
-                <div class="reader-footer-note" style="margin-top: 3rem; text-align: center;">
-                    Zweisprachige Synopse (DE / EN) &bull; Autorisierte Publikation &bull; <a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener">${escapeHtml(sourceName)}</a>
-                </div>
-            `;
-
-            canvas.innerHTML = html;
-
-            if (targetParagraph) {
-                setTimeout(() => {
-                    const rowEl = document.getElementById(`split-para-row-${targetParagraph}`);
-                    if (rowEl) {
-                        rowEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        rowEl.classList.add('highlight-target');
-                        setTimeout(() => rowEl.classList.remove('highlight-target'), 3500);
-                    }
-                }, 300);
-            } else if (activeQueryTokens.length > 0) {
-                setTimeout(() => {
-                    const firstMark = canvas.querySelector('.split-bilingual-row mark.search-highlight');
-                    if (firstMark) {
-                        const parentRow = firstMark.closest('.split-bilingual-row');
-                        if (parentRow) {
-                            parentRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                            parentRow.classList.add('highlight-target');
-                            setTimeout(() => parentRow.classList.remove('highlight-target'), 3000);
-                        }
-                    }
-                }, 350);
-            }
-        })
-        .catch(err => {
-            console.error('Split bilingual error:', err);
-            canvas.innerHTML = '<p style="color:var(--text-muted);font-style:italic;text-align:center;padding:4rem 0;">Fehler beim Laden der zweisprachigen Fassungen.</p>';
-        });
+    renderDocumentText(doc, targetParagraph);
 }
 window.renderSplitBilingualText = renderSplitBilingualText;
 
