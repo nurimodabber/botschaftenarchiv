@@ -1642,22 +1642,6 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
         metaParts.push(`<span class="doc-pillar-text">${pillarTag}</span>`);
     }
 
-    // Auszeichnung für Plan-Rahmenbotschaften, Plan-Auftakt & historische Erklärungen
-    const isPlanCharter = (doc.date === '2025-12-31' || doc.date === '2021-12-30' || doc.date === '2015-12-29' || doc.date === '2010-12-28' || doc.date === '2005-12-27' || doc.date === '2001-01-09' || doc.date === '1995-12-26');
-    const isPlanLaunch = (doc.date === '2026-01-04' || doc.date === '2022-01-04' || doc.date === '2016-01-02' || (doc.date && (doc.date.startsWith('2022-04') || doc.date.startsWith('2021-04') || doc.date.startsWith('2016-04') || doc.date.startsWith('2011-04') || doc.date.startsWith('2006-04') || doc.date.startsWith('2001-04') || doc.date.startsWith('1996-04')) && (doc.type || '').includes('Riḍván')));
-
-    if (isPlanCharter) {
-        const charterLabel = isEn ? 'Plan Framework' : 'Plan-Rahmenbotschaft';
-        metaParts.unshift(`<span class="doc-milestone-tag plan-charter" title="Grundlegende Rahmenbotschaft des Plans an die Konferenz der Kontinentalen Beraterräte">${charterLabel}</span>`);
-    } else if (isPlanLaunch) {
-        const launchLabel = isEn ? 'Plan Launch' : 'Plan-Auftakt';
-        metaParts.unshift(`<span class="doc-milestone-tag plan-launch" title="Offizieller weltweiter Auftakt des Plans">${launchLabel}</span>`);
-    } else if (doc.isMilestone || doc._isMilestone) {
-        const msLabel = isEn ? 'Historic Statement' : 'Historische Erklärung';
-        const msTitle = doc.milestoneReasonDe || doc.milestoneReasonEn || msLabel;
-        metaParts.unshift(`<span class="doc-milestone-tag" title="${escapeDocHtml(msTitle)}">${msLabel}</span>`);
-    }
-
     // Datum / Band / Editions-Kennzeichnung (unverzichtbar für Orientierung)
     if (doc.tier === 'books' && doc.year) {
         metaParts.push(`<span class="doc-date">${doc.year}</span>`);
@@ -1668,6 +1652,23 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
         metaParts.push(`<span class="doc-date">${isEn ? 'Compilation' : 'Kompilation'}</span>`);
     } else if (doc.date) {
         metaParts.push(`<span class="doc-date">${formatDate(doc.date)}</span>`);
+    }
+
+    // Auszeichnung für Plan-Rahmenbotschaften, Plan-Auftakt & historische Erklärungen (untere linke Ecke)
+    const isPlanCharter = (doc.date === '2025-12-31' || doc.date === '2021-12-30' || doc.date === '2015-12-29' || doc.date === '2010-12-28' || doc.date === '2005-12-27' || doc.date === '2001-01-09' || doc.date === '1995-12-26');
+    const isPlanLaunch = (doc.date === '2026-01-04' || doc.date === '2022-01-04' || doc.date === '2016-01-02' || (doc.date && (doc.date.startsWith('2022-04') || doc.date.startsWith('2021-04') || doc.date.startsWith('2016-04') || doc.date.startsWith('2011-04') || doc.date.startsWith('2006-04') || doc.date.startsWith('2001-04') || doc.date.startsWith('1996-04')) && (doc.type || '').includes('Riḍván')));
+
+    let milestoneTagHtml = '';
+    if (isPlanCharter) {
+        const charterLabel = isEn ? 'Plan Framework' : 'Plan-Rahmenbotschaft';
+        milestoneTagHtml = `<span class="doc-milestone-tag plan-charter" title="Grundlegende Rahmenbotschaft des Plans an die Konferenz der Kontinentalen Beraterräte">${charterLabel}</span>`;
+    } else if (isPlanLaunch) {
+        const launchLabel = isEn ? 'Plan Launch' : 'Plan-Auftakt';
+        milestoneTagHtml = `<span class="doc-milestone-tag plan-launch" title="Offizieller weltweiter Auftakt des Plans">${launchLabel}</span>`;
+    } else if (doc.isMilestone || doc._isMilestone) {
+        const msLabel = isEn ? 'Historic Statement' : 'Historische Erklärung';
+        const msTitle = doc.milestoneReasonDe || doc.milestoneReasonEn || msLabel;
+        milestoneTagHtml = `<span class="doc-milestone-tag" title="${escapeDocHtml(msTitle)}">${msLabel}</span>`;
     }
     
     // Spezifischer Anlass / Empfänger / Autor (nur falls aussagekräftig)
@@ -1708,20 +1709,8 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
         }
     }
 
-    // 2. Dezent kuratierte Themen im Footer (maximal 2)
-    let topicsHtml = '';
-    if (doc.topics && doc.topics.length > 0) {
-        topicsHtml = `<span class="doc-topic-pill">${escapeDocHtml(doc.topics[0])}</span>`;
-        if (doc.topics.length > 1) {
-            topicsHtml += `<span class="doc-topic-pill">${escapeDocHtml(doc.topics[1])}</span>`;
-        }
-        if (doc.topics.length > 2) {
-            topicsHtml += `<span class="doc-topic-more">+${doc.topics.length - 2}</span>`;
-        }
-    }
-
-    const hasFooter = Boolean(topicsHtml || recipientHtml);
-    const isMilestoneCard = Boolean(doc.isMilestone || doc._isMilestone);
+    const hasFooter = Boolean(milestoneTagHtml || recipientHtml);
+    const isMilestoneCard = Boolean(isPlanCharter || isPlanLaunch || doc.isMilestone || doc._isMilestone);
 
     const matchCountBadge = (doc._searchMatchCount && doc._searchMatchCount > 1)
         ? `<span class="snippet-hit-count" title="${doc._searchMatchCount} Fundstellen im Werk">${doc._searchMatchCount}×</span>`
@@ -1744,8 +1733,10 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
             </div>
             ${hasFooter ? `
             <div class="doc-card-footer">
-                ${topicsHtml ? `<div class="doc-topics-cluster">${topicsHtml}</div>` : ''}
-                ${recipientHtml}
+                <div class="doc-footer-left">
+                    ${milestoneTagHtml}
+                </div>
+                ${recipientHtml ? `<div class="doc-footer-right">${recipientHtml}</div>` : ''}
             </div>` : ''}
         </article>
     `;
