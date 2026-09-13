@@ -449,11 +449,15 @@ window.AccountModule = (function() {
         const isSynced = Boolean(activeSyncKey && currentUser);
 
         if (currentUser && (currentUser.picture || currentUser.name)) {
+            const initial = (currentUser.name || 'G').charAt(0).toUpperCase();
             let avatarHtml = '';
             if (currentUser.picture) {
-                avatarHtml = `<img src="${escapeHtml(currentUser.picture)}" alt="${escapeHtml(currentUser.name)}" class="dock-account-avatar-img" />`;
+                avatarHtml = `
+                    <div class="dock-account-avatar dock-account-avatar-has-img">
+                        <img src="${escapeHtml(currentUser.picture)}" alt="${escapeHtml(currentUser.name)}" class="dock-account-avatar-img" style="width:100%;height:100%;max-width:24px;max-height:24px;border-radius:50%;object-fit:cover;display:block;" onerror="this.style.display='none'; this.parentElement.textContent='${escapeHtml(initial)}';" />
+                    </div>
+                `;
             } else {
-                const initial = currentUser.name.charAt(0).toUpperCase();
                 avatarHtml = `<div class="dock-account-avatar">${escapeHtml(initial)}</div>`;
             }
             dockBtn.innerHTML = `
@@ -512,7 +516,7 @@ window.AccountModule = (function() {
         if (isAuthed && currentUser) {
             const avatarLetter = (currentUser.name || 'G').charAt(0).toUpperCase();
             const avatarHtml = currentUser.picture
-                ? `<img src="${escapeHtml(currentUser.picture)}" alt="${escapeHtml(currentUser.name)}" class="settings-account-avatar-img" />`
+                ? `<div class="settings-account-avatar-circle has-img"><img src="${escapeHtml(currentUser.picture)}" alt="${escapeHtml(currentUser.name)}" class="settings-account-avatar-img" style="width:100%;height:100%;max-width:38px;max-height:38px;border-radius:50%;object-fit:cover;display:block;" onerror="this.parentElement.innerHTML='${escapeHtml(avatarLetter)}';" /></div>`
                 : `<div class="settings-account-avatar-circle">${escapeHtml(avatarLetter)}</div>`;
 
             container.innerHTML = `
@@ -623,7 +627,7 @@ window.AccountModule = (function() {
             // ─── Angemeldeter Zustand ───
             const avatarLetter = (currentUser.name || 'G').charAt(0).toUpperCase();
             const avatarContent = currentUser.picture 
-                ? `<img src="${escapeHtml(currentUser.picture)}" alt="${escapeHtml(currentUser.name)}" class="user-avatar-img" />`
+                ? `<div class="user-avatar-circle has-img"><img src="${escapeHtml(currentUser.picture)}" alt="${escapeHtml(currentUser.name)}" class="user-avatar-img" style="width:100%;height:100%;max-width:44px;max-height:44px;border-radius:50%;object-fit:cover;display:block;" onerror="this.parentElement.innerHTML='${escapeHtml(avatarLetter)}';" /></div>`
                 : `<div class="user-avatar-circle">${escapeHtml(avatarLetter)}</div>`;
 
             body.innerHTML = `
