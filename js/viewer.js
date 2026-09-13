@@ -629,7 +629,7 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
                 if (origFmt === 'PDF' && pdfPath) {
                     targetMode = 'pdf';
                 } else if (origFmt === 'Webseite') {
-                    if (doc.sourceUrl && doc.sourceUrl.includes('bibliothek.bahai.de')) {
+                    if (doc.sourceUrl) {
                         targetMode = 'web';
                     } else if (pdfPath) {
                         targetMode = 'pdf';
@@ -638,6 +638,8 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
                     }
                 } else if (pdfPath) {
                     targetMode = 'pdf';
+                } else if (doc.sourceUrl) {
+                    targetMode = 'web';
                 } else {
                     targetMode = 'text';
                 }
@@ -787,6 +789,7 @@ function setViewerMode(mode, targetParagraph) {
 
     if (mode === 'pdf' && pdfPath) {
         if (bodyEl) {
+            bodyEl.classList.remove('web-active');
             bodyEl.classList.add('pdf-active');
             bodyEl.scrollTop = 0;
             if (headerEl) headerEl.classList.remove('header-hidden');
@@ -827,41 +830,27 @@ function setViewerMode(mode, targetParagraph) {
     } else if (mode === 'web' && currentViewerDoc.sourceUrl) {
         if (bodyEl) {
             bodyEl.classList.remove('pdf-active');
+            bodyEl.classList.add('web-active');
             bodyEl.scrollTop = 0;
             if (headerEl) headerEl.classList.remove('header-hidden');
 
-            const isBrl = currentViewerDoc.sourceUrl.includes('bahai.org') || (currentViewerDoc.sourcePlatform && currentViewerDoc.sourcePlatform.includes('Reference Library'));
-            const sourceLabel = isBrl ? "Bahá'í Reference Library" : "Bahá'í-Bibliothek";
-            const domain = (() => { try { return new URL(currentViewerDoc.sourceUrl).hostname.replace('www.', ''); } catch(e) { return ''; } })();
+            let embedUrl = currentViewerDoc.sourceUrl;
+            // Route through serverless /api/proxy to resolve X-Frame-Options restrictions
+            // and guarantee pristine, readable white-sheet display for authoritative sources
+            if (embedUrl.includes('bahai.org') || embedUrl.includes('bibliothek.bahai.de')) {
+                embedUrl = '/api/proxy?url=' + encodeURIComponent(currentViewerDoc.sourceUrl);
+            }
 
             bodyEl.innerHTML = `
-                <div class="web-open-card">
-                    <div class="web-open-card-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                    </div>
-                    <div class="web-open-card-badge">Offizielle Quelle · ${escapeHtml(domain)}</div>
-                    <h3 class="web-open-card-title">${escapeHtml(currentViewerDoc.title || 'Originaldokument')}</h3>
-                    <p class="web-open-card-desc">Dieses Dokument ist auf <strong>${escapeHtml(sourceLabel)}</strong> veröffentlicht. Externer Inhalt kann nicht direkt eingebettet werden.</p>
-                    <div class="web-open-card-actions">
-                        <a href="${escapeHtml(currentViewerDoc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="web-open-card-btn primary">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                            Original-Webseite öffnen
-                        </a>
-                        ${pdfPath ? `<button class="web-open-card-btn secondary" onclick="setViewerMode('pdf')">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                            Als PDF lesen
-                        </button>` : ''}
-                        <button class="web-open-card-btn secondary" onclick="setViewerMode('text')">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>
-                            Als Fließtext lesen
-                        </button>
-                    </div>
+                <div class="web-viewer-wrapper" style="width: 100%; height: 100%; flex: 1; min-height: 0; display: flex; flex-direction: column; position: relative; background: #ffffff;">
+                    <iframe src="${embedUrl}" class="web-viewer-frame" style="width: 100%; height: 100%; flex: 1; min-height: 0; border: none; display: block; background: #ffffff;" title="Autorisierte Original-Webseite" loading="eager" allow="fullscreen" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-downloads"></iframe>
                 </div>
             `;
         }
     } else if (mode === 'epub') {
         if (bodyEl) {
             bodyEl.classList.remove('pdf-active');
+            bodyEl.classList.remove('web-active');
             bodyEl.scrollTop = 0;
             if (headerEl) headerEl.classList.remove('header-hidden');
             bodyEl.innerHTML = `
@@ -885,6 +874,7 @@ function setViewerMode(mode, targetParagraph) {
         // mode === 'text'
         if (bodyEl) {
             bodyEl.classList.remove('pdf-active');
+            bodyEl.classList.remove('web-active');
             bodyEl.innerHTML = `
                 <div class="viewer-reading-canvas" id="viewer-reading-canvas">
                     <p style="color:var(--text-muted);font-style:italic;text-align:center;padding:4rem 0;">Volltext wird geladen…</p>

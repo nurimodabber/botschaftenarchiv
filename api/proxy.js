@@ -23,7 +23,9 @@ module.exports = async (req, res) => {
             'bibliothek.bahai.de',
             'bahaiprayers.org',
             'news.bahai.org',
-            'bic.org'
+            'bic.org',
+            'ruhi.org',
+            'www.ruhi.org'
         ];
 
         const isAllowed = allowedDomains.some(d => parsed.hostname === d || parsed.hostname.endsWith('.' + d));
@@ -49,11 +51,13 @@ module.exports = async (req, res) => {
         // resolve to the original site and any internal links clicked open in a new tab.
         const baseTag = `<base href="${escapeAttr(targetUrl)}" target="_blank">`;
         
-        // Subtle styling injection to ensure the embedded page fills the reader canvas cleanly
+        // Clean authentic paper presentation without forcing unreadable dark-on-dark styles
         const iframeEnhancementStyle = `
             <style id="cosmos-proxy-enhancements">
                 html, body {
-                    background-color: transparent !important;
+                    background-color: #ffffff !important;
+                    color: #1a1a1a !important;
+                    -webkit-font-smoothing: antialiased;
                 }
             </style>
         `;
@@ -73,6 +77,7 @@ module.exports = async (req, res) => {
         // Remove frame restrictions
         res.removeHeader('X-Frame-Options');
         res.removeHeader('Content-Security-Policy');
+        res.setHeader('Content-Security-Policy', "frame-ancestors *;");
 
         return res.status(200).send(html);
     } catch (err) {
