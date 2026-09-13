@@ -36883,7 +36883,7 @@
   },
   {
     "id": "book_gebete_bahai_prayers_tablets_children_eng",
-    "title": "Bahai Prayers Tablets Children",
+    "title": "Bahá’í Prayers and Tablets for Children",
     "subtitle": "Bahá'í-Gebete",
     "author": "Gebete & Andacht",
     "authorCode": "prayers",
@@ -49435,7 +49435,7 @@
   },
   {
     "id": "book_shoghi_effendi_decisive_hour_eng",
-    "title": "Decisive Hour",
+    "title": "This Decisive Hour",
     "subtitle": "Schriften Shoghi Effendis",
     "author": "Shoghi Effendi",
     "authorCode": "shoghi-effendi",
@@ -49490,7 +49490,7 @@
   },
   {
     "id": "book_shoghi_effendi_citadel_faith_eng",
-    "title": "Citadel Faith",
+    "title": "Citadel of Faith",
     "subtitle": "Schriften Shoghi Effendis",
     "author": "Shoghi Effendi",
     "authorCode": "shoghi-effendi",
@@ -49706,7 +49706,7 @@
     ],
     "deTitle": "Gott geht vorüber",
     "enTitle": "God Passes By",
-    "date": "1944-01-01",
+    "date": "1944-05-23",
     "groupId": "book-god-passes-by"
   },
   {
@@ -49763,7 +49763,7 @@
     ],
     "deTitle": "Gott geht vorüber",
     "enTitle": "God Passes By",
-    "date": "1944-01-01",
+    "date": "1944-05-23",
     "groupId": "book-god-passes-by",
     "paragraphsCount": 1003
   },
@@ -49821,12 +49821,12 @@
     ],
     "deTitle": "Der verheißene Tag ist gekommen",
     "enTitle": "Promised Day Come",
-    "date": "1941-01-01",
+    "date": "1941-03-28",
     "groupId": "book-promised-day"
   },
   {
     "id": "book_shoghi_effendi_promised_day_come_eng",
-    "title": "Promised Day Come",
+    "title": "The Promised Day Is Come",
     "subtitle": "Schriften Shoghi Effendis",
     "author": "Shoghi Effendi",
     "authorCode": "shoghi-effendi",
@@ -49878,7 +49878,7 @@
     ],
     "deTitle": "Der verheißene Tag ist gekommen",
     "enTitle": "Promised Day Come",
-    "date": "1941-01-01",
+    "date": "1941-03-28",
     "groupId": "book-promised-day",
     "paragraphsCount": 393
   },
@@ -49991,12 +49991,12 @@
     ],
     "deTitle": "Das Kommen Göttlicher Gerechtigkeit",
     "enTitle": "Advent Divine Justice",
-    "date": "1938-01-01",
+    "date": "1938-12-25",
     "groupId": "book-advent-justice"
   },
   {
     "id": "book_shoghi_effendi_advent_divine_justice_eng",
-    "title": "Advent Divine Justice",
+    "title": "The Advent of Divine Justice",
     "subtitle": "Schriften Shoghi Effendis",
     "author": "Shoghi Effendi",
     "authorCode": "shoghi-effendi",
@@ -50048,7 +50048,7 @@
     ],
     "deTitle": "Das Kommen Göttlicher Gerechtigkeit",
     "enTitle": "Advent Divine Justice",
-    "date": "1938-01-01",
+    "date": "1938-12-25",
     "groupId": "book-advent-justice",
     "paragraphsCount": 176
   },
@@ -50111,7 +50111,7 @@
   },
   {
     "id": "book_shoghi_effendi_world_order_bahá'u'lláh_eng",
-    "title": "World Order Bahá'U'Lláh",
+    "title": "The World Order of Bahá’u’lláh",
     "subtitle": "Schriften Shoghi Effendis",
     "author": "Shoghi Effendi",
     "authorCode": "shoghi-effendi",
@@ -50169,7 +50169,7 @@
   },
   {
     "id": "book_shoghi_effendi_bahai_administration_eng",
-    "title": "Bahai Administration",
+    "title": "Bahá’í Administration",
     "subtitle": "Schriften Shoghi Effendis",
     "author": "Shoghi Effendi",
     "authorCode": "shoghi-effendi",
@@ -50224,7 +50224,7 @@
   },
   {
     "id": "book_abdul_baha_tablet_auguste_forel_eng",
-    "title": "Tablet Auguste Forel",
+    "title": "Tablet to Dr. Auguste Forel",
     "subtitle": "Schriften & Ansprachen ‘Abdu’l-Bahás",
     "author": "‘Abdu’l-Bahá",
     "authorCode": "abdul-baha",
@@ -50274,7 +50274,7 @@
       "de",
       "en"
     ],
-    "date": "1921-01-01",
+    "date": "1921-09-21",
     "groupId": "book-tablet-forel",
     "paragraphsCount": 45
   },
@@ -50330,12 +50330,12 @@
       "de",
       "en"
     ],
-    "date": "1921-01-01",
+    "date": "1921-09-21",
     "groupId": "book-tablet-forel"
   },
   {
     "id": "book_abdul_baha_twelve_table_talks_‘abdu’l_bahá_eng",
-    "title": "Twelve Table Talks ‘Abdu’L Bahá",
+    "title": "Twelve Table Talks Given by ‘Abdu’l‑Bahá in ‘Akká",
     "subtitle": "Schriften & Ansprachen ‘Abdu’l-Bahás",
     "author": "‘Abdu’l-Bahá",
     "authorCode": "abdul-baha",
@@ -50390,7 +50390,7 @@
   },
   {
     "id": "book_abdul_baha_tablets_hague_‘abdu’l_bahá_eng",
-    "title": "Tablets Hague ‘Abdu’L Bahá",
+    "title": "Tablets to The Hague",
     "subtitle": "Schriften & Ansprachen ‘Abdu’l-Bahás",
     "author": "‘Abdu’l-Bahá",
     "authorCode": "abdul-baha",
@@ -50440,7 +50440,7 @@
       "de",
       "en"
     ],
-    "date": "1919-01-01",
+    "date": "1919-12-17",
     "groupId": "book-tablets-hague",
     "paragraphsCount": 77
   },
@@ -50496,12 +50496,12 @@
       "de",
       "en"
     ],
-    "date": "1919-01-01",
+    "date": "1919-12-17",
     "groupId": "book-tablets-hague"
   },
   {
     "id": "book_abdul_baha_tablets_divine_plan_eng",
-    "title": "Tablets Divine Plan",
+    "title": "Tablets of the Divine Plan",
     "subtitle": "Schriften & Ansprachen ‘Abdu’l-Bahás",
     "author": "‘Abdu’l-Bahá",
     "authorCode": "abdul-baha",
@@ -50553,7 +50553,7 @@
     ],
     "deTitle": "Sendschreiben zum Göttlichen Plan",
     "enTitle": "Tablets Divine Plan",
-    "date": "1916-01-01",
+    "date": "1916-03-26",
     "groupId": "book-divine-plan",
     "paragraphsCount": 249
   },
@@ -50611,7 +50611,7 @@
     ],
     "deTitle": "Sendschreiben zum Göttlichen Plan",
     "enTitle": "Tablets Divine Plan",
-    "date": "1916-01-01",
+    "date": "1916-03-26",
     "groupId": "book-divine-plan"
   },
   {
@@ -50673,7 +50673,7 @@
   },
   {
     "id": "book_abdul_baha_memorials_faithful_eng",
-    "title": "Memorials Faithful",
+    "title": "Memorials of the Faithful",
     "subtitle": "Schriften & Ansprachen ‘Abdu’l-Bahás",
     "author": "‘Abdu’l-Bahá",
     "authorCode": "abdul-baha",
@@ -50731,7 +50731,7 @@
   },
   {
     "id": "book_abdul_baha_selections_writings_‘abdu’l_bahá_eng",
-    "title": "Selections Writings ‘Abdu’L Bahá",
+    "title": "Selections from the Writings of ‘Abdu’l‑Bahá",
     "subtitle": "Schriften & Ansprachen ‘Abdu’l-Bahás",
     "author": "‘Abdu’l-Bahá",
     "authorCode": "abdul-baha",
@@ -50894,12 +50894,12 @@
     ],
     "deTitle": "Die Verkündigung des Weltfriedens",
     "enTitle": "Promulgation Universal Peace",
-    "date": "1912-01-01",
+    "date": "1912-04-11",
     "groupId": "book-promulgation"
   },
   {
     "id": "book_abdul_baha_promulgation_universal_peace_eng",
-    "title": "Promulgation Universal Peace",
+    "title": "The Promulgation of Universal Peace",
     "subtitle": "Schriften & Ansprachen ‘Abdu’l-Bahás",
     "author": "‘Abdu’l-Bahá",
     "authorCode": "abdul-baha",
@@ -50951,7 +50951,7 @@
     ],
     "deTitle": "Die Verkündigung des Weltfriedens",
     "enTitle": "Promulgation Universal Peace",
-    "date": "1912-01-01",
+    "date": "1912-04-11",
     "groupId": "book-promulgation",
     "paragraphsCount": 1951
   },
@@ -51009,7 +51009,7 @@
     ],
     "deTitle": "Ansprachen in Paris",
     "enTitle": "Paris Talks",
-    "date": "1911-01-01",
+    "date": "1911-10-01",
     "groupId": "book-paris-talks",
     "paragraphsCount": 1000
   },
@@ -51064,7 +51064,7 @@
     "availableLanguages": [
       "de"
     ],
-    "date": "1911-01-01",
+    "date": "1911-09-04",
     "groupId": "book-abdulbah-abdu-l-bahá-in-london"
   },
   {
@@ -51121,13 +51121,13 @@
     ],
     "deTitle": "Ansprachen in Paris",
     "enTitle": "Paris Talks",
-    "date": "1911-01-01",
+    "date": "1911-10-01",
     "groupId": "book-paris-talks",
     "paragraphsCount": 908
   },
   {
     "id": "book_abdul_baha_light_of_the_world_eng",
-    "title": "Light Of The World",
+    "title": "Light of the World: Selected Tablets of ‘Abdu’l‑Bahá",
     "subtitle": "Schriften & Ansprachen ‘Abdu’l-Bahás",
     "author": "‘Abdu’l-Bahá",
     "authorCode": "abdul-baha",
@@ -51297,7 +51297,7 @@
   },
   {
     "id": "book_abdul_baha_will_testament_‘abdu’l_bahá_eng",
-    "title": "Will Testament ‘Abdu’L Bahá",
+    "title": "Will and Testament of ‘Abdu’l‑Bahá",
     "subtitle": "Schriften & Ansprachen ‘Abdu’l-Bahás",
     "author": "‘Abdu’l-Bahá",
     "authorCode": "abdul-baha",
@@ -51578,7 +51578,7 @@
   },
   {
     "id": "book_abdul_baha_travelers_narrative_eng",
-    "title": "Travelers Narrative",
+    "title": "A Traveler’s Narrative",
     "subtitle": "Schriften & Ansprachen ‘Abdu’l-Bahás",
     "author": "‘Abdu’l-Bahá",
     "authorCode": "abdul-baha",
@@ -51919,7 +51919,7 @@
   },
   {
     "id": "book_bahaullah_tablets_bahá'u'lláh_eng",
-    "title": "Tablets Bahá'U'Lláh",
+    "title": "Tablets of Bahá’u’lláh",
     "subtitle": "Schriften Bahá'u'lláhs",
     "author": "Bahá'u'lláh",
     "authorCode": "bahaullah",
@@ -52086,7 +52086,7 @@
   },
   {
     "id": "book_abdul_baha_secret_divine_civilization_eng",
-    "title": "Secret Divine Civilization",
+    "title": "The Secret of Divine Civilization",
     "subtitle": "Schriften & Ansprachen ‘Abdu’l-Bahás",
     "author": "‘Abdu’l-Bahá",
     "authorCode": "abdul-baha",
@@ -53045,7 +53045,7 @@
   },
   {
     "id": "book_der_bab_selections_writings_bab_eng",
-    "title": "Selections Writings Bab",
+    "title": "Selections from the Writings of the Báb",
     "subtitle": "Schriften des Báb",
     "author": "Der Báb",
     "authorCode": "the-bab",
