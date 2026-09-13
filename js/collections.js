@@ -323,13 +323,15 @@ function renderReadingHistory() {
         const safeItemId = (item.id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
         return `
             <article class="doc-card" style="--i: ${idx % 30}; cursor: pointer;" data-doc-id="${escapeDocHtml(item.id)}" onclick="window.openDocument('${safeItemId}')">
-                <div class="doc-card-body">
-                    <div class="doc-card-header">
-                        <div class="doc-meta-editorial">${item.date ? `<span class="doc-date">${escapeDocHtml(item.date)}</span>` : ''}</div>
-                    </div>
+                <div class="doc-col-meta">
+                    <div class="doc-meta-editorial">${item.date ? `<span class="doc-date">${escapeDocHtml(item.date)}</span>` : ''}</div>
+                </div>
+                <div class="doc-col-main">
                     <h3 class="doc-title">${escapeDocHtml(item.title)}</h3>
                     ${item.author ? `<div class="doc-sub-title">${escapeDocHtml(item.author)}</div>` : ''}
                 </div>
+                <div class="doc-col-context"></div>
+                <div class="doc-col-actions"></div>
             </article>
         `;
     }).join('');

@@ -1633,75 +1633,116 @@ function renderSavedView() {
 
 function formatDate(dateString) {
     if (!dateString) return '';
+    const isEn = window.I18n && window.I18n.getCurrentLanguage() === 'en';
     const parts = dateString.split('-');
     if (parts.length === 3) {
         const d = new Date(parts[0], parts[1] - 1, parts[2]);
         if (!isNaN(d.getTime())) {
-            return d.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' });
+            return d.toLocaleDateString(isEn ? 'en-US' : 'de-DE', { year: 'numeric', month: 'long', day: 'numeric' });
         }
     }
     return dateString;
 }
 
+function formatCleanTitle(doc, currentLang = 'de') {
+    if (currentLang === 'de' && doc.deTitle) {
+        return doc.deTitle;
+    }
+    let title = (currentLang === 'en' && doc.enTitle) ? doc.enTitle : (doc.title || '');
+    
+    // Datumspräfixe am Anfang entfernen (z. B. "27 February 2026 – ", "1. Dezember 2025 - ", "2026-02-27 – ")
+    let clean = title.replace(/^\d{1,2}\.?\s+[A-Za-zäöüßÄÖÜ]+\s+\d{4}\s*[–-]\s*/, '')
+                     .replace(/^\d{4}-\d{2}-\d{2}\s*[–-]\s*/, '')
+                     .trim();
+    if (!clean) clean = title;
+
+    // Standard-Empfängerbetreffs ins Deutsche übersetzen
+    if (currentLang === 'de') {
+        const transMap = {
+            'To all National Spiritual Assemblies': 'An alle Nationalen Geistigen Räte',
+            'To the Bahá’ís of the World': 'An die Bahá’í der Welt',
+            'To the Bahá’ís of Iran': 'An die Bahá’í im Iran',
+            'To the Continental Boards of Counsellors': 'An die Kontinentalen Beraterräte',
+            'To the Conference of the Continental Boards of Counsellors': 'An die Konferenz der Kontinentalen Beraterräte',
+            'Regarding the Conference of the Continental Boards of Counsellors': 'Zur Konferenz der Kontinentalen Beraterräte',
+            'To an individual': 'An eine Einzelperson',
+            'To the Friends gathered': 'An die versammelten Freunde'
+        };
+        for (const [enKey, deVal] of Object.entries(transMap)) {
+            if (clean.toLowerCase().includes(enKey.toLowerCase())) {
+                clean = clean.replace(new RegExp(enKey, 'i'), deVal);
+            }
+        }
+    }
+    return clean;
+}
+
 window.createDocCard = function(doc, snippet = '', index = 0) {
+    const currentLang = (window.I18n && window.I18n.getCurrentLanguage() === 'en') ? 'en' : 'de';
     const isEn = (doc.language || '').toLowerCase() === 'english';
     const hasBoth = doc.availableLanguages && doc.availableLanguages.includes('de') && doc.availableLanguages.includes('en');
     
-    // 1. Ruhige, informative Metazeile (nur das Wesentliche: Datum & Kontext)
+    // 1. Spalte Meta: Säulen-Typ & Datum
     const metaParts = [];
 
     // Säulen-Zuordnung bei Master-Gesamtsuche ("all") ODER wenn eine Suche aktiv ist
     if ((state.library && state.library.segment === 'all') || (state.library && state.library.query)) {
-        let pillarTag = (window.I18n && window.I18n.getCurrentLanguage() === 'en') ? 'Message' : 'Botschaft';
-        if (doc.tier === 'books') pillarTag = (window.I18n && window.I18n.getCurrentLanguage() === 'en') ? 'Holy Book' : 'Heilige Schrift';
-        else if (doc.tier === 'compilations') pillarTag = (window.I18n && window.I18n.getCurrentLanguage() === 'en') ? 'Compilation' : 'Kompilation';
-        else if (doc.tier === 'ruhi') pillarTag = (window.I18n && window.I18n.getCurrentLanguage() === 'en') ? 'Ruhi Course' : 'Ruhi-Buch';
+        let pillarTag = currentLang === 'en' ? 'Message' : 'Botschaft';
+        if (doc.tier === 'books') pillarTag = currentLang === 'en' ? 'Holy Book' : 'Heilige Schrift';
+        else if (doc.tier === 'compilations') pillarTag = currentLang === 'en' ? 'Compilation' : 'Kompilation';
+        else if (doc.tier === 'ruhi') pillarTag = currentLang === 'en' ? 'Ruhi Course' : 'Ruhi-Buch';
         metaParts.push(`<span class="doc-pillar-text">${pillarTag}</span>`);
+    } else {
+        let defaultPillar = currentLang === 'en' ? 'Message' : 'Botschaft';
+        if (doc.tier === 'books') defaultPillar = currentLang === 'en' ? 'Book' : 'Buch';
+        else if (doc.tier === 'compilations') defaultPillar = currentLang === 'en' ? 'Compilation' : 'Kompilation';
+        else if (doc.tier === 'ruhi') defaultPillar = currentLang === 'en' ? 'Ruhi' : 'Ruhi';
+        metaParts.push(`<span class="doc-pillar-text">${defaultPillar}</span>`);
     }
 
-    // Datum / Band / Editions-Kennzeichnung (unverzichtbar für Orientierung)
+    // Datum / Band / Editions-Kennzeichnung
     if (doc.tier === 'books' && doc.year) {
         metaParts.push(`<span class="doc-date">${doc.year}</span>`);
     } else if (doc.tier === 'ruhi') {
-        const ruhiBadge = doc.bookNumber ? `Buch ${doc.bookNumber}` : 'Ruhi-Kurs';
+        const ruhiBadge = doc.bookNumber ? (currentLang === 'en' ? `Book ${doc.bookNumber}` : `Buch ${doc.bookNumber}`) : 'Ruhi-Kurs';
         metaParts.push(`<span class="doc-date">${ruhiBadge}</span>`);
     } else if (doc.tier === 'compilations' || doc.type === 'Kompilation') {
-        metaParts.push(`<span class="doc-date">${isEn ? 'Compilation' : 'Kompilation'}</span>`);
+        metaParts.push(`<span class="doc-date">${currentLang === 'en' ? 'Compilation' : 'Kompilation'}</span>`);
     } else if (doc.date) {
         metaParts.push(`<span class="doc-date">${formatDate(doc.date)}</span>`);
     }
 
-    // Auszeichnung für Plan-Rahmenbotschaften, Plan-Auftakt & historische Erklärungen (untere linke Ecke)
+    // Auszeichnung für Plan-Rahmenbotschaften, Plan-Auftakt & historische Erklärungen
     const isPlanCharter = (doc.date === '2025-12-31' || doc.date === '2021-12-30' || doc.date === '2015-12-29' || doc.date === '2010-12-28' || doc.date === '2005-12-27' || doc.date === '2001-01-09' || doc.date === '1995-12-26');
     const isPlanLaunch = (doc.date === '2026-01-04' || doc.date === '2022-01-04' || doc.date === '2016-01-02' || (doc.date && (doc.date.startsWith('2022-04') || doc.date.startsWith('2021-04') || doc.date.startsWith('2016-04') || doc.date.startsWith('2011-04') || doc.date.startsWith('2006-04') || doc.date.startsWith('2001-04') || doc.date.startsWith('1996-04')) && (doc.type || '').includes('Riḍván')));
 
     let milestoneTagHtml = '';
     if (isPlanCharter) {
-        const charterLabel = isEn ? 'Plan Framework' : 'Plan-Rahmenbotschaft';
+        const charterLabel = currentLang === 'en' ? 'Plan Framework' : 'Plan-Rahmenbotschaft';
         milestoneTagHtml = `<span class="doc-milestone-tag plan-charter" title="Grundlegende Rahmenbotschaft des Plans an die Konferenz der Kontinentalen Beraterräte">${charterLabel}</span>`;
     } else if (isPlanLaunch) {
-        const launchLabel = isEn ? 'Plan Launch' : 'Plan-Auftakt';
+        const launchLabel = currentLang === 'en' ? 'Plan Launch' : 'Plan-Auftakt';
         milestoneTagHtml = `<span class="doc-milestone-tag plan-launch" title="Offizieller weltweiter Auftakt des Plans">${launchLabel}</span>`;
     } else if (doc.isMilestone || doc._isMilestone) {
-        const msLabel = isEn ? 'Historic Statement' : 'Historische Erklärung';
-        const msTitle = doc.milestoneReasonDe || doc.milestoneReasonEn || msLabel;
+        const msLabel = currentLang === 'en' ? 'Historic Statement' : 'Historische Erklärung';
+        const msTitle = (currentLang === 'en' && doc.milestoneReasonEn) ? doc.milestoneReasonEn : (doc.milestoneReasonDe || msLabel);
         milestoneTagHtml = `<span class="doc-milestone-tag" title="${escapeDocHtml(msTitle)}">${msLabel}</span>`;
     }
     
-    // Spezifischer Anlass / Empfänger / Autor (nur falls aussagekräftig)
+    // Spezifischer Anlass / Empfänger / Autor
     let contextLabel = '';
     if (doc.tier === 'ruhi') {
         contextLabel = 'Ruhi-Institut';
     } else if (doc.tier === 'compilations' || doc.type === 'Kompilation') {
-        contextLabel = isEn ? 'Research Department' : 'Forschungsabteilung';
+        contextLabel = currentLang === 'en' ? 'Research Department' : 'Forschungsabteilung';
     } else if (doc.tier === 'books') {
         if (doc.author) contextLabel = doc.author;
     } else if (doc.type && doc.type !== 'Botschaft' && !doc.type.includes('Botschaft')) {
         contextLabel = doc.type;
     } else if (doc.recipientLabel) {
         let rec = doc.recipientLabel;
-        if (rec === "Weltweite Bahá'í-Gemeinde") rec = "Weltweite Gemeinde";
-        if (rec === "Kontinentale Berater & Hilfsamt") rec = "Beraterkonferenz";
+        if (rec === "Weltweite Bahá'í-Gemeinde") rec = currentLang === 'en' ? 'Bahá’í World' : 'Weltweite Gemeinde';
+        if (rec === "Kontinentale Berater & Hilfsamt") rec = currentLang === 'en' ? 'Counsellors' : 'Beraterkonferenz';
         if (rec !== "Botschaft" && rec !== "Universales Haus der Gerechtigkeit") {
             contextLabel = rec;
         }
@@ -1710,23 +1751,33 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
 
     const bilingualBadge = hasBoth ? `<span class="doc-bilingual-badge" title="Zweisprachig verfügbar (Deutsch & Englisch)">DE · EN</span>` : '';
 
+    // Quick Format Chip (z. B. PDF Download/Viewer)
+    let formatPillHtml = '';
+    if (doc.formatFiles && doc.formatFiles.pdf) {
+        formatPillHtml = `<a href="${escapeDocHtml(doc.formatFiles.pdf)}" target="_blank" rel="noopener" class="doc-format-pill" title="Als PDF öffnen / herunterladen" onclick="event.stopPropagation();">PDF</a>`;
+    } else if (doc.availableFormats && doc.availableFormats.includes('pdf')) {
+        formatPillHtml = `<span class="doc-format-pill" title="PDF verfügbar">PDF</span>`;
+    }
+
     const staggerIndex = typeof index === 'number' ? (index % 30) : 0;
     const activeSnippet = snippet || doc._searchSnippet || '';
     const previewText = activeSnippet ? (activeSnippet.startsWith('…') ? activeSnippet : `…${activeSnippet}…`) : (doc.excerpt ? `${escapeDocHtml(doc.excerpt)}…` : '');
+
+    // Bereinigter Haupttitel
+    const cleanTitle = formatCleanTitle(doc, currentLang);
 
     // Zweitsprachiger Titel ohne redundante Datumsdoppelung
     let subTitleHtml = '';
     if (hasBoth) {
         let otherTitle = isEn ? doc.deTitle : doc.enTitle;
         if (otherTitle && otherTitle !== doc.title) {
-            otherTitle = otherTitle.replace(/^\d{1,2}\s+[A-Za-zäöüßÄÖÜ]+\s+\d{4}\s*[–-]\s*/, '').trim();
-            if (otherTitle) {
+            otherTitle = otherTitle.replace(/^\d{1,2}\.?\s+[A-Za-zäöüßÄÖÜ]+\s+\d{4}\s*[–-]\s*/, '').trim();
+            if (otherTitle && otherTitle !== cleanTitle) {
                 subTitleHtml = `<div class="doc-sub-title">${escapeDocHtml(otherTitle)}</div>`;
             }
         }
     }
 
-    const hasFooter = Boolean(milestoneTagHtml || recipientHtml);
     const isMilestoneCard = Boolean(isPlanCharter || isPlanLaunch || doc.isMilestone || doc._isMilestone);
 
     const matchCountBadge = (doc._searchMatchCount && doc._searchMatchCount > 1)
@@ -1737,24 +1788,24 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
 
     return `
         <article class="doc-card ${isMilestoneCard ? 'is-milestone' : ''}" style="--i: ${staggerIndex};" data-doc-id="${escapeDocHtml(doc.id)}" onclick="window.openDocument('${safeDocId}')">
-            <div class="doc-card-body">
-                <div class="doc-card-header">
-                    <div class="doc-meta-editorial">
-                        ${metaParts.join('<span class="meta-dot">•</span>')}
-                    </div>
-                    ${bilingualBadge}
+            <div class="doc-col-meta">
+                <div class="doc-meta-editorial">
+                    ${metaParts.join('<span class="meta-dot">•</span>')}
                 </div>
-                <h3 class="doc-title">${escapeDocHtml(doc.title)}</h3>
+            </div>
+            <div class="doc-col-main">
+                <h3 class="doc-title">${escapeDocHtml(cleanTitle)}</h3>
                 ${subTitleHtml}
                 ${previewText ? `<p class="doc-excerpt ${activeSnippet ? 'doc-search-snippet' : ''}">${previewText}${matchCountBadge}</p>` : ''}
             </div>
-            ${hasFooter ? `
-            <div class="doc-card-footer">
-                <div class="doc-footer-left">
-                    ${milestoneTagHtml}
-                </div>
-                ${recipientHtml ? `<div class="doc-footer-right">${recipientHtml}</div>` : ''}
-            </div>` : ''}
+            <div class="doc-col-context">
+                ${milestoneTagHtml}
+                ${recipientHtml}
+            </div>
+            <div class="doc-col-actions">
+                ${bilingualBadge}
+                ${formatPillHtml}
+            </div>
         </article>
     `;
 };
