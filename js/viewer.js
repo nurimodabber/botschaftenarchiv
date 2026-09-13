@@ -818,8 +818,8 @@ function setViewerMode(mode, targetParagraph) {
                 `;
             } else {
                 bodyEl.innerHTML = `
-                    <div class="pdf-viewer-wrapper">
-                        <iframe src="${pdfPath}#toolbar=1&navpanes=0&view=FitH" class="pdf-viewer-frame" title="PDF Ansicht"></iframe>
+                    <div class="pdf-viewer-wrapper" style="width: 100%; height: 100%; flex: 1; min-height: 0; display: flex; flex-direction: column;">
+                        <iframe src="${pdfPath}#toolbar=1&navpanes=0&view=FitH" class="pdf-viewer-frame" style="width: 100%; height: 100%; flex: 1; min-height: 0; border: none; display: block;" title="PDF Ansicht"></iframe>
                     </div>
                 `;
             }
