@@ -297,6 +297,10 @@ function setupAppearance() {
                 window._drawColorWheel();
             });
         }
+
+        if (window.AccountModule && typeof window.AccountModule.updateSettingsUI === 'function') {
+            window.AccountModule.updateSettingsUI();
+        }
     }
 
     syncSettingsContainer();
@@ -305,6 +309,9 @@ function setupAppearance() {
     if (toggleBtn && popover) {
         toggleBtn.addEventListener('click', (e) => {
             e.stopPropagation();
+            if (window.AccountModule && typeof window.AccountModule.updateSettingsUI === 'function') {
+                window.AccountModule.updateSettingsUI();
+            }
             if (window.innerWidth <= 768) {
                 window.switchView('settings');
             } else {

@@ -48,6 +48,13 @@ window.AccountModule = (function() {
     let showKeyConfig = false;
     let clerkInstance = null;
     let clerkLoading = false;
+    let modalMode = 'signup'; // 'signup' | 'signin'
+    let modalContext = ''; // 'bookmark' | ''
+    let pendingBookmarkId = null;
+
+    function isLoggedIn() {
+        return Boolean(currentUser && activeSyncKey);
+    }
 
     // ─── 1. Client-seitige Verschlüsselung (Web Crypto AES-GCM-256) ───
 
@@ -211,6 +218,28 @@ window.AccountModule = (function() {
         return '';
     }
 
+    function getClerkDomain(publishableKey) {
+        try {
+            const raw = atob(publishableKey.split('_')[2]);
+            return raw.endsWith('$') ? raw.slice(0, -1) : raw;
+        } catch(e) {
+            return 'national-opossum-199.clerk.accounts.dev';
+        }
+    }
+
+    function waitForClerkSDK(timeoutMs = 4000) {
+        return new Promise((resolve) => {
+            if (window.Clerk) return resolve(window.Clerk);
+            const start = Date.now();
+            const timer = setInterval(() => {
+                if (window.Clerk || (Date.now() - start > timeoutMs)) {
+                    clearInterval(timer);
+                    resolve(window.Clerk || null);
+                }
+            }, 50);
+        });
+    }
+
     async function initClerk() {
         if (clerkInstance) return clerkInstance;
         const publishableKey = getActiveClerkKey();
@@ -218,44 +247,75 @@ window.AccountModule = (function() {
             return null;
         }
 
-        if (clerkLoading) return null;
+        if (clerkLoading) {
+            let attempts = 0;
+            while (clerkLoading && attempts < 30) {
+                await new Promise(r => setTimeout(r, 150));
+                attempts++;
+            }
+            if (clerkInstance) return clerkInstance;
+        }
         clerkLoading = true;
 
         try {
-            // SDK Script dynamisch laden falls noch nicht vorhanden
-            if (!window.Clerk) {
-                await new Promise((resolve, reject) => {
-                    const existing = document.getElementById('clerk-js-sdk');
-                    if (existing) {
-                        existing.onload = resolve;
-                        existing.onerror = reject;
-                        return;
-                    }
-                    const s = document.createElement('script');
-                    s.id = 'clerk-js-sdk';
-                    s.src = 'https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js';
-                    s.async = true;
-                    s.crossOrigin = 'anonymous';
-                    s.onload = resolve;
-                    s.onerror = () => reject(new Error('Clerk SDK konnte nicht geladen werden'));
-                    document.head.appendChild(s);
+            const clerkDomain = getClerkDomain(publishableKey);
+
+            // 1. Zuerst prüfen, ob window.Clerk über die defer-Tags im <head> geladen wird
+            let clerk = await waitForClerkSDK(2500);
+
+            // 2. Falls noch nicht verfügbar, Skripte dynamisch nachladen
+            if (!clerk) {
+                if (!document.getElementById('clerk-ui-sdk') && !window.__internal_ClerkUICtor) {
+                    await new Promise((resolve) => {
+                        const sUI = document.createElement('script');
+                        sUI.id = 'clerk-ui-sdk';
+                        sUI.src = `https://${clerkDomain}/npm/@clerk/ui@1/dist/ui.browser.js`;
+                        sUI.crossOrigin = 'anonymous';
+                        sUI.async = true;
+                        sUI.onload = resolve;
+                        sUI.onerror = resolve;
+                        document.head.appendChild(sUI);
+                    });
+                }
+
+                if (!window.Clerk && !document.getElementById('clerk-js-sdk')) {
+                    await new Promise((resolve, reject) => {
+                        const s = document.createElement('script');
+                        s.id = 'clerk-js-sdk';
+                        s.src = `https://${clerkDomain}/npm/@clerk/clerk-js@6/dist/clerk.browser.js`;
+                        s.setAttribute('data-clerk-publishable-key', publishableKey);
+                        s.crossOrigin = 'anonymous';
+                        s.async = true;
+                        s.onload = resolve;
+                        s.onerror = () => reject(new Error('Clerk SDK konnte nicht geladen werden'));
+                        document.head.appendChild(s);
+                    });
+                }
+
+                clerk = await waitForClerkSDK(3000);
+            }
+
+            if (!clerk) {
+                throw new Error('Clerk SDK nicht verfügbar');
+            }
+
+            if (typeof clerk === 'function') {
+                clerk = new clerk(publishableKey);
+            }
+
+            if (!clerk.loaded) {
+                await clerk.load({
+                    appearance: {
+                        variables: {
+                            colorPrimary: '#3fa692',
+                            colorText: '#ffffff',
+                            colorBackground: '#202225',
+                            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                        }
+                    },
+                    ui: { ClerkUI: window.__internal_ClerkUICtor }
                 });
             }
-
-            if (!window.Clerk) {
-                throw new Error('Clerk nicht verfügbar');
-            }
-
-            const clerk = new window.Clerk(publishableKey);
-            await clerk.load({
-                appearance: {
-                    variables: {
-                        colorPrimary: '#C5A059',
-                        colorText: '#1c1c1e',
-                        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif'
-                    }
-                }
-            });
 
             clerkInstance = clerk;
 
@@ -293,7 +353,28 @@ window.AccountModule = (function() {
             safeSetStorage(STORAGE_KEY_USER, currentUser);
             safeSetStorage(STORAGE_KEY_SYNC_KEY, activeSyncKey);
 
+            // Ausstehendes Lesezeichen speichern, falls Anmeldung durch Lesezeichen-Klick ausgelöst wurde
+            if (pendingBookmarkId) {
+                const bId = pendingBookmarkId;
+                pendingBookmarkId = null;
+                try {
+                    const bList = JSON.parse(safeGetStorage('bookmarks', '[]'));
+                    if (!bList.includes(bId)) {
+                        bList.push(bId);
+                        safeSetStorage('bookmarks', JSON.stringify(bList));
+                    }
+                    if (window.state) {
+                        if (!Array.isArray(window.state.bookmarks)) window.state.bookmarks = [];
+                        if (!window.state.bookmarks.includes(bId)) window.state.bookmarks.push(bId);
+                    }
+                    if (typeof window.renderSavedView === 'function') {
+                        window.renderSavedView();
+                    }
+                } catch(e) {}
+            }
+
             updateDockUI();
+            updateSettingsUI();
             renderModalContent();
 
             // Automatischen Sync durchführen (Remote-Metadaten abgleichen)
@@ -306,6 +387,7 @@ window.AccountModule = (function() {
                 safeRemoveStorage(STORAGE_KEY_USER);
                 safeRemoveStorage(STORAGE_KEY_SYNC_KEY);
                 updateDockUI();
+                updateSettingsUI();
                 renderModalContent();
             }
         }
@@ -381,8 +463,9 @@ window.AccountModule = (function() {
             dockBtn.title = `Studienkonto: ${currentUser.name}${isSynced ? ' (Live synchronisiert)' : ''}`;
         } else {
             dockBtn.innerHTML = `
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
                 </svg>
                 <span class="sync-status-dot ${isSynced ? 'synced' : 'local'}" title="${isSynced ? 'Live synchronisiert' : 'Studienkonto'}"></span>
             `;
@@ -401,19 +484,13 @@ window.AccountModule = (function() {
         modalOverlay.setAttribute('aria-label', 'Studienkonto & Cloud-Synchronisation');
 
         modalOverlay.innerHTML = `
-            <div class="account-modal-dialog">
-                <div class="account-modal-header">
-                    <div class="account-header-info">
-                        <span class="account-badge-subtle">Offizielles Studienkonto</span>
-                        <h3 class="account-modal-title">Cloud-Synchronisation</h3>
-                    </div>
-                    <button type="button" class="account-close-btn" onclick="window.AccountModule.closeModal()" title="Schließen (Esc)" aria-label="Schließen">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg>
-                    </button>
-                </div>
+            <div class="account-modal-dialog" id="account-modal-dialog">
+                <button type="button" class="account-close-btn" onclick="window.AccountModule.closeModal()" title="Schließen (Esc)" aria-label="Schließen">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
                 <div id="account-modal-body" class="account-modal-body"></div>
             </div>
         `;
@@ -425,7 +502,84 @@ window.AccountModule = (function() {
         document.body.appendChild(modalOverlay);
     }
 
-    function openModal() {
+    function updateSettingsUI() {
+        const container = document.getElementById('settings-account-widget');
+        if (!container) return;
+
+        const isAuthed = isLoggedIn();
+        const isEn = window.I18n ? window.I18n.getCurrentLanguage() === 'en' : (localStorage.getItem('cosmos_master_lang') === 'en');
+
+        if (isAuthed && currentUser) {
+            const avatarLetter = (currentUser.name || 'G').charAt(0).toUpperCase();
+            const avatarHtml = currentUser.picture
+                ? `<img src="${escapeHtml(currentUser.picture)}" alt="${escapeHtml(currentUser.name)}" class="settings-account-avatar-img" />`
+                : `<div class="settings-account-avatar-circle">${escapeHtml(avatarLetter)}</div>`;
+
+            container.innerHTML = `
+                <div class="settings-account-card logged-in">
+                    <div class="settings-account-info">
+                        ${avatarHtml}
+                        <div class="settings-account-meta">
+                            <div class="settings-account-name">${escapeHtml(currentUser.name)}</div>
+                            <div class="settings-account-status">
+                                <span class="sync-pulse-dot"></span>
+                                <span>${isEn ? 'Synced with Cloud' : 'Live synchronisiert'}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="settings-account-btn" onclick="window.AccountModule.openModal()">
+                        ${isEn ? 'Manage' : 'Verwalten'}
+                    </button>
+                </div>
+            `;
+        } else {
+            container.innerHTML = `
+                <div class="settings-account-card signed-out">
+                    <div class="settings-account-text">
+                        <div class="settings-account-badge">${isEn ? 'Study Account' : 'Offizielles Studienkonto'}</div>
+                        <div class="settings-account-title">${isEn ? 'Sync Bookmarks & Notes' : 'Lesezeichen & Notizen sichern'}</div>
+                        <p class="settings-account-desc">${isEn ? 'Sign up to sync your bookmarks across devices.' : 'Erstelle ein Konto, um Lesezeichen auf all deinen Geräten zu sichern.'}</p>
+                    </div>
+                    <button type="button" class="settings-account-signup-btn" onclick="window.AccountModule.openModal('signup')">
+                        ${isEn ? 'Create Account / Sign In' : 'Konto erstellen'}
+                    </button>
+                </div>
+            `;
+        }
+    }
+
+    function ensureModalDOM() {
+        if (document.getElementById('account-modal')) return;
+
+        const modalOverlay = document.createElement('div');
+        modalOverlay.id = 'account-modal';
+        modalOverlay.className = 'account-modal-overlay';
+        modalOverlay.setAttribute('role', 'dialog');
+        modalOverlay.setAttribute('aria-modal', 'true');
+        modalOverlay.setAttribute('aria-label', 'Studienkonto & Cloud-Synchronisation');
+
+        modalOverlay.innerHTML = `
+            <div class="account-modal-dialog" id="account-modal-dialog">
+                <button type="button" class="account-close-btn" onclick="window.AccountModule.closeModal()" title="Schließen (Esc)" aria-label="Schließen">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <div id="account-modal-body" class="account-modal-body"></div>
+            </div>
+        `;
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+
+        document.body.appendChild(modalOverlay);
+    }
+
+    function openModal(mode, context) {
+        if (mode) modalMode = mode;
+        if (context) modalContext = context;
         ensureModalDOM();
         renderModalContent();
         const modal = document.getElementById('account-modal');
@@ -435,12 +589,23 @@ window.AccountModule = (function() {
         }
     }
 
+    function openModalForBookmark(id) {
+        pendingBookmarkId = id;
+        openModal('signup', 'bookmark');
+    }
+
+    function setMode(mode) {
+        modalMode = mode;
+        renderModalContent();
+    }
+
     function closeModal() {
         const modal = document.getElementById('account-modal');
         if (modal) {
             modal.classList.remove('open');
             document.body.style.overflow = '';
         }
+        modalContext = '';
     }
 
     // ─── 4. Modal Rendering (Clerk-Auth & Sync-UI) ───
@@ -452,9 +617,9 @@ window.AccountModule = (function() {
         const metrics = getMetrics();
         const hasClerkKey = Boolean(getActiveClerkKey());
         const isClerkLoggedIn = Boolean(clerkInstance && clerkInstance.user);
-        const isLoggedIn = Boolean(currentUser && activeSyncKey);
+        const isLoggedInState = isLoggedIn();
 
-        if (isLoggedIn) {
+        if (isLoggedInState) {
             // ─── Angemeldeter Zustand ───
             const avatarLetter = (currentUser.name || 'G').charAt(0).toUpperCase();
             const avatarContent = currentUser.picture 
@@ -462,7 +627,7 @@ window.AccountModule = (function() {
                 : `<div class="user-avatar-circle">${escapeHtml(avatarLetter)}</div>`;
 
             body.innerHTML = `
-                <div class="account-clean-surface">
+                <div class="clerk-sign-in-card clerk-logged-in-card">
                     <div class="account-user-card">
                         ${avatarContent}
                         <div class="user-card-meta">
@@ -530,69 +695,130 @@ window.AccountModule = (function() {
                 </div>
             `;
         } else {
-            // ─── Nicht angemeldeter Zustand ───
+            // ─── Nicht angemeldeter Zustand (Konto-Registrierung / Sign Up) ───
+            const isEn = window.I18n ? window.I18n.getCurrentLanguage() === 'en' : (localStorage.getItem('cosmos_master_lang') === 'en');
+            const isSignUp = (modalMode === 'signup');
+
+            let titleText = '';
+            let subtitleText = '';
+
+            if (isSignUp) {
+                if (modalContext === 'bookmark') {
+                    titleText = isEn ? 'Sign up to save bookmarks' : 'Konto erstellen für Lesezeichen';
+                    subtitleText = isEn ? 'Create your free account to save and sync this bookmark across all your devices' : 'Erstelle ein kostenloses Konto, um dieses Lesezeichen auf all deinen Geräten abzurufen';
+                } else {
+                    titleText = isEn ? 'Create your account' : 'Konto erstellen';
+                    subtitleText = isEn ? 'Sign up to sync bookmarks, notes, and reading progress across all your devices' : 'Erstelle ein Konto, um Lesezeichen, Notizen und Lesefortschritt zu synchronisieren';
+                }
+            } else {
+                titleText = isEn ? 'Sign in to Bahá’í Library' : 'Im Bahá’í-Archiv anmelden';
+                subtitleText = isEn ? 'Welcome back! Please sign in to continue' : 'Willkommen zurück! Bitte anmelden, um fortzufahren';
+            }
+
+            const contextPillHtml = (modalContext === 'bookmark' && isSignUp) ? `
+                <div class="clerk-context-pill">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                    <span>${isEn ? 'Sign up required to save bookmarks' : 'Konto erforderlich, um Lesezeichen zu speichern'}</span>
+                </div>
+            ` : '';
+
+            const googleBtnText = isSignUp
+                ? (isEn ? 'Sign up with Google' : 'Mit Google registrieren')
+                : (isEn ? 'Continue with Google' : 'Mit Google fortfahren');
+
+            const submitBtnText = isSignUp
+                ? (isEn ? 'Create account' : 'Konto erstellen')
+                : (isEn ? 'Continue' : 'Weiter');
+
+            const badgeText = isSignUp
+                ? (isEn ? 'Fast & Free' : 'Kostenlos')
+                : (isEn ? 'Last used' : 'Zuletzt genutzt');
+
+            const footerHtml = isSignUp ? `
+                <p class="clerk-signup-prompt">
+                    ${isEn ? 'Already have an account?' : 'Bereits ein Konto?'}
+                    <button type="button" class="clerk-link-btn" onclick="window.AccountModule.setMode('signin')">${isEn ? 'Sign in' : 'Anmelden'}</button>
+                </p>
+            ` : `
+                <p class="clerk-signup-prompt">
+                    ${isEn ? 'Don’t have an account?' : 'Noch kein Konto?'}
+                    <button type="button" class="clerk-link-btn" onclick="window.AccountModule.setMode('signup')">${isEn ? 'Sign up' : 'Registrieren'}</button>
+                </p>
+            `;
+
             body.innerHTML = `
-                <div class="account-clean-surface">
-                    <div class="account-hero-emblem">
-                        <div class="account-emblem-icon">
-                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                                <path d="M2 17l10 5 10-5"></path>
-                                <path d="M2 12l10 5 10-5"></path>
+                <div class="clerk-sign-in-card">
+                    <div class="clerk-card-header">
+                        ${contextPillHtml}
+                        <h2 class="clerk-card-title">${escapeHtml(titleText)}</h2>
+                        <p class="clerk-card-subtitle">${escapeHtml(subtitleText)}</p>
+                    </div>
+
+                    <!-- 1-Klick Google Button -->
+                    <div class="clerk-oauth-wrapper">
+                        <button type="button" class="clerk-google-btn" onclick="window.AccountModule.handleGoogleAuth()">
+                            <svg class="clerk-google-icon" width="18" height="18" viewBox="0 0 24 24">
+                                <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+                                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/>
+                                <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.16 0 9.94 0 12s.45 3.84 1.25 5.42l4.03-3.15z"/>
+                                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
                             </svg>
+                            <span>${escapeHtml(googleBtnText)}</span>
+                        </button>
+                        <span class="clerk-badge-last-used">${escapeHtml(badgeText)}</span>
+                    </div>
+
+                    <!-- Subtiler Trenner -->
+                    <div class="clerk-divider">
+                        <span>${isEn ? 'or with email' : 'oder mit E-Mail'}</span>
+                    </div>
+
+                    <!-- E-Mail Eingabe mit Mint/Türkis Button -->
+                    <form class="clerk-email-form" onsubmit="window.AccountModule.submitEmailAuth(event)">
+                        <div class="clerk-field-group">
+                            <label for="clerk-email-input" class="clerk-label">${isEn ? 'Email address' : 'E-Mail-Adresse'}</label>
+                            <input type="email" id="clerk-email-input" class="clerk-input" placeholder="${isEn ? 'Enter your email address' : 'E-Mail-Adresse eingeben'}" required autocomplete="email" />
                         </div>
-                        <h4 class="account-clean-title">Offizielles Studienkonto</h4>
-                        <p class="account-clean-subtitle">
-                            Synchronisiere deine Lesezeichen, Notizen, Kompilationen und Lesefortschritte nahtlos zwischen Smartphone, Tablet und PC.
-                        </p>
-                    </div>
-
-                    <!-- Offizielle Clerk-Anmeldung -->
-                    <div class="account-auth-buttons">
-                        <button type="button" class="btn-account-clerk-primary" onclick="window.AccountModule.openSignIn()">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <path d="M12 8v8"></path>
-                                <path d="M8 12h8"></path>
+                        <button type="submit" class="clerk-continue-btn">
+                            <span>${escapeHtml(submitBtnText)}</span>
+                            <svg class="clerk-triangle-icon" width="9" height="9" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M5 3l14 9-14 9V3z"/>
                             </svg>
-                            <span>Mit Google, Apple oder E-Mail anmelden</span>
                         </button>
+                    </form>
 
-                        <button type="button" class="btn-account-clerk-secondary" onclick="window.AccountModule.openSignUp()">
-                            <span>Neues Konto registrieren</span>
-                        </button>
+                    <!-- Footer: Registrierung / Login Umschalter & Clerk-Sicherheit -->
+                    <div class="clerk-card-footer">
+                        ${footerHtml}
+                        <div class="clerk-secured-badge">
+                            <span>Secured by</span>
+                            <span class="clerk-brand">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                                    <circle cx="12" cy="12" r="10" fill="#6C47FF"/>
+                                    <circle cx="12" cy="12" r="4" fill="#ffffff"/>
+                                </svg>
+                                <span>clerk</span>
+                            </span>
+                        </div>
                     </div>
 
-                    <div class="account-trust-pill compact">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                        <span>Vollständig verschlüsselt · Keine Weitergabe von Daten · DSGVO-konform</span>
-                    </div>
-
-                    <!-- Zusätzliche Optionen & Konfiguration -->
-                    <div class="account-quiet-links">
-                        <button type="button" class="account-subtle-link" onclick="window.AccountModule.toggleKeyConfig()">
-                            ⚙️ Clerk Publishable Key ${hasClerkKey ? 'konfiguriert' : 'hinterlegen'}
+                    <!-- Diskretes Einstellungs-Menü -->
+                    <div class="clerk-subtle-options">
+                        <button type="button" class="clerk-subtle-toggle-btn" onclick="window.AccountModule.toggleKeyConfig()" title="Einstellungen &amp; Offline-Backup">
+                            ⚙️ Backup &amp; Keys
                         </button>
-
-                        <div class="account-key-config-drawer ${showKeyConfig ? 'open' : ''}">
+                        <div class="clerk-options-drawer ${showKeyConfig ? 'open' : ''}">
                             <div class="key-config-box">
                                 <label class="key-config-label">Clerk Publishable Key (pk_test_... oder pk_live_...):</label>
                                 <div class="key-config-row">
                                     <input type="text" id="clerk-key-input" class="key-config-input" placeholder="pk_test_..." value="${escapeHtml(getActiveClerkKey())}">
                                     <button type="button" class="key-config-save-btn" onclick="window.AccountModule.saveClerkKey()">Speichern</button>
                                 </div>
-                                <span class="key-config-hint">Kostenlos im <a href="https://dashboard.clerk.com" target="_blank" rel="noopener">Clerk Dashboard</a> unter API Keys abrufbar.</span>
+                                <span class="key-config-hint">Aus dem Clerk Dashboard für dieses Projekt abrufbar.</span>
                             </div>
-                        </div>
-
-                        <button type="button" class="account-subtle-link" onclick="window.AccountModule.toggleOfflineDrawer()">
-                            Offline-Datensicherung &amp; Import
-                        </button>
-
-                        <div class="account-offline-drawer ${showOfflineDrawer ? 'open' : ''}">
-                            <div class="account-offline-grid">
+                            <div class="account-offline-grid" style="margin-top: 10px;">
                                 <button type="button" class="account-subtle-btn" onclick="window.AccountModule.exportVault()">
-                                    Backup herunterladen
+                                    Backup herunterladen (JSON)
                                 </button>
                                 <label class="account-subtle-btn" style="margin:0; cursor:pointer;">
                                     <span>Backup einspielen</span>
@@ -638,15 +864,122 @@ window.AccountModule = (function() {
 
     // ─── 5. Authentifizierungs-Methoden ───
 
+    async function handleGoogleAuth() {
+        const btn = document.querySelector('.clerk-google-btn');
+        if (btn) {
+            btn.style.opacity = '0.7';
+            btn.style.pointerEvents = 'none';
+        }
+        try {
+            const clerk = await initClerk();
+            if (clerk) {
+                closeModal();
+                try {
+                    if (typeof clerk.authenticateWithRedirect === 'function') {
+                        await clerk.authenticateWithRedirect({
+                            strategy: 'oauth_google',
+                            redirectUrl: window.location.href,
+                            redirectUrlComplete: window.location.href
+                        });
+                    } else if (modalMode === 'signup') {
+                        clerk.openSignUp();
+                    } else {
+                        clerk.openSignIn();
+                    }
+                } catch (err) {
+                    console.warn('Google auth redirect fallback:', err);
+                    if (modalMode === 'signup') {
+                        clerk.openSignUp();
+                    } else {
+                        clerk.openSignIn();
+                    }
+                }
+            } else {
+                const hasKey = Boolean(getActiveClerkKey());
+                if (!hasKey) {
+                    showKeyConfig = true;
+                    renderModalContent();
+                    alert('Bitte trage deinen Clerk Publishable Key ein.');
+                } else {
+                    alert('Die Google-Anmeldung konnte nicht geladen werden. Bitte prüfe deine Verbindung oder lade die Seite neu.');
+                }
+            }
+        } finally {
+            if (btn) {
+                btn.style.opacity = '';
+                btn.style.pointerEvents = '';
+            }
+        }
+    }
+
+    async function submitEmailAuth(e) {
+        if (e && e.preventDefault) e.preventDefault();
+        const input = document.getElementById('clerk-email-input');
+        const email = input ? input.value.trim() : '';
+        const btn = document.querySelector('.clerk-continue-btn');
+        if (btn) {
+            btn.style.opacity = '0.7';
+            btn.style.pointerEvents = 'none';
+        }
+        try {
+            const clerk = await initClerk();
+            if (clerk) {
+                closeModal();
+                if (modalMode === 'signup') {
+                    if (email) {
+                        clerk.openSignUp({ initialValues: { emailAddress: email } });
+                    } else {
+                        clerk.openSignUp();
+                    }
+                } else {
+                    if (email) {
+                        clerk.openSignIn({ initialValues: { emailAddress: email } });
+                    } else {
+                        clerk.openSignIn();
+                    }
+                }
+            } else {
+                const hasKey = Boolean(getActiveClerkKey());
+                if (!hasKey) {
+                    showKeyConfig = true;
+                    renderModalContent();
+                    alert('Bitte trage deinen Clerk Publishable Key ein.');
+                } else {
+                    alert('Die Anmeldung konnte nicht geladen werden. Bitte prüfe deine Verbindung oder lade die Seite neu.');
+                }
+            }
+        } finally {
+            if (btn) {
+                btn.style.opacity = '';
+                btn.style.pointerEvents = '';
+            }
+        }
+    }
+
+    async function openSignInWithGoogle() {
+        modalMode = 'signin';
+        await handleGoogleAuth();
+    }
+
+    async function submitEmailSignIn(e) {
+        modalMode = 'signin';
+        await submitEmailAuth(e);
+    }
+
     async function openSignIn() {
         const clerk = await initClerk();
         if (clerk) {
             closeModal();
             clerk.openSignIn();
         } else {
-            showKeyConfig = true;
-            renderModalContent();
-            alert('Bitte trage deinen Clerk Publishable Key (pk_test_... oder pk_live_...) ein, um die Anmeldung zu starten.');
+            const hasKey = Boolean(getActiveClerkKey());
+            if (!hasKey) {
+                showKeyConfig = true;
+                renderModalContent();
+                alert('Bitte trage deinen Clerk Publishable Key (pk_test_... oder pk_live_...) ein, um die Anmeldung zu starten.');
+            } else {
+                alert('Die Anmeldung konnte nicht initialisiert werden. Bitte lade die Seite neu.');
+            }
         }
     }
 
@@ -656,9 +989,14 @@ window.AccountModule = (function() {
             closeModal();
             clerk.openSignUp();
         } else {
-            showKeyConfig = true;
-            renderModalContent();
-            alert('Bitte trage deinen Clerk Publishable Key (pk_test_... oder pk_live_...) ein, um die Registrierung zu starten.');
+            const hasKey = Boolean(getActiveClerkKey());
+            if (!hasKey) {
+                showKeyConfig = true;
+                renderModalContent();
+                alert('Bitte trage deinen Clerk Publishable Key (pk_test_... oder pk_live_...) ein, um die Registrierung zu starten.');
+            } else {
+                alert('Die Registrierung konnte nicht initialisiert werden. Bitte lade die Seite neu.');
+            }
         }
     }
 
@@ -933,9 +1271,17 @@ window.AccountModule = (function() {
 
     return {
         init: init,
+        isLoggedIn: isLoggedIn,
         openModal: openModal,
+        openModalForBookmark: openModalForBookmark,
+        setMode: setMode,
+        updateSettingsUI: updateSettingsUI,
+        handleGoogleAuth: handleGoogleAuth,
+        submitEmailAuth: submitEmailAuth,
         closeModal: closeModal,
         openSignIn: openSignIn,
+        openSignInWithGoogle: openSignInWithGoogle,
+        submitEmailSignIn: submitEmailSignIn,
         openSignUp: openSignUp,
         openUserProfile: openUserProfile,
         signOut: signOut,
@@ -949,8 +1295,8 @@ window.AccountModule = (function() {
         showMultiDeviceConnect: showMultiDeviceConnect,
 
         // Kompatibilitäts-Aliase
-        signInWithGoogle: openSignIn,
-        handleEmailSubmit: openSignIn,
+        signInWithGoogle: openSignInWithGoogle,
+        handleEmailSubmit: submitEmailSignIn,
         disconnectSync: signOut,
         createSyncCode: triggerSync,
         promptEnterSyncCode: openSignIn,

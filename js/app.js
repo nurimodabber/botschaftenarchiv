@@ -390,6 +390,10 @@ window.switchView = function(targetView) {
         window.TimelineModule.init();
     } else if (targetView === 'sources' && window.SourcesModule) {
         window.SourcesModule.init();
+    } else if (targetView === 'settings') {
+        if (window.AccountModule && typeof window.AccountModule.updateSettingsUI === 'function') {
+            window.AccountModule.updateSettingsUI();
+        }
     }
 };
 

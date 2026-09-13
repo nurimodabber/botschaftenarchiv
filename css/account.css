@@ -75,9 +75,9 @@
     position: fixed;
     inset: 0;
     z-index: 99999;
-    background: var(--bg-overlay);
-    backdrop-filter: blur(24px) saturate(160%);
-    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -93,102 +93,439 @@
 }
 
 .account-modal-dialog {
+    position: relative;
     width: 100%;
-    max-width: 410px;
-    background: var(--bg-paper);
-    border: 1px solid var(--border-hairline);
-    border-radius: var(--radius-lg);
-    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.7), var(--shadow-lightbox);
+    max-width: 388px;
+    background: #202225;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.05);
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    transform: scale(0.96) translateY(10px);
+    transform: scale(0.96) translateY(8px);
     transition: transform 0.24s var(--ease-drawer);
-}
-
-[data-theme="dark"] .account-modal-dialog {
-    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12), var(--shadow-lightbox);
 }
 
 .account-modal-overlay.open .account-modal-dialog {
     transform: scale(1) translateY(0);
 }
 
-/* Modal Header */
-.account-modal-header {
-    padding: 1.1rem 1.35rem 0.95rem;
-    border-bottom: 1px solid var(--border-subtle);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--bg-canvas);
-}
-
-.account-header-left {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.account-avatar-badge {
-    width: 36px;
-    height: 36px;
-    border-radius: var(--radius-md);
-    background: var(--accent-gold-soft);
-    color: var(--accent-gold);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid rgba(197, 160, 89, 0.25);
-    flex-shrink: 0;
-}
-
-.account-modal-title {
-    font-family: var(--font-serif-display);
-    font-size: 1.15rem;
-    font-weight: 600;
-    letter-spacing: -0.015em;
-    margin: 0;
-    color: var(--text-ink);
-    line-height: 1.25;
-}
-
-.account-modal-subtitle {
-    font-family: var(--font-sans);
-    font-size: 0.74rem;
-    color: var(--text-muted);
-    margin: 0.15rem 0 0;
-    line-height: 1.3;
-}
-
 .account-close-btn {
-    width: 32px;
-    height: 32px;
-    border-radius: var(--radius-full);
-    border: 1px solid var(--border-hairline);
-    background: var(--bg-paper);
-    color: var(--text-muted);
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: #9ca3af;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all var(--transition-fast);
-    touch-action: manipulation;
+    z-index: 10;
+    transition: color 0.15s, background-color 0.15s, transform 0.08s;
+    padding: 0;
 }
 
 .account-close-btn:hover {
-    color: var(--text-ink);
-    border-color: var(--border-hover);
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .account-close-btn:active {
-    transform: scale(0.92);
+    transform: scale(0.94);
 }
 
 /* Modal Body */
 .account-modal-body {
-    padding: 1.35rem 1.45rem 1.45rem;
-    background: var(--bg-paper);
+    padding: 0;
+    background: transparent;
+}
+
+/* ─── Clerk Authentic Sign-In Card (Screenshot-Präzision) ─── */
+.clerk-sign-in-card {
+    padding: 34px 28px 22px;
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+.clerk-card-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.clerk-card-title {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: -0.018em;
+    margin: 0 0 7px;
+    line-height: 1.25;
+}
+
+.clerk-card-subtitle {
+    font-size: 0.86rem;
+    color: #9ca3af;
+    margin: 0;
+    line-height: 1.4;
+    font-weight: 400;
+}
+
+/* 1-Klick Google Button mit "Last used" Pill */
+.clerk-oauth-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.clerk-google-btn {
+    width: 100%;
+    height: 46px;
+    background: #27292e;
+    border: 1px solid #3c4048;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #e5e7eb;
+    font-size: 0.93rem;
+    font-weight: 500;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background 0.15s, border-color 0.15s, transform 0.08s;
+}
+
+.clerk-google-btn:hover {
+    background: #2e3137;
+    border-color: #4b5260;
+}
+
+.clerk-google-btn:active {
+    transform: scale(0.99);
+}
+
+.clerk-google-icon {
+    flex-shrink: 0;
+}
+
+.clerk-badge-last-used {
+    position: absolute;
+    top: -9px;
+    right: 14px;
+    background: #25272c;
+    border: 1px solid #484d57;
+    border-radius: 9999px;
+    color: #9ca3af;
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 1px 8px;
+    pointer-events: none;
+    line-height: 1.4;
+}
+
+/* Trenner */
+.clerk-divider {
+    display: flex;
+    align-items: center;
+    margin: 20px 0 22px;
+    color: #9ca3af;
+    font-size: 0.82rem;
+}
+
+.clerk-divider::before,
+.clerk-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #33363e;
+}
+
+.clerk-divider span {
+    padding: 0 14px;
+}
+
+/* E-Mail Formular & Mint-Button */
+.clerk-email-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.clerk-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    text-align: left;
+}
+
+.clerk-label {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: #f3f4f6;
+    margin: 0;
+}
+
+.clerk-input {
+    width: 100%;
+    height: 44px;
+    background: #191a1d;
+    border: 1px solid #33363e;
+    border-radius: 10px;
+    padding: 0 14px;
+    color: #ffffff;
+    font-size: 0.93rem;
+    box-sizing: border-box;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    outline: none;
+}
+
+.clerk-input::placeholder {
+    color: #6b7280;
+}
+
+.clerk-input:focus {
+    border-color: #3fa692;
+    box-shadow: 0 0 0 2px rgba(63, 166, 146, 0.25);
+}
+
+.clerk-continue-btn {
+    width: 100%;
+    height: 44px;
+    background: #3fa692;
+    border: none;
+    border-radius: 12px;
+    color: #062821;
+    font-size: 0.96rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    margin-top: 3px;
+    transition: background-color 0.15s, transform 0.08s;
+}
+
+.clerk-continue-btn:hover {
+    background: #47b8a2;
+}
+
+.clerk-continue-btn:active {
+    transform: scale(0.99);
+}
+
+.clerk-triangle-icon {
+    width: 9px;
+    height: 9px;
+    margin-top: 1px;
+}
+
+/* Footer */
+.clerk-card-footer {
+    margin: 24px -28px -22px -28px;
+    padding: 20px 28px 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    background: rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.clerk-signup-prompt {
+    font-size: 0.88rem;
+    color: #9ca3af;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.clerk-link-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #3fa692;
+    font-weight: 500;
+    font-size: 0.88rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.clerk-link-btn:hover {
+    color: #52c8b0;
+    text-decoration: underline;
+}
+
+.clerk-secured-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    color: #6b7280;
+}
+
+.clerk-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #9ca3af;
+    font-weight: 600;
+}
+
+/* Diskrete Optionen */
+.clerk-subtle-options {
+    margin-top: 12px;
+    text-align: center;
+}
+
+.clerk-subtle-toggle-btn {
+    background: none;
+    border: none;
+    color: #6b7280;
+    font-size: 0.72rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: color 0.15s;
+}
+
+.clerk-subtle-toggle-btn:hover {
+    color: #9ca3af;
+}
+
+.clerk-options-drawer {
+    display: none;
+    margin-top: 10px;
+    padding: 12px;
+    background: #191a1d;
+    border: 1px solid #2d3036;
+    border-radius: 8px;
+    text-align: left;
+}
+
+.clerk-options-drawer.open {
+    display: block;
+}
+
+/* Logged-In Dark Theme Tweaks */
+.clerk-logged-in-card {
+    padding: 28px 24px 22px;
+}
+
+.clerk-logged-in-card .account-user-card {
+    background: #191a1d;
+    border: 1px solid #2d3036;
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.clerk-logged-in-card .user-name {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.98rem;
+}
+
+.clerk-logged-in-card .user-sub {
+    color: #9ca3af;
+    font-size: 0.78rem;
+}
+
+.clerk-logged-in-card .account-sync-banner {
+    background: #191a1d;
+    border: 1px solid #2d3036;
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 14px;
+}
+
+.clerk-logged-in-card .sync-banner-title {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.88rem;
+}
+
+.clerk-logged-in-card .sync-time {
+    color: #9ca3af;
+    font-size: 0.75rem;
+}
+
+.clerk-logged-in-card .sync-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin: 12px 0 14px;
+}
+
+.clerk-logged-in-card .sync-metric-item {
+    background: #23252a;
+    border: 1px solid #2f3238;
+    border-radius: 8px;
+    padding: 10px 6px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.clerk-logged-in-card .sync-metric-num {
+    color: #3fa692;
+    font-weight: 700;
+    font-size: 1.15rem;
+}
+
+.clerk-logged-in-card .sync-metric-lbl {
+    color: #9ca3af;
+    font-size: 0.72rem;
+}
+
+.clerk-logged-in-card .account-actions-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.clerk-logged-in-card .account-action-chip {
+    flex: 1;
+    min-width: 90px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #33363e;
+    background: #25272c;
+    color: #e5e7eb;
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.clerk-logged-in-card .account-action-chip:hover {
+    background: #2f3238;
+    border-color: #484d57;
+    color: #ffffff;
+}
+
+.clerk-logged-in-card .account-action-chip.danger {
+    color: #f87171;
+    border-color: rgba(239, 68, 68, 0.25);
+}
+
+.clerk-logged-in-card .account-action-chip.danger:hover {
+    background: rgba(239, 68, 68, 0.12);
 }
 
 /* ─── Radikal vereinfachte Oberflächen-Elemente ─── */
@@ -961,3 +1298,255 @@
         max-width: 100%;
     }
 }
+
+/* ─── Context Pill (Sign up required for bookmarks) ─── */
+.clerk-context-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 9999px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    color: #10B981;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    animation: cosmosFadeIn 0.2s ease-out;
+}
+
+/* ─── Settings Account Section & Card ─── */
+.appearance-section-account {
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border-hairline);
+}
+
+.settings-account-widget {
+    width: 100%;
+}
+
+.settings-account-card {
+    border-radius: 14px;
+    padding: 1rem;
+    transition: all 0.2s ease;
+}
+
+.settings-account-card.signed-out {
+    background: linear-gradient(135deg, rgba(20, 184, 166, 0.08) 0%, rgba(59, 130, 246, 0.05) 100%);
+    border: 1px solid rgba(20, 184, 166, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.settings-account-badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #14B8A6;
+    margin-bottom: 0.25rem;
+}
+
+.settings-account-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-ink);
+    line-height: 1.3;
+}
+
+.settings-account-desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin: 0.25rem 0 0 0;
+    line-height: 1.4;
+}
+
+.settings-account-signup-btn {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border-radius: 10px;
+    background: #14B8A6;
+    color: #0c1816;
+    border: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 12px rgba(20, 184, 166, 0.25);
+    transition: all 0.15s ease;
+}
+
+.settings-account-signup-btn:hover {
+    background: #2dd4bf;
+    box-shadow: 0 6px 16px rgba(20, 184, 166, 0.35);
+    transform: translateY(-1px);
+}
+
+.settings-account-card.logged-in {
+    background: var(--bg-paper);
+    border: 1px solid var(--border-hairline);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.settings-account-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+}
+
+.settings-account-avatar-circle {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #14B8A6 0%, #3B82F6 100%);
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.settings-account-avatar-img {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.settings-account-meta {
+    min-width: 0;
+}
+
+.settings-account-name {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.settings-account-status {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.72rem;
+    color: #10B981;
+    margin-top: 0.15rem;
+}
+
+.settings-account-btn {
+    padding: 0.45rem 0.85rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-hairline);
+    background: var(--bg-canvas);
+    color: var(--text-ink);
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.15s ease;
+}
+
+.settings-account-btn:hover {
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
+}
+
+/* ─── Bookmarks Auth Call-To-Action Banner ─── */
+.bookmarks-auth-banner {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding: 1.15rem 1.4rem;
+    margin-bottom: 1.25rem;
+    background: linear-gradient(135deg, rgba(20, 184, 166, 0.1) 0%, rgba(59, 130, 246, 0.06) 100%);
+    border: 1px solid rgba(20, 184, 166, 0.25);
+    border-radius: 16px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.bookmarks-auth-banner-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 0;
+}
+
+.bookmarks-auth-banner-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: rgba(20, 184, 166, 0.15);
+    color: #14B8A6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.bookmarks-auth-banner-text h4 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-ink);
+}
+
+.bookmarks-auth-banner-text p {
+    margin: 0.2rem 0 0 0;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.35;
+}
+
+.bookmarks-auth-banner-btn {
+    padding: 0.55rem 1.15rem;
+    border-radius: 10px;
+    background: #14B8A6;
+    color: #0c1816;
+    border: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(20, 184, 166, 0.25);
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+}
+
+.bookmarks-auth-banner-btn:hover {
+    background: #2dd4bf;
+    box-shadow: 0 6px 16px rgba(20, 184, 166, 0.35);
+    transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+    .bookmarks-auth-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem 1.1rem;
+    }
+    .bookmarks-auth-banner-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+

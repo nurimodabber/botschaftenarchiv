@@ -341,14 +341,41 @@ function renderBookmarks() {
     const container = document.getElementById('bookmarks-list');
     if (!container) return;
 
+    const isAuthed = window.AccountModule && typeof window.AccountModule.isLoggedIn === 'function' && window.AccountModule.isLoggedIn();
+    const isEn = window.I18n ? window.I18n.getCurrentLanguage() === 'en' : (safeGetStorage('cosmos_master_lang', 'de') === 'en');
     const bookmarkedDocs = (window.state ? window.state.documents : []).filter(doc => (window.state ? window.state.bookmarks : []).includes(doc.id));
 
+    let bannerHtml = '';
+    if (!isAuthed) {
+        bannerHtml = `
+            <div class="bookmarks-auth-banner">
+                <div class="bookmarks-auth-banner-content">
+                    <div class="bookmarks-auth-banner-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="bookmarks-auth-banner-text">
+                        <h4>${isEn ? 'Save & Sync Bookmarks with an Account' : 'Lesezeichen mit Studienkonto sichern'}</h4>
+                        <p>${isEn ? 'Create your free account to sync your saved messages and passages across all devices.' : 'Erstelle ein kostenloses Studienkonto, um deine Merkliste auf all deinen Geräten synchron zu halten.'}</p>
+                    </div>
+                </div>
+                <button type="button" class="bookmarks-auth-banner-btn" onclick="window.AccountModule && window.AccountModule.openModal('signup', 'bookmark')">
+                    ${isEn ? 'Create Account' : 'Konto erstellen'}
+                </button>
+            </div>
+        `;
+    }
+
     if (bookmarkedDocs.length === 0) {
-        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--color-text-muted); padding: 3rem;">Noch keine Lesezeichen gespeichert. Klicken Sie bei einem Dokument auf das Lesezeichen-Symbol, um es hier abzulegen.</p>';
+        const emptyText = isEn
+            ? 'No bookmarks saved yet. Click the bookmark icon on any document to add it here.'
+            : 'Noch keine Lesezeichen gespeichert. Klicken Sie bei einem Dokument auf das Lesezeichen-Symbol, um es hier abzulegen.';
+        container.innerHTML = bannerHtml + `<p style="grid-column: 1/-1; text-align: center; color: var(--color-text-muted); padding: 2.5rem 1rem;">${emptyText}</p>`;
         return;
     }
 
-    container.innerHTML = bookmarkedDocs.map((doc, idx) => window.createDocCard(doc, '', idx)).join('');
+    container.innerHTML = bannerHtml + bookmarkedDocs.map((doc, idx) => window.createDocCard(doc, '', idx)).join('');
 }
 
 function renderSavedCompilationsList() {
@@ -422,6 +449,18 @@ window.deleteSavedCompilation = function(idx) {
 };
 
 window.toggleBookmark = function(id) {
+    const isCurrentlyBookmarked = (window.state ? window.state.bookmarks : []).includes(id);
+
+    // Nicht angemeldet & möchte Lesezeichen speichern: Signup-Modal öffnen und Lesezeichen merken
+    if (!isCurrentlyBookmarked && window.AccountModule && typeof window.AccountModule.isLoggedIn === 'function' && !window.AccountModule.isLoggedIn()) {
+        if (typeof window.AccountModule.openModalForBookmark === 'function') {
+            window.AccountModule.openModalForBookmark(id);
+        } else if (typeof window.AccountModule.openModal === 'function') {
+            window.AccountModule.openModal('signup', 'bookmark');
+        }
+        return;
+    }
+
     const index = (window.state ? window.state.bookmarks : []).indexOf(id);
     if (index > -1) {
         (window.state ? window.state.bookmarks : []).splice(index, 1);
