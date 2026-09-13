@@ -1199,19 +1199,18 @@ window.TimelineModule = (function() {
             const title = (isDe ? (d.deTitle || d.title) : (d.enTitle || d.title)) || d.title;
             const reason = isDe ? (d.milestoneReasonDe || '') : (d.milestoneReasonEn || '');
             const badge = isDe ? (d.milestoneBadgeDe || 'Schlüssel-Botschaft') : (d.milestoneBadgeEn || 'Key Message');
-            const dateStr = d.date ? d.date : (d.year || '');
+            const dateFormatted = d.date ? (window.formatDate ? window.formatDate(d.date) : d.date) : (d.year || '');
             const safeDocId = (d.id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
             const isCharta = d.milestonePriority === 1;
 
             return `
                 <div class="spotlight-card ${isCharta ? 'is-charta' : ''}" data-doc-id="${escapeHtml(d.id)}" onclick="window.openDocument('${safeDocId}')" title="${escapeHtml(title)}">
                     <div class="spotlight-card-top">
-                        <span class="spotlight-date">${escapeHtml(dateStr)}</span>
+                        <span class="spotlight-date">${escapeHtml(dateFormatted)}</span>
                         <span class="doc-milestone-tag ${isCharta ? 'tag-charta' : ''}">${escapeHtml(badge)}</span>
                     </div>
                     <h5 class="spotlight-card-title">${escapeHtml(title)}</h5>
                     ${reason ? `<p class="spotlight-reason">${escapeHtml(reason)}</p>` : ''}
-                    <span class="spotlight-action">${isDe ? 'Jetzt lesen →' : 'Read Now →'}</span>
                 </div>
             `;
         }).join('');

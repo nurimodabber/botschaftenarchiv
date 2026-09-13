@@ -1643,6 +1643,23 @@ function formatDate(dateString) {
     }
     return dateString;
 }
+window.formatDate = formatDate;
+
+function formatExcerpt(text) {
+    if (!text) return '';
+    let clean = text.trim();
+    // Wenn der Auszug überwiegend aus Großbuchstaben besteht (schreiende Versalien), in lesbare Satzschrift überführen
+    const letters = clean.replace(/[^a-zA-ZäöüßÄÖÜ]/g, '');
+    const uppercaseCount = (clean.match(/[A-ZÄÖÜ]/g) || []).length;
+    if (letters.length > 15 && uppercaseCount / letters.length > 0.6) {
+        clean = clean.charAt(0).toUpperCase() + clean.slice(1).toLowerCase();
+        clean = clean.replace(/bah[aá][’']?[ií]/gi, "Bahá’í")
+                     .replace(/['’]abdu['’]l-bah[aá]/gi, "‘Abdu’l-Bahá")
+                     .replace(/bah[aá]['’]u['’]ll[aá]h/gi, "Bahá’u’lláh")
+                     .replace(/b[aá]b/gi, "Báb");
+    }
+    return clean;
+}
 
 function formatCleanTitle(doc, currentLang = 'de') {
     if (currentLang === 'de' && doc.deTitle) {
@@ -1761,18 +1778,26 @@ window.createDocCard = function(doc, snippet = '', index = 0) {
 
     const staggerIndex = typeof index === 'number' ? (index % 30) : 0;
     const activeSnippet = snippet || doc._searchSnippet || '';
-    const previewText = activeSnippet ? (activeSnippet.startsWith('…') ? activeSnippet : `…${activeSnippet}…`) : (doc.excerpt ? `${escapeDocHtml(doc.excerpt)}…` : '');
+    const formattedDocExcerpt = doc.excerpt ? formatExcerpt(doc.excerpt) : '';
+    const previewText = activeSnippet ? (activeSnippet.startsWith('…') ? activeSnippet : `…${activeSnippet}…`) : (formattedDocExcerpt ? `${escapeDocHtml(formattedDocExcerpt)}…` : '');
 
     // Bereinigter Haupttitel
     const cleanTitle = formatCleanTitle(doc, currentLang);
 
-    // Zweitsprachiger Titel ohne redundante Datumsdoppelung
+    // Zweitsprachiger Titel ohne redundante Datums- oder Titeldoppelung
     let subTitleHtml = '';
     if (hasBoth) {
         let otherTitle = isEn ? doc.deTitle : doc.enTitle;
         if (otherTitle && otherTitle !== doc.title) {
             otherTitle = otherTitle.replace(/^\d{1,2}\.?\s+[A-Za-zäöüßÄÖÜ]+\s+\d{4}\s*[–-]\s*/, '').trim();
-            if (otherTitle && otherTitle !== cleanTitle) {
+            // Prüfen, ob der andere Titel redundant ist (z.B. "Riḍván Message 2021" vs "Riḍván-Botschaft 2021")
+            const normClean = cleanTitle.toLowerCase().replace(/[^a-z0-9]/g, '');
+            const normOther = otherTitle.toLowerCase().replace(/[^a-z0-9]/g, '');
+            const isRedundant = normOther === normClean || 
+                (normClean.includes('ridvan') && normOther.includes('ridvan')) ||
+                (cleanTitle.startsWith('An die') && otherTitle.startsWith('To the')) ||
+                (cleanTitle.includes('Neunjahresplan') && otherTitle.includes('nine year plan'));
+            if (otherTitle && otherTitle !== cleanTitle && !isRedundant) {
                 subTitleHtml = `<div class="doc-sub-title">${escapeDocHtml(otherTitle)}</div>`;
             }
         }

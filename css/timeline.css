@@ -356,15 +356,19 @@
 }
 
 .subfilter-btn.active {
-    background: var(--text-ink);
-    color: var(--bg-paper);
-    border-color: var(--text-ink);
+    background: var(--accent-gold);
+    color: #0C0C0B;
+    border-color: var(--accent-gold);
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(197, 160, 89, 0.25);
 }
 
 [data-theme="dark"] .subfilter-btn.active {
     background: var(--accent-gold);
-    color: #121417;
+    color: #0C0C0B;
     border-color: var(--accent-gold);
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(197, 160, 89, 0.3);
 }
 
 .subfilter-btn.subfilter-milestones {
@@ -376,7 +380,7 @@
 
 .subfilter-btn.subfilter-milestones.active {
     background: var(--accent-gold);
-    color: #121417;
+    color: #0C0C0B;
     border-color: var(--accent-gold);
     font-weight: 700;
 }
@@ -391,32 +395,35 @@
 .doc-milestone-tag {
     display: inline-flex;
     align-items: center;
-    padding: 0.12rem 0.45rem;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
+    padding: 0.18rem 0.55rem;
+    font-family: var(--font-sans);
+    font-size: 0.67rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    border-radius: var(--radius-xs);
+    border-radius: var(--radius-full);
     background: var(--accent-gold-soft);
     color: var(--accent-gold);
-    border: 1px solid rgba(197, 160, 89, 0.3);
+    border: 1px solid rgba(197, 160, 89, 0.32);
+    line-height: 1.25;
 }
 
 .doc-milestone-tag.tag-charta {
-    background: rgba(229, 57, 53, 0.12);
-    color: #E53935;
-    border-color: rgba(229, 57, 53, 0.4);
-    font-weight: 800;
+    background: rgba(197, 160, 89, 0.18);
+    color: var(--accent-gold);
+    border-color: rgba(197, 160, 89, 0.5);
+    box-shadow: 0 0 8px rgba(197, 160, 89, 0.18);
+    font-weight: 700;
 }
 
 .spotlight-card.is-charta {
-    border-color: rgba(229, 57, 53, 0.35);
-    background: linear-gradient(135deg, rgba(229, 57, 53, 0.04) 0%, var(--bg-card) 100%);
+    border-color: rgba(197, 160, 89, 0.35);
+    background: linear-gradient(135deg, rgba(197, 160, 89, 0.06) 0%, var(--bg-card) 100%);
 }
 
 .spotlight-card.is-charta:hover {
-    border-color: #E53935;
-    box-shadow: 0 6px 20px rgba(229, 57, 53, 0.12);
+    border-color: var(--accent-gold);
+    box-shadow: 0 6px 20px rgba(197, 160, 89, 0.16);
 }
 
 /* Card Highlight für Schlüssel-Botschaften */
@@ -476,12 +483,12 @@
 .spotlight-card {
     background: var(--bg-paper);
     border: 1px solid var(--border-hairline);
-    border-radius: var(--radius-sm);
-    padding: 0.95rem 1.15rem;
+    border-radius: var(--radius-md);
+    padding: 1.15rem 1.35rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 0.65rem;
+    gap: 0.75rem;
     cursor: pointer;
     box-shadow: var(--shadow-plate);
     transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
@@ -493,10 +500,14 @@
         transform: translateY(-2px);
         box-shadow: var(--shadow-hover);
     }
+
+    .spotlight-card:hover .spotlight-card-title {
+        color: var(--accent-gold);
+    }
 }
 
 .spotlight-card:active {
-    transform: scale(0.97);
+    transform: scale(0.98);
     transition: transform 100ms var(--ease-out);
 }
 
@@ -516,32 +527,20 @@
 
 .spotlight-card-title {
     font-family: var(--font-serif-display);
-    font-size: 0.95rem;
+    font-size: 1.02rem;
     font-weight: 600;
     line-height: 1.35;
     color: var(--text-ink);
     margin: 0;
+    transition: color var(--transition-fast);
 }
 
 .spotlight-reason {
     font-family: var(--font-sans);
     font-size: 0.8rem;
-    line-height: 1.45;
+    line-height: 1.5;
     color: var(--text-muted);
     margin: 0;
-}
-
-.spotlight-action {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: var(--accent-gold);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-top: 0.2rem;
 }
 
 .inspector-docs-grid {
@@ -731,17 +730,11 @@
     color: var(--accent-gold);
 }
 
-.t-divine-pill.active-divine {
-    background: rgba(43, 76, 126, 0.08);
-    border-color: #2B4C7E;
-    color: #2B4C7E;
-    font-weight: 600;
-}
-
+.t-divine-pill.active-divine,
 .t-divine-pill.active-red {
-    background: rgba(217, 48, 37, 0.08);
-    border-color: #D93025;
-    color: #D93025;
+    background: var(--accent-gold-soft);
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
     font-weight: 600;
 }
 
@@ -808,16 +801,18 @@
 }
 
 .t-plan-card.plan-transition {
-    border-color: #E67E22;
+    border-color: rgba(197, 160, 89, 0.4);
 }
 
 .t-plan-card.plan-current {
-    border-color: #D93025;
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 0 1px rgba(197, 160, 89, 0.3);
 }
 
 .t-plan-card.plan-current.active-plan {
-    background: #D93025;
-    border-color: #D93025;
+    background: var(--accent-gold);
+    border-color: var(--accent-gold);
+    color: #0C0C0B;
 }
 
 .plan-card-top {
@@ -834,13 +829,13 @@
 }
 
 .plan-current-tag {
-    background: #D93025;
-    color: #FFFFFF;
+    background: var(--accent-gold);
+    color: #0C0C0B;
     font-family: var(--font-mono);
-    font-size: 0.55rem;
+    font-size: 0.58rem;
     font-weight: 800;
-    padding: 1px 4px;
-    border-radius: 3px;
+    padding: 1px 5px;
+    border-radius: var(--radius-full);
     letter-spacing: 0.05em;
 }
 
