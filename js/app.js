@@ -224,12 +224,14 @@ function renderSubfilters(segment) {
 
     if (segment === 'books') {
         const cur = state.library.author || 'all';
+        const isEn = window.I18n && typeof window.I18n.getCurrentLanguage === 'function' && window.I18n.getCurrentLanguage() === 'en';
         const items = [
-            { id: 'all', label: 'Alle Autoren' },
+            { id: 'all', label: isEn ? 'All Authors' : 'Alle Autoren' },
             { id: 'bahaullah', label: "Bahá'u'lláh" },
             { id: 'the-bab', label: 'Der Báb' },
             { id: 'abdul-baha', label: "‘Abdu’l-Bahá" },
-            { id: 'shoghi-effendi', label: 'Shoghi Effendi' }
+            { id: 'shoghi-effendi', label: 'Shoghi Effendi' },
+            { id: 'uhj', label: isEn ? 'House of Justice' : 'Haus d. Gerechtigkeit' }
         ];
         container.innerHTML = `
             <div class="subfilter-chips-scroll" role="group" aria-label="Autorinnen & Autoren">
@@ -1060,11 +1062,13 @@ function applyLibraryFilters() {
     // 0b. Autoren-Filter (für Bücher)
     if (author && author !== 'all') {
         list = list.filter(d => {
+            if (d.authorCode === author || d.subTier === author) return true;
             const auth = ((d.author || '') + ' ' + (d.title || '')).toLowerCase();
             if (author === 'bahaullah') return auth.includes("bahá'u'lláh") || auth.includes("baha'u'llah") || auth.includes("bahaullah");
             if (author === 'the-bab') return auth.includes("báb") || auth.includes("bab");
             if (author === 'abdul-baha') return auth.includes("abdu'l-bahá") || auth.includes("abdul-baha") || auth.includes("abdu'l-baha");
             if (author === 'shoghi-effendi') return auth.includes("shoghi");
+            if (author === 'uhj') return auth.includes("haus der gerechtigkeit") || auth.includes("house of justice") || auth.includes("universales haus");
             return true;
         });
     }
@@ -1397,7 +1401,8 @@ function applyLibraryFilters() {
         activeFilterCount++;
         const authNameMap = {
             bahaullah: "Bahá'u'lláh", 'the-bab': 'Der Báb',
-            'abdul-baha': '‘Abdu’l-Bahá', 'shoghi-effendi': 'Shoghi Effendi'
+            'abdul-baha': '‘Abdu’l-Bahá', 'shoghi-effendi': 'Shoghi Effendi',
+            uhj: isEn ? 'House of Justice' : 'Haus d. Gerechtigkeit'
         };
         activeTags.push({ label: authNameMap[author] || author, key: 'author' });
     }
