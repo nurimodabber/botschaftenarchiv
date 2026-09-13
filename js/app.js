@@ -231,7 +231,7 @@ function renderSubfilters(segment) {
             { id: 'the-bab', label: 'Der Báb' },
             { id: 'abdul-baha', label: "‘Abdu’l-Bahá" },
             { id: 'shoghi-effendi', label: 'Shoghi Effendi' },
-            { id: 'uhj', label: isEn ? 'House of Justice' : 'Haus d. Gerechtigkeit' }
+            { id: 'uhj', label: isEn ? 'House' : 'Haus der Gerechtigkeit' }
         ];
         container.innerHTML = `
             <div class="subfilter-chips-scroll" role="group" aria-label="Autorinnen & Autoren">
@@ -1402,7 +1402,7 @@ function applyLibraryFilters() {
         const authNameMap = {
             bahaullah: "Bahá'u'lláh", 'the-bab': 'Der Báb',
             'abdul-baha': '‘Abdu’l-Bahá', 'shoghi-effendi': 'Shoghi Effendi',
-            uhj: isEn ? 'House of Justice' : 'Haus d. Gerechtigkeit'
+            uhj: isEn ? 'House' : 'Haus der Gerechtigkeit'
         };
         activeTags.push({ label: authNameMap[author] || author, key: 'author' });
     }

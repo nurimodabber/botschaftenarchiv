@@ -843,7 +843,7 @@ window.TimelineModule = (function() {
                 badgeEn: 'Plan Launch',
                 planId: 'plan_9yp_64',
                 reasonDe: 'Lancierung des Neunjahresplans (1964–1973) — Erster globaler Plan des Hauses',
-                reasonEn: 'Launch of the Nine Year Plan (1964–1973) — First global plan of the House of Justice'
+                reasonEn: 'Launch of the Nine Year Plan (1964–1973) — First global plan of the House'
             };
         }
 

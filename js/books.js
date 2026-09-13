@@ -15,7 +15,7 @@ window.BooksModule = (function() {
         { id: 'the-bab', nameDe: 'Der Báb', shortDe: 'Der Báb', nameEn: 'The Báb', shortEn: 'The Báb', roleDe: 'Herold', roleEn: 'Herald' },
         { id: 'abdul-baha', nameDe: '‘Abdu’l-Bahá', shortDe: '‘Abdu’l-Bahá', nameEn: '‘Abdu’l-Bahá', shortEn: '‘Abdu’l-Bahá', roleDe: 'Ausleger', roleEn: 'Centre of Covenant' },
         { id: 'shoghi-effendi', nameDe: 'Shoghi Effendi', shortDe: 'Shoghi Effendi', nameEn: 'Shoghi Effendi', shortEn: 'Shoghi Effendi', roleDe: 'Hüter', roleEn: 'Guardian' },
-        { id: 'uhj', nameDe: 'Universales Haus d. G.', shortDe: 'Haus d. Gerechtigkeit', nameEn: 'Universal House of Justice', shortEn: 'House of Justice', roleDe: 'Oberster Rat', roleEn: 'Supreme Body' },
+        { id: 'uhj', nameDe: 'Universales Haus der Gerechtigkeit', shortDe: 'Haus der Gerechtigkeit', nameEn: 'Universal House of Justice', shortEn: 'House', roleDe: 'Oberster Rat', roleEn: 'Supreme Body' },
         { id: 'prayers', nameDe: 'Gebete & Andacht', shortDe: 'Gebete', nameEn: 'Prayers & Devotions', shortEn: 'Prayers', roleDe: 'Andacht', roleEn: 'Devotions' },
         { id: 'compilations', nameDe: 'Kompilationen', shortDe: 'Kompilationen', nameEn: 'Compilations', shortEn: 'Compilations', roleDe: 'Themenreihen', roleEn: 'Themes' }
     ];
