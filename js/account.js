@@ -16,8 +16,8 @@ window.AccountModule = (function() {
     const STORAGE_KEY_SYNC_TIME = 'cosmos_sync_time';
     const STORAGE_KEY_CLERK_KEY = 'cosmos_clerk_publishable_key';
 
-    // Standard Clerk Publishable Key (kann im Dialog mit 1 Klick angepasst werden)
-    const DEFAULT_CLERK_KEY = window.CLERK_PUBLISHABLE_KEY || '';
+    // Standard Clerk Publishable Key von App app_3JGK6ldOE5Y0DERV8brP0fWG3MA
+    const DEFAULT_CLERK_KEY = window.CLERK_PUBLISHABLE_KEY || 'pk_test_bmF0aW9uYWwtb3Bvc3N1bS0xOTkuY2xlcmsuYWNjb3VudHMuZGV2JA';
 
     const safeGetStorage = window.safeGetStorage || function(k, d) {
         try {
