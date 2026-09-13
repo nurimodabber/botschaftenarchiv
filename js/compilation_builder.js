@@ -34,6 +34,9 @@ window.CompilationBuilder = (function() {
     function saveCompilationsList(list) {
         try {
             localStorage.setItem('my_compilations', JSON.stringify(list));
+            if (window.AccountModule && typeof window.AccountModule.onDataChanged === 'function') {
+                window.AccountModule.onDataChanged('compilations');
+            }
         } catch (e) {}
     }
 

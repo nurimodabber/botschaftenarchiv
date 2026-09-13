@@ -226,6 +226,10 @@ window.recordReadingHistory = function(doc) {
         if (history.length > 50) history = history.slice(0, 50);
         safeSetStorage('cosmos_reading_history', JSON.stringify(history));
 
+        if (window.AccountModule && typeof window.AccountModule.onDataChanged === 'function') {
+            window.AccountModule.onDataChanged('history');
+        }
+
         const countHistory = document.getElementById('saved-history-count');
         if (countHistory) countHistory.textContent = history.length;
     } catch (e) {}
@@ -233,6 +237,9 @@ window.recordReadingHistory = function(doc) {
 
 window.clearReadingHistory = function() {
     safeSetStorage('cosmos_reading_history', '[]');
+    if (window.AccountModule && typeof window.AccountModule.onDataChanged === 'function') {
+        window.AccountModule.onDataChanged('history');
+    }
     renderReadingHistory();
     const countHistory = document.getElementById('saved-history-count');
     if (countHistory) countHistory.textContent = '0';
@@ -407,6 +414,9 @@ window.deleteSavedCompilation = function(idx) {
         const compList = JSON.parse(safeGetStorage('my_compilations', '[]'));
         compList.splice(idx, 1);
         safeSetStorage('my_compilations', JSON.stringify(compList));
+        if (window.AccountModule && typeof window.AccountModule.onDataChanged === 'function') {
+            window.AccountModule.onDataChanged('compilations');
+        }
         renderSavedView();
     } catch (e) {}
 };
@@ -419,6 +429,10 @@ window.toggleBookmark = function(id) {
         (window.state ? window.state.bookmarks : []).push(id);
     }
     safeSetStorage('bookmarks', JSON.stringify((window.state ? window.state.bookmarks : [])));
+    
+    if (window.AccountModule && typeof window.AccountModule.onDataChanged === 'function') {
+        window.AccountModule.onDataChanged('bookmarks');
+    }
     
     // Update viewer icon if open
     const bookmarkBtn = document.getElementById('viewer-bookmark');
