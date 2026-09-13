@@ -47,9 +47,28 @@ module.exports = async (req, res) => {
 
         let html = await upstreamResponse.text();
 
-        // Inject <base href="..."> with target="_blank" so all relative assets (CSS, images, fonts)
-        // resolve to the original site and any internal links clicked open in a new tab.
-        const baseTag = `<base href="${escapeAttr(targetUrl)}" target="_blank">`;
+        // Inject <base href="..."> with target="_blank" so all relative assets (CSS, images, fonts, doc-data.json)
+        // resolve to the original site correctly even when viewing sub-pages or sections like /1#647533678
+        let cleanUrl = targetUrl.split('?')[0].split('#')[0];
+        let baseHref = cleanUrl;
+        if (baseHref.endsWith('/')) {
+            // Already directory
+        } else {
+            const lastSlash = baseHref.lastIndexOf('/');
+            if (lastSlash !== -1) {
+                const lastSegment = baseHref.substring(lastSlash + 1);
+                // If ending with numeric chapter or pagination (e.g. /1), base is parent directory
+                if (/^\d+$/.test(lastSegment)) {
+                    baseHref = baseHref.substring(0, lastSlash + 1);
+                } else {
+                    baseHref = baseHref + '/';
+                }
+            } else {
+                baseHref = baseHref + '/';
+            }
+        }
+
+        const baseTag = `<base href="${escapeAttr(baseHref)}" target="_blank">`;
         
         // Clean authentic paper presentation without forcing unreadable dark-on-dark styles
         const iframeEnhancementStyle = `
