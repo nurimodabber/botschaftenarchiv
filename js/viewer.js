@@ -574,19 +574,18 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
         btnModePdf.style.display = pdfPath ? 'inline-flex' : 'none';
     }
     if (btnModeWeb) {
-        // Anzeigen, sobald eine externe Quelle (BRL oder Bahá'í-Bibliothek) hinterlegt ist
-        btnModeWeb.style.display = doc.sourceUrl ? 'inline-flex' : 'none';
-        if (doc.sourceUrl) {
-            const isBrl = doc.sourceUrl.includes('bahai.org') || (doc.sourcePlatform && doc.sourcePlatform.includes('Reference Library'));
+        // Nur fuer autorisierte, saubere Web-Ansichten (BRL oder Bahá'í-Bibliothek) anzeigen
+        const isBrl = doc.sourceUrl && (doc.sourceUrl.includes('bahai.org') || (doc.sourcePlatform && doc.sourcePlatform.includes('Reference Library')));
+        const isGermanBib = doc.sourceUrl && doc.sourceUrl.includes('bibliothek.bahai.de');
+        const canEmbedWeb = Boolean(doc.sourceUrl && (isBrl || isGermanBib));
+        btnModeWeb.style.display = canEmbedWeb ? 'inline-flex' : 'none';
+        if (canEmbedWeb) {
             if (isBrl) {
                 btnModeWeb.textContent = 'Reference Library';
                 btnModeWeb.title = 'In der Bahá’í Reference Library Ansicht öffnen';
-            } else if (doc.sourceUrl.includes('bibliothek.bahai.de')) {
-                btnModeWeb.textContent = 'Webseite';
-                btnModeWeb.title = 'Original-Webseite (Bahá’í-Bibliothek) aufrufen';
             } else {
                 btnModeWeb.textContent = 'Webseite';
-                btnModeWeb.title = 'Original-Webseite aufrufen';
+                btnModeWeb.title = 'Original-Webseite (Bahá’í-Bibliothek) aufrufen';
             }
         }
     }
@@ -603,43 +602,32 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
         if (targetParagraph) {
             targetMode = 'text';
         } else if (isMobile) {
-            // Auf Mobilgeraeten: IMMER Fliesstext als Standard, da iOS Safari & Android Chrome keine PDFs in Iframes unterstuetzen
+            // Auf Mobilgeraeten: IMMER Fliesstext als Standard
             targetMode = 'text';
+        } else if (doc.tier === 'books') {
+            // Bücher: Wenn ein lokales PDF vorhanden ist und PDF bevorzugt wird, PDF; sonst IMMER Fließtext-Reader
+            const defaultFmt = getStoredDefaultViewerMode();
+            if (defaultFmt === 'pdf' && pdfPath) {
+                targetMode = 'pdf';
+            } else {
+                targetMode = 'text';
+            }
         } else {
             const defaultFmt = getStoredDefaultViewerMode();
+            const canEmbedWeb = Boolean(doc.sourceUrl && (doc.sourceUrl.includes('bahai.org') || doc.sourceUrl.includes('bibliothek.bahai.de')));
             if (defaultFmt === 'pdf') {
-                if (pdfPath) {
-                    targetMode = 'pdf';
-                } else if (doc.sourceUrl) {
-                    targetMode = 'web';
-                } else {
-                    targetMode = 'text';
-                }
+                targetMode = pdfPath ? 'pdf' : 'text';
             } else if (defaultFmt === 'text') {
                 targetMode = 'text';
             } else if (defaultFmt === 'web') {
-                if (doc.sourceUrl) {
-                    targetMode = 'web';
-                } else if (pdfPath) {
-                    targetMode = 'pdf';
-                } else {
-                    targetMode = 'text';
-                }
+                targetMode = canEmbedWeb ? 'web' : (pdfPath ? 'pdf' : 'text');
             } else if (defaultFmt === 'auto') {
                 if (origFmt === 'PDF' && pdfPath) {
                     targetMode = 'pdf';
-                } else if (origFmt === 'Webseite') {
-                    if (doc.sourceUrl) {
-                        targetMode = 'web';
-                    } else if (pdfPath) {
-                        targetMode = 'pdf';
-                    } else {
-                        targetMode = 'text';
-                    }
+                } else if (origFmt === 'Webseite' && canEmbedWeb) {
+                    targetMode = 'web';
                 } else if (pdfPath) {
                     targetMode = 'pdf';
-                } else if (doc.sourceUrl) {
-                    targetMode = 'web';
                 } else {
                     targetMode = 'text';
                 }
@@ -834,18 +822,42 @@ function setViewerMode(mode, targetParagraph) {
             bodyEl.scrollTop = 0;
             if (headerEl) headerEl.classList.remove('header-hidden');
 
-            let embedUrl = currentViewerDoc.sourceUrl;
-            // Route through serverless /api/proxy to resolve X-Frame-Options restrictions
-            // and guarantee pristine, readable white-sheet display for authoritative sources
-            if (embedUrl.includes('bahai.org') || embedUrl.includes('bibliothek.bahai.de')) {
-                embedUrl = '/api/proxy?url=' + encodeURIComponent(currentViewerDoc.sourceUrl);
-            }
+            const isBahaiLib = currentViewerDoc.sourceUrl.includes('bahai-library.com');
+            if (isBahaiLib) {
+                bodyEl.innerHTML = `
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 420px; padding: 3rem 1.5rem; text-align: center; max-width: 620px; margin: 0 auto;">
+                        <div style="width: 58px; height: 58px; border-radius: 50%; background: var(--surface-secondary, rgba(0,0,0,0.05)); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem;">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </div>
+                        <h3 style="font-family: var(--font-serif-display); font-size: 1.35rem; margin-bottom: 0.6rem; color: var(--text-primary);">${escapeHtml(currentViewerDoc.title || 'Originaldokument')}</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.75rem;">
+                            Dieses Werk stammt aus dem Archiv von <em>Bahá'í Library Online</em>. Für das beste Leseerlebnis nutzen Sie den integrierten Fließtext-Reader oder öffnen die Originalseite direkt in einem separaten Browser-Tab.
+                        </p>
+                        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center;">
+                            <button onclick="setViewerMode('text')" class="btn-primary" style="padding: 0.65rem 1.4rem;">
+                                Im Fließtext-Reader lesen
+                            </button>
+                            <a href="${escapeHtml(currentViewerDoc.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="padding: 0.65rem 1.2rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem;">
+                                <span>Auf bahai-library.com öffnen</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                `;
+            } else {
+                let embedUrl = currentViewerDoc.sourceUrl;
+                // Route through serverless /api/proxy to resolve X-Frame-Options restrictions
+                // and guarantee pristine, readable white-sheet display for authoritative sources
+                if (embedUrl.includes('bahai.org') || embedUrl.includes('bibliothek.bahai.de')) {
+                    embedUrl = '/api/proxy?url=' + encodeURIComponent(currentViewerDoc.sourceUrl);
+                }
 
-            bodyEl.innerHTML = `
-                <div class="web-viewer-wrapper" style="width: 100%; height: 100%; flex: 1; min-height: 0; display: flex; flex-direction: column; position: relative; background: #ffffff;">
-                    <iframe src="${embedUrl}" class="web-viewer-frame" style="width: 100%; height: 100%; flex: 1; min-height: 0; border: none; display: block; background: #ffffff;" title="Autorisierte Original-Webseite" loading="eager" allow="fullscreen" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-downloads"></iframe>
-                </div>
-            `;
+                bodyEl.innerHTML = `
+                    <div class="web-viewer-wrapper" style="width: 100%; height: 100%; flex: 1; min-height: 0; display: flex; flex-direction: column; position: relative; background: #ffffff;">
+                        <iframe src="${embedUrl}" class="web-viewer-frame" style="width: 100%; height: 100%; flex: 1; min-height: 0; border: none; display: block; background: #ffffff;" title="Autorisierte Original-Webseite" loading="eager" allow="fullscreen" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-downloads"></iframe>
+                    </div>
+                `;
+            }
         }
     } else if (mode === 'epub') {
         if (bodyEl) {

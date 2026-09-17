@@ -324,16 +324,16 @@ window.BooksModule = (function() {
             const safeDeId = (deDoc.id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
             const safeEnId = (enDoc.id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
             readActionsHtml = `
-                <button class="book-read-btn read-btn-de" onclick="window.openDocument('${safeDeId}', null, null, 'de')" title="Deutsche Ausgabe lesen">
+                <button class="book-read-btn read-btn-de" onclick="window.openDocument('${safeDeId}', null, 'text', 'de')" title="Deutsche Ausgabe lesen">
                     <span>Lesen (DE)</span>
                 </button>
-                <button class="book-read-btn read-btn-en" onclick="window.openDocument('${safeEnId}', null, null, 'en')" title="Read English edition">
+                <button class="book-read-btn read-btn-en" onclick="window.openDocument('${safeEnId}', null, 'text', 'en')" title="Read English edition">
                     <span>Read (EN)</span>
                 </button>
             `;
         } else {
             readActionsHtml = `
-                <button class="book-read-btn" onclick="window.openDocument('${safeBookId}', null, null, '${isEn ? 'en' : 'de'}')" title="${isMasterEn ? 'Read in reader (full text &amp; paragraphs)' : 'Im Reader lesen (Volltext &amp; Absätze)'}">
+                <button class="book-read-btn" onclick="window.openDocument('${safeBookId}', null, 'text', '${isEn ? 'en' : 'de'}')" title="${isMasterEn ? 'Read in reader (full text &amp; paragraphs)' : 'Im Reader lesen (Volltext &amp; Absätze)'}">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
                     <span>${isMasterEn ? 'Read' : 'Lesen'}</span>
                 </button>
@@ -384,7 +384,7 @@ window.BooksModule = (function() {
                         </div>
                     </div>
 
-                    <h3 class="book-card-title" onclick="window.openDocument('${safeBookId}', null, null, '${isEn ? 'en' : 'de'}')" title="${escapeHtml(book.title)}">${escapeHtml(book.title)}</h3>
+                    <h3 class="book-card-title" onclick="window.openDocument('${safeBookId}', null, 'text', '${isEn ? 'en' : 'de'}')" title="${escapeHtml(book.title)}">${escapeHtml(book.title)}</h3>
                     ${book.subtitle ? `<div class="book-card-subtitle">${escapeHtml(book.subtitle)}</div>` : ''}
                     ${altTitleHtml}
 
