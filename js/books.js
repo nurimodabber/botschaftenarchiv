@@ -11,13 +11,15 @@ window.BooksModule = (function() {
 
     const AUTHORS = [
         { id: 'all', nameDe: 'Alle Werke', shortDe: 'Alle', nameEn: 'All Works', shortEn: 'All' },
+        { id: 'scripture', nameDe: 'Nur Heilige Schriften & Kernkanon', shortDe: 'Heilige Schriften', nameEn: 'Sacred Scriptures Only', shortEn: 'Sacred Scripture', roleDe: 'Kanon', roleEn: 'Canon' },
         { id: 'bahaullah', nameDe: 'Bahá\'u\'lláh', shortDe: 'Bahá\'u\'lláh', nameEn: 'Bahá\'u\'lláh', shortEn: 'Bahá\'u\'lláh', roleDe: 'Offenbarer', roleEn: 'Manifestation' },
         { id: 'the-bab', nameDe: 'Der Báb', shortDe: 'Der Báb', nameEn: 'The Báb', shortEn: 'The Báb', roleDe: 'Herold', roleEn: 'Herald' },
         { id: 'abdul-baha', nameDe: '‘Abdu’l-Bahá', shortDe: '‘Abdu’l-Bahá', nameEn: '‘Abdu’l-Bahá', shortEn: '‘Abdu’l-Bahá', roleDe: 'Ausleger', roleEn: 'Centre of Covenant' },
         { id: 'shoghi-effendi', nameDe: 'Shoghi Effendi', shortDe: 'Shoghi Effendi', nameEn: 'Shoghi Effendi', shortEn: 'Shoghi Effendi', roleDe: 'Hüter', roleEn: 'Guardian' },
         { id: 'uhj', nameDe: 'Universales Haus der Gerechtigkeit', shortDe: 'Haus der Gerechtigkeit', nameEn: 'Universal House of Justice', shortEn: 'House', roleDe: 'Oberster Rat', roleEn: 'Supreme Body' },
         { id: 'prayers', nameDe: 'Gebete & Andacht', shortDe: 'Gebete', nameEn: 'Prayers & Devotions', shortEn: 'Prayers', roleDe: 'Andacht', roleEn: 'Devotions' },
-        { id: 'compilations', nameDe: 'Kompilationen', shortDe: 'Kompilationen', nameEn: 'Compilations', shortEn: 'Compilations', roleDe: 'Themenreihen', roleEn: 'Themes' }
+        { id: 'compilations', nameDe: 'Kompilationen', shortDe: 'Kompilationen', nameEn: 'Compilations', shortEn: 'Compilations', roleDe: 'Themenreihen', roleEn: 'Themes' },
+        { id: 'historical', nameDe: 'Historische Studien & Sekundärliteratur', shortDe: 'Studien & Sekundärliteratur', nameEn: 'Historical Studies & Literature', shortEn: 'Studies & History', roleDe: 'Literatur', roleEn: 'Literature' }
     ];
 
     function init() {
@@ -88,8 +90,10 @@ window.BooksModule = (function() {
         const allDocs = window.state ? (window.state.documents || []) : [];
         let books = allDocs.filter(d => d.tier === 'books');
 
-        // Filter: Autor
-        if (currentAuthor !== 'all') {
+        // Filter: Autor / Relevanz
+        if (currentAuthor === 'scripture') {
+            books = books.filter(b => b.subTier !== 'historical');
+        } else if (currentAuthor !== 'all') {
             books = books.filter(b => b.subTier === currentAuthor || b.authorCode === currentAuthor);
         }
 
@@ -289,15 +293,22 @@ window.BooksModule = (function() {
                 </button>
             `;
         }
+        const isHistorical = (book.subTier === 'historical');
+        const relevanceBadge = isHistorical
+            ? `<span class="book-category-badge historical" style="display: inline-block; font-size: 0.60rem; padding: 0.12rem 0.45rem; border-radius: 999px; background: rgba(212, 160, 23, 0.12); color: var(--accent-gold, #c29b38); font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;">${isMasterEn ? 'Study / Secondary' : 'Studie / Sekundärliteratur'}</span>`
+            : `<span class="book-category-badge scripture" style="display: inline-block; font-size: 0.60rem; padding: 0.12rem 0.45rem; border-radius: 999px; background: rgba(46, 125, 50, 0.12); color: #2e7d32; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;">${isMasterEn ? 'Sacred Scripture' : 'Heilige Schrift'}</span>`;
 
         return `
             <article class="book-plate-card" data-id="${book.id}" data-doc-id="${escapeHtml(book.id)}">
                 <div class="book-card-spine"></div>
                 <div class="book-card-content">
                     <div class="book-card-header">
-                        <div class="book-author-line">
-                            <span class="book-author-name">${authorName}</span>
-                            ${authorRole}
+                        <div class="book-author-line" style="display: flex; flex-direction: column; gap: 0.25rem;">
+                            <div>${relevanceBadge}</div>
+                            <div>
+                                <span class="book-author-name">${authorName}</span>
+                                ${authorRole}
+                            </div>
                         </div>
                         <div style="display: flex; gap: 0.35rem; align-items: center;">
                             <span class="book-format-badge">PDF</span>

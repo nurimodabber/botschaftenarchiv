@@ -1,0 +1,2524 @@
+The Style of the
+Kitab-i-Aqdas
+ASPECTS OF THE SUBLIME
+by
+Suheil Bushrui
+UNIVERSITY
+PRESS
+OF MARYLAND
+
+Library of Congress Cataloging-in-Publication Data
+Bushrui, Suheil B.
+The style of the Kitab-i-Aqdas : aspects of the sublime /
+by Suheil Bushrui
+p.
+cm.
+ISBN 1-883053-08-0
+1. Baha' Allah, 1817-1892. Kitab al-Aqdas. 2. Bahai Faith.
+I. Title.
+BP360.B95 1994
+297'.9382-dc20
+94-40159
+CIP
+Copyright© 1995 by Suheil B. Bushrui. All rights reserved. This
+book may not be reproduced, in whole or in part, in any form
+(beyond that copying permitted by Sections 107 and 108 of the
+U. S. Copyright Law and except by reviewers for the public
+press), without
+written
+permission
+from the publisher,
+University Press of Maryland, P.O. Box 34454, Bethesda, MD
+20827.
+ISBN 1-883053-08-0
+
+Dedicated to the memory of
+Mu}:tammad 'Ali Faiii
+Distinguished Baha'i teacher and scholar
+
+ACKNOWLEDGMENTS
+In the preparation of this volume I have received much
+valuable assistance from both institutions and individuals.
+I should like first to express my thanks to the National
+Spiritual Assembly of the Baha 'is of Austria and the
+Gesellschaft fur Baha 'i-Studien, who provided the oppor-
+tunity for the present essay to be written and encouraged
+its publication; to Mr. and Mrs. Louis Maani of Babbage-
+Simmel and Associates for their generous support; to Dr.
+Miles L. Bradbury, Professor of the History of Religion in
+America at the University of Maryland, for his insights
+and suggestions; to the Center for International Develop-
+ment and Conflict Management
+at the University of
+Maryland and to its director, Dr. Edy Kaufman, for creat-
+ing the atmosphere in which this work could be accom-
+plished; and to Dr. jur. Udo Schaefer for his meticulous
+review of the final manuscript.
+I owe a special debt to the following for valuable
+advice generously given: Dr. Mona Grieser; Dr. Richard
+Grieser; Mr. John Huddleston; Dr. Mark Perry; Dr. Habib
+Riazati; and Miss Haideh Yazdani.
+I am also grateful for help received from my students in the
+World Order Studies Program (Landegg Academy): Miss
+Mona Mehregani, Mr. Arnn Natarajan, and Mr. John Watson.
+My greatest debt, of course, goes to the two Arabists
+whose advice has been indispensable: Dr. Albert Mutlak,
+whose lexicographic expertise served well in verifying
+the accuracy of terminology used in both English and
+Arabic; and Mr. Mark Hellaby, whose many astute edito-
+
+The Style of the Kitab-i-Aqdas
+rial suggestions and remarks in matters of detail are greatly
+appreciated and have, no doubt, enormously improved
+the original text.
+
+FOREWORD*
+LIKE MOST OF the world's major religions, the Baha'i Faith
+has at its centre a sacred text which enjoins upon the
+believer a code of laws regulating his relationship to the
+world around him, to his fellow human beings, and to
+God. That text is the Kitab-i-Aqdas, the Most Holy Book.
+Among the unique features of the Baha'i Faith is that
+reliable transcriptions of its sacred texts were produced
+under the supervision of their Author, rendering their
+authenticity
+beyond
+doubt. The Kitab-i-Aqdas
+is no
+exception, having been transcribed on several occasions
+during the lifetime of Baha'u'llah Himself.
+To understand the Kitab-i-Aqdas fully, it is necessary
+to consider the historical and cultural background to its
+revelation, especially the events of the decade beginning
+in 1863. In this year Baha'u'llah, the Founder of the Baha'i
+Faith, declared Himself to be the latest Messenger of God
+to humankind,
+the Promised One of all ages, Whose
+advent had been proclaimed by His Predecessor, the Bab,
+and dramatically depicted in the Holy Scriptures of earlier
+religions. This momentous declaration, made before a
+group of His most intimate associates in the Rig.van Gar-
+den on an island in the River Tigris, is today celebrated by
+* For definitions of Arabic terms cited, I have relied on the following
+dictionaries: lbn Manzur, Lisan al- '.Arab (Beirut, 1956); Al-Fayruz-
+abadi, Al-Qamus al-Mul;zft (Cairo, 1954); Al-Zabidi, Taj al- '.Arus min
+Jawahir al-Qamus (Kuwait, 1965); Butros al-Bustani, MuM
+al-Mul;zft
+(Beirut, 1870); I;Iasan al-Karmi, al-Had{ (Beirut, 1991).
+
+The Style of the Kitab-i-Aqdas
+Baha'is around the world in the most important of Baha'i
+festivals, the Feast of Ricj.van, extending from April 21 to
+May 2.
+In 1867, Baha'u'llah inaugurated
+the public world-
+wide proclamation of His message by despatching the
+first in a series of Epistles to the kings and rulers of the
+world. Among the most majestic and commanding
+sections of the Kitab-i-Aqdas, revealed barely a decade
+after the Ricj.van declaration, is an extended passage also
+addressed to the crowned heads of the world. In it,
+Baha'u'llah declares Himself to be the "King of Kings,"
+the "sovereign Lord of all," and the "Desire of all
+nations," and bids those who are but the "emblems of His
+sovereignty" to "forsake [their] palaces" and hasten "to
+gain admittance into His Kingdom." His mission is not to
+"lay hands on [their] kingdoms" but rather to "seize and
+possess the hearts of men." 1
+In the Kitab-i-Aqdas Baha'u'llah proclaims in ringing
+tones both the advent of the "Day of God" and the revela-
+tion of the "Most Great Law." Near the beginning of the
+book, He affirms the paramount importance of His laws
+and ordinances, "the lamps of My loving providence
+among my servants, and the keys of My mercy for My
+creatures," to His grand redemptive purpose for human-
+kind. It is to the task of delineating the salient features of
+this "Most Great Law," this "unique [and] wondrous
+System," this "new World Order" that the Kitab-i-Aqdas
+is primarily devoted. 2
+Baha'u'llah, The Kitab-i-Aqdas (Haifa: Baha'i World Centre, 1992),
+K82, p. 49; K103, p. 57; K82, p. 49; K83, p. 50; K83, p. 49. All translated quo-
+tations are taken from the above text, which is numbered throughout by
+paragraph ('K' refers in each case to the appropriate paragraph number).
+Ibid., K81, p. 49; K88, p. 52; K3, p. 20; K183, p. 86; K181, p. 85.
+
+Aspects of the Sublime
+Throughout
+the history of human civilization, the
+enactment of laws has been recognized as fundamental to
+the organization of a just and humane society. From the
+Code of Hammurabi to Montesquieu's Esprit des lois, laws
+have been regarded as enshrining the most cherished
+values and beliefs of those who frame them, serving to
+protect the rights and prescribe the responsibilities of the
+citizen, and to facilitate the relationship between the
+individual and the state. Even Plato, having depicted the
+ideal polity in his Republic, felt constrained to write a more
+detailed account of its actual judicial structures in order to
+ensure its workability. The Norsemen of the ninth and
+tenth centuries, far from being the lawless freebooters of
+the po]?ular imagination, had such respect for the law that
+the proceedings of the 'Thing' (assembly) always opened
+with an obligatory recital of their code of law from start to
+finish. Many of the most influential writers during the
+period of the French Revolution, as well as those who
+tried to put their ideas into practice, had a legal training,
+as did Goethe, whose polymathic interests ranged across
+the breadth of western culture and science to Persian
+poetry and eastern religion and philosophy.
+Law not only furnishes
+a society with concrete
+guidance on daily life and dealings with others, but also
+provides a core for the development in that society of a
+rich and humane scholarly tradition built around the
+exposition of the law. The same is true in religions, where
+the importance of law is greatly reinforced by the belief
+that it represents an expression of God's will for His
+creatures, while its observance is accounted a mark of
+righteousness
+in the believer. With or without this
+directly religious sanction, however, laws provide fixed
+points of reference and a source of underlying stability for
+
+The Style of the Kitab-i-Aqdas
+communities
+during
+periods
+of social and political
+upheaval.
+It was during just such a period in history that the
+Kitab-i-Aqdas was revealed. By the second half of the
+nineteenth century the Ottoman Empire, which included
+the prison city of 'Akka where Baha'u'llah was for long
+confined, had entered upon a period of rapid decline. A
+major factor in this decline was the ethnic and religious
+conflict in European territories such as Greece, Serbia,
+Montenegro and Bulgaria, where new states were assert-
+ing their independence
+and struggling to break away
+from Ottoman hegemony. The storm clouds were gather-
+ing that would eventually engulf the world in the tempest
+of the Great War, precipitating the disintegration of the
+Ottoman Empire in the process. It was a moment of stern
+crisis in human affairs that, paradoxically, provided the
+setting for the revelation of the Kitab-i-Aqdas, Baha'u'llah's
+Charter for a new civilization.
+Baha'u'llah's
+ministry is marked by a progression of
+interweaving calamities and triumphs, culminating in the
+final ascendancy of His Faith and teachings over the combined
+destructive forces of His persecutors and opponents. It was
+in a dark and pestilential prison, surrounded by convicted
+felons and under almost unbearably oppressive condi-
+tions, that He received the first intimations
+of His
+world-redeeming
+mission some twenty years before the
+revelation of the Kitab-i-Aqdas. "During the days I lay in
+the prison of Tihran," He records, "though the galling
+weight of the chains and the stench-filled air allowed Me
+but little sleep, still in those infrequent moments of
+slumber I felt as if something flowed from the crown of
+My head over My breast, even as a mighty torrent that
+precipitateth itself upon the earth from the summit of a
+lofty mountain. Every limb of My body would, as a result,
+
+Aspects of the Sublime
+be set afire. At such moments My tongue recited what no
+man could bear to hear." 3
+Several months later Baha'u'llah was exiled from His
+homeland to Baghdad where, in spite of the inauspicious
+circumstances of His arrival, He gradually attracted the
+notice of the local clergymen, government officials and
+eventually townspeople, winning through the regal dignity
+of His demeanour, the innate radiance of His character,
+the seemingly inexhaustible fund of His knowledge, and
+the love He lavished on all He met, their heartfelt loyalty,
+respect and admiration. After ten years in Baghdad, on
+the eve of His declaration in the Ricjvan Garden prior to
+leaving that city, He was surrounded by a grieving multi-
+tude of well-wishers who would scarcely consent to let
+him go. This period in Baghdad also witnessed the revela-
+tion of some of the most significant of His Works,
+especially notable among which are The Hidden Words, a
+series of aphoristic utterances epitomizing the 'inner
+essence' of the ethical teachings of past religions, and the
+Kitab-i-fqan {The Book of Certitude), described by its
+translator as "of unsurpassed pre-eminence among the
+writings of the Author of the Baha'i Revelation." 4 In the
+latter book, Baha'u'llah propounds the concept of the
+continuity of Divine Revelation, affirming that the Divine
+Manifestations such as Abraham, Jesus and Mu]:i.ammad
+are one in essence, and demonstrating how the eschatological
+passages of previous scriptures may be accorded metaphor-
+ical interpretations.
+Baha'u'llah, Epistle to the Son of the Wolf (Wilmette: Baha'i Publish-
+ing Trust, 1988), p. 22.
+Baha'u'llah, The Hidden Words (Wilmette: Baha'i Publishing Trust,
+1990), p. 3; Preface by Shoghi Effendi in Baha'u'llah, Kitab-i-lqan (Lon-
+don: Baha'i Publishing Trust, 1982), p. 2.
+
+The Style of the Kitab-i-Aqdas
+During this same period He also succeeded in sub-
+stantially restoring the fortunes and unity of the scattered
+and demoralized Ba.bi community, of which He was at
+that time the leading member, if not the titular head.
+Nevertheless, the growing tide of respect and veneration
+for Baha'u'llah caused consternation in the Persian govern-
+ment, whose representations at the Sublime Porte resulted
+in further exiles, first to Constantinople
+and then, in
+December 1863, to Adrianople (Edirne).
+By now Baha'u'llah had won the acceptance of the
+majority of the Ba.bi community as the Promised One
+Whose advent had been foretold by the Bab. This done,
+He addressed Himself, towards the end of the period of
+His sojourn in Adrianople, to _the task of proclaiming His
+mission to the world at large, thereby inaugurating the
+next major phase in the progressive unfoldment of His
+mission. His chosen medium was, as noted, a series of
+weighty Epistles addressed both collectively and individ-
+ually to the kings and rulers of the earth, including
+Napoleon III, Queen Victoria, Kaiser Wilhelm I, Tsar
+Alexander II, the Austrian Emperor Franz Josef, the
+Ottoman Sultan 'Abdu'l-'Aziz
+and the Qajar Monarch
+Na~iri'd-Din Shah. In majestic and commanding tones,
+yet with all due decorum and respect befitting the rank of
+kingship, He called upon them to set aside their differ-
+ences, to work towards peace and unity, to establish
+practical mechanisms
+for the resolution
+of disputes
+amongst nations, and to do all in their power to facilitate
+fruitful interchange between peoples. Baha'u'llah addressed
+similar messages to the ecclesiastics of both Christendom
+and Islam, challenging them to consider dispassionately
+His claims, and urging them to rise to the challenge of the
+hour and accept their full measure of responsibility as
+spiritual mentors of their communities. Again, the calam-
+
+Aspects of the Sublime
+ity of banishment had proved but the harbinger of a fresh
+triumph for Baha'u'llah-the
+proclamation of His infant
+Faith on a heretofore unprecedented
+scale. With the
+passage of time these messages, largely rejected by their
+recipients, have proved but too true in their prophetic
+admonitions and warnings, notably those foreshadowing
+the fall from power of Napoleon III in France and the
+occurrence of widespread bloodshed in Germany.
+Even as this mighty proclamation was being blazoned
+to the world, plots were being hatched to bring about the
+third and final banishment in Baha'u'llah's ministry, this
+time to the "Most Great Prison" of' Akka. For a number of
+years He and His followers were kept there in strict
+confinement,
+subjected to galling deprivations,
+and
+exposed to the contempt and mockery of the guards and
+populace alike. Yet this new and seemingly crippling
+adversity, compounded in its early stages by the tragic
+death of Baha'u'llah's
+second son, was once again the
+prelude to a period of marvellous fecundity. As the
+rigours of His confinement lessened, Baha'u'llah
+was
+progressively able to devote Himself to the elaboration of
+the true nature of His mission, a task He fulfilled in a
+ceaseless stream of Tablets, pre-eminent among which
+stands the Kitab-i-Aqdas, revealed approximately five
+years after His arrival in 'Akka.
+The revelation of the Kitab-i-Aqdas may thus be seen
+as marking the inauguration of the third and final phase
+in the unfoldment of Baha'u'llah's mission. His identity as
+the Promised One of the Bayan and of all past religions
+had been disclosed and accepted by the greater part of the
+Babi community; the tidings of His mission had been
+publicly proclaimed
+far beyond the confines of that
+community to those whose exalted rank best qualified
+them to convey it to humanity at large; and now the warp
+
+The Style of the Kitab-i-Aqdas
+and woof of His newborn Cause, its practical implications
+for the individual believer, for society, and for the world
+at large, were elaborated in a document constituting the
+blueprint of a revolutionary new world order, designed to
+usher in a golden age of human civilization and to herald
+the establishment of the Kingdom of God on earth.
+In general terms, the laws of the Kitab-i-Aqdas may be
+said to fall within five differ~nt categories: those prescrib-
+ing religious and personal observances and duties such as
+prayer, fasting and pilgrimage; those regulating matters
+of personal status such as marriage, divorce and death;
+those prohibiting certain wrongful actions and defining
+penalties for their commission; those providing for the
+new social structures of Baha 'u' llah' s World Order through
+the establishment of such institutions as the House of
+Justice and the Mashriqu'l-Adhkar;
+and those imparting
+general spiritual counsels such as may be found in the
+sacred Scriptures of the other great world religions.
+Within this broad categorization
+there is inevitably a
+degree of overlap; although
+the marriage laws, for
+instance, are centred on the bride and groom, they have a
+broader social impact in that they aim to preserve unity
+both within and between families. The rules of intestate
+succession, likewise, have a clear bearing on social
+organization since they contain certain stipulations for
+the replenishment of the public treasury from the shares
+of 'absent heirs'.
+Although the Kitab-i-Aqdas clearly addresses in the
+first instance a particular set of cultural circumstances,
+presuming the reader to possess a sound command of
+Arabic and to be intimately familiar with the Qur'an, the
+Islamic Shari'ah, and the Writings of the Bab, its scope is
+plainly and avowedly universal, as may be gathered from
+such provisions as that enjoining the establishment of a
+
+Aspects of the Sublime
+House of Justice in every city, and that calling upon the
+"members of parliaments throughout the world" to select
+a single language and a single script "for the use of all on
+earth." 5 Undoubtedly the rationale behind certain enact-
+ments may be better apprehended when viewed against
+the background
+of the particular
+practices they are
+intended to address, but such specific references and
+associations no more affect the ultimately global rele-
+vance of the Book than do the many references in the
+Gospel to Jewish scripture and observances. The abroga-
+tion of slavery in the Kitab-i-Aqdas, though it may profit-
+ably be contrasted with the situation existing under the
+Islamic and other religious traditions, nevertheless stands
+on its own as constituting an authoritative and universal
+declaration of the sacred and inviolable right to individ-
+ual liberty and the preservation of human dignity: "It is
+not for him who is himself a servant to buy another of
+God's servants." 6
+A comparative study of the laws of the Kitab-i-Aqdas
+and those of the Bayan offers illuminating insights into
+the nature of the complex and mysterious interrelation
+between the Ba.bf and Baha'i Faiths. In the Kitab-i-Aqdas
+and elsewhere, Baha'u'llah explains that the laws of the
+Bayan were revealed with the specific intention of reliev-
+ing the Promised One of the need Himself to elaborate a
+code of laws, albeit they were made subject to, and contin-
+gent upon, His sanction and approval. Accordingly, some
+of these laws were adopted by Baha'u'llah, some accepted
+with modification, others rejected outright. For example,
+the Bab's law requiring the consent of both parties to a
+marriage has been accepted with the additional require-
+Kitab-i-Aqdas, K189, p. 88.
+Ibid., K72, p. 45.
+
+The Style of the Kitab-i-Aqdas
+ment of the consent of the couple's parents. On the other
+hand, the fine of 19 mithqals of gold for "anyone who was
+the cause of sadness to another" has been explicitly
+abrogated in the Kitab-i-Aqdas. 7 At one point in the
+Kitab-i-Aqdas, the Bab is even represented as calling
+upon the Promised One to modify a particular facet of a
+law that had been previously prescribed in the Bayan.
+Throughout the Kitab-i-Aqdas, in fact, an impression is
+conveyed of its laws having emerged as the result of a
+kind of dialectic process between the Bab and Baha'u'llah.
+The Kitab-i-Aqdas was first published during the
+lifetime of Baha'u'llah in a lithographed edition as part of
+a larger compilation of His Writings (Bombay 1890-91),
+and again during the ministry of 'Abdu'l-Baha
+in a
+printed version of this same edition (Bombay 1896-97).
+However, despite the appearance of various manuscript
+transcriptions and non-Baha'i editions of the Work since
+1873, it has not hitherto been freely and generally avail-
+able to Baha'is. This was not out of any desire or purpose
+to conceal its contents from either the Baha'i community
+or the world at large, but in keeping with Baha'u'llah's
+own counsel that the provisions of the Kitab-i-Aqdas
+should be implemented only with discretion and when
+prevailing conditions permitted. For many years those
+who succeeded Baha'u'llah as Head of the Baha'i Faith-
+'Abdu'l-Baha,
+the Centre of the Covenant, and later
+Shoghi Effendi, the Guardian of the Baha'i Cause-felt
+that the embryonic state of the Baha'i community's devel-
+opment did not as yet warrant the formal release of the
+book in its entirety to the believers. Nevertheless, exten-
+sive passages from it were available in both hemispheres
+Ibid., K148, p. 73.
+
+Aspects of the Sublime
+for many years, and the complete text was always easily
+obtainable from a variety of sources.
+It was not until the year 1953 that Shoghi Effendi took
+the first step towards producing a full translation of the
+Book, announcing his intention to prepare a synopsis and
+codification of its provisions as one of the goals of his
+worldwide Ten-Year Crusade spanning the years 1953-63.
+His passing in 1957 supervened before he was able to
+complete this task, but work on the project was resumed
+by the newly-elected Universal House of Justice as part of
+its Nine-Year Plan (1964-73). With the aid of the substan-
+tial body of notes Shoghi Effendi had left, the Universal
+House of Justice published in 1973 a volume comprising
+not only the synopsis and codification itself, but also a
+selection of passages from the Kitab-i-Aqdas translated
+by the Guardian, together with a preface, an introduction,
+and some explanatory notes and references. Finally, a full
+English translation of the Kitab-i-Aqdas, accompanied by
+copious annotations, a number of supplementary texts, a
+brief glossary, and the previously published synopsis and
+codification, as well as a preface, introduction,
+and
+description
+of the Kitab-i-Aqdas taken from Shoghi
+Effendi's God Passes By, was published in 1992, in fulfill-
+ment of one of the goals of the Six-Year Plan spanning the
+years 1986-92.
+Schematic in character, the Kitab-i-Aqdas is a summary
+of "matters which constitute the foundation of the law of
+God." 8 Tablets subsequently
+revealed by Baha'u'llah
+flesh out these laws in some respects, but during His
+lifetime He made it clear that an element of flexibility was
+desirable in their formulation. The task both of elaborating
+the legislative principles established in the Kitab-i-Aqdas
+Ibid., p. 4.
+
+The Style of the Kitab-i-Aqdas
+and elsewhere, and of determining precisely how they
+should be applied in practice, He explained, would in
+time devolve upon the Universal House of Justice, which
+would be empowered to modify or rescind its own legis-
+lation in accordance with the particular exigencies of each
+age. The seminal and thematic approach of the Kitab-
+i-Aqdas, and its terse encapsulation of whole areas of
+jurisprudential inquiry, defining the spirit rather than the
+letter of the law, are guarantees of its flexibility and will
+ensure the enduring applicability of its provisions far into
+the future. In view of its character as sacred sculpture,
+however, the actual text of the Kitab-i-Aqdas is not open
+to modification, for Baha'fs believe that the Divine Law
+brought by a Manifestation of God may be rescinded only
+by another Manifestation of God. By ruling out the possi-
+bility of this occurring before the expiry of a full thousand
+years, the Kitab-i-Aqdas reaffirms by implication the
+basic Baha'i belief in progressive Revelation.
+Quite apart from its unique position in Baha'i litera-
+ture, the Kitab-i-Aqdas is also noteworthy from a purely
+secular point of view for the prodigious eloquence of its
+language. Much of it is composed in a species of rhymed
+prose-a
+highly regarded literary form marked by rhyth-
+mic cadences and the frequent use of terminal rhymes-
+that recalls, but is quite distinct from, the language of the
+Qur'an. It is a superb example of that polished style of
+writing characterized by the Arabs as 'easy yet unattain-
+able': a style, in other words, whose effortless flow belies
+the consummate mastery that has gone into its composi-
+tion. A feature of this style is the extraordinary concision
+of many of its utterances. Faced with the almost impossi-
+ble challenge not only of faithfully reproducing the sense
+and meaning of the Kitab-i-Aqdas, but also of conveying
+something of its matchless eloquence, the translators
+
+Aspects of the Sublime
+were fortunate in having before them the example of
+Shoghi Effendi. As the introduction tells us, he opted in
+his renderings for a form of expression "reminiscent of
+the style used by the seventeenth-century translators of
+the Bible," enabling him to capture the elevated mode of
+Baha'u'llah's Arabic in a form accessible to the contempo-
+rary reader. 9 Nevertheless, the problem of "striking the
+right balance between beauty and clarity of expression on
+the one hand, and literalness on the other," the introduc-
+tion continues, "is one of the major issues with which the
+translators have had to grapple and which has caused
+repeated reconsideration
+of the rendering of certain
+passages. "10
+It is now the task of teams of translators in different
+countries around the world to render the Kitab-i-Aqdas
+into their own native tongues, basing their renderings
+upon the authorized English translation but referring as
+need arises to the text of the original. The special difficul-
+ties encountered by the English translators are no less
+likely to pose a challenge to these other translators. Their
+daunting task is to convey in a foreign language the unique
+qualities of a book concerned not only with mapping out
+a new way of life for the individual and society, but with
+bringing about a future state of "true understanding in a
+spirit of love and tolerance" throughout the world. Even
+now, work is continuing on these translations, which are
+expected to start becoming available in the very near
+future. Also undergoing preparation at the present time is
+an Arabic edition of the 1993 English translation of the
+Kitab-i-Aqdas, comprising all its separate sections. A feature
+of this latter will be an aesthetic and partially illuminated
+Ibid., p. 9.
+10 Ibid., p. 10.
+
+The Style of the Kitab-i-Aqdas
+transcription of the Kitab-i-Aqdas executed in a beautiful
+calligraphic hand, in conformity with a long-standing
+Arabic and Islamic tradition of calligraphic excellence in
+the production of scriptural works.
+Intended for a wide readership and not merely for
+believers, the publication of the Kitab-i-Aqdas stands out
+for Baha'is as a truly epoch-making occurrence, the single
+most significant event since the election of the Universal
+House of Justice in 1963. Since the Book was released to
+the English-speaking
+world nearly two years ago, the
+Baha'i community is still in the process of absorbing its
+initial impact, of familiarizing itself with its contents, and
+of coming to terms with some of its more immediate and
+striking implications. Naturally, the release of each previ-
+ously untranslated
+Work in the Baha'i canon affects
+Baha 'is deeply and refashions their overall conception of
+their Faith. In all probability no book, however, will entail
+so intense a learning process as the Kitab-i-Aqdas, insofar
+as it is simultaneously
+an epitome of the tenets of
+Baha'u'llah's Cause, a digest of His Law, and the Charter
+of His New World Order.
+
+Introduction
+0 leaders of religion! Weigh not the Book of
+God with such standards and sciences as are
+current amongst you, for the Book itself is the
+unerring Balance established amongst men. In
+this most perfect Balance whatsoever
+the
+peoples and kindreds of the earth possess must
+be weighed, while the measure of its weight
+should be tested according to its own standard,
+did ye but know it.11
+THESE RESOUNDING WORDS from the Kitab-i-Aqdas repre-
+sent a warning, not only to 'leaders of religion', but 'to
+anyone who would attempt to judge by worldly standards
+that which is wholly beyond measure. Accordingly, no
+analysis of the Kitab-i-Aqdas can be undertaken without
+reference to this passage. We must recognize that what we
+are dealing with is not a book like other books to which
+conventional critical criteria can be applied. No Baha'i
+scholar can afford to ignore the numerous warnings in the
+Kitab-i-Aqdas that relate to scholarship. For example:
+Beware lest ye be hindered by the veils of glory
+from partaking of the crystal waters of this
+living Fountain. 12
+Take heed that ye dispute not idly concerning
+the Almighty and His Cause ... 13
+11 Kitab-i-Aqdas, K99, p. 56.
+12 Ibid., KSO, p. 38.
+13 Ibid., K177, p. 84.
+
+The Style of the Kitab-i-Aqdas
+... among the people is he who layeth claim to
+inner knowledge, and still deeper knowledge
+concealed within this knowledge. Say: Thou
+speakest false!14
+We have permitted you to read such sciences as
+are profitable unto you, not such as end in idle
+d •
+t t'
+1spu a ion ...
+Whoso interpreteth what hath been sent down
+from the heaven of Revelation, and altereth its
+evident meaning, he, verily, is of them that have
+perverted the Sublime Word of God, and is of
+the lost ones in the Lucid Book.16
+Scholars are also required to pay due heed to the
+comprehensive notes that supplement the text of the
+Kitab-i-Aqdas, including one of particular relevance in
+this context:
+Individual interpretations based on a person's
+understanding
+of the Teachings constitute the
+fruit of man's rational power and may well
+contribute to a greater comprehension of the
+Faith. Such views, nevertheless, lack authority.
+In presenting their personal ideas, individuals
+are cautioned not to discard the authority of the
+revealed words, not to deny or contend with the
+authoritative interpretation, and not to engage
+in controversy; rather they should offer their
+thoughts as a contribution to knowledge, makin9
+it clear that their views are merely their own. 1
+This passage, in my view, effectively sounds the keynote
+of Baha'i scholarship.
+14 Ibid., K36, p. 31.
+15 Ibid., K77, p. 48.
+16 Ibid., KJOS, p. 57.
+17 Ibid., n130, pp. 221-2.
+
+Aspects of the Sublime
+The fact that this field has of late been largely dominated
+by Western scholars has placed a certain restriction and
+limitation on understanding, preventing a more profound
+appreciation
+of the aims
+and purposes
+of Baha '£ scholar-
+ship. If indeed Baha'i scholars wish to render the greatest
+service to the Faith, the rich legacy of research in Arabic
+and Persian must surely be translated into English and
+other languages. The work of Baha'i scholars throughout
+the world should likewise become accessible, and recog-
+nition be accorded to the fact that it is not only people
+with academic training who are capable of conducting
+meaningful research: "The understanding
+of His words
+and the comprehension of the utterances of the Birds of
+Heaven are in no wise dependent upon human learning.
+They depend solely upon purity of heart, chastity of soul,
+and freedom of spirit." 18
+The time has come for Baha'i scholars everywhere to
+examine their consciences and determine how best they
+can render service in accordance with the dictates of the
+Kitab-i-Aqdas, the language of which, however lofty,
+never strays into the realm of inaccessibility insofar as our
+attempts in this contingent world to apprehend 19 the
+Divine Revelation are concerned; for the meaning of its
+exhortations is clear and unequivocal.
+The purpose of this essay is to comment in general
+terms on the sublime style of the original Arabic text of the
+Kitab-i-Aqdas, with reference to the Qur'an and, to a
+lesser extent, the Bible. Naturally, any attempt to render
+18 Kitab-i-lqan, p. 135.
+19 In the Dispensation of Baha'u'llah (see The World Order of Baha'u'llah
+[Wilmette: Baha'i Publishing Trust, 1991), p. 100), Shoghi Effendi lays
+down the distinction between' comprehending' the Baha'i Revelation and
+'apprehending' the same. He says the former is impossible and the latter
+should be the object of our constant endeavour.
+
+The Style of the Kitab-i-Aqdas
+the Divine Writ into another tongue, even if it captures the
+meaning, can convey but little of the style and sublimity
+of the original language. Unlike Islam, however, the
+Baha'i Faith was blessed with an authorized and divinely-
+assisted interpreter
+and an inspired translator in the
+person of Shoghi Effendi, who was able to put at least one
+third of the Kitab-i-Aqdas into a suitably dignified and
+elevated English style. No other religion has had its scrip-
+tural treasures translated into a universal language, as has
+the Baha'i Faith, within so very short a period of time
+since the inception of the Dispensation. It should be
+noted, however, that this same divinely-appointed inter-
+preter, Shoghi Effendi, wrote the following in the preface
+to his translation of the Kitab-i-fqan:
+This is one more attempt to introduce to the
+West, in language however inadequate,
+this
+book of unsurpassed pre-eminence among the
+writings of the Author of the Baha'i Revelation.
+The hope is that it may assist others in their
+efforts to approach
+what must always be
+regarded as the unattainable goal-a
+befittinij
+rendering of Baha'u'llah's matchless utterance. 2
+We now have a complete English rendering of the
+Kitab-i-Aqdas, published by the Baha'i World Centre,
+Haifa, under the guidance of the Universal House of
+Justice. Not only is it an accurate rendering of the mean-
+ing and words of the Book, but the spirit flows through it
+with such abundance
+that both heart and mind are
+profoundly touched. However, it must never be forgotten
+that Baha'u'llah's
+own words remain immutable and
+matchless, and in translating them we must be scrupu-
+lous, like Shoghi Effendi, not to allow the cumbersome
+2° Kitab-i-lqan,
+p. 2.
+
+Aspects of the Sublime
+apparatus of academic pedantry to impede the flow of
+their spiritual bounty.
+With this in mind, and in the light of the warnings I
+have quoted, I feel I must acknowledge that my approach
+here may well be defective in many ways. Born as we are
+so near to the time of the revelation of the Kitab-i-Aqdas,
+we will continue to be the "generation of the half-light,"
+as Shoghi Effendi has described us. I must therefore stress
+that my remarks constitute no more than a personal
+assessment which can never purport to be a guide for
+others to follow. Above all, I intend to let the Kitab-i-
+Aqdas speak for itself. If I can impart a small glimpse of
+the richness of the Arabic original, I feel that I shall have
+accomplished my goal. For example, writing about the
+sublimity of the Baha'i Revelation, Shoghi Effendi says,
+"Such testimonies bearing on this theme are impregnated
+with such power and reveal such beauty as only those who are
+versed in the languages in which they were originally revealed
+can claim to have sufficiently appreciated."
+21 Shoghi Effendi, The World Order of Baha'u'llah, p. 103 (my italics).
+
+I
+THAT WHICH WE call 'sublime' in religious literature can
+be conveyed only in a very special kind of language which
+may be characterized as 'sacred language', and which is
+virtually indefinable in nature. It is distinguished, however,
+by the fact that, unlike any other kind of language, it
+encompasses all three modes of cognition: analysis, intui-
+tion, and revelation. If poetry reveals the passions of the
+human heart, then sacred language reveals those passions
+of the heart and soul. It embodies a universal message that
+transcends form, melody and rhythm, and ultimately tran-
+scends even language itself.
+Among all the languages of the world, Arabic is
+unique in being a sacred language, the repository of a
+great religious tradition, which has been preserved intact
+as a 'living language' over many centuries up to the
+present day. The great Semitic family of languages to
+which Arabic belongs includes such ancient languages as
+Aramaic, Syriac, Ethiopic, Phoenician and Hebrew. Yet if
+we contrast the course of these various tongues to Arabic,
+we find that Phoenician has disappeared altogether; of
+Aramaic and Syriac barely anything remains; Ethiopic
+never progressed beyond the confines of Ethiopia; while
+for centuries Hebrew maintained only a flicker of life
+within the confines of Jewish communities before being
+resuscitated and considerably expanded as the language
+of modern-day Israel.
+
+Aspects of the Sublime
+As for the great representatives of other venerable
+families of languages, such as Latin, Greek and Sanskrit,
+none of these is used colloquially today. Arabic is the only
+language belonging to a formerly great and multi-
+national civilization that survives to this day as a living
+language. Classical Arabic is still used in every Arab
+country for all formal and literary purposes, as well as
+representing
+that which is holy and sacred to many
+millions of Muslims, Arab and non-Arab alike throughout
+the world.
+Furthermore, although the literature of India, China,
+Persia, Ancient Egypt and indeed modern Europe is
+replete with numerous instances of what may be termed
+'sacred language', Arabic has an inherent quality which-
+as I shall now attempt briefly to demonstrate-lends
+extra
+power to the expression of the religious vision. The same
+vision can indeed be expressed in various ways in other
+languages. But for those who are acquainted at firsthand
+with the treasures of Arabic religious literature, it is diffi-
+cult to conceive how anything could rival the subtlety,
+eloquence, range, versatility, incisive truthfulness, and
+poignant beauty of Arabic as a means of expressing the
+profoundest spiritual truths. Hence the unique status of
+Arabic as the language of the revealed Word in both the
+Qur'an and the Kitab-i-Aqdas.
+Why, then, is Arabic so special? What gives it its
+particular genius? Arabic, like other Semitic languages,
+derives words from roots composed usually of three
+letters. However, to a greater degree than other Semitic
+languages, Arabic modifies these roots through the
+addition of further letters either before, after or within the
+roots. This feature of the language invests individual
+words with a highly derivative and associative character
+that adds to them whole layers of meaning and innuendo in
+
+The Style of the Kitab-i-Aqdas
+a manner not normally found in other languages. In partic-
+ular, it makes Arabic the perfect vehicle for the symbolic
+and the metaphorical.
+Perhaps no language has a greater capacity for variety
+and richness of expression than does Arabic. It contains,
+for example, a wealth of synonyms, and an extraordinary
+breadth of vocabulary expressive of multitudinous
+and
+subtle differentiations
+of sense in the realms of both
+feeling and action. •
+The Arabist Hamilton Gibb observes that "Arabic is
+unique in having carried over its superluxuriant vocabu-
+lary to play an important part in the literature of a highly
+developed civilization." 22 Eloquence was always highly
+prized by the Arabs: the traditional Arabic maxim, 'The
+beauty of a man is at the tip of his tongue', emphasizes the
+importance they attach to chaste and beautiful expres-
+sion. Similarly, when the Prophet Mul;tammad was asked
+"Where does beauty lie?" He replied, "Upon the tongue."
+The Writings of Baha'u'llah are themselves replete with
+references to the power of 'utterance', a subject to which
+I shall return.
+Arabic words frequently contain many levels and
+areas of meaning which cannot be fully conveyed in trans-
+lation by means of single-word equivalents. For example,
+the Arabic term for poetry is shi' r, signifying both 'feeling'
+and things related to the spirit, the soul, and the inner
+being. The word for literature, adab, also means 'courtesy',
+indicating that it is not merely a vehicle of expression, but
+a reflection of the values that inform it. In origin, the term
+was coined to denote a body of writings, composed in a
+22 Gibb, H.A.R., Arabic Literature (Oxford: Oxford University Press,
+1974), p. 4.
+
+Aspects of the Sublime
+variety of styles, that defined the correct conduct and
+behaviour of princes, administrators and others.
+When one speaks Arabic, one is not merely engaging
+in communication. Rather, it is a spiritual experience. The
+Arabic language is synonymous with a devotion to the
+manner of expression, a delight in the rhythm and music
+of speech, and a sensuous revelling in the texture of
+words. The Arabs call its effect on those who hear it
+'lawful magic' (al-si!Jr al-!Jaldl), which is the same as the
+'sorcery' described in the following verse of the Qur'an:
+And so, when the truth came to them from Us,
+they said, "Behold, this is clearly nothing but
+sorcery!" 23
+In fact, 'enchantment' is closer to the real meaning of the
+Arabic word si!Jr, but in the context of the quoted passage
+'sorcery' serves to convey the pejorative flavour of the
+word used as a description of the Truth. The same word
+occurs in the following Ijadith., or saying, of the Prophet
+Mul:rnmmad:
+And some forms of utterance have the power of
+magic. [my translation]
+Arabic has been described by one of the most eminent
+English scholars in the field of oriental studies, Sir Edward
+Denison-Ross, as "one of the noblest products of the
+human brain." 24 It is a remarkably musical tongue, and
+23 Qur'an, X:76. All translated quotations are taken from The Message
+of the Qur'an, translated and explained by MUQammad Asad (Gibraltar:
+Dar al-Andalus, 1984, reprinted 1993). This, the most recent English ren-
+dering of the Qur'an, is in the author's view the most accurate of all the
+translations available. All square brackets in quotations from Asad's
+translation are his.
+24 Denison-Ross, E., Eastern Art and Literature (London: Earnest Benn,
+1928), p. 53.
+
+The Style of the Kitab-i-Aqdas
+even its prose has qualities of poetry. It is highly onomato-
+poeic, many of its words suggesting their own meaning.
+Notwithstanding its great written body of literature, Arabic
+is primarily a language for the ear-and
+indeed, early
+Arabic poetry and the Qur'an itself were originally meant
+for listeners rather than readers. The possibilities for
+rhyming are infinite, and until very recently a feature of
+Arabic verse was that the rhyme (al-qafiyah) was expected
+to remain the same throughout even the longest poems.
+These are just some of the features that made Arabic
+the ideal vehicle for divine revelation. The Arabic term
+denoting the acme of linguistic excellence and achieve-
+ment is i'jaz, which literally signifies 'language defying
+imitation'. It is applied exclusively to the Qur'an, which
+contains a number of significant references to the language
+in which it was revealed:
+These are messages of a revelation clear in itself
+and clearly showing the truth: behold, We have
+bestowed it from on high as a discourse in the
+Arabic tongue, so that you might encompass it
+with your reason .
+.. . this is Arabic speech, clear [in itself] and
+clearly showing the truth [of its source].
+Thus, then, have We bestowed from on high
+this [divine writ] as an ordinance in the Arabic
+tongue .
+... thus have We bestowed from on high this
+[divine writ] as a discourse in the Arabic
+tongue ...
+... a discourse in the Arabic tongue, free of all
+deviousness ...
+... in the clear Arabic tongue .
+.. . a divine writ .. .in the Arabic tongue ...
+
+Aspects of the Sublime
+... a divine writ, the messages whereof have
+been clearly spelled out as a discourse in the
+Arabic tongue ...
+.. . We have revealed unto thee a discourse in the
+Arabic tongue ...
+Consider this divine writ, clear in itself and
+clearly showing the truth: behold, We have
+caused it to be a discourse in the Arabic tongue,
+so that you might encompass it with your
+reason. 25'
+Unfortunately, the complexities of the Arabic language
+and the immense problems involved in translating the
+revealed Word have made it practically impossible for
+Western scholars to "encompass the Qur'an with their
+reason." And although the Kitab-i-Aqdas is in many ways
+more readily approachable than the Qur'an, no Western
+scholar can hope to achieve a profound appreciation of it
+purely through the acquisition of academic skills. Clearly an
+extra quality is called for, a quality of spiritual receptivity,
+perceptiveness and intuition. Otherwise there is a danger
+of falling into the same trap as did those who, in the early
+years of Islam, attempted to evaluate the Qur'an in terms
+largely of its outward form, oblivious of that mystical
+"fragrance of inner meanings" 26 spoken of by Baha'u'llah
+in the Kitab-i-Aqdas.
+Having attained the distinction of being chosen as the
+language of Revelation in the MuJ.:tammadan Dispensa-
+tion, the special position of the Arabic language has been
+further consolidated and enhanced in our time through its
+having been singled out for the place of honour in the
+25 Qur'an, XII:1-2, XVI:103, XIII:37, XX:113, XXXIX:28, XXVI:195,
+XLVl:12, XLI:3, XLII:7, and XLIII:2-3. The word 'discourse' in the first
+Qur'anic passage refers to the Qur'an itself.
+26 Kitab-i-Aqdas, K158, p. 76.
+
+The Style of the Kitab-i-Aqdas
+Baha'i Revelation. The introduction to the Kitab-i-Aqdas
+elaborates this theme:
+Baha'u'llah enjoyed a superb mastery of Arabic,
+and preferred to use it in those Tablets and
+other Writings where its precision of meaning
+was particularly appropriate to the exposition
+of basic principle. Beyond the choice of language
+itself, however, the style employed is of an
+exalted and emotive character, immensely com-
+pelling, particularly to those familiar with the
+great literary tradition out of which it arose. 27
+In point of fact, no less than approximately
+sixty
+percent of Baha'u'llah's Tablets and other Writings were
+revealed in "the perspicuous Arabic tongue," as He desig-
+nates it, in contradistinction
+to the "luminous Persian
+tongue" in which the remainder of His Writings was
+revealed. Baha'u'llah further emphasized the pre-eminence
+of Arabic in the following hitherto untranslated Tablet,
+which I paraphrase as follows:
+It is beloved of God that all should speak in
+Arabic, which is the richest and vastest of all
+languages. Were anyone to be aware of the
+richness
+and vastness
+of this perspicuous
+tongue, he would choose it as a universal
+language of communication. The Persian tongue
+is a beautiful language, and in this Dispensation
+God hath chosen to speak in two languages:
+Arabic and Persian. However, Persian is not as
+rich as Arabic; in fact all the languages of the
+earth seem limited when compared to the
+Arabic language. What We have mentioned
+here is merely what is preferable. However,
+Our purpose is that the peoples of the earth
+should
+choose a universal
+language
+from
+amongst the languages spoken by all mankind.
+27 Ibid., Introduction, p. 9.
+
+Aspects of the Sublime
+This is what God hath ordained, and this is
+what will benefit all mankind, did they but
+know. 28
+This emphasis on the importance of Arabic was reiter-
+ated by 'Abdu'l-Baha. A Tablet He addressed to one of the
+believers includes the following:
+0 beloved servant of God, at one time you were
+studying Arabic. This indeed is very useful, and
+you should undoubtedly continue to do so in
+order to acquire the skills and ability to commu-
+nicate with eloquence and clarity in the Arabic
+language. Most certainly exert every effort to
+learn the Arabic language so that you can attain
+complete competence and proficiency enabling
+you to read and write it with equal facility. 29
+Shoghi Effendi for his part continued to lay emphasis
+on the significance of Arabic in the Baha'i: Dispensation,
+and on its importance as a key affording access, once
+mastered, to the sacred texts in their original form. In a
+letter written on his behalf, he sent the following exhor-
+tation to the Baha'fs of Iran, encouraging them to make
+provision for the instruction of their children in Arabic:
+Make sure that Baha'i schoolchildren in their
+early years learn Arabic. For this is in accor-
+dance with the words of the Ancient Beauty in
+which He considers Arabic as the perspicuous
+tongue and through it He revealed the majority
+of His holy verses, laws and ordinances, prayers
+28 Quoted in Persian by Ali Akbar Furutan, Lughat-i-Fu:;~a va Lughat-
+i-Nawra (Dundas, Ontario: Persian Institute for Baha'i Studies, 1992), pp.
+22-3. With regard to the Persian language, 'Abdu'l-Baha states: "The Per-
+sian language shall become noteworthy in this cycle; nay, rather, the peo-
+ple shall study it in all the world" (Tablets of 'Abdu'l-Balui, Vol. II [Chicago,
+Baha'i Publishing Society, 1915], p. 307).
+29 Furutan, Lughat-i-Fu:;~ va Lugl!.at-i-Nawra,
+pp. 23-4 (my paraphrase).
+
+The Style of the Kitab-i-Aqdas
+and scientific tablets. The rewards for accom-
+plishing this are abundant in the estimation of
+God, and its results will be of great benefit to
+the entire community. 30
+30 Ibid., pp. 24-5 (my paraphrase).
+
+II
+THERE ARE THREE basic characteristics which distinguish
+every Divine Revelation. Firstly, it explains truths such as
+the nature of God, the human condition and the world
+around us; secondly, it directs us towards right conduct
+and warns us to eschew evil; and thirdly, to those who
+have faith and accept its guidance, it imparts the good
+news of forgiveness, purification
+and salvation, and
+provides a fresh impetus to the march of human progress
+and civilization. Underpinning all of these is the ability of
+the Divine Revelation both to create and to transform.
+The vitality of men's belief in God is dying out
+in every land; nothing short of His wholesome
+medicine can ever restore it. The corrosion of
+ungodliness is eating into the vitals of human
+society; what else but the Elixir of His potent
+Revelation can cleanse and revive it? Is it within
+human power, 0 J:Iaki'.m, to effect in the constit-
+uent elements of any of the minute and indivis-
+ible particles of matter so complete a trans-
+formation as to transmute it into purest gold?
+Perplexing and difficult as this may appear, the
+still greater task of converting satanic strength
+into heavenly power is one that We have been
+empowered to accomplish. The Force capable
+of such a transformation
+transcendeth
+the
+potency of the Elixir itself. The Word of God,
+alone, can claim the distinction of being endowed
+
+The Style of the Kitab-i-Aqdas
+with the capacity required for so great and far-
+reaching a change.31
+The idea of revelation, in the sense of the revealed
+Word of God, is an ancient one that predates Islam by
+many centuries and is illustrated in a variety of cultures.
+Although little tangible evidence survives, scholars cite
+examples as old as the Code of Hammurabi from the 18th
+century B.C.; the revealed texts of Abraham which are
+mentioned in the Qur'an 32; the Deuteronomic text of King
+Hezekiah, also known as the law book of Josiah, Hilkiah
+and Huldah 33; the "word of the Lord" revealed to Jeremiah34;
+and the law book of Ezra. 35 By the time of the Council of
+Jamnia in 100 A.D., to the idea of revelation had been
+added that of the inviolable sanctity of the revealed Word,
+which previously had been characterized by Jeremiah as
+a flame of fire that cannot be imitated, stolen or misrep-
+resented, and whose truth cannot but be revealed to the
+world. 36 This notion of the integrity of revelation leads
+naturally to that of the integrity, or essential unity, of the
+religions with which each particular outpouring of revela-
+tion is associated, and to the concept that these outpour-
+ings constitute
+the cumulative
+spiritual
+heritage
+of
+mankind, bequeathed down the ages from Dispensation to
+Dispensation in ever more liberal measures.
+31 Gleanings from the Writings of Baha'u'llah (Wilmette: Baha'i Publish-
+ing Trust, 1982), XCIX, p. 200.
+32 Qur'an, LXXXVII:18-19. For material concerning the history of Rev-
+elation and the style of the Qur'an, I am indebted to Isma'il R. and Lois
+Lamya' al Faruqi, The Cultural Atlas of Islam (New York: Macmillan, 1986).
+33 II Kings, XXII:8-20.
+34 Jeremiah, XXXVI:20ff.
+35 Ezra, VII: 14.
+36 Jeremiah, XXIII:29.
+
+Aspects of the Sublime
+As the most recent in this series of successive outpour-
+ings of Divine guidance to humanity before the advent of the
+Babi and Baha'i Dispensations, Islam occupies an especially
+revered station in the eyes of Baha'is. In Shoghi Effendi's
+words:
+As to MuQammad, the Apostle of God, let none
+among His followers who read these pages,
+think for a moment that either Islam, or its
+Prophet, or His Book, or His appointed Succes-
+sors, or any of His authentic teachings, have
+been, or are to be in any way, or to however
+slight a degree, disparaged.
+They [the Baha'i teachers] must strive to obtain,
+from sources that are authoritative and unbiased,
+a sound knowledge of the history and tenets of
+Islam-the
+source and background
+of their
+Faith-and
+approach reverently and with a
+mind purged from pre-conceived ideas the
+study of the Qur'an which, apart from the
+sacred scriptures of the Ba.bi and Baha'i Revela-
+tions, constitutes the only Book which can be
+regarded as an absolutely authenticated Repos-
+itory of the Word of God.37
+Such a degree of integrity is found exemplified in the
+Scriptures of the Baha'i Revelation. But whereas in the
+Islamic Dispensation the authenticated Repository of the
+Word of God comprised a single volume-the
+Qur'an; in
+the Baha'i Dispensation it comprises the whole body of
+the Writings of Baha'u'llah, embracing the equivalent of
+no less than one hundred volumes. Of this vast corpus of
+Writings, the Kitab-i-Aqdas, although pre-eminent among
+Baha'u'llah's other Writings as the 'Most Holy Book' of
+His Dispensation, and the Work in which the basic laws
+37 Shoghi Effendi, Guidance for Today and Tomorrow (London: Baha'i
+Publishing Trust, 1953), pp. 119, 226.
+
+The Style of the Kitab-i-Aqdas
+and ordinances of His Revelation are propounded, consti-
+tutes but a single element. It would, however, be mislead-
+ing to refer to it merely as a book of laws; more accurately
+it is the charter of a future civilization, establishing the
+spirit rather than the letter of its constitutional, social, and
+legal framework. Yet even such a characterization as this
+falls short of doing justice to the Book, as the following
+Words of Baha'u'llah reveal:
+Think not that We have revealed unto you a
+mere code of laws. Nay, rather, We have
+unsealed the choice Wine with the fingers of
+might and power. To this beareth witness that
+which the Pen of Revelation hath revealed. 38
+The use in this passage of the significant Qur'anic term
+ra"f:z{q
+makhtum (here rendered 'choice Wine'), suggests
+that Baha'u'llah is identifying the Kitab-i-Aqdas as the
+'pure wine' promised to the truly virtuous in the eighty-
+third surah of the Qur'an:
+Behold, [in the life to come] the truly virtuous
+will indeed be in bliss: [resting] on couches,
+they will look up [to God]: upon their faces thou
+wilt see the brightness of bliss.
+They will be given a drink of pure wine
+whereon the seal [of God] will have been set,
+pouring forth with a fragrance of musk.
+To that [wine of paradise], then, let all such
+aspire as [are willing to] aspire to things of high
+account: for it is composed of all that is most
+exalting-a
+source [of bliss] whereof those who
+are drawn close unto God shall drink. 39
+As the fulfillment of this promise, the Kitab-i-Aqdas
+38 Kitab-i-Aqdas, KS, p. 21.
+39 Qur'an, LXXXIII:22-28.
+
+Aspects of the Sublime
+represents the epitome of the concept, first propounded
+by Jeremiah, of the Divine Ipsissima Verba, or the Very
+Word of God. And as such, the Arabic of the original text
+is sacred language of the very highest order, sublime in
+form and content.
+FORM
+Let us first consider the sublime form of the Kitab-i-
+Aqdas. Concise in form, yet rich in meaning and sense, it
+contains the elements of both shi'r (poetry) and saj'
+(rhymed prose) but transcends the limitations of each. Its
+expressions possess an integrity and absolute precision
+that lie beyond the bounds of literary analysis. Vivid use
+is made of similes, metaphors, metonymy, and other
+linguistic embellishments,
+exemplifying that form of
+consummate skill in the use of Arabic which is termed
+bad{', signifying 'the art of sublime and innovative expres-
+sion'. The hallmarks of this form of writing are its match-
+less precision, its graceful but compelling flow, its chaste
+economy of diction, its inimitable craftsmanship and its
+prodigious mastery of the language in all its multifarious
+ramifications. Majesty is combined with grace, refine-
+ment with simplicity, strength with delicacy, power with
+beauty, and authority with compassion. And the text is
+unimpaired by-indeed
+all the more effective for-its
+lack of a conventional literary structure.
+CONTENT
+The sublime content of the Kitab-i-Aqdas, on the other
+hand, is evident in its palpable embodiment of the impor-
+tant Baha 'f principle of the conformity of faith and reason;
+its view of man as a rational and noble being whose true
+destiny on earth can be realized only through recognizing
+His Creator and obeying His commandments. It upholds
+
+The Style of the Kitab-i-Aqdas
+a pattern of moral living consecrated to, and sustained by,
+the establishment of justice, the pursuit of righteousness,
+and the practice of refinement. Over and above the edifi-
+cation and redemption of the individual, it lays special
+emphasis on the harmonious relationship between individ-
+uals, on the one hand, and between the individual and
+society on the other. The fundamental values it inculcates
+are therefore unity, equity and moderation, all of which it
+regards as spiritual in essence, and not merely of social
+significance alone. Its message is unific in character,
+universal in scope, and ecumenical in spirit. It invites
+mankind to accept it with both heart and mind. It creates
+a New World Order and a peerless legislative system,
+centering around the institution of the House of Justice, in
+which is vested responsibility both for guaranteeing the
+welfare and for promoting the development of the society
+and the community over which it presides.
+The sublime congruence of form and content in the
+Kitab-i-Aqdas produces an effect, such as can generate a
+radical transformation in those who receive the Word and
+reverently peruse it.
+STYLE
+In the Suriy-i-Haykal (Surah of the Temple) Baha'u'llah states
+the following (which I again paraphrase from the Arabic):
+Say: We have revealed Our verses in nine differ-
+ent styles, each style signifying the sovereignty
+of God, the Ever-Living, Who determineth what
+is true or false. One single style would certainly
+be sufficient proof for all that are in Heaven and
+all that are on earth. But most people are heedless.
+Had We so wished, We would have revealed
+verses in other styles too numerous to reckon.40
+4o Atl!ar-i-Qalam-i-A'la,
+Vol I (fihran: Baha'i Publishing Trust, 1963), p. 19.
+
+Aspects of the Sublime
+Although no elucidation of these "nine different styles"
+was forthcoming from the Pen of Baha'u'llah Himself (at
+least, so far as is at the present known), they have been
+tentatively identified by the distinguished Baha'i scholar
+Jinab-i-Facjil-i-Mazindaranf as follows:
+1. Tablets with the tone of command and authority.
+2. Those with the tone of servitude, meekness
+and supplication.
+3. Writings dealing with interpretation of the old
+Scriptures, religious beliefs and doctrines
+of the past.
+4. Writings in which laws and ordinances have
+been enjoined for this age and laws of the
+past abrogated.
+5. Mystical Writings.
+6. Tablets concerning matters of government and
+world order, and those addressed to the
+kings.
+7. Tablets dealing with subjects of learning and
+knowledge, divine philosophy, mysteries
+of creation, medicine, alchemy, etc.
+8. Tablets exhorting men to education, goodly
+character and divine virtues.
+9. Tablets dealing with social teachings. 41
+For Baha'fs no less than for Muslims, it is a basic tenet
+of belief that the very form in which the Word is cast
+represents one of the major signs or proofs of a Divine
+Revelation. In other words, the revealed Word proves
+41 Quoted by Adib Taherzadeh, The Revelation of Balui'u'llah, Vol. I
+(Oxford: George Ronald, 1976), p. 43.
+
+The Style of the Kitab-i-Aqdas
+itself by its own transcendent
+and inimitable quality, as is
+in fact stated in the Kitab-i-Aqdas:
+This is the Most Great Testimony, by which the
+validity of every proof throughout the ages
+hath been established ... 42
+Many other such pronouncements
+in the text confirm the
+sublimity of its station in this respect:
+... My commandments are the lamps of My
+loving providence among My servants, and the
+keys of My mercy for My creatures. Thus hath
+it been sent down from the heaven of the Will of
+your Lord, the Lord of Revelation. 43
+Take heed lest the word "Prophet" withhold
+you from this Most Great Announcement, or
+any reference to "Vicegerency" debar you from
+the sovereignty of Him Who is the Vicegerent of
+God, which overshadoweth all the worlds. 44
+Give ear unto the verses of God which He Who
+is the sacred Lote-Tree reciteth unto you. They
+are assuredly the infallible balance, established
+by God, the Lord of this world and the next.
+Through them the soul of man is caused to wing
+its flight towards the Dayspring of Revelation,
+and the heart of every true believer is suffused
+with light.45
+The Lote-Tree (Sadratu'l-Muntaha'),
+here signifying Baha'u'llah
+Himself, is an Islamic image symbolizing
+the heavenly
+limit beyond which neither man nor angels can pass in
+their attempts to attain to the presence of the Almighty or
+to comprehend
+the nature of the Great Beyond.
+42 Kitab-i-Aqdas, K183, p. 86.
+43 Ibid., K3, p. 20.
+44 Ibid., K167, p. 80.
+45 Ibid., K148, p. 73.
+
+Aspects of the Sublime
+The style of passages like those cited above is deliber-
+ately compressed and allusive rather than discursive and
+explicit, and the imagery and symbolism they contain are
+so deployed as to open up before the listener or reader
+whole new realms of meaning, and to fire the imagination
+through their vividly evocative power.
+The Kitab-i-Aqdas contains, of course, innumerable
+other signs and tokens of its Divine origin, in much the
+same way as, in the Qur'an, the "book of the world" is
+described as replete with signs and wonders, all eloquent-
+ly testifying to the Divine providence which has brought
+them into being:
+And among his wonders is the creation of the
+heavens and the earth, and the diversity of your
+tongues and colours: for in this, behold, there
+are messages indeed for all who are possessed
+of [innate] knowledge! 46
+Enumerating various signs of the truth of His Father's
+Revelation, 'Abdu'l-Baha cites in one of His Epistles the
+eloquence and profundity of Baha'u'llah's words and the
+speed with which they are revealed:
+Among His signs are: the excellence of His
+utterance, the eloquence of His elucidation, the
+ceaseless flow of His Revelation, in words, in
+wise sayings, in [holy] verses, in sermons, in
+communion and prayer, and in His explanation
+of clear verses and interpretation of figurative
+verses. 47
+The greatest of all His signs, however, is the majestic
+person of Baha'u'llah Himself. He is the proof beyond
+which no other proof is needed; He stands transcendent,
+46 Qur'an, XXX:22.
+47 Min Makatfb 'Abdu'l-Bahti, Vol. I (Rio de Janeiro: Baha'i Publishing
+Trust of Brazil, 1982), p. 100. Paraphrased from the original Arabic.
+
+The Style of the Kitab-i-Aqdas
+majestic and sublime, holding sovereign sway over all. In
+the Islamic Dispensation, the Qur'an had challenged critics
+and detractors of the new Revelation to produce a single
+surah, or chapter, comparable to those of the Qur'an:
+And if you doubt any part of what We have
+bestowed from on high, step by step, upon Our
+servant [Mul;tammad], then produce a surah of
+similar merit, and call upon any other than God
+to bear witness for you-if
+what you say is
+true! 48
+Now, in the Baha'i Dispensation, Baha'u'llah confronts
+His critics with their inability to match not simply His
+words, but His own August Being in all its aspects:
+0 ye leaders of religion! Who is the man
+amongst you that can rival Me in vision or
+insight? Where is he to be found that dareth to
+claim to be My equal in utterance or wisdom?
+No, by My Lord, the All-Merciful! 49
+The implication of the rhetorical question in which these
+challenging words are framed is, of course, that Baha 'u 'llah
+is peerless and inimitable in His capacities and accom-
+plishments. History records that all who attempted to set
+themselves up as equals of Baha'u'llah were ultimately
+discomfited
+and met with ignominious
+failure. For
+Baha'u'llah spoke with the Tongue of God, and in the
+pure mirror of His Being was reflected the light of Divine
+and unfading glory.
+The vocative as exemplified, for instance, by the words
+prefacing His address to the clergy-"O
+ye leaders of
+religion" (Ya ma'shar al-'Ulama')-is a linguistic device of
+peculiar force and efficacy in Arabic. Again and again it is
+48 Qur'an, 11:23.
+49 Kitab-i-Aqdas, KlOl, pp. 56-7.
+
+Aspects of the Sublime
+resorted to by Baha'u'llah. In this way He apostrophizes
+specific groups of people as a means of investing His
+admonitions to them with great potency and directness.
+The device is clearly effective in lending force and
+poignancy to Baha'u'llah's
+rhetorical challenge to the
+'Ulama' referred to above. Naturally, this challenge to
+recognize Baha'u'llah's
+unassailable
+pre-eminence
+is
+addressed in the first instance to the 'Ulama', since it was
+they who had arrogated to themselves the position of sole
+guardians of God's Faith and exclusive arbiters of Divine
+Truth for humankind. In a very real sense, they held the
+spiritual destinies of their followers in their hands, as is
+affirmed elsewhere in the Kitab-i-Aqdas by the statement:
+"Had ye believed in God when He revealed Himself, the
+people would not have turned aside from Him, nor would
+the things ye witness today have befallen Us.1150 Their
+abject inability to rival Baha'u'llah in vision or insight, or
+to equal Him in utterance and wisdom, if not already
+clearly implicit in the sense of incredulity conveyed by the
+rhetorical question in which Baha'u'llah
+frames His
+challenge to them, is then emphatically asserted by the
+witheringly dismissive quality of the following negation:
+"No, by My Lord, the All-Merciful." The utter insignifi-
+cance of their arrogant pretensions when brought face to
+face with the supernal splendour of the Ancient of Days
+is then vividly expressed by the assertion:
+All on the earth shall pass away; and this is the
+face of your Lord, the Almighty, the Well-
+Beloved,51
+itself an echo of the Qur'anic words:
+so Ibid., K166, pp. 79-80.
+51 Ibid., KlOl, p. 57.
+
+The Style of the Kitab-i-Aqdas
+All that lives on earth or in the heavens is bound
+to pass away: but forever will abide thy
+Sustainer's Self, full of majesty and glory.52
+Asad's phrase, "thy Sustainer's Self," is a translation
+of wajhu Rabbi-ka, meaning "Face of thy Lord," as
+rendered more accurately in this case by Arberry:
+All that dwells upon the earth is perishing, yet
+still / abides the Face of thy Lord, majestic,
+splendid. 53
+This apparent allusion to the Qur'an provides a partic-
+ularly good illustration of the way Baha'u'llah's language
+invests Qur'anic phrases or expressions with various
+whole new dimensions of meaning. In the present case,
+the Qur'anic "Face of thy Lord," which becomes in a sense
+the face of Baha'u'llah Himself, reminds us that in His
+Dispensation, as in preceding Dispensations, mankind
+has the privilege, so long as He is alive, of gazing on the
+Face of God Himself, and of entering as nearly into His
+presence as is possible on this earthly plane.
+Not only is God's Messenger for this day and age
+peerless in His knowledge, understanding
+and insight,
+but He is also "the Dawning-place of God's Cause" and
+the sole exemplar of the "Most Great Infallibility." He is,
+moreover, "the infallible Balance" (Qistas al-Huda)54 an
+expression in which again the word Qistas, used in the
+Qur'an merely in its concrete meaning, 55 is here invested
+with a new dimension of figurative meaning, as it becomes
+52 Qur'an, LV:26-7.
+53 Arthur J. Arberry, The Koran Interpreted (New York: Macmillan,
+1955), p. 252.
+54 Kitab-i-Aqdas, K47, p. 36 and K183, p. 86.
+55 Qur'an, XVII:35 and XXVI:182.
+
+Aspects of the Sublime
+a symbol for the Manifestation of God, the Judge and
+Arbitrator of what is true and what is false.
+LITERARY DEVICES
+Just as the style of the Qur'an was totally new to the Arabs
+of the Prophet's time, albeit embodying the quintessential
+soul and spirit of their language, so too the Kitab-i-Aqdas
+constitutes a veritable miracle of innovation. It is divided
+into several hundred verses, which in the English version
+have been grouped into numbered paragraphs.
+They
+adhere to no specific literary form in Arabic, being richer
+than prose but without the elaborateness and mannerisms
+of poetry. The style is therefore a delicate blend of features
+belonging to both prose and poetry, of music tempered by
+the discipline of precise and unequivocal expression.
+There is alliteration, assonance, repetition, and onomato-
+poeia. The timbre of the music differs from subject to
+subject, but remains integrally associated with the digni-
+fied sonority, the stirring rhythms and the lilting cadences
+of the Arabic language in which it is framed. Witness the
+mounting crescendo and final satisfying resolution evi-
+dent in the structure of the following verse:
+They who eschew iniquity and error, who
+adhere to virtue, are, in the sight of the one true
+God, among the choicest of His creatures; their
+names are extolled by the Concourse of the
+realms above, and by those who dwell in this
+Tabernacle which hath been raised in the name
+of God.56
+The linguistic subtleties of Arabic are infinite, and
+place at the disposal of the skilled craftsman a host of
+rhetorical figures and devices which he may deploy to
+56 Kitab-i-Aqdas, K71, p. 45.
+
+The Style of the Kitdb-i-Aqdas
+brilliant effect. The following provides an example of
+alliteration, the repetition of a certain consonant (in this
+case 'j') throughout successive words (ijlal, jalal, jamal):
+Thus hath the decree been inscribed with
+majesty [ijlal] in this glorious [jalal] Tablet by
+Him Who is the Dawning-place of Beauty
+Uamal].57
+As previously noted, Arabic offers abundant possibil-
+ities for assonance, the reiteration of certain vowel sounds
+throughout successive words. The contrast of qu$UT (palaces)
+with qubur (graves), in the context of Baha'u'llah's
+stem
+reminder to the King of Prussia that:
+The All-Merciful brought them down from their
+palaces to their graves58
+is dramatically heightened by their similarity in sound, a
+similarity which adds piquancy and a certain aphoristic
+quality to the antithesis they express.
+An outstanding feature of the rhythm of the Kitab-i-
+Aqdas is its use of different repetitive beats-double,
+triple, or quadruple-in
+a manner which can only imper-
+fectly be reproduced in English. A double beat, for instance,
+is heard running
+throughout
+the following series of
+contrasting couplets:
+Truly, the Lord loveth union and harmony and
+abhorreth separation and divorce. Live ye one
+with another, 0 people, in radiance and joy.59
+A triple beat, by contrast, is found in the following
+eloquent passage, whose latter portion reinforces the
+central proposition of its earlier portion by means of three
+57 Ibid., K68, p. 44.
+58 Ibid., K86, p. 51.
+59 Ibid., K70, p. 44.
+
+Aspects of the Sublime
+structurally similar sentences which serve cumulatively
+to create an effect of great emphasis.
+Let none, in this Day, hold fast to aught save
+that which hath been manifested in this Revela-
+tion. Such is the decree of God, aforetime and
+hereafter-a
+decree wherewith the Scriptures of
+the Messengers of old have been adorned. Such
+is the admonition of the Lord, aforetime and
+hereafter-an
+admonition
+wherewith
+the
+preamble to the Book of Life hath been embel-
+lished, did ye but perceive it. Such is the
+commandment
+of the Lord, aforetime and
+hereafter; beware lest ye choose instead the part
+of ignominy and abasement. 60
+These passages exemplify the power of rhythmic repeti-
+tion, used to maximum effect in the Kitab-i-Aqdas.
+Another richly expressive device in Arabic is that of
+juxtaposition and antithesis, as in the following example:
+Know ye that the embodiment of liberty and its
+symbol is the animal. That which beseemeth
+man is submission unto such restraints as will
+protect him from his own ignorance, and guard
+him against the harm of the mischief-maker. 61
+By placing the word bayawan (animal) immediately before
+insan (man), the Arabic original of this passage effectively
+emphasizes the demarcation
+and distinction between
+animality and humanity-a
+distinction which can so easily
+be lost or blurred if man's behaviour is not restricted by
+certain limitations and constraints. With the removal of such
+constraints, the distance, figuratively speaking, between
+humanity and animality is perhaps no greater than the
+difference in sound between insan and bayawan.
+60 Ibid., K138, pp. 68-9.
+61 Ibid., K123, p. 63.
+
+The Style of the Kitab-i-Aqdas
+Metaphor
+Another important rhetorical device of which ample use
+is made in the Kitab-i-Aqdas is metaphor, by means of
+which abstract concepts are expressed in concrete terms:
+... We have unsealed the choice Wine with the
+fingers of might and power. 62
+... My chosen servants ... are the stars of the
+heaven of My loving providence and the lamps
+of My guidance unto all mankind. 63
+The eye of His loving-kindness shall everlast-
+ingly be directed towards thee ... 64
+The eye of My loving-kindness weepeth sore
+over you ...
+Cast away that which ye possess, and, on the
+wings of detachment, soar beyond all created
+things. 66
+In this last extract, the metaphor of 'wings', symbolizing
+freedom and detachment, is further developed by the
+verb 'soar', converting the metaphor into an analogy
+whereby a person who has achieved detachment from the
+world is likened to a bird soaring in the heavens.
+Another noteworthy feature of the language of the
+Kitab-i-Aqdas is the frequent use it makes of the names
+and attributes of Almighty God, which constitute an
+important element of both Qur'anic and Baha'f diction,
+and are expressed throughout
+the text of the Kitab-i-
+Aqdas by both allusion and explicit mention. Among the
+62 Ibid., KS, p. 21.
+63 Ibid., K117, p. 61.
+64 Ibid., K93, p. 54.
+65 Ibid., KlOO, p. 56.
+66 Ibid., K54, p. 39.
+
+Aspects of the Sublime
+most frequently occurring of these names and attributes are,
+for instance, those illustrated in the following formulae:
+He, verily, is Almighty and Omniscient 67
+The All-Possessing, the Most High 68
+The Mighty, the Pardoner 69
+Combinations
+of these attributes
+frequently serve to
+round off the verses of the Kitab-i-Aqdas, and in this capac-
+ity provide a recurrent musical refrain, or closing cadence,
+which sounds throughout the length of its text.
+Another designation for the Almighty is He "Who
+ruleth over all mankind, 1170 the Arabic original of which
+Malik al-Riqab, signifies literally "the possessor of the necks."
+Clearly, 'necks' is here used metonymically for 'mankind',
+implying that man stands in the same relation to God as
+a vassal to his lord. The term Malik (Lord), despite the
+paramount importance of the Divine attribute it expresses,
+occurs on only two or three occasions in the Qur'an, 71
+whereas in the Kitab-i-Aqdas, by contrast, it has developed
+into one of the central appellations of the Divinity. Follow-
+ing are some of the combinations in which it is used:
+The Lord of all mankind 72
+The Lord of Names 73
+The Lord of all Religions 74
+67 Ibid., K6, p. 21.
+68 Ibid., K2, p. 20.
+69 Ibid., KB, p. 22.
+70 Ibid., KB, p. 22.
+71 Qur'an, 1:4 and III:26.
+72 Kitab-i-Aqdas, K16, p. 25; K26, p. 28 and K154, p. 75.
+73 Ibid., K49, p. 37.
+74 Ibid., K36, p. 32.
+
+The Style of the Kitab-i-Aqdas
+The Lord of all worlds 75
+The Lord of the beginning and the end 76
+The Lord of being 77
+The Lord of all creation 78
+The Lord of ... Grace 79
+The Lord of Judgement 80
+The Lord of ... Majesty 81
+The Lord of the seen and the unseen 82
+The Lord of Splendour 83
+The Lord of the Throne above and of the earth
+below 84
+The Lord of Utterance 85
+Alternation of Person
+A linguistic device of untold significance in the Kitab-i-
+Aqdas is its alternation between the third person singular
+and the first persons singular and plural in referring to the
+authoritative
+source whence various prescriptions and
+exhortations have flowed-a
+feature whose evident pur-
+75 Ibid., KlO, p. 23; K44, p. 35; K85, p. 50; K98, p. 56 and K138, p. 69.
+76 Ibid., K16, p. 25 and K28, p. 28.
+77 Ibid., K139, p. 69.
+78 Ibid., K73, p. 45.
+79 Ibid., Kl4, p. 24.
+80 Ibid., K18, p. 26 and K56, p. 40.
+81 Ibid., Kl4, p. 24.
+82 Ibid., Kll, p. 23 and K98, p. 56.
+83 Ibid., K13, pp. 23-4.
+84 Ibid., K86, p. 51.
+85 Ibid., KBB, p. 52.
+
+Aspects of the Sublime
+pose is to give forcible expression to the almost indistin-
+guishable identity of God and the Manifestation of His
+Cause.
+Personification
+Personification, the device by which an inanimate object
+or corporate entity, such as a place or group of people, is
+invested with a human character, is another striking
+feature of the text. For example:
+Consort with all religions with amity and
+concord ... 86
+The device is especially powerful in some of the prophetic
+passages of the Kitab-i-Aqdas, as for example:
+... We hear the lamentations of Berlin ... 87
+and in reference to the land of Ta, present-day Tihran:
+Let nothing grieve thee, 0 Land of Ta ... Rejoice
+with great joy, for God hath made thee "the
+Dayspring of His light" ... 88
+The feature naturally occurs often in conjunction with
+apostrophe, which was considered briefly in the foregoing.
+KEYWORDS
+One of Baha'u'llah's Tablets contains a particularly strik-
+ing reference to the symbolic language of the Kitab-i-Aqdas:
+Blessed the palate that savoureth its sweetness,
+and the perceiving eye that recognizeth that
+which is treasured therein, and the understand-
+86 Ibid., K144, p. 72.
+87 Ibid., K90, p. 53.
+88 Ibid., K91-2, pp. 53-4.
+
+The Style of the Kitab-i-Aqdas
+ing heart that comprehendeth its allusions and
+mysteries. By God! Such is the majesty of what
+hath been revealed therein, and so tremendous
+the revelation of its veiled allusions that the
+loins of utterance shake when attempting their
+description. 89
+Among the important symbols and keywords running
+through the Kitab-i-Aqdas is that used in the very desig-
+nation of the work, Kitab-i-Aqdas, to denote its literary
+form, viz. kitab, the Arabic word for 'book'. Although
+indisputably
+the word 'book' provides the standard
+English rendering of kitab, it is equally the case that kitab
+has various resonances and layers of meaning absent
+from its stock English equivalent. The word originates
+from the root kataba which, as most Arabic lexicographers
+agree, means 'to assemble' or 'to put together a number of
+elements in order to express clear and complete meaning'.
+In addition to kitab, a host of other words derive from
+kataba. When its constituent letters are reversed in order,
+kataba becomes bataka, which means 'to cut' or 'to cut off',
+as in the threat recorded of Satan in the Qur'an, that he
+would mislead mankind and order them to cut off the ears
+of their cattle:
+... they will cut off the ears of cattle ... 90
+Kuttab, on the other hand, is a place where young
+students or pupils come together, while katfbah is a battal-
+ion or division of soldiers; both words denote types of
+gathering or grouping, the former with a peaceable, the
+latter with a warlike purpose. Maktab, further, is an educa-
+tional foundation, a place where, in the broadest sense,
+89 A Synopsis and Codification of the Kitab-i-Aqdas,
+(Haifa: Baha'i World
+Centre, 1973), p. 3.
+90 Qur'an, IV:119.
+
+Aspects of the Sublime
+associations and connections are established between the
+elements of knowledge and of the world at large. This
+expansive sense of maktab is elevated to a truly cosmic
+level in a passage occurring towards the end of the Kitab-
+i-Aqdas where mention is made of the "School of God,"
+or, more fully, the "School of Transcendent Oneness,"
+which, as Baha'u'llah
+affirms, He entered "ere [God]
+created heaven and earth" and "before the letters Band E
+were joined and knit together."
+We, indeed, set foot within the School of inner
+meaning and explanation when all created
+things were unaware...
+We, verily, set foot
+within the School of God when ye lay slumber-
+.
+mg ...
+Having graduated from this primordial and cosmic
+seminary, Baha'u'llah was of course in no need of the
+formal schooling offered by any earthly academy; indeed,
+as He states in an earlier passage of the Kitab-i-Aqdas:
+We have not entered any school, nor read any of
+your dissertations. Incline your ears to the
+words of this unlettered One, wherewith He
+summoneth you unto God, the Ever-Abiding. 92
+Here there is another echo from the Qur'an, for the term
+used by Baha'u'llah, in describing Himself as "this unlet-
+tered One," is precisely that used by Mul:tammad in
+describing Himself as the "unlettered Prophet." Clearly,
+however, it is in only a very limited sense that either of
+them was 'unlettered',
+and the expression may thus be
+accounted for on the grounds that the learning evinced by
+both Mul:tammad and Baha'u'llah was Divine in origin
+and not to be gauged by human standards. When one of
+91 Kitab-i-Aqdas, K175-7, p. 83.
+92 Ibid., K104. p. 57.
+
+The Style of the Kitab-i-Aqdas
+His Arabic Tablets was impugned by a critic objecting to
+the particular use Baha'u'llah had therein assigned to the
+word qina' (veil), Baha'u'llah composed in reply an exten-
+sive disquisition on the use of this word in Arabic, demon-
+strating an astonishing command of the language and a
+dazzling erudition in its literature. The Lawh-i-Qina '{Tablet
+of the Veil), which is the name of the Tablet in which this
+disquisition occurs, constitutes in its entirety an abiding
+testimony to the prodigious innate knowledge possessed
+by Baha'u'llah despite His lack of formal schooling.
+All these words, then-maktab,
+bataka, kuttab, katib,
+and kataba-are direct cognates of kitab, and as such add
+to its meaning extra resonances and echoes in a cumula-
+tive manner which cannot be either paralleled or imitated
+in the English language. Such is the versatility and almost
+universal quality of the word kitab in Arabic that practi-
+cally every activity of a human being can in some manner
+be subsumed
+under the heading
+'book': hence, for
+example, it is perfectly in order to speak of 'the book of
+walking', 'the book of sleeping', 'the book of marriage',
+and so forth. The various categories of religious obser-
+vances, pursuits, and interests may likewise each be
+characterized generically as a book: 'the book of prayers',
+'the book of pilgrimage', 'the book of creation', of 'life', of
+'death', of 'victory', of 'defeat', of 'animals', of 'agricul-
+ture', and so on. Length or size is also immaterial in
+judging whether something qualifies for the designation
+'book': a weighty tome, a flimsy fascicle, a single broad-
+sheet-all
+these may aptly and correctly be described in
+Arabic as kitab, or 'book'. Accordingly it is applied equally
+in Baha'i terminology to lengthy works such as the
+Kitab-i-Badi' (The Wondrous Book) or the Kitab-i-lqan
+(The Book of Certitude), and to very short ones such as the
+Kitab-i-'Ahd (The Book of the Covenant).
+
+Aspects of the Sublime
+Interestingly,
+the grammatically
+definite form of
+kitab-al-kitab-is much more nearly rendered by its gram-
+matically definite English equivalent-'the
+Book'-than
+is the grammatically indefinite kitab by grammatically
+indefinite 'book', for now a clear sense of Divine or Holy
+Writ enters into the word in both languages. Thus, almost
+at its outset the Qur'an describes itself as the 'Divine Writ'
+or 'the Book' par excellence.93
+Yet more portentous
+and far-reaching
+than the
+concept of 'the Book' is that of the 'Mother Book', a
+Qur'anic concept which is again taken up and amplified
+in the Kitab-i-Aqdas in the following words:
+This, verily, is the heaven in which the Mother
+Book is treasured ... 94
+The term 'Mother Book' generally signifies the central
+book of a religious Dispensation, as for example the
+Qur'an for Muslims, the Bayan for Babis, and the Kitab-i-
+Aqdas for Baha'is. According to Shoghi Effendi, it is also
+a "collective term indicating the body of the Teachings
+revealed by Baha'u'llah." In a looser sense, 'Mother Book'
+is also the Divine Repository of Revelation. 95
+In line with this latter sense, one of the most signifi-
+cant uses of the word kitab in the Kitab-i-Aqdas is as a
+designation of the Manifestation of God Himself. The
+'Book' in the Qur'an is the Divine Message revealed
+through the Prophet Mu]:,.ammad; but in the Kitab-i-
+Aqdas, following the Bayan, it has become Baha'u'llah
+Himself, Who, in contrast to the 'Silent Book' of Revela-
+tion, is characterized as 'the Living Book':
+93 Qur'an, 11:2.
+94 Kitab-i-Aqdas, K103, p. 57.
+95 Ibid., n129, pp. 220-1.
+
+The Style of the Kitab-i-Aqdas
+Take heed lest ye be prevented by aught that
+hath been recorded in the Book from hearken-
+ing unto this, the Living Book ... 96
+... neither the Scriptures of the world, nor all the
+books and writings in existence, shall, in this
+Day, avail you aught without this, the Living
+Book, Who proclaimeth in the midmost heart of
+creation: "Verily, there is none other God but
+Me, the All-Knowing, the All-Wise." 97
+Corollary to the concept of the 'Book' is that of the
+Logos: kalimah in Arabic, the 'Word' in English-that
+same
+mystic Word made familiar to the English-speaking
+world by a particularly striking and majestic passage of
+the King James Bible:
+In the beginning was the Word, and the Word
+was with God, and the Word was God.98
+The Word is in a sense the epitome, the supreme and
+quintessential symbol, of the message promulgated by
+each Manifestation of God. It signifies at once His teach-
+ings, His authority, and His creative power to revitalize
+and make all things new:
+Arise to further My: Cause, and to exalt My
+Word amongst men. 99
+Your spirits would be so transported by His
+Word as to throw into commotion the Greater
+World-how
+much more this small and petty
+one!100
+96 Ibid., Kl34, p. 67.
+97 Ibid., K168, p. 81.
+98 John, 1:1.
+99 Kitab-i-Aqdas, 1<38, pp. 32-3.
+lOO Ibid., KSS, p. 39.
+
+Aspects of the Sublime
+Another keyword, appearing in the very opening
+words of the Kitab-i-Aqdas, is Ijakim, the 'Supreme
+Ruler'. It can also mean 'judge' or 'one who decrees laws
+or ordinances'. Ijukm, a word expressing both the quality
+and function of a Ijakim, and also a particular 'ordinance',
+'decree' or 'judgement' such as a Ijakim would be entitled
+to pass, is applied in a general sense in the Qur'an to the
+book as a whole:
+Thus, then, have We bestowed from on high
+this [divine writ] as an ordinance in the Arabic
+tongue.101
+But it might be applied with equal propriety to the
+Kitab-i-Aqdas, replete as it is with particular instances of
+IJukm in the more restricted sense provided above. "Thus
+hath the sun of Our commandment [l:iukm] shone forth
+above the horizon of Our utterance," Baha'u'llah states at
+one point in the Kitab-i-Aqdas, "Blessed, then, be those
+who do Our bidding." 102
+Another very important Arabic word related to Ijakim
+is IJikmah which, although customarily rendered into
+English simply as 'wisdom', retains many elements of its
+cognate IJukm, described above, as it signifies primarily
+'what prevents or restrains from ignorant behaviour', and
+has thus come to denote a form of practical wisdom in
+which perfect understanding is given tangible expression
+through nobility of conduct and excellence of deed. Further,
+l:iikmah may even signify that perfect blend of 'knowledge
+and the doing of good things' exemplified by the 'gift of
+prophecy' or the 'prophetic office', and it is in this sense
+that the word occurs in the following Qur'anic passage:
+101 Qur'an, XIII:37. See also VII:87 and X:109.
+102 Kitab-i-Aqdas, K108, P· 59.
+
+The Style of the Kitab-i-Aqdas
+And [He] will impart unto thy son revelation,
+and wisdom, and the Torah, and the Gospel
+Again and again throughout His Writings, Baha'u'llah
+impresses upon His followers the importance of evincing
+this quality of practical wisdom, often using it in such a
+sense as to make it virtually equivalent to the English
+'prudence' or 'caution'. The peoples of the world are still
+largely immature, Baha'u'llah advises us, and if we are to
+demonstrate the wisdom He enjoins upon us, we must
+offer the new healing Message humbly and lovingly,
+tempered
+and rendered
+palatable with the milk of
+mildness, moderation, clemency and compassion.
+Some of these senses of 'wisdom' are suggested in the
+following extract from Baha'u'llah's Tablet of Wisdom:
+The beginning
+of Wisdom and the origin
+thereof is to acknowledge whatsoever God hath
+clearly set forth ... 104
+•
+and also in the following excerpt from His Words of Wisdom:
+The essence of wisdom is the fear of God, the
+dread of His scourge and punishment, and the
+apprehension of His justice and decree. 105
+By its own testimony, the Kitab-i-Aqdas constitutes a
+repository and embodiment of Divine Wisdom, and the
+intimate connection of such 'wisdom' with the concept of
+the 'Law', or ]:zukm, is illustrated by its assertion that "We
+school you with the rod of wisdom and laws ... 11106
+103 Qur'an, III:48.
+104 Writings oJBalui"u'llah,
+A Compilation, (New Delhi: Baha'i Publishing
+Trust, 1986), p. 246.
+lOS Ibid., p. 248.
+• l06 Kitab-i-Aqdas, K45, p. 36.
+
+Aspects of the Sublime
+A word with which b-ikmah is frequently coupled, and
+which is associated with it in more than one passage of the
+Kitab-i-Aqdas, is baytin, signifying 'the gift of intelligent
+speech, power of expression, capacity to grasp the relation-
+ships between things and explain them clearly'. Like
+b-ikmah it is no less a quality of Divine Revelation than an
+attribute which we are all called upon to acquire and
+exemplify to the best of our abilities:
+Thus hath it been decreed in this Tablet from
+whose horizon hath shone the day-star of
+wisdom and utterance. 107
+Assist ye the Lord of all creation with works of
+righteousness, and also through wisdom and
+utterance. 108
+Where is he to be found that dareth to claim to
+be My equal in utterance or wisdom?109
+The incalculable potency of human utterance for good
+and redemption is emphasized in a particularly striking
+analogy set forth in the latter portion of the Kitab-i-Aqdas,
+according to which the human tongue is accredited with
+the same capacity metaphorically to 'build up'-that
+is, to
+revive and rehabilitate-the
+human heart as that possessed
+by the human hand in rearing physical structures:
+In truth, the hearts of men are edified through
+the power of the tongue, even as houses and
+cities are built up by the hand and other
+means.110
+107 Ibid., K33, p. 30.
+108 Ibid., K73, p. 45.
+l09 Ibid., KlOl, pp. 56-7.
+no Ibid., K160, p. 77.
+
+The Style of the Kitab-i-Aqdas
+Closely affiliated to the word bayan is its near cognate
+tibyan. Although some doubt exists as to the precise distinc-
+tion in sense between these twin forms, it has been
+suggested that the former denotes 'perspicuity of mean-
+ing', the latter 'clarity of exposition'. Both words feature
+in the Kitab-i-Aqdas, though not in such a way as to
+contrast the one with the other, or to indicate the precise
+respects in which they differ in meaning from each other.
+That Baha'u'llah was nevertheless using them with exact-
+ness and precision is surely indicated by a statement
+made by Him in the Suriy-i-Haykal, in which, by drawing
+a direct comparison between tibyan and bayan, He signi-
+fied His full awareness of the nice semantic distinction
+between the two words:
+Rally ye to the Cause of your Compassionate
+Lord. For the blade of the sword of elucidation
+[tibyan] is sharper
+than that of utterance
+[bayan], and much more elevated, if ye but
+ponder the Words of My Lord. 111
+Another metaphor used extensively by Baha'u'llah
+throughout His Writings, and of particular significance in
+the Kitab-i-Aqdas, is that of water. In a peculiarly senten-
+tious and evocative statement, Baha'u'llah reminds us that:
+Ye are all created out of water, and unto dust
+shall ye return. 112
+Inevitably our minds turn to the familiar and hallowed
+formula enunciated in the Bible: "All go unto one place;
+all are of the dust, and all turn to dust again," 113 yet we
+pause questioningly at the initial substitution of 'water' for
+111 Quoted in Arabic inAthar-i-Qalam-i-A'la, op. cit., p. 16.
+112 Kitab-i-Aqdas, K148, p. 73.
+113 Ecclesiastes, III:20.
+
+Aspects of the Sublime
+'dust'. Our puzzlement is dispelled, however, when we
+set the statement in its Qur'anic as well as its Biblical
+context, for the Qur'an informs us in corroboration of the
+Biblical tradition, not only that:
+We have created [every one of] you out of
+dust ...
+but also that:
+... We made out of water every living thing ... 114
+A wonderful marriage is thus effected between two
+contrasting religious traditions, and a synthesis attained
+which constitutes at once a penetrating and poignant
+memento mori, and a scientifically accurate epitome of the
+generation and extinction of human life. Water images
+generally-of
+rain and showers, streams and rivers, but
+above all of seas and oceans-form
+an especially promi-
+nent and suggestive motif running throughout the whole
+corpus of Baha'u'llah's Works. The ocean also appears in
+the Qur'an, but generally speaking, with one or two
+exceptions, such as the following celebrated analogy, its
+presence is a physical and a concrete one:
+If all the sea were ink for my Sustainer's words,
+the sea would indeed be exhausted ere my
+Sustainer's words are exhausted! And [thus it
+would be] if we were to add to it sea upon
+sea.115
+•
+In the Baha'i Revelation, by contrast, and in the Kitab-
+i-Aqdas in particular, the ocean has become a potent and
+all-pervasive metaphor for the Revelation itself, as wit-
+nessed by the following stirring and evocative extracts:
+114 Qur'an, XXII:5 and XXI:30.
+115 Ibid., XVIII:109.
+
+The Style of the Kitab-i-Aqdas
+Thus have the billows of the Ocean of Utterance
+surged, casting forth the pearls of the laws
+decreed by the Lord of all mankind. 116
+Ponder ye this verse, and judge equitably
+before God, that haply ye may glean the pearls
+of mysteries from the ocean that surgeth in My
+Name, the All-Glorious, the Most High. 117
+Immerse yourselves in the ocean of My words,
+that ye may unravel its secrets, and discover all
+the pearls of wisdom that lie hid in its depths. 118
+So deeply pervasive and powerful is this image of the
+ocean throughout the Kitab-i-Aqdas that it is as if the very
+language of the Book has assumed something of the
+character of the ocean, paralleling its ebb and flow, its rise
+and fall, its restless surging energy. Perhaps, in contem-
+plating this analogy, we may go far in understanding why
+the Kitab-i-Aqdas has assumed the form it has, in which
+concrete legislative provisions intermingle with lofty,
+abstract spiritual utterances; for if its legislative ordinanc-
+es are to be considered as showers of pearls cast forth by
+the Most Mighty Ocean, then it is only natural that after
+each such discharge, the onrushing waters should have
+time to recede, to recoup their forces, and once more to
+rush forth laden with fresh treasures to cast forth over
+mankind.
+Another basic symbol of which only scant use is made
+in the Qur'an,
+but which is further developed by
+Baha'u'llah in His Writings, is that of the 'Key' (miftaJ:,.). In
+the Qur'an the keys of the knowledge of things unseen
+were stated to be in the possession of God:
+116 Kitab-i-Aqdas, 1<26, p. 28.
+117 Ibid., K137, p. 68.
+118 Ibid., K182, p. 85.
+
+Aspects of the Sublime
+For, with Him are the keys to the things that are
+beyond the reach of a created being's percep-
+tion ... 119
+In the Kitab-i-Aqdas, however, we are provided with
+the following remarkable intimation in a passage alluding
+to a celebrated Islamic ljadfth. It identifies the purpose of
+creation, stating that a metaphorical key-that
+of God's
+love-may
+now be available to us, affording some faint
+inkling of the ineffable mystery of the Hidden Treasure:
+God hath made My hidden love the key to the
+Treasure; would that ye might perceive it! But
+for the key, the Treasure would to all eternity
+have remained concealed; would that ye might
+believe it! 120
+Arguably, the image in Baha'u'llah's Writings which
+most potently symbolizes His creative role as the Author
+of a new religious canon is that of the Pen (qalam)-the
+central instrument of revelation. The "Pen of the Most
+High" 121 is the term by which the Source of Revelation,
+whether in the Baha'i or preceding Dispensations, is
+customarily designated in the Writings of Baha'u'llah,
+and while it is clear that the term can, in a sense, refer to
+none other than the Manifestation Himself, it is still
+remarkable how frequently in the Writings of Baha 'u'llah
+His Pen is assigned an individual personality of its own,
+accredited with human emotions, and apostrophized,
+exhorted, reproached, cajoled, and otherwise dealt with
+as if it were an entirely independent and sentient being.
+The Kitab-i-Aqdas itself contains more than one example
+119 Qur'an, VI:59.
+12° Kitab-i-Aqdas, KlS, p. 24.
+121 Ibid., K2, p. 20; K16, p. 24; K24, p. 27; K86, p. 51; K136, p. 68; K142, p.
+71 and K175, p. 83.
+
+The Style of the Kitab-i-Aqdas
+of this conception of a living, 'self-willed' pen, as in
+Baha'u'llah's
+statement
+that "We .. .in Our wisdom,
+withheld Our Pen," 122 or in His exhortation to the Pen of
+the Most High to "Move Thou upon the Tablet at the
+bidding of Thy Lord." 123 The enormous metaphorical
+significance that would come, in the Baha 'f Dispensation,
+to be invested in the image of the Pen, is only dimly
+foreshadowed
+in the Qur'an, notably in the following
+passage, considered to embody the very first outpouring
+of Revelation to the Prophet MuJ::,.ammad:
+Read-for
+thy Sustainer is the Most Bountiful
+One who has taught [man] the use of the pen-
+taught man what he did not know! 124
+The importance of the image of the 'Pen' throughout the
+Kitab-i-Aqdas may be gauged from the following assem-
+blage of extracts in which it features:
+Hear ye not the shrill voice of My Most Exalted
+Pen?125
+These are the ordinances of God that have been
+set down in the Books and Tablets by His Most
+Exalted Pen.126
+Turn ye, 0 people, unto that which hath pro-
+ceeded from My Most Exalted Pen. 127
+Thus biddeth you the Lord of creation, the
+movement of Whose Pen hath revolutionized
+the soul of mankind. 128
+122 Ibid., K98, p. 56.
+123 Ibid., K175, p. 83.
+124 Qur'an XCVI:3-5. See also LXVIIl:l, XXXl:27 and IIl:44.
+125 Kitab-i-Aqdas K41, p. 34.
+126 Ibid., Kl7, p. 25.
+127 Ibid., K179, p. 85.
+128 Ibid., K54, p. 39.
+
+Aspects of the Sublime
+Think ye that ye have recognized the Pen where-
+with your Lord, the Lord of all names, comman-
+deth you? 129
+Thus, by His mercy, hath the commandment
+been recorded by the Pen of justice. 130
+The following is one of the most eloquently expressive
+passages in the entire Book:
+Blessed is the one who discovereth the fragrance
+of inner meanings from the traces of this Pen
+through whose movement the breezes of God
+are wafted over the entire creation, and through
+whose stillness the very essence of tranquillity
+appeareth in the realm of being. 131
+A singularly beautiful and captivating symbol of the
+Manifestation found throughout the Writings of Baha'u'llah,
+but for which there is no Qur'anic precedent, is that of the
+songbird, variously represented as a dove and as a night-
+ingale. The implication, of course, is that the words
+uttered by the Manifestation have the same intoxicating,
+soul-entrancing quality as do the ethereal accents of these
+two songsters, so celebrated in Persian and Arabic poetry.
+Following are some extracts from the Kitab-i-Aqdas in
+which these images are employed:
+Hearken ye ... unto that which the Dove is
+warbling on the Branch of Eternity ... 132
+When the Mystic Dove will have winged its
+flight from its Sanctuary of Praise ... 133
+129 Ibid., K55, p. 39.
+130 Ibid., K72, p. 45.
+131 Ibid., K158, p. 76.
+132 Ibid., K88, p. 52.
+133 Ibid., K174, p. 82.
+
+The Style of the Kitab-i-Aqdas
+Thus hath the Nightingale sung with sweet
+melody upon the celestial bough, in praise of its
+Lord, the All-Merciful.134
+Equally intoxicating, but this time to the sense of taste,
+figuratively speaking, is the 'Choice Wine' alluded to in
+the Qur'an as the beverage of the righteous in Paradise,
+but now for the first time unsealed and proffered to the
+denizens of this mortal realm. Not only is it our senses of
+taste and hearing that are ravished in this new Revelation,
+however, for Baha 'u 'llah has also repeatedly enjoined upon
+us to inhale the inebriating fragrances which have been
+diffused by His Revelation and which are now wafting
+abroad, and to gaze upon the sublimely beautiful specta-
+cle of the Beloved arrayed in His new attire. 135 It is as if
+all the choicest and most refined sensations the world has
+to offer have here been marshalled and combined to
+convey a sense of supernal and ineffable delight at the
+blissful consummation of the advent of the Promised Day.
+THE MYSTIC REALM
+Part of the lyrical, rhapsodic, ethereally uplifting quality
+of the Kitab-i-Aqdas surely resides in the tantalizing
+glimpses it provides us into that realm of supreme felicity
+beyond our ken, to which all our paltry actions on this
+worldly plain are tending-a
+realm so bright, so pure, so
+sanctified, so radiant with love and joy, that if we could
+but gain some glimpse of it we would surely yield up our
+lives in longing to attain it. This supernal realm must
+remain largely veiled from our mortal perceptions, but at
+least the Kitab-i-Aqdas clearly intimates to us its exist-
+134 Ibid., K139, p. 70.
+135 Ibid., K4, p. 20; K7, pp. 21-2 and K136, pp. 67-8. See also K4, pp. 20-
+1; K38, pp. 32-3; K116, p. 61; K137, p. 68 and K142, p. 71.
+
+Aspects of the Sublime
+ence, extending the promise that if we abide by its
+prescriptions then we too may be able to taste of its felic-
+ity. Indeed, the Kitab-i-Aqdas even offers us the promise
+of a foretaste of this mystic realm-a
+foretaste which is
+afforded, significantly, by the Divine verses themselves,
+in which those who recite them in the most melodious of
+tones will perceive "that with which the sovereignty of
+earth and heaven can never be compared." 136
+The concept of a mystic realm inaccessible to human
+understanding
+is expressed in both the Qur'an and the
+Kitab-i-Aqdas by the word g]iayb, which signifies in one
+sense "all those sectors or phases of reality which lie
+beyond the range of human perception and cannot, there-
+fore, be proved or disproved by scientific observation or
+even adequately comprised within the accepted catego-
+ries of speculative thought." 137 The Qur'an informs us, as
+already noted, that the keys to this hidden realm are in the
+Hand of God, and the Kitab-i-Aqdas expands upon this by
+telling us further that the source of God's knowledge of
+things unseen is "a Tablet which the eye of creation hath not
+seen, and which is revealed to none except His own Self." 138
+In the Qur'an the concept of a heavenly Tablet is
+limited to that of the 'Preserved Tablet' (al-Lawl:z
+al-Mal:zfu?-)
+in which is recorded the original of the Qur'an. In the Kitab-
+i-Aqdas, however, reference is made to this same Qur'anic
+'Preserved Tablet', which is at once the source of God's
+knowledge of things unseen and the record wherein is
+preserved an account of our actions on earth. The essen-
+tially static Qur'anic concept is thus broadened and imbued
+with a new dynamic quality, awakening us to the fact that
+136 Ibid., K116, p. 61.
+137 Asad, op. cit., n3, p. 4.
+138 Kitab-i-Aqdas, K39, p. 33.
+
+The Style of the Kitab-i-Aqdas
+the purpose of the 'Preserved Tablet' is not to crystallize for
+all time the text of the Qur'an in the precise form in which
+it was revealed; and that whatever suggestion of perma-
+nence or safeguarding is conveyed by the expression, is
+perhaps to be attributed to the enduring nature of the
+truths it enshrines, or else interpreted as referring to the
+quality of the Divine Writ, which is eternal and incorrupt-
+ible-hence
+the reference in the Kitab-i-Aqdas to the
+"changeless Faith of God. 11139
+That the Qur'an is not the final and immutable expres-
+sion of God's will for men is in fact intimated in that Book
+itself by the veiled promise it contains that one day its
+'elucidation' or 'interpretation' will come:
+[And God will say] " ... for indeed, We did con-
+vey unto them a divine writ which We clearly,
+and wisely, spelled out-a
+guidance and a
+grace unto people who will believe."
+Are [the unbelievers] but waiting for the final
+meaning of that [Day of Judgment] to unfold?
+[But] on the Day when its final meaning is
+unfolded, those who aforetime had been obliv-
+ious thereof will say: "Our Sustainer's apostles
+have indeed told us the truth! Have we, then,
+any intercessors who could intercede in our
+behalf? Or could we be brought back [to life] so
+that we might act otherwise than we were wont
+to act?"
+Indeed, they will have squandered their own
+selves, and all their false imagery will have
+forsaken them. 140
+Needless to say, no such explanation as is promised here
+was forthcoming from the Prophet Himself, from His
+139 Ibid., K182, p. 85.
+14D Qur'an, VII:52-3. See also LXXV:16-9.
+
+Aspects of the Sublime
+successors, or from subsequent generations of believers.
+Clearly, since the Qur'an was in a certain sense a vehicle
+conveying insights into that unseen realm whose keys are
+held by God, it would be impossible for this promise ever
+to be fulfilled by any mortal agency; and this promise,
+therefore, can hardly be considered otherwise than as a
+prophecy of a future Revelation vouchsafing yet clearer
+insights into that same unseen realm as yet indistinctly
+disclosed in the Qur'an. Further confirmation of the
+progressive nature of Divine Revelation is provided by
+the Qur'anic statement that:
+Every age has had its revelation: God annuls or
+confirms whatever He wills [of His earlier
+messages]-for with Him is the source of all
+revelation.141
+Each age, then, is blessed with a Dispensation appro-
+priate to its own particular exigencies, and each Revela-
+tion constitutes at once an affirmation and a continuation
+of that which it succeeds. As the Holy Book of the Dispen-
+sation immediately preceding that inaugurated by the
+Bab, it is not surprising that there should exist so close a
+relationship between the Qur'an and the Kitab-i-Aqdas,
+and that the wording of the latter should so frequently
+reflect that of the former, although invariably investing it
+with a fresh dimension of meaning. This process of elabo-
+rating and expounding the meaning of an earlier scripture
+is evident in other holy books too, for the Qur'an retells
+stories from the Old and New Testaments, while Christ in
+the Bible makes reference to the Ten Commandments given
+to Moses and the whole corpus of Jewish Law. It is especially
+notable that, in contrast to the Bible and the Qur'an, no use
+is made in the Kitab-i-Aqdas of the parable for the exposition
+141 Ibid., XIII:38-9.
+
+The Style of the Kitab-f-Aqdas
+of religious truth; rather, it communicates its message
+directly through the pure medium of the Word itself.
+The essential oneness of the Manifestations
+of God
+necessitated by this conception of the progressive unfold-
+ing and cumulative exposition of religious truth is unequiv-
+ocally affirmed in the following extract from one of the
+Tablets of Baha'u'llah:
+Beware, 0 believers in the Unity of God, lest ye
+be tempted to make any distinction between
+any of the Manifestations of His Cause, or to
+discriminate against the signs that have accom-
+panied and proclaimed their Revelation. This
+indeed is the true meaning of Divine Unity, if ye
+be of them that apprehend and believe this
+truth. Be ye assured, moreover, that the works
+and acts of each and every one of these Manifes-
+tations of God, nay whatever pertaineth unto
+them, and whatsoever they may manifest in the
+future, are all ordained by God, and are a reflec-
+tion of His Will and Purpose. 142
+Here is the same thought expressed in a passage from the
+Kitab-i-Iqan:
+... behold them all as the bearers of one Name,
+the exponents of one Cause, the manifestations
+of one Self, and the revealers of one Truth ... 143
+In conformity with this conception of the essential
+oneness of the Manifestations of God, and of the progres-
+sively developing and expanding nature of the message
+They bring to mankind, Baha'u'llah advances no claim to
+the finality of His own Revelation, and indeed, by His
+assertion in the Kitab-i-Aqdas that, "Whoso layeth claim
+to a Revelation direct from God, ere the expiration of a full
+142 Gleanings from the Writings of Balui'u'llah, XXN, p. 59.
+143 Kitab-i-lqan, p. 102.
+
+Aspects of the Sublime
+thousand years, such a man is assuredly a lying impos-
+tor," 144 He positively forewarns us to anticipate the
+coming of a new Revelation once the first millennium of
+the Baha'i Era has expired.
+Here, then, we are confronted by another aspect of the
+omniscience of the Manifestation of God, for, according to
+Baha'i belief, not only is He uniquely qualified to unravel
+the mysteries of the preceding Revelation, but He is also
+endowed with a preternatural ability to probe the future
+and to discern the course of coming events; even as the
+Bab had done with respect to the Revelation of "Him
+Whom God shall make manifest" in prophesying, for
+instance, that, "He is the One Who will under all condi-
+tions proclaim: 'Verily, there is none other God besides
+Me, the One, the Incomparable, the Omniscient, the All-
+Informed' ,"145 a prophecy which receives literal fulfill-
+ment in the Kitab-i-Aqdas.
+This mysterious and unique capacity of the Manifes-
+tation, both to elucidate the Message of His Precursors
+and to presage the advent of His Successors in the
+prophetic office, is of course fully in harmony with the
+Baha'i conception of the Manifestations of God as one and
+the same in spirit, but distinguished from each other in
+respect of their physical appearance, of the circumstances
+and exigencies of the age in which they live, and of the
+comparative fullness and intensity of the message with
+which they have been charged. It is this understanding
+which lies at the very heart of the Baha'i belief in progres-
+sive Revelation, that forever-renewing process of growth,
+development and change. Each successive outpouring of
+Divine guidance leads to a heightening of spiritual aware-
+144 Kitab-i-Aqdas, 1<37, p. 32.
+145 Ibid., K143, p. 71.
+
+The Style of the Kitab-i-Aqdas
+ness; the changeless essence is revealed to us in a multi-
+tude of different forms, but behind and beyond them all
+the reality of that essence remains inviolable, its continu-
+ity reflected in the world of nature, the world of matter,
+and the world of spirit.
+The perspicuous and inimitable language of the Ki tab- i-
+Aqdas moves us by its tender grandeur, its sublime compas-
+sion, self-defining and dazzlingly universal; it combines the
+power of the mysterious with that of the direct and the
+specific. It has an ethereal atmosphere all its own, an
+ineffable pervasive harmony, a majestic surging rhythm
+reminiscent of its depth and power. A kind of inevitable
+relation exists between its component parts, and its words
+and phrases are redolent of thoughts that live and
+breathe. Its language is productive of a host of feelings
+and evokes a myriad of sensations. It addresses pre-
+eminently the human heart, as befits that which is the throne
+and emblem of the Divine in man. The Book in its entirety
+constitutes a supreme outpouring of heavenly bounty, a
+treasury of unfailing sustenance and guidance, and a token
+of God's boundless mercy to mankind. Awesome and
+exalted as are its themes and purposes, the passion and
+sublimity of the language in which the Book is cast are
+nevertheless fully capable of sustaining its lofty tenor-nay,
+of enhancing those themes and purposes and setting them
+off to their fullest advantage.
+Notwithstanding that the foregoing remarks have concen-
+trated on particular features and individual passages, the
+Kitab-i-Aqdas must be taken as a whole. There can be no
+partial analysis, fragmentation or dissection of the Word
+that has infinite meaning, and that can never be compre-
+hended by the finite mind. Indeed, no amount of analysis
+or explanation is capable of probing the secret of this
+miraculous creation.

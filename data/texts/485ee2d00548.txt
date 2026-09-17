@@ -1,0 +1,2343 @@
+I, DANIEL
+by
+Robert F. Riggs1
+
+October 21, 1998
+
+See an index to this book at
+www.bahai-library.com/limber_daniel_index
+
+
+
+DISCLAIMER
+
+The opinions and interpretations expressed in this book are
+strictly those of the author, and do not represent official
+opinions or interpretations of any agency of the
+Bahá’í Administrative Order.
+
+
+
+FOREWORD
+
+
+As far as the author is concerned, the reader is permitted to make duplicate copies of this
+work and to distribute them, provided (1) that he/she makes no attempt to obtain a
+copyright, and (2) that he/she does not realize a monetary profit, and (3) that the ENTIRE
+work, including the DISCLAIMER and this FOREWORD, is reproduced and distributed,
+and (4) that no alterations and/or additions to the text are to be made without the author’s
+approval. Sections of the text of this work up to 1,000 words in length may be quoted
+and/or reprinted for the purposes of criticism or commentary without the express
+permission of the author, provided the source(s) of the quote(s) is/are given.
+
+In BAHA’I NEWS, No. 77, September 1933, Shoghi Effendi tells us that only the words
+of ‘Abdu’l-Bahá [regarding biblical exegesis] are truly authoritative, but that if his
+statements cannot be discovered, we are free to tentatively accept the opinions of
+scholars.
+
+
+
+1 Posted with permission of author.
+
+Table of Contents
+
+
+
+passages in Daniel
+Preface
+
+
+Introduction
+
+
+
+The “Prophet’s-Eye” View
+
+
+“Pragmatic Intuition”
+
+
+A Guide for the Perplexed”
+
+
+About Translations
+
+Chronology of Events in Daniel
+
+
+Chapter
+
+
+
+1. The Four Eras of Babylon
+2:32-35
+
+2. The Seven Times
+4:15-34
+
+3. The Four Beasts
+7:2-24
+
+4. A Little Horn
+8:3-25, 9:25
+
+5. Gabriel’s Calendar
+(9:2) 9:22-27
+
+6. The Twenty-one Days
+10:5-14
+
+7. From Cyrus to Philopater
+10:21, 11:1-20
+
+8. Antiochus IV Epiphanes, “The God Manifest”
+11:21-33
+
+9. Napoleon, “The Sultan Kabir”
+11:35-45
+
+10. Israel Delivered
+12:1-13
+Appendix: Changes to The Apocalypse
+Unsealed
+
+
+
+‘Abdu’l-Bahá’s Explanation of the 1335 Days
+
+
+The Two Lambs of the Bahá’í Dispensation
+
+
+The Beast That Was, Is Not, Yet Is
+
+
+The Four Decrees to Rebuild the Temple
+
+References [Bibliography]
+
+PREFACE
+
+This essay does not begin to exhaust the wealth of meaning in the Book of Daniel. For one thing, it does not address the
+spiritual teachings in the Book, even though they are as pertinent today as when written. Nor does it review the history or
+Teachings of the Bahá’í Faith, which we believers accept as the working out of the Divine Will at the “time of the end.”
+We will not dwell on such mystical esoterica as number symbolism, gematria, astrological symbolism, and the like,
+except where minimally necessary. These subjects have already been addressed in a companion work, The Apocalypse
+Unsealed, to which the interested reader is referred. This is not meant to imply that there is nothing to gain by applying these
+tools to Daniel. To the contrary, this writer is convinced that there is a vast amount of mystical esoterica contained in Daniel
+awaiting some future discoverer.
+During the research for I, Daniel, certain facts and Tablets were discovered that have caused this writer to reconsider his
+interpretations of a few passages in the Apocalypse. These are addressed in an Appendix to the present book.
+Certain general observations might be made here. Daniel and Revelation are the two great apocalyptic works in Judeo-
+Christian literature. The Book of Daniel is directed primarily to the Jewish believer, whereas the Book of Revelation is
+directed primarily to the Christian believer. Both Books are profound, both Books are glorious; both Books are Divine
+Works; both Books confirm Bahá’u’lláh as the Latter Day Redeemer of the entire human race.
+R. F. R.
+
+
+
+INTRODUCTION
+
+THE “PROPHET’S-EYE”
+
+Flatlander is a creature who must exist and act on a plane instead of in a volume. He has a map with the usual east-west,
+north-south axes, but he is not aware of an up-down axis. He has freedom of will, whatever that may be, and is conscious of
+the point “here-now.” He has a mind and can form concepts of space and time, but he is severely limited by the fact that he
+cannot get a view from above his flat plane of movement and vision. Consequently, he has serious doubts that anyone can
+predict the future course of events beyond what can be inferred from observing what is in one’s immediate environment.
+We humans, being in a superior world of four dimensions [three spatial dimensions plus time], can observe Flatlander
+from above as he makes choices and moves from place to place in Flatland. But, like Flatlander, we four-dimensional humans
+are addicted to making concepts and theories about ourselves and the universe, and it occurs to one of us to make a sketch of
+Flatlander’s movements.
+The location of Flatlander in his world is plotted horizontally, as it should be. But how do we show Flatlander’s
+movements in our sketch? The most elegant solution is to show time as a third dimension projecting vertically out of the
+page. Flatlander’s movements in space-time then trace out a three-dimensional curve called a “world line,” an example being
+shown in the figure. In our model of Flatlander’s movements, as he moves horizontally north, south, east or west, he moves
+“vertically” in time.
+Now, in our mental experiment, let us suppose that somehow we observers living in our four-dimensional world have the
+ability to observe Flatlander’s world line extending into his future as well as into his past. We get a “snap shot,” so to speak,
+of every movement that Flatlander has made or will make, even though, as we have said, Flatlander has been gifted with
+freedom of will. We might also observe how his world line interacts in time and space with those other citizens of Flatland,
+observe important epochs, catastrophes, repeating patterns of events, and so forth.
+This “prophet’s-eye” view may give us some imperfect notion of how a true prophet, having access to a divine world of
+many higher dimensions unknown to us, might be able to observe the future course of human events, even though each one
+of us in our own contingent world of only four dimensions seems to have, to some extent, freedom of will.
+
+future time
+^       / north                          Flatlander dies
+|     /                                  .
+|   /                                  . future
+| /                                  .    time
+- - - - > east             .             ^
+.                 |
+.                 |
+_ _ _ _ _._ _ _ _ _ _ _ _ | _      /
+/               HERE-NOW  |  /   /
+
+/_ _ _ _ _._ _ _ _ _ _ _ _ _:_/ north
+east -->          .     |
+.    |
+.    |
+.      v
+.
+.             past time
+.
+.
+.
+.
+.
+.
+.
+Flatlander born
+
+Figure I-1
+
+
+“PRAGMATIC INTUITION”
+
+The method this investigator has used in interpreting Daniel may be described as “pragmatic intuition”: try out various
+plausible ideas until you find the one that works. Since many worthier scholars have failed to unseal the secrets of Daniel,
+one may conclude that routine scholarship probably cannot unseal prophetic writings. Recourse might be made to the method
+of intuitive discovery that is familiar to creative scientists and artists; through it we might leap beyond what can be reached
+through routine scholarship.
+If this essay succeeds, it is not because the author has any special abilities at prophecy-reading, nor does it suggest that
+he has had any extraordinary divine assistance. Instead, it means that the writer may have stumbled upon some truth, and
+anyone with adequate patience and with a penchant for historical research can achieve, and probably improve on, the result.
+
+
+A GUIDE FOR THE PERPLEXED
+
+It will be necessary to define certain terms that will be used in the following pages. Most of them have been developed and
+used by other biblical commentators and scholars with various degrees of success.
+First, we must understand what is meant by the “archetype of a number.” In the language of ancient number symbolism,
+any number will have an archetype between “one” and “nine.” It is found by continuously adding the digits in a number until
+one digit remains. For example, the number 1269 has an archetype of “nine”; since 1 + 2 + 6 + 9 = 18, and (continuing the
+process) 1 + 8 = nine. Another example: the archetype of 258 is “six”; since 2 + 5 + 8 = 15, and (continuing) 1 + 5 = six. The
+simplest cases are “decadal successors” like 7, 70 , 700, 7000, etc., all of which have an archetype of seven. Similarly, 3, 30,
+300, 3000, etc. all have an archetype of three. These last two examples will be used in the explanation of Daniel 9.
+Next, we have to know the meanings of certain temporal terms:
+
+A “prophetic day” usually means a calendar year. Most biblical scholars justify this definition by quoting Numbers 14:34
+and Ezekiel 4:6, in which it is said that a day of the Lord is equal to a year. But, by recognizing that a number-archetype
+may be involved, “One prophetic day” may equal 1 year, or 1 decade, or 1 century, and so on. It behooves us to consider
+whether some decadal successor of “one” might be meant in its particular context.
+
+An “evening and a morning” is taken as an exact “prophetic day.” The justification for this definition is that it works
+well in the one place it is encountered: Daniel 8:13.
+
+A “prophetic week” usually means seven calendar years. But, again, if “seven prophetic days” are intended, it might
+mean 7 years, or 7 decades, or even 7 centuries. In the text of Daniel chapter 9, it will be convenient to emphasize this
+fact by retaining the correct translation of the Hebrew word “shabua” as “seven.”
+
+A “sabbatic year” is a special term and is equal to 7 decades (i.e., 70 years). This definition is arbitrary and is equal to the
+span of time of the Jewish exile in Babylon.
+
+A “prophetic year” is 360 calendar days. Again, this definition is arbitrary but sometimes useful. It is based on the 360-
+day calendar of ancient Mesopotamia and Egypt. The use of the 360-day calendar in biblical allegory can be inferred by
+correlating the dates in Genesis 7:11,24 and 8:4.
+
+A “time” is taken as 360 lunar years. The justification for this definition is (1) the use of a lunar calendar in the ancient
+Near East, and (2) allowing a year for each day of the 360-day “prophetic year.”
+
+A lunar year is the time required for twelve lunations. It is equal to 354.367 days.
+
+A solar year is the time between equinoxes or solstices. It is equal to 365.242 days.
+
+The word “times” is taken as 2-“times,” that is 720 lunar years. The justification for this definition is the dual form of the
+Hebrew word in Daniel 12:7 in which “times” is clearly 2-“times.”
+
+A “season” is taken as 90 prophetic days, one-fourth of a prophetic year.
+
+
+ABOUT TRANSLATIONS
+
+Anyone who has compared different translations of biblical texts for the first time will receive a rude awakening.
+Translations are generally inconsistent and often disagree on important particulars. The special case of Daniel is even worse
+than most, since much of the Hebrew is obscure and may have suffered some distortions along the way.
+The method that this writer has used to minimize this problem was to compare several translations, word by word. When
+serious disagreements occurred, the writer chose the translation that seemed to be the most consistent with the rest of the
+Book and with the historical scenario implied by the prophecy. On rare occasions, it was found necessary to “clean up” the
+result by rewording sections to make them more readable, hopefully without straying from the meaning of the original
+translations. The translations most used were The New English Bible, (1970), The Revised English Bible, (1989), The New
+International Version, (1983), The Revised Standard Version, (1951), and the King James Version, (1611).
+For whatever it is worth, this writer usually, but not always, found the New English Bible to be the easiest to correlate
+with historical events. It is noteworthy that both English Bibles were translated by scholars drawn from various British
+universities without denominational considerations. Also, in the words of Daniel Ebor, Chairman of the (multi-
+denominational) Joint Committee in charge of the translation of the New English Bible,
+
+…There is probably no member of the panel who has not found himself obliged to give up, perhaps with lingering regret, a cherished
+view about the meaning of this or that difficult passage, but in the end the panel accepted corporate responsibility for the interpretation
+set forth in the translation adopted.
+
+
+
+CHRONOLOGY OF EVENTS IN DANIEL
+
+The following Table should be referenced frequently during the reading of the text.
+
+EVENT
+CHRISTIAN
+SOLAR
+RECKONING
+MUSLIM
+LUNAR RECKONING
+EPOCH IN DANIEL
+
+BCE:
+[pre-Christian]
+BH: [BH in the Islamic
+calendar denotes “Before
+the Hegira—the exodus
+from Mecca to Medina.]
+[pre-Islamic]
+
+
+
+
+
+Nebuchadnezzar reigns in Chaldea
+605-562
+
+“Golden” Era (2:3)
+Nebuchadnezzar goes insane
+Begin 2520 years (4:23)
+Cyrus conquers Media
+
+Longer Horn (8:20)
+Cyrus conquers Chaldea
+
+Begin “Silver” Era (2:39)
+Artaxerxes’ Decree
+
+Begin 49 years (9:25)
+Begin 2300 years (8:13)
+Jerusalem rebuilt
+
+End 49 years (9:25)
+Begin 434 years (9:25)
+
+Alexander conquers Persia
+
+Great Horn (8:5)
+Begin “Bronze” era (2:39)
+Begin Time of Troubles (9:25)
+House of Ptolemy acquires South
+
+(11:5)
+Ptolemy Soter takes Palestine
+
+
+House of Seleucus acquires North
+
+(11:5)
+Beginning of North-South wars over Palestine
+
+
+Antiochus Epiphanes usurps throne of
+Seleucids
+
+First Little Horn (8:9)
+Antiochus sacks Jerusalem, desecrates the
+Temple
+
+(11:28)
+Begin Maccabean Revolt
+
+(11:38)
+Antiochus massacres Jews, desecrates the
+Temple for a second time, replaces Jehovah
+
+First Abomination of Desolation
+(11:31)
+Antiochus ‘broken’
+
+(8:25)
+End of Maccabean Revolt. Seleucids driven out
+of Judea
+
+End of Wrath (8:19)
+Probable Birth of Jesus
+c. 6-4
+
+
+
+
+
+
+
+CE:
+[Christian]
+
+
+
+
+
+
+Traditional Birth of Jesus
+
+
+Ministry of Jesus
+27-34
+
+End 434 years (9:25)
+The Crucifixion
+
+End 490 years (9:24)
+Messiah cut-off.
+Begin 35 years. (9:26)
+Sacrileges in the Temple
+40-70
+
+
+
+
+Middle of Seven.
+End 35 years. (9:27)
+Jerusalem falls to Titus. Daily Sacrifice
+terminated
+
+(9:27)
+Christianity firmly established
+70-104
+
+Strong Covenant (9:27)
+Bar Cocheba’s revolt
+132-5
+
+Author of Desolation (9:27)
+Hadrian replaces Jehovah
+c. 136
+
+Second Abomination of Desolation
+(9:27)
+Muhammad’s first public declaration
+11-12
+Begin 1290 years (12:11)
+
+
+
+
+
+
+AH: [AH in the Islamic
+calendar denotes “After
+the Hegira—the exodus
+from Mecca to Medina.]
+[Islamic]
+
+
+
+
+
+The Hegira
+Begin the 1260 years (7:25, 12:7)
+Islam firmly established
+622-8
+
+Begin 1335 years (12:12)
+Babylon falls to Islam
+
+Begin “Iron” era (2:40)
+Jerusalem falls to Islam
+
+Islam becomes new South
+House of Umayyah usurps caliphate
+
+First ten-horned Beast (7:7)
+House of Abbas usurps caliphate
+
+Second 10-horned Beast
+As-Saffa rules Islam
+750-4
+
+Second Little Horn (7:8)
+Fall of House of Abbas
+
+
+The First Crusade
+
+Christendom becomes new North
+Islam takes Akka, ending Crusades
+
+
+Napoleon invades Palestine
+
+Begin Time of the End (11:35)
+Latter Day King of the North (11:36)
+Napoleon defeated at Akka
+
+(11:45)
+Napoleon exiled to St. Helena
+
+
+Birth of Bahá’u’lláh
+
+Appearance of Michael (12:1)
+Birth of the Báb
+
+
+Napoleon dies
+
+(11:45)
+Edict of Toleration
+End of the Jewish exile
+End of the 1260 years (7:25, 12:7)
+End of the 2520 years (4:33)
+End of the 2300 years (8:13)
+
+Declaration of the Báb
+
+End of the Abomination of
+Desolation (7:12)
+Begin 450 years (?) (7:12)
+The Báb imprisoned in Mah-ku
+
+Begin 21-years (10:13)
+Martyrdom of the Báb
+
+
+First public Declaration of Bahá’u’lláh
+End of the 1290 years (12:11)
+Bahá’u’lláh exiled from Baghdad
+
+(12:5)
+The Lawh-i-Sultan of Bahá’u’lláh
+
+Michael aids the Báb
+End of the 21 years. (10:13)
+Bahá’u’lláh imprisoned at Akka
+
+
+Ascension of Bahá’u’lláh
+
+
+Caliphate abolished
+
+End of the “Iron” era (2:44)
+The Nazi holocaust
+1935-45
+
+Time of Distress (12:11)
+The founding of modern Israel
+
+Israel delivered (12:1)
+Bahá’í Faith firmly established
+1957-1963
+
+End of the 1335 years (12:12)
+
+
+
+Chapter One
+
+THE FOUR ERAS OF BABYLON
+
+In Chapter 2 of Daniel, Nebuchadnezzar II, the king of Chaldea (neo-Babylonia), has a dream and challenges his ‘wise men:
+magicians, exorcists, sorcerers, and Chaldeans’ both to describe and interpret his dream or to suffer death. None of the wise
+men summoned before the king were able to meet the challenge, and Nebuchadnezzar, in a fit of rage, ordered the execution
+of all the wise men of Babylon. Daniel, being a ‘wise man,’ was among those threatened with execution. But with the help of
+God, Daniel was able to reveal the king’s dream, was thereby to save the lives of his colleagues and to win other favors.
+Nebuchadnezzar’s dream was of an image, ‘huge and dazzling, … fearful to behold’:
+
+Daniel 2
+32 The head of the image was of fine gold, its breasts and arms of silver, its belly and thighs of bronze,
+33 Its legs of iron, its feet part iron and part clay.
+34 While (Nebuchadnezzar) looked, a stone was hewn from a mountain, not by human hands; it struck the image on its feet of part
+iron and part clay and shattered them.
+35 Then the iron, the clay, the bronze, the silver, and the gold, were all shattered into fragments and were swept away like chaff before
+the wind from a threshing floor in summer, until no trace of them remained. But the stone which struck the image grew into a great
+mountain filling the whole earth.
+
+In verse 28, Daniel tells Nebuchadnezzar that the dream reveals what is to be at the ‘end of the age.’ In later verses,
+Daniel interprets the dream as four ‘kingdoms,’ the kingdom of gold referring to that of Nebuchadnezzar himself; the silver
+kingdom would replace Nebuchadnezzar’s but would be inferior to his; the third or bronze kingdom would have sovereignty
+‘over the whole world.’
+Still later, the fourth kingdom would be as ‘strong as iron,’ breaking and shattering the whole earth. But the kingdom of
+‘iron mixed with clay’ would be a divided kingdom, partly strong and partly brittle. The ‘stone hewn from a mountain, not by
+human hands’ refers to a final kingdom to be established by God that would shatter all the other kingdoms, while it shall
+itself, endure forever.
+It is interesting that Nebuchadnezzar’s dream was delivered in the metaphor of the traditional four “eras” of man: gold,
+silver, bronze, and iron, a canon held by various philosophers and theologians of antiquity. In Hebrew mystical terminology,
+a “day of creation,” a “Lord’s Day,” “era,” or a “world” referred to phases of progressive revelation. 2 The succession of
+Days or eras represents different cultures with different customs and religions, what today’s historians would call
+civilizations.
+There is also an astrological connotation of an “age,” related to the gradual shifting of the stellar constellations of the
+zodiac throughout the course of millennia, called the precession of the equinoxes by astronomers. Daniel lived at a time when
+the sun was entering the constellation PISCES at the SPRING equinox, and the constellation Virgo at the Fall equinox; that
+is, they were entering the astrological age of PISCES-Virgo. Today, we are entering the succeeding astrological age of
+AQUARIUS-Leo. Thus, in astrological terms, our own time is the “end of the age.” This sometimes bewildering subject is
+discussed at length by de Santillana in Hamlet’s Mill. 3
+
+2 Ref 10
+3 Ref 14
+
+The metals have qualities descriptive of the eras or civilizations: Gold is the most precious metal, brilliant and desirable
+for its symbolic or “spiritual” attributes. Silver is also precious but less so, and less desired for its spiritual attributes. Bronze
+is a strong, blended metal, less desired than either silver or gold, but an important metal of war and commerce. Finally, iron is
+the strongest of metals, the metal of the sword, least desired of the four for its symbolic or spiritual attributes.
+We can, indeed, identify four eras or civilizations in Chaldea, beginning with Nebuchadnezzar’s kingdom, sixth century
+BCE. Chaldea was the heir and participant in the civilization of Mesopotamia, the primal region of Chaldea. To Chaldea,
+Sumer, Assyria, and old Babylonia we owe the invention of the first practical system of writing that eventually led to our
+modern alphabet, the wheel, origins of scientific mathematics and astronomy (via the pseudoscience of astrology), the idea of
+a social system based upon a written code of law, and an elected bicameral legislative system of government.
+The religion of Chaldea had its beginnings in remote antiquity, perhaps more than five thousand years ago. It involved a
+rich complex of ritual and myth that has profoundly affected the religions of the West – especially Judaism and Christianity.
+The Book of Genesis has many parallels in Chaldean literature – the Creation story, Paradise, the Flood, the Cain-Abel
+rivalry, the Babel of Tongues. So, too, does the concept of a personal God, the concept that man was created primarily to
+serve God, and the concept that God’s creative power is in His Word. From the Babylonian Captivity, the Jews acquired
+chants, such as the Kol Nidre, that are still used today. The Christians acquired, among other things, the rite of Baptism.4
+Nebuchadnezzar’s capital, Babylon, was the greatest and most impressive city on earth, with massive walls, imposing
+temples, and soaring towers. Some historians believe one of these soaring towers, completed by Nebuchadnezzar, the three-
+hundred-foot-high ziggurat of Etemananki, to be the fabulous “Tower of Babel” that has inspired poets, artists, and mystics
+for millennia. Another architectural triumph of Nebuchadnezzar was the “hanging gardens,” considered to be one of the
+seven wonders of the ancient world. Babylon was visited by the Greek historian Herodotus in the fifth century BCE, who
+described it as a city “with such magnificence that none other can approach it.” The defensive towers that punctuated the
+walls of Babylon were so broad across the top that there was “room for a four-horse chariot to turn.”
+The golden era of Chaldea was short lived. The rulers of Chaldea who followed Nebuchadnezzar were weak and
+vacillating. The last king, Nabonidus, engrossed in antiquarian researches, incurred the wrath of many of his compatriots by
+tampering with established religious beliefs and customs. His weakened kingdom was easily conquered by the brilliant
+warrior-statesman Cyrus the Great of Media-Persia in 539 BCE, who had a well-deserved reputation for respecting the
+traditions of those he conquered.
+We identify the Medeo-Persian period of Chaldea as its silver era. The religion of Cyrus was Zoroastrianism, and while
+Cyrus was scrupulous in preserving the religious traditions of Chaldea, it was inevitable that Zoroastrianism would make
+inroads into the region. It has been claimed by many scholars that some of the beliefs of Zoroastrianism have also made their
+way into Judaism and Christianity.
+While much of its capital Babylon was destroyed by Cyrus, it retained its identity as a great city as confirmed by
+Herodotus and others of the time. Nevertheless, Chaldean culture was on the decline. An insurrection by Babylon in 521 BCE
+led to the destruction of the walls of Babylon by Darius, and, by the fourth century BCE, the cultural identity of Chaldea was
+altered forever.
+The Medeo-Persian period of Chaldea was disrupted by the conquests of Alexander the Great in 331 BCE, the
+Macedonian-Greek conqueror of the known world whom we will meet again in another chapter. By Alexander’s time,
+Babylon had become the winter capital of the Medeo-Persian kings, less opulent than the ceremonial capital of Persepolis and
+largely in ruins. In fact, Alexander had intended to rebuild the great ziggurat of Babylon [Etemananki] as a symbol of his
+conquest, but the task proved to be too difficult and the project was abandoned. Chaldea under Alexander and his Seleucid
+successors continued its decline.
+The Seleucids, too, soon went into decline. They withdrew from much of Chaldea and were, in turn, conquered by
+Rome. Chaldea then became a region of contention between the Roman Empire and a revived Persian empire under the
+Parthians and the Sassanians. Chaldea was eventually recovered by Persia but continued its cultural decline. Throughout this
+chaotic period, Chaldea retained a large population, canals and dikes were kept in repair, and commerce and architecture
+flourished. But in spite of the tenacious economic vitality of the region, the reins of government were held by the “vilest
+tyranny of sots, drunkards, tyrants, lunatics, savages, and abandoned women….”5
+The Hellenistic period of Chaldea, initiated by Alexander, was continued by his Seleucid heirs and, intermittently, by
+Rome. We identify the Hellenistic (Graeco-Roman) period as the bronze era of Nebuchadnezzar’s dream, roughly a
+millennium.
+The culture and belief system of Hellenism had its impact on the entire region conquered by Alexander and his
+Hellenistic successors. The pagan religion of the Hellenistic civilization persisted for many centuries, even after Christianity
+had become the official religion of the Roman empire in the fourth century CE. And while it can be argued that Roman
+Christianity made some inroads into parts of Chaldea, the long-term effects were largely inconsequential.
+
+4 Ref 15
+5 Ref 2, p. 639
+
+The iron era of Chaldea was ushered in by the Islamic conquests of the seventh century CE. The invincible Arabian
+warriors swept over the known world like a “plague of locusts.” Most of Chaldea was in the hands of the Muslim caliphate
+by 633. Jerusalem fell in 637, and by 644 most of Persia and its great horde of treasures had been taken.
+But the caliphate (successorship) of Muhammad contained a fatal flaw: there was no written document defining the
+Islamic successorship, only a deathbed statement by Muhammad declaring the young and inexperienced ‘Ali to be his Caliph.
+The result was a permanent and bitter split between the two major factions of Islam – the Sunni and the Shi’ih – that has
+persisted to this day. The Sunni faction has promoted a caliphate based on apparent capability and experience; the Shi’ih
+faction has promoted a caliphate based on ‘Ali’s descendants – the Imamate. Thus the Muslim empire proved to be ‘brittle,’
+like ‘iron mixed with clay.’ By the end of Caliph Harun ar-Rashid’s reign in 809 CE, the Muslim empire had passed its zenith
+and had broken into pieces.
+Under early Islam, the region of old Chaldea had a resurgence of prosperity reminiscent of the era of Alexander’s
+empire. The city of Babylon continued to decay and became a ruin, but the capital of the Muslim empire was placed in the
+region of Chaldea, briefly at Damascus and finally at Baghdad – not far from the ruins of Babylon.
+During the reign of the ‘fourth kingdom’ and as the iron era draws to a close in Daniel’s interpretation, the final
+‘kingdom’ of divine origin is represented by a ‘stone hewn from a mountain.’ A mountain has often represented a religion in
+sacred literature, while a stone may represent Truth. In ancient times, and even in some areas of today’s world, “stones from
+heaven” (meteorites) have become objects of reverence. The Ka’bih at Mecca still contains such a stone that was revered
+even before Muhammad’s time.
+The symbol is appropriate and describes the Bahá’í Revelation (stone) that was hewn from the Faith (mountain) of the
+Báb. The stone struck the weakest foot of the Muslim world – the iron mixed with clay – that symbolizes the Shi’ih tradition
+centered in modern Iran. Daniel goes on to prophesy that this stone will, itself, become a great mountain that will shatter all
+the other ‘kingdoms’ and will endure ‘forever.’ The meaning is clear: the Bahá’í Faith will inevitably become a great religion
+that will transcend all others, both in spiritual power and in duration.
+
+
+
+Chapter Two
+
+THE SEVEN TIMES
+
+Chapter 4 of Daniel purports to be a letter from king Nebuchadnezzar ‘to all peoples and nations of every language living in
+the whole world,’ exalting and glorifying the Most High God, the Everlasting One, the King of heaven. The background for
+this outpouring of praise begins with another dream of Nebuchadnezzar that only Daniel can interpret for him.
+Nebuchadnezzar first dreams of a tree of great height at the center of the earth, visible to earth’s farthest bounds, yielding
+food for all, and shelter for beasts and birds. This is followed by another vision in which a Watcher, a Holy One, comes down
+from heaven and commands that the tree be hewn down, its branches and foliage stripped, but commands that the stump and
+roots be left in the ground.
+
+Daniel 4
+15 … So, tethered with an iron ring, let him eat his fill of the lush grass; let him be drenched with the dew of heaven and share the lot
+of the beasts in their pasture; let his mind cease to be a man’s mind, and let him be given the mind of a beast.
+16 Let seven times pass over him. The issue has been determined by the Watchers and the sentence pronounced by the Holy Ones.
+17 Thereby the living will know that the Most High is sovereign in the kingdom of men; he gives the kingdom to whom he will and he
+may set over it the humblest of mankind. [New English Bible]
+
+Daniel’s interpretation of the dream is that the tree represents Nebuchadnezzar. The power is to be taken from
+Nebuchadnezzar, he will be banished from society, will live with the wild beasts, feed on grass, and be rained on until seven
+times pass over him.
+
+Daniel 4
+25 … Seven times will pass over you until you have learnt that the Most High is sovereign over the kingdom of men and gives it to
+whom he will.
+26 The command was given to leave the stump of the tree with its roots. By this you may know that from the time you acknowledge
+the sovereignty of heaven your rule will endure.
+
+The term ‘seven times’ is repeated thrice in this chapter before the events indicated by the dream happened to
+Nebuchadnezzar. The trigger that caused his downfall was a later boast: of the great city of Babylon that he had built and of
+his own mighty power and majesty. A voice from heaven immediately warns him that he will be banished, etc., and that
+seven times will pass over him until he has learnt that the Most High is the true Sovereign of all mankind.
+
+The events prophesied by Daniel then occurred; Nebuchadnezzar was banished, ate grass like oxen, etc.. At the end of
+the appointed time:
+
+Daniel 4
+34 At the end of the appointed time, I, Nebuchadnezzar, raised my eyes to heaven and returned to my right mind.
+
+after which Nebuchadnezzar gives praise and glory to the Most High for the restoration of his sanity and his kingdom.
+Nebuchadnezzar’s spell of insanity is interesting in its own right because it warns us of the folly of arrogance before the
+Lord of the Universe. But the emphasis on the ‘seven times’ seems to indicate that the revelation has a hidden meaning that
+should be investigated.
+As usual, Daniel gives us everything we need to date the beginning of the seven times. Daniel 2:1 gives the second year
+of Nebuchadnezzar’s reign as the date when Nebuchadnezzar began to have troubling dreams. This would be the year 603
+BCE. The date for the beginning of Nebuchadnezzar’s madness is given in 4:29 as “after twelve months.” There is no other
+date given between verses 2:1 and 4:29. Thus the beginning of the count of the seven times is 602 BCE.
+As explained in the Introduction, a “time” is 360 lunar years. Seven times is therefore equal to 2520 lunar years or 2445
+solar years. This is the span of time between 602 BCE and the Edict of Toleration in 1844 CE. The Edict of Toleration
+permitted the Jewish people to resettle the holy land after almost eighteen centuries of exile, and was the prerequisite
+necessary for the re-establishment of Israel as a modern nation. More will be said about this Edict in later chapters.
+Another curious thing about ‘seven times’ is that it is twice the ‘time, times and half a time’ (3 1/2 times) that will be
+found elsewhere in Daniel and Revelation. This is 1260 lunar years. The year 1260 AH in the Muslim calendar corresponds
+to 1844 CE in the Christian calendar. In other words, the Muslim calendar starts half way between Nebuchadnezzar’s spell of
+insanity and the Edict of Toleration.
+The Watchers and Holy Ones are also interesting. In certain ancient mystical writings, the Watchers and Holy Ones, (the
+“Household of the Upper World”) are listed as Uriel, Raphael, Michael, Zerachiel, Gabriel, and Remiel. Four of these Angels
+are represented as ‘Faces on the four sides of the Deity’: Michael, Raphael, Gabriel, and Uriel.6 Only two of these are named
+in Daniel: Michael and Gabriel. In later chapters of this book, the case will be made that Michael and Gabriel correspond to
+Bahá’u’lláh and the Báb at the time of the end.7
+
+Text note reference is missing
+1. The Concise Columbia Encyclopedia.
+
+
+
+Chapter Three
+
+THE FOUR BEASTS
+
+These visions appeared to Daniel in the first year of Belshazzar, the (caretaker?) king of Babylon, as Daniel lay in his bed:
+
+Daniel 7
+2 … I, Daniel … saw a great sea churned up by the four winds of heaven,
+3 And the four huge beasts coming out of the sea, each one different from the others.
+4 The first was like a lion but had eagle’s wings. I watched while its wings were plucked off and it was lifted from the ground and
+made to stand on two feet like a man.
+
+6 Ref. 10, p. 52
+7 According to Judeo-Christian mysticism, Gabriel is the Archangel of Yesod (Foundation). Historically, the appearance of Gabriel has
+often accompanied an important announcement of a new ‘foundation’; that is, the beginning of a new era of human events. For example,
+Gabriel was the one who delivered the Revelation to Muhammad on Mount Hira that He was to be the Messenger to mankind. In Luke 1,
+it is Gabriel who delivers the message to Zechariah that he will be the father of John the Baptist, and to Mary that she will be the mother
+of Jesus.
+Michael is the Archangel of Hod (Glory), and is associated in sacred literature with victory. For example, Michael is the Victor over
+the forces of the dragon in Revelation 12.
+A modern Jungian psychologist would call Gabriel and Michael ‘archetypes of the collective unconscious.’ We will have to await
+our own encounters with the invisible realm to find out if Michael and Gabriel exist literally, or figuratively, or both.
+Ancient mystical esoterica is a vast study unto itself. We prefer to leave the exploration of that maze to experts. But the “four sides
+of the Deity” suggests an astrological connotation: the four sides of the Deity may correspond to the four corners of the “square earth,”
+that is, the four principal directions of the cosmos. If so, Michael and Gabriel may stand watch over the equinoxes, while Raphael and
+Uriel may stand watch over the solstices. The equinoxes of the new astrological age we are now entering are in the signs Leo and
+Aquarius. In reference 1, we find that these two signs probably correspond to Bahá’u’lláh and the Bab. Raphael and Uriel would then
+stand watch over Taurus and Flying Eagle (Scorpio), the signs of ‘Abdu’l-Bahá and Shoghi Effendi.
+
+Daniel’s vision begins with the sea of humanity, ‘churned up’ by the forces of heaven. Great movements and nations are
+to result from this churning, each symbolized by a ‘beast’ with different attributes.
+The lion with eagle’s wings was a symbol used by the Assyrian kings. But Assyria was conquered by an alliance of the
+Chaldeans and the Medes near the end of the seventh century BCE, thereby initiating the Chaldean (neo-Babylonian) empire.
+The lion became a symbol prominent in Chaldean art, now without wings. The two “feet” of the “plucked lion” were Chaldea
+and Media.
+
+Daniel 7
+5 Then I saw another, a second beast, like a bear. It was half crouching and had three ribs in its mouth, between its teeth. the command
+was given: ‘Up, gorge yourself with flesh.’
+
+The bear is an inhabitant of primitive wilderness areas, is slow-moving but powerful. Its attributes describe Media-Persia
+before she undertook the conquest of the Near East. Situated in a rugged and undeveloped region, Media (soon to be called
+Media-Persia) was considered a poor empire without real wealth. The bear is half crouching in Daniel’s vision because,
+although considered dangerous, Media-Persia did not appear desirous of attacking Chaldea or any other power in the Near
+East. The dangerous aspect of Media-Persia is apparent from a look at a political map of the time that shows Chaldea and
+Lydia, the other great powers of the region, beneath the “jaws” of the bear. It was only after an unwarranted and ill-advised
+attack upon Media-Persia by King Croesus of Lydia in 546 BCE that the slow-moving bear became a determined aggressor.8
+Seven years after its annexation of Lydia, Media-Persia conquered Chaldea; after another fourteen years, she conquered
+Egypt. The three ribs in the bear’s jaws represent the three great kingdoms conquered by Media-Persia: Lydia, Chaldea, and
+Egypt.
+Following the death of Darius the Mede, who had suffered a humiliating defeat by the Greeks in 490 BCE, Xerxes, the
+son of Darius, kept a slave by his side at the dinner table whose job it was to whisper, “Master, remember the Athenians.” In
+480 BCE, Xerxes undertook a punitive invasion of Greece to avenge his father’s defeat. Thus the command to “gorge
+yourself with flesh” was given by Xerxes to his vast army. Nevertheless, the invasion of Greece ended in a second disastrous
+failure.
+
+Daniel 7
+6 After this as I gazed I saw another, a beast like a leopard with four wings on its back; this creature had four heads, and it was
+invested with sovereign power.
+
+The leopard is descriptive of the empire of Alexander the Great: poised, ready to leap, swift-moving, and highly
+successful in capturing its prey.
+Alexander, in his “lair” of Macedonia, was poised, ready to leap onto Asia in 335 BCE. Behind him he had four great
+victories (“wings”) in Europe – Thessaly, Thrace, Illyria and Thebes. These four victories, achieved in only one year, had set
+the stage for four more incredible victories in Asia, achieved in only three years – Granicus, Issus, Tyre and Gaugamela.
+These four victories, corresponding to the four wings of victory of the leopard in Daniel 7:6, achieved the capture of the
+entire Persian empire.
+A “head” is that upon which a crown is placed – that is, a dominion. The four heads of the leopard correspond to the four
+dominions that were established upon the death of Alexander: those of Cassander, Lysimachus, Seleucus, and Ptolemy.
+
+Daniel 7
+7 Next in my visions of the night I saw a fourth beast, dreadful and grisly, exceedingly strong, with great iron teeth and bronze claws.
+It crunched and devoured, and trampled underfoot all that was left. It differed from all the beasts which preceded it in having ten
+horns.
+8 While I was considering the horns I saw another horn, a little one, springing up among them, and three of the first horns were
+uprooted to make room for it. And in that horn were eyes like the eyes of a man, and a mouth that spoke proud words.
+
+In later verses, Daniel receives further information regarding the beast with ten horns that improves Daniel’s
+understanding, and ours:
+
+Daniel 7
+23 … The fourth beast signifies a fourth kingdom which shall appear upon the earth. It shall differ from the other kingdoms and shall
+devour the whole earth, tread it down and crush it.
+
+8 There is a famous anecdote, related by Herodotus, connected with Croesus’ decision to invade Media-Persia. Croesus enquired of the two
+famous Oracles at Delphi and Pytho as to whether he should undertake the invasion. The replies of both Oracles agreed: if he invaded
+Media-Persia, he would destroy a great empire. Croesus mistakenly assumed that the great empire to be destroyed would be Media-
+Persia.
+
+24 As for the ten horns, out of this kingdom ten kings shall arise, and another shall arise after them; he shall be different from the
+former ones and shall put down three kings….
+
+The fourth beast is the Muslim empire, while the ten horns refer to its rulers. The Muslim empire will combine the
+attributes of military power (iron teeth) and economic greed (bronze claws).
+A ‘horn’ is a “handle”; that is, a name. The ten horns represent names of the leaders of the Usurpers of the caliphate
+(Successorship) to Muhammad.
+The first of these Usurpers was the House of Umayyah. Abu-Sufyan, an idolater from Mecca, was the shrewd and
+infamous leader of the Umayyad clan, and was the driving force behind the usurpation of the Islamic caliphate from ‘Ali, the
+rightful heir, in 661 CE.
+There were fifteen leaders of the Umayyah, beginning with Abu-Sufyan. But there were only ten names among these
+leaders, since several of these were repeated. The unrepeated names were: Abu-Sufyan, Mu’awiya, Yazid, Marwan, ‘Abdu’l-
+Malik, al-Walid, Sulayman, Umar, Hisham, and Ibraham.
+Mu’awiya, the son of Abu-Sufyan, was the Caliph who introduced the insidious practice of fabricating traditions
+ascribed to Muhammad, maligning and denigrating ‘Ali. Through his direction, several minions were bribed into corrupting
+and distorting Muslim doctrine, text, belief and practice.9
+Following their fall from power in 750 CE, one Umayyad, ‘Abd al-Rahman, escaped to Andalusia (Spain) where he set
+up another Umayyad dynasty in 756 CE, usually called the “Cordoban caliphate.” The pattern of ten horns followed the
+House of Umayyah to Spain. There were eighteen neo-Umayyad Caliphs of the Cordoban caliphate, but, again, with only ten
+unrepeated names: ‘Abd al-Rahman, Hisham, Hakam, Muhammad, Munzir, Abdullah, Hijab, al-Mansur, ‘Abdu’l Malik, al-
+Mahdi, and Sulayman. The Cordoban caliphate came to its end in 1031 CE.
+The beast with ten horns is a subject of Revelation 12, in which it is revealed that the beast also has seven heads. The
+seven heads are the seven dominions that were ruled by the Umayyah: Syria, Persia, Egypt, Africa, Arabia, Andalusia, and
+Transoxania.
+The fall of the House of Umayyah came at the hand of another tyrant: the House of ‘Abbas. Oddly enough, the House of
+‘Abbas also had ten ‘horns,’ from their usurpation of power in 750 CE until their loss of sovereignty to the Turks in 861 CE:
+As-Saffa, al-Mansur, al-Mahdi, al-Hadi, ar-Rashid, al-Amin, al-Ma’mun, al-Mu’tasim, al-Wathiq, and al-Mutawakkil.10
+While the Umayyad dynasty was founded in Arabia, the Abbasid dynasty was founded in Persia; and while the capital of the
+Umayyah was in Damascus, the capital of the Abbasids was in Baghdad.
+The rise to power of the House of ‘Abbas had a history too complex to trace here, but of particular interest is that, like
+the House of Umayyah, the ‘Abbasids used trickery and deceit in their rise to power. Those who had, in the past, heroically
+resisted the “accursed Umayyah,” were expecting to see a member of the House of ‘Ali assume the caliphate. Instead, it was
+the nefarious leader of the House of ‘Abbas who came out of hiding and seized the reigns of power. His name was Abu’l-
+‘Abbas ‘Abdu’llah, very soon to become known as As-Saffa, the ‘Shedder of Blood.’ As-Saffa was the ‘little horn’ in
+Daniel’s vision. During the rebellion, three Umayyad commanders were defeated. These three had the names Yazid, Abdu’l-
+Malik and Marwan.11 It will be seen that their names are included in the ten horns of the House of Umayyah, thereby
+confirming the prophecy of Daniel 7:8, 24.
+At the mosque of ‘Ali in Kufah, a city that had been a center of the heroic rebellion, As-Saffa ascended the pulpit and
+announced a reign of justice, equity, and righteousness. The new caliphate was to be a sacred trust that would be handed over
+to Jesus, the Son of Mary, on His Second Coming.
+Contrary to promises, the blasphemous and perfidious House of ‘Abbas ruled with teeth of iron and claws of bronze. In
+Revelation 13 the ‘Abbasid dynasty is characterized as the ‘second beast’ and the ‘image of the first beast.’ Indeed, a reader
+of Islamic history finds little to recommend the ‘Abbasids over the Umayyah. It is noteworthy that Muhammad had
+prophesied
+
+Qur’an 27
+82 We will bring forth to them a beast from the earth. It will speak to them, for mankind would not be convinced of our signs.
+
+After the reign of the fourth beast, God the Father, the Ancient of Days is introduced, with ‘robe as white as snow and
+with the hair of His head like the cleanest wool.’ His white robe and hair signify His spotless spiritual attributes and great
+wisdom. God is shown sitting on a throne of great power, with ‘wheels of blazing fire,’ the same throne spoken of in Ezekiel
+1 and in Revelation 4. The wheels of fire are an astrological symbol, describing the mechanism that ancient astronomers
+believed was used to move the firmament. A ‘flowing river of fire’ streams out from the throne, a river that destroys all who
+are judged and condemned for their wrongdoing. ‘The court sat and the books were opened.’ (Daniel 7:10)
+
+9 Ref 9, p. 192
+10 The first Turkish dynasty, the Seljuks, may have had ten horns also, but the last years of their caliphate were rather chaotic. The ten
+horns of the Seljuks were (possibly) Malik, Toghrul, Alp, Barkiyaroq, Mahommed, Sinjar, Mahmud, Masud, Sulayman, and Arslan.
+11 Ref 9, p. 217
+
+God is then approached by ‘one like a man coming with the clouds of heaven.’ This Figure is that of Bahá’u’lláh, the
+King of Glory, Who is given everlasting sovereignty by God.12 In later verses (Daniel 7:26-27), it is explained that kingly
+power and everlasting sovereignty will be given to the ‘saints of the Most high,’ a reference to the righteous who follow in
+the footsteps of the Lord of Hosts.
+The Ancient of Days is one title of Bahá’u’lláh.13 After His reception of everlasting sovereignty, Bahá’u’lláh will sit on
+the throne beside the Father and govern in the Name of God.14
+There are two dates in Daniel 7 that require closer reading. In verse 25, Daniel is informed that the saints shall be
+delivered into the power of the fourth beast ‘for a time, times and half a time.’ The three-and-one-half times are 1260 lunar
+years and define the date in the Muslim lunar calendar (1260 AH / 1844 AD) that terminated the spiritual sovereignty of the
+beast. This date has a double significance. Not only does it mark the Edict of Toleration; it also marks the Declaration of the
+Báb, which ended the Dispensation of Muhammad and terminated the spiritual sovereignty of the Muslim empire.
+A less apparent date is given in verse 12:
+
+Daniel 7
+12 The rest of the beasts, though deprived of their sovereignty, were allowed to remain alive for a time and a season.
+
+A season could be one fourth of a time or ninety years, making the time and a season equal to 450 years. If lunar years
+are intended, and if the ‘other beasts’ were also deprived of their spiritual sovereignty in 1844, then we might expect an end
+to the other beasts around the year 437 of the Bahá’í era.
+Alas, it is far easier to explore the past than to augur the future! At the rate events are moving, the date 437 BE is not an
+unreasonable estimate for dating the end of the nations and the beginning of the Most Great Peace. But this fool prefers to
+leave such speculations to other fools.
+
+
+
+Chapter Four
+
+A LITTLE HORN
+
+This vision, similar to that of the previous chapter, appeared to Daniel in the third year of King Belshazzar’s reign. He finds
+himself transported to the banks of the Ulai canal at Susa, an ancient citadel of Persia. The locale is appropriate to some of
+the events that are soon to be revealed to Daniel. He sees:
+
+Daniel 8
+3 … a ram with two horns standing between me and the stream. The two horns were long, the one longer than the other, growing up
+behind.
+4 I watched the ram butting west and north and south. No beasts could stand before it; no one could rescue from its power. It did what
+it liked, making a display of its strength.
+5 While I pondered this, suddenly a he-goat came from the west skimming over the whole earth without touching the ground: it had a
+prominent horn between its eyes.
+6 It approached the two-horned ram which I had seen standing between me and the stream and rushed at it with impetuous force.
+7 I saw it advance on the ram, working itself into a fury against it, then strike the ram and break its two horns; the ram had no strength
+to resist. The he-goat flung it to the ground and trampled on it, and there was no one to save the ram.
+8 Then the he-goat made a great display of its strength. Powerful as it was, its great horn snapped and in its place there sprang out
+towards the four quarters of heaven four prominent horns.
+
+In later verses (Daniel 8:19-22), Daniel learns that the ram with two horns signifies Media-Persia. The he-goat signifies
+Greece, the prominent horn symbolizing its first great king. The four prominent horns that ‘sprang out towards the four
+quarters of heaven’ represent four kingdoms that will rise from the first.
+The “dangerous Medes” were closely related to the Persians (the longer horn) to their east. For many years there were
+struggles between the Medes and the Persians that ultimately resulted in the accession of Cyrus “the Persian” to the Median
+throne in 550 BCE.
+But instead of reducing the Medes to a position of humiliation, Cyrus treated the defeated Medes as equals. Thereafter,
+the empire had two names, Media and Persia. In later centuries, the two-named empire became known simply as Persia.
+Today, the remnant of the Medeo-Persian empire is known as Iran.
+
+12 ‘Man’ and ‘Son of Man’ were ancient titles for the Savior. The Savior always ‘comes on the clouds of heaven,’ not literally but
+figuratively. See References 1, 10, & 16.
+13 It is also a fact that Bahá’u’lláh’s hair was literally snow white, although He followed local custom and had it dyed black.
+14 See Revelation 3:21.
+
+The prominent horn of the he-goat, of course, represents Alexander the Great. Upon his death, the empire was divided
+into four parts: north, south, east and west. These are discussed at more length in another chapter.
+
+Daniel 8
+9 Out of one of them issued one little horn,
+10 Which made a prodigious show of strength south and east and toward the fairest of all lands.
+11 It aspired to be as great as the Prince of the host, suppressed his regular offering and even threw down his sanctuary.
+12 The heavenly hosts were delivered up, and it raised itself impiously against the regular offering and threw true religion to the
+ground; in all that it did, it succeeded.
+
+Again, in a later verse (Daniel 8:23) Daniel learns more about the little horn: it refers to a king, ‘harsh and grim, a master
+of stratagem,’ who will appear in the last days of the four kingdoms, ‘at the end of wrath,’ for there is an ‘end to the
+appointed time.’ (Daniel 8:19)
+
+Daniel 8
+24 His power shall be great, he shall work havoc untold; he shall succeed in whatever he does. He shall work havoc among great
+nations and upon a holy people.
+25 His mind shall be ever active, and he shall succeed in his crafty designs; he shall conjure up great plans, and, when they least
+expect it, work havoc on many. He shall challenge even the Prince of princes and be broken, but not by human hands.”
+
+These verses summarize quite accurately the character and actions of the infamous Antiochus IV Epiphanes, “the God
+Manifest,” who will be discussed more fully in another chapter. The ‘end to the appointed time’ is stressed by this writer,
+because the same phrase is used at critical junctures in the text of Daniel to indicate a break in the historical narrative.
+In verse 25 we learn that Antiochus is to be ‘broken, but not by human hands.’ Indeed, Antiochus was broken, and not by
+human hands. While involved in another one of his nefarious schemes at the Persian city of Tabae in 164 BCE, he went
+insane and died.
+
+Daniel 8
+13 I heard a holy one speaking and another holy one answering him, whoever he was. The one said, ‘For how long will the period of
+this vision last? How long will the regular offering be suppressed, how long will impiety cause desolation, and both the Holy Place
+and the fairest of all lands be given to be trodden down?’
+14 The answer came, ‘For two thousand three hundred evenings and mornings; then the Holy Place will emerge victorious.’
+
+Daniel learns more in following verses:
+
+15 … I saw standing before me one with the semblance of a man;
+16 At the same time, I heard a human voice calling to him across the bend of the Ulai, ‘Gabriel, explain the vision to this man.’
+17 He came up to where I was standing; … (and) said to me, ‘Understand, O man: the vision points to the time of the end.’
+
+Who are these two angels? Daniel admits that he does not know who one of them is, while the other is called by the
+name Gabriel. The fact that they speak of the time of the end suggests that they come from the future. We can safely assume
+that they represent entities or personalities that are important to the future of Israel, and that they will be somehow associated
+with Persia, the locale where Daniel is standing. Also, the Figure from across the bend of the Ulai commands Gabriel to
+explain the vision to Daniel; it seems unlikely that an angel of a lesser rank than Gabriel could give such a command.
+We conclude that the other Figure is probably Michael, the Archangel of Glory, who will be introduced by name in later
+chapters. Michael is the archetype of the Victor, while Gabriel is the archetype of the Announcer.15 There are two Figures
+from Persia and the time of the end Who will have these attributes; Michael must represent Bahá’u’lláh, the King of Glory,
+while Gabriel must represent the Báb, the Forerunner.
+This revelation concerning the ‘time of the end’ is too much for Daniel. He goes into a trance and is revived by Gabriel,
+who now tells him of another epoch, ‘the end of wrath.’ The end of wrath refers to the destruction of Seleucid power in
+Palestine by the Maccabean revolt, when Antiochus will be ‘broken but not by human hands.’ We have already visited these
+verses, Daniel 8:23-26.
+The 2300 evenings and mornings are 2300 exactly-completed years and refer to the time of the end. The end of what? It
+is to be the end of the spiritual desolation of the Holy Land, and the end of the time that the Holy Land will ‘be given to be
+trodden down.’ In these verses, Daniel is being told of another epoch and another time, far distant in the future – in fact, of an
+epoch exactly 2300 years away. But where is the point at which to begin the counting of years?
+There is only one point in time to start the counting of years that generates a meaningful result: it is the same point in
+time that Gabriel gives to Daniel in his vision during the first year of the reign of Darius (Daniel 9):
+
+15 See note 2 of Chapter 2.
+
+Daniel 9
+25 … Know and understand from the time that the word went forth that Jerusalem should be restored and rebuilt ….
+
+It will be shown in that chapter [chapter 5] that the starting date is the first day of the Jewish month of Nisan, 457 BCE.
+This gives the end of the ‘desolation’ at exactly
+
+Years (8:13)
+-   457
+BCE, the first of Nisan
++       1
+a calendar correction16
+= 1844
+CE, the first of Nisan
+
+This is the exact date of the Edict of Toleration that permitted the Jewish people to resettle the Holy Land.
+
+
+
+Chapter Five
+
+GABRIEL’S CALENDAR
+
+Gabriel’s revelation to Daniel occurs in the first year of Darius the Mede, which would be about 521 BCE. The chapter
+begins with Daniel lamenting his sins and those of the people of Israel. Following a devout prayer for forgiveness, Gabriel
+appears to Daniel and announces:
+
+Daniel 9
+22 ‘… O Daniel, I have come out to give you wisdom and understanding.
+23 At the beginning of your supplications a word went forth, and I have come to tell it to you, for you are greatly beloved; therefore
+consider the word and understand the vision.’
+
+What follows is a terse and profound prophecy that has bewildered readers for 25 centuries:
+
+24 ‘Seventy Sevens are decreed concerning your people and your holy city, to finish the transgression, to put an end to sin, and to
+atone for iniquity, to bring in everlasting righteousness, to seal both vision and prophet, and to anoint the most holy.
+25 ‘Know therefore and understand that from the going forth of the word to restore and build Jerusalem to the coming of an anointed
+one, a prince, there shall be seven Sevens. Then for sixty-two Sevens it shall be built again with squares and moat, but in a troubled
+time. And after the sixty-two Sevens, an anointed one will be cut off, and shall have nothing;
+26 ‘And the people of the prince who is to come shall destroy the city and the sanctuary. Its end will come with a flood, and to the end
+there shall be war; desolations are decreed.
+27 ‘And he shall make a strong covenant with many for one Seven; and in the middle of the Seven, he shall cause sacrifice and
+offering to cease; And in the train of abominations shall come an author of desolation; then in the end, what has been decreed
+concerning the desolation will be poured out.’
+
+The word “one” ahead of the Seven in verse 27 is important and is found in all the translations listed in the introduction
+to this book. But the interested reader would do well to visit all translations to compare the nuances of different translators.
+As in the New International Version of the Bible, the original Hebrew word “shabua” has been translated as “Seven” for
+reasons that will become apparent. While most translations of Daniel substitute “a week of years” for the Hebrew “shabua,”
+the literal translation is “seven.”17 But in ancient number mysticism, seven decades, or seven centuries – indeed, any decadal
+successor of Seven has an archetype of Seven. 18 The sliding time scale of the Seven is evident in various biblical texts: Jacob
+spent 7 years in servitude for Leah and 7 years more for Rachel19; the Ark of the Covenant was in the land of the Philistines
+for 7 months20, and Jeremiah prophesied that the Israelites would be in bondage for 7 decades.21 Based upon II Chronicles
+36:21, 7 decades is sometimes called a “sabbatic year.”
+
+16 When computing the time span between a date BCE and a date CE, it must be remembered that there is one year missing in the calendar.
+There is no year numbered zero in either the Christian or Muslim [or Bahá’í] calendars.
+17 Ref 3, p. 18
+18 Ref 1, p. 12
+19 Genesis 29
+20 I Samuel 6:1
+21 Jeremiah 25:11, 29:10
+
+Jeremiah’s prophecy of the 7 decades is most interesting because it is associated with the destruction of Jerusalem by
+Nebuchadnezzar. We note, also, Daniel’s reference to Jeremiah’s prophecy earlier in the same chapter that seems to give us a
+clue to the fundamental meter of cadence in these prophecies:
+
+Daniel 9
+2 … I, Daniel, perceived in the books the number of years which, according to the word of Jeremiah the prophet, must pass before the
+end of the desolations of Jerusalem, namely seventy years.
+
+If we take the Seven as 7 years in verse 24, then the total time span of Gabriel’s prophecy is 7 sabbatic years (490
+calendar years). But in verse 25, Gabriel’s convoluted prose seems to indicate that 7 sabbatic years is also equal to 7 times
+‘62-and-7’ or 483 calendar years, an obvious fallacy. The correct reading is to recognize that there is a Seven of years after
+the 69 Sevens of years that has already been decreed by the seventy Sevens of verse 24. It is during the implied last Seven of
+years, after the other 69, that the coming of an ‘anointed one’ and His ‘cutting off’ are to occur.
+The 24th verse seems to have an apparent meaning: seven sabbatic years (490 calendar years) are allotted to the Jewish
+people to finish the transgression, to put an end to their sin, to atone for iniquity, to bring in everlasting righteousness, to
+produce prophets and sealed prophecies, and to anoint their Messiah. The years are to be counted from ‘the going forth of the
+word to restore and rebuild Jerusalem.’
+There were four ‘words going forth’ to restore and rebuild the Temple and/or Jerusalem. A ‘word going forth’ was a
+signed Proclamation, that is, a Decree (see Dan 6:8). These four Decrees were:
+
+1. The Decree to rebuild the Temple, given by Cyrus, King of Persia, in 534 BCE. Recorded in the first Chapter of Ezra,
+this Decree was partially fulfilled.
+
+2. The Decree to rebuild the Temple, given by Darius, King of Persia, in 519 BCE. Recorded in the sixth chapter of Ezra,
+this Decree was essentially fulfilled.
+
+3. The Decree to finish and beautify the Temple, given in the seventh year of his reign in 457 BCE by Artaxerxes, King
+of Persia. Recorded in the seventh chapter of Ezra, this Decree was fulfilled and later addended by the fourth Decree.
+
+4. The Decree to rebuild the gates of Jerusalem and of the Temple, given by the same Artaxerxes in 444 BCE. Recorded
+in the second chapter of Nehemiah, this Decree was also fulfilled.
+
+We shall soon see that using 457 BCE as the starting point in Gabriel’s calendar produces results that are in close
+agreement with history. Admittedly, the precise dates of many ancient events have been debated by various authorities, but a
+variance of a year or two will not affect significantly the outcome of our investigation.
+As to the words of Gabriel in verse 9:25, the ‘going forth of the word,’ the exact date of this event is given in Ezra:
+
+Ezra 7
+9 … for on the first day of the first month he (Ezra) began to go up from Babylonia ….
+
+This would be the first day of Nisan, 457 BCE.
+Another matter to be addressed is the length of the year in verses 24-26. There seem to be only three plausible choices:
+
+(1) A solar year of 365.242 days, as measured by the time between equinoxes.
+
+(2) A lunar year of 354.367 days, as measured by 12 lunations.
+
+(3) A ‘prophetic year’ of 360 days, based upon a correlation of the dates given in Genesis 7:11,24 & 8:3.
+
+It so happens that the use of solar years produces a good result, since it places the Crucifixion of the Messiah at about the
+right date:
+
+70 Sevens of years =
+490 solar years
+Date of Artaxerxes’ first Decree =
+457 BCE
+Difference =
+33 CE
+
+But there is one year missing in the Christian solar calendar since Jesus was said to have been born at One instead of at Zero.
+(The concepts of zero and negative numbers are relatively modern and were unknown to the ancient world.) Adjusting for the
+missing year produces the date 34 CE for the Crucifixion.
+
+Whether or not 34 CE is the correct date for the Crucifixion cannot be ascertained by historians at this time. Suffice it to
+say that it is well within the range of dates that have been proposed by various scholars. It will also be shown that this method
+of dating Gabriel’s calendar generates reasonable numbers when other dates given in Daniel are introduced into the equation.
+Returning to the last Seven of years in Daniel 9:25, this would then correspond to the period 27 CE to 34 CE. This would
+surely include the period of Jesus’ ministry and the events surrounding it. For instance, in Luke 3:1-3 we find that ‘the word
+of God came to John’ the Baptist in the fifteenth year of the reign of Tiberius Caesar. This would be the year 29 CE. Luke
+3:23 also tells us that Jesus was about 30 years old when He began His ministry.
+Most authorities accept the account of Matthew 2 for setting the date of the Birth of Jesus which places it about 4 to 6
+BCE. If we choose the probable date to be about 5 BCE, then we can estimate that He began His ministry about 26 or 27 CE.
+Indeed, 27 CE has been taken by some excellent biblical scholars22 to be a good estimate.
+Another difficulty comes in the decision as to the length of Jesus’ ministry. The synoptic Gospels seem to indicate that it
+was only about a year long, while John indicates that it was about three years long. Since we are again forced to admit that
+the historical date of the Crucifixion remains uncertain, the date 34 CE remains as good as any. If so, the entire ministry of
+Jesus would have been about seven years long, even though His fame may not have spread throughout Palestine until the
+latter part of it. He would have been ‘not yet forty’ when He died on the cross in 34 CE.
+Now as to the meaning of the words of Gabriel:
+
+Daniel 9
+25 ‘… there shall be seven Sevens. Then for sixty-two Sevens it shall be built again with squares and moat, but in a troubled time ….’
+
+The seven Sevens of years are the time required to finish the rebuilding of Jerusalem, while the other sixty-two Sevens of
+years tell us how long the city will lie finished before the appearance of the Messiah.
+The ‘troubled time’ followed a period of relative peace and security. Alexander’s conquest of Persia in 334 BCE and his
+untimely death eleven years later produced several centuries of troubles for Judea and, indeed, for the whole Near East. The
+struggle between ‘north and south,’ that is the subject of Daniel 11, includes the troubled time and will be discussed in
+another chapter.
+We are now in a position to fill in the details of this portion of Gabriel’s highly abbreviated schedule of events:
+
+GABRIEL’S CALENDAR FOR THE COMING OF THE MESSIAH
+
+EVENT
+SEVENS OF YEARS
+CHRISTIAN
+RECKONING
+
+
+
+Artaxerxes’ Decree
+457 BCE
+Finishing of Jerusalem
+0 thru 6
+457 BCE thru 409 BCE
+Jerusalem completed
+408 BCE
+Jerusalem lies completed
+8 thru 68
+407 BCE thru 26 CE
+Messiah’s ministry
+69 to 70
+27 CE to 34 CE
+Messiah’s Crucifixion
+34 CE
+
+Now reconsider the following verses:
+
+Daniel 9
+26 ‘… and the people of the prince who is to come shall destroy the city and the sanctuary. Its end will come with a flood, and to the
+end there shall be war; desolations are decreed.
+27 ‘And he shall make a strong covenant with many for one Seven; and in the middle of the Seven, he shall cause sacrifice and
+offering to cease; ….’
+
+The temptation is to place the Seven of verse 27 after the 69 Sevens of verse 25 to round out the 70 Sevens of verse 24.
+However, there is no reason for doing so, since we have demonstrated that the 70th Seven has already been implied by the
+Decree in verse 24. The Seven of the strong covenant should not be confused with the 70 Sevens decreed for the Jews to
+‘finish the transgression,’ etc., since the strong covenant concerns a period of time after the Messiah has been ‘cut off’ and
+left with nothing.
+That the ‘strong covenant with many for one Seven’ is made by the Messiah can be deduced through an unprejudiced
+reading of the New Testament. For example, in John we find Jesus in the Temple speaking to the Jews who ask Him for a
+sign. Jesus replies with a cryptic promise:
+
+
+22 E.g., Ref 7, p. 82
+
+John 2
+19 ‘… Destroy this temple and in three days I will raise it up.’
+
+The author of John goes on to say that later believers in the physical resurrection took the ‘temple’ to mean the ‘temple’ of
+Jesus’ body. Be that as it may, those present at the scene took it to mean the great Temple of Jerusalem where Jesus was
+speaking. In fact, there are other instances23 where Jesus is quoted as saying that He was able to destroy the Temple of God
+and to rebuild it in three days. In yet other places, we find Jesus prophesying the literal destruction of the city and the
+Temple.24 And even after the death of Jesus, Stephen is accused at the Temple before the council of elders:
+
+Acts 6
+13 “… This man never ceases to speak words against this holy place and the law:
+14 For we have heard him say that this Jesus of Nazareth will destroy this place, and will change the customs which Moses delivered
+to us.”
+
+Acts 7
+1 And the high priest said, “Is this so?”
+
+In the beautiful and well reported speech that he offers in his defense, Stephen denounces the priesthood but does not
+deny the charge:
+
+Acts 7
+48 “… the Most High does not dwell in houses made with hands; ….”
+
+Stephen is subsequently executed by stoning.
+Jesus often said that He had come to fulfill the prophets, and in this instance He must have been referring to the prophecy
+of Gabriel’s calendar. The “middle of the Seven” brings us to the middle of the fourth ‘day,’ and on this day the city, the
+sanctuary, the offering and the sacrifice are to be eliminated. But Jesus promises further that during the remaining ‘three
+days’ of the Seven, He will rebuild the Temple.
+But how is Jesus the Messiah to accomplish the destruction of such a solid structure as the great Temple of Jerusalem?
+He gives us a clue:
+
+Luke 19
+43 “For the days shall come upon you, when your enemies will cast a bank about you and surround you, and hem you in on every side,
+44 And dash you to the ground ….”
+
+It will be through the instruments of war that He will bring down the walls of Jerusalem and the Temple also. And what is to
+be the nature of the Temple that Jesus is to build? Jesus gives his Apostles a most succinct answer:
+
+Matthew 16
+18 “And I tell you, you are Peter (Petros), and on this rock I will build my church, and the powers of earth shall not prevail against it.”
+
+The “Temple” is to be none other than His Church. And the “rock” upon which He will build His Church will not be the
+sacred Rock Moriah on Mount Zion. (“… believe me, the hour is coming when neither on this mountain or in Jerusalem will
+you worship the Father.”25) Rather, it is to be upon the “rock” of His Apostle Peter, and by implication, upon the rest of His
+trusted Apostles that He will build His Church. Nor will it be built of stones and cedar, but of a matrix of loving, faithful
+followers and a new Law. Since He will destroy their beloved Temple, they will be cut off from the grain offering and the
+shewbread. Jesus gives them a substitute:
+
+Matthew 26
+26 Now as they were eating, Jesus took the (Passover) bread, and blessed, and broke it, and gave it to the disciples and said, “Take,
+eat; this is my body.”
+
+The body of Jesus’ teachings and divine perfections is to be given to them as their heavenly Manna, and His followers can
+symbolize their assimilation of the offering by the simple act of breaking bread. But the Holy of Holies and its sacred blood
+sacrifice are also to be lost forever, the sacrifice that reconfirmed the Covenant and washed away their sins. Therefore, Jesus
+gives them a substitute for this:
+
+23 Matthew 26:61, 27:40
+24 E.g., Matthew 24:2; Mark 13:2; Luke 19:43-44, 21:8-36
+25 John 4:21
+
+Matthew 26
+27 And he took a cup, and when he had given thanks he gave it to them, saying, “Drink ye all of it, all of you;
+28 For this is my blood of the covenant, which is poured out for many for the forgiveness of sins.”
+
+Indeed, their beloved Ark of the Covenant had already ceased to exist as a material artifact. Now, even their beloved
+Temple would soon be destroyed along with its Torah, the Holy of Holies, the offering, and the blood sacrifice. But the love
+of Jesus for his disciples, indeed for all humanity, compelled Him to offer his own life as the ultimate Sacrifice that could be
+re-enacted by the suppliant with nothing more than bread and wine.
+Returning to Gabriel’s prophecy, since we have assumed that a “Seven” means a span of time with an archetype of
+seven. The one Seven in 9:27 could be 7 decades (i.e., a “sabbatic year”). Indeed, we shall soon see that interpreting the one
+Seven here as 7 decades produces the only plausible result.
+We have already seen that by letting a Seven equal 7 years, the seventy Sevens of verse 24 places the Crucifixion of
+Jesus at around 34 CE. Now, if the one Seven in verse 27 is taken as 7 decades, then ‘one Seven half spent’ is 35 years. The
+prophecy of verse 27 then says that after 35 years, He shall cause sacrifice and offering to cease. 35 years after the
+Crucifixion was 69 CE, and the following year was 70 CE.
+This, then, is the ‘strong covenant with many for one Seven’ spoken of by the angel Gabriel in 9:27: Jesus promises to
+destroy and rebuild the Temple in “seven days” following His Crucifixion. In the interim, His followers are given handy
+substitutes for the sacred ceremonies that are to be destroyed after the “third day.”
+At this juncture, it is well to recall the ominous words of Jesus concerning some events to come:
+
+Matthew 24
+15 ‘So when you see the desolating sacrilege spoken of by the prophet Daniel standing in the holy place (let the reader understand),
+16 Then let those who are in Judea flee to the mountains;
+17 Let him who is on the housetop not go down to take what is in his house;
+18 And let him who is in the field not turn back to take his mantle.’
+
+There were several sacrileges standing in the holy place before a tragic uprising of the Jews. This was not the first time
+that a sacrilege would stand in the holy place. The reader is to understand that the desolating sacrilege prophesied by Jesus
+will have signs that parallel those that had already occurred about 200 years before under the reign of Antiochus Epiphanes.
+In fact, a “graven image” – the conquering eagle of Rome – would stand over the principal gate of the Temple26; the “mad
+emperor” Caligula would order that a statue be built of his “Divine self” and worshipped inside the Temple sanctuary (an
+order that, fortunately, was rescinded)27; Herod, while sitting upon his throne, would make an impious assertion of his own
+divinity28; Roman soldiers would make obscene gestures near the Temple during the Passover festival29; Zealots would
+murder the High Priest Jonathan within the hallowed precincts of the Temple.30
+But there was one particular sacrilege that precipitated the desolation of Judea. Shortly after the completion of the
+Temple in 66 CE, a sacrilege occurred that would soon plunge Judea into a blood bath – the Roman procurator, Gessius
+Florus, looted the sacred treasury of the Temple of the very considerable sum of seventeen talents. Since the treasury
+deposited in the Temple was always considered inviolate to the secular administration, the act infuriated the people of Judea
+and was the primary cause of a riot in Jerusalem and the entire region. It was the beginning of a holocaust that even caused
+the Roman historian Tacitus to bear witness to the omens that had forewarned of it: the famine, the earthquake, the prodigies,
+and the awful signs in the heavens that heralded the Fall of Jerusalem.
+Eusebius tells us that the early Christians residing in and around Jerusalem did, indeed, ‘fly to the mountains,’ not at the
+sight of these sacrileges, but at a later sight. In April, 70 CE, Titus, who was later to become emperor of Rome, marched his
+four legions (‘the people of the prince to come’) to the walls of Jerusalem. [Daniel 9:26] It was at this more tangible sign that
+the local Christians fled to the Gentile town of Pella east of the Jordan River, where some say that they survived until the fifth
+century. The Ebionites, the early Christian sect brought into Christianity directly by Jesus and the Apostles, were among
+those emigrants.31
+When Titus arrived, a civil war had been going on in Jerusalem for some time, even within the sacred precincts of the
+Temple. The original belligerents were two factions of Zealots led by Simon ben Gioras and John of Giscala.32 By 70 CE, the
+civil dissensions in Jerusalem had gone from bad to worse with three factions of Zealots now fighting for supremacy.
+
+26 Ref 6, p. 150
+27 Ref 4, p. 166
+28 Acts 12:21-23
+29 Ref 4, p. 168
+30 Ref 4, p. 170
+31 Ref 12, p. 25n; Ref 13, p. 415
+32 Ref 4, p. 100ff
+
+Titus erected a wall of circumvallation around Jerusalem and established a strict blockade. Towers and siege engines
+were brought to bear against Jerusalem, thus fulfilling the prophecy of Jesus:
+
+Luke 19
+43 ‘For the days shall come upon you (Jerusalem), when your enemies will cast a bank about you and surround you, and hem you in
+on every side ….’
+
+It is difficult to believe that the sacred sacrifice and offering could properly exist under such circumstances. However,
+the sacrifice and offering were not technically ended until the 17th of Tammuz (midsummer), 70 CE. By that time, the streets
+were running with blood, and the sufferings of the masses of people within the city have been rarely if ever matched in the
+annals of history. The crazed Zealots murdered men, women, and children for morsels of food, even those who were in the
+very act of swallowing. The wretched inhabitants, creeping out of the city by night to search for food for their wives and
+children, were usually caught and crucified by Titus’ soldiers or were robbed by the zealot sentinels on their return to the
+gates.
+In spite of temporary coalitions of the fragmented Zealot parties against the Roman legions, it took only a few months
+for the well-disciplined forces of Titus to take the city. The end came ‘with a flood’ of armed soldiers. On the ninth of Ab,
+indeed on the VERY ANNIVERSARY of the burning of the first Temple by Nebuchadnezzar, the apartment next to the
+sanctuary was set afire by the Roman soldiers. The Jews, thinking that God had, indeed, abandoned His sanctuary, rushed
+with frantic cries to the spot and threw themselves into the flames in an attempt to save the Holy of Holies. Even Titus
+himself rushed to the scene with his personal staff of officers and men in a futile attempt to rescue a part of the holy precinct.
+But with the sudden and unexpected turn of events in their favor, the Roman soldiers behaved like savages. Josephus33, an
+eyewitness, describes what followed:
+
+One would have thought that the hill on which the Temple stood was seething hot, full of fire in every part, that the blood was greater
+in quantity than the fire, and that those who were slain were more numerous than those who slew them. The ground was nowhere
+visible because of the dead bodies that lay upon it, and the soldiers were forced to go over heaps of bodies as they ran after those who
+fled before them.
+
+With the final collapse, the Romans rushed throughout the Temple and the city, butchering young and old alike. At last,
+becoming satiated with blood, the Roman soldiers attempted to plunder the homes of the citizens of Jerusalem, but the
+putrefying corpses were so sickening that they were forced to abandon the project. Those few Jews who escaped immediate
+death were captured to spend their lives as slaves in the mines or as gladiators in Roman arenas.
+Thus was fulfilled the remainder of the prophecy of Jesus:
+
+Luke 19
+44 ‘… and dash you to the ground, you and your children within you, and they will not leave one stone upon another in you; because
+you did not know the time of your visitation.’
+
+After the ninth of Ab, 70 CE, the city of Jerusalem was no longer the center of Jewish life. Deprived of their beloved
+Temple and the City, the Jews were forced to give up the offering, the daily sacrifice, and even pilgrimages to the Temple.
+Through a program fashioned by the great rabbi Johannan ben Zakkai, the Jews in exile learned to substitute prayer, works of
+piety, and study of the Holy Scripture. Thus the awesome spiritual forces unleased by Jesus the Messiah produced the result
+that the Jewish priests would not willingly accept at their ‘time of visitation’: the house of the Lord ceased to be a den of
+thieves.
+The ninth of Ab became, and remains, a day of fasting. To this day, the Jewish wedding ceremony commemorates the
+destruction of the Temple each time the groom crushes the nuptial cup.
+And what of the “Temple” that Jesus had promised to build? We recall that with the Crucifixion, the Messiah was cut off
+and left with nothing. Jesus was indeed left with nothing, without a Church, without even a Book. In the “three days” (3
+decades) following the collapse of Jerusalem, Jesus built His “Temple.” By about 90 CE, after two days, the Gospels and
+numerous other Christian works had been written, and the Christians were thereby given a “foundation.” By about 100 CE,
+three days after the Fall of Jerusalem, the primitive Church had become solidly “constructed” in numerous cities throughout
+the eastern Mediterranean. Jesus then “dedicated” His Church by delivering a prophetic Book to John, His favorite disciple.
+That Book, the Apocalypse [aka Revelation], is the only one that purports to be a direct revelation from Jesus Christ. To the
+best of our knowledge, the Apocalypse was “delivered” to John about 104 CE, the three-and-a-half-day point after the
+
+33 Josephus vi., v., 1
+
+elimination of the daily sacrifice.34 Thereby, Jesus the Messiah fulfilled His ‘strong covenant with many for one Seven.’
+Recall
+
+John 2
+19 ‘… Destroy this temple and in three days I will raise it up.’
+
+The delivery of the Apocalypse to John, after so many years had passed and after almost everyone had died who had
+seen Jesus at first hand, explains the enigmatic remark of Jesus near the end of the fourth Gospel:
+
+John 21
+21 When Peter turned and saw (the young disciple John following them), he said to Jesus, “Lord, what about this man?”
+22 Jesus said to him, “If it is my will that he remain until I come, what is that to you? Follow me!”
+
+Even after the Fall of Jerusalem, there were more horrors to follow. In 118, only fourteen years after the completion of
+Messiah’s Temple, another insurrection arose against Rome by the Jews in exile. It reached Judea in 132, where it was led by
+the false Messiah Simon bar Cocheba, commanding an army of four hundred thousand men. Bar Cocheba was able to destroy
+two armies dispatched by Rome before the emperor Hadrian sent a third army under his ablest general Julius Severus to quell
+the rebellion. Severus ultimately defeated Bar Cocheba at Bethar in 135, killing a half million Jews in the process. Thousands
+of women and children were again carted off into slavery, and, for two hundred years, no Jew was allowed in Judea.
+Simon bar Cocheba thereby became the ‘author of desolation’ in the last sentence of Gabriel’s calendar:
+
+Daniel 9
+27 ‘… And in the train of abominations shall come an author of desolation; then in the end, what has been decreed concerning the
+desolation will be poured out.
+
+After this last disaster, Jerusalem lay a desolate ruin. It was given a Latin name, a new temple was erected to Jupiter, and
+a statue of Hadrian – a final abomination, was set up over the Rock Moriah.
+So bitter was the victory over the Jews that Hadrian did not pronounce the customary congratulatory phrase before the
+Roman Senate. A toast became common at Roman feasts: “Hierosolyma Est Perdida!” (“Jerusalem is destroyed!”),
+immediately answered by the guests shouting “Hurrah!” The initial letters of the toast (H.E.P.) soon replaced the phrase, and
+has come down to us as the traditional cheer “Hep! Hep! Hurrah!”
+There were many more abominations and sacrileges following the Fall of Jerusalem that are almost too disgusting to
+relate. The persecutions over the next 500 years committed by the Gentiles against Christians and Jews are well known. But
+also, there were wars, abominations and sacrileges committed against one another in the name of God by both Jew and
+Christian alike. Churches and synagogues were burned and desecrated, people were tortured and murdered. Sometimes the
+swing of destiny seemed to favor the Jews, sometimes the Christians.
+Even after the conversion of the Emperor Constantine to Christianity, the struggle was not over. The later accession of
+Julian the Apostate to the throne of Rome resulted in the abolition of Christianity as the official faith of the realm, and the
+Jews were invited to rebuild their Temple. The Jews, believing that the restoration of Israel was at hand, donated money and
+labor from all over the empire. But, whether due to human or divine agencies, no sooner had the work begun when fires and
+terrifying explosions rocked the site of the restoration on the Temple Mount. Christians and other enemies of the Jews took
+these events as proof of divine displeasure, and the circumstances were repeated with exaggerated details and supernatural
+embellishments.
+Ironically, the strife between Christians and Jews in the Holy Land mostly came to an end when Umar I, the renowned
+second and “rightly guided” Caliph of Islam, took Jerusalem in 637. Umar brought order to the area and treated both
+Christians and Jews with respect in accordance with the command of Muhammad that ‘the people of the book’ should not be
+harmed. Nevertheless, there were several curious events surrounding the takeover of Jerusalem that have had long-enduring
+effects.
+In the first place, Sophronius, the Christian patriarch of Jerusalem at the time, invited Umar to take over the city without
+bloodshed. But Sophronius stipulated a proviso that Umar must strictly prohibit the Jews from dwelling in Jerusalem. Umar
+apparently accepted this condition.35 Although some Jews (about seventy families) were allowed to live there under
+succeeding Caliphs, the city ceased to be either a Jewish or a Christian city (except for a brief time during the Crusades) for
+the next twelve centuries. In fact, the repeal of the contract between Umar and Sophronius did not officially occur until the
+first of Nisan, 1844. On that date, the Ottomans signed the Edict of Toleration that lifted the ban on Jewish immigration to
+the area, which inadvertently laid the groundwork for the creation of the modern state of Israel. The first of Nisan, 1844, as
+
+34 The first chapter of Revelation that describes future events for Christendom is Chapter 8. It explains that there will be about “half-an-
+hour of silence” before the start of the Great Persecutions of the Christians that will begin about 110 CE, shortly after the delivery of the
+Apocalypse to John. Thus the Apocalypse (Revelation) dovetails with and expatiates on many of the prophecies that are given by Daniel.
+35 Ref 6, p. 228
+
+has been said elsewhere, was exactly 2300 years after the day that Ezra left Babylonia to rebuild the Temple in compliance
+with the first Decree of Artaxerxes. The Edict of Toleration marks the end of the ‘transgression that makes desolate.’
+Soon after Umar’s takeover of Jerusalem, Umar began a search for the site of the sacred sanctuary of the ancient Temple
+site. This, of course, was the Rock Moriah, the altar location where Abraham had attempted unsuccessfully to sacrifice his
+son. Arabs being descendants of Abraham, the site played an important part in Muslim tradition just as it did for the Jews. It
+was at this site that Muhammad was reputed to have taken His mystical night journey to the seventh heaven and to have sat at
+the right hand of God. Umar found the site, by then desecrated beyond recognition by centuries of abuse by Christians. In
+fact, the Christians had covered the Rock with dung and other refuse.36 The Orthodox Church had not built a church over the
+site because of the prophecy of Jesus:
+
+Luke 13
+35 ‘Behold, your house shall be left unto you desolate.’
+
+Umar cleaned and purified the site, and built a temporary wooden shrine over it. Under a later Caliph, the shrine was
+rebuilt into a permanent and magnificent mosque that ultimately became known as the ‘Dome of the Rock.’
+The golden Dome is the most conspicuous landmark in Jerusalem. To the Muslims, the Dome of the Rock has
+symbolized their political and spiritual authority over both the Jews and the Christians. It stands over the Holy Place and
+represents the ultimate insult to the Jewish people. It has served for over thirteen centuries as a tangible barrier between them
+and their Holy of Holies. Whether the Dome will ever be taken down and the Jewish Temple rebuilt may be an irrelevant
+question. The human psyche seems to have evolved forever beyond the idea of a living animal sacrifice being offered to a
+benevolent God within a foul, bloody, flyblown “holy” chamber.
+We are now in a position to fill in the remainder of Gabriel’s calendar:
+
+EVENT
+SABBATIC YEARS
+AFTER
+ARTAXERXES’ DECREE
+CHRISTIAN
+RECKONING
+(CE)
+
+
+
+Messiah’s Crucifixion
+Offering and blood sacrifice terminated
+7 1/2
+69-70
+Messiah’s “Temple” is completed
+Author of desolation
+
+
+The Author of Desolation appeared 84 Sevens of years after Artaxerxe’s Decree.
+The illegitimate caliphate came to power 666 years after the probable date of the Birth of Jesus. (666 is the “number of
+blasphemy” in Revelation 13.) It was abolished thirty-four sabbatic years after Artaxerxe’s Decree and twenty-seven sabbatic
+years after the Crucifixion.
+
+
+
+Chapter Six
+
+THE TWENTY-ONE DAYS
+
+In this vision, Daniel finds himself on the bank of the Tigris, thereby connecting the locale to some future events to be
+witnessed in Daniel 12. He sees
+
+Daniel 10
+5 … a man clothed in linen with a belt of gold from Ophir around his waist,
+6 His body gleamed like topaz, his face like lightning, his eyes flamed like torches, his arms and feet sparkled like a disc of bronze;
+and when he spoke his voice sounded like the voice of a multitude.
+
+The Figure is seen as a Manifestation of God. His glory is invisible to those who are blinded by the contingent world, but
+is apparent to those with spiritual eyes. His belt of finest gold (a “golden girdle”) symbolizes a Faith; He speaks as a nation
+since He is their Leader and Savior.
+That the Figure is the Báb becomes apparent in the following verses:
+
+
+36 There is no footnote for this reference in the text labeled <41>.
+
+12 ‘Do not be afraid, Daniel, for from the very first day you applied your mind to understand and to mortify yourself before your God,
+your prayers have been heard, and I have come in answer to them.
+13 ‘But the angel prince of the kingdom of Persia resisted me for twenty-one days, and then, seeing that I had held out there, Michael,
+one of the chief princes, came to help me against the prince of the kingdom of Persia.
+14 ‘And I have come to explain to you what will happen to your people in days to come; for this too is a vision for those days.’
+
+The ‘prince of the kingdom of Persia’ is described as an ‘angel,’ not because the prince is righteous, but because he
+exists in a future time and has not yet materialized in the physical realm. Michael is described as ‘one of the chief princes,’
+presumably of Persia, and refers to the status of Bahá’u’lláh as a high-ranking member of the ruling class of Persia in the
+days of the events the Báb is revealing.
+The ‘twenty-one days’ of Daniel’s vision is interesting. We recall that a day of prophecy equals a year of the calendar.
+The twenty-one years is the span of time between some very important parallel events in the history of the Bábí and Bahá’í
+Faiths:
+In April of 1847, the Báb received a letter from Muhammad Shah of Persia that ordered Him into captivity at the remote
+mountain fortress of Mah-ku. He arrived there and was incarcerated around August of 1847. He was to remain a prisoner for
+the rest of His life. Twenty-one years later, in July of 1868, Bahá’u’lláh was ordered into captivity at the desolate prison-
+fortress of Akka. He arrived at Akka and was incarcerated in August of 1868. Officially, He, too, was to remain a prisoner for
+the rest of His life.
+We must remember that the power of the Manifestation is in His Word, not in His sword. While a prisoner, the Báb
+revealed many Tablets asserting the end of the Muslim Dispensation and the independence of His own Revelation. He
+penned a stern Tablet called the Khuthiy-i-Qahriyyih (Sermon of Wrath), addressed to the evil Grand Vizier, Haji Mirza
+Aqasi, unsparing in its condemnation of the Shah’s regime and those who had persecuted the Bábís. The Shah died about a
+year later,37 while the Grand Vizier soon fell from power, was deprived of his riches, acquired a disease, and died in poverty
+and disgrace.38
+While Bahá’u’lláh was still at Adrianople and shortly before His imprisonment at Akka, He penned His own unsparing
+attack on the Shah called the Lawh-i-Sultan (Tablet to Nasiri’d-Din Shah). The Tablet, among other things, condemned those
+who persecuted the Bábís, and pronounced the independence of His own Revelation. At another time, Bahá’u’lláh denounced
+Nasiri’d-Din Shah as the ‘Prince of the Oppressors.’39 His attacks on the Shah lasted for many years. Ultimately, the Shah
+was dramatically assassinated on the eve of his jubilee. Shortly thereafter, his dynasty, the Qajar, was removed from power.
+In later verses (10:15-21), the gleaming Figure of the Báb is transformed into ‘one like a man’ in order to belay the fear
+of Daniel of the vision of the Báb in His true magnificence. In this less frightening guise, the Báb goes on to tell Daniel that
+He must return to the future to continue his struggle with the prince of Persia, and that He has no one at His side except
+‘Michael your prince’ (Bahá’u’lláh). The Báb also warns Daniel that as soon as He leaves to return to the future, the ‘prince
+of Greece’ (Alexander) will appear.
+
+
+
+Chapter Seven
+
+FROM CYRUS TO PHILOPATER
+
+Daniel 11 describes the time of troubles that will beset Palestine as a consequence of the invasion of Persia by Alexander.
+The struggles between the North and South are included in this chapter. Most of the details can be found in references 5 and
+8.
+The Báb continues:
+
+Daniel 10
+21 “I have no ally on my side to help and support me except Michael your prince. However I will tell you what is written in the Book
+of Truth. Here and now I will tell you what is true:
+
+Daniel 11
+2 Three more kings will appear in Persia, and the fourth will far surpass all the others in wealth; and when he has extended his power
+through his wealth, he will rouse the whole world against the kingdom of Greece.
+3 Then there will appear a warrior king. He will rule a vast kingdom and will do what he chooses.
+
+37 Ref 18, p. 147
+38 Ref 17, p. 82
+39 Ref 17, p. 197
+
+4 But as soon as he is established, his kingdom will be shattered and split up north, south, east, and west. It will not pass to his
+descendants, nor will any of his successors have an empire like his; his kingdom will be torn up by the roots and given to other as
+well as to them.”
+
+The speaker is still ‘Ali Muhammad, the Báb, while ‘Michael your prince’ refers to Husayn ‘Ali, Bahá’u’lláh. As the
+King of Glory, the Lord of Hosts, the Speaker on Sinai, and the Voice from the Burning Bush, Bahá’u’lláh is also the latter-
+day “Prince (Messiah) of the Jewish nation.”
+We recall that the first verse of Daniel 10 places the date of the prophecy in the third year of Cyrus, king of Persia (not in
+the first year of Darius the Mede as implied by some, probably spurious, versions of Daniel 11). The four Medeo-Persian
+kings that followed Cyrus were Cambyses (530-522 BCE), Gaumata (522 BCE), Darius I Hystaspes (521-486 BCE), and
+Xerxes (486-465 BCE).
+Xerxes was the extremely rich and most powerful monarch of Persia who ‘raised the whole world against Greece.’ He
+invaded Greece from 481 to 479 BCE with a vast army gathered from all over his known-world empire that included Medes,
+Persians, Assyrians, Moschians, Ethiopians, Indians, Scythians, and Thracians. Xerxes’ army, numbered in the hundreds of
+thousands, was attended by an equally impressive navy of hundreds of ships.
+Xerxes, no doubt, wished to avenge the humiliation of his father, who was defeated by the Greeks at Marathon about a
+decade earlier. And although Xerxes was much more successful than Darius, his army eventually suffered a disastrous defeat
+at the hands of the heroic Greeks at Plataea (479 BCE) while his navy suffered the same fate at Salamis. The stories of these
+amazing victories against overwhelming odds were chronicled by the Greek historian Herodotus and have inspired
+Graecophiles for many centuries. Indeed, the modern ‘Marathon races’ commemorate the anonymous Greek warrior who ran
+the 22 miles from Marathon to Athens, gasped out the news of the victory over Darius, and then dropped dead.
+Following the defeat and withdrawal of the Persians from Greece, and after periods of peace and internecine war in
+Greece, the control of Greece fell to Philip of Macedonia. The young son of Philip, the “warrior king” Alexander the Great,
+assumed power over Greece upon his father’s death and undertook the conquest of the Persian empire in 334 BCE. Without
+doubt, Alexander was one of the great hero-warriors of history – strong, intelligent, dashing, courageous, loyal, generous, ….
+His inspired leadership led the magnificent Greek army to victory over the Persians in about three years, but Alexander died
+of fever at Babylon in 323 BCE while still a young man of only 33.
+Although Alexander had left a legitimate heir, the infant son Alexander IV by the Persian princess Roxanna, the child
+was placed in the custody of Cassander, one of Alexander’s generals. The infant Alexander was murdered in 311 BCE.
+Another son, Hercules, was murdered also, and so was a weak-minded half-brother Aridaeus. The empire became divided
+among the Diodochi (Successors), commanders under the deceased Alexander, who managed to engineer the partition of the
+empire.
+One of the successors was Cassander, who gained control of Macedonia and Greece (‘west’); Lysimachus gained control
+of Thrace and parts of Asia Minor (‘north’); Ptolemy gained control of Egypt and Libya (‘south’); Seleucus gained control of
+northern Syria and Mesopotamia (‘east’).
+
+Daniel 11
+5 Then the King of the South will become strong; but another of the captains will surpass him in strength and win a greater kingdom.
+
+The King of the South, Ptolemy I, who became known as Soter (“the Preserver”), ruled c. 323-285 BCE. Given control
+of Egypt and Libya on the death of Alexander, he quickly gained control of “Hollow Syria” (Palestine), southern Phoenicia,
+Cyprus, and Cyrene. The southern empire under Ptolemy Soter became the leading and most powerful of the four states after
+the breakup of Alexander’s empire.
+Following the period of conflict between the remaining rivals for Alexander’s empire, the eastern portion fell under
+Seleucus, who, with the second partition of Alexander’s empire, also obtained Babylonia. Later, he conquered Susiana and
+Media, and extended his power to the Oxus and Indus rivers. In 301 BCE, Seleucus joined a successful confederacy against
+Antigonus I, the newest King of Macedonia, and as a reward, Seleucus was granted a large part of Asia Minor and the whole
+of Syria. Toward the close of his reign, he conquered the rest of Asia Minor and proclaimed himself King of Macedonia.
+With the eclipse of Macedonia, Seleucus became the undisputed “King of the North,” Seleucus I Nicator (ruled 312-281
+BCE). His empire was much vaster in extent than that of Ptolemy I Soter, the undisputed “King of the South.”
+The award to Seleucus preempted Ptolemy’s claim to Palestine and resulted in a series of wars that lasted for over a
+century to determine the future of Palestine. During the course of these wars, Palestine was crossed and recrossed from north
+and south several times by would-be conquerors.
+For Egypt to achieve strength and prosperity, she had to obtain timber from Lebanon for her ships. Furthermore, the line
+of commercial traffic that went along the Nile to and from Alexandria, had a rival in the line of trade that went from the
+Persian Gulf across Arabia to Gaza, and it was to the advantage of the King of the South to control both. In the first war of
+the series described in Daniel 11, Ptolemy Soter took Palestine in 320-318 BCE.
+
+Daniel 11
+
+6 In due course the two will enter into a friendly alliance; to redress the balance, the daughter of the King of the South will be given in
+marriage to the King of the North, but she will not maintain her influence and their line will not last. She and her escort, her child,
+and also her lord and master, will be the victims of foul play.
+
+This concerns an arrangement made between Ptolemy II Philadelphus (“the Brotherly,” reigned 285-246 BCE) the King
+of the South, and Antiochus II Theos (“God,” reigned 262-246 BCE), the King of the North. Laodice, the former wife of
+Antiochus, was to be left in a secondary position in Asia Minor, while Berenice, Ptolemy’s daughter, was to reign at Antioch
+and bear children for the Seleucid inheritance. But both Laodice and Berenice were Macedonian princesses true to type.
+Laodice induced Antiochus to come back to her at Ephesus. Antiochus subsequently died under mysterious circumstances,
+with some suspicion falling on Laodice. Laodice then sent assassins to Antioch to murder Berenice and her infant son. The
+ploy was successful, and Laodice’s son Seleucus II Callinicus (reigned c. 246-226 BCE) became the new King of the North.
+
+Daniel 11
+7 Then another shoot from the same stock as hers will appear in his father’s place, will penetrate the defenses of the King of the North
+and enter his fortress, and will win a decisive victory over his people.
+8 He will take back as booty to Egypt even the images of their gods cast in metal and their precious vessels of silver and gold ….
+
+Ptolemy III Euergetes (“the Benefactor,” reigned c. 246-221 BCE), the son of Ptolemy II, took over from his father and
+was determined to avenge the death of his half-sister Berenice. The invasion of Syria by Ptolemy III Euergetes was called the
+“Laodicean War,” that is, the “war against the murderess Laodice.” Ptolemy was successful, and, according to Saint Jerome,
+“he plundered the kingdom of Seleucus and carried away 40,000 talents of silver, and 2500 precious cups and images of the
+gods, among which were those also which Cambyses, when he took Egypt, had brought to the country of the Persians.
+Finally, the Egyptian race, being given to idolatry, because he had brought back their gods after many years, called him
+Euergetes – “the Benefactor.”
+
+Daniel 11
+8 … Then for some years he will refrain from attacking the King of the North.
+9 After that, the King of the North will come into the realm of the southern kingdom but will retreat to his own land.
+
+After Ptolemy returned to Egypt, the war went on. Seleucus recovered most of northern Syria. In 242-241 BCE, Seleucus
+was able to deliver Damascus and Orthosia on the Phoenician coast, that were being besieged by the Egyptians. But an
+attempt of Seleucus to penetrate farther south into Palestine led to a disastrous defeat. Soon after this, c. 240 BCE, the two
+powers signed a peace treaty.
+
+Daniel 11
+10 His sons will press on to assemble a great horde. One of them will sweep on and on like an irresistible flood. And after that he will
+press on as far as his enemy’s stronghold.
+11 The King of the South, his anger aroused, will march out to do battle with the king of the North who, in turn, will raise a great
+horde, but it will be delivered into the hands of his enemy.
+12 And when this horde has been captured, the victor will be elated and will slaughter tens of thousands, yet he will not maintain his
+advantage.
+
+Ptolemy III Euergetes was succeeded by his young son, the corrupt and dissolute Ptolemy IV Philopater (“Lover of his
+Fatherland,” reigned c. 221-204 BCE). The throne of the Kingdom of the North had recently fallen to the highly competent
+Antiochus III (“the Great,” reigned c. 223-187 BCE), the brother of Seleucus II. Within a few years, Antiochus turned to a
+systematic conquest of Palestine. His chief seaport, Seleucia, now in the hands of Egypt, was regained, and he turned south.
+Following various fortunes, a wearisome negotiation was entered into by the two kings. The successes of the King of the
+North in Palestine overcame the notorious inertia of the King of the South. A lull in the warfare gave the King of the South
+time to build up his forces. At Alexandria, the season was one of intense secret preparations. Experienced Greek officers
+drilled fresh mercenaries from overseas, while war matÇriel was being manufactured and prepared. Even the native fellahin
+peasants, Libyans and natives of Cyrene were enrolled, trained and armed like Macedonians.
+The peace negotiation, as orchestrated by Egypt, failed in its purpose and gave way to further warfare. In 217 BCE came
+the decisive battle of Raphia, a little south of Gaza. Ptolemy achieved a great victory, and Antiochus again withdrew to Syria.
+In later years, Antiochus renewed the conquest of Palestine and was ultimately successful. The story of his successful
+campaign is told in verses 11:13-19.
+
+Daniel 11
+13 Then the King of the North will once again raise a horde even greater than the last and, when the years come around, will advance
+with a great army and a large baggage train.
+14 During these times many will resist the King of the South, but some hotheads among your own people will rashly attempt to give
+substance to a vision and will come to disaster.
+
+Shortly after the death of Ptolemy IV Philopater, Antiochus renewed his conquest in earnest and started taking Egyptian
+possessions in Asia Minor and Palestine. As his successes mounted, many Jews hailed Antiochus as a liberator. Antiochus
+treated the Jews kindly, and he appeared to be most scrupulous in his observance of the Jewish law. Also, there was an
+inflammatory but questionable story that had circulated after the battle of Raphia: it was said that Ptolemy had attempted to
+push his way into the Holy of Holies, but was stricken by an unaccountable terror and was carried out in an almost lifeless
+condition. Even if true, history was to demonstrate that the party of Jews favoring the King of the North was misled, and the
+tolerant policy of Antiochus the Great was soon to be superseded by a harsh policy of Hellenization and suppression of
+Jewish culture.
+
+Daniel 11
+15 Then the King of the North will come and throw up siege ramps and capture a fortified town, and the forces of the south will not be
+able to hold their ground.
+16 And so his adversary will do as he pleases and meet no opposition. He will establish himself in the fairest of all lands and it will
+come wholly into his power.
+
+Scopas, Ptolemy’s general in Egypt, managed to recapture a number of places in Palestine, including Jerusalem. Scopas
+stationed garrisons there and elsewhere. Nevertheless, Antiochus was again able to take Palestine. This time, Antiochus
+achieved a decisive victory at Panium (198 BCE) near the headwaters of the Jordan, later to be the site of Caesarea Philippi.
+Scopas subsequently was besieged at Sidon but was allowed to retreat into Egypt. Gaza, found naturally on the opposite side
+of Jerusalem, held out to the last for Ptolemy, but eventually fell. Palestine passed into the hands of the King of the North.
+
+Daniel 11
+17 He will resolve to subjugate all the dominions of the King of the South and he will come to fair terms with him. He will give him a
+young woman in marriage, for the destruction of the kingdom; but she will not persist nor serve his purpose.
+
+Probably as a part of the peace treaty between Syria and Egypt, Antiochus gave his daughter Cleopatra I (not the famous
+Cleopatra VI of later imperial Roman history) in marriage to the young Ptolemy V Epiphanes (“the Illustrious,” reigned c.
+204-181 BCE), who had succeeded his father after the Battle of Raphia. The betrothal of his young daughter to the King of
+the South was a part of a long-range strategy of Antiochus to dominate Egypt. Nevertheless, Cleopatra consistently dedicated
+her loyalty to Egypt and her young husband Ptolemy rather than to her father Antiochus. Cleopatra became a loyal and
+competent regent of Egypt following her husband’s early death.
+
+Daniel 11
+18 Then he will turn to the coasts and take many prisoners, but a foreign commander will put an end to his challenge and will throw
+back his challenge on to him.
+19 He will fall back upon his own strongholds; there he will come to disaster and be seen no more.
+
+While Antiochus III was becoming “great,” a new power to the west, Rome, was becoming strong. Antiochus invaded
+Greece in the spring of 191 BCE, but was driven out by the Romans a year later. A decisive battle was won by Scipio, the
+general from Rome, over Antiochus at Magnesia (190 BCE). Thereby Rome became a power in the eastern Mediterranean.
+The Romans took the Seleucid territories north of the Taurus and gave them to their friend, the king of Pergamon. Also, as
+another part of the treaty, twenty prominent hostages were to be sent to Rome, among them Antiochus, a younger son of the
+King who was destined one day to become the infamous Antiochus IV Epiphanes.
+Antiochus the Great, hurled back from Asia Minor, turned his thoughts once more to the field of old glories, the East. As
+soon as peace had been made with Rome, Antiochus left his second son Seleucus in Syria as joint-king and plunged eastward.
+The tidings eventually came back to the capital at Antioch that he had adventured himself with a body of troops into the
+Elymaean hills in quest of spoils and had been overwhelmed by fierce tribesmen.
+
+Daniel 11
+20 He will be succeeded by one who will send out an officer with a royal escort to extort tribute; after a short time this king too will
+meet his end, yet neither openly nor in battle.
+
+Seleucus IV Philopater (“Lover of his Father,” ruled c. 187-176 BCE) became the King of the North after his father
+disappeared in the East. A retiring man who was not prone to battle, Seleucus was nonetheless a great extractor of taxes from
+his subjects and managed to replenish the royal treasury after the disaster at Magnesia. The ‘officer with royal escort’ was his
+chief minister Heliodorus, who was given the job and was accompanied on money gathering missions by royal bodyguards.
+The power granted Heliodorus tempted him to aspire higher. Heliodorus formed a conspiracy against the King, and in a
+time of peace, Seleucus Philopater was suddenly murdered.
+
+Chapter Eight
+
+ANTIOCHUS IV EPIPHANES, “THE GOD MANIFEST”
+
+Daniel 11
+21 A contemptible creature will succeed but will not be given recognition as king; yet he will seize the kingdom by dissimulation and
+intrigue in time of peace.
+
+After his murder of Seleucus Philopater, Heliodorus proclaimed the infant son of Seleucus to be the new King. This was
+an obvious ruse to control the royal power himself. The rightful heir to the throne was Demetrius, the elder son of Seleucus
+Philopater. Unfortunately, Demetrius had been sent to Rome as a replacement hostage for his father’s younger brother,
+Antiochus. Antiochus had become enamored of Greek culture and was in Athens at the time of the machinations of
+Heliodorus. Antiochus, seizing the opportunity, rushed to Antioch with an armed force. Heliodorus fled and disappeared from
+history while the new imposter ascended the throne as Antiochus IV Epiphanes (ruled 175-163 BCE).
+To consolidate his position, Antiochus resorted to mixed stratagems of calculated mildness and bloodshed. Prominent
+competitors for power were induced to “disappear” or to commit suicide. The infant son of Seleucus was murdered by
+Andronicus, an agent of Antiochus. Following the assassination, Antiochus disowned his own agent and, in turn had him put
+to death.
+The character of Antiochus IV was notorious. While being an astute politician and clever trickster, he was a “playboy
+emperor” devoted to practical jokes and theatrical absurdities. While professing a love for Hellenism, he lacked the depth of
+understanding to appreciate its true cultural values. He was probably the most despised of the Seleucid regents. Some
+nameless wit in his court parodied his title Epiphanes (“the Illustrious”) into the more appropriate Epimanes (“the Madman”).
+
+Daniel 11
+22 He will sweep away all forces of opposition as he advances, and even the Prince of the Covenant will be broken.
+23 He will enter into fraudulent alliances and, although the people behind him are few,
+24 He will rise to power and establish himself in time of peace. He will overrun the richest districts of the province and succeed in
+doing what his fathers and forefathers failed to do, distributing spoil, booty, and property to his followers. He will lay plans against
+fortresses, but only for a time.
+
+Whereas his predecessor Seleucus IV had been an avid collector of taxes, Antiochus IV was an avid spender of assets.
+He lavished the riches of Syria and political privileges upon his Hellenist friends. He bestowed magnificent presents upon the
+old seats of Hellenism in Asia Minor and Greece, and threw open to their craftsmen and artists lucrative employment in
+Syria. His chief counsellors were two youths, brothers, Heraclides and Timarchus of Miletus, who had obtained the favor of
+Antiochus through the vilest of ways. One was made minister of finance; the other was made governor of the eastern
+provinces. The principal cities of Cilicia, Tarsus, and Mallus were given to his mistress, Antiochis.
+Antiochus, in spite of his admiration of Hellenism, was no true friend of Rome. An anti-Roman movement was centered
+around Perseus of Macedonia, and Antiochus was a party to the movement. He carried on a clandestine correspondence with
+Perseus, and proceeded to rebuild his navy and other forces in violation of the treaty following Magnesia. Even so, his
+thoughts soon turned away from Rome and south to Egypt.
+The “Prince of the Covenant” is Jehovah. How Antiochus replaced Jehovah in the Great Temple at Jerusalem will be told
+in later paragraphs.
+
+Daniel 11
+25 He will rouse himself in all his strength and lead a great army against the King of the South, but the King of the South will press
+the campaign against him with a very great and numerous army; yet the King of the South will not persist, for traitors will lay their
+plots.
+26 Those who eat at his board will be his undoing; his army will be swept away, and many will fall in the field of battle.
+27 The two kings will be bent on mischief and, sitting at the same table, they will lie to each other with advantage to neither. Yet there
+will be an end to the appointed time.
+
+When his sister Cleopatra I of Egypt died c. 172 BCE, Antiochus heard that Egypt might be on the verge of invading
+Syria. Antiochus advanced promptly with a force as far as Joppa to repel a possible invasion. After satisfying himself that
+things were safe for the moment, he returned north. Nevertheless, old quarrels concerning the ownership of Palestine were
+still unresolved, and Antiochus was sure that it would be only a matter of time before Egypt would again try to recover it.
+Indeed, in 170 BCE, Egypt went on the offensive to recover Palestine. The army was under the command of two joint
+regents, Eulaeus and Lenaeus, who had seized control of Egypt following the unexpected death of the young Cleopatra. The
+
+legal heir to the southern kingdom, Ptolemy, son of Cleopatra and Ptolemy Epiphanes, was only fifteen years old at the time
+of his mother’s death.
+Eulaeus and Lenaeus were unlikely creatures of the palace. Both had been slaves. Eulaeus was a eunuch and possibly a
+native of Khuzistan; Lenaeus was a Syrian. Before their invasion of Syria, they had made boastful speeches to the populace,
+and had attempted to justify several wagon loads of bullion, gold and silver plate, jewels, rich feminine attire, and even
+furniture from the palace, that would accompany them on the invasion.
+Antiochus met the invaders before they had crossed the desert and won an enormous victory. Then, by some ruse,
+probably through treachery, Antiochus seized Pelusiaum. The young King Ptolemy was given bad advice, probably again by
+traitors, and was packed aboard a ship to escape from Egypt. The ship was intercepted by the Syrian fleet, and Ptolemy
+Philomater became the prisoner of Antiochus!
+Following the defection and capture of their young King, the citizens of Alexandria revolted against their incompetent
+regents Eulaeus and Lenaeus, brought the younger brother of Philomater to the throne, and gave him the auspicious title of
+Ptolemy Euergetes II, in imitation of his successful great-grandfather. Antiochus continued his invasion of Egypt and moved
+up the Nile to Memphis. Lower Egypt, except for Alexandria, was soon entirely in the hands of Antiochus. For the first time
+since Alexander the Great, Egypt had been successfully invaded from Palestine!
+After his nearly total takeover of Egypt, Antiochus installed his young prisoner Ptolemy Philomater (“lover of his
+Mother”) as a rival King at Memphis.
+
+Daniel 11
+28 Then he will return home with a long baggage train, and with anger in his heart against the Holy Covenant; he will work his will
+and return to his own land.
+
+Having created havoc on the Egyptian political scene, Antiochus retired from Egypt laden with spoils.
+While Antiochus was making war in Egypt, a false report was spread in Palestine that Antiochus had been killed. Jason,
+a former High Priest of the Temple in Jerusalem, who had been outbid for the position by his brother Menelaus, seized the
+occasion by raising a small army and inflicted severe chastisement upon the partisans of Menelaus. Antiochus, on hearing of
+the rejoicings which had been manifested on the occasion of his supposed death, hastened to Jerusalem and gave up the city
+to be sacked and pillaged by his soldiers for three consecutive days. About 40,000 citizens of Jerusalem were massacred and
+about 40,000 more were sold into slavery. The traitor Menelaus aided and abetted Antiochus in his outrages, assisted in the
+desecration of the Temple and the robbery of its treasury. Jason himself fled at the approach of Antiochus and died miserably
+in exile.40
+
+Daniel 11
+29 At the appointed time he will once more overrun the south, but he will not succeed as he did before.
+30 Ships from Kittim will sail against him, and he will receive a rebuff.
+
+After a lengthy negotiation between Alexandria and Memphis, it was agreed that Ptolemy Philomater and Ptolemy
+Euergetes II would rule as joint kings in Egypt. This embarrassing setback for the plans of Antiochus precipitated a second
+successful invasion of Egypt from the north in 168 BCE. This time, however, Rome (identified by Bevan as “Kittim”41) was
+now free to exercise her authority over the Near East, having just recently conquered Macedonia at the battle of Pydna (June,
+168 BCE).
+Immediately, Rome sent from Delos her ambassador Popillius, who met Antiochus somewhere in the desert east of
+Alexandria. Antiochus had known Popillius in Rome and extended his hand in a friendly greeting. Much to the chagrin of
+Antiochus, his warm greeting was met with a cold rebuff. Antiochus was ordered to leave Egypt completely. Antiochus
+answered with one of those diplomatic phrases that came so easily to him, but the Roman was determined that he should not
+wriggle free. To everyone’s amazement, with his cane, Popillius drew a circle in the sand around Antiochus and demanded a
+Yes or No answer before he stepped outside it. Antiochus collapsed. When he regained his voice, he agreed to everything.
+The next moment found the Romans shaking his hand and enquiring about how he had been.
+
+Daniel 11
+30 … He will turn and vent his fury against the Holy covenant;
+31 On his way back he will desecrate the Sanctuary and the Citadel and do away with the regular offering. And there he will set up
+“the abominable thing that causes desolation.”
+
+After his rebuff from the Roman ambassadors, Antiochus withdrew completely from Egypt, “groaning and in bitterness
+of heart.” Now, since he could no longer protect Palestine by holding any Egyptian territory, it was imperative that he
+consolidate Palestine. The weak spot was Jerusalem, which had resisted all efforts to amalgamate into the general Hellenistic
+
+40 Ref 4, p. 141ff
+41 Ref 8, p. 145
+
+system that he had envisioned for Syria. He was determined to abolish the religion of Jehovah, even if it required the
+extermination of recalcitrant Jewish residents and their replacement by Greek colonists.
+Appolonius, the commander of the Mysian mercenaries, was sent to occupy Jerusalem with a strong military force. A
+fresh massacre occurred, probably led by the traitorous High Priest Menelaus, and cleared Jerusalem of the obnoxious
+element. A new fortress was built on the Temple Mount, and a body of royal troops, “Macedonians,” was established in it to
+dominate the city.
+Following the military occupation, a Greek altar to Zeus was erected upon the Rock Moriah, and swine sacrificed upon
+it. To partake of the “broth of abominable things” became a test of allegiance to the King, and Menelaus was one of the
+participants of the new sacrificial feast. The Temple sanctuary was smeared with blood, and in the ensuing riot, soldiers
+committed the grossest indecencies in the revered courts.
+Antiochus had already declared himself to be the manifestation of Zeus on earth, and the day of the King’s birth became
+a holy day to be celebrated every month. A Dionysian festival was introduced in which the citizens of Jerusalem, crowned
+with ivy, were coerced to participate in the procession. The triumph of Antiochus over the “Prince of the Covenant” seemed
+complete.
+This was not to be the last time that sacrileges and an “abominable thing” would stand in the holy place. We recall once
+again the warning of Jesus in Matthew 24:15: ‘So when you see the desolating sacrilege spoken of by the prophet Daniel
+standing in the holy place (let the reader understand), ….’
+
+Daniel 11
+32 He will win over by plausible promises those who are ready to condemn the covenant, but the people who are faithful to their God
+will hold firm and fight back.
+33 Wise leaders will give guidance to the common people; yet for a while they will fall victims to fire and sword, to captivity and
+pillage.
+34 But these victims will not want for help, though small, even if many who join are insincere.
+35 Some of these elders will themselves fall victims for a time so that they may be tested, refined and made shining white.
+
+The acts of Antiochus were to precipitate the Maccabean Revolt (c. 164-142 BCE), recorded in the Books of the
+Maccabees. It will not be our objective to discuss this very complex period of Jewish history. We shall content ourselves with
+recalling that the Jews eventually succeeded in winning national independence after a bitter but heroic struggle that lasted
+over two decades. The success of the Maccabean Revolt is commemorated by the Jewish Feast of Lights (Hanukkah). One of
+the most popular heroes to emerge from the conflict was Judas, son of Mattathiah.
+
+
+
+Chapter Nine
+
+NAPOLEON, “THE SULTAN KABIR”
+
+At this point in Daniel’s eleventh chapter, the Báb introduces a new element:42
+
+Daniel 11
+35 Some of the wise will stumble, so that they may be refined, purified and made spotless until the time of the end, for it will still
+come at the appointed time.
+
+indicating that the verses to follow apply to a different time – the ‘time of the end,’ just as similar expressions do at other
+places in Daniel. Also, a careful reading of the verses following 11:35 will show that the King of the North referred to in
+verse 11:36 is none other than the same King referred to in verse 11:40. That same King of the North will do battle with the
+King of the South at the ‘time of the end’ (11:40).
+It will become obvious in following verses that the latter-day King of the North is that great villain of history, Napoleon
+Bonaparte.
+But how can we say that Napoleon was the King of the North after so many centuries had elapsed and after the Seleucid
+Empire no longer existed? The answer is quite simply that the “northern kingdom” is always one that invades Palestine from
+the north, while the “southern kingdom” is always one that invades Palestine from the south.
+By the time of Napoleon, much had happened to alter the political groupings. The Seleucids had been replaced by Rome
+as the masters of Palestine, in turn to be replaced by Islam in the Seventh Century. But the Muslim invasions came from the
+
+42 One possible cause of exegetic confusion is that the description of the villainous character of the King of the North in verses 11:36
+through 11:39 could apply quite well to Antiochus Epiphanes. The fact is, however, that another villain of history had a character with
+the same description, namely Napoleon Bonaparte. It is simply a matter of recognizing that many persons may manifest the same
+attributes of character and personality, whether good or bad, and at different times and places.
+
+south by way of the peninsula of Arabia. Thus, Islam became the southern kingdom, with the reigning Caliph or Sultan
+becoming the King of the South.
+Then, during the Crusades, Palestine had another temporary master – Christendom (i.e., the “Frankish kingdoms”). This
+group invaded Palestine from the north by way of Constantinople, an invasion that resulted in another massacre of Jews, this
+time by Christians. Thus Christendom became the northern kingdom, and, as far as Palestine was concerned, so it remained
+until the time of Napoleon. Indeed, a look at a world map will show that Christendom is essentially a northern “kingdom,”
+while Islam is essentially a southern “kingdom.”
+The Kings of the North and South had complex histories following Antiochus Epiphanes and Ptolemy Euergetes II that
+are too lengthy to be discussed here. But of some interest to our essay is an event surrounding the crowning of Charlemagne
+by Pope Leo III in 800 CE. Many historians believe that Charlemagne had intended to seize the crown from Leo III and to
+crown himself emperor. However, Charlemagne was foiled in his attempt, and the Empire of the West was thereby officially
+initiated under the aegis of the Roman Catholic Church as the “Holy Roman Empire.”
+After the fall of Constantinople and Eastern Christendom to Islam in 1453 CE, there was no longer a serious rival for the
+political leadership of Christendom outside of Western Europe. It is also a fact that, after 1453, the political role of the Pope
+became less and less important. The King of the North became, simply, the political ruler that happened to be dominant in the
+Christian lands.
+A similar evolution of power occurred in the Muslim countries. By the time of Napoleon, the caliphate had lost its
+political power, and the King of the South had become the ruling Ottoman Sultan, Salim III.
+
+Daniel 11
+36 The king [of the north] will do what he chooses. He will exalt and magnify himself above every god and against the God of gods he
+will utter monstrous blasphemies. All will go well for him until the time of wrath comes, for what is determined must be done.
+37 He will ignore the God of his fathers, and the one beloved by women; to no god will he play heed but will exalt himself above them
+all.
+38 Instead, he will honor the god of forces, a god unknown to his ancestors, with gold and silver, gems and costly gifts.
+39 He will garrison his strongest forces with aliens, the people of a foreign god. Those whom he favors he will load with honor,
+putting them in office over the common people and distributing land at a price.
+
+Napoleon Bonaparte, the “Corsican Adventurer,” was the supreme example of egotism, ambition, hypocrisy, and
+arrogance. Even at the youthful age of nineteen, while he still had literary ambitions, he indicated his cynical attitude toward
+religious belief by writing a short story called ‘The Masked Prophet.’ In the story, based upon the life of an eighth-century
+sincere but misdirected Mahdi (Savior) named Hakim, Napoleon ascribes Hakim’s fanatic attempts to overcome the Caliph
+as “an incredible example of the extremes to which the mania for fame can push a man.”
+Later, as a member of the radical Jacobin party, he cynically denounced religion as a means for keeping the people quiet
+(harbinging the later dictum of the Bolsheviks that “religion is the opiate of the masses”). The Jacobins, we should remember,
+were the instigators of the Reign of Terror that was so disastrous to the Church and other established institutions of France.
+While Napoleon Bonaparte may be rightly called the “arch-hypocrite,” he also had a profound sense of destiny and of his
+part to be played in history. He, as have many conquerors, claimed to be fulfilling the dictates of prophecy. Well versed in the
+Qur’an and familiar with Muslim traditions, in order to carry out his designs during his command of the invasionof Egypt,
+Napoleon pretended to be a Muslim and participated in local customs and holy days. Following his victory over the Sultan’s
+forces at Abukir, he informed the disappointed sheiks43 that he was a “true Muslim,” that he hated the Christians whose altars
+and crosses he had overthrown, and that he had abjured his former faith. Furthermore, he ascribed his military successes to
+being the chosen instrument of Allah, the Creator of the Universe.
+Witness this proclamation by Napoleon after the quelling of an insurrection at Cairo:
+
+Sherifs, ulamas, preachers in the mosques, be sure to tell the people that those who, with a light heart, take sides against us shall find
+no refuge in either this world or the next. Is there a man so blind as not to see that destiny itself guides all my operations? …
+
+Let the people know that, from the creation of the world, it is written that after destroying the enemies of Islam and beating down the
+cross, I was to come from the confines of the Occident to accomplish my appointed task. Show the people that in more than twenty
+passages of the holy Qur’an, what has happened has been foretold, and what shall happen has been explained. If I chose, I could call
+each of you to account for the most hidden feelings of his heart, for I know everything, even what you have told to no one. But the day
+will come when all men shall see beyond all doubt that I am guided by orders from above and that all human efforts avail nought
+against me. Blessed are they who, in good faith, are the first to choose my side.
+
+In Egypt, Jews and Christian Copts were retained as security guards and tax gatherers, while Napoleon garrisoned his
+Citadel and strongest fortresses with Janissary companies composed predominantly of alien Christian Greeks, a source of
+aggravation to the native Egyptians and Arabs. Especially annoying to the Egyptians was Barthelmy and his band of ruffians.
+
+43 Ref 11, p. 321
+
+Barthelmy, the Lieutenant of Police for Cairo, was an alien Greek of herculean stature and spine-chilling appearance. Besides
+various weapons, he wore a colorful but bizarre combination of local and Greek costume when he and his goon squad sallied
+forth to find heads to lop off. Often, his Amazon-statured wife would ride at his side.
+Napoleon, on his return to France, created a “Mamluk Corps” composed of Mamluks, Copts, and Syrians who had joined
+his train. (As we shall see, the Mamluks, although Muslim by faith, were actually aliens in Egypt.) Also, back in Europe,
+Napoleon made his brothers, sisters, and in-laws the rulers of entire nations. And like all of his gifts to his self-seeking
+favorites, the price to be paid for his awards was unquestioned loyalty to the promotion of his ambitions.
+Later, as the head of the French government, Napoleon reinstated the Catholic Church in France but not for altruistic
+purposes. He worked out a conciliation with the Roman Church, but Rome was to support him in return for this Corcordat.
+Napoleon had in mind the restoration of a monarchy with himself as the Supreme Monarch. In his own words:44
+
+How can you have order in a state without religion? Society cannot exist without inequality of fortunes, which cannot endure apart
+from religion. When one man is dying of hunger near another who is ill of surfeit, he cannot resign himself to this difference, unless
+there is an authority which declares, “God wills it thus: there must be poor and rich in the world: but hereafter and during all eternity,
+the division of things will take place differently.”
+
+Also, Napoleon wished to re-establish missionaries, but not for the spread of the Gospel:45
+
+It is my wish to re-establish the institution of foreign missions; for the religious missionaries may be useful to me in Asia, Africa and
+America, as I shall make them reconnoitre all the lands they visit. The sanctity of their dress will not only protect them, but serve to
+conceal their political and commercial investigations. The head of the missionary establishment will reside no longer in Rome but in
+Paris.
+
+Jesus of Nazareth may be rightly called “the One beloved by women,” since He re-established the sanctity of marriage
+and forbade the degradation of women. But as for Bonaparte of Corsica,46
+
+I do not think that we need trouble ourselves with any plan for instruction of young females; they cannot be better brought up than by
+their mothers. Public education is not suitable for them, because they are never called upon to act in public.
+
+Under the Code of Napoleon, a system of laws largely due to his efforts that still lingers in several regions of the world,
+women lost control over their property and were relegated to the status of inferior beings.
+To what ‘forces,’ if any, did Napoleon feel beholden? In his own words47, Napoleon informed the “Council of Ancients”
+at the Chateau Saint-Cloud following his return from the Egyptian campaign, that “the god of war and the god of luck are
+marching alongside me!” Renaming the Louvre after himself, he stocked it with the riches he had stolen from other lands and
+peoples in the name of “war and luck.”
+
+Daniel 11
+40 At the time of the end, he and the king of the south will make feints at one another. The king of the north will come storming
+against the king of the south with chariots, cavalry and many ships. The king of the north will overrun land after land, sweeping
+over them like a flood,
+41 Amongst them the fairest of all lands, and tens of thousands will fall victims. Yet all these lands (including Edom and Moab and
+the remnant of the Ammonites) will survive the attack.
+42 The king of the north will reach out to land after land, and Egypt will not escape.
+43 He will gain control of her hidden stores of gold, silver and all of her treasures; Libyans and Cushites will follow in his train.
+44 Then rumors from east and north will alarm him, and he will depart in a rage to destroy and to exterminate many.
+45 He will pitch his royal pavilion between the sea and the holy hill, the fairest of all hills, and he will meet his end with no one to
+help him.
+
+After the fall of Constantinople in 1453, there were several thrusts and counter-thrusts between Christendom and Islam.
+The Moors were driven out of Spain by Ferdinand and Isabella in the late fifteenth century. In the sixteenth century,
+Sulayman the Magnificent besieged Rhodes and Sulayman II attacked Malta. In the seventeenth century, Italy invaded
+Greece, then a part of the Ottoman empire, but was driven out again about half a century later.
+By the late Eighteenth Century, the Ottoman Empire, the “Sick Man of the East,” was perceived to be in a decrepit
+condition by the European powers. In particular, Egypt seemed to be a plum ripe for the picking. In 1798, the Directory of the
+newly-formed French Republic decided to send General Bonaparte, the hero of the Italian campaign, with an army into Egypt
+to pick the plum.
+
+44 Ref 2, p. 1048
+45 Ref 2, p. 1049
+46 Ref 2, p. 1049
+47 Ref 11, p. 312
+
+There were several overt arguments proffered for the enterprise, among them being the grand strategy of using Egypt as
+a base for the invasion of India and thereby striking at the heart of the British Empire. At the very least, the control of Egypt,
+and hopefully Syria as well, would seriously hamper the flow of trade and communications between India and England. But
+the covert argument was based on simple greed and the thirst for power. Egypt, although in a backward economic condition
+in 1798, had the potential of becoming a fertile breadbasket for the French Empire, just as it had been for the Roman Empire
+and other invaders of the past.
+In May of 1798, a spectacular convoy sailed from Toulon bound for Malta. The convoy would soon swell to almost 400
+sailing ships and would carry 55,000 citizens of France, among them an army of 25,000 men, cavalry, transport vehicles,
+artillery, and the full accouterments of war. The plan was first to take Malta from the obsolete and quixotic Knights
+Hospitalier of Saint John of Jerusalem that had held the island since the Crusades, and then to use Malta as a base for the
+invasion of Egypt. There ensued a ludicrous game of blind-man’s bluff following Napoleon’s departure from Toulon in
+which Napoleon’s convoy, under the command of Vice-admiral Brueys, was chased by the British battle fleet, under the
+command of Admiral Horatio Nelson, all over the eastern Mediterranean. Had Nelson been able to intercept Brueys, the
+whole course of modern history might have taken a drastic turn. As it was, Napoleon was able to take Malta and sail on to
+Alexandria.
+The siege of Alexandria and other minor engagements led to the celebrated Battle of the Pyramids near Cairo. It was
+there that Napoleon achieved a spectacular victory over the Mamluks under the command of Murad Bey. The desert regions
+of Egypt were under the control of the Bedouin sheiks, but the Mamluks were the de facto rulers of the populated parts of
+Egypt. While the Mamluks were theoretically subjects of Sultan Selim III, owing to the sorry condition of the Ottoman realm,
+they were actually a semi-autonomous warrior class that had managed to bully the powerless and impoverished fellahin
+peasants of Egypt for five and a half centuries.
+The Mamluks were an historical anomaly. The word ‘Mamluk’ means a ‘bought man’ in Arabic. But the Mamluks were
+not slaves in the usual sense of the word. They had their origins in the mid-thirteenth century when the Ayyubite Sultan
+brought about 12,000 youths from the Caucasus mountains to Egypt to form the elite corps of his army. The Mamluks,
+mostly of Circassian and Georgian stock, soon took over the land, killed Sultan Ashraf Moussa in 1252, and formed their
+own dynasty. Even after the Turkish conquest of Egypt in 1517, the Mamluks retained the essential control of populated
+Egypt, their only real subservience to the Sultan being in the act of collecting and delivering taxes from the fellahin. Even
+though the Mamluks filled their harems with Egyptian, Abyssinian, and Nubian women, they renewed their numbers with
+fresh imports of young fair-skinned boys from the Caucasus whom they bought and trained as warriors.
+Shortly after Napoleon’s victory over the Mamluks at the pyramids, a naval battle occurred that changed the character of
+the war: Admiral Nelson finally caught up with the French fleet at Abukir about ten miles east of Alexandria. The bloody
+“Battle of the Nile” that ensued resulted in the destruction of the French fleet and the death of Admiral Brueys. Thereafter,
+isolated and ignored by the Directory of the Republic, Napoleon and the ‘Army of the Orient” were left to fend for
+themselves in a strange and exotic land.
+In 1798, Egypt was still a land of mystery that had been visited by relatively few Europeans. Since colonization was the
+covert reason for the invasion of Egypt in the first place, Napoleon had brought along a remarkable group of civilian savants
+in his train, who will be recognized by modern savants in each of their fields: the chemist Berthollet, the geometrist Monge,
+the orientalist Jean-Michel de Venture, the artists Denon and Duterte, the architect Balzac, the mathematician Fourier, the
+zoologist Saint-Hilaire, the inventor Conte, the adventurist-minerologist Gratet de Dolomieu, and the physicist Malus, among
+others. Together, these distinguished scientists and humanists initiated the science of Egyptology and disclosed the wonders
+of ancient Egypt to modern eyes. This ‘Scientific and Artistic Commission of Egypt’ was responsible for the discovery of the
+Rosetta Stone (sculpted in honor of Ptolemy V Epiphanes in 195 BCE) that made it possible to decipher the written
+languages of ancient Egypt.
+Soon after the destruction of the French fleet by Admiral Nelson, Napoleon sent the dashing and heroic General Desaix
+with an army of about 3,000 men in pursuit of the clever and equally heroic Murad Bay and his Mamluks. For many months,
+there were thrusts and counter-thrusts between the forces of Desaix and Murad Bey all the way from Cairo to the cataracts of
+the Nile and back again, a distance of about 3,000 miles. Along the way, the artist Denon was able to record many of the
+famous sights as the pursuit passed through such spectacular ruins as Karnak and Luxor.
+Finally, some semblance of victory was achieved by Desaix, and Egypt became a temporary colony of the French
+Empire. Cairo even acquired some of the gaieties and amenities of Paris. Since the Army of the Orient was isolated and
+abandoned by the French government, it was necessary to pay, clothe, and feed the Army with local confiscations and
+oppressive taxation policies. Besides the collections of gold and silver, Napoleon’s army and the savants collected an
+astonishing booty of ancient treasures, much of which had been stolen from the tombs of pharaohs by grave robbers, and
+much of which, as was said before, now rests in the Louvre.
+While Desaix was engaged in the chase, Napoleon set off on another adventure, probably the one closest to his heart but
+one that was doomed to failure. Napoleon had often confided to friends that he admired Alexander the Great, and evidence
+suggests that he actually tried to emulate that ancient Greek conqueror. Napoleon had visions of becoming a spreader of
+French culture throughout the Orient and of, once again, unifying the Occident and the Orient. In imitation of Alexander, he
+
+took on many of the trappings of the East and chose the title of Sultan Kebir, the “Great Sultan.” Indeed, Bedouin tribes
+believed Napoleon to be Alexander reincarnated. They would have been more correct if they had likened him to Antiochus
+Epiphanes.
+In the light of his dreams and convictions, we should not be too surprised to find Napoleon undertaking the invasion of
+Syria at a time when the situation of Egypt was, at best, precarious and the hopes of receiving substantial assistance from
+France to be virtually nil. But more than that, he had ambitions for Europe as well as for the Orient. The ‘news from the north
+and from the east’ that put ‘rage’ into his heart was delivered by Hamelin, a French merchant who had just arrived from
+Trieste48 a few days before his departure from Cairo for Syria. The news was the renewal of the war in Italy, the Russo-
+Turkish blockade of Corfu, and the declaration of war by Turkey against France. It seemed certain to Napoleon that a
+resumption of general hostilities involving most of the European powers was imminent. Egypt and Asia offered no more
+opportunities to Napoleon, and Europe beckoned him to even greater glory. Syria had to be invaded and conquered quickly if
+he was to seize the steed of fortune.
+Napoleon had, for some time, realized that the success of the Army of the Orient depended upon getting new recruits
+from the native population. To that end, he had purchased blacks from Abyssinia (ancient Cush), and had acquired Bedouin
+forces from Tur. 49 When Napoleon invaded Syria, he had about 13,000 men and some women in his train, including among
+them, Arab and Egyptian personnel attached to his army – servants, camel drivers, interpreters, laborers, etc.. A vast amount
+of baggage was carried, including beds, mattresses, carpets, and tents. Apparently, Napoleon intended to leave a permanent
+garrison in Syria. In addition to his standard retinue of cavalry, artillery, and infantry, Napoleon’s army contained a newly-
+formed Dromedary troop modeled after the Bedouin forces of the Lybian desert.
+Napoleon pitched ‘his royal pavilion between the holy hill (Carmel) and the sea’ before the fortress of Akka, the ancient
+Crusaders’ citadel of Saint Jean de Acre. Opposed to Napoleon and fortified behind the walls of Akka were the combined
+forces of Ahmad Pasha Djezzar of Akka, Commodore Sidney Smith of England, and the expatriate Colonel Phelipeaux of
+France. Napoleon failed in his siege of the fortress-city after much blood had been shed on both sides. Although there were a
+number of other bloody engagements in the Holy Land (notably the Battles of Mount Tabor and Jaffa), Palestine – the ‘fairest
+of all lands’ – survived the attack. So did the ancient lands of Moab, Edom, and the Ammonites, although the ancient
+territories of Moab and the Ammonites (modern Jordan) were temporarily invaded by some of Napoleon’s forces dispatched
+under General Murat. Edom, the Mount Seir region between modern south Palestine and the Gulf of Aqaba, also escaped
+Napoleon’s wrath.
+The disaster at Akka was a humiliating disappointment for Napoleon. Shortly after his retreat to Egypt, Napoleon
+received further news of the developments in the north and the east. He immediately abandoned his grandiose plans to repeat
+Alexander’s triumphs and deserted Egypt. He left command of the Army of the Orient to the aging but competent General
+Klebar, who held out in Egypt until 1801. Returning to France, Napoleon was able to gain control of the French Directory by
+subterfuge and deceit. He went on to many victories in Europe, ‘overrunning land after land.’ In 1804, he called Pope Pius
+VII to Paris to have himself crowned Emperor of Western Christendom. Surmounting the failed attempt of Charlemagne a
+thousand years earlier, the Corsican Adventurer seized the crown, waved the Pope aside, and crowned himself. Thereby,
+Western Christendom became simply the secular Empire of France. The Holy Roman Empire was officially terminated as an
+entity about a year later.
+Ultimately, Napoleon was defeated at Waterloo, exiled to the tiny island of Saint Helena in the South Atlantic, and met a
+lonely and bitter end “with no one to help him.”
+
+
+
+Chapter Ten
+
+ISRAEL DELIVERED
+
+Napoleon was exiled to Saint Helena in 1815 and died there six years later in 1821. It was during that period that Bahá’u’lláh
+was born (1817).50 The Báb accurately specifies the birth date of ‘Michael’:
+
+Daniel 12
+1 At that moment Michael will appear, Michael the great captain, who stands guard over your fellow countrymen;
+
+But the Báb also portends great troubles to follow for the Jewish people:
+
+And there will be a time of distress such as has never been since they became a nation till that moment.
+
+48 Ref 11, p. 221
+49 There is no footnote for this reference in the text labeled <8>.
+50 Indeed, the Báb was born during that same period (1819).
+
+The ‘time of distress’ clearly refers to the “holocaust” under Nazi Germany during which some six million Jews
+perished. The Báb goes on to say that deliverance will follow shortly:
+
+But at that moment your people will be delivered, every one who is written in the book:
+2 Many of those who sleep in the dust of the earth will wake, some to everlasting life and some to the reproach of eternal abhorrence.
+3 The wise leaders shall shine like the bright vault of heaven, and those who have guided the people in the true path shall be like the
+stars for ever and ever.
+
+Here we have not only the resurrection of the worthy, but also those who will be reproached throughout eternity. But, of
+course, the ‘resurrection’ is to be a spiritual one, not physical, as explained by Jesus in Matthew 23:31-32. The wise leaders
+of Judaism, like Daniel, Ezekiel, and rabbi Johannan ben Zakkai, are to be the stars of the new Jewish firmament. And we are
+watching with our own eyes their deliverance with the restoration of Israel as a nation following nineteen centuries of exile
+and suffering.
+In verse 3, Daniel sees a new and final vision, two other holy figures standing on opposite banks of the Tigris River
+(10:4). They remind us of the two holy trees on opposite banks of the ‘river of the water of life’ in Revelation 22. These two
+figures represent the Twin Holy Trees, the Báb and Bahá’u’lláh. That they stand on opposite banks of the Tigris reminds us
+that the Báb’s community of exiled believers was on the eastern bank of the Tigris at Baghdad, and that Bahá’u’lláh was
+exiled to the opposite bank of the Tigris by decree of the Sultan.51
+It is to the Figure ‘clothed in linen’ on the opposite bank – to Bahá’u’lláh – that Daniel addresses his question (12:6):
+‘How long will it be before these portents cease?’ Bahá’u’lláh replies with the cryptic answer
+
+Daniel 12
+7 “It shall be for a time, times, and a half. When the power of the holy people ceases to be dispersed, all these things shall come to an
+end.”
+
+The period of three-and-a-half ‘times’ is 1260 years, and, as explained elsewhere, represents the date in the Muslim lunar
+calendar of the Edict of Toleration. But Daniel is not satisfied by this perplexing answer and asks again. Bahá’u’lláh answers
+a second time with an equally cryptic answer
+
+Daniel 12
+9 “Go your way, Daniel, for the words are kept secret and sealed till the time of the end. …
+11 From the time when the regular offering is abolished and ‘the abomination of desolation’ is set up, there shall be an interval of one
+thousand two hundred and ninety days.
+12 Happy the man who waits and lives to see the completion of the one thousand three hundred and thirty-five days.”
+
+The meanings of the dates are not to become evident until the end of the Age of Prophecy. It is ‘Abdu’l-Bahá who
+explains these dates to us: The 1290 ‘days’ is the span of time from the First Public Declaration of Muhammad in 613 [CE]
+until the First Public Declaration of Bahá’u’lláh in 1863, a period of 1290 lunar years. The 1335 ‘days’ is the span of time
+from the Firm Founding of the Muslim Faith until the Firm Founding of the Bahá’í Faith.
+These explanations deserve closer reading. In verse 11 we read of the “time when the regular offering is abolished and
+‘the abomination of desolation’ is set up ….” We know from history that the regular offering at the Great Temple of
+Jerusalem was abolished in 70 CE. This was followed by about 600 years of abominations between Jews and Christians, as
+decreed in Daniel 9:26, 27. The abominations left the Temple and the Holy Land both physically and spiritually desolate.
+Muhammad, The Comforter, decreed an end to these abominations. Thus, the time (Era) of these events ended with
+Muhammad’s Declaration, marking the beginning of a new Era and a meaningful reference point for the counting of years.
+(See Dan 7:25)
+It was one of the great tragedies of history that ‘Ali was not permitted to assume the caliphate. In less than thirty years,
+the caliphate had been usurped by the enemies of Muhammad, and the true meaning of Islam was beclouded forever. As one
+consequence of these actions, the Holy Land remained spiritually desolate. The ‘abomination of desolation’ did not come to
+its end until the Declaration of the Báb on May 23rd, 1844, about two months after the Edict of Toleration.
+The 1335 ‘days’ is the number of solar years that must elapse between the Firm Founding of the Muslim Faith and the
+Firm Founding of the Bahá’í Faith. This period terminated some time between 1957 and 1963, and is discussed in more detail
+in the Appendix.
+In the last verse, Bahá’u’lláh exhorts Daniel:
+
+Daniel 12
+13 … But go your way to the end and rest, and you shall arise to your destiny at the end of the age.
+
+51 Ref 17, p. 149
+
+Appendix
+
+‘ABDU’L-BAHÁ’S EXPLANATION OF THE 1335 DAYS
+
+From reference 20, p. 51ff:
+
+‘Abdu’l-Bahá explains that the 1335 years are counted in solar rather than lunar years, because a century must elapse between the
+Proclamation of Bahá’u’lláh and the firm establishment of “the teachings of God … upon the earth.” Apparently, ‘Abdu’l-Bahá was
+referring to some prophecy in sacred writings. Also, Shoghi Effendi explains that the 1335 years end at the year 1963 CE, the date of
+the Foundation of the Universal House of Justice.
+
+Unfortunately, neither ‘Abdu’l-Bahá nor Shoghi Effendi shed enough light in their brief explanations for this writer to
+determine the exact method of computation. In The Apocalypse Unsealed, Appendix B, it was suggested that the beginning
+point for the 1335 years could be the Truce of al-Hudaybiyyah in 628 CE. This would result in the year 1963 CE as the end
+date of the 1335 solar years. After further research I have decided that there are actually two dates that are important in the
+Firm Founding of Islam: 622 which marked the end of Muhammad’s ministry in Mecca (the Hegira), and the Truce of al-
+Hudaybiyyah in 628. The Firm Founding of Islam was a six-year process lasting from 622 to 628. Adding 1335 to the first
+date produces 1957, the end date of the Bahá’í ministry and the Ascension of Shoghi Effendi. Adding 1335 to the second date
+produces 1963, the date of the Foundation of the Universal House of Justice. Like the Firm Founding of Islam, the Firm
+Founding of the Bahá’í Faith was also a six-year process lasting from 1957 to 1963.
+It is interesting that the Ascension of Shoghi Effendi in 1957 may be one specific meaning of Dan 12:12. The version of
+the New English Bible reads: “Happy the man who waits and lives to see the completion of the one thousand three hundred
+and thirty-five days!”
+Actually, different interpretations and methods of reckoning have little effect on the result. Regardless of what
+assumptions are made, it is certainly true that the man would be happy who waited and lived to see the completion of one
+thousand three hundred and thirty-five days.
+It is also worth noting that even Jesus Christ did not claim to know the date of the foundation of the Kingdom of God:
+
+“Yet about that day and hour no one knows, not even the angels in heaven, not even the Son; no one but the Father alone. ....” –
+Matthew 24.36 (Revised English Bible)
+
+
+THE TWO LAMBS OF THE BAHÁ’Í DISPENSATION
+
+In The Apocalypse Unsealed, (ref. 1) chapter 5, this writer named the two Lambs of the Bahá’í Dispensation as the Báb and
+‘Abdu’l-Bahá. At that time, Volume Three of Adib Taherzadeh’s magnificent work, The Revelation of Bahá’u’lláh, was not
+available. It is now clear that Bahá’u’lláh considered Mírzá Mihdí, The Purest Branch, to be a Lamb of the Bahá’í
+Dispensation. This can be inferred by referring to Taherzadeh’s book (ref. 19), Chapter 10, in which we read that the “death
+of the Purest Branch must be viewed as Bahá’u’lláh’s own sacrifice, a sacrifice on the same level as the crucifixion of Christ
+and the martyrdom of the Báb.”
+Since Bahá’u’lláh’s Dispensation has two Lambs instead of the usual one, this writer has now concluded that the two
+Lambs are probably Mirza Mihdí and ‘Abdu’l-Bahá. The Báb would then be the Lamb of His own Dispensation.
+
+
+THE BEAST THAT WAS, IS NOT, YET IS
+
+In chapter 17 of the Apocalypse, there is a riddle concerning a “beast that was, is not, yet is.” In The Apocalypse Unsealed,
+this writer gave the answer to the riddle as the empire of Alexander, since it seemed to come into existence a second time
+under the Umayyad dynasty.
+In researching for I, Daniel, this writer studied some of the work of great historian Arnold J. Toynbee. Professor
+Toynbee points out that the empire of Alexander did not produce a permanent change in the civilization introduced to the
+region under the Persian empire. When Islam reconquered the region, the civilization introduced under Islam more closely
+resembled the former Persian civilization rather than the more recent Hellenistic civilization.
+That being so, the answer to the riddle is probably as follows:
+
+The beast that was: the Medeo-Persian empire;
+
+is not: the empire of Alexander;
+yet is: the Umayyad dynasty.
+
+
+THE FOUR DECREES TO REBUILD THE TEMPLE
+
+The extent to which the various Edicts were fulfilled can be inferred from a careful reading of Chapters 1, 6, and 7 of Ezra.
+The assessments of their fulfillment given in Appendix B of The Apocalypse Unsealed are less explicit.
+Some have suggested that the use of the word “rebuild” in Nehemiah 2:5 justifies 444 BCE as the date of the Edict.
+However, a “word going forth” was an Edict, a Proclamation signed by the king. Daniel was kind enough to remind us of this
+fact in verse 6:8. Nehemiah received a private verbal grant to assist in the “rebuilding” of Jerusalem. The only signed
+document Nehemiah received was for the acquisition of timber for the gates of the citadel, the city wall, and for the “temple
+which is the object of my journey” (Nehemiah 2:8, The Revised English Bible)
+The Great Temple was, in fact, the main purpose for the city’s existence. To build the Temple, to house and supply the
+thousands of workers and pilgrims, and to maintain the Temple priesthood, implied that a sizeable infrastructure also had to
+be built. That infrastructure was the de facto city of Jerusalem.
+
+
+
+REFERENCES
+
+1. R. F. Riggs, The Apocalypse Unsealed, New York: Philosophical Library, 1981. (The book is out of print. An updated and
+simplified version is The Apocalypse, An Exegesis. This version can be downloaded from the Internet at
+http://members.tripod.com/~MarkFoster/apocalypse.html)
+
+2. H. G. Wells, An Outline of History (in four volumes), New York, P. F. Collier & Son, 1922.
+
+3. Dr. Alva J. McClain, Daniel’s Prophecy of the 70 Weeks, Grand Rapids, Mich.: Zondervan Publishing House, 1980.
+
+4. E. H. Palmer, M.A., A History of the Jewish Nation, London: Society for Promoting Christian Knowledge; New York:
+Pott, Young & Co., 1883.
+
+5. Edwyn R. Bevan, A History of Egypt under the Ptolemaic Dynasty, London: Methuen & Co., Ltd., 1927.
+
+6. Rufus Learsi, Israel: A History of the Jewish People, Cleveland and New York: The World Publishing Company, Inc.,
+1966.
+
+7. G. O. Matsson, A Historical Outline of Palestine, Stockholm, O., Sweden: Brahegatan 29, 1958.
+
+8. Edwyn R. Bevan, ,The House of Seleucus, London: Edward Arnold, Publisher in the India Office, 1902.
+
+9. H. M. Balyuzi, Muḥammad and the Course of Islám, Oxford: George Ronald, 1976.
+
+10. Ernst Muller, History of Jewish Mysticism, Oxford, 1946.
+
+11. J. Christopher Herold, Bonaparte in Egypt, New York, Boston, London: Harper and Row, 1962.
+
+12. Jack McLean, “The Deification of Jesus,” World Order, Volume 14 (Summer, 1980), 415 Linden Ave., Wilmette, IL,
+60091.
+
+13. Britannica Macropaedia, Volume 22.
+
+14. Georgio de Santillana and Hertha von Dechend, Hamlet’s Mill, Boston: Gambit, 1969; Boston;  Godine, 1977.
+
+15. William Foxwell Albright, From the Stone Age to Christianity, Doubleday Anchor Books, 1957.
+
+16. Roland H. Bainton, Christendom, Vol. 1, New York: Harper and Rowe, 1966.
+
+17. Shoghi Effendi, God Passes By, Wilmette, IL: Bahá’í Publishing Trust, 1970.
+
+18. H. M. Balyuzi, The Báb, Oxford: George Ronald, 1973.
+
+19. Adib Taherzadeh, The Revelation of Bahá’u’lláh, Vol. 3, Oxford: George Ronald, 1984.
+
+20. James Heggie (comp.), Bahá’í References to Judaism, Christianity and Islám, Oxford: George Ronald, 1986.

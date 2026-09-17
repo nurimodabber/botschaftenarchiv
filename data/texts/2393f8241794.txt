@@ -1,0 +1,1993 @@
+Bahá’u’lláh
+
+The Great Announcement of the
+
+Qur’án
+
+by
+
+Muḥammad Muṣṭafá
+
+Translated by
+
+Rowshan Muṣṭafá
+
+Edited and annotated by
+
+Laura M. Herzog
+
+Bahá’í Publishing Trust
+
+Dhaka, Bangladesh
+
+© Copyright, Bahá’í Publishing Trust
+
+Dhaka, Bangladesh
+
+All rights reserved
+
+Acknowledgements
+
+Some years ago, during a time of personal study perhaps best described as wondrous and in which my Western mind was to have its earliest glimpse, if not grasp, of the interplay of light between the Sacred Writings of the Bahá’í Faith and those of Islám, a translated copy of Muḥammad Muṣṭafá’s manuscript was brought to my attention by Mr ‘Alí Nakhjavání.  It was a text that would push me down a path toward greater understanding, and at his suggestion, I contacted Mr Rowshan Muṣṭafá, who very kindly permitted preparation of his father’s manuscript for publication and assented to its modification and the inclusion of footnotes following review.  I remain grateful to Mr Nakhjavání, who, in the process of encouraging so many, encouraged me as well, and whose expertise took over where mine left off.  Jackie Silver, ever a dear friend, saw to the preparation of the final manuscript.
+
+Laura M. Herzog
+
+April, 1993
+
+Table of contents
+
+Page
+
+Forward.	iii
+
+1	Interpretation of the Qur’án.	1
+
+2	The Advent of two great Manifestations.	6
+
+3	Interpretations and new movements in the 19th century.	16
+
+4	Islám:  A specific and a general term.	27
+
+5	Muḥammad:  The Seal of the Prophets.	34
+
+6	Basics taught in the Qur’án.	40
+
+7	Witness, herald of glad-tidings, and a warner.	44
+
+8	Progressive revelation.	48
+
+9	A set term for every nation.	54
+
+10	The Resurrection.	62
+
+11	Reward and punishment; judgment and the new
+Manifestation; the balance; life and death; the sun,
+the moon, the stars, heaven and earth.	85
+
+12	The subject of miracles.	96
+
+13	Additional proofs from the Qur’án.	102
+
+About the author.	112
+
+Back cover.	116
+
+Foreword
+
+This book was prepared to assist English-speaking Bahá’ís to acquire a basic understanding of issues frequently raised by Muslims with regard to the Qur’án and the Bahá’í Faith.  It was originally written in 1959 when the writer was asked to undertake such a task by Bahá’ís in Liberia, during his visit to that country.  Recently it has been rewritten and expanded, so that it addresses many subjects of particular interest to Muslims.
+
+In The Promised Day Is Come, Shoghi Effendi writes of the attitude of the Bahá’í Faith towards Islám, from which the following excerpt is taken:
+
+As to Muḥammad, the Apostle of God, let none among His followers who read these pages, think for a moment that Islám, or its Prophet, or His Book, or His appointed Successors, or any of His authentic teachings, have been, or are to be in any way, or to however slight a degree, disparaged.  The lineage of the Báb, the descendant of the Imám Ḥusayn; the divers and the striking evidences, in Nabíl’s Narrative, of the attitude of the Herald of our Faith towards the Founder, the Imáms, and the Book of Islám; the glowing tribute paid by Bahá’u’lláh in the Kitáb-i-Íqán to Muḥammad and His lawful Successors, and particularly to the “peerless and incomparable” Imám Ḥusayn; the arguments adduced, forcibly, fearlessly, and publicly by ‘Abdu’l-Bahá, in churches and
+
+synagogues, to demonstrate the validity of the Message of the Arabian Prophet; and last but not least the written testimonial of the Queen of Rumania, who, born in the Anglican faith and not withstanding the close alliance of her government with the Greek Orthodox Church, the state religion of her adopted country, has, largely as a result of the perusal of these public discourses of ‘Abdu’l-Bahá, been prompted to proclaim her recognition of the prophetic function of Muḥammad—all proclaim, in no uncertain terms, the true attitude of the Bahá’í Faith towards its parent religion.
+
+It is with this attitude toward Islám and its Book that this compilation is offered.
+
+The task of presenting logical proofs and arguments regarding the meanings enshrined within the Qur’án is somewhat complex, however, because there is no reliable translation of the Book.  As the Qur’án was revealed in Arabic, translations that have been made were necessarily based on “interpretations”.  Indeed, the titles given to English versions of the Qur’án, such as The Koran Interpreted, a translation by A. J. Arberry, and The Meaning of the Glorious Koran, an explanatory translation by M. M. Pickthall, indicate that an “interpretation” of the Qur’án has been translated, not the Book itself.
+
+The greater part of the Qur’án is comprised of verses that are “figurative” (Mutashábihát), as compared with the “clear” or “perspicuous” (Muḥkamát) verses which cover the laws and ordinances.  While it was undoubtedly a relatively straightforward matter to translate the clear verses, translation of the figurative verses required interpretations, which were provided by the Muslim clergy, ‘ulamá (lit. learned).  In many
+
+cases this resulted in translations devoid of beauty or lacking the richness of meaning conveyed by the original Arabic text.  An example may be found in the opening verses of Súra 95 “The Fig”, which reads:
+
+I swear by the fig and by the olive, By Mount Sinai, And by this inviolate soil!
+
+In the verses cited, God swears by the fig and the olive, by Mount Sinai and inviolate soil.  The literal translation is correct, but the reader of English might well ask:  “What relationship is there between figs and olives, a mountain, and inviolate soil, that God should swear by them, all in one sequence of verses?”  The beauty and meaning conveyed by these verses becomes more readily apparent when one considers passages revealed by Bahá’u’lláh in the Kitáb-i-Íqán concerning four Manifestations:  Abraham, Who appeared on the Mount of Figs, Jesus, on the Mount of Olives, Moses on Mount Sinai, and Muḥammad in Mecca, the inviolate soil.
+
+An example of a more subtle problem may be identified in the translation of Súra 97 “Power”.  In some English translations of the Qur’án, the Arabic word “qadr” has been translated as “power”, although it has a more profound connotation than the English word choice implies.  The term “decree” provides a closer rendering of the Arabic original, its usage resulting in the following translation:
+
+Verily, We have caused It to descend on the night of decree.
+
+And who shall teach thee what the night of decree is?
+
+The night of decree excelleth a thousand months:
+
+Therein descend the angels and the spirit by permission of their Lord for every matter;
+
+And all is peace till the breaking of the morn.*
+
+Interpretations of the Qur’án, developed over time by the ‘ulamá, have been an ongoing source of disagreement and today present an obstacle to Muslims in understanding the Faith of Bahá’u’lláh.  The main point of opposition is the Muslim belief that there shall be no further Divine Revelation after Islám.  The verses in the Qur’án that prove the legitimacy of the Declaration of the Báb, as well as, those which anticipate the glad tidings of the Message of Bahá’u’lláh, have been interpreted and subsequently understood in a manner that precludes acceptance of the Bahá’í Faith.  The argument that the Muslims present to the Bahá’ís is essentially the same as that levelled by the Jews at the Christians, and in turn by the Jews and Christians at the Muslims.  Moreover, it is one which has been adopted by both the Sunní and Shí‘ih Muslims, the two principal sects which together constitute the vast majority of those of Islamic persuasion.
+
+Bahá’ís believe that the true interpretation of the Qur’án has been made available through the Revelation of Bahá’u’lláh, an interpretation sent down from God through His Manifestation for this Day.  It is not the product of man’s thought, but the interpretation
+
+appointed time.  It is interesting to note in this connection that in recent decades, Islamic scholars have introduced interpretations of a number of verses from the Qur’án which are consistent with Bahá’í understandings.
+
+In His commentary on Súra 91 “The Sun”, revealed in response to a request for its interpretation, Bahá’u’lláh explains that as the Words of God are limitless, there is no limit to their meaning.  It is therefore important to emphasize that the writer’s interpretations as presented in this text are no more than his personal understanding of a few of the meanings of the verses of the Qur’án, as viewed from the perspective of the Writings of the Bahá’í Faith.
+
+Muḥammad Muṣṭafá
+
+1
+Interpretation of the Qur’án
+
+The task of interpreting the Qur’án is a delicate one.  Many interpretations have been written, generally concluding with the phrase:  “God and His Apostle alone know the truth”.  The statement indicates that the interpretation reflects a personal understanding and that the true interpretation remains in the knowledge of God and His Apostle Muḥammad.
+
+God warned the Muslims in the Qur’án against interpreting the Qur’án.  This is stated very clearly in Súra 3 Áli ‘Imrán, v. 5).
+
+He it is who hath sent down to thee “the Book”.  Some of its signs are of themselves perspicuous;—these are the basis of the Book—and others are figurative.  But they whose hearts are given to err, follow its figures, craving discord, craving an interpretation; yet none knoweth its interpretation but God.  And the stable in knowledge say “We believe in it; all is from our Lord.”  But none will bear this in mind, save men endued with understanding.
+
+Part of this verse is cited by Bahá’u’lláh in the Kitáb-i-Íqán, the punctuation contributing to its meaning:
+
+“None knoweth the interpretation thereof but God and they that are well-grounded in knowledge.”
+
+It is evident from the above verse that the Qur’án includes verses that are clear and others that are figurative.  The clear verses are ones which provide
+
+the laws and ordinances of the Faith, such as those concerning prayer, ablutions, fasting, alms, marriage, divorce and inheritance.  These laws and ordinances distinguish the believers of the Qur’án as an independent community.  The verses which set forth these laws and ordinances, being “perspicuous”, are not essentially and necessarily in need of interpretation.  Whenever specific issues and situations arise which call for the application of these verses, it is generally understood that in the first instance the “well-grounded in knowledge” and after them, distinguished men of learning, may explain and interpret such verses in order to make them applicable to the individual as well as to the community.
+
+The figurative verses, however, definitely require interpretation in order that their meanings may be understood.  Those described by the Quranic verse as leaders who, “craving interpretation”, will make pronouncements according to their own whims and fancies, seeking to expound meanings of the figurative verses, will in the end be sources of “error” and “discord”.  The interpretation of these verses is known only to God and the “well-grounded in knowledge” who do not have the permission to reveal their interpretation despite their knowledge of it.  Those endowed with understanding—men of true knowledge—will know that the figurative verses of the Qur’án should not and cannot be authoritatively interpreted by mortal minds.
+
+In Súra 75 “Resurrection” (vv. 16–19), God addresses Prophet Muḥammad:
+
+Move not thy tongue in haste to follow and master this revelation:
+
+For we will see to the collecting and the recital of it [qur’ánahu];
+
+But when we have recited it, then follow thou the recital,
+
+And, verily, afterwards it shall be ours to make it clear [bayánahu] to thee.
+
+In some translations “make it clear” is translated as “explanation thereof”, both having the same meaning.
+
+It is evident from the verse cited above that God called on Prophet Muḥammad, and thereby His followers, not to hasten efforts to master the understanding of the Qur’án, but rather to follow the instructions therein.  God further gives the assurance that He will reveal the explanation of the Book, and that such a clarification will be forthcoming at some future date.
+
+In Súra 7 “The Heights” (vv. 50–1) it is written:
+
+And now have we brought them the Book:  with knowledge have we explained it; a guidance and a mercy to them that believe.  What have they to wait for now but its interpretation?  When its interpretation shall come, they who aforetime were oblivious of it shall say, “The Prophets of our Lord did indeed bring the truth; shall we have any intercessor to intercede for us? or could we not be sent back?  Then would we act otherwise than we have acted.”  But they have ruined themselves; and the deities of their own devising have fled from them!
+
+God thus confirms that the interpretation of the Qur’án would come in the future.  “What have they to wait for now but Its interpretation?” implies that they should expect and seek the forthcoming interpretation.  Moreover, the verse confirms that when the interpretation is revealed, it would be rejected and meet with the opposition of the forgetful and heedless.
+
+Muḥammad did not leave an interpretation of the Qur’án, nor did any of His Successors.  During later centuries, after the ascension and disappearance of the Imams, when interpretations were attempted, none of the interpreters claimed authenticity or divine origin for their interpretations.
+
+In Six Lessons on Islám, Marzieh Gail provides the following description concerning the recital and gathering of the verses of the Qur’án, about which there is general agreement among Muslim historians:
+
+… The verses were written down at the moment of revelation or soon after, on palm leaves, leather, stone, the shoulder-blades of sheep; furthermore, the Arabs had wonderful memories, and many learned it by heart ….  Soon after the ascension of Muḥammad many reciters of the Qur’án were killed in battle; it was therefore thought necessary to compile the entire Qur’án into one; the task was given to the Prophet’s amanuensis, Zayd ibn Thábit.  Therefore, although with misgivings and doubting the propriety of the work, Zayd searched out the entire Qur’án and compiled it, simply putting the long súrihs first, regardless of chronology.  As a matter of fact, the short súrihs at the end, telling of the coming of the Day of God, were revealed at the beginning ….  Zayd’s text continued to be standard during ‘umar’s caliphate, but it was found that variations had crept into many copies; the men of Syria and ‘Iráq had different readings, and the caliph ‘Uthmán
+
+therefore had all the versions compared with Zayd’s original, Zayd and three coadjutors being appointed to do the work.  Transcripts of this recension were sent out to all the cities, all other copies were burnt, and what we still have is this recension of the third Caliph’s.  Zayd’s original compilation was made within two or three years of Muḥammad’s ascension, and there is no question as to its accuracy; ‘Alí the Imám, was there, and many of the devout who knew the Qur’án by heart, and besides the transcripts of the separate portions were in daily use.
+
+The Qur’án was therefore revealed, recited and preserved during the lifetime of Prophet Muḥammad.  Its compilation and recension, resulting in its present form, were made soon after His ascension.  God promised to send the interpretation of the Qur’án.  The believers were enjoined to look for the interpretation which would be made manifest as decreed by God, and were further warned that any interpretation made in the meantime could only be the result of “craving discord” on the part of the interpreter, giving rise to schism and dissension.
+
+How and when, therefore, would the promised interpretation become available to the world?  Who would come to the world with the interpretation?
+
+2
+The Advent of
+two great Manifestations
+
+In all of the Holy Books, the advent of two great Manifestations of God is foretold.  In the Qur’án this coming is called, among other names, the “Great Announcement”.  To the Muslims, these two great Manifestations are known as “the Imám Mahdí” and the “Messiah”.  The Imám Mahdí is sometimes simply referred to as “Mahdí”, it being understood that it is He Who is intended.
+
+The belief in Their appearance forms the axis around which revolve some 5,000 of the approximately 6,200 verses of the Qur’án.  The Twin Manifestations are to usher in the true interpretation of the Book, reform the entire world, establish a new era of love, unity, justice and peace amongst all nations, and cause the earth to “shine with the Light of her Lord”, as promised in the Qur’án.
+
+Until the 8th century of the Hijra, there was no doubt among the Muslims, whether of the Shí‘ih or Sunní sects that form the two main factions of the Muslim world, that on the appointed Day the Mahdí would appear to announce and prepare the way for the advent of the Messiah.  During this century, however, there appeared a number of ‘ulamá, including a Tunisian named ibn Khaldún, who threw doubt on the authenticity of the traditions concerning the appearance of the Mahdí.  Since then, the event of the
+
+appearance of the Mahdí has lost much of its importance in the Sunní sect, but the Shí‘ih belief in this event remains unshaken.*
+
+Both Sunnis and Shi‘ihs believe, however, that the Messiah or the Mahdí will rule with the Sharí‘ah, Islamic jurisprudence or the religious law of the Qur’án, and render Islám victorious in a manner that would replace all other religions and movements.  In other words, they believe that the Mahdí and the Messiah will not come to the world with a Book from God, but rather continue with the Qur’án, which would have lost much of its influence by the time of their appearance.  Thus, the doors have been closed to further Divine Revelation.
+
+Interpretation and Arabic grammar
+
+Interpretation of the Qur’án must take into consideration the etymology and syntax of words.  In addition to the study of the origin, composition and correct usage of words in a sentence, the chronology of the revelation of the verses must also be considered.  The circumstances or historical context, providing the reason for the revelation of the verses, contribute elements towards a better understanding.
+
+In certain instances, these basic rules have been lamentably ignored.  Not surprisingly, interpreters have been guilty of rather flagrant deviations from rules of translation where verses of the Qur’án deal
+
+with the coming of a further Revelation, Book, or Manifestation of God.  While God had mercifully “made it an Arabic Qur’án that ye may understand”, it was the Arabic-speaking followers for whom the Qur’án was revealed who have misinterpreted God’s Words.  A few examples are provided.
+
+The name of the Promised Book
+
+In Súra 75 “Resurrection” (vv. 16–9), cited in the previous chapter, derivatives of the words “qur’án” and “bayán” are mentioned, but there the words are not used as proper nouns.  The meanings of the following words may be necessary to understand the forthcoming paragraphs:
+
+qur’án:	recital
+
+qur’án-ahu:	its recital
+
+bayán:	to make clear or explanation
+
+bayán-ahu:	to make it clear or to explain it.
+
+Names and proper nouns in Arabic always have a meaning and the Book revealed to Muḥammad is called the “Qur’án”, but the word “qur’án” also means recital; just as the word “Bayán” is the name of the Book revealed by the Báb, while “bayán” also means explanation or speech, or articulate speech.
+
+The first four verses of Súra 55 “The Merciful” have been translated into English by Rodwell, Arberry, Pickthall and Yúsuf ‘Alí as follows:
+
+The God of mercy
+
+Hath taught the Koran
+
+Hath created man
+
+Hath taught him articulate speech
+
+(Rodwell)
+
+The All-merciful
+
+Has taught the Koran
+
+He created man
+
+And he has taught him the Explanation
+
+(Arberry)
+
+The Beneficent
+
+Hath made known the Qur’án
+
+He hath created man
+
+He hath taught him utterance
+
+(Pickthall)
+
+(God) Most Gracious
+
+It is He who hath taught the Qur’án
+
+He has created man
+
+He has taught him speech (and Intelligence)
+
+(Yúsuf ‘Alí)
+
+All four translations of the second verse are in agreement in translating the name of the Qur’án as it is written in the Arabic text, i.e.  “Qur’án”.  It is evident, however, that the interpreters presented the translators of the English version with a meaning for the word “Bayán”, while retaining the word “Qur’án” to represent the Book that was revealed by the Prophet.  The Arabic script does not have capitals and small letters to differentiate between proper names and simple words.  Hence a proper name and a simple noun would be written in the same way.
+
+A correct translation or interpretation of these verses of Súra 55 “The Merciful” should either adopt the meaning of the words “qur’án” and “bayán”, or the proper names of the Books, the “Qur’án” and the “Bayán”.  A correct translation would not adopt the proper noun for one and the meaning for the other.  The rules of Arabic tradition both in writing and in speech make this imperative, as does the consideration of the verses themselves where “the Merciful” hath taught both the Qur’án and the Bayán.
+
+The reader may note that the chronological order of events as expressed in the four verses indicates that the Qur’án was “taught” before man was created:  “taught the Qur’án … created man”.  The meaning becomes clear if the teachings of the Qur’án are considered as life-giving and creating a new generation of men.  God, the All-Merciful, in His Mercy, sent down the Qur’án to His Apostle Muḥammad.  The Bayán has also been sent down to an Apostle of God, the Báb.
+
+The future tense is replaced by the past tense
+
+Súra 98 “The Clear Evidence” carries within its first four verses an interesting prophecy concerning the advent of the Báb and Bahá’u’lláh, but interpreters have misled the translators here as well.  The importance of these verses is such that the translation of Rodwell is presented side by side with the translation of the Arabic original, as understood by the writer.  The differences are underlined in both:
+
+The texts in Arberry’s and Pickthall’s translations are much the same, with “Clear Sign” and “clear proof” used in place of “clear evidence”.  The alteration of meaning brought about through interpretation can be better appreciated in understanding the following terms:
+
+The “people of the Book” are the Christians and the Jews.
+
+The “unbelievers among the people of the Book” are the Christians and the Jews who refused to accept Islám and Muḥammad.
+
+The “polytheists” are those who took other gods instead of the one true God.  They are neither Christians nor Jews, but rather are the idolators who were in Arabia at the time of the Prophet.
+
+The main difference between Rodwell’s and the corrected translation lies in the first verse where Rodwell’s translation indicates a past tense for the event, while the corrected translation uses a future tense.  How can such a difference exist?
+
+The Arabic original of the first verse indicates that a “Clear Evidence” shall come (future tense), while in the fourth verse the “Clear Evidence” is indicated as having already come (past tense).  This is further confirmed by Yúsuf ‘Alí’s translation, where the first verse refers to the coming of the “Clear Evidence” as occurring in the future, while the fourth verse confirms that the “Clear Evidence” already came.
+
+The verses further explain that the “Clear Evidence” to come is “an Apostle of God reciting pure pages wherein are valuable Books”.  Apparently, therefore, there are two “Clear Evidences”, One that
+
+shall come and One that had already come at the time of revelation of these verses.
+
+Interpretations and translations agree that the “Clear Evidence” mentioned in the fourth verse as having come is the Apostle Muḥammad.  With regard to the reference in the first verse, the interpreters replaced the Arabic future tense “to come” with “came”, the past tense.  Yúsuf ‘Alí comments that the Clear Evidence “to come” is none other than the Apostle Muḥammad who was present when these verses were revealed.  As far as the interpreters were concerned, there could be no Apostle in the future after Muḥammad.  To solve the problem they simply interpreted the future as the past and the English translations simply had to follow suit.
+
+The meaning of the verses, however, leaves no doubt that they are in reference to two distinct Apostles of God.  The Apostle to come in the future would change the attitudes of the unbelievers and polytheists, who would not waver from their beliefs until the Apostle of God appeared.  The Christians and the Jews would then believe in the truth of Muḥammad and cease to be counted amongst the unbelievers while the polytheists would believe in the one true God and cease to be polytheists.
+
+That is precisely what happened when Bahá’u’lláh came into the world.  Bahá’ís of Christian and of Jewish origin accepted the Prophethood of Muḥammad.  They were “unbelievers” concerning Muḥammad until the “Clear Evidence”, Bahá’u’lláh, came to them.  The term did not apply to them before the appearance of Muḥammad, for they were believers in God, Jesus Christ and Moses and they were the “people of the Book”.  The qualification of “unbelievers” fell upon them only after their denial of Muḥammad.
+
+When Muḥammad came to them, they were divided:  Some believed in Him and were accounted believers, while others refused to accept Him and were identified as “unbelievers”.  Hence the verse:  “Nor were the people of the book divided until after the Clear Evidence came to them.”
+
+Súra 2 “The Cow” (v. 107) explains that the differences between the Christians and the Jews shall be resolved only on the Day of Resurrection, and not through the Message of Muḥammad:
+
+Moreover, the Jews say, “The Christians lean on naught.”  “On naught lean the Jews”, say the Christians.  Yet both are readers of the Book.  So with like words say they who have no knowledge.  But on the Day of Resurrection, God shall judge between them as to that in which they differ.
+
+In Súra 98 “The Clear Evidence” the reader will note that the Apostle Who will come will recite “pure pages wherein are valuable Books”, that is more than one Book.
+
+However, God revealed but one Book to Muḥammad, the Qur’án:
+
+He it is Who hath sent down to Thee “the Book”.
+
+(Súra 3 “The Family of ‘Imrán”, v. 5)
+
+Also, the Christians and the Jews are known to the Muslims as the people of “the Book”, a singular noun.
+
+It is obvious, therefore, that the Apostle destined to come with “valuable Books” cannot be Muḥammad, Jesus, or Moses Who were each recipients of a single Book.  To Bahá’u’lláh, however, many Books were revealed and the “Clear
+
+Evidence” promised in the verses is the Revelation of Bahá’u’lláh.  The “Clear Evidence” that had already come is the Revelation of Muḥammad.
+
+Names of the Báb and Bahá’u’lláh
+are mentioned in the Qur’án
+
+In the Qur’án, it is written that Jesus Christ had heralded the advent of Muḥammad.
+
+… O children of Israel! of a truth I am God’s apostle to you to confirm the law which was given before me, and to announce an apostle that shall come after me whose name shall be Aḥmad!
+
+If the coming of the Apostle Muḥammad was foretold in the Biblical reference to “Aḥmad”, where are the names of “the Báb” and “Bahá’u’lláh” mentioned clearly in the Qur’án?
+
+Had the names of the Báb and of Bahá’u’lláh been mentioned clearly in the Qur’án, there is little reason to expect that the ‘ulamá would not have interpreted the “Báb” as “Gate” and Bahá’u’lláh as “Glory of God”, making the words refer to divine attributes.  Those who replace future tense with past tense and interpret “Bayán” as “articulate speech”, would be similarly predisposed to interpreting “Bahá’u’lláh” and “Báb” in a manner that precluded acknowledgement of Manifestations of God after Muḥammad.  Categorical rejection of the possibility that further Divine Revelation could come after Muḥammad requires rejection of interpretation of the prophecies of the Qur’án regarding the advent of the Báb and of Bahá’u’lláh.
+
+Regarding the statement in the Qur’án that the advent of an Apostle named “Aḥmad” is written in the Bible, the Christians were unable to find the word
+
+“Aḥmad” in the New Testament.  The argument was further given that even were the name “Aḥmad” found in the New Testament, the name of the Prophet was Muḥammad and not Aḥmad.
+
+This resulted in accusations being directed toward the Christians of having tampered with the Bible and erasing from the New Testament all reference to Muḥammad, including a Gospel according to St. Barnabas that purportedly contained clear prophecies concerning the coming of Muḥammad after Christ.  However, as “Aḥmad” is an Arabic word and the New Testament was not written in Arabic, the word “Aḥmad” could not be found as such.  The Greek version of the New Testament refers to the Prophet Muḥammad in the Greek equivalent of “Aḥmad” by using “Paraclete” or “Pharaclete”, which translates as “Comforter” or “Redeemer” and is the meaning of the name “Aḥmad”.
+
+3
+Interpretations and new
+movements in the 19th century
+
+As explained in the previous chapter, available interpretations of the Qur’án are based on the conception that there shall be no further Prophet or Apostle of God appearing after Muḥammad, and consequently, that no other Book or law shall be revealed after Islám.  Traditions concerning the appearance of the Mahdí and the return of the Messiah are accepted, but each Muslim sect views them with particular reservations.  In general, Muslims regard the Mahdí and the Messiah only as reformers of Islám, with a chief task of bringing Muslims back to traditional Islám and effecting its world-wide domination.
+
+The Mahdí of the Sudan
+
+Increasing corruption encouraged a few to lay claim to be the promised Mahdí.  Among them was Muḥammad Aḥmad of the Sudan, who, encouraged by a growing number of followers, addressed letters to rulers and kings, calling upon them to believe in him and warning them against disbelief.  In one of his circulars he assured his followers that Muḥammad, the Apostle of God, told him that God had given him another sign that he was the Mahdí—a flag of light that would come forth in case of war, carried by the Angel ‘Izrá’íl (angel of death), with which God would support his followers and strike terror into the hearts of his enemies.
+
+The Mahdí of the Sudan went to war against Egypt and Britain and initially won battles, but he was later routed in an engagement and died in 1885.
+
+Qádíyáníyyah and Aḥmadíyyah movements
+
+That same period witnessed another movement that started in India, similar to the one in the Sudan but with much wider implications.
+
+Mírzá Ghulám-Aḥmad of Qádíyán, India, who was born in 1839 and died in 1908, claimed to be the return of the Messiah announced in the Qur’án, and the renewer of religion, in the 14th century of the Hijra.  He denied any claim to prophethood.  He further explained in his book Aḥmadíyyih Proofs, that the Messiahs who were to appear after Islám will be saintly persons, heirs of the Prophet (Awliyá’).  He further wrote:  “… and our Apostle (Muḥammad) is the seal of the Prophets and consequently the chain of the Apostles is discontinued ….”
+
+After his death, his followers divided into two sects.  One became known as the Aḥmadíyyih, who believe in his imamate but not his prophethood.  The other came to be known as the Qádíyáníyyah who believe in his prophethood and justify their belief by explaining that the word “seal” in the verse of the Qur’án designating Muḥammad as the “seal of the Prophets”, should be read to mean “ornament” of the Prophets.  The Arabic word for “seal” is “khátim”, and that for “ornament” is “khátam”.  As there are no vowels in Arabic, both readings, “khátim” and “khátam”, are permissible.  The Qádíyánís read it “khátam” or “ornament”, an interpretation which makes it possible for prophets to come forth after Muḥammad.  However, Shoghi Effendi has translated that word from the Writings of Bahá’u’lláh as “Seal” of the Prophets.
+
+Reformers, not Manifestations
+
+It is not the purpose of this compilation to discuss in detail the above or similar movements, nor to analyze their doctrines in the light of religious truth.  What is interesting to point out for the purpose of this study is the fact that the Mahdí of the Sudan and Mírzá Ghulám-Aḥmad of Qádíyán had based their movements on the belief that while Divine Revelation had terminated with the manifestation of the Prophet.  Muḥammad, a “reformer” could come forth.  Hence, the reason why these movements stressed “reform” was that it was more readily acceptable to the common individual, whose life had become darkened by the widespread evil and waywardness in the world.
+
+The interpretations given to the Qur’án and to the traditions have caused much perplexity in the Muslim world.  The Qádíyání denial of the future appearance of the Mahdí and the Messiah on the Day of Resurrection, and the de-emphasis of these two events, through the call raised by Ghulám-Aḥmad as the promised Messiah, undermined the widely accepted and all-important pillar of Islamic belief.
+
+The Qádíyánís rely on a single tradition of Muḥammad to reject the belief in the appearance of the Mahdí.  The tradition reads “No Mahdí except ‘Ísá” (Jesus).  Many other traditions on the subject have been rejected by them.  However, Arabic readers of the tradition in question would find no difficulty in understanding it as a confirmation that both the Mahdí and Jesus would be made manifest, that neither One would come without the other, and that the Mahdí would appear first.
+
+Yaḥyá (John) and ‘Isá (Jesus)
+
+In Súra 19 “Mary” (vv. 13–5), mention is made of Yaḥyá, the son of Zachariah, known as John the Baptist:
+
+We said:  “O John! receive the Book with purpose of heart”—and We bestowed on him wisdom while yet a child;
+
+And mercifulness from Ourself, and purity; and pious was he, and duteous to his parents; and not proud, rebellious.
+
+And peace was on him on the day he was born, and the day of his death, and shall be on the day when he shall be raised to life!
+
+In the same súra, verses 31–35 recount the first words of Jesus, as an infant:
+
+… Verily, I am the servant of God; He hath given me the book, and He hath made me a prophet,
+
+And He hath made me blessed wherever I may be, and hath enjoined me prayer and almsgiving so long as I shall live;
+
+And to be duteous to her that bare me:  and he hath not made me proud, depraved.
+
+And the peace of God was on me the day I was born, and will be the day I shall die, and the day I shall be raised to life.
+
+This is Jesus, the son of Mary; this is a statement of the truth concerning which they doubt.
+
+The verses clearly indicate that both John, son of Zachariah, and Jesus, son of Mary, shall be raised to life on a certain day.
+
+The Qur’án and the Old and New Testaments make mention of a specific sign that preceded the appearance of Jesus Christ some twenty centuries ago.  That sign was the appearance of John the Baptist, son of Zachariah, who heralded the coming of a great Manifestation.  He preached amongst the people saying “repent ye:  for the kingdom of heaven is at hand”.  In the end, John sacrificed his life for the glorious Manifestation, as a testimony for the people.
+
+Likewise, the return of the Messiah was to be preceded by the appearance of a Herald, Who had been “raised to life”.  Bahá’u’lláh was preceded by His Herald, the Báb, to Whom Bahá’u’lláh refers to as “My first appearance”.
+
+In keeping with this, there are many passages in the Qur’án that indicate the occurrence of twin events on the Day of Resurrection.
+
+One day, the disturbing trumpet-blast shall disturb it,
+
+Which the second blast shall follow:
+
+Men’s hearts on that day shall quake:
+
+Their looks be downcast.
+
+The infidels will say, “Shall we indeed be restored as at first?
+
+What! when we have become rotten bones?”
+
+“This then,” say they, “will be a return to loss.”
+
+Verily, it will be but a single blast,
+
+And lo! they are on the surface of the earth.
+
+(Súra 79 “Those Who Drag Forth”, vv. 6–14)
+
+Here, the verses indicate that there would be two consecutive, violent commotions, which “will be but a single blast”, indicating that they will be close to
+
+each other in time and may be considered as one.  Other verses in the Qur’án restate this theme:
+
+And there shall be a blast on the trumpet, and all who are in the Heavens and all who are in the Earth shall expire, save those whom God shall vouchsafe to live.  Then shall there be another blast on it, and lo! arising they shall gaze around them:
+
+And the earth shall shine with the light of her Lord, and the Book shall be set, and the prophets shall be brought up, and the witnesses; and judgement shall be given between them with equity; and none shall be wronged.
+
+(Súra 39 “The Troops”, vv. 68–9)
+
+And the trumpet shall be blown, and, lo! they shall speed out of their sepulchres to their Lord:
+
+They shall say, “Oh! woe to us! who hath roused us from our sleeping place?  ’Tis what the God of Mercy promised; and the Apostles spake the truth.”
+
+But one blast shall there be, and, lo! they shall be assembled before us, all together.
+
+(Súra 36 “Yá’  Sín”, vv. 51–3)
+
+In considering the meaning of these verses as they pertain to the appearance of the twin Manifestations for this day, it is of interest to note one of the most explicit traditions regarding the appearance of the Mahdi and the return of the Messiah, the Spirit of God, as quoted in the Futúḥát al-Makkíyyah of the renowned Muḥyi’d-Dín ibn al-‘Arabí, wherein the Prophet said:
+
+By God Who sent me as a Prophet in truth, were it that only one day remained for the world, God would prolong that day until my son the Mahdí would have come forth and the Spirit of God would have come down and perform prayers behind him (i.e. the Mahdí), and His Sovereignty would have enveloped the East and the West.
+
+The functions of the two Manifestations of God
+
+As previously stated, Muslims believe that upon Their return, the Mahdí and the Messiah will renew traditional Islám.  Yet, as will be shown later in this text, Islám is not only specific with regard to the Revelation of Muḥammad, but refers and relates to all previous Revelations.  However, for the purpose of this chapter, it may be sufficient to point out that this concept of the renewal of traditional Islám would be very difficult to reconcile with the tumult that will occur within all who are in heaven and all who are on earth with the blasting of the first trumpet.
+
+There are two traditions that need to be considered in relation to the Qádíyání and Aḥmadí claims.  The first tradition, narrated by al-Ḥákim in al-Mustadrak, on behalf of Abú Hurayrah, states that the Apostle of God Muḥammad said:
+
+Verily ‘Ísá (Jesus), the Spirit of God, shall come down to you ….  He will destroy the cross; slay the swine; and release from capitation tax and call the people to Islám.  On that day the false Messiah shall perish and tranquillity shall prevail on earth, so that the lion shall dwell with the camel; and the leopard shall lie down with the calf; and the wolf shall dwell with the lamb.  And the children shall play with the asps that shall harm them not.
+
+The second tradition as narrated by Bukhárí, on behalf of Abú Hurayrah, reports that the Apostle of God Muḥammad said:
+
+By Him in whose Hands is my soul, soon shall the Son of Mary come down amongst you a just judge.  He shall destroy the cross, slay the swine and abolish war, and bestow riches plenty to the extent that all shall refuse any more of it; so that a single prostration (to God) then will be worth more than all the earth and what is therein.
+
+In this connection, it is interesting to note that more than twenty centuries earlier, Isaiah had announced a prophecy in almost identical terms and words, of similar events.
+
+And there shall come forth a rod out of the stem of Jesse, and a Branch shall grow out of His roots:  And the Spirit of the Lord shall rest upon him, the spirit of wisdom and understanding, the spirit of counsel and might, the spirit of knowledge and the fear of the Lord;
+
+And shall make him of quick understanding in the fear of the Lord:  and he shall not judge after the sight of His eyes, neither reprove after the hearing of his ears:
+
+But with righteousness shall he judge the poor, and reprove with equity for the meek of the earth:  and he shall smite the earth with the rod of his mouth, and with the breath of his lips shall he slay the wicked.
+
+And righteousness shall be the girdle of his loins, and faithfulness the girdle of his reins.
+
+The wolf also shall dwell with the lamb, and the leopard shall lie down with the kid; and the calf and the young lion and the fatling together; and a little child shall lead them.
+
+And the cow and the bear shall feed; their young ones shall lie down together:  and the lion shall eat straw like the ox.
+
+And the suckling child shall play on the hole of the asp, and the weaned child shall put his hand on the cockatrice’ den.
+
+They shall not hurt nor destroy in all my holy mountain:  for the earth shall be full of knowledge of the Lord, as the water covers the sea.
+
+The Qádíyánís, like all other movements in the contemporary Muslim world, interpreted the prophecies within these traditions literally, i.e. the literal destruction of the cross, the slaying of the swine, etc.*  These interpretations are especially appealing to the average Muslim, because pork is prohibited in the Qur’án and a verse in that Book can be read to indicate that Jesus was not crucified.  Obviously, Christians eat pork and hold the sign of the cross as sacred.  The demise of either would represent the advancement of Islám to those envisioning its reform and ultimate domination.
+
+What then is the meaning of the slaying of the swine and the destroying of the cross?  An indication may be found in the following verses of the Qur’án:
+
+Say:  O people of the Book! do ye not disavow us only because we believe in God, and in what He hath sent down to us, and in what He hath sent down aforetime, and because most of you are doers of ill?
+
+Say:  Can I announce to you any retribution worse than that which awaiteth them from God?  They whom God hath cursed and with whom He hath been angry—some of them hath He changed into apes and swine; and they who worship Thagout are in evil plight, and have gone far astray from the right path!
+
+(Súra 5 “The Table”, vv. 64–5)
+
+In similar terms, Christ referred to the wicked and to devils:*
+
+And the devils besought him, saying, If thou cast us out, suffer us to go away into the herd of swine.
+
+And he said unto them, Go.  And when they were come out, they went into the herd of swine:  and, behold, the whole herd of swine ran violently down a steep place into the sea, and perished in the waters.
+
+The people of the Middle East consider swine to represent “filth” and apes to represent “ugliness”.  To turn the cursed into apes and swine can be understood to mean that they shall be ugly in character and degenerate in their lifestyle.  Within the cited context, the cross represents the burdens of the times.  By destroying the cross and slaying the swine, the Mahdí and the Messiah would relieve people of the burdens that were laid on their shoulders and transform the degenerate lifestyle of the people into a sane and spiritually rich life.
+
+The Báb and Bahá’u’lláh declared that their Mission was to relieve the “burden” of injustice in the world and to institute a high moral standard in the conduct of its peoples.  The Báb and Bahá’u’lláh have abrogated defensive wars and capitation taxes which are part of the Quranic law.  Antagonistic nations shall be reconciled and differences causing conflict will disappear.  Justice and harmony will be established and the banner of universal peace shall be raised.
+
+“Peace!” shall be the word on the part of a merciful Lord.
+
+(Súra 36 “Yá’ Sín”, v. 58)
+
+4
+Islám:  A specific and a general term
+
+For the same reasons that the Jews refused to accept Jesus Christ, the Muslims refuse to accept Bahá’u’lláh.   Some of the verses of the Qur’án are interpreted to mean that there shall be no further Divine Revelation after Muḥammad.  Three verses are considered as the central argument supporting this conclusion and sustain the belief that Islám and the Qur’án are eternal.  These verses are the following:
+
+This day I have perfected your religion for you, and have filled up the measure of my favours upon you:  and it is my pleasure that Islám be your religion …
+
+(Súra 5 “The Table”, v 5)
+
+The true religion with  God is Islám …
+
+(Súra 3 Ál Imrán, v. 17)
+
+Who so desireth any other religion than Islám, that religion shall never be accepted from him, and in the next world he shall be among the lost.
+
+(Súra 3 Ál Imrán, v. 79)
+
+The literal meaning of the word “Islám” is “submissiveness” or “willing surrender”.  In the literal sense of the term, being a “Muslim” means that one has submitted or surrendered one’s will unto God.  In its specific meaning, “Islám” stands for the Faith revealed to the Prophet Muḥammad.  However, the Qur’án and some of the traditions lend further meaning to the term, where it can be understood as being in reference to all of the religions of God.
+
+In the fifth verse of Súra 5 “The Table”, it is clear that the word “Islám” is intended as a specific reference to the religion of .Muḥammad, the Apostle of God.  However, there are good reasons to believe that
+
+“Islám”, in the verses cited from Súra 3 Ál ‘Imrán, refers to religion in general, as well as to the one revealed by Muḥammad.  This is clearly demonstrated in the following verses relating to the history of the Prophets who appeared before Him:
+
+Recite to them the history of Noah, when he said to his people, If, O my people! my abode with you, and my reminding you of the signs of God, be grievous to you, yet in God is my trust ….
+
+And if ye turn your backs on me, yet ask I no reward from you:  my reward is with God alone, and I am commanded to be of the Muslims.
+
+(Súra 10 “Jonah”, vv. 72–3)
+
+And when Abraham, with Ismael, raised the foundations of the House, they said, “O our Lord!  accept it from us; for thou art the Hearer, the Knower.
+
+O our Lord! make us also Muslims, and our posterity a Muslim people; and teach us our holy rites, and be turned towards us, for thou art He who turneth, the Merciful.
+
+(Súra 2 “The Cow”, vv. 121–122)
+
+And who but he that hath debased his soul to folly will mislike the faith of Abraham, when we have chosen him in this world, and in the world to come he shall be of the Just?
+
+When his Lord said to him, “Resign thyself to me,” he said, “I resign myself to the Lord of the Worlds”.
+
+And this to his children did Abraham bequeath, and Jacob also, saying, “O my children! truly God hath chosen a religion for you; so die not unless ye be also Muslims.”
+
+(Súra 2 “The Cow”, vv. 124–126)
+
+Were ye present when Jacob was at the point of death? when he said to his sons, “Whom will ye worship when I am gone?”  They said, “We will worship thy God and the God of thy fathers Abraham and Ismael and Isaac, one God, and to Him are we surrendered (Muslims).
+
+(Súra 2 “The Cow”, v. 127)
+
+They said, “Verily, to our Lord do we return
+
+And thou takest vengeance on us only because we have believed on the signs of our Lord when they came to us.  Lord! pour out constancy upon us, and cause us to die Muslims.”
+
+(Súra 7 al-Araf, vv. 122–123)
+
+And when I revealed unto the Apostles, “Believe on me and on my Sent One,” they said, “We believe; and bear thou witness that we are Muslims.”
+
+(Súra 5 “The Table”, v. 111)
+
+In these verses, the translator has used the word “Muslim”, instead of its translation, wherever the Arabic word occurs.  It is therefore evident that in the language of the Qur’án, Noah, Abraham, Ishmael, Jacob, Moses and those who believed in Him, as well as the disciples of Jesus Christ, are called “Muslims”, in spite of the fact that they all lived before the revelation of the Qur’án and Islám.  In fact, another excerpt clearly shows that in the terminology of the Book, the word “Muslim” applies to the believers in any Manifestation of God during the dispensation of that Prophet:
+
+They to whom we gave the Scriptures before It, do in It believe.
+
+And when it is recited to them they say, “We believe in it, for it is the truth from our Lord.  We were Muslims before it came.”
+
+(Súra 28 “The Story”, vv. 52–3)
+
+Those to whom a Book was given prior to the advent of Muḥammad were “Muslims”, including Christians and Jews, who are referred to in the Qur’án as “the people of the Book”.  In the verses cited, Noah,
+
+Abraham, Ishmael, Jacob, Moses as well as the disciples of Jesus, considered themselves or asked to be considered as such.  Further, through the following verses God confirms the prayers of Abraham and identifies all believers in the Apostle of the age as Muslims:
+
+Believers! bow down and prostrate yourselves and worship your Lord, and work righteousness that you may fare well.
+
+And do valiantly in the cause of God as it behoveth you to do for Him.  He hath elected you, and hath not laid on you any hardship in religion, the Faith of your father Abraham.  He hath named you Muslims.
+
+Heretofore and in this Book, that the Apostles may be a witness against you, and that ye may be witnesses against the rest of mankind …
+
+(Súra 22 “The Pilgrimage”, vv. 76–78)
+
+Oneness of religion
+
+Given the fact that the Qur’án explains that the followers of all the previous religious dispensations professed Islám and were Muslims, and in considering the verse wherein God says,
+
+The true religion with God is Islám …
+
+(Súra 3 Ál ‘Imrán, v. 17)
+
+it becomes evident that the Qur’án considers all the revealed religions as one, in spite of the different names of Their Founders and Books, and of the different epochs at which Their dispensations flourished.
+
+A further, clear confirmation of this is contained in the following verses:
+
+Of a truth they who believe not on God and his Apostles, and seek to separate God from his Apostles, and say, “Some we believe, and some we believe not,” and desire to take a middle way;
+
+These! they are veritable infidels! and for infidels have we prepared a shameful punishment.
+
+And they who believe on God and his Apostles, and make no difference between them—these! we will bestow on them their reward at last.  God is Gracious, Merciful!
+
+(Súra 4 “Women”, vv. 149–151)
+
+The Meaning of Muslim and of Islám Muḥammad gave the definition of who is a Muslim.  In the Bukhárí is recorded the following tradition:
+
+A Muslim is he from whose hands and tongue people suffer no harm.
+
+In the following verses, the meaning of “Islám” and “Muslim” are further explained:
+
+The Arabs of the desert say, “We believe.”  Say thou:  Ye believe not; but rather say, “We profess Islám;” for the faith hath not yet found its way into your hearts.  But if ye obey God and His Apostle, he will not allow you to lose any of your actions:  for God is Indulgent, Merciful.
+
+(Súra 69 “The Apartments”, v. 14)
+
+They taunt thee with their having embraced Islám.  Say:  Taunt me not with your having embraced Islám:  God rather taunteth you with His having guided you to the faith:  acknowledge this if ye are
+
+sincere.
+
+(Súra 69 “The Apartments”, v. 17)
+
+Imám Abú Ḥanífah, the recognized ‘ulamá, comments on the subject of Islám and faith in the following excerpt:
+
+Faith is to believe in, and have firm admission of the truth.  To profess Islám is to surrender and resign oneself to the commands of God.  According to Arabic terminology, there is a difference between faith and professing Islám.  Nevertheless there is no faith without Islám; likewise there is no Islám without faith, for they resemble back and belly …. However, religion is but a term under which fall Islám, faith and the law, all together.
+
+The reader may wish to consider that, were the word “Islám” in the preceding passages to be replaced by submissiveness and “Muslim” by “he who has attained submissiveness”, the meaning and purport would not change.
+
+Nowhere is there mention that there shall not be any further revelation or religion after the One revealed to Muḥammad, the Apostle of God.  To limit the meaning of “Islám” to belief in the Qur’án and the Revelation of Muḥammad is at variance with the verses of the Qur’án itself.  If, however, one considers the principle of the oneness of religion and the obligation placed by God upon man to accept and be submissive
+
+before His most recent Revelation, then the true meaning of Islám, as intended by the Qur’án, will become evident and clear.
+
+Verily, they who believe (Muslims), and they who follow the Jewish religion, and the Christians, and the Sabeites—whoever of these believeth in God and the last day, and doeth that which is right, shall have their reward with their Lord:  fear shall not come upon them, neither shall they be grieved.
+
+(Súra 2 “The Cow”, v. 59)
+
+It shall be noted that in the above verse, Muḥammad revealed the phrase “they who believe” and not “those who professed Islám”
+
+5
+Muḥammad:  The Seal of the Prophets
+
+Muḥammad is not the father of any man among you, but he is the Apostle of God, and the seal of the prophets:  and God knoweth all things.
+
+(Súra 33 “The Confederates”, v. 40)
+
+According to the Qur’án, and as reaffirmed in the Writings of Bahá’u’lláh, Muḥammad was both a Prophet and an Apostle of God, and designated as the “Seal of the Prophets”.  It is the interpretation of this last title which often constitutes a barrier to an appreciation or acceptance of the Bahá’í Faith on the part of Muslims, for it is understood as denying the possibility of the appearance of any further Manifestation of God after Muḥammad Himself.  By considering the distinction that must be made between “Prophet” and “Apostle” of God, a different interpretation of the title “Seal of the Prophets” becomes apparent.
+
+The origin of the word “prophet” in Arabic is “nabí” which means “foreteller” and corresponds to the Hebrew word for “foreseer”.  In the Old and New Testaments, the manner of foreseeing the future is in the form of visions and dreams.  Joseph had a vision, Daniel prophesied and St. John had revelations.  Mírzá Abu’l-Faḍl explains this theme very clearly in The Bahá’í Proofs.  The term “Prophet” thus became the name given to One Who is inspired by God and consequently became applicable to all the Manifestations of God.
+
+And there arose not a prophet since in Israel like unto Moses …
+
+(Deuteronomy 34:10)
+
+They say unto the blind man again, what sayeth thou of him, that he hath opened thine eyes?  He said, He
+
+is a prophet.
+
+(St. John 9:17)
+
+For Jesus himself testified, that a prophet hath no honor in his own country.
+
+(St. John 4:44)
+
+The Qur’án, however, attributes more distinct and precise stations and roles to a Prophet and to an Apostle of God.  In the Bible, Moses and Jesus are called Prophets, but in the Qur’án, Moses and Jesus are also referred to as Apostles of God, while Aaron is designated a Prophet:
+
+And commemorate Moses in “the Book;” for he was a man of purity:  moreover he was an Apostle, a Prophet:
+
+From the right side of the mountain we called to him, and caused him to draw nigh to us for secret converse:
+
+And we bestowed on him in our mercy his brother Aaron, a Prophet.
+
+(Súra 19 “Mary”, vv. 52–54)
+
+And when I revealed unto the Apostles, “Believe on me and on my Sent One,” they said, “We believe; and bear thou witness that we are Muslims.”
+
+(Súra 5 “The Table”, v. 111)
+
+Moses, therefore, was identified by God to be an Apostle and a Prophet simultaneously:  an Apostle because the Torah was revealed to Him and because a new law was established; and a Prophet because He Himself followed, promoted and protected that very law during His lifetime.  As for Aaron, He was a Prophet with the main task of following the law and protecting the Faith established by Moses.
+
+This is the distinction made between an Apostle of God and a Prophet of God, as found in the Qur’án.  The argument that because Muḥammad was the “Seal of the Prophets” and as all Apostles were also Prophets, there shall therefore be no Manifestations of God after Muḥammad, is one that has no basis in either the Qur’án or the traditions.
+
+In order to leave no room for doubt concerning this matter, Muḥammad explained very clearly in one of His traditions, recorded in the Qasṭallání Comments of the Bukhárí:
+
+The children of Israel were governed by Prophets.  Whenever a Prophet passed away, another succeeded Him.  But there shall be no Prophets to succeed Me; rather there will be Caliphs (or Imams).
+
+In another tradition, the Prophet further explains the station of the Caliphs or Imams Who will follow Him, designating them as “‘ulamá” or “learned”, thus:
+
+Verily the ‘Ulamá of My people are more exalted than the Prophets of the children of Israel.
+
+In this connection, the reverence with which Bahá’u’lláh made mention of the Imám Ḥusayn should be recalled.
+
+The difference between “Apostle” and “Prophet” is further maintained in Islamic jurisprudence.  Imám Sháfi’í stated:
+
+We should believe in the Prophets and the Apostles of God, each and all.  The distinction characterizing the two categories lies in this:  that the Apostle of God is He Who brings the law, while the Prophets are reared under the law brought by the Apostles of God.  Hence each Apostle is simultaneously a Prophet, whereas a Prophet is not endued with the same characteristics of the Apostle.
+
+In his commentary on verse 51 of Súra 22 “The Pilgrimage”, an-Nasafí records an interesting tradition, as well as an interesting explanation on the subject of Apostleship and Prophethood.  The verse reads as follows:
+
+We have not sent any apostle or prophet before thee, among whose desires Satan injected not some wrong desire, but God shall bring to nought that which Satan had suggested.  Thus shall God affirm His revelations for God is Knowing, Wise!
+
+(Súra 22 “The Pilgrimage”, v. 51)
+
+And an-Nasafí comments:
+
+And this is evident proof of the established difference between an Apostle and a Prophet contrary to what they say that they are the same.  When the Prophet Muḥammad, peace be upon Him, was asked as to how many Prophets were there, He answered:  “Hundred and twenty four thousand.”  They again asked as to how many of them were Apostles; and He answered:  “Three hundred and thirteen, plenty!”  The difference between them is that the Apostle is One Who brings a Book in addition to the miracle with which He is supported.  As to the Prophet, He does not bring Book, but rather follows and promotes the then existing Law.  It is also said that an Apostle is the Founder of the Law, whereas the Prophet is the Promulgator and Guardian of that Law.
+
+From the above quotations, it becomes evident that the “sealing” of Prophethood was intended primarily to announce a change in the administrative structure of the future Muslim community, as compared to the system that was in practice within the Jewish community during the period between the ministry of His Holiness Moses and the appearance of Jesus Christ.  Nowhere in the Qur’án or in the traditions of the Prophet Muḥammad is there mention of the “sealing” of Apostleship, precluding further Divine Revelation.
+
+Muḥammad had no male children, and He adopted a young slave of Christian origin named Zayd ibn al-Ḥárithah as His son, after freeing him from slavery and receiving his voluntary request to remain in the household of the Prophet.  The Jews at the time, being highly opposed to the new Revelation, saw an unprecedented opportunity in Muḥammad’s adoption of a son as a means of sowing seeds of doubt concerning His Prophethood.  They claimed, among other things, that because Muḥammad knew the history of the children of Israel who were governed by
+
+Prophets after the ascension of Moses, he intended to adopt and copy the same system.  They concentrated their efforts on the event not only to defame Muḥammad, but also to arouse the tribes, stir others against Him and uproot His Movement.
+
+To refute their machinations, the verse “Muḥammad is not the father of any man among you, but he is the Apostle of God” was revealed, followed by what was an affirmation that there would not be Prophet heirs in the Islamic Dispensation, i.e. that He was “the Seal of the Prophets”.  In this manner, God refuted the assumptions of the enemies of His Faith, causing their ill will to be turned against them.
+
+6
+Basics taught in the Qur’án
+
+Through careful study of the Qur’án, one finds a consonance of principle with the Holy Scriptures revealed before it, but in more explicit and often repeated texts.  Some basic principles are readily identifiable and are included here.
+
+The unity of God, and the unity of His Apostles
+and Prophets
+
+That God is one, that there is a fundamental unity of His Apostles and Prophets, and further, that His Scriptures and religions are one, is stated in the following verse:
+
+Say ye:  “We believe in God, and that which hath been sent down to us, and that which hath been sent down to Abraham and Ismael and Isaac and Jacob and the tribes:  and that which hath been given to Moses and to Jesus, and that which was given to the prophets from their Lord.  No difference do we make between any of them:  and to God are we resigned (Muslims).”
+
+(Súra 2 “The Cow”, v. 130)
+
+Thus, Muslims believe in God and the Qur’án, in that which was revealed to Abraham, Ishmael, Isaac, Jacob and others, as well to Moses, Jesus and the prophets.  It is clearly stated that Muslims are not to make distinctions between the Recipients of these Revelations.
+
+The divine origin of all the Laws of God
+
+The laws sent from God to humanity, though outwardly different in having been revealed through different Apostles to different nations at different times, were and continue to be one in origin and purpose, as is expressed in the following verse:*
+
+To you hath He prescribed the faith which He commanded unto Noah, and which we have revealed to thee, and which we commanded unto Abraham and Moses and Jesus, saying, “Observe this faith, and be not divided into sects therein.”
+
+(Súra 42 “The Counsel”, v. 11)
+
+God prescribed the laws, or jurisprudence, of
+
+Islám, in keeping with the exigencies of the time, as He
+
+had revealed laws to Noah, Abraham, Moses and Jesus
+
+in the past.
+
+The function of the Apostles of God is one and the
+same
+
+God attributed to the Prophet Muḥammad three functions:  witness, herald of glad tidings and warner.
+
+O Prophet! we have sent thee to be a witness, and a herald of glad-tidings, and a warner;
+
+(Súra 33 “The Confederates”, v. 44)
+
+For the Apostles in general, God says the following:
+
+We send not our Sent Ones but as heralds of good news and warners
+
+(Súra 6 “The Cattle”, v. 48)
+
+It will be later shown that Moses and Jesus were also witnesses.
+
+When are the Apostles sent?
+
+Given the principle of unity taught in the Qur’án, why then should there have been different religions and different Apostles?  And also, when would God send a new Apostle?*
+
+Men were of one religion only:  then they fell to variance:  and had not a decree (of respite) previously gone forth from thy Lord, their differences had surely been decided between them!
+
+(Súra 10 “Jonah”, v. 20)
+
+The verse explains that when a unified community loses its cohesiveness and develops differences, God sends a Revelation to re-establish its unity.
+
+Mankind was but one people; and God sent prophets to announce glad tidings and to warn; and he sent down with them the Book of Truth, that it might decide the disputes of men; and none disputed but those to whom the Book had been given, after the clear tokens had reached them,—being full of mutual jealousy.  And God guided those who believed to the truth of that about which, by his permission, they had disputed; for God guideth whom he pleaseth into the straight path.
+
+(Súra 2 “The Cow”, v. 209)
+
+The verse restates this theme and reaffirms that God sends His Manifestations to both educate and judge the people.  Those who believe in the newly revealed Book are guided in a manner that eliminates their differences, while others turn on their heels and create disharmony.  Thus at the appearance of every new Revelation, the sincere are guided to unity, while those who cling to a previous Revelation and have hearts filled with jealousy and hatred, reject the truth and cavil.  It might also be noted that in the verse cited above, the Prophets are mentioned in plural, while is singular, a further confirmation of the unity of God’s Revelation, however numerous the Pure Mirrors reflecting It to humanity.
+
+7
+Witness, herald of glad-
+tidings, and a warner
+
+O Prophet! we have sent thee to be a witness, and a herald of glad-tidings, and a warner; …
+
+(Súra 33 “The Confederates”, v. 44)
+
+We send not our Sent Ones but as heralds of good news and warners …
+
+(Súra 6 “The Cattle”, v. 48)
+
+Mankind was but one people; and God sent prophets to announce glad tidings and to warn …
+
+(Súra 2 “The Cow”, v. 209)
+
+In the verse from Súra 33 “The Confederates”, God addresses the Prophet Muḥammad.  In that verse cited above from Súra 6 “The Cattle”, the use of “We” is in reference to God, Who has sent Prophets and Apostles as “witnesses”, “heralds of glad-tidings” and “warners”.  Although the identification of “witness” seems to have been limited to the Prophet Muḥammad and in the other verses only “herald” and “warner” are mentioned, the identification of “witness” applies to other Apostles of God.
+
+Muḥammad was a witness to the Book that was the Evangel and the Torah, as the following testifies:
+
+And to thee we have sent down the Book of the Koran with truth, confirmatory of previous Scriptures, and their safeguard ….
+
+(Súra 5 “The Table”, v. 52)
+
+And Jesus Christ was a Witness as the following verse confirms:
+
+And in the footsteps of the prophets caused we Jesus, the son of Mary, to follow, confirming the law which was before him:  and we gave him the Evangel with its guidance and light, confirmatory of the preceding Law; a guidance and warning to those who fear God.
+
+(Súra 5 “The Table”, v. 50)
+
+The verses give credence to the essential unity of the Prophets and Their Revelations, in that each confirmed the law of the previous Manifestations.  Thus, Moses was truly an Apostle of God, and Jesus was sent by God to bear witness to the truth of His Revelation, as well as to give the Evangel to mankind.  Then the Jews and the Christians engaged in mutual defamation:
+
+Moreover, the Jews say, “The Christians lean on nought:”  “On nought lean the Jews,” say the Christians:  Yet both are readers of the Book.  So with like words say they who have no knowledge.
+
+(Súra 2 “The Cow”, v. 107)
+
+But Muḥammad came and testified to the stations of Moses and Jesus, as well as to the divine origin of the Torah and the Evangel.  From this it can be readily inferred that the next Manifestation from God would bear witness to Muḥammad and the Qur’án, just as He was a witness for Those Who were before Him.
+
+Moreover, Muḥammad, like the Prophets before Him, has warned that a terrible punishment will be the lot of those who refuse to accept the next Revelation, as foretold in the prophecies.*
+
+All of the Prophets and Apostles of God are “heralds of glad-tidings”, “announcers” and “warners”, as announced and confirmed in the verses which open this chapter.  It is important to reflect on the meaning behind this role of the Prophets of God, in the light of the Qur’án.  In this connection, the following verses explain the meaning of “glad-tidings”.
+
+“O Zachariah! verily we announce to thee [the glad-tidings of] a son,—his name John:  That name We have given to none before him.”
+
+(Súra 19 “Mary”, v. 7)
+
+Remember when the angel said, “O Mary!  Verily God announceth to thee [the glad-tidings] the Word from Him:  His name shall be, Messiah Jesus the son of Mary, illustrious in this world, and in the next, and one of those who have near access to God …”
+
+(Súra 3 Áli ‘Imrán, v. 40)
+
+John the Baptist and Jesus were Prophets of God, whose coming was heralded by God.  Jesus was also an Apostle.  Likewise, of all the twelve sons of Jacob, only Joseph was referred to with regard to “glad-tidings” in the Qur’án, because He was destined to become a Prophet.
+
+That Muḥammad was appointed by God as a “herald of glad tidings”, “announcer” indicates that He was entrusted with a mission and would announce the advent of a future Prophet or Apostle of God.  Muḥammad and the Qur’án have announced the glad-tidings of the advent of the Mahdí and the return of Jesus Christ, Who are the Báb and Bahá’u’lláh.
+
+8
+Progressive revelation
+
+Stories of the prophets and Apostles of God, and how the different peoples argued with and opposed Them, can be found in Súra 11 Húd:
+
+We sent Noah of old unto his people:—“Verily I come to you a plain admonisher,
+
+That ye worship none but God.  Verily I fear for you the punishment of a grievous day.”
+
+Then said the chiefs of his people who believed not, “We see in thee but a man like ourselves; and we see not who have followed thee except our meanest ones of hasty judgment, nor see we any excellence in you above ourselves:  nay we deem you liars.”
+
+(Súra 11 Húd, vv. 27–9)
+
+This was how the people of Noah regarded Him.  The same attitude was taken by the people of ‘Ád towards the Apostle Húd, those of Thamúd towards Ṣáliḥ, those of Lot towards Abraham, those of Midian towards Shoeb, the Pharaohs towards Moses, the Jews towards Jesus and the people of Quraysh towards Muḥammad.
+
+And when it was said to them, “Accede to that which God hath sent down, and to the Apostle:”  they said, “Sufficient for us is the faith in which we found our fathers.”  What! though their fathers knew nothing, and had no guidance?
+
+(Súra 5 “The Table”, v. 103)
+
+In his “Notes”, ‘Alí Nakhjavání explains this subject, as follows:
+
+1.	The Jews were required by Exodus 31:16–17 to keep the Sabbath as an eternal covenant:  “Wherefore the children of Israel shall keep the Sabbath, to observe the Sabbath throughout their generations, for a perpetual Covenant.  It is a sign between Me and the children of Israel forever”.  Both Jesus and Muḥammad broke the Sabbath; does it mean that They were wrong?
+
+2.	Jesus has been referred to in Revelations 1:11 as Alpha and Omega, the First and the Last.  Likewise He said in Luke 21:33, “Heaven and earth shall pass away; but My words shall not pass away.”  If Jesus was to be the Last, why did Muḥammad appear after Him?  If the words of Jesus were not to be changed, why did Muḥammad reveal the Qur’án?
+
+The same question may be asked of the Muslims.  If Muḥammad was to be the last, why did the Qur’án foretell the return of the Messiah and the traditions of the appearance of the Mahdí?
+
+These questions should be taken into account when an effort is being made to acquire a correct understanding of the meaning of the “Seal of the Prophets” and “the true Religion with God is Islam”.  For although each nation held fast to the belief that its Faith was final, religions continue to succeed one another, proving that they are progressive and not final, just as knowledge is relative and not absolute.  In fact,
+
+it is clearly stated in the Qur’án that only a small amount of knowledge was given unto the Muslims:
+
+And they will ask thee of the Spirit.  Say:  The Spirit proceedeth at my Lord’s command:  but of knowledge, only a little to you is given.
+
+(Súra 17 “The Night Journey”, v. 87)
+
+Compare this with the confirmation expressed in the Qur’án that the knowledge of God and the Words of God are infinite:
+
+If all the trees that are upon the earth were to become pens, and if God should after that swell the sea into seven seas of ink, His words would not be exhausted:  for God is Mighty, Wise.
+
+(Súra 31 “Lokman”, v. 26)
+
+Say:  Should the sea become ink, to write the words of my Lord, the sea would surely fail ere the words of my Lord would fail, though we brought its like in aid.
+
+(Súra 18 “The Cave”, v. 109)
+
+Again refer to verse 40 of Súra 3 Ál ‘Imrán, where Jesus the Messiah is considered but a Word of God:
+
+Remember when the angel said, “O Mary!  Verily God announceth to thee the Word from Him:  His name shall be, Messiah Jesus the son, son of Mary …”
+
+How then can any people imagine that no further Revelation will follow that which was sent to them?  Having realized the validity of these arguments,
+
+the ‘ulamá cited verses in which God confirms that His Words are infinite and cannot be exhausted, saying that those which were not revealed in the Qur’án are the sciences and arts that the human mind will in time be able to reveal and understand from the Book, in accordance with the needs of the future generations.  Such an explanation is incompatible with the following verses:
+
+…. but of knowledge, only a little to you is given .
+
+(Súra 17 “The Night Journey”, v. 87)
+
+And no one thing is there, but with Us are its storehouses; and We send it not down but in settled measure.
+
+(Súra 15 Ḥijr, v. 21)
+
+In response to the disposition of the Jews towards Jesus and Muḥammad, and the stance that there could be no further Revelation after Moses, it was revealed:
+
+“The hand of God,” say the Jews, “is chained up.”  Their own hands shall be chained up—and for that which they have said shall they be cursed.  Nay! outstretched are both His hands!  At His own pleasure does He bestow gifts.
+
+(Súra 5 “The Table”, v. 69)
+
+The reference to the hand of God being “chained up” describes an obviously erroneous perception that God is powerless to send another Messenger.  In explicit terms the Qur’án explains how each and every nation refused the Apostle sent to it from God, yet this regrettable response never deterred the Almighty from sending His Apostles, one after another:
+
+Then sent we our apostles one after another.  Oft as their apostle presented himself to a nation, they treated him as a liar; and we caused one nation to follow another; and we made them the burden of a tale.  Away then with the people who believe not!
+
+(Súra 23 “The Believers”, v. 46)
+
+Were the Qur’án the last Revelation from God, this verse itself would have been superfluous.  The verse indicates that time and again people have denied the appearance of God’s Apostles and conveys a warning to the Muslims, as does the verse which advises them to ascertain the authenticity of news or a “tiding”:
+
+O Believers!  If any bad man come to you with news, clear it up at once, lest through ignorance ye harm others, and speedily have to repent of what ye have done.
+
+(Súra 49 “The Apartments”, v. 6)
+
+Included in the meaning of “news” or “tidings” is that of the advent of an Apostle or Prophet of God.
+
+How would one differentiate between the true “news” or “tidings” from the false ones?  In the following verse, the searcher may find the answer:
+
+Fear ye God, and God will teach you.
+
+9
+A set term for every nation
+
+The belief that Muḥammad, as “Seal of the Prophets”, would be the last of God’s Messengers sent to mankind enabled His followers to conclude that the Islamic state would be the last religious nation or people as well.  However, the Qur’án itself clearly indicates that the Muslim nation is not the last, but represents an intermediate stage in mankind’s spiritual history.
+
+Thus have we made you a central people, that ye may be witnesses in regard to mankind, and that the apostle may be a witness in regard to you.
+
+(Súra 2 “The Cow”, v. 137)
+
+The identification of Muslims as a “central people” is not only stated with respect to the people that went before them, but presupposes that another will follow, in keeping with the principle of continuity of religion confirmed elsewhere in the Qur’án:
+
+O children of Adam! there shall come to you Apostles from among yourselves, rehearsing my signs to you; and who so shall fear God and do good works, no fear shall be upon them, neither shall they be put to grief
+
+(Súra 7 al-Araf, v. 33)
+
+This verse, addressed to the children of Adam, assures mankind that Apostles will continue to be sent by God, without affirming the continuity of Prophethood.
+
+In Some Notes on Bahá’í Proofs Based on the Qur’án, pp. 5–6, ‘Alí Nakhjavání comments:
+
+Another interesting point we find in the Qur’án is the setting forth of a universal principle governing the appearance of the Messengers of God.  This principle, which has no exceptions and therefore does not exclude Islám, provides that any people who receive a Messenger of God are given a fixed term or appointed time.  At such an appointed time, a Divine Book is revealed by God through His Messenger which seals the past term and starts the new one.
+
+The following verses from the Qur’án are cited in illustration of this view:
+
+Every nation hath its set time.  And when their time is come, they shall not retard it an hour; and they shall not advance it.
+
+(Súra 7 al-Araf, v. 32)
+
+Neither too soon, nor too late, shall a people reach its appointed time.
+
+(Súra 23 “The Believers”, v. 45)
+
+… To each age its Book.
+
+What He pleaseth will God abrogate or confirm:  for with Him is the source of revelation.
+
+(Súra 12 “Thunder”, vv. 38–9)
+
+The set term of the Muslim nation
+
+The “fixed term” of a nation can be likened to that of an individual, whose lifespan becomes known when he passes away, but not prior to it.  That the Islamic Dispensation had its own “fixed term” can be found in the interpretation of the figurative verses of
+
+the Qur’án, which remained with God and those firmly grounded in knowledge until the Promised One came to reveal it.  The end of the term of the Muslim nation occurred in the year 1260, with the appearance of the Báb and the revelation of His Book, the Bayán.  To that event the Qur’án refers in the following verse:
+
+From the Heaven to the Earth He governeth all things:  hereafter shall they come up to him on a day whose length shall be a thousand of such years as ye reckon.
+
+(Súra 32 “Adoration”, v. 4)
+
+There are two periods included in the Islamic cycle.  The second, to which the verse refers, is a span of one thousand lunar years and was a time of “reckoning” of the people to whom the Revelation had been sent.  The first period was that of the actual ministry of Muḥammad as well as of the twelve Imams who were His descendants, in accordance with the tradition:
+
+I leave amongst you two weighty legacies, the Book of God and My Descendants.
+
+The last of the Imams passed away in the year 260 and then the full period of 1,000 years as mentioned in the verse passed before the Báb appeared in 1260 (1844).
+
+The set term:	“Every nation hath
+
+1,260 years	its set time”
+
+The Book:	“… To each age its Book
+
+The Bayán	What He pleaseth will God
+
+abrogate or confirm …”
+
+The “Seal of the Prophets” and Islamic law
+
+Consistent with the belief that Islám is the final religion, Muslims also identify Islamic or Sharí‘ah Law as the last that will be sent by God to mankind.  However, the laws of Islám were sent down as in previous dispensations, as conveyed by the eleventh verse of Súra 42 “The Counsel”, differing from one another in accordance with the exigencies of the time, which God in His Wisdom deemed necessary.
+
+It is interesting to note that during His ministry, Muḥammad modified some of the laws, as evidenced by the changing of the Qiblih, the direction toward which one should face during prayers.  In its early period, this spot was Jerusalem.  God then commanded the Apostle to turn toward the Ka‘bah in Mecca, which then became the Qiblih of the Muslim world.
+
+The foolish ones will say, “What hath turned them from the kebla which they used?”  Say:  the East and the West are God’s.  He guideth whom he will into the straight path.”
+
+(Súra 2 “The Cow”, v. 136)
+
+In the case of alcohol, the prohibition was revealed progressively:
+
+They will ask thee concerning wine and games of chance.  Say:  In both is great sin, and advantage also, to men; but their sin is greater than their advantage ….
+
+(Súra 2 “The Cow”, v. 216)
+
+O ye true believers, come not to prayer when ye are drunken, but wait till ye can understand what ye utter …
+
+(Súra 4 “Women”, v. 46)
+
+O believers! surely wine and games of chance, and statues, and the divining arrows, are an abomination of Satan’s work!  Avoid them, that ye may prosper.
+
+(Súra 5 “The Table”, v. 92)
+
+Thus, within the very period of Muḥammad’s ministry, there were changes in Islamic laws, representing a gradual unfoldment of divine decree.  It can therefore be readily understood how such divinely ordained changes have manifested themselves from one religion to another at different periods of time, to different peoples, and at different places on earth.  Just as it was revealed in Súra 42 “The Counsel” that the laws of Islám have been prescribed as those commended to Noah, Abraham, Moses and Jesus, and further ordained that the Muslims should observe the Faith and not be divided, it is clear that while religion
+
+is one, the laws change from one Revelation to another.  The absence of logical argument for the concept that Sharí‘ah Law is eternal becomes apparent through study of the Qur’án itself, which, moreover, refers to different Sacred Scriptures by the same name, despite the claim of finality advanced by followers of earlier religions.
+
+Blessed be He who hath sent down Al Furkan (the illumination) on his servant, that to all creatures he may be a warner.
+
+(Súra 25 al-Furqán, v. 1)
+
+We gave of old to Moses and Aaron the illumination [al-Furqán], and a light and a warning for the God-fearing.
+
+(Súra 21 “The Prophets”, v. 49)
+
+In these two verses, both the Qur’án and the Torah are referred to as “Furqán”, meaning “criterion” or “illumination”, yet the laws in these two Books of God are not all the same.
+
+Each nation has its own law
+
+The Qur’án clearly explains that God has revealed to each people a set of laws to be followed.
+
+And to thee we have sent down the Book of the Koran with truth, confirmatory of previous Scriptures, and their safeguard.  Judge therefore between them by what God hath sent down, and follow not their desires by deserting the truth which hath come unto thee.  To every one of you have we given a rule and a beaten track.
+
+And if God had pleased He had surely made you all one people; but He would test you by what He hath given to each …
+
+(Súra 5 “The Table”, vv. 52–3)
+
+In these verses, Muḥammad was enjoined to judge with the newly revealed law which, by its revelation, superseded those given to mankind in previous dispensations.  When one law becomes impractical, another one is revealed to take its place.  Not only does the new revelation include a new set of laws, but the rites and observances change too:
+
+To every people have we appointed observances which they observe.  Therefore, let them not dispute this matter with thee, but bid them to thy Lord, for thou art on the right way:
+
+But if they debate with thee.  then Say:  God best knoweth what ye do!
+
+God will judge between you on the day of resurrection, as to the matters wherein ye differ.
+
+(Súra 22 “The Pilgrimage”, vv. 66–8)
+
+While Muḥammad was enjoined to judge by the law that had been revealed to Him, God had promised in the Qur’án that He Himself will judge on the Day of Resurrection concerning matters of difference.  For those who doubt that God may abrogate or replace the verses He has revealed, the Qur’án confirms:
+
+Whatever verses we cancel, or cause thee to forget, we bring a better or its like.  Knowest thou not that God hath power over all things?
+
+(Súra 2 “The Cow” v. 100)
+
+The Will of God:  Mankind as “One Nation” And if God had pleased He had surely made you all one people …
+
+(Súra 5 “The Table”, v. 53)
+
+Had thy Lord pleased he would have made mankind of one religion:  but those only to whom thy Lord hath* granted his mercy will cease to differ.  And unto this hath He created them …
+
+(Súra 11 Húd, v. 120)
+
+Had God so pleased, He had made them one people and of one creed:  but He bringeth whom He will within His mercy; and as for the doers of evil, no patron, no helper shall there be for them.
+
+(Súra 42 “The Counsel”, v. 6)
+
+Had God pleased, He could have made you one people:  but He causeth whom He will to err, and whom He will He guideth:  and ye shall assuredly be called to account for your doings.
+
+(Súra 16 “The Bee”, v. 95)
+
+Were it the will of God, or as the Arabic language may intimate in such expressions, “when it shall be the will of God”, all peoples on earth shall become one nation—an event that shall come to pass at a time known only to God and previously appointed by Him.  On that Day, all shall be informed of that through which all differences shall be explained and all shall be judged and called to account for their acts.
+
+10
+The Resurrection
+
+Peoples of all religions expect the advent of a “day” of very special significance..  That “day” has been given many names in the Qur’án, including:
+
+The Great Day	(al-‘Aẓím)	[e.g. 7:57, 10:16]
+
+The Day of Resurrection	(al-Qiyáma)	[e.g. 2:85, 2:174]
+
+The Day of Decision	(al-Faṣl)	[e.g. 44:40, 77:13]
+
+The Day when the Hour	(as-Sá‘ah)	[e.g. 30:13, 30:54]
+
+shall come to pass
+
+The Day of Judgement	(al-Dín)	[51:12]
+
+The Day of Disillusion	(al-Taghábun)	[64:9]
+
+The Day of Reckoning	(al-Ḥisáb)	[e.g. 38:16, 26, 53]
+
+The event that will take place on that day has also been referred to as:
+
+The event that must inevitably
+
+come to pass (al-Wáqi‘a)	[69:15]
+
+The stunning calamity (al-Qári‘a)	[101:1–3]
+
+Hellfire guarded by 19 Angel
+
+Guardians (Saqar)	[74:26–30]
+
+The overwhelming event (al-Gháshíya)	[88:1]
+
+What is to happen on that Day?  Common expectations concerning the events to take place include, but are not limited to, belief that the heavens and the earth shall be destroyed and the stars shall fall, the moon shall not shine and the sun shall cease to give light, resulting in complete darkness, and that those living shall die.  It is anticipated that God will sit on His throne, surrounded by the Apostles, Prophets and angels.  The balance shall be set up and all shall rise from their graves to pass through a process of judgement.  The “good” shall be sent to paradise as an eternal reward and the “evil” ones shall go to hell as eternal punishment.  Just as the Christians believe that only the followers of Christ will be given the chance of
+
+going to heaven, the Muslims believe that only those professing Islám can hope for a place in paradise.
+
+This is the common expectation concerning the sequence of events to occur on the Day of Resurrection, which has been further embroidered by many thinkers.  Incompatible with the knowledge and sciences of today and therefore lacking in logic to the modern mind, such literal interpretations are reflective of a primitive, if imaginative, comprehension of spiritual verities.
+
+Before going into more detail on the subject of the Day of Resurrection, it may be appropriate to refer here to two verses in the Qur’án that deal very specifically with the question of who will enter paradise.
+
+And they say, “None but Jews or Christians shall enter Paradise:  “This is their wish.  Say:  Give your proofs if ye speak the truth.
+
+But they who set their faces with resignation Godward, and do what is right,—their reward is with their Lord; no fear shall come on them, neither shall they be grieved.
+
+(Súra 2 “The Cow”, vv. 105–6)
+
+The idea that entry into paradise would be limited, as taught to the people by religious leaders, is contrary to the Quranic verses indicating that such a reward is dependent on one being resigned to God’s will and being adorned with good deeds.  The original Arabic of the word rendered “resignation” in the above verse is “aslam”, a derivative of the word “Islám”.
+
+The Hour
+
+God refers to the Day of Resurrection in the Qur’án as a day both of blessing and of calamity.  “The Hour”, the Qur’án explains, is fixed and known only to God.
+
+They will ask thee of the Hour—for what time is its coming fixed?  Say:  The knowledge of it is only with my Lord:  none shall manifest it in its time but He:  it is the burden of the Heavens and of the Earth:  not otherwise than on a sudden will it come on you.
+
+They will ask thee as if thou wast privy to it:  Say:  The knowledge of it is with none but God.  But most men know not this.
+
+(Súra 7 al-Araf, vv. 186–7)
+
+Men will ask thee of “the Hour”.  Say:  The knowledge of it is with God alone:  and who can tell thee whether haply the Hour be not nigh at hand?
+
+(Súra 33 “The Confederates”, v. 63)
+
+They will ask thee of “the Hour”, when will be its fixed time?
+
+But what knowledge hast thou of it?
+
+Its period is known only to thy Lord;
+
+And thou art only charged with the warning of those who fear it.
+
+On the day when they shall see it, it shall seem to them as though they had not tarried in the tomb, longer than its evening or its morn.
+
+(Súra 79 “Those Who Drag Forth”, vv. 42–6)
+
+And we have sent thee to mankind at large, to announce and to threaten.  But most men understand not.
+
+And they say, “When will this threat come to pass?  Tell us, if ye be men of truth.”
+
+Say:  Ye are menaced with a day, which not for an hour shall retard or hasten on.
+
+(Súra 34 Saba’, vv. 27–29)
+
+“Never,” say the unbelievers, “will the Hour come upon us!”  Say:  Yea, by my Lord who knoweth the unseen, it will surely come upon you! not the weight of a mote either in the Heavens or in the Earth escapeth him; nor is there aught less than this or aught greater, which is not in the clear Book …
+
+(Súra 34 Saba’, v. 3)
+
+For what do the infidels wait, but that the Hour come suddenly on them?  Already are its signs come, and when it hath come on them indeed, how can they be warned then?
+
+(Súra 47 Muḥammad, v. 20)
+
+But the Infidels will not cease to doubt concerning it, until “the Hour” come suddenly upon them, or until the chastisement of the day of desolation come upon them.
+
+On that day the Kingdom shall be God’s:  He shall judge between them:  and they who shall have believed and done the things that are right, shall be in gardens of delight:
+
+But they who were Infidels and treated our signs as lies—these then—theirs a shameful chastisement!
+
+(Súra 22 “The Pilgrimage”, vv. 54–6)
+
+From the foregoing verses, it is clear that the Hour will come suddenly, at a fixed yet unknown time, and take people by surprise.  Its occurrence will hold the fulfilment of a divine promise that would be a blessing to the righteous and a catastrophe to the unbelievers.  That the Hour is near can be inferred from the signs that had already appeared at the time of the Prophet Muḥammad.
+
+The question that must be considered by Muslims is this:  Does such a weighty event concern our generation or those to come?  What are the signs that have been announced as having appeared, bearing in mind the Quranic verse:
+
+… nothing have we passed over in the Book …
+
+(Súra 6 “The Cattle”, v. 38)
+
+If events similar to those depicting the “Hour” had happened before, then going back to them should highlight the signs through which it could be recognised.
+
+Súra 11 Húd is one of a number of suras which remind Muslims of the hour that was fixed by God with regard to previous Manifestations—an hour
+
+laden with both blessing and calamity.*  The hour had come upon previous nations when a new Apostle appeared among them, sheltering those who listened and believed, while those who refused to believe and turned away perished.  Another sign is that the new Apostle may appear and fulfil His mission while the unbelievers look on in doubt; that their punishment foretold by the Apostle is delayed does not lessen their obstinacy, but rather encourages them to dig themselves even deeper into trenches of opposition:
+
+And if we defer their chastisement to some definite time, they will exclaim, “What keepeth it back?”  What! will it not come upon them on a day when there shall be none to avert it from them?  And that at which they scoffed shall enclose them in on every side.
+
+(Súra 11 Húd, v. 11)
+
+Súra 11 Húd
+
+Elif.  Lam.  Ra.  A book whose verses are stablished in wisdom and then set forth with clearness—from the Wise, the All-informed—That ye worship none other than God—Verily I come to you from Him charged with warnings, announcements …
+
+(Súra 11 Húd, vv. 1–2)
+
+The first twenty-four verses of Súra 11 Húd explain what will befall those who do not believe in the Word of God.  The súra provides a warning of how other nations were struck with severe punishment because they had refused the Apostle of God sent to them.
+
+Noah and His people
+
+We sent Noah of old unto his people:—“Verily I come to you a plain admonisher [warner],
+
+That ye worship none but God.  Verily I fear for you the punishment of a grievous day”.
+
+Then said the chiefs of his people who believed not, “We see in thee a man like ourselves; and we see not who have followed thee except our meanest ones of hasty judgment, nor do see we any excellence in you above ourselves:  nay, we deem you liars.”
+
+(Súra 11 Húd, vv. 27–9)
+
+Thus was it until our sentence came to pass, and the earth’s surface boiled up.  We said, “Carry into it one pair of every kind, and thy family, except him on whom sentence hath been passed, and those who have believed.”  But there believed not with him except a few.
+
+(Súra 11 Húd, v. 42)
+
+Húd and the people of ‘Ád
+
+And unto Ad [‘Ád] we sent their Brother Houd [Húd].  He said, “O my people, worship God.  You have no God beside Him.  Ye only devise a lie.
+
+(Súra 11 Húd, v. 52)
+
+They said, “O Houd [Húd], thou hast not brought us proofs of thy mission:  we will not abandon our gods at thy word, and we believe thee not.”
+
+(Súra 11 Húd, v. 56)
+
+And when our doom came to be inflicted, we rescued Houd and those who had like faith with Him, by our special mercy:  we rescued them from the rigorous chastisement.
+
+These men of Ad [‘Ád] gainsaid the signs of their Lord, and rebelled against his messengers, and followed the bidding of every proud contumacious person.
+
+Followed therefore were they in this world by a curse; and in the day of the Resurrection it shall be said to them, “What!  Did not Ad [‘Ád] disbelieve their Lord?”  Was not Ad [‘Ád], the people of Houd [Húd], cast far away?
+
+(Súra 11 Húd, vv. 61–3)
+
+Ṣáliḥ and the people of Thamúd
+
+And unto Themoud [Thamúd] we sent their Brother Saleh:  “O my people! said he, worship God:  you have no other god than Him.  He hath raised you up out of the earth, and hath given you to dwell therein.  Ask pardon of him then, and be turned unto him; for thy Lord is nigh, ready to answer.
+
+They said, “O Saleh! our hopes were fixed on thee till now:  forbiddest thou us to worship what our fathers worshipped?  Truly we misdoubt the faith to which thou callest us, as suspicious.
+
+(Súra 11 Húd, vv. 64–5)
+
+And when our sentence came to pass, we rescued Saleh and those who had a like faith with him, by our mercy, from ignominy on that day.  Verily, thy Lord is the Strong, the Mighty!
+
+And a violent tempest overtook the wicked, and they were found in the morning prostrate in their dwellings.
+
+(Súra 11 Húd, vv. 69–70)
+
+On the same subject of the people of Thamúd, the Qur’án indicates that it was an earthquake that seized them:
+
+Then the earthquake surprised them; and in the morning they were found dead on their faces in their dwellings.
+
+(Súra 7 al-Araf, v. 76)
+
+The people of Abraham
+
+“O Abraham! desist from this; for already hath the command of thy God gone forth; as for them, a punishment not to be averted is coming on them.”
+
+(Súra 11 Húd, v. 78)
+
+The people of Lot
+
+And when our decree came to be executed we turned those cities upside down, and we rained down upon them blocks of claystone one after another, marked by thy Lord himself.  Nor are they far distant from the wicked Meccans.
+
+(Súra 11 Húd, v. 84)
+
+Shoeb and the people of Midian
+
+And we sent to Madian [Midian] their brother Shoaib.  He said, “O my people! worship God:  no other God have you than He …
+
+They said to him, “O Shoaib! is it thy prayers which enjoin that we should leave what our fathers worshipped, or that we should not do with our substance as pleaseth us?  Thou forsooth art the mild, the right director!”
+
+(Súra 11 Húd, vv. 85 and 89)
+
+They said, “O Shoaib! we understand not much of what thou sayest, and we clearly see that thou art powerless among us:  were it not for thy family we would have surely stoned thee, nor couldst thou have prevailed against us.”
+
+(Súra 11 Húd, v. 93)
+
+And when our decree came to pass, we delivered Shoaib and his companions in faith, by our mercy:  And a violent tempest overtook the wicked, and in the morning they were found prostrate in their houses.
+
+(Súra 11 Húd, v. 97)
+
+The people of Noah were warned of, and later seized with, the punishment of “a grievous day”.  Those of ‘Ád were “cursed” during their lifetime and held responsible on the day of resurrection.  A “violent tempest”, an earthquake, seized the people of Thamúd.  Similarly, an upheaval causing showers of rocks sealed the fate of the people of Lot, and a violent tempest seized the people of Midian.  The Qur’án also recounts the story of the Pharaoh, as well as of the rejection of Moses and Jesus Christ by those to whom They appeared.
+
+The Inevitable
+
+What befell ‘Ád and Thamúd is also explained in Súra 49 “The Inevitable”, where it is written that these nations were destroyed because they disregarded the warning given concerning their future judgement, the stunning calamity that would befall each:
+
+The Inevitable!
+
+What is the inevitable?
+
+And who shall make thee comprehend what the Inevitable is?
+
+Themoud [Thamúd] and Ad [‘Ád] treated the day of Terrors as a lie.
+
+So as to Themoud [Thamúd], they were destroyed by a roaring and furious blast.
+
+It did the bidding of God against them seven nights and eight days together, during which thou mightiest have seen the people laid low, as though they had been the trunks of hollow palms.
+
+(Súra 49 “The Inevitable”, vv. 1–4 and 7)
+
+In Súra 101 “The Blow”, the Muslims are warned of the coming of a calamity which they should not doubt, lest they meet with the same destiny as Thamúd and ‘Ád:
+
+The Blow! what is the Blow?
+
+Who shall teach thee what the Blow is?
+
+The Day when men shall be like scattered moths,
+
+And the mountains shall be like flocks of carded wool …
+
+(Súra 101 “The Blow”, vv. 1–4)
+
+The images conveyed in these two suras bear a close resemblance.  In the first, the people are described as having been left lying prostrate, while in the second, they are to become like thickly scattered moths.  Each image indicates that arrogant unbelievers will not survive.
+
+The Qur’án clearly indicates that certain nations have had their days of judgement when the Apostle sent to them by God called upon them to embrace the new Revelation and only a few people
+
+accepted.  The Muslim nation has also been warned of its day, a time anticipated by the adherents of all of the world’s major religions as one of “the return”.  That will be the Day of Reckoning:
+
+This people’s reckoning hath drawn nigh, yet, sunk in carelessness, they turn aside.
+
+Every fresh warning that cometh to them from their Lord they only hear to mock it …
+
+(Súra 21 “The Prophets”, vv. 1–2)
+
+A “warning” (Arabic “Dhikr”) is a Revelation, as attested by many verses in the Qur’án:
+
+They say:  “O thou to whom the warning hath been sent down, thou art surely possessed by a djinn …”
+
+(Súra 15 Ḥijr, v. 6)
+
+Verily, We have sent down the warning, and verily, We will be its guardian.
+
+(Súra 15 Ḥijr, v. 9)
+
+The Qur’án, the Evangel and the Torah have been referred to as “warnings” in the Qur’án, signalling to mankind the advent of a new Revelation and of the Day of Reckoning, which is near.
+
+And how many a guilty city have we broken down, and raised up after it other peoples.
+
+(Súra 21 “The Prophets”, v. 11)
+
+It is therefore evident that in relating the history of earlier civilizations to those of the present, there is a warning given to the Islamic nation that when the new Revelation comes to them, the Muslims, and indeed the whole world, will face the same situation
+
+that previous nations faced.  In Súra 16 “The Bee”, God confirms:
+
+The doom of God cometh to pass.  Then hasten it not.  Glory be to Him!  High let Him be exalted above the gods whom they join with Him!
+
+(Súra 16 “The Bee”, v. 1)
+
+“Then hasten it not” means not to be in doubt or suspicious about it.  The second verse of the same sura explains:
+
+By His own behest will He cause the angels to descend with the Spirit on whom he pleaseth among his servants, bidding them, “Warn that there is no God but me; therefore fear me.”
+
+(Súra 16 “The Bee”, v. 2)
+
+The reference to angels descending with the Spirit is identical in meaning with the verse where God addresses the Apostle Muḥammad as follows:  “the faithful spirit hath come down with it upon thy heart”.  The second verse of Súra 16 “The Bee” is clear in confirming that Apostles shall follow after Muḥammad.  It should be noted that the verse refers to “His servants” in plural, indicating that there shall be many from among them upon whom the Spirit of God’s decree shall be sent.  Further, in the same súra a clear warning is given to the Muslims:
+
+And to every people have we sent an apostle saying:  Worship God and turn away from Taghout.  Some of them there were whom God guided, and there were others decreed to err.  But go through the land and see what hath been the end of those who treated my apostles as liars!
+
+(Súra 16 “The Bee”, v. 38)
+
+Thus, the attention of the Muslims was directed to the nations that preceded them, that they would avoid the fate of those who refused God’s Messengers.  The Muslims, like other nations, have been presented with the same requirement.  It is the Bahá’í perspective that when the anticipated* appearance of the Mahdí and the return of Jesus Christ became a reality, the Muslims met with the same tests.  Indeed, in a tradition the Prophet Muḥammad had further warned the Muslims, where He said:  “Verily you shall follow the path of those before you hand span by hand span, and arm length by arm length; even were they to have entered a lizard’s hole, you will do the same”.  And when His Companions asked:  “Do you mean the Christians and the Jews, O Apostle of God?”  He answered:  “Who else!”
+
+What, then, is the true meaning of “Resurrection”?  What is to happen then?  The Qur’án provides different images of this all-important event.  The first portrays a horrible destiny for the world on that appointed day:
+
+When the earth shall be shaken with a shock,
+
+And the mountains shall be crumbled with a crumbling, And shall become scattered dust …
+
+(Súra 56 “The Inevitable”, vv. 4–6)
+
+When the sun shall be folded up, And when the stars shall fall,
+
+And when the mountains shall be set in motion …
+
+(Súra 81 “The Folded Up”, vv. 1–3)
+
+When the Heaven shall cleave asunder,
+
+And when the stars shall disperse,
+
+And when the seas shall be commingled …
+
+(Súra 82 “The Cleaving”, vv. 1–3)
+
+When the Heaven shall have split asunder
+
+And duteously obeyed its Lord;
+
+And when the Earth shall have been stretched out as a plain,
+
+And shall have cast forth what was in her and become empty …
+
+(Súra 84 “The Splitting Asunder”, vv. 1–4)
+
+When the Earth with her quaking shall quake
+
+And the Earth shall cast forth her burdens …
+
+(Súra 99 “The Earthquake”, vv. 1–2)
+
+These images portray the upheaval to take place on that Day of violent commotion and distress, when the earth shall be crushed to powder and the heaven shall be like molten brass and shall heave.  The Qur’án describes the condition of mankind then:
+
+O Men of Mecca, fear your Lord.  Verily, the earthquake of the last Hour will be a tremendous thing!
+
+On the day when ye shall behold it, every suckling woman shall forsake her sucking babe and every woman that hath a burden in her womb shall cast her burden and thou shalt see men drunken, yet
+
+are they not drunken:  but it is the mighty chastisement of God!
+
+(Súra 22 “The Pilgrimage”, vv. 1–2)
+
+But when the stunning trumpet-blast shall arrive, On that day shall a man fly from his brother, And his mother and his father,
+
+And his wife and his children …
+
+(Súra 80 “He Frowned”, vv. 33–6)
+
+The second image of that time, however, is promising and laden with the bounty of meeting with God and with the appearance of the Apostles and angels.  The earth shall shine with the Light of her Lord:
+
+What can such expect but that God should come down to them overshadowed with clouds, and the angels also, and their doom be sealed?  And to God shall all things return.
+
+(Súra 2 “The Cow”, v. 206)
+
+And thy Lord shall come and the angels rank on rank.
+
+(Súra 89 “The Daybreak”, v. 23)
+
+On the day whereon the Spirit and the Angels shall be ranged in order, they shall not speak:  save he whom the God of Mercy shall permit, and who shall say that which is right.
+
+(Súra 78 “The News”, v. 38)
+
+All on the earth shall pass away, But the face of thy Lord shall abide resplendent with majesty and glory.
+
+(Súra 55 “The Merciful”, vv. 26–7)
+
+And thou shalt see the Angels circling around the Throne with praises of their Lord:  and judgment shall be pronounced between them with equity:  and it shall be said, “Glory be to God the Lord of
+
+the Worlds.”
+
+(Súra 39 “The Troops”, v. 75)
+
+Of the condition of the chosen ones on that Day, the Qur’án states:
+
+One day thou shalt see the believers, men and women, with their light running before them, and on their right hand.  The angels shall say to them, “Good tidings for you this day of gardens beneath whose shades the rivers flow, in which ye shall abide for ever!”  This the great bliss!
+
+(Súra 57 “Iron”, v. 12)
+
+It is evident from these verses that the events being described are to be understood in symbolic terms.  The verse “What can such expect but that God should come down to them…” must be reconciled with:
+
+No vision taketh in Him, but He taketh in all vision:  and He is the Subtile, the All-Informed.
+
+(Súra 6 “The Cattle”, v. 103)
+
+as well as with the confirmation:*
+
+And remaineth only the Countenance of Thy Lord the possessor of all Glory and Bounty.
+
+The coming of God Himself can only be fulfilled by the coming of His Manifestation in the glory of the Creator:  Bahá’u’lláh.  Indeed, in some instances, the Qur’án attributes actions by the Apostle Muḥammad as having been undertaken by God Himself, intimating to the Muslims possessed of insight the true attributes and powers of the Manifestations of God, as later expounded by Bahá’u’lláh.
+
+One of these events occurred when negotiations took place in a locality called al-Ḥudaybíyyah when a large group of believers swore allegiance to the Prophet by placing hand on hand, as was the custom, and the hand of the Prophet Himself was on top of the others.  The following verse was revealed regarding this event:
+
+In truth, they who plighted fealty to thee, really plighted that fealty to God:  the hand of God was over their hands!  Whoever, therefore, shall break his oath shall only break it to his own hurt; but whoever shall be true to his engagement with God, He will give him a great reward.
+
+(Súra 48 “The Victory”, v. 10)
+
+“The hand of God” that was over their hands was the hand of Muḥammad.
+
+A further example of Muḥammad’s identification with God and His role in the expression
+
+of God’s might occurred during the battle of Badr.  Having to fight a battle against serious odds, the Apostle prayed and then took a handful of dust and threw it in the direction of the enemy.  The believers won the battle and the following verse was among those subsequently revealed:
+
+So it was not ye who slew them, but God slew them; and those shafts were God’s not thine!  He would make trial of the faithful by a gracious trial from Himself:  Verily, God Heareth, Knoweth.
+
+(Súra 8 “The Spoils”, v. 17)
+
+A third vantage point that the Qur’án presents concerning the Day of Resurrection and the Hour is a key to a deeper understanding of verses which, while highly descriptive, cannot be understood through literal interpretation.
+
+And many as are the signs in the Heavens and on the Earth, yet they will pass them by, and turn aside from them:
+
+And most of them believe not in God, without also joining other deities with Him.
+
+What!  Are they sure that the overwhelming chastisement of God shall not come upon them, or that the Hour shall not come upon them suddenly, while they are unaware?
+
+(Súra 12 “Joseph”, vv. 105–7)
+
+Warn them of the day of sighing when the decree shall be accomplished, while they are sunk in heedlessness and while they believe not.
+
+(Súra 19 “Mary”, v. 40)
+
+But on the day of resurrection some of you shall deny the others, and some of you shall curse the others; and your abode shall be the fire, and ye shall have none to help.
+
+(Súra 29 “The Spider”, v. 25)
+
+With all the upheaval that is to affect heaven and earth, the stars and the mountains on that Day, and in view of the coming of God, the Lord, the Prophets and the angels, how can anyone be “unaware”, “heedless” or “unbelieving”?  Where would people, under such circumstances, find time or a state of mind to “deny the others” or “curse the others”?  It is certain, therefore, that the events that shall take place on that Day cannot be understood literally and that the conditions set down that pertain to human beings should be understood as ones affecting their souls.  The following verses explain very clearly how and why unbelievers will be taken “unaware”.
+
+And on that day whereon the Hour shall arrive, the wicked will swear
+
+That not above an hour have they waited:  Even so did they utter lies on earth:
+
+But they to whom knowledge and faith have been given will say, “Ye have waited, in accordance with the book of God, till the day of Resurrection:  for this is the day of the Resurrection but ye knew it not.”
+
+(Súra 30 “The Greeks”, vv. 54–6)
+
+The wicked will watch the events of that Day but will not understand their import, while those who were given “knowledge and faith” of the Manifestation of God and faith in Him, will be able to say:  “You have understood the Day of Resurrection literally from the Book of God, and have thus misunderstood that ‘This is the Day of Resurrection’.
+
+In the fourth image, the Day of Resurrection is presented as the occasion for the sounding of “two trumpet blasts”:
+
+And there shall be a blast on the trumpet, and all who are in the Heavens and all who are in the Earth shall expire, save those whom God shall vouchsafe to live.  Then shall there be another blast on it, and lo! arising they shall gaze around them:
+
+And the earth shall shine with the light of her Lord, and the Book shall be set, and the prophets shall be brought up, and the witnesses; and judgment shall be given between them with equity; and none shall be wronged.
+
+(Súra 39 “The Troops”, vv. 68–9)
+
+These verses tell of the setting in place of “the Book”.  This cannot be in reference to the Qur’án or to the Old or New Testaments, since these already existed at the time the verse was mentioned in the Qur’án.  Furthermore, the setting in place of “the Book” is foretold as following two trumpet blasts on the Day of Judgement when the “earth will shine with the Light of Her Lord”.  “The Book”, therefore, must refer to another Revelation, for how can there be a promise of a Book that already was in hand?  Before closing this chapter it may be useful to consider one more verse pertaining to this picture of that Day:
+
+But those who feared their Lord shall be driven on by troops to paradise, until when they reach it, its gates shall be opened, and its keepers shall say to them, “All hail! virtuous have ye been:  enter then in, to abide herein for ever”
+
+And they shall say, “Praise be to God, who hath made good to us His promise, and hath given to us the earth as our heritage, that we may dwell in Paradise wherever we please!”
+
+(Súra 39 “The Troops”, vv. 73–4)
+
+Here, God again promises that on that Day, paradise shall be established on earth.  Therefore, the earth and the heavens and the mountains shall not disappear on that Day, as might be understood from a literal interpretation.  In fact, it is also explained in the Qur’án that paradise and hell shall remain after that Day, so long as the earth and the heavens continue to exist:
+
+Such was thy Lord’s grasp when he laid that grasp on the cities that had been wicked.  Verily his grasp is afflictive, terrible!
+
+Here in truly is a sign for him who feareth the punishment of the latter day.  That shall be a day unto which mankind shall be gathered together; that shall be a day witnessed by all creatures.
+
+Nor do we delay it, but until a time appointed.
+
+When that day shall come no one shall speak a word but by His leave, and some shall be miserable and others blessed.
+
+And as for those who shall be consigned to misery—their place the Fire! therein shall they sigh and bemoan them—
+
+Therein shall they abide while the Heavens and the Earth shall last, unless thy Lord shall will it otherwise; verily thy Lord doth what He chooseth.
+
+And as for the blessed ones—their place the Garden! therein shall they abide while the Heavens and the Earth endure, with whatever imperishable boon thy Lord may please to add.
+
+(Súra 11 Húd, vv. 104–110)
+
+11
+Reward and punishment
+judgment and the new Manifestation
+the balance; life and death
+the sun, the moon, the stars, heaven and earth
+
+The subjects listed in the title of this chapter are a source of deep concern to Muslims because nowhere in the previously revealed Holy Books have the matters of reward and punishment, determined by the “balance” in which a person’s life and actions will be weighed for merit of paradise or hell, composed the greater part of the Scriptures as is true of the Qur’án.
+
+Reward and punishment
+
+In the Qur’án it is stated that those who believe and are steadfast will be rewarded with paradise:
+
+Assuredly they who say, “Our Lord is God,” and take the straight way to Him—no fear shall come on them, neither shall they be put to grief:
+
+These shall be the inmates of Paradise to remain therein for ever, the recompense of their deeds!
+
+(Súra 46 al-Ahkaf, vv. 12–3)
+
+Hell or an abode of fire is to be the punishment of those who disobey God:
+
+Verily, God hath cursed the Infidels, and hath got ready for them the flame:
+
+For aye shall they abide therein; none to befriend them, no helper shall they find!
+
+On the day when their faces shall be rolled in the fire, they shall cry:  “Oh! would that we had obeyed God, and obeyed the Apostle!”
+
+And they shall say:  “Oh our Lord! indeed we obeyed our chiefs and our great ones, and they misled us from the way of God.
+
+O our Lord! give them a double chastisement, and curse them with a heavy curse.”
+
+(Súra 33 “The Confederates”, vv. 64–8)
+
+Punishment is also the lot of wayward nations.  The Qur’án draws attention to this fact, in relation to those who have denied Muḥammad:
+
+See they not how many generations we have destroyed before them?  We had settled them on the earth as we have not settled you, and we sent down the very heavens upon them in copious rains, and we made the rivers to flow beneath their feet yet we destroyed them in their sins, and raised up other generations to succeed them.
+
+(Súra 6 “The Cattle” v. 6)
+
+Such is the fate of those who have refused to accept the Apostle of God.  That the Qur’án states that generations were destroyed because of their sins and replaced by others indicates that there is little reason to believe that the Muslim nation is the last nation or that others shall not be raised up by God, given His designation of the Muslims as an “intermediate nation”.
+
+Judgement and the new Manifestation
+
+“Belief and disbelief”—“believer and non-believer”—are attributes that become significant at the appearance of the Manifestations, for judgment is not pronounced until people are invited to turn to the new
+
+Light and either accept or choose to remain in darkness, ignoring the laws sent by God.  The Qur’án states that:
+
+God is the Light of the Heavens and of the Earth …
+
+(Súra 24 “The Light”, v. 35)
+
+Until the earth shines with the light of her Lord, most people will be in complete darkness, as relatively few people will have been ready to embrace the new Light.  To this the Qur’án bears witness:
+
+For his own good only shall the guided yield to guidance, and to his own loss only shall the erring err; and the heavy laden shall not be laden with another’s load.  We never punished until we had first sent an apostle ….
+
+(Súra 17 “The Night Journey”, v. 16)
+
+God never punishes any individual until He sends an Apostle!
+
+And when we willed to destroy a city, to its affluent ones did we address our bidding; but when they acted criminally therein, just was its doom, and we destroyed it with an utter destruction.
+
+(Súra 17 “The Night Journey”, v. 17)
+
+The unjust reject the Apostle and the verses He brings from God.  One form of punishment that the “unjust” have been threatened with is that of discord or schism:
+
+Say:  It is He who hath power to send on you a punishment from above you, or from beneath your feet, or to clothe you with discord, and to make some of you to taste the violence of others.  See how variously we handle the wondrous verses, that haply they may become wise!
+
+(Súra 6 “The Cattle”, v. 65)
+
+It is evident that the followers of previous religions have fallen into the fire of schism, including the Muslims, as foretold by Muḥammad Himself in a tradition:
+
+At the time of the end, my people will be divided into 72 sects, all in (hell) fire except one.
+
+The exception, those to whom Christ referred when He said, “My sheep know My Voice”, are those who have recognised the Voice of the Báb and of Bahá’u’lláh and laid down their lives in Their path, for they are the ones who obeyed God and were guided into paradise.
+
+The Qur’án relates the story of a city whose inhabitants refused three Apostles, but one of the people believed:
+
+… from the end of the city a man came running:  He said, “O my people! follow the Sent Ones;
+
+Follow those who ask not of you a recompense, and who are rightly guided.
+
+(Súra 36, “Yá’  Sín, vv. 19–20)
+
+Verily in your Lord have I believed; therefore hear me.”
+
+—It was said to him, “Enter thou into Paradise:  “And he said, “Oh that my people knew.
+
+How gracious God hath been to me, and that He hath made me one of His honoured ones.” 5
+
+But no army sent we down out of heaven after his death, nor were we then sending down our angels—There was but one shout from Gabriel, and lo! they were extinct.
+
+Oh! the misery that rests upon my servants!  No apostle cometh to them but they laugh him to scorn.
+
+(Súra 36, “Yá’  Sín, vv. 24–9)
+
+As soon as the man said that he believed, he was told to “enter paradise”, while those who failed to believe were stilled and silenced.
+
+In Súra 55 “The Merciful”, God tells of “Two Paradises”.
+
+But for those who dread the majesty of their Lord shall be two gardens:
+
+Which then of the bounties of your Lord will ye twain deny?
+
+(Súra 55 “The Merciful”, vv. 46–7)
+
+This entire súra is significant to Bahá’ís because the verse “Which then of the bounties of your Lord will ye twain deny” is repeated 31 times within its 78 verses.  The súra was revealed in dual or twin terms, of particular relevance to aspects of the Dispensation of Bahá’u’lláh.
+
+We never destroyed a city whose term was not prefixed …
+
+(Súra 15 Ḥijr, v. 4)
+
+The balance
+
+The “balance” refers to the Sacred Scriptures through which mankind is enabled to “weigh” its individual and collective actions.  The Apostles of God brought the balance with the revelation of a Book:
+
+We have sent our apostles with the clear tokens, and we have caused the Book and the balance to descend with them, that men might observe fairness ….
+
+(Súra 57 “Iron”, v. 25)
+
+The Qur’án and the Balance were also revealed by the Prophet Muḥammad.  Through Him, God announced that “the Hour is nigh”:
+
+It is God who hath sent down the book with truth, and the Balance:  but who shall inform thee whether haply “the Hour” be nigh?
+
+(Súra 42 “Counsel”, v. 16)
+
+And when the Hour comes:
+
+And the Heaven, He hath reared it on high, and hath appointed the balance …
+
+(Súra 55 “The Merciful”, v. 6)
+
+Life and death
+
+The Qur’án, with its beautiful unique style, often sets spiritual truths in the form of metaphors and allegories, in the same manner as Christ spoke in parables, for the purpose of conveying spiritual truths to His followers, in a manner that would assist their understanding.
+
+Life and death, in the spiritual sense, are “belief” or “denial” of the light of God brought into the world through His Manifestations.  One of the most obvious verses which support this interpretation is one that was revealed in connection with the declaration of faith in Islám by Ḥamzih, the uncle of the Prophet Muḥammad:
+
+Shall the dead, whom we have quickened, and for whom we have ordained a light whereby he may
+
+walk among men, be like him, whose likeness is in the darkness, whence he will not come forth?  Thus have the doings of the unbelievers been prepared for them.
+
+(Súra 6 “The Cattle”, v. 122)
+
+Ḥamzih was not physically dead nor restored* to physical life, but had been considered dead as long as he denied the Message of the Prophet.  He was led to accept and believe in the Message of the Prophet which gave him life.
+
+While the gods whom they call on beside God, create nothing, but are themselves created:
+
+Dead are they, lifeless! and they know not When they shall be raised!
+
+(Súra 16 “The Bee”, vv. 20–2)
+
+“To be raised” is therefore understood to mean that the soul will be raised from the grave and given spiritual life.  That this “resurrection” is spiritual and not physical is further supported by the following verses:
+
+And when ye said, “O Moses! we will not believe thee until we see God plainly; “ the thunderbolt fell upon you while ye were looking on:
+
+Then we raised you to life after ye had been dead, that haply ye might give thanks
+
+(Súra 2 “The Cow”, vv. 52–3)
+
+These words of God were addressed to the Jews who had, as explained by the commentators, erred in the wilderness for forty years.  The Jews as a nation were not physically struck by a thunderbolt, nor
+
+were they physically dead.  It is evident that what was implied by the terms “death” and “life” was a reference to the spiritual condition of the Jews and not to their physical state.  To the Jews God addressed this revealing admonition:
+
+How can ye withhold faith from God?  Ye were dead and He gave you life; next He will cause you to die; next He will restore you to life; next He shall ye return to Him!
+
+(Súra 2 “The Cow”, v. 26)
+
+When were the Jews who were dead brought to life if not through their acceptance of Jesus Christ?  How were they caused to die were it not through their denial of the Prophet Muḥammad?  And how will they return to God in the end, if not through their acceptance of Bahá’u’lláh?
+
+In the same manner, light and darkness, sight and blindness, are also meant to indicate spiritual states.
+
+And the blind and the seeing are not alike; neither darkness and light; nor the shade and the hot wind;
+
+Nor are the living and the dead the same thing!  God indeed shall make whom He will to hearken, but thou shalt not make those who are in their graves to hearken; for only with warning art thou charged.
+
+(Súra 35 “The Creator”, vv. 20–1)
+
+These words were addressed to the Prophet Muḥammad by God.  It is evident that “those who are in the graves” could not refer to the physically dead.  Likewise, if by “blind”, “seeing”, “darkness”,
+
+“light”, “shade”, “living” and “dead” were meant the physical states of beings or nature, then there would have been no point indeed for the Almighty to have made mention of their inequality in His Revealed Book.
+
+God is the patron of believers:  He shall bring them out of darkness into light:
+
+As to those who believe not, their patrons shall be Thagout:  they shall bring them out of light into darkness:  they shall be given over to the fire:  they shall abide therein for ever.
+
+(Súra 2 “The Cow”, vv. 258–9)
+
+The truth enshrined in these verses is that those who divert themselves from the bounty of belief in the Manifestation sent by God are in a worse condition than dead bodies interred in the graves.  The spiritually dead promulgate moral disease.  Indeed, when they are invited to accept the Word of God, they stubbornly reject it:
+
+And though we had sent down the angels to them, and the dead had spoken to them, and we had gathered all things about them in tribes, they had not believed, unless God had willed it!  But most of them do not know it.
+
+(Súra 6 “The Cattle”, v. 111)
+
+And when it is said to them, “Cause not disorders in the earth:”  they say, “Nay, rather do we set them right.”
+
+Is it not that they are themselves the authors of disorder?  But they perceive it not!
+
+(Súra 2 “The Cow”, vv. 10–1)
+
+The Qur’án refers to them as the “vilest beasts”:
+
+For the vilest beasts in God’s sight, are the deaf the dumb, who understand not.
+
+(Súra 8 “The Spoils”, v. 22)
+
+The worst beasts truly in the sight of God are the thankless who will not believe; ….
+
+(Súra 8 “The Spoils”, v. 57)
+
+Of those who have “eyes” but do not “see”, it further revealed:
+
+With power had we endued them, even as with power have we endued you; and we had given them ears and eyes and hearts:  yet neither their eyes, nor their ears, nor their hearts aided them at all, when once they gainsaid the signs of God; but that punishment which they had mocked at enveloped them on all sides.
+
+(Súra 46 al-Ahkaf, v. 25)
+
+The Sun, the Moon, the Stars, Heaven and Earth When the sun shall be folded up, And when the stars shall fall …
+
+(Súra 81 “The Folded Up”, vv. 1–2)
+
+When the stars, therefore, shall be blotted out, And when the heaven shall be cleft …
+
+(Súra 77 “The Sent”, vv. 8–9)
+
+When the heaven shall have split asunder
+
+And duteously obeyed its Lord;
+
+And when Earth shall have been stretched out as a plain,
+
+And shall have cast forth what was in her and become empty,
+
+And duteously obeyed its Lord …
+
+(Súra 84 “The Splitting Asunder”, vv. 1–5)
+
+When the Heaven shall cleave asunder,
+
+And when the stars shall disperse …
+
+(Súra 82 “The Cleaving”, vv. 1–2)
+
+And when the moon shall be darkened,
+
+And the sun and the moon shall be together…
+
+(Súra 75 “The Resurrection”, vv. 8–9)
+
+With such imagery the Qur’án foretells the happenings that will usher in the Day of God when all shall return unto Him.  It is evident that heaven, earth, the sun, the moon and the stars must represent aspects of the spiritual world.
+
+12
+The subject of miracles
+
+In vivid terms, the Qur’án distinguishes between believers and non-believers, the sighted and the blind, the pure-hearted and the evil, the hearing and the deaf.  When Muḥammad states that the “blind and the seeing are not equal”, He is referring to spiritual sight.  Those who are not blind—those who see—recognize the “Sun of Reality” immediately, finding no fundamental difference in the different Revelations of God.
+
+They to whom we gave the Scriptures before It, do in It believe.
+
+And when it is recited to them they say, “We believe in it, for it is the truth from our Lord.  We were Muslims before it came.”
+
+(Súra 28 “The Story”, vv. 52–3)
+
+Thus, the spiritually sighted who were recipients of a Book revealed prior to the Qur’án declared their belief in the Qur’án and confirmed that they were Muslims before it was revealed, and continued to be Muslims in the light of its Revelation.  The Qur’án describes the spiritually blind thus:
+
+… Hearts have they with which they understand not, and eyes have they with which they see not, and ears have they with which they hearken not.  They are like the brutes:  Yea, they go more astray:  these are the heedless.
+
+(Súra 7 al-Araf, v. 178)
+
+What can convince such people and open their eyes to the Light of Truth, clear their ears to the chanting of the Nightingale of Truth or expose their hearts to the Dripping Rain of Truth?
+
+And though we had sent down the angels to them, and the dead had spoken to them, and we had gathered all things about them in tribes, they had not believed, unless God had willed it! but most of them do not know it.
+
+(Súra 6 “The Cattle”, v. 111)
+
+As a last resort, non-believers ask for miracles:
+
+And they say, “By no means will we believe on thee till thou cause a fountain to gush forth for us from the earth;
+
+Or, till thou have a garden of palm-trees and grapes, and thou cause forth-gushing rivers to gush forth in its midst;
+
+Or thou make the heaven to fall on us, as thou hast given out, in pieces; or thou bring God and the angels to vouch for thee;
+
+Or thou have a house of gold; or thou mount up into Heaven; nor will we believe in thy mounting up, till thou send down to us a book which we may read.  “Say:  Praise be to my Lord!  Am I more than a man, an apostle?”
+
+(Súra 17 “The Night Journey”, vv. 92–5)
+
+While God confirms that the revelation of miracles was within the power of the Apostles, people failed to believe in them and were chastised:
+
+Nothing hindered us from sending thee with the power of working miracles, except that the peoples of old treated them as lies.  We gave to Themoud the she-camel before their very eyes, yet they maltreated her!  We send not a prophet with miracles but to
+
+strike terror.
+
+(Súra 17 “The Night Journey”, v. 61)
+
+Bahá’u’lláh explains in His commentary on Súra 91 “The Sun" that Thamúd were a people to whom God sent His Apostle Ṣáliḥ, whom they rejected after He had called upon them to be righteous.*  He confirms that they disobeyed the ordinances of God until they “hamstrung the She-Camel”, an image also used in Súra 11 Húd.  The Quranic verses describe how God had sent this people a She-Camel and requested that it be left to graze freely, but the people disobeyed and ham-strung her.  God’s wrath was subsequently brought upon them and they were destroyed.
+
+The true miracle is the Book
+
+That the true miracle of a Revelation from God is the Book which He sent down is stated and restated in the Sacred Scriptures.  The Qur’án, for example, describes the deniers and non-believers who insisted upon a demonstration of miracles on the part of the Prophet, as in its depiction of those who denied Moses and called Him a “magician” or “sorcerer”.  Regarding Him, the Qur’án states:
+
+And when our signs were wrought in their very sight, they said, “This is plain magic.”
+
+(Súra 27 “The Ant”, v. 13)
+
+and further:
+
+And when Moses came to him with our demonstrative signs they said, “This is naught but magical device.  We never heard the like among our sires of old.”
+
+(Súra 28 “The Story”, v. 36)
+
+Clearly, a reminder is given in the Qur’án that miracles are never a convincing factor for those who doubt or disbelieve, but are a cause of greater stubbornness.
+
+When the Prophet Muḥammad declared His Mission and was confronted with the same request, God revealed to Him:
+
+Yet when the truth came to them from our very presence, they said, “Unless the like powers be given to him that were given to Moses ….”  But did they not disbelieve in what of old was given to Moses?  They said, “Two works of sorcery have helped each other;” and they said, “We disbelieve them both.”
+
+(Súra 28 “The Story”, v. 48)
+
+And in response to this attitude, God further revealed:
+
+Say:  Bring them a Book from before God which shall be a better guide than these, that I may follow it; if ye speak the truth.
+
+(Súra 28 “The Story”, v. 49)
+
+The true miracle, therefore, is the revealed Book.  It is the irrefutable proof.  It is the ill at heart who insist upon miracles.  In verse 133 of Súra 20 Tá’  Há’ it was revealed: *
+
+But they say, “If he come not to us with a sign from his Lord …!” and, in answer, God admonishes the doubting hearts:
+
+But have not clear proofs for the Koran come to them, in what is in the Books of old?
+
+That is, have the eyes of those who ask for miracles been so blinded as not to perceive in the Qur’án the explanation of the subjects in the Torah and the Evangel hitherto not understood by the wisest and most knowledgeable amongst them?  Or is there a more convincing miracle than a Book that would repeat the course followed by the earlier nations and give new spiritual life to dead souls?
+
+… What is right will he enjoin them, and forbid them what is wrong, and will allow them healthful viands and prohibit the impure, and will ease them of their burden, and of the yokes which were upon them; …
+
+(Súra 7 al-Araf, v. 156)
+
+In the Bukhárí-Qasṭallání commentary, in a chapter entitled Attachment to the Book and to the Tradition, is recorded the following tradition attributed to the Prophet:
+
+There is no Prophet among the Prophets but was given of miracles similar to those in which I believe or upon which people believed.  But what I was given was an inspiration inspired by the Almighty God unto me.  I hope to be thus in the forefront of the followers on the Day of Resurrection.
+
+The commentary further explains that that “upon which people believed” refers to that which is enough for people to believe, that Muḥammad’s miracle is indeed the Word of the Lord of all Worlds because it is the pride of all miracles, the most sublime in station and the greatest in status.  Thus, the greatest miracle of the Prophet Muḥammad is the Qur’án.
+
+13
+Additional proofs from the Qur’án
+
+In the preceding chapters numerous proofs of
+
+the Manifestation of the Báb and of Bahá’u’lláh have
+
+been presented.  This chapter offers further proofs from
+
+the Qur’án concerning the Bahá’í Revelation.
+
+Bahá’u’lláh’s name is mentioned
+
+Each letter in the Arabic alphabet is equivalent to a number according to a system known as “Abjad”.  The letter “á”, whose transliterated Arabic name is “alif”, has a numerical value of one.  However, “alif” is in fact a consonant, as are all Arabic letters, and as such it must receive what is known as a “hamza” (’); otherwise the “alif” without a “hamza” becomes a vowel.  The “hamza” inserted after the “alif”, as in “Bahá’”, also has a numerical value of one.  Thus “Bahá’”, in Arabic would be written as B and H and A and a Hamza, which is BHA’.  In this connection, it is interesting to note that in Súra 49 “The Inevitable”, verses 13–15 and 17, it is revealed:
+
+But when one blast shall be blown on the trumpet,
+
+And the earth and the mountains shall be upheaved, and shall both be crushed into dust at a single crushing,
+
+On that day the woe that must come suddenly shall suddenly come,
+
+And the angels shall be on its sides, and over them on that day eight shall bear up the throne of thy Lord.
+
+The thirteenth verse refers to one Trumpet-blast, the first of two Trumpet-blasts referred to in the Súra 39 “The Troops”, verses 68 and 69.*  Clearly, a Trumpet-blast cannot be other than the announcement of a Message.  Hence, the first announcement or Trumpet-blast on the Day of Resurrection is none other than the Call of the Báb.  Following its attendant upheaval, “eight shall bear up the throne of thy Lord”.  One meaning of the “eight” referred to in the verse is the sum of the numerical values of the letters upon which is raised the Hamza in
+
+BHA’, thus:
+
+B is equivalent to 2
+
+H is equivalent to 5
+
+A is equivalent to 1
+
+It is a total of 8 that bear the Hamza or the full name of Bahá’u’lláh.
+
+Many traditions are attributed to the Prophet Muḥammad which explain the meaning of the phrase “Throne of God”, including the following from among those known as Qudsí Traditions, where God says:*
+
+Neither My earth nor My heavens could contain Me, but the heart of My faithful servant did.
+
+In another tradition, the Prophet is reported to have said:
+
+The heart of the believers is the Throne of the Merciful.
+
+From where the cry shall come forth
+
+The manifestations of God have been given many names in the Qur’án apart from “Apostle” or “Prophet”.  “The Clear Evidence”, “the Glad-Tidings”, “the Word of God”, “the Caller”, “The Witness”, “the Redeemer”, “the Spirit” and “Trumpet-blast” are among them.  Muḥammad was also given the name of “the Crier” (al-Munádí), whose Cry is a call to faith:
+
+O our Lord! we have indeed heard the voice of one that called.  He called us to the faith—‘Believe ye on your Lord’—and we have believed.
+
+O our Lord! forgive us then our sin, and hide away from us our evil deeds, and cause us to die with the righteous.
+
+(Súra 3 Ál ‘Imrán, vv. 190–1)
+
+In Súra 50 Qáf, God addresses the Prophet Muḥammad, and through Him, the followers of Muḥammad, with the following Words:
+
+Wherefore put up with what they say, and celebrate the praise of thy Lord before sunrise and before sunset:
+
+And praise Him in the night:  and perform the two final prostrations.
+
+And list for the day whereon the crier shall cry from a place near to every one alike:
+
+The day on which men shall in truth hear that shout
+
+will be the day of their coming forth from the
+
+grave.
+
+(Súra 50 Qáf, vv. 38–41)
+
+Thus God warns His Apostle, and through Him His entire nation to listen for the Crier who “shall cry from a place near to every one alike” and that Day shall be the Day of Resurrection, the day of “coming forth from the grave”.  But Muḥammad Himself was the Crier, according to verse 190 of Súra 3 Ál ‘Imrán.  Hence, the Crier to whom Muḥammad was enjoined to listen is another Manifestation who shall appear in the future and cry out from a place nearby to Mecca.
+
+Where could this nearby place be?  In Súra 17 “The Night Journey”, or Children of Israel, as it is also called, the first verse reads:
+
+Glory be to Him who carried his servant by night from the sacred temple of Mecca to the temple that is more remote [Jerusalem], whose precinct we have blessed, that we might shew him of our signs! for He is the Hearer, the Seer.
+
+The most notable precincts of Jerusalem mentioned in the Holy Books and in the traditions are those of ‘Akká and Baghdád.  The traditions regarding
+
+‘Akká which are accepted by both Shi‘ihs and Sunnis include the following:
+
+‘Abdu’l-‘Azíz son of ‘Abdu’s-Salám related that the Prophet said:
+
+“‘Akká is a city in Syria to which God hath shown His special mercy.”
+
+Ibn-i-Mas‘úd reported that the Prophet said:
+
+“Of all shores the best is the shore of Askelon, and ‘Akká is, verily, better than Askelon, and the merit of ‘Akká above that of Askelon and all other shores is as the merit of Muḥammad above that of all other Prophets.  I bring you tidings of a city betwixt two mountains in Syria, in the middle of a meadow, which is called ‘Akká.  Verily, he that entereth therein, longing for it and eager to visit it, God will forgive his sins, both of the past and of the future.  And he that departeth from it, other than as a pilgrim, God will not bless his departure.  In it is a spring called the Spring of the Cow.  Whoso drinketh a draught therefrom, God will fill his heart with light, and will protect him from the most great terror on the Day of Resurrection.”
+
+And Anas, son of Málik, said:
+
+“The Apostle of God—may the blessings of God and His salutations be upon Him—hath said:  ‘By the shore of the sea is a city, suspended beneath the Throne, and named ‘Akká.  He that dwelleth therein, firm and expecting a reward from God—exalted be He—God will write down for him, until the Day of Resurrection, the recompense of such as have been patient, and have stood up, and knelt down, and prostrated themselves before Him.’”
+
+Other traditions of the Prophet include:
+
+“I announce unto you a city , on the shores of the sea, white, whose whiteness is pleasing unto God-exalted be He!  It is called ‘Akká.  He that hath been bitten by one of its fleas is better, in the estimation of God, than he who hath received a grievous blow in the path of God.  And he that raiseth therein the call to prayer, his voice will be lifted up unto Paradise.  And he that remaineth therein for seven days in the face of the enemy, God will gather him with Khiḍr—peace be upon Him—And God will protect him from the most great terror on the Day of Resurrection.”
+
+“There are kings and princes in Paradise.  The poor of ‘Akká are the kings of Paradise and the princes thereof A month in ‘Akká is better than a thousand years elsewhere.”
+
+“Blessed the man that hath visited ‘Akká, and blessed he that hath visited the visitor of ‘Akká.  Blessed the one that hath drunk from the Spring of the Cow and washed in its waters, for the black-eyed damsels quaff the camphor in Paradise, which hath come from the Spring of the Cow, and from the Spring of Salván (Siloam), and the Well of Zamzam.  Well is it with him that hath drunk from these springs, and washed in their waters, for God hath forbidden the fire of hell to touch him and his body on the Day of Resurrection.”
+
+“In ‘Akká are works of supererogation and acts which are beneficial, which God vouchsafed specially unto whomsoever He pleaseth.  And he that saith in ‘Akká:  ‘Glorified be God, and praise
+
+be unto God, and there is none other God but God, and most great is God, and there is no power nor strength except in God, the Exalted, the Mighty,’ God will write down for him a thousand goods deeds, and blot out from him a thousand evil deeds, and will uplift him a thousand grades in Paradise, and will forgive him his transgressions.  And whoso saith in ‘Akká:  ‘I beg forgiveness of God,’ God will forgive all his trespasses.  And he that remembereth God in ‘Akká at morn and at eventide, in the night-season and at dawn, is better in the sight of God than he who beareth swords, spears and arms in the path of God-exalted be He!”
+
+Such were the words of the Prophet concerning ‘Akká.  With regard to Baghdád, in Súra 10 “Jonah” He said of those who believe:  But they who believe and do the things that are right, shall their Lord direct aright because of their faith.  Rivers shall flow at their feet in gardens of  delight:
+
+Their cry therein, “Glory be to thee, O God!” and their salutation therein, “Peace!”  And the close of their cry, “Praise be to God, Lord of all creatures!”
+
+(Súra 10 “Jonah”, vv. 9–11)
+
+And God calleth to the abode of peace; and He guideth whom He will into the right way.
+
+(Súra 10 “Jonah”, v. 26)
+
+The metropolis of Dáru’s-Salám, which means “Abode of Peace”, became known as Baghdád.*
+
+He will change you for another people
+
+Of the numerous warnings that were given in the Qur’án, one was accompanied by an explanatory gesture on behalf of the Prophet that is of particular interest to Bahá’ís.
+
+Lo! ye are they, who are called to expend for the cause of God:  and some of you are niggards:  but whoso is niggardly shall be niggard only to his own loss; for God is the Rich, and ye are the poor:  and if ye turn back, He will change you for another people, and they shall not be your like!
+
+(Súra 47 Muḥammad, v. 40)
+
+When asked which people were being referred to as “another people” to replace the Arabs, the Prophet patted the legs of Salmán a Persian believer, and said; “He and his people”.  He then continued:  “By the True One, in Whose Hand is my life, if the Faith of God be suspended in the Pleiades, surely men from Persia shall reach it”.  This tradition is among those accepted by both Shi‘ahs and Sunnis and is included by Nasafí in his book, volume IV, page 169, as well as Muḥammad Faríd Vajdí, in his book, third edition, page 676.
+
+The earth will shine with the light of its Lord
+
+This is the Promise of God.  Interpreted literally, the earth shines every day with the visible sun.  In its spiritual sense, the earth symbolizes the hearts of men, which shine with the light of guidance from the Lord on the Promised Day.
+
+About the author
+
+Born in the remote Nile Delta village of El Dhahriya to a Muslim father, raised in an entrenched Islamic community, tutored in a Quranic village school which provided no more than primary school education, Muḥammad Muṣṭafá, a telegraph operator at fifteen, rose, through the creative breath of faith in Bahá’u’lláh Whom he spontaneously and unconditionally accepted at the first hint, to become one of the veteran Bahá’í administrators, an experienced and reliable translator for the beloved Guardian, a defender of the Cause in the heart of the Islamic and Arab world, a diffuser of the Glad Tidings in Egypt, Sudan and North Africa as well as other African countries, a Knight of Bahá’u’lláh, the rallying point and source of love and encouragement to the valiant Egyptian Bahá’í community deprived of its administrative framework since 1960, and, during the last six years of his life, a member of the Continental Board of Counsellors.
+
+After joining the ranks of the faithful at age sixteen in Etai-El-Baroud, a town midway between Cairo and Alexandria, Muḥammad Muṣṭafá was transferred to Tanta and later went to Port Said where he shared with the other believers the persecutions of 1919 and 1920.  He was not physically harmed, but he was among the frontline defenders of the Faith.  He wrote to the Master and received three loving Tablets bearing the salutations, “O thou who art turning thy face towards God!”, “O thou who art attracted by the fragrances of God!” and “O brave friend!”
+
+In the service of the beloved Guardian he was privileged to visit the Holy Shrines almost yearly up to 1933.  Shoghi Effendi relied upon Muṣṭafá for a number of English and Arabic translations; till the end of his life, he devoted himself to translating into
+
+Arabic the Guardian’s messages and incomparable prose.  “My dear and precious fellow-worker”, the Guardian once addressed a postscript to him, ….  Your perseverance, your utter devotion, your sublime faith, your selfless labours are all graven upon my heart.”  And in another, Shoghi Effendi wrote, “Your translation of the document will be of great service and assistance to the Cause.  You should rejoice and be happy and thankful.  I assure you of my prayers for your success and spiritual advancement.  I will never forget you.”  In two other communications the Guardian addressed him as “O beloved of the hearts of the friends” and “O faithful friend”.
+
+The first Local Spiritual Assemblies and the first National Spiritual Assembly of Egypt saw Muḥammad Muṣṭafá an active member; for many years he was national secretary—an office he discharged most ably—and later chairman.  Until he pioneered in 1953 he served on the national and on local assemblies.  He was the first to be appointed Auxiliary Board member and later, Counsellor from amongst the Egyptian believers.
+
+The Guardian’s announcement of the Ten Year Crusade made him restless.  With meagre resources he pioneered to the desolate Spanish Sahara for which service he was named a Knight of Bahá’u’lláh.  Denied residence, he resettled for a year in Benghazi, Libya.
+
+Between 1954 and 1960 he travelled in north, east and west Africa helping, amongst other activities, in the erection of the Regional Spiritual Assembly of North-West Africa in 1956.  Wherever he went he was a source of happiness and encouragement to the friends and he assisted them in their teaching efforts through his knowledge of the Scriptures and Writings.
+
+In 1958 he returned to Egypt.  Clouds of opposition were collecting.  A presidential decree, in 1960, disbanded all Bahá’í assemblies in Egypt.  A deeply loving heart, eyes that saw no evil, and a mind enriched with memories of the beloved Guardian brought him so close to the hearts of the believers in Egypt that for them he was a father or a brother.  His modest home was the haven for all, and despite meagre resources his wife somehow accommodated everyone who approached their ever-open door.  The friends simply loved to come and sit with them both, and quickly enveloped the couple with such love and attention that any visitor could not help but notice and marvel.
+
+By 1978, when he was eighty, age and long-suffering and hardship showed clearly their effects, but he continued travelling, comforting and visiting in Egypt.  Towards the end of 1980 his health seemed to deteriorate rapidly.  Before his death, on 15 August 1981, he had asked that his grave be the simplest, and placed lower than all others at the Bahá’í cemetery in Cairo.
+
+Muḥammad Muṣṭafá was dedicated to the Master, the beloved Guardian and the Universal House of Justice; he served on four local and two national Spiritual Assemblies and as Auxiliary Board member and Counsellor; taught and travelled for the Faith in many African countries; translated dozens of messages and documents and wrote two most significant booklets in Arabic, a book of proofs in English which is this volume and a similar but more elaborate one in Arabic; was three times imprisoned for the Faith yet defended it before clergy and in the press; was loved by the friends and was loving, humble, and ever-encouraging.
+
+After his passing, the Universal House of Justice sent the following cable:
+
+deeply grieved passing eminent distinguished servant blessed beauty member board counsellors africa knight of bahaullah dearly loved muhammad mustafa.  his long record dedicated services in administrative teaching fields his self sacrificing audacious efforts in promotion defence beloved faith unforgettable.
+
+This most beautiful testimony summarizes vividly the sixty-five years of Bahá’í life of this last remnant of the dedicated band of first Egyptian Bahá’ís.
+
+(This is a précis of the In Memoriam article written by Mr Rowshan Muṣṭafá and published in The Bahá’í World, vol. 18, pp. 768–771)
+
+Back cover
+
+“This book was prepared to assist English-speaking Bahá’ís to acquire a basic understanding of issues frequently raised by Muslims with regard to the Qur’án and the Bahá’í Faith.  It was originally written in 1959 when the writer was asked to undertake such a task by Bahá’ís in Liberia, during his visit to that country.  Recently it has been rewritten and expanded, so that it addresses many subjects of particular interest to Muslims.”
+
+Muḥammad Muṣṭafá
+
+“Born in the remote Nile Delta village of El Dhahriya to a Muslim father, raised in an entrenched Islamic community, tutored in a Quranic village school which provided no more than primary school education, Muḥammad Muṣṭafá, a telegraph operator at fifteen, rose, through the creative breath of faith in Bahá’u’lláh Whom he spontaneously and unconditionally accepted at the first hint, to become one of the veteran Bahá’í administrators, an experienced and reliable translator for the beloved Guardian …”  “… a diffuser of the Glad Tidings in Egypt, Sudan and North Africa as well as other African countries, a Knight of Bahá’u’lláh, the rallying point and source of love and encouragement to the valiant Egyptian Bahá’í community deprived of its administrative framework since 1960, and, during the last six years of his life, a member of the Continental Board of Counsellors.”  “… Shoghi Effendi relied upon Muṣṭafá for number of English and Arabic translations; till the end of his life, he devoted himself to translating into Arabic the Guardian’s messages and incomparable prose.

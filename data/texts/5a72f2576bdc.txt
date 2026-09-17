@@ -1,0 +1,1566 @@
+NUMEN BOOK SERIES
+STUDIES IN THE HISTORY
+OF RELIGIONS
+edited by
+W.J. HANEGRAAFF
+P. PRATAP KUMAR
+advisory board
+P. Antes, M. Despland, RI.J. Hackett, M. Abumalham Mas, A.W. Geertz,
+G. ter Haar, G.L. Lease, M.N. Getui, I.S. Gilhus, P. Morris, J.K. Olupona,
+E. Thomassen, A. Tsukimoto, A.T. Wasim
+VOLUME CIV
+
+STUDIES IN MODERN
+RELIGIONS, RELIGIOUS
+MOVEMENTS AND THE
+B$B^-BAH$’^ FAITHS
+EDITED BY
+MOSHE SHARON
+BRILL
+LEIDEN • BOSTON
+
+This book is printed on acid-free paper.
+Library of Congress Cataloging-in-Publication Data
+Studies in modern religions, religious movements and the B§bÊ-Bah§’Ê faiths / edited by
+Moshe Sharon.
+p. cm. — (Numen book series. Studies in the history of religions, ISSN 0169-8834 ; v. 104)
+Includes bibliographical references and index.
+ISBN 90-04-13904-4 (alk. paper)
+1. Sects—History—Congresses. 2. Babism—History—Congresses. 3. Bahai
+Faith—History—Congresses. I. Sharon, Moshe. II. Studies in the history of religions ; 104.
+BP603.S78 2004
+297.9—dc22
+2004045603
+ISSN
+0169-8834
+ISBN
+90 04 13904 4
+© Copyright 2004 by Koninklijke Brill nv, Leiden, The Netherlands
+All rights reserved. No part of this publication may be reproduced, translated, stored in
+a retrieval system, or transmitted in any form or by any means, electronic,
+mechanical, photocopying, recording or otherwise, without prior written
+permission from the publisher.
+Authorization to photocopy items for internal or personal
+use is granted by Brill provided that
+the appropriate fees are paid directly to The Copyright
+Clearance Center, 222 Rosewood Drive, Suite 910
+Danvers, MA 01923, USA.
+Fees are subject to change.
+printed in the netherlands
+
+The sun also arises, and the sun goeth down . . .
+The thing that hath been, is that which shall be;
+and that which is done is that which shall be done:
+and there is no new thing under the sun.
+Ecclesiastes 1:5,9
+
+CONTENTS
+Preface and Acknowledgements ................................................
+ix
+INTRODUCTORY REMARKS
+THE NINETEENTH CENTURY AND
+MODERN RELIGIONS
+New Religions and Religious Movements—The Common
+Heritage ..................................................................................
+MS
+PART ONE
+PROPHECY, MESSIANISM, AND THE MILLENNIUM
+On Prophecy and Early Hasidism
+..........................................
+MI
+Rabbi Kook and His Sources: From Kabbalistic
+Historiosophy to National Mysticism ....................................
+YG
+Millennialist Dreams and Apocalyptic Nightmares
+................
+MM
+Millenarianism and Nineteenth-Century New Religions:
+The Mormon Example ........................................................
+GU
+Critique of Pure Gematry
+........................................................
+MB
+PART TWO
+THE BÀBÌ-BAHÀ"Ì VENTURE
+The Eschatology of Globalization: The Multiple-Messiahship
+of Bahà"u"llàh Revisited
+........................................................
+CB
+
+viii
+
+The Bàbì-State Conﬂict in Màzandaràn: Background,
+Analysis and Review of Sources
+..........................................
+SZ-M
+The Azàlì-Bahà"ì Crisis of September 1867 ............................
+JR.I. C
+Ottoman Reform Movements and the Bahà"ì Faith,
+1860s–1920s ............................................................................
+NA
+“I Never Understood Any of this From 'Abbàs Eﬀendi”:
+Mu˙ammad 'Abduh’s Knowledge of the Bahà"ì Teachings
+and His Friendship with 'Abdu’l-Bahà" 'Abbàs ..................
+WMC
+Bahà"ì and the Holy Land: Religiogenesis and Shoghi
+Eﬀendi’s The Faith of Bahà"u"llàh: A World Religion
+..............
+ZL
+Index
+..........................................................................................
+
+PREFACE
+AND ACKNOWLEDGEMENTS
+The summaries of the majority of the articles included in this book
+were presented at the International Conference on Modern Religions
+and Religious Movements in Judaism, Christianity and Islam and
+the Bàbì-Bahà"ì Faiths, convened at the campus of the Hebrew
+University of Jerusalem in December 2000. The selection is domi-
+nated by studies on the Bàbì-Bahà"ì Faiths, mainly because the schol-
+ars representing this ﬁeld of research oﬀered the largest number of
+studies to be considered for inclusion in this volume. This dispro-
+portion in the representation of other modern religions and religious
+movements may be somewhat justiﬁed if one takes into considera-
+tion that the Bàbì-Bahà"ì venture was one of the major develop-
+ments in the ﬁeld of religion in modern times, especially because it
+was born out of the heart of Shì 'ite Islam in the East, and suc-
+ceeded in crossing the ocean, treading new paths into the heart of
+western civilization and the bosom of Christianity. As such, it is
+unique among other modern religious movements.
+None of the other modern religions and religious movements suc-
+ceeded in crossing the lines in such a way, and attracting at the same
+time believers across the board of civilization. The Hasidut move-
+ment was born in Judaism and remained there. The Church of Jesus
+Christ of Latter-Day Saints (the Mormons) departed from institu-
+tionalized Christianity but remained within the borders of Western
+Christian civilization. The same can be said about the Ahmadiyyah
+that remained within Islam, and all the Christian Adventist move-
+ments that did not break away from their Christian roots.
+Mysticism, millennialism and messianic ideas are present in all the
+modern religions and religious movements, and they are predomi-
+nant subjects in these studies. Because of the great importance attached
+in mystical thought in Judaism, Christianity, Islam and the Bàbì-
+Bahà"ì faiths to the power of the letters of the alphabet and their
+numerical values, a special contribution deals with the study of
+Gematry—the “science” of the letters, and their mystical signiﬁcance.
+In editing the material I tried to interfere as little as possible with
+the original form of the articles, but made an eﬀort to give the whole
+book a certain degree of uniformity. In spite of that, there is a slight
+
+x
+  
+diversity between the bibliographical lists at the end of each contri-
+bution, since some of the authors insisted on using internet publica-
+tions extensively, and others, on quoting unpublished works (including
+conference papers). One author expressed the particular wish to
+accompany his contribution with endnotes.
+The method of transliteration from Arabic and Persian, which has
+been standardized in Bahà"ì writing, uses accents over the vowels á,
+í, and ú, instead of an elongating line (à, ì, ù). Wherever possible
+the Arabic and Persian were transliterated according to the latter
+method, preferring the elongating lines to the accents.
+In my contribution to the volume, which I wrote in place of a
+formal introduction, I attempted to show the common thread, which
+goes through all the chapters of the book. I identiﬁed it as a com-
+mon monotheistic or Biblical tradition, which is present in all the
+religions and religious movements either in a direct way or via a
+mediating scripture or agent. I deliberately did not indulge in either
+historical or sociological discussions, which I felt would confuse the
+main thrust of my remarks.
+It is my delightful duty to acknowledge the contribution of the fol-
+lowing institutions and individuals to this publication. Firstly I would
+like to thank the Hebrew University of Jerusalem and its Authority
+for Research and Development that supported the conference and
+put at its disposal, its administrative and maintenance resources.
+Particular thanks are due to Mrs. Linda Egger, the coordinator
+of the conference, whose contribution to its success, and to the prepa-
+ration of this book for print was immeasurable, and to Mrs. Sivan
+Lerer and Mr. Shahin Izadi who contributed their time and talents
+in ﬁtting the various articles into the uniﬁed pattern of this volume.
+This proved to be a particularly intricate task because of having to
+deal with so many diﬀerent styles. Such a task could not be achieved,
+however, without the good will and cooperation of each one of the
+authors.
+With deep gratitude I acknowledge the assistance of my wife Judy,
+and my students Iris Ronen-Forer, Netanel Toobian, Naghmeh
+Sobhani, and Sarah Clarke during the weeklong conference.
+May they all be blessed!
+M. Sharon
+The Hebrew University of Jerusalem
+December 2003
+
+'Abbàs Eﬀendì s.v. 'Abdu’l Bahà"
+'Abbàs Qulì Khàn-i Làrìjànì
+189,
+191–92, 207–208
+'Abd al-Bàsi†
+'Abdu’l Bahà"
+8, 28, 31, 35,
+106–107, 114, 120, 144, 155,
+157–61, 166, 173, 240, 248, 253,
+256–60, 266–67, 269–71, 275–94,
+310, 312, 314
+abjad
+32, 33
+Abraham (Biblical ﬁgure)
+127–28, 301
+Abraham of Pohrebusht, R.
+Abù Turàb
+Abu’l-Óasan Mìrzà “Shaykh al-Ra"ìs”
+Abulaﬁa, Abraham
+48–51, 54, 61,
+65–70, 131
+Acre
+153, 157–62, 164, 166, 167,
+170, 172, 234, 242, 255, 256,
+260–63, 266, 278, 287, 296, 299,
+Adam
+Àdharbàyjàn
+181, 183, 186, 196, 200
+Adrianople s.v. Edirne
+Adventist Movements
+3–4, 7, 10,
+17–18, 34–35, 108, 300
+Aharon Kohen of Apta, R. 59, 61,
+68–70
+ahl al-majàz
+A˙madiyya
+4, 7, 300
+Ahmed Midhat
+A˙sà"ì, Shaykh A˙mad al-
+27–28,
+30–31
+'Akiva, R.
+'Akk‚ s.v. Acre
+Aleph (letter)
+29, 31, 33
+Alexander II, Czar
+145, 160, 163–65,
+Algar, Hamid
+195, 264
+'Alì b. Abù ˇàlib
+31–32, 156
+'Alì Mu˙ammad Shìràzì, Sayyid
+s.v. Bàb
+Âlì Pasha
+254–55
+'Alì Qulì Mìrzà I'ti∂àd al-Sal†ana
+'àlim 32
+INDEX
+(Prepared by Sivan Lerer)
+Allenby, Gen. George
+Alphabet
+19, 25–27, 29–30, 32–33,
+127–28
+Amìr Kabìr s.v. Mìrzà Taqì Khàn
+Amìr al-Shu'arà" s.v. Ri∂à‚ Qulì Khàn
+Hidàyat
+Amru"llàh
+Amulets
+23–24, 33
+Àmùlì, Shaykh Sayyid Óaydar
+Angels
+Apocalyptic Prophecy
+48–49, 56, 62,
+72, 75
+Apocalypticism
+41, 56, 97, 106,
+108–109, 114, 117–18, 151
+Àqà 'Azìzu"llàh “Jadhdhàb”
+144,
+Àqà Buzurg Nìshàpùrì “Badì'”
+160,
+162–63
+Àqà Jàn
+Àqà Óusayn Àshchì
+Àqà Sayyid Óusayn-i Kàtib
+Àqà Sayyid Mu˙ammad Ri∂à‚
+Shàhmìrzàdì
+215, 218
+Àqà Sayyid Ya˙yà-yi Dàràbì “Wà˙id”
+Arba'ah Turim
+Aristotle
+Armageddon
+106, 108
+Arpilei ˇohar
+Arslan, Amìn
+Arya Samaj
+'Atabàt
+187, 199, 201
+Avivi, Yoseph
+80–81
+Àwàra, 'A.
+Azalì Movement
+180–81, 227–28,
+257, 262–63, 281
+Bà" (letter)
+28–33
+Ba'al
+Ba'al Shem
+Ba'al-Shem-Tov, R. Israel
+13, 19–20,
+56–61, 63–64, 66, 71–72, 77
+Bàb, 'Alì Mu˙ammad Shìràzì
+4, 7–9,
+12–13, 17, 19, 21, 27–29, 31–35,
+102–103, 121, 144, 146–47, 156–57,
+161, 179–85, 187–88, 196–98,
+
+
+200–201, 203, 208–210, 227–31,
+236, 239, 243–45, 248, 250, 259,
+267, 276, 278, 280–81, 290, 308,
+310, 314
+Babel
+128, 134–35
+Bàbì Faith
+3, 7–8, 12, 17–18, 32,
+102, 104, 118, 145, 155–57, 161,
+179–225, 227–29, 232, 238, 247–50,
+253, 255, 257, 259–60, 263–67,
+272, 281, 288, 302, 312
+Bàbiyyat
+34, 187
+Badasht
+181, 185, 200, 210
+Badì' s.v. Àqà Buzurg Nìshàpùrì
+Baghdad
+145–46, 229–31, 237, 259,
+bahà"
+29–30, 32–33, 156, 283, 286
+Bahà"ì Faith
+3, 7–8, 12, 17–18, 21,
+29, 32, 97–118, 120–21, 127, 143,
+147, 149, 161, 180–81, 227, 253,
+259–60, 263, 267–68, 270–72,
+280–82, 284, 288–89, 291, 299–300,
+302, 305, 307–15
+Bahà"u"llàh, Mìrzà 'Alì-yi Nùrì
+8–9,
+12–13, 17, 21, 28–29, 32, 35,
+104–106, 114, 118, 120–22, 143–73,
+181–82, 213, 217, 227–50, 253,
+256–57, 260–62, 264, 266–67, 269,
+276, 278, 280–84, 290, 301, 308–10,
+Bahìyyih Khànum
+158, 166
+bà'ith
+bajad
+Balch, Robert
+Balyuzi, Óasan M.
+149, 170, 232,
+260, 271, 278–79
+Barrett, David V.
+Barukh of Kosov, R.
+barzakh
+Basmallah
+28, 31–32
+Bayàn
+Bayàn-i Fàrsì
+146, 196, 215
+“Beautiful Names”
+Beckford, James A.
+305–306
+Bekta{is
+258–59
+Bentwich, Norman
+Bereketzade (smail Hakkı
+255, 261
+Berkes, Niyazi
+264–65
+Bereshìt
+Besht s.v. Ba'al-Shem-Tov
+Beth (letter)
+19, 28–29, 31
+Bible 9–12, 14, 22, 48, 100, 106, 119,
+127–28, 133
+bid'a
+190, 280–81
+Bihjat aß-Íudùr
+233, 246
+Bism
+32, 152
+Blunt, Anne
+Blunt, Wilfred
+Book of Alma
+Book of Daniel
+Book of Ether
+Book of Mormon
+9–10, 118–19
+Book of Revelation
+Book of Splendour s.v. Zohar
+Brigham Young
+8, 13
+Browne, Edward G.
+97, 144, 160,
+161, 163, 168, 170, 172, 189, 195,
+212, 214, 216, 220, 233, 302,
+312–13
+Bruce, Rev. Robert
+168–69
+Buddha
+Buddhism
+al-Bùnì, A˙mad b. 'Alì
+Cahun, León
+258–59
+Canavarro, Madam M.A. de S.
+Carmel
+Caro, R. Joseph
+Catafago, Khàjih Louis
+Cevdet, Abdullah
+265, 267–71
+Chahàr Vàdì
+Chahrìq
+Chàwush-khwànì
+198–99
+Chase, Neal
+Christ
+9, 34, 101, 119–20, 144, 146,
+150, 153, 155, 169
+Christianity
+5, 10, 14–15, 17, 22,
+34–35, 55–56, 73, 97, 101, 117,
+119–20, 127, 144–45, 151–54, 166,
+299, 301, 309
+Church
+5, 9
+Church of Jesus Christ of Latter-day
+Saints 7–8, 117–24, 300
+Cockerell, Sydney “Kùkùrìl”
+Cole, Juan R.
+164, 257, 262, 280,
+282, 291
+Collins, William P.
+Comforter
+144, 149, 151, 168
+Constantinople
+Cormer, Lord
+Cottrell, Count Henry E. Plantagenet
+Coward, Harold G.
+Croce, Benedetto
+4–6
+Dàl (letter)
+Dalà"il-i Sab'a
+188, 196
+al-Damìnì, Musﬁr
+24, 25
+Daniel (Biblical ﬁgure)
+
+
+Dàr al-Islàm
+Dàr al-˙arb
+Darvìsh Íidq-'Alì
+Dastur Dhalla
+David (Biblical ﬁgure)
+64, 119
+David Hacohen “Hanazir”, R.
+84–85
+David of Makow, R.
+Dawn-Breakers
+172, 217–18
+debeqùt (devequt)
+20–21, 61–62, 84
+Demons, Demonic Powers
+22–23
+Derrida
+Descartes
+Devil
+dilugim
+128–29
+dìn
+Dinur, Benzion
+45–46, 56
+Divestment (of the soul)
+51–54, 63,
+68–70
+Divine Being
+14, 16, 27, 31
+Divine Justice
+Divine Kingdom
+17, 107. See also:
+Kingdom of God
+Divine Names and Attributes
+18–19,
+24–33, 63, 136, 152, 156, 164, 244
+Divine Spirit
+50, 61
+Divine Unity
+26, 27
+Divine Will
+51, 107, 168
+Divrei Moshe
+Dolgorukov, Prince
+186, 222
+Dorn, Bernard
+221–222
+Douglas, Mary
+227, 247, 250
+Dwyer, John
+Edirne (Adrianople)
+157, 160–61,
+165, 170, 229–30, 232–39, 246,
+248, 253, 283, 299
+e˙ad 26. See also: One
+ein sof
+16, 26
+Eleazar Tzvi of Komarno, R.
+Eliezer (Biblical ﬁgure)
+Elijah (Biblical ﬁgure)
+Eliade, Mircea
+Elimelekh of Lisansk, R.
+Elohim
+127, 136. See also: God
+Elyashiv, Shalom
+Emic
+302–303, 306, 307–11, 314
+Emin Âli
+Engels, Friedrich
+Enoch (Biblical ﬁgure)
+Epistle to the Son of the Wolf
+Eschatology
+102, 104, 118, 121, 124,
+143, 154–55, 179, 187, 199, 280,
+Ethical Prophecy
+48–49, 56–58, 72,
+Etic
+302–303, 306, 311–14
+Etkes, Immanuel
+Eve
+Fà∂il-i Màzandarànì
+200, 218, 247
+faraj
+faràmùshkhàna
+263–64
+Faris Eﬀendi the Physician
+151–52
+Fat˙ 'Alì Shàh
+Fichte
+First book of Nephi
+ﬁtna
+Four (number)
+Freemasonry
+Fuad Pasha
+Galileo
+Gamazov, M.
+Gan Na'ul
+Geertz, Cliﬀord
+Geiger, Abraham
+Gematria
+22, 32–33, 127–39
+Gershon of Kutov, R.
+56, 72
+ge"ulah
+Gikatila, R. Yoseph
+131, 136
+Gìlàn
+Globalization
+143, 172–73
+Gnosticism
+God
+6, 8–9, 11, 13–17, 19–20, 22,
+25–26, 28, 30, 33, 43, 50, 60,
+81–82, 89–90, 104, 118–19, 121,
+127–28, 156
+Gospels
+100, 122, 149, 171
+Great Maggid, the
+61–63, 66
+Great Peace
+“Greatest Name”
+28–30, 32, 171
+Greek Philosophy
+5, 12, 22, 35
+Greussing, Kurt
+193–95
+Gzerah Shavah
+132, 135
+Hà" (letter)
+28, 146, 295
+ÓaBaD
+4, 129, 137
+al-˙abìb
+Óadìth
+24, 32–33, 103, 145, 188,
+Haggadah
+Haifa
+153, 164, 166, 260, 267, 278,
+287, 299, 311
+Óàjì Elyahu Kohan 'Abdu’l-Óusayn
+Óàjjì 'Abd al-Majìd-i Nìshàbùrì
+214,
+
+
+Óàjjì Mìrzà Àqàsì
+182–83, 186
+Óàjjì Mìrzà Óasan-i Khuràsànì
+214,
+Óàjjì Mìrzà Jànì
+Óàjjì Naßìr-i Qazvìnì
+198, 203,
+213–14, 219
+Halakhah
+134–36, 139
+Hamadàn
+Óamawayh, Sa'd ad-Dìn
+Hanio<lu, }ükrü
+265–67, 271
+Hanotaux, Gabriel
+Óaqà"iq al-akhbàr-i nàßirì
+Hardegg, Georg David 153–54
+Harris, Marvin
+Óasan
+Óasan Àqà Salmàsì
+236, 239–41,
+245, 247–48
+hashba'ot
+Óasidic Movement
+6–7, 18, 77–78,
+Óasidut
+3, 6–7, 16, 18–21, 25–26,
+41–75, 82–85, 137
+Óavura" Qaddisha"
+44, 57–58
+haykal
+33, 154, 168
+˙ayy
+Óayyei ha-'Olam ha-Ba"
+65–70
+He (letter)
+“He Whom God shall Make Manifest”
+12, 144–45, 147, 156, 182, 215,
+231, 243, 250
+Hegel
+Heidegger
+Heiler, Friedrich
+˙eshbon
+Hick, John
+Hidden Imàm
+3, 35, 179, 184, 210,
+hijrah
+Hinduism
+hitbodedut
+51–52, 63
+hitpashetut
+52, 63
+Hinduism
+hitnab"ut
+Hoca Sadık Efendi
+Holy Land
+10, 144, 154, 299–301,
+307–308, 311, 314–15
+Holy War
+103, 105, 179–80, 182,
+187, 192, 195–97, 204–206, 301
+Holy Writ
+7, 9, 13, 19, 23. See also:
+Scriptures
+˙otamot
+House of Justice
+105, 111–13, 165
+Óujjat s.v. Mullà Mu˙ammad 'Alì-iy
+Zanjànì
+Hume, David
+hùrqalyah
+Hur{id Pa{a
+Óusayn
+28, 32, 144, 154–56, 204
+Óusayniyya
+Ibn al-'Arabì
+18, 31
+Ibn Ezra
+131–32
+Ibrahim Kheiralla
+Idel, Moshe
+78, 83
+"Iggeret 'Aliyat ha-Neshamah
+"Ilana" de-Óayyei
+Imàms
+11, 27, 29–32, 35, 144, 155,
+196, 204, 246
+'Imàrah, Mu˙ammad
+"Imrei Shefer
+India
+3–4, 147, 157
+al-insàn al-kàmil
+Iran
+102–104, 147, 149, 157, 168,
+181, 193–94, 201, 204, 213, 217,
+228, 230, 248, 255, 262, 264–65,
+irtidàd
+'Ìsà
+34, 144
+Isaac Aiziq Yehudah Safrin, R.
+Isaac ben Jacob ha-Kohen, R.
+Isaac ben Shmuel of Acre, R.
+48,
+51–54
+Isaac Meir Alter, R.
+Isaac Shani, R.
+Isaiah (Biblical ﬁgure)
+121, 168
+Islam
+3, 7, 10–14, 16, 21–23, 55,
+97, 101, 104, 127, 145, 147,
+154–56, 179, 181, 196, 299, 301,
+Ismà'ìliyyah
+28, 195
+Israel of Ruzhin, Rabbi
+19, 31, 64
+Istanbul
+230, 237, 242, 253, 255,
+258–60, 263–64, 266, 270
+al-'isyàn
+Italy
+Ivanov, M.S.
+193–94
+'Izzat Àqà
+232, 237, 247
+Jacob (Biblical ﬁgure)
+Jacob ben Asher, R.
+Jacob Isaac Horowitz, R.
+(Seer of
+Lublin) 71
+Jacob Tzvi Yalish, R.
+Jadhdhàb s.v. Àqà Azìzu"llàh
+“Jadhdhàb”
+jalàl
+Jalàl al-Dìn Rùmì
+jamàl
+33, 156
+
+
+Jamàl al-Dìn al-Afghànì
+263–66,
+275–76, 279–81, 286–87
+Jamal Eﬀendi
+al-Jawàd, A˙mad 'Abd
+Jawàhir al-Asràr
+jaysh
+Jensen, Leland
+Jeremiah
+Jerusalem
+9–10, 133, 153, 287–88
+Jessup, Rev. Henry H.
+Jesus
+10, 17–18, 34–35, 100, 121–22,
+144, 151, 155–56, 164, 168–69, 243,
+jihàd s.v. Holy War
+Jim (letter)
+John the Baptist
+146, 150, 168
+Johnson, V. Elvin
+300, 312
+Joseph (Biblical ﬁgure)
+10–11
+Judaism
+6, 12, 14, 16, 20–22, 25, 33,
+41–75, 77–96, 100–101, 117,
+127–39, 144–45, 147, 149–51, 299,
+301, 309
+Judgment Day
+101–103, 284, 309
+Ka'ba
+Kabbalah
+16–18, 20, 25–26, 42–43,
+46, 49–53, 55, 60, 65, 69, 71, 74,
+79–87, 93, 129–30, 139
+Kalki Vi“nuyasas
+Kant
+5, 130–31, 139
+Karbalà"
+187, 199, 204, 212, 258
+Karo, R. Joseph
+Kàshàn
+149, 216
+kavvanah
+26, 52, 59, 83
+Kedourie, Elie
+Keter Nehora"
+Khàdimu"llàh s.v. Mìrzà Àqà Jàn
+Kàshì
+Khànlar Mìrzà
+Khuràsàn
+103, 186–88, 195–96,
+198–99, 204, 211
+khurùj
+187, 200
+Khusraw-i Qàdì-Kalà"ì
+189, 203, 213
+“King of Kings”
+Kingdom of God
+101, 107–108, 118,
+122, 167, 293–94
+Kirman
+147–48, 183
+Kitàb al-'Ahdi
+Kitàb-i-Aqdas
+9, 159
+Kitàb-i-Badì'
+Kitàb-i-Ìqàn
+9, 120, 147, 154, 283
+Kitàb-i Mubìn
+Kitàb-i Nuq†atu’l-Kàf
+198–99, 208,
+216–17
+Kitàb-i ¸uhùr al-Óaqq
+Kook, R. Abraham Isaac Hacohen
+77–96
+Kùkùrìl s.v. Cockerell, Sydney
+Lambden, Stephen
+150, 153
+Land of Israel
+91, 134–35
+al-Law˙ al-Aqdas
+Law˙-i Dunyà
+Law˙-i Haft Purshish
+Law˙-i Hir†ik
+Law˙-i Maqßùd
+Law˙-i Mubàhalih
+232–33, 240–41,
+242, 248
+Law˙-i Nasìr
+Lehi
+Lesser Peace
+105–106, 171
+Letters
+22, 25–29, 32–34, 50, 54, 65,
+“Letters of the Living”
+180, 185
+Levy, Habib
+Liberty
+4–6, 262
+Liebes, Yehuda
+Liener, Mordechay of Izbica
+liqà" Allàh
+Lisàn al-Mulk s.v. Mìrzà Mu˙ammad
+Taqì-yi Sipihr
+Lubavitch Óasidism
+61, 68, 70, 129,
+Lublin
+Luria
+Lurianic system
+41, 62, 81, 87, 89,
+Lu†f 'Alì Mìrzà Shìràzì
+198–99,
+201–203, 206–207, 211–12, 214–15,
+Luzatto, Moshe Óaim (Ram˙al)
+79–83, 85, 91
+MacEoin, Dennis
+179, 195–97, 201,
+207, 214, 313
+Maggid of Mezerich
+Maggid of Zlotchov s.v. Ye˙iel Mikhal
+of Zlotchov, R.
+Magic
+24–26, 33, 238
+Mahdì
+3, 101–103, 144, 155, 179,
+181, 184–85, 187–88, 198–200, 204,
+209–10
+Mahdì Qulì Mìrzà
+190, 193, 207,
+220, 223
+Mahjùr-i Zawàra"ì, Sayyid Mu˙ammad
+Óusayn-i Zawàra"ì
+198, 211,
+214–15, 217–18
+Ma˙mùd, 'Abd al-Óalìm
+
+
+“Maiden of Heaven”
+Maimon, Solomon
+Maimonides
+55, 127
+Majma' al-Ba˙rayn
+Màkì
+183, 200
+Malik-Khusrawì, Mu˙ammad 'Alì-yi
+212, 215, 218
+Man yuΩhiruhu Allàh s.v. “He Whom
+God shall Make Manifest”
+Maneck, Susan
+Mànì
+Manifestation
+12, 17–19, 27, 29, 35,
+120–21, 157, 169, 278
+Mann, Thomas
+Mark, Tzvi
+Martyrdom
+188, 203, 204
+Marx, Karl
+Maseﬁeld, Peter
+Mashhad
+144, 149, 185, 198–200,
+206, 215
+Màzandaràn
+179–81, 183–86,
+188–90, 193, 195–201, 203–205,
+207, 209–210, 212–13, 215, 221
+McConkie, Bruce R.
+McCutcheon, Russell T.
+Me"ah She'arim
+Mecca
+103, 187, 199, 236, 301
+Mehmed Bey
+Mei HaShiloa˙
+Meir, R.
+Mena˙em Mendel of Rimanov, R.
+Menapirzade Nuri Bey
+255, 261
+Merkavah
+Messiah
+34, 56, 74, 87–91, 100, 129,
+137, 143–45, 148, 155, 247
+Messianism
+3, 41–43, 46, 78, 80,
+102, 104, 117, 143–78, 215, 230
+Middot ha-Seﬁrot
+Midhat Pasha
+253, 256, 260, 278
+Midrash
+11, 20, 129, 133, 135,
+137–39
+Miller, William
+4, 13, 34
+Millennialism
+97, 106, 112, 117–26
+Millennium
+107, 117–19, 125
+Millerism
+4, 7
+Mìr Abì ˇàlib-i Shàhmìrzàdì
+198–99,
+212–15, 217–18
+Mìr Mu˙ammad Mukàrì Shìràzì
+236–40, 242–45, 247–49
+mi'ràj
+Mìrzà Abbàs “Buzurg” Nùrì
+Mìrzà Abù’l Fa∂l Gulpàygànì
+106,
+149, 281–82
+Mìrzà A˙mad Azghandì
+Mìrzà 'Alì-yi Nùrì s.v. Bahà"u"llàh
+Mìrzà Àqà Jàn Kàshì “Khàdimu"llàh”
+159, 233–39, 242, 244–46, 248
+Mìrzà Àqà Khàn Kirmànì
+263, 266
+Mìrzà Ghulàm A˙mad Qàdyànì
+Mìrzà Hàdì Shìràzì
+Mìrzà Óaydar 'Alì-yi Ardistànì
+214,
+Mìrzà Óaydar 'Alì Isfahànì
+233, 238,
+240, 244–48
+Mìrzà Óusayn-i Hamadànì
+Mìrzà Javàd Qazvìnì
+232–33,
+237–39, 241, 245–47
+Mìrzà Malkum Khàn
+263–64
+Mìrzà Mu˙ammad Ja'far Khàn-i
+Khurmùjì
+Mìrzà Mu˙ammad KàΩim
+Mìrzà Mu˙ammad Kàzirùnì
+Mìrzà Mu˙ammad Qulì Nùrì
+229,
+237, 239, 247
+Mìrzà Mu˙ammad Taqì-yi Sipihr
+“Lisàn al-Mulk”
+205, 220
+Mìrzà Mùsà “Kalàm” Nùrì
+Mìrzà Muß†afà (Mullà Ismà'ìl-i
+Íabbàgh-i Sidihì)
+Mìrzà Ri∂à Kirmànì
+Mìrzà Sa'ìd “Basìr” Hindi
+Mìrzà Taqì Khàn “Amìr Kabìr”
+186,
+Mìrzà Ya˙yà Nùrì s.v. Íub˙-i Azal
+Mishkìn Qalam
+257–58
+mitnabbe"im
+Mitzvòt
+18, 20–21, 133
+Momen, Moojan
+153, 194, 222
+Monotheism
+8–9, 13, 21–22, 26, 35
+Morgenstein, Aryeh
+83–84
+Mormons
+4, 7–8, 10, 117–26
+Moroni
+Moses (Biblical ﬁgure)
+26, 51, 56, 68,
+89, 121, 123, 132, 138, 236, 238,
+242–44, 248–49, 284, 301
+Moses ben Jacob Cordovero, R.
+53–54, 62
+Moshe ben Na˙man, Rabbi s.v.
+Na˙manides
+Moshe Shoham ben Dan of Dolina, R.
+Most Great Peace
+106–107, 109, 113,
+Mount Sinai
+15, 132–33, 144, 164,
+166, 293
+al-Mu"awwidhatàn
+al-mu'azzì
+149, 168. See also:
+Comforter
+
+
+mubàhalih
+236–37, 240, 247, 249
+Mu˙ammad, the Prophet
+11, 15, 23,
+28, 32–33, 147, 150, 154, 156, 193,
+239, 243, 248, 268–69, 279, 282,
+285, 301
+Mu˙ammad 'Abduh
+271, 275–97
+Mu˙ammad A˙mad b. 'Abdallàh
+Mu˙ammad 'Alì Salmànì
+230, 233,
+235–36, 239–40, 242, 244–45
+Mu˙ammad Bàkir-i ˇihrànì
+Mu˙ammad Shàh
+182–86, 188–89,
+195, 200–203, 210
+Mu˙ammad-Valì Khàn Sipahdàr-i
+A'Ωam
+Mullà 'Alì Bastàmì
+Mullà Óusayn-i Bushrù"ì
+181, 185,
+188–89, 191, 195, 198–200,
+202–210, 212, 214, 220
+Mullà Mìrzà Mu˙ammad-i Furùghì
+Mullà Mu˙ammad 'Alì-iy Bàrfurùshì
+“Quddùs”
+186, 189, 191, 193,
+206, 208, 215
+Mullà Mu˙ammad 'Alì-iy Zanjànì
+“Óujjat”
+Mullà Mu˙ammad Ma˙allàtì
+Mullà Mu˙ammad Íàdiq-i Muqaddas-i
+Khuràsànì
+Mullà Mu˙ammad Taqì-y Baraghànì
+181, 183
+Müller, Max
+mumkin
+Murad Pasha
+mußli˙ al-'àlam
+144–45, 172
+Muß†afà Kàmil
+Mutanabbi"ìn
+Mystical Prophecy
+48–49, 52, 54, 58,
+68–70, 72, 74–75
+Mysticism, Christian
+Mysticism, Islamic
+16, 25, 28
+Mysticism, Jewish
+16, 25–26, 28, 41,
+47, 50–52, 55, 61, 71, 73–74, 78,
+Nabìl Zarandì, Yàr-Mu˙ammad-i
+Zarandì
+160, 198–200, 213,
+217–218, 233, 236, 240, 248
+Na˙man of Braslav, R.
+55, 71
+Na˙man of Kosov, R.
+44, 57–58
+Na˙manides
+25–26, 131–32, 135,
+najàsat
+228, 249
+Names of God s.v. Divine Names and
+Attributes
+Namık Kemal
+255–59, 262
+Na"or, Bezalel
+Napoleon III
+145, 157, 160, 165–66
+Nàsi˙ al-Tawàrìkh
+220–21
+Nàßir al-Dìn Shàh
+157, 160–63, 184,
+186, 190, 206–209, 212, 220–22,
+229, 262, 264–65
+Nathan ben Sa'adya Harar, R.
+48,
+51–54
+Nathan Neta" of Helm, R.
+Nathan of Gaza
+National Mysticism
+84, 93
+Nationalism
+79, 87, 89–90, 92–93,
+navi"
+Nayrìz
+180, 195, 205
+Nazif, Süleyman
+256–60
+n-b-"
+Necib Pasha
+nefesh
+nequddot
+nevi"ut
+44, 47
+nevu"ah
+47, 51
+New Jerusalem
+New Testament
+10, 151, 153, 309
+nigleh
+Nineteen (number)
+27–28
+nistar
+nitzotzòt
+NiΩàm al-'ulamà"
+Noah (Biblical ﬁgure)
+119, 128
+North Africa
+North America
+Numerology s.v. Gematria
+nuq†ah 31. See also: Point
+Nuq†ah-i-'ùlà
+Occultation
+4, 102
+Old Testament
+8, 10, 309
+One
+26–29
+Oneness
+27, 82–83, 153, 310
+"Or ha-Ganuz le-Tzaddiqim
+68–69
+"Or ha-Me"ir
+"otiyyot
+50, 67
+Ottoman Empire
+8, 229, 253–74, 277
+Paradise
+163, 167, 283
+Paul
+pegimah
+“Perfect Man”
+17–18. See also: al-
+insàn al-kàmil
+Phelps, Myron
+Piﬀ, David
+Pike, Kenneth L.
+
+
+Pilgrimage
+308, 314
+Pin˙as Elijah Horovitz of Vilna, R.
+Pius IX, Pope
+145, 157, 160,
+166–69
+Plato
+Point
+12, 19, 31
+Poland
+65–66
+Progressive Revelation
+300, 310
+Promised One
+143, 155, 230–231,
+Prophecy
+41–75, 90, 97, 99, 103,
+106, 128, 151, 199
+Prophets
+12, 15–17, 29–30, 35, 45,
+50, 54, 62–65, 74, 89, 104, 121–22,
+124, 143, 183
+Qa'bìn, Salàm
+qà"im
+155, 195, 198
+Qalonimus Qalman Epstein of
+Cracow, R.
+70–71
+Qayyùm al-Asmà"
+156, 182, 187, 196
+Qazvin
+147, 166, 181, 187, 237
+Qehilat Ya'aqov
+qitàl
+qiyàma s.v. Resurrection
+Quddùs s.v. Mullà Mu˙ammad 'Alì-iy
+Bàrfurùshì
+Queen Marie
+Queen Victoria
+122, 144–45, 157,
+160, 169–72
+Qur"àn
+10–11, 19, 22–24, 27–29,
+33–34, 147, 149, 154, 261, 278,
+282–84, 289, 309
+Qurrat al-'Ayn “ˇàhira”
+rabb al-arbàb
+raj'at
+243, 248
+RaMBaN s.v. Na˙manides
+Ram˙al s.v. Luzatto, Moshe Óaim
+Rashi
+129, 134
+Rashìd Ri∂à
+271, 277, 279–82,
+285–91
+Rashtì, Sayyid KàΩim
+Raw∂at al-Íafà-yi Nàßirì
+220–21
+Redemption
+5, 42–43, 82–85, 91
+Reformation
+Reines, R.
+Religious Zionism
+77–78, 80, 83, 85
+Remey, Charles Mason
+107, 110–11
+Resh Lakish
+Resurrection
+102–103, 118, 120,
+154, 185
+Revelation
+15, 144, 167, 284
+Ribek, Tzvi
+Ri∂à‚ Qulì Khàn Hidàyat “Amìr
+al-Shu'arà"”
+200, 220
+Risàlàt al-Mißbà˙
+Rıza, Ahmed
+Rome
+5, 100–101
+Rosen, Baron Victor
+Rothschild, Baron
+Rua˙ ha-Qodesh
+rù˙
+156, 285
+Sa'adiah Gaon
+Sabbatai Tzevi
+57, 77
+Sabbateanism
+41, 43–47, 49, 56–57,
+70, 72, 74, 77–78
+Safed
+46, 81
+sa˙àb
+164, 167
+Sa'ìd al-'Ulamà"
+202, 213
+Saiedi, Nader
+Salaﬁyya
+Salvation
+Samandar-i Qazvìnì s.v. Shaykh
+KàΩim Samandar-i Qazvìnì
+Samuel (Biblical ﬁgure)
+Sandström, Emil
+299, 310
+Sarug, R. Yisrael
+Satan
+23, 183
+ßayyàd
+Sayyid Mihdì Dahajì
+231–32
+Sayyid Mu˙ammad Isfahànì
+234–36,
+241–42, 244–45, 247
+Scholem, Gershom
+41–46, 73–74, 78
+Scriptures
+22, 33–34, 104, 124
+“Seal of the Prophets”
+Sears, William
+Second Advent
+Second Coming
+35, 101, 118, 144
+Seer of Lublin, s.v. Jacob Isaac
+Horowitz, R.
+Sefer ha-Berit
+Sefer ha-Peli"ah
+50, 67
+Sefer Óayyei ha-Nefesh
+Sefer Raziel ha-Mal"akh
+Sefer Sha'arei Tzedeq
+Selim II, Sultan
+Sepher Yetzirah
+Sephirot
+16–17, 20, 26, 42, 51, 89
+Seventh-Day Adventists
+17, 34
+Sha'arei Qedushah
+51, 54, 67–68
+Shàh Bahràm Varjavand
+144, 148
+Shakìb Arslàn
+277, 279, 288
+Shams al-Ma'àrif al-Kubrà
+Sharpe, E.J.
+Shatz-Uﬀenheimer, Rivka
+Shawqì Eﬀendì Rabbànì s.v. Shoghi
+Eﬀendi
+
+
+Shaykh A˙mad Rù˙ì
+263, 266
+Shaykh al-'Ajam
+202, 218, 220–21
+Shaykh 'Alì Yùsuf
+288–89
+Shaykh KàΩim Samandar-i Qazvìnì
+166, 200, 218
+Shaykh ˇabarsì
+103, 179–81, 184,
+187, 188–200, 203–205, 207–18,
+220–22
+Shaykhiyya
+17, 29, 32, 35, 118, 217,
+Shekhìnah
+16, 52, 70–71
+Shem ha-Meforàsh
+Shem ha-Shem
+Shemonah Kevatsim
+Sheykh Ahmed Eﬀendi
+Shì'ì Islam
+3–4, 10, 12, 27–29,
+31–33, 102, 144–45, 147, 155–56,
+184, 187, 190, 196, 198, 204, 217,
+227, 279, 309
+Shimeon bar Yo˙ai, R.
+Shìràz
+179, 278
+Shiv˙ei ha-Besht
+44, 57–58, 72
+Shlomo of Lutzk, R.
+Shneor Zalman of Ladi
+4, 70
+Shoghi Eﬀendi, Shawqì Eﬀendì
+Rabbànì
+8, 12, 108–114, 121,
+152, 155, 160, 166–67, 169–70,
+172, 217, 244–45, 247, 299–301,
+307–308, 310–312, 314
+Shul˙an 'Arukh
+53, 60, 136
+al-sidra al-rabbìniyya
+283, 292
+sidratu’l-muntahà
+si˙r
+Sinai s.v. Mount Sinai
+Sinan
+Siyàh-Chàl
+Smart, Ninian
+303, 306
+Smith, Joseph
+4, 7, 13, 118,
+120–22
+Smith, Peter
+Smith, Wilfred C.
+303–304, 306
+Sod ha-Yi˙˙ùd
+Some Answered Questions
+St. John’s Revelation
+117, 120
+St. Peter
+Stark, Rodney
+Steinthal, Hermann
+Stone, Jacqueline
+Íub˙-i Azal, Mìrzà Ya˙yà Nùrì
+181–82, 227–50, 256–58, 262–63,
+Suchat, Raphael
+80–81, 83
+Sudan
+Íùﬁsm
+21, 31
+Sükuyi, (shak
+Sulaymàn Khàn-i Afshàr “Íà˙ib
+Ikhtiyàr”
+192, 201
+Sulaymàn Khàn-i Afshàr-i
+Íà"in-Qal'à"ì
+200–201
+Sultan Abdülaziz
+254, 255
+Sultan Abdülhamid II
+254, 263–68
+Sultan Mahmud II
+Sultan Murad V
+Sùrat al-Haykal
+160, 163, 165
+Sùrat al-Mulùk
+160, 170–71
+Tabrìz
+8, 102, 161, 181, 184
+tafsìr
+32–33
+Taherzadeh, Adib
+149, 160, 249
+Talmud
+131–32, 135
+Tanzimat
+229, 253–54
+Tà"rìkh-i Jadìd
+216–17, 219
+Taylor, Isaac
+285–87
+Tehran
+149, 162, 186, 192–93, 200,
+204–205, 216
+Temo, (brahim
+265, 268
+Tempelgesellschaft
+153–54
+Tenrikyo
+Tetragrammaton
+19, 25, 28
+Tevﬁk, Ebüzziya
+The Faith of Bahà"u"llàh
+299–300,
+307–308, 314
+The Promised Day is Come
+108, 114,
+Thrower, James
+tiqqùn
+al-ˇiri˙ì, Fakhr ad-Dìn
+Tishby, Isaiah
+Tolstoy, Count Leo
+144, 276,
+289–91, 311
+Torah
+19, 25, 28–29, 149
+Torat ha-Shem Temimah
+Tower of Babylon
+Toynbee, Arnold
+Tur
+53, 59, 61–62, 69
+Twelfth Imàm
+4, 34, 102
+tzadìq
+14, 16, 18, 44, 63–64, 70–71,
+84, 137
+Tzadok Hacohen of Lublin, R.
+tzeruf
+67, 128
+tzimtzùm
+tz"on
+Tzvi Yehudah Hacohen Kook, R.
+78–79, 84–86, 93
+'ulamà"
+183–84, 187, 190–91, 194,
+206, 262, 279
+Unity
+5–6, 145, 250
+"urim ve-tummim
+Ustàd Ja'far-i Bannà-yi Ißfahànì
+
+Genesis 6:8
+Genesis 11:7–9
+Genesis 35:29
+Leviticus 25:13
+Kings I 1:5
+Isaiah 6:7
+Isaiah 9:6
+144, 151, 168
+Isaiah 62:2
+Jeremiah 23:29
+Jeremiah 27:22
+Joel 3:5
+Zech. 2
+Psalms 145:18
+Proverbs 8:34
+Job 28:23
+Daniel 7–8
+
+Ustàd Javàn-Mard
+Utah
+'Uthmàn Amìn
+289–90
+“Verse of the Throne”
+Vilna Gaon
+79–83, 85, 87, 91, 93,
+Vital, R. Óayyim
+51, 54, 67–69
+Wahba, Muràd
+289–90
+Wahhàbiyyah
+3, 7, 277
+wà˙id 27. See also: One
+Wà˙id s.v. Àqà Sayyid Ya˙yà-yi
+Dàràbì
+Waqà"i'-i Mìmiyya
+warqà"
+283, 292
+Weber, Max
+48, 72–74
+Weiss, Joseph
+44–47, 49, 56–57
+Werses, Shmuel
+Wessinger, Catherine
+99, 103
+White, Ellen G.
+Williams, Peter
+Wilson, Bryan
+Witchcraft
+Wojcik, Daniel
+Wright, Dr. Austin
+185, 201
+Yazd
+147–48, 205, 288–89
+Ye˙iel Mikhal of Zlotchov, R.
+61, 65,
+Yehudah Albutini, R.
+yesod
+Young, Brigham
+Young Ottomans
+253–55, 258–60,
+262, 267
+Young Turks
+253–54, 258, 262–68,
+271, 278
+Yudel, R.
+Zaehner, Robret Ch.
+73–74
+Zanjàn
+180, 186, 195, 205
+Ze"ev Wolf of Zhitomir, R.
+60, 71
+Zera, R.
+134–35
+Zionism
+78, 80–81, 83, 85, 87–88.
+See also: Religious Zionism
+Ziya Pasha
+Zohar
+25, 41, 67, 129
+Zoroastrianism
+144–45, 147–49
+ 
+"à 
+2:216
+2:255
+7:142
+11:103
+16:60
+17:20
+18:94
+19:98
+20:12
+20:59–72
+33:40
+33:44
+41:35
+50:16
+56:30
+79:16
+
+
+  
+Matthew 5:17
+Matthew 24:34
+Mark 13:30
+Luke 21:32
+John 14–17
+144, 151
+Rev. 1:16–17
+Rev. 21:22–23

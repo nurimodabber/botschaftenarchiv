@@ -1,0 +1,121 @@
+Note on Style
+
+The system of transliteration used below follows the style suggested by the Institute of Islamic Studies, however a circumflex replaces the macron in indicating long vowels. For the most part, words are transcribed to reflect Arabic pronunciation. An exception is the name Mullá Muhammad Muhsin Fayd Káshání, who is referred to as Muhsin Fayz. Unless otherwise indicated, dates following names are the date of death, the first is the Hijrí, which is separated from the Christian date by an oblique. Occasional reference will be found to the Badí` calendar, instituted by the Bab, which dates from Naw Rúz 1260. The translations from the Qur'an follow Arberry.
+
+Abbreviations
+
+Amanat Abbas Amanat, "The Early Years of the Babi Movement." Unpublished Ph.D. thesis, Oxford, 1981.
+
+Annuaire Refers to various numbers of Annuaire de la Section des Sciencesreligieuse de l'...cole des hautes études, Paris. Specific references include the year of the number in question, followed by the page reference, e.g.: Annuaire ,1965-6, p.107.
+
+Anwár Abú al-Hasan al-Isfahání, Tafsír mir'át al-anwár wa mishkát al-asrár. Tehran, 1374/1954.
+
+Le Báb A.-L.-M. Nicolas, Seyyèd Ali Mohammed dit Le Báb. Paris,1905.
+
+Balyuzi H.M. Balyuzi, The Báb, the Herald of the Day of Days. Oxford, 1973.
+
+Baq. Manuscript of Tafsír súrat al-baqara. Tehran Bahá'í Archives, 6014.c.
+
+Bayán Translation of Bayán-i fársí by Nicolas. Paris, 1911-1914. In referring to this work, first the number of the váhid then the number of the báb, separated by a colon will be given. Following this, the number of the volume of the French translation after which the page number will appear in parenthesis, e.g.: Bayán, 3:11 (v.2, p.62).
+
+Burhán al-Sayyid Háshim al-Bahrání, Kitáb al-burhán fí tafsír al-Qur'án. 4 vols. Tehran, 1375/1955.
+
+C Manuscript of Tafsír súrat al-baqara. Cambridge University Library, Browne Manuscript Collection, F10.
+
+Charism Denis MacEoin, "From Shaykhism to Babism: A Study in Charismatic Renewal in Shí`í Islam." Unpublished Ph.D. thesis, Cambridge, 1979.
+
+Dharí`a Ághá Buzurg, Muhammad Muhsin al-Tihrání. al-Dharí`a ilá tasánif al-shí`a . 25 vols. Tehran and Najaf,1355/1936-1398/1978.
+
+EII Henry Corbin, En Islam iranien. 4 vols. Paris, 1971-2.
+
+F11 Manuscript of Tafsír súrat Yúsuf. Cambridge University Library, Browne Manuscript Collection, F11.
+
+GAL Carl Brockelmann, Geschichte der Arabischen Literatur. Leiden, 1937-49.
+
+I Privately published text of Tafsír súrat al-Baqara in Majmú`ah-ye áthár hadrat-i A`lá, #69. Tehran, Badí` 133/1976, pp.156-410.
+
+Káfí al-Kulayní, al-Usúl min al-Káfí, 2 vols. Tehran, 1374/1954.
+
+L Manuscript of Tafsír súrat al-baqara . Leiden University Library, Arabic manuscript Or.4791, #8.
+
+Momen Moojan Momen, An Introduction to Shí`a Islam. Oxford, 1985.
+
+Nabíl Mullá Muhammad-i Zarandí (Nabíl-i A`zam), The Dawn-Breakers:Nabíl's Narrative of the Early Days of the Bahá'í Revelation. Translated and edited by Shoghi Effendi. Wilmette, 1974.
+
+Núr `Abd `Alí al-Huwayzí, Kitáb tafsír núr al-thaqalayn, 5 vols. Qum, 1383/1963-1385/1965.
+
+QA Manuscript of Tafsír súrat Yúsuf . Bahá'í World Centre Library, uncatalogued.
+
+Qasída Sayyid Kázim Rashtí, Sharh al-qasída al-lámíya . Tabríz, 1270/1853.
+
+Rafati Vahid Rafati, "The Development of Shaykhí Thought in Shí`í Islam." Unpublished Ph.D. thesis, U.C.L.A., 1979.
+
+Sáfí Muhsin Fayz Káshání, al-Sáfí fí tafsír kalám Alláh al-wáfí. N.p., 1286/1869.
+
+Sources Denis MacEoin, "A Revised Survey of the Sources for Early Bábí Doctrine and History." Unpublished thesis, Cambridge University, 1977. (forthcoming, Kalimat Press, Los Angeles).
+
+Writings Selections from the Writings of the Báb . Haifa,1978.
+
+Ziyára Shaykh Ahmad al-Ahsá'í, Sharh al-ziyára al-jámi`a, Tehran, 1276/1859.
+
+General Introduction
+
+A study of any author's reading of the Qur'an is perhaps the best way to approach the question of that author's general view of Islam. Throughout the history of the Islamic religion, the sanctified status of the Qur'an has remained one subject about which all Muslims have been able to agree. Although there are disagreements about how this sanctity should be understood, the Qur'an as scripture enjoys a status in the religion of the Muslim perhaps unparalleled in other major religious traditions.
+
+While the Islamic roots of the Bábí religion have never been seriously questioned, detailed studies of the writings of the Bab have not really concentrated on the Bab's understanding of the Qur'an. The two works chosen for analysis here have the combined virtue of being Qur'an commentaries and the two earliest major compositions by the Bab. They are unusual inasmuch as they were written by one who was not a professional religious scholar, but a member of the merchant class of nineteenth century Iran. Thus the commentaries show how far current religious trends and questions had penetrated into what might otherwise be thought an unlikely segment of Persian society.
+
+Beyond this, the two works are remarkably different in style and structure, even though they were written within months of each other. These differences are to such a degree that it might by questioned whether the two commentaries are indeed by the same author. No evidence has come to light, however, to suggest that they were written by anyone other than the Bab. It is therefore assumed that the reason they are so different is that they represent a radical change in the author's point of view, specifically a change in his perception of his own self.
+
+In the first work, the Tafsír súrat al-baqara, the author proceeds in his task along the lines already established by the greater tafsír tradition. That is, the Bab comments on the first and second súra s of the Qur'an seriatim . He first cites the verse in question and then introduces his comments with such words as al-murád ("the intention of this verse is") or ay ("that is:") , after which he propounds a meaning which is then usually supported by quoting one or more hadíth or portions of a hadíth . Often in the course of his commentary, he paraphrases the verse in question. In order to illustrate this method as faithfully as possible, numerous passages from the tafsír have been translated. (In these translations and elsewhere, quranic material appears in italics.) The method most used by the Bab to explicate the meaning of the Qur'an is allegorical or typological exegesis. The overall concern of the commentary is one common to much of Shí`í tafsír, namely to prove that the esoteric meaning of scripture ( bátin al-kitáb ) speaks primarily of the waláya of the Imáms and the usurpation of `Alí's rightful position by the first three Caliphs. There is virtually no concern with matters of the sharí`a , nor with such technical questions as abrogation ( násikh wa mansúkh ) or reference to the genre of literature known as asbáb al-nuzúl .
+
+Of primary importance to the Bab is this waláya or charismatic authority, carried by the "family of God" ( ál alláh ), namely the Prophet, Fátima, and the twelve Imáms of Ithná-`asharí Shí`ism. Not content with merely asserting the fact of this charisma, the Bab following the precedent established by Shaykhí theology, explores the ontological and eschatalogical ramifications of the Imamate. This central preoccupation may be seen from one point of view, as a means of participating in this charisma through a literary activity. This brings to mind the theory made famous by Paul Tillich, that religious symbols (in this case the Qur'an, the Prophet and the Imáms) acquire meaning precisely to the degree and in the manner in which they participate in the reality for which they stand. [1] It follows then, that concern with these symbols may be an attempt at vicarious participation in the reality which they represent. This theory is important, for as will be seen in the study of the Tafsír súrat Yúsuf in Part ii, the Bab himself is transformed into just such a symbol. In this slightly later work, there is no longer a question of secondary participation. In passing, it may be postulated that insofar as this "charisma" is present already in the Qur'an in its preeminent status as Word of God, that all tafsír (Sunní or Shí`í) may be seen to some degree as a similar attempt at participating in it. Obviously, exegesis is also concerned with the "meaning" of scripture. In the case of this study, however, the exercise comes more from a desire to encounter the Divine. With the Qur'an, the whole idea of "meaning" is inextricably bound up with the Divine. To understand is to come closer to God. Thus, the explanation of sacred texts is surely of a different order than the exegesis of "mere" poetry or other forms of literature.
+
+Interpretation has been characterized by Susan Sontag as follows:
+
+Interpretation is a radical strategy for conserving an old text, which is thought too precious to repudiate, by revamping it. The interpreter, without actually erasing or rewriting the text, is altering it. But he can't admit to doing this. He claims to be making it intelligible, by disclosing its true meaning. [2]
+
+At the time the Bab wrote his commentary on the first two súra s of the Qur'an (the Tafsír súrat al-baqara begins with a brief commentary on the Fátiha ), there could have been little disagreement among his immediate would-be readers that the Qur'an in its inner meaning upheld the Imamate of the ahl al-bayt . Inasmuch as their spiritual authority was most certainly universally recognized within this milieu, the significance of the act of interpretation, insofar as it was concerned with waláya, has to reside elsewhere than in a desire to disclose the true meaning of the Qur'an. Sontag's remark does apply, however, to the fundamental differences between Shí`í and Sunní tafsír. As will be seen, it is quite clear that the Qur'an of the Shí`í exegetes discussed below was a different book than the one read by Sunní Muslims.
+
+The Bab's tafsír does raise other issues, among which are the standard Shí`í questions of the appearance of the hidden Imám. In this regard, the Bab's comments may be thought to offer something new; this subject will be dealt with at length in a separate chapter. The Bab also frequently demonstrates the principle that a given verse or word contains multiple meanings. But this is not new. What may be considered innovative is the distinctive theology which the Bab extracts from the Qur'an. This theology is closely connected to the teachings of the Shaykhí movement. Although these teachings have not yet been fully studied, enough about them is known to make some useful comparisons.
+
+Beyond this desire to participate in the charisma of the Qur'an and the waláya of the Imáms which it was perceived to uphold, the Bab was clearly concerned with the advent of the Shí`í millenium. The commentary was completed on the eve of the new year 1260, which marked 1,000 years since the disappearance of the twelfth Imám, Muhammad ibn al-Hasan al-`Askarí (disappeared 260/873-4). The extent to which millenarian expectation conditioned much of the early nineteenth century Iranian religious scene has been admirably documented. [3]
+
+The Tafsír súrat Yúsuf is extremely unusual. As far as can be determined, the Bab began its composition within a few months of completing the first work. For this reason, the abrupt change in style and structure appears to be due to a profound spiritual experience which the Bab underwent at some point in between the writing of the two works. There is mention by the Bab of just such an experience. Insofar as this transformation of style between the two commentaries is the result of one or more spiritual experiences, tafsír may be seen as a source for biography.
+
+The Tafsír súrat Yúsuf differs from the Tafsír súrat al-baqara in all its aspects. Foremost, is that it is a blatant imitation of the Qur'an itself, as well as being a commentary on the 12th súra of that book. Furthermore, the actual exegesis is carried out almost completely by means of paraphrase. Any exegetical connectives, such as al-murád and ay, are totally absent from this work. Such an intimate connection between commentary and text bespeaks a higher degree of the aforementioned participation in the text. In this commentary, the Bab cites no hadíth s at all to support his interpretations. The resulting implication is his spiritual and intellectual independence from the tafsír and hadíth tradition, which was incessantly invoked in the earlier commentary. The main thrust of this work is to proclaim the Bab's absolute spiritual authority as representative of the Imám. This is accomplished through the use of a complex of images and symbols which are seen as being generated by the above-mentioned tradition, but which are never explicitly presented as such. The language is quite difficult and cast in rhyming prose ( saj` ); the work is also very long. Unlike the earlier commentary, aspects of this work have been studied by previous scholars. It is hoped that its treatment here, as representing a new phase in the Bab's approach to scripture, will contribute to a fuller appreciation the Bab's career. This work, which may be said to have changed the course of Iranian history to some extent, has continued (and continues) to pose many problems to the reader.
+
+Both works are entirely in Arabic, and the Bab's Arabic has come under sharp crticism for being ungrammatical or unidiomatic. The Bab's grammar was one of the chief topics of discussion during the interrogation in Tabríz which led to his execution. This meeting was presided over by the sixteen-year-old Crown Prince, the future Sháh Násir al-Dín, and attended by several distinguished ulama, one of whom is described as being a Shaykhí, and who therefore was undoubtedly adversely predisposed to the Bab. In the course of this examination, the Bab claimed to be the Gate mentioned in the famous hadíth from the Prophet, "I am the city of knowledge and `Alí is its gate." As a result, those in attendance proceeded to barrage him with a variety of questions on a diversity of subjects, ranging from dyspepsia to the regulations governing the ritual ablutions of a hermaphrodite. In the course of this farcical interrogation, much was made of the Bab's improper pronunciation of the sound feminine plural in the accusative case. [4]
+
+Examples of the manuscripts have been included to allow a firsthand assessment of the language by Arabists, who will acknowledge that the style is unusual and in places indeed ungrammatical. Criticisms of the Bab's grammar have been countered by laying the blame on the copyists of the manuscripts. It is MacEoin's opinion, that while such external factors combined with the difficulty of the texts themselves might account for "a great many supposed errors", it is not sufficient to explain the problems found in the writings of the Bab in general. [5]
+
+In the following study, several irregularities are noticed, together with the variants found in corresponding manuscripts. In all fairness, it should be added that none of these manuscripts are autographs. The examples of manuscripts included in the following pages will show that the Arabic is many times quite ungrammatical. The Bab seems to have in fact regarded the whole issue with serene disdain. Browne quotes the following passage from the Bab's Persian Bayán :
+
+Hárút and Márút are two fixed habits, which, descending from the superior world, have become imprisoned in the well of the material nature, and teach men sorcery. And by these habits are meant Accidence and Syntax, from which, in the Bayánic Dispensation, all restrictions have been removed. [6]
+
+A similar attitude is found in the account of the meeting of the Bab's first disciple, Mullá Husayn Bushrú'í, with one of the ulama of Káshán, the son of the famous Mullá Ahmad Naráqí. Mullá Husayn's purpose was to preach the advent of the Bab, and he presented Naráqí with a copy of the Tafsír súrat Yúsuf and another work. To quote Amanat:
+
+The scrupulous mujtahid lost no time in pointing out the grammatical faults throughout the text. In reply Mullá Husayn, who himself seemed to be aware of the grammatical violations of the Bab's writings, quoted the Bab with a poetical and indeed symbolic remark, which was totally foreign to the rational framework of an orthodox scholar like [Naráqí]: 'Up to now the nahv . . . due to a sin once committed, was enchained and incarcerated. Now I have mediated for its sin, and set it free from its chains and bonds. Therefore it is excusable if (people) pronounce an accusative ( mansúb ) instead of a nominative ( marfú` ), or a genitive ( majrúr ) instead of an accusative. [7]
+
+The Bab was Persian and many of the errors which occur in the two works are those frequently committed by Persians writing in Arabic, such as mistakes in gender agreement (Persian having no grammatical gender). However it seems that in several cases, the Bab was either following an established practice which treated certain nouns as masculine or feminine for technical reasons, or was introducing a new technical usage (as for example, when he treats such words as ibdá` "creation" as feminine). Apparent lapses in the use of the definite article will also be noticed (Persian has no definite article as such.) Thus al-Kitáb al-aqdas may be found in Persian books as Kitáb al-aqdas . As Clement Huart remarked in discussing one of the titles of the Bab which appears in many of his writings, viz. Nuqtat al-úlá, "The Primal Point":
+
+Il faut An-noqtat al-Oúla, sinon cela n'aurait guère de sens: mais il est á observer que les savants d'Orient qui se piquent de connaítre les lettres arabes ignorent généralement l'existence de la règle qui veut que le nom et l'épithète soient tous les deux déterminés. Cependant jamais cette faute n'échappera á un Arabe de naissance. [8]
+
+Nicolas has been among the most energetic defenders of the Bab's Arabic and in his Sèyyid `Alí Muhammad dit le Báb argues against scholars such as the Baron Victor Rosen, who ridiculed the Bab's writings on account of faulty grammar. [9] Nicolas goes so far as to offer the Qur'an itself, as a precedent for scripture which is grammatically problematic:
+
+Il est de toute évidence, pour quiconque n'a pas de parti pris, que le Qorán contient quelques erreurs, qu'on a essayé de justifier depuis, mais qui n'en ont pas moins prï¿½(tm)té le flanc aux railleries des puristes arabes de son époque. N'a-t-on pas écrit des grammaires entières pour justifier quelques-unes des expressions du Qoran? Et tout cela, en fin de compte, pourquoi? Pour démontrer précisement le contraire de ce á quoi on s'essayait, c'est-a-dire pour prouver que "les règles doivent ï¿½(tm)tre tirées des versets des livres révélés, tandis que les versets ne sont pas construits d'après ces regles". [10]
+
+A less generous assessment of the Bab's grammar may be found in a work by `Abd al-Rahmán Tág, who analyses in detail various passages of the Bab's Arabic Bayán , and condemns Nicolas' defense of the Bab's language. For the particulars of this analysis the reader is referred to the work itself. [11] While it is not suggested that questions of grammar are unimportant (indeed several grammatical puzzles will be encountered below where attempts at their solution will be made), it is suggested that preoccupation with the Bab's grammar may be seen to have functioned as a means whereby those who were disinclined to countenance his claim that the millenium had indeed arrived and a new messenger from God (i.e., the Bab) had been charged with promulgating a new religion, could avoid the discomfitting challenge. The primary concern of this study is to understand how these unusual writings might have struck the reader of that time, and place and to account for the acceptance of the Bab as a divine messenger by countless Muslims from all classes and backgrounds.
+
+The Bab presented something of a spiritual prodigy. He had attracted the allegiance of a considerable number of highly educated Muslims and had written an astonishing number of books, prayers, and short treatises on various subjects; yet, he had advanced his claim to be the focus of the religious life of all men when he was no more than twenty-five years old and a member of the Iranian merchant class. It is not surprising, therefore, that scholars speak about the failure of the Bábí movement; more surprising is the comparative success, however shortlived, it did enjoy.
+
+The following study is divided into three sections of unequal length. The first, "Background", describes what are likely to have been the major influences on the Bab's literary activity, namely Shí`í tafsír, Shaykhí thought. A A brief reference is also made to Iranian Sufism, because of the several Sufi ideas found in the works.
+
+The second section, "Part i", deals with the Tafsír súrat al-baqara . This section is divided into five chapters which explore major subjects or characteristics of the commentary: waláya, hierarchies (1&2), tajallí, and finally the idea of the qá'im . The method of study is straightforward; numerous passages bearing on the four major topics are translated and commented upon. Four manuscripts of the work have been consulted for this task. It is felt that by focussing on these four topics, the reader will be familiarized with enough of the tafsír to gain a general appreciation of the work. Short of a complete translation, it is not really possible to cover all of the various subjects and problems which the tafsír touches upon. The manuscript most often referred to in Part i is reproduced in an appendix. This is the first detailed study of the Tafsír súrat al-Baqara, and must therefore be considered as preliminary.
+
+The third section, "Part ii", deals with the Tafsír súrat Yúsuf. Part ii presents various approaches to the Tafsír súrat Yúsuf which includes reference to previous scholarship on the work, a general description of it, a discussion of the titles assumed by its author, an attempt to come to terms with some of the more obscure expressions it contains, and finally a very tentative attempt at translating one the súra s [12] of the tafsír , together with a detailed discussion of the various arcana which it contains.
+
+I have relied heavily on the works of Henry Corbin. Corbin's contribution to the understanding of Iranian Islam, has provided, in many instances, the only source of information on many of the more obscure problems which the Bab's tafsír contains. [13] The following study also relies very heavily on a number of unpublished works (theses and other material) by `Abbás Amanat, Denis MacEoin, and Vahid Rafati. All four authors shed different types of light on the religious writings of the Bab. While it has become necessary to voice a certain amount of disagreement with each of these authors on various points, it is important to state that without this body of difficult research it would not have been possible for me to attempt this thesis.
+
+single page
+
+chapter 1
