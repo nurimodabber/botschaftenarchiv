@@ -1280,10 +1280,13 @@ function applyLibraryFilters() {
         }
     } else if (query) {
         if (sort === 'date-desc') {
-            // Standard bei Suche: Nach Relevanz sortieren (höchster Relevanz-Score zuerst), sekundär nach Datum
+            // Standard bei Suche: Nach Relevanz sortieren (höchster Relevanz-Score zuerst, sekundär kanonischer Rang, tertiär nach Datum)
             list.sort((a, b) => {
                 const scoreDiff = (b._searchScore || 0) - (a._searchScore || 0);
                 if (scoreDiff !== 0) return scoreDiff;
+                const rankA = a.canonicalRank != null ? a.canonicalRank : 55;
+                const rankB = b.canonicalRank != null ? b.canonicalRank : 55;
+                if (rankA !== rankB) return rankA - rankB;
                 if (!a.date && !b.date) return (a.title || '').localeCompare(b.title || '', 'de');
                 if (!a.date) return 1;
                 if (!b.date) return -1;
@@ -1306,6 +1309,11 @@ function applyLibraryFilters() {
                     const pA = getPlanDocumentPriority(a, epoch);
                     const pB = getPlanDocumentPriority(b, epoch);
                     if (pA !== pB) return pA - pB;
+                }
+                if (segment === 'books') {
+                    const rankA = a.canonicalRank != null ? a.canonicalRank : 55;
+                    const rankB = b.canonicalRank != null ? b.canonicalRank : 55;
+                    if (rankA !== rankB) return rankA - rankB;
                 }
                 if (!a.date && !b.date) return (a.title || '').localeCompare(b.title || '', 'de');
                 if (!a.date) return 1;
@@ -1367,7 +1375,14 @@ function applyLibraryFilters() {
     });
 
     if (query && sort === 'date-desc') {
-        unifiedList.sort((a, b) => (b._searchScore || 0) - (a._searchScore || 0) || (b.date || '').localeCompare(a.date || ''));
+        unifiedList.sort((a, b) => {
+            const scoreDiff = (b._searchScore || 0) - (a._searchScore || 0);
+            if (scoreDiff !== 0) return scoreDiff;
+            const rankA = a.canonicalRank != null ? a.canonicalRank : 55;
+            const rankB = b.canonicalRank != null ? b.canonicalRank : 55;
+            if (rankA !== rankB) return rankA - rankB;
+            return (b.date || '').localeCompare(a.date || '');
+        });
     }
 
     list = unifiedList;

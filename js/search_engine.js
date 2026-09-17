@@ -369,6 +369,20 @@ window.SearchEngine = (function() {
                 score += 20;
             }
 
+            // Kanonischer Autoritäts- & Relevanz-Bonus
+            const cTier = d.canonicalTier || (d.tier === 'house' || d.tier === 'institutions' || d.tier === 'compilations' || d.tier === 'ruhi' ? 1 : (d.subTier === 'historical' ? 5 : 1));
+            if (cTier === 1) {
+                score += 260; // Höchste Relevanz: Heilige Schriften & Botschaften des Hauses
+            } else if (cTier === 2) {
+                score += 150; // Hände der Sache Gottes
+            } else if (cTier === 3) {
+                score += 100; // Mitglieder des Universalen Hauses & Heilige Familie
+            } else if (cTier === 4) {
+                score += 60;  // Frühe Gläubige, Zeitzeugen & eminente Gelehrte
+            } else {
+                score += 0;   // Sekundärliteratur & externe historische Beobachter
+            }
+
             // Snippet extrahieren
             const snippetResult = (inTextMatch || normText) 
                 ? findBestSnippet(rawText, normText, queryObj)
@@ -389,10 +403,13 @@ window.SearchEngine = (function() {
             matched.push(d);
         }
 
-        // Sortierung nach Relevanz (Score absteigend, sekundaer Datum)
+        // Sortierung nach Relevanz (Score absteigend, sekundaer kanonischer Rang, tertiaer Datum)
         matched.sort((a, b) => {
             const diff = (b._searchScore || 0) - (a._searchScore || 0);
             if (diff !== 0) return diff;
+            const rankA = a.canonicalRank != null ? a.canonicalRank : 55;
+            const rankB = b.canonicalRank != null ? b.canonicalRank : 55;
+            if (rankA !== rankB) return rankA - rankB;
             return (b.date || '').localeCompare(a.date || '');
         });
 

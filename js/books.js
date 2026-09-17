@@ -7,11 +7,14 @@ window.BooksModule = (function() {
     let currentAuthor = 'all';
     let currentLang = 'all';
     let currentSearchQuery = '';
-    let currentSort = 'author';
+    let currentSort = 'relevance';
 
     const AUTHORS = [
         { id: 'all', nameDe: 'Alle Werke', shortDe: 'Alle', nameEn: 'All Works', shortEn: 'All' },
         { id: 'scripture', nameDe: 'Nur Heilige Schriften & Kernkanon', shortDe: 'Heilige Schriften', nameEn: 'Sacred Scriptures Only', shortEn: 'Sacred Scripture', roleDe: 'Kanon', roleEn: 'Canon' },
+        { id: 'hands', nameDe: 'Hände der Sache Gottes', shortDe: 'Hände der Sache', nameEn: 'Hands of the Cause', shortEn: 'Hands of the Cause', roleDe: 'Hände', roleEn: 'Hands' },
+        { id: 'uhj-members', nameDe: 'Mitglieder des Hauses & Familie', shortDe: 'Haus-Mitglieder', nameEn: 'House Members & Family', shortEn: 'House Members', roleDe: 'Mitglieder', roleEn: 'Members' },
+        { id: 'early-believers', nameDe: 'Frühe Gläubige, Zeitzeugen & Gelehrte', shortDe: 'Frühe Gläubige', nameEn: 'Early Believers & Scholars', shortEn: 'Early Believers', roleDe: 'Zeitzeugen', roleEn: 'Early Believers' },
         { id: 'bahaullah', nameDe: 'Bahá\'u\'lláh', shortDe: 'Bahá\'u\'lláh', nameEn: 'Bahá\'u\'lláh', shortEn: 'Bahá\'u\'lláh', roleDe: 'Offenbarer', roleEn: 'Manifestation' },
         { id: 'the-bab', nameDe: 'Der Báb', shortDe: 'Der Báb', nameEn: 'The Báb', shortEn: 'The Báb', roleDe: 'Herold', roleEn: 'Herald' },
         { id: 'abdul-baha', nameDe: '‘Abdu’l-Bahá', shortDe: '‘Abdu’l-Bahá', nameEn: '‘Abdu’l-Bahá', shortEn: '‘Abdu’l-Bahá', roleDe: 'Ausleger', roleEn: 'Centre of Covenant' },
@@ -69,7 +72,8 @@ window.BooksModule = (function() {
                     </select>
 
                     <select id="books-sort-select" class="apple-select" onchange="window.BooksModule.setSort(this.value)">
-                        <option value="author" ${currentSort === 'author' ? 'selected' : ''}>${isEn ? 'Sort by Author' : 'Nach Verfasser sortieren'}</option>
+                        <option value="relevance" ${currentSort === 'relevance' ? 'selected' : ''}>${isEn ? 'By Canonical Relevance (Scripture first)' : 'Nach Relevanz (Heilige Schriften zuerst)'}</option>
+                        <option value="author" ${currentSort === 'author' ? 'selected' : ''}>${isEn ? 'Sort by Author (Canonical)' : 'Nach Verfasser (Kanonisch)'}</option>
                         <option value="chronological" ${currentSort === 'chronological' ? 'selected' : ''}>${isEn ? 'Chronological / Creation year' : 'Nach Entstehungsjahr / Chronologie'}</option>
                         <option value="title" ${currentSort === 'title' ? 'selected' : ''}>${isEn ? 'Title A–Z' : 'Titel A–Z'}</option>
                         <option value="length" ${currentSort === 'length' ? 'selected' : ''}>${isEn ? 'By length (word count)' : 'Nach Umfang (Wortanzahl)'}</option>
@@ -92,7 +96,15 @@ window.BooksModule = (function() {
 
         // Filter: Autor / Relevanz
         if (currentAuthor === 'scripture') {
-            books = books.filter(b => b.subTier !== 'historical');
+            books = books.filter(b => (b.canonicalTier || 1) === 1);
+        } else if (currentAuthor === 'hands') {
+            books = books.filter(b => (b.canonicalTier || 5) === 2);
+        } else if (currentAuthor === 'uhj-members') {
+            books = books.filter(b => (b.canonicalTier || 5) === 3);
+        } else if (currentAuthor === 'early-believers') {
+            books = books.filter(b => (b.canonicalTier || 5) === 4);
+        } else if (currentAuthor === 'historical') {
+            books = books.filter(b => (b.canonicalTier || 5) === 5);
         } else if (currentAuthor !== 'all') {
             books = books.filter(b => b.subTier === currentAuthor || b.authorCode === currentAuthor);
         }
@@ -146,20 +158,42 @@ window.BooksModule = (function() {
             const normTexts = window.state ? window.state.normalizedFullTexts : null;
 
             books = books.filter(b => {
-                const titleMatch = (b.title && b.title.toLowerCase().includes(q)) ||
-                                   (b.subtitle && b.subtitle.toLowerCase().includes(q)) ||
-                                   (b._altDoc && b._altDoc.title && b._altDoc.title.toLowerCase().includes(q)) ||
-                                   (b.author && b.author.toLowerCase().includes(q)) ||
-                                   (b.excerpt && b.excerpt.toLowerCase().includes(q));
-                if (titleMatch) return true;
-                if (normTexts && normTexts[b.id] && normTexts[b.id].includes(qNorm)) return true;
-                if (fullTexts && fullTexts[b.id] && fullTexts[b.id].toLowerCase().includes(q)) return true;
+                let score = 0;
+                const titleLower = (b.title || '').toLowerCase();
+                const subLower = (b.subtitle || '').toLowerCase();
+                const altTitleLower = (b._altDoc && b._altDoc.title ? b._altDoc.title.toLowerCase() : '');
+                const authorLower = (b.author || '').toLowerCase();
+                const excerptLower = (b.excerpt || '').toLowerCase();
+
+                if (titleLower.includes(q)) score += 200;
+                if (subLower.includes(q) || altTitleLower.includes(q)) score += 100;
+                if (authorLower.includes(q)) score += 120;
+                if (excerptLower.includes(q)) score += 60;
+
+                if (normTexts && normTexts[b.id] && normTexts[b.id].includes(qNorm)) score += 50;
+                else if (fullTexts && fullTexts[b.id] && fullTexts[b.id].toLowerCase().includes(q)) score += 50;
+
+                if (score > 0) {
+                    const cTier = b.canonicalTier || (b.subTier === 'historical' ? 5 : 1);
+                    const tierBonus = (cTier === 1) ? 260 : (cTier === 2 ? 150 : (cTier === 3 ? 100 : (cTier === 4 ? 60 : 0)));
+                    b._bookSearchScore = score + tierBonus;
+                    return true;
+                }
                 return false;
             });
         }
 
         // Sortierung
-        if (currentSort === 'title') {
+        if (currentSearchQuery.trim() && currentSort === 'relevance') {
+            books.sort((a, b) => {
+                const diff = (b._bookSearchScore || 0) - (a._bookSearchScore || 0);
+                if (diff !== 0) return diff;
+                const rA = a.canonicalRank != null ? a.canonicalRank : 55;
+                const rB = b.canonicalRank != null ? b.canonicalRank : 55;
+                if (rA !== rB) return rA - rB;
+                return (a.title || '').localeCompare(b.title || '', 'de');
+            });
+        } else if (currentSort === 'title') {
             books.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'de'));
         } else if (currentSort === 'length') {
             books.sort((a, b) => (b.wordCount || 0) - (a.wordCount || 0));
@@ -167,19 +201,31 @@ window.BooksModule = (function() {
             books.sort((a, b) => {
                 const ya = a.year || 0;
                 const yb = b.year || 0;
-                if (ya !== yb) return ya - yb;
+                if (ya !== yb && ya !== 0 && yb !== 0) return ya - yb;
+                return (a.title || '').localeCompare(b.title || '', 'de');
+            });
+        } else if (currentSort === 'author') {
+            // Nach Verfasser, geordnet nach kanonischer Hierarchie
+            books.sort((a, b) => {
+                const rA = a.canonicalRank != null ? a.canonicalRank : 55;
+                const rB = b.canonicalRank != null ? b.canonicalRank : 55;
+                if (rA !== rB) return rA - rB;
+                const authCompare = (a.author || '').localeCompare(b.author || '', 'de');
+                if (authCompare !== 0) return authCompare;
+                const ya = a.year || 0;
+                const yb = b.year || 0;
+                if (ya !== yb && ya !== 0 && yb !== 0) return ya - yb;
                 return (a.title || '').localeCompare(b.title || '', 'de');
             });
         } else {
-            // Standard: nach Autor und innerhalb des Autors chronologisch
-            const authorOrder = ['bahaullah', 'the-bab', 'abdul-baha', 'shoghi-effendi', 'uhj', 'prayers', 'compilations'];
+            // Standard: 'relevance' - Höchste Relevanz: Heilige Schriften zuerst, dann Hände der Sache, Haus-Mitglieder, frühe Gläubige, Sekundärliteratur
             books.sort((a, b) => {
-                const iA = authorOrder.indexOf(a.authorCode || a.subTier || '');
-                const iB = authorOrder.indexOf(b.authorCode || b.subTier || '');
-                if (iA !== iB && iA !== -1 && iB !== -1) return iA - iB;
+                const rA = a.canonicalRank != null ? a.canonicalRank : 55;
+                const rB = b.canonicalRank != null ? b.canonicalRank : 55;
+                if (rA !== rB) return rA - rB;
                 const ya = a.year || 0;
                 const yb = b.year || 0;
-                if (ya !== yb) return ya - yb;
+                if (ya !== yb && ya !== 0 && yb !== 0) return ya - yb;
                 return (a.title || '').localeCompare(b.title || '', 'de');
             });
         }
@@ -293,10 +339,30 @@ window.BooksModule = (function() {
                 </button>
             `;
         }
-        const isHistorical = (book.subTier === 'historical');
-        const relevanceBadge = isHistorical
-            ? `<span class="book-category-badge historical" style="display: inline-block; font-size: 0.60rem; padding: 0.12rem 0.45rem; border-radius: 999px; background: rgba(212, 160, 23, 0.12); color: var(--accent-gold, #c29b38); font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;">${isMasterEn ? 'Study / Secondary' : 'Studie / Sekundärliteratur'}</span>`
-            : `<span class="book-category-badge scripture" style="display: inline-block; font-size: 0.60rem; padding: 0.12rem 0.45rem; border-radius: 999px; background: rgba(46, 125, 50, 0.12); color: #2e7d32; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;">${isMasterEn ? 'Sacred Scripture' : 'Heilige Schrift'}</span>`;
+        const tier = book.canonicalTier || (book.subTier === 'historical' ? 5 : 1);
+        let badgeClass = 'scripture';
+        let badgeStyle = 'background: rgba(46, 125, 50, 0.12); color: #2e7d32; border: 1px solid rgba(46, 125, 50, 0.25);';
+        let badgeText = isMasterEn ? (book.badgeEn || 'Sacred Scripture') : (book.badgeDe || 'Heilige Schrift');
+
+        if (tier === 2) {
+            badgeClass = 'hands';
+            badgeStyle = 'background: rgba(124, 58, 237, 0.12); color: #7c3aed; border: 1px solid rgba(124, 58, 237, 0.25);';
+            badgeText = isMasterEn ? 'Hand of the Cause' : 'Hand der Sache Gottes';
+        } else if (tier === 3) {
+            badgeClass = 'uhj-member';
+            badgeStyle = 'background: rgba(2, 132, 199, 0.12); color: #0284c7; border: 1px solid rgba(2, 132, 199, 0.25);';
+            badgeText = isMasterEn ? 'House Member / Family' : 'Haus-Mitglied / Familie';
+        } else if (tier === 4) {
+            badgeClass = 'early';
+            badgeStyle = 'background: rgba(217, 119, 6, 0.12); color: #d97706; border: 1px solid rgba(217, 119, 6, 0.25);';
+            badgeText = isMasterEn ? 'Early Believer / Scholar' : 'Frühe Gläubige / Gelehrte';
+        } else if (tier === 5) {
+            badgeClass = 'historical';
+            badgeStyle = 'background: rgba(100, 116, 139, 0.12); color: #64748b; border: 1px solid rgba(100, 116, 139, 0.22);';
+            badgeText = isMasterEn ? 'Study / Secondary' : 'Studie / Sekundärliteratur';
+        }
+
+        const relevanceBadge = `<span class="book-category-badge ${badgeClass}" style="display: inline-block; font-size: 0.60rem; padding: 0.12rem 0.50rem; border-radius: 999px; ${badgeStyle} font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;">${escapeHtml(badgeText)}</span>`;
 
         return `
             <article class="book-plate-card" data-id="${book.id}" data-doc-id="${escapeHtml(book.id)}">

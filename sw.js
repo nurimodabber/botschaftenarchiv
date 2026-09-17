@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bahai-bib-v7.6';
+const CACHE_NAME = 'bahai-bib-v7.7';
 const SHELL_ASSETS = [
   '/',
   '/index.html',
