@@ -47,3 +47,11 @@ jobs:
           else
             echo "Keine neuen Botschaften gefunden. Das Archiv ist aktuell."
           fi
+
+      - name: Vercel Deployments bereinigen (10 GB Schutz)
+        if: env.VERCEL_TOKEN != ''
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          sleep 20
+          python scripts/cleanup_vercel_deployments.py --keep 2

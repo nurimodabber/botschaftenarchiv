@@ -10,4 +10,7 @@ README.md
 .DS_Store
 **/.DS_Store
 scratch/
+*.log
+.cursorignore
+.ignore
 

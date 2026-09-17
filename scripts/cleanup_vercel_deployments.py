@@ -8,11 +8,12 @@ Das aktive Production-Deployment wird dabei geschuetzt und niemals geloescht.
 
 Verwendung:
   export VERCEL_TOKEN="dein_vercel_token"
-  python3 cleanup_vercel_deployments.py [--dry-run] [--keep 3] [--team nuri14] [--project bibliothek]
+  python3 cleanup_vercel_deployments.py [--dry-run] [--keep 2] [--all-projects]
 """
 
 import os
 import sys
+import time
 import json
 import argparse
 import urllib.request
@@ -20,64 +21,60 @@ import urllib.error
 from datetime import datetime
 
 
-def api_request(url, token, method="GET", body=None):
+def api_request(url, token, method="GET", body=None, max_retries=3):
     headers = {
         "Authorization": f"Bearer {token}",
         "Content-Type": "application/json",
-        "User-Agent": "VercelCleanupScript/1.0"
+        "User-Agent": "VercelCleanupScript/2.0"
     }
     data = json.dumps(body).encode("utf-8") if body else None
     req = urllib.request.Request(url, data=data, headers=headers, method=method)
-    try:
-        with urllib.request.urlopen(req) as resp:
-            content = resp.read().decode("utf-8")
-            if content:
-                return json.loads(content)
-            return {}
-    except urllib.error.HTTPError as e:
-        error_body = e.read().decode("utf-8")
+
+    for attempt in range(max_retries):
         try:
-            err_json = json.loads(error_body)
-            err_msg = err_json.get("error", {}).get("message", error_body)
-        except Exception:
-            err_msg = error_body
-        raise RuntimeError(f"Vercel API Fehler (HTTP {e.code}): {err_msg}")
+            with urllib.request.urlopen(req) as resp:
+                content = resp.read().decode("utf-8")
+                if content:
+                    return json.loads(content)
+                return {}
+        except urllib.error.HTTPError as e:
+            if e.code == 429 and attempt < max_retries - 1:
+                time.sleep(2 * (attempt + 1))
+                continue
+            error_body = e.read().decode("utf-8")
+            try:
+                err_json = json.loads(error_body)
+                err_msg = err_json.get("error", {}).get("message", error_body)
+            except Exception:
+                err_msg = error_body
+            raise RuntimeError(f"Vercel API Fehler (HTTP {e.code}): {err_msg}")
+        except Exception as e:
+            if attempt < max_retries - 1:
+                time.sleep(1)
+                continue
+            raise e
 
 
 def resolve_team_id(token, team_slug):
     if not team_slug:
         return None
     url = "https://api.vercel.com/v2/teams"
-    data = api_request(url, token)
-    teams = data.get("teams", [])
-    for t in teams:
-        if t.get("slug") == team_slug or t.get("id") == team_slug:
-            return t.get("id")
+    try:
+        data = api_request(url, token)
+        teams = data.get("teams", [])
+        for t in teams:
+            if t.get("slug") == team_slug or t.get("id") == team_slug:
+                return t.get("id")
+    except Exception:
+        pass
     return None
 
 
-def resolve_project(token, project_name, team_id=None):
+def fetch_all_projects(token, team_id=None):
     team_param = f"?teamId={team_id}" if team_id else ""
     url = f"https://api.vercel.com/v9/projects{team_param}"
     data = api_request(url, token)
-    projects = data.get("projects", [])
-    
-    # 1. Exakter Namensabgleich
-    for p in projects:
-        if p.get("name") == project_name or p.get("id") == project_name:
-            return p
-            
-    # 2. Falls 'botschaftenarchiv' gesucht, aber 'bibliothek' heisst (oder umgekehrt)
-    for p in projects:
-        pname = p.get("name", "").lower()
-        if "archiv" in pname or "bot" in pname or "biblio" in pname:
-            return p
-            
-    # 3. Falls nur 1 Projekt existiert, dieses verwenden
-    if len(projects) == 1:
-        return projects[0]
-        
-    return None
+    return data.get("projects", [])
 
 
 def fetch_all_deployments(token, project_id, team_id=None):
@@ -112,100 +109,26 @@ def delete_deployment(token, deployment_id, team_id=None):
     return api_request(url, token, method="DELETE")
 
 
-def main():
-    parser = argparse.ArgumentParser(
-        description="Bereinigung historischer Vercel-Deployments zur Speicheroptimierung."
-    )
-    parser.add_argument(
-        "--token",
-        default=os.environ.get("VERCEL_TOKEN"),
-        help="Vercel Access Token (oder Umgebungsvariable VERCEL_TOKEN)"
-    )
-    parser.add_argument(
-        "--project",
-        default="bibliothek",
-        help="Projektname in Vercel (Standard: bibliothek)"
-    )
-    parser.add_argument(
-        "--team",
-        default="nuri14",
-        help="Team-Slug oder Team-ID (Standard: nuri14)"
-    )
-    parser.add_argument(
-        "--keep",
-        type=int,
-        default=3,
-        help="Anzahl der neuesten Deployments, die behalten werden sollen (Standard: 3)"
-    )
-    parser.add_argument(
-        "--all-old",
-        action="store_true",
-        help="Loescht alle alten Deployments ausser dem aktiven Production-Deployment."
-    )
-    parser.add_argument(
-        "--dry-run",
-        action="store_true",
-        help="Testlauf: Zeigt nur an, welche Deployments geloescht werden wuerden, ohne Loeschung auszufuehren."
-    )
-
-    args = parser.parse_args()
-
-    token = args.token
-    if not token:
-        print("Fehler: Kein Vercel-Token angegeben.")
-        print()
-        print("Anleitung zur Erstellung eines Tokens:")
-        print("1. Oeffne https://vercel.com/account/tokens im Browser.")
-        print("2. Klicke auf 'Create Token', waehle einen Namen und Scope.")
-        print("3. Fuehre das Skript aus mit:")
-        print("   python3 scripts/cleanup_vercel_deployments.py --token <DEIN_TOKEN>")
-        print("   oder setze die Umgebungsvariable:")
-        print("   export VERCEL_TOKEN=<DEIN_TOKEN>")
-        print()
-        print("Alternativ manuell ueber das Web-Dashboard loeschen:")
-        print(f"   https://vercel.com/{args.team}/{args.project}/deployments")
-        sys.exit(1)
-
-    print("Pruefe Authentifizierung und Team-Zuordnung...")
-
-    team_id = None
-    if args.team:
-        try:
-            team_id = resolve_team_id(token, args.team)
-            if team_id:
-                print(f"Team ID identifiziert: {team_id} ({args.team})")
-            else:
-                print(f"Hinweis: Team '{args.team}' nicht in der Team-Liste gefunden. Nutze persoenlichen Account.")
-        except Exception as e:
-            print(f"Warnung bei Team-Aufloesung: {e}")
-
-    # Projekt ermitteln
-    project_data = resolve_project(token, args.project, team_id)
-    if not project_data:
-        print(f"Fehler: Projekt '{args.project}' konnte nicht gefunden werden.")
-        sys.exit(1)
-
+def cleanup_single_project(token, project_data, team_id, keep_count, all_old, dry_run):
     project_name = project_data.get("name")
     project_id = project_data.get("id")
     active_prod_id = project_data.get("targets", {}).get("production", {}).get("id")
 
-    print(f"Projekt gefunden: {project_name} ({project_id})")
-    print(f"Aktives Production-Deployment (geschuetzt): {active_prod_id}")
+    print(f"\n=======================================================")
+    print(f"Projekt: {project_name} ({project_id})")
+    print(f"Aktives Production-Deployment: {active_prod_id or 'Keines zugewiesen'}")
+    print(f"=======================================================")
 
-    # Alle Deployments auflisten
-    print("Rufe alle Deployments fuer das Projekt ab...")
     deployments = fetch_all_deployments(token, project_id, team_id)
     total_count = len(deployments)
-    print(f"Insgesamt {total_count} Deployments gefunden.")
+    print(f"Gefundene Deployments: {total_count}")
 
     if total_count == 0:
-        print("Keine Deployments vorhanden.")
-        return
+        return 0, 0, 0
 
-    # Sortieren nach Erstelldatum absteigend (neueste zuerst)
     deployments.sort(key=lambda d: d.get("created", 0), reverse=True)
 
-    keep_count = 1 if args.all_old else max(1, args.keep)
+    effective_keep = 1 if all_old else max(1, keep_count)
 
     to_keep = []
     to_delete = []
@@ -215,58 +138,168 @@ def main():
         dep_id = dep.get("uid")
         is_active_prod = (dep_id == active_prod_id)
         
-        # Das aktive Production-Deployment wird immer behalten
         if is_active_prod:
             to_keep.append(dep)
             continue
 
-        if retained_counter < (keep_count - 1):
+        if retained_counter < (effective_keep - 1):
             to_keep.append(dep)
             retained_counter += 1
         else:
             to_delete.append(dep)
 
-    print()
-    print("Uebersicht:")
-    print(f"  Zu behalten: {len(to_keep)} Deployments")
+    print(f"  -> Behalten: {len(to_keep)} Deployments")
     for dep in to_keep:
         dt = datetime.fromtimestamp(dep.get("created", 0) / 1000).strftime("%Y-%m-%d %H:%M:%S")
-        is_prod = " [AKTIVE PRODUKTION - GESCHUETZT]" if dep.get("uid") == active_prod_id else ""
-        print(f"    - {dep.get('uid')} | {dt} | {dep.get('url')} | {dep.get('state')}{is_prod}")
+        is_prod = " [AKTIV PROD]" if dep.get("uid") == active_prod_id else ""
+        print(f"     [SAFE] {dep.get('uid')} | {dt} | {dep.get('url')} | {dep.get('state')}{is_prod}")
 
-    print(f"  Zu loeschen: {len(to_delete)} Deployments")
-    for dep in to_delete:
+    print(f"  -> Zum Loeschen: {len(to_delete)} Deployments")
+    for dep in to_delete[:5]:
         dt = datetime.fromtimestamp(dep.get("created", 0) / 1000).strftime("%Y-%m-%d %H:%M:%S")
-        print(f"    - {dep.get('uid')} | {dt} | {dep.get('url')} | {dep.get('state')}")
+        print(f"     [DEL]  {dep.get('uid')} | {dt} | {dep.get('url')}")
+    if len(to_delete) > 5:
+        print(f"     ... und {len(to_delete) - 5} weitere aeltere Deployments")
 
     if not to_delete:
-        print("\nKeine Deployments zum Loeschen markiert.")
-        return
+        print("  -> Keine Bereinigung fuer dieses Projekt erforderlich.")
+        return 0, 0, len(to_keep)
 
-    if args.dry_run:
-        print(f"\n[DRY RUN] Es wurden keine Aenderungen durchgefuehrt. {len(to_delete)} Deployments waeren geloescht worden.")
-        print("Fuehre den Befehl ohne '--dry-run' aus, um die Loeschung vorzunehmen.")
-        return
+    if dry_run:
+        print(f"  -> [DRY-RUN] Keine Loeschung durchgefuehrt ({len(to_delete)} wuerden geloescht).")
+        return 0, 0, len(to_keep)
 
-    print(f"\nStarte Loeschung von {len(to_delete)} Deployments...")
-    deleted_count = 0
-    failed_count = 0
+    print(f"  -> Loesche {len(to_delete)} Deployments...")
+    deleted = 0
+    failed = 0
 
     for idx, dep in enumerate(to_delete, 1):
         dep_id = dep.get("uid")
         try:
             delete_deployment(token, dep_id, team_id)
-            deleted_count += 1
-            print(f"  [{idx}/{len(to_delete)}] Geloescht: {dep_id} ({dep.get('url')})")
+            deleted += 1
+            print(f"     [{idx}/{len(to_delete)}] Geloescht: {dep_id}")
+            time.sleep(0.15)
         except Exception as e:
-            failed_count += 1
-            print(f"  [{idx}/{len(to_delete)}] Fehler beim Loeschen von {dep_id}: {e}")
+            failed += 1
+            print(f"     [{idx}/{len(to_delete)}] Fehler bei {dep_id}: {e}")
 
-    print()
-    print("Bereinigung abgeschlossen:")
-    print(f"  Erfolgreich geloescht: {deleted_count}")
-    print(f"  Fehlgeschlagen:        {failed_count}")
-    print(f"  Verbleibend:           {len(to_keep)}")
+    return deleted, failed, len(to_keep)
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Bereinigung historischer Vercel-Deployments zur Einhaltung des 10 GB Limits."
+    )
+    parser.add_argument(
+        "--token",
+        default=os.environ.get("VERCEL_TOKEN"),
+        help="Vercel Access Token (oder Umgebungsvariable VERCEL_TOKEN)"
+    )
+    parser.add_argument(
+        "--project",
+        default=None,
+        help="Spezifischer Projektname in Vercel (Standard: alle Projekte des Accounts)"
+    )
+    parser.add_argument(
+        "--team",
+        default="nuri14",
+        help="Team-Slug oder Team-ID (Standard: nuri14)"
+    )
+    parser.add_argument(
+        "--keep",
+        type=int,
+        default=2,
+        help="Anzahl neuester Deployments, die behalten werden sollen (Standard: 2)"
+    )
+    parser.add_argument(
+        "--all-old",
+        action="store_true",
+        help="Loescht alle alten Deployments ausser dem 1 aktiven Production-Deployment."
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Testlauf: Zeigt nur an, welche Deployments geloescht werden wuerden."
+    )
+
+    args = parser.parse_args()
+
+    token = args.token
+    if not token:
+        print("=" * 60)
+        print("FEHLER: Kein Vercel Access Token gefunden.")
+        print("=" * 60)
+        print("Um die ueberfluessigen Deployments (40.66 GB) zu loeschen,")
+        print("wird ein Vercel Personal Access Token benoetigt:")
+        print()
+        print("1. Oeffne: https://vercel.com/account/tokens")
+        print("2. Klicke auf 'Create Token', Name z.B. 'Cleanup'")
+        print("3. Fuehre aus:")
+        print("   python3 scripts/cleanup_vercel_deployments.py --token <DEIN_TOKEN>")
+        print()
+        print("Alternativ kannst du das Token in GitHub Secrets als VERCEL_TOKEN hinterlegen,")
+        print("damit GitHub Actions alle alten Deployments nach jedem Push automatisch loescht:")
+        print("   gh secret set VERCEL_TOKEN -b '<DEIN_TOKEN>'")
+        print("=" * 60)
+        sys.exit(1)
+
+    team_id = None
+    if args.team:
+        try:
+            team_id = resolve_team_id(token, args.team)
+            if team_id:
+                print(f"Team ID gefunden: {team_id} ({args.team})")
+        except Exception as e:
+            print(f"Hinweis: {e}")
+
+    projects = fetch_all_projects(token, team_id)
+    if not projects:
+        print("Keine Projekte gefunden. Pruefe Token-Berechtigungen.")
+        sys.exit(1)
+
+    if args.project:
+        target_projects = [p for p in projects if p.get("name") == args.project or p.get("id") == args.project]
+        if not target_projects:
+            target_projects = [p for p in projects if args.project.lower() in p.get("name", "").lower()]
+        if not target_projects:
+            print(f"Fehler: Projekt '{args.project}' wurde nicht gefunden.")
+            sys.exit(1)
+    else:
+        target_projects = projects
+
+    print(f"Gefundene Projekte zur Pruefung ({len(target_projects)}):")
+    for p in target_projects:
+        print(f" - {p.get('name')} (ID: {p.get('id')})")
+
+    total_deleted = 0
+    total_failed = 0
+    total_remaining = 0
+
+    for p in target_projects:
+        deleted, failed, remaining = cleanup_single_project(
+            token=token,
+            project_data=p,
+            team_id=team_id,
+            keep_count=args.keep,
+            all_old=args.all_old,
+            dry_run=args.dry_run
+        )
+        total_deleted += deleted
+        total_failed += failed
+        total_remaining += remaining
+
+    print("\n" + "=" * 60)
+    print("GESAMTERGEBNIS DER BEREINIGUNG:")
+    print("=" * 60)
+    print(f"  Erfolgreich geloescht: {total_deleted} Deployments")
+    approx_freed_gb = (total_deleted * 580) / 1024
+    print(f"  Geschaetzter freigegebener Speicher: ca. {approx_freed_gb:.1f} GB")
+    print(f"  Fehlgeschlagen:        {total_failed}")
+    print(f"  Verbleibend gesichert: {total_remaining} Deployments")
+    approx_current_gb = (total_remaining * 580) / 1024
+    print(f"  Geschaetzter aktueller Speicher: ca. {approx_current_gb:.1f} GB / 10 GB Limit")
+    print("=" * 60)
 
 
 if __name__ == "__main__":

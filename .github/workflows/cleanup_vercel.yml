@@ -1,0 +1,31 @@
+name: Automatische Vercel-Speicherbereinigung
+
+on:
+  schedule:
+    # Täglich um 04:30 Uhr UTC (30 Min nach dem täglichen Sync)
+    - cron: '30 4 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: vercel-cleanup
+  cancel-in-progress: true
+
+jobs:
+  cleanup:
+    name: Vercel Deployments bereinigen (10 GB Limit Schutz)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code auschecken
+        uses: actions/checkout@v4
+
+      - name: Python 3.11 einrichten
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Alte Deployments bereinigen
+        if: env.VERCEL_TOKEN != ''
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          python scripts/cleanup_vercel_deployments.py --keep 2
