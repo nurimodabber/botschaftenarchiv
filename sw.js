@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bahai-bib-v7.5';
+const CACHE_NAME = 'bahai-bib-v7.6';
 const SHELL_ASSETS = [
   '/',
   '/index.html',
@@ -42,7 +42,7 @@ const SHELL_ASSETS = [
   '/js/timeline_data.js',
   '/js/timeline.js?v=5.0',
   '/js/timeline.js',
-  '/js/books.js?v=5.0',
+  '/js/books.js?v=5.1',
   '/js/books.js',
   '/js/sources.js?v=5.0',
   '/js/sources.js',
