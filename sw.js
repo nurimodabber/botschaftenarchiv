@@ -1,8 +1,8 @@
-const CACHE_NAME = 'bahai-bib-v7.8';
+const CACHE_NAME = 'bahai-bib-v7.9';
 const SHELL_ASSETS = [
   '/',
   '/index.html',
-  '/css/styles.css?v=7.5',
+  '/css/styles.css?v=7.6',
   '/css/styles.css',
   '/css/tokens.css',
   '/css/base.css',
@@ -32,7 +32,7 @@ const SHELL_ASSETS = [
   '/js/filters.js',
   '/js/search_engine.js?v=5.0',
   '/js/search_engine.js',
-  '/js/viewer.js?v=5.0',
+  '/js/viewer.js?v=6.9',
   '/js/viewer.js',
   '/js/collections.js?v=5.0',
   '/js/collections.js',
@@ -42,7 +42,7 @@ const SHELL_ASSETS = [
   '/js/timeline_data.js',
   '/js/timeline.js?v=5.0',
   '/js/timeline.js',
-  '/js/books.js?v=5.1',
+  '/js/books.js?v=5.4',
   '/js/books.js',
   '/js/sources.js?v=5.0',
   '/js/sources.js',

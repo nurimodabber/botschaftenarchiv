@@ -358,7 +358,12 @@ function updateBookmarkBtnState(id) {
 
 function resolvePdfPath(doc) {
     if (!doc) return null;
-    const clean = (p) => p ? String(p).replace(/^\.\.\//, '') : null;
+    const clean = (p) => {
+        if (!p) return null;
+        const s = String(p).trim();
+        if (s.startsWith('http://') || s.startsWith('https://')) return s;
+        return s.replace(/^\.\.\//, '');
+    };
     if (doc.formatFiles && doc.formatFiles.pdf) {
         return clean(doc.formatFiles.pdf);
     }
@@ -377,11 +382,17 @@ window.resolvePdfPath = resolvePdfPath;
 
 function resolveEpubPath(doc) {
     if (!doc) return null;
-    if (doc.filePath && doc.filePath.toLowerCase().endsWith('.epub')) {
-        return doc.filePath.replace(/^\.\.\//, '');
-    }
+    const clean = (p) => {
+        if (!p) return null;
+        const s = String(p).trim();
+        if (s.startsWith('http://') || s.startsWith('https://')) return s;
+        return s.replace(/^\.\.\//, '');
+    };
     if (doc.formatFiles && doc.formatFiles.epub) {
-        return doc.formatFiles.epub.replace(/^\.\.\//, '');
+        return clean(doc.formatFiles.epub);
+    }
+    if (doc.filePath && doc.filePath.toLowerCase().endsWith('.epub')) {
+        return clean(doc.filePath);
     }
     if (doc.id) {
         return `documents/formats/epub/${doc.id}.epub`;
@@ -392,21 +403,13 @@ window.resolveEpubPath = resolveEpubPath;
 
 function getDocOriginalFormat(doc) {
     if (!doc) return 'PDF';
-    const fp = (doc.filePath || '').toLowerCase();
-    const ofn = (doc.originalFilename || '').toLowerCase();
-    
-    if (doc.tier === 'books' || doc.tier === 'ruhi') {
-        return 'PDF';
-    }
-    if (fp.endsWith('.pdf') || ofn.endsWith('.pdf')) {
-        return 'PDF';
-    }
-    if (fp.endsWith('.epub') || ofn.endsWith('.epub')) {
-        return 'EPUB';
-    }
-    if (doc.sourceUrl) {
-        return 'Webseite';
-    }
+    const p = (doc.filePath || '').toLowerCase();
+    const sf = (doc.sourceFormat || '').toLowerCase();
+    const fmtFiles = doc.formatFiles || {};
+    if (p.endsWith('.epub') || sf === 'epub' || fmtFiles.epub) return 'EPUB';
+    if (p.endsWith('.docx') || sf === 'docx' || fmtFiles.docx) return 'Word (.docx)';
+    if (p.endsWith('.pdf') || sf === 'pdf' || fmtFiles.pdf) return 'PDF';
+    if (doc.sourceUrl) return 'Webseite';
     return 'PDF';
 }
 window.getDocOriginalFormat = getDocOriginalFormat;
@@ -667,8 +670,10 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
         menuHtml += '<div class="export-menu-header">Herunterladen &amp; Export</div>';
 
         if (pdfHref) {
+            const isExt = pdfHref.startsWith('http://') || pdfHref.startsWith('https://');
+            const targetAttr = isExt ? 'target="_blank" rel="noopener noreferrer"' : '';
             menuHtml += `
-                <a href="${escapeHtml(pdfHref)}" download class="export-menu-item" title="Original-PDF herunterladen">
+                <a href="${escapeHtml(pdfHref)}" download ${targetAttr} class="export-menu-item" title="Original-PDF herunterladen">
                     <div class="export-item-content">
                         <span class="export-item-title">Original-PDF (.pdf)</span>
                         <span class="export-item-sub">Offizielles Layout &amp; Druckfassung</span>
@@ -679,8 +684,10 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
         }
 
         if (epubHref) {
+            const isExt = epubHref.startsWith('http://') || epubHref.startsWith('https://');
+            const targetAttr = isExt ? 'target="_blank" rel="noopener noreferrer"' : '';
             menuHtml += `
-                <a href="${escapeHtml(epubHref)}" download class="export-menu-item" title="E-Book im EPUB-Format herunterladen">
+                <a href="${escapeHtml(epubHref)}" download ${targetAttr} class="export-menu-item" title="E-Book im EPUB-Format herunterladen">
                     <div class="export-item-content">
                         <span class="export-item-title">E-Book (.epub)</span>
                         <span class="export-item-sub">Für Apple Books, Tolino, Kindle</span>
@@ -691,8 +698,10 @@ window.openDocument = function(id, targetParagraph, preferredMode, preferredLang
         }
 
         if (docxHref) {
+            const isExt = docxHref.startsWith('http://') || docxHref.startsWith('https://');
+            const targetAttr = isExt ? 'target="_blank" rel="noopener noreferrer"' : '';
             menuHtml += `
-                <a href="${escapeHtml(docxHref)}" download class="export-menu-item" title="Word-Dokument herunterladen">
+                <a href="${escapeHtml(docxHref)}" download ${targetAttr} class="export-menu-item" title="Word-Dokument herunterladen">
                     <div class="export-item-content">
                         <span class="export-item-title">Word-Dokument (.docx)</span>
                         <span class="export-item-sub">Bearbeitbare Textdatei</span>

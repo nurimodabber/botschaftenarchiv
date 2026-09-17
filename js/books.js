@@ -259,7 +259,19 @@ window.BooksModule = (function() {
             .replace(/'/g, '&#039;');
     };
 
-    const cleanPath = (p) => p ? String(p).replace(/^\.\.\//, '') : '';
+    const cleanPath = (p) => {
+        if (!p) return '';
+        const s = String(p).trim();
+        if (s.startsWith('http://') || s.startsWith('https://')) return s;
+        return s.replace(/^\.\.\//, '');
+    };
+
+    const formatPillBtn = (url, label, title) => {
+        if (!url) return '';
+        const isExt = url.startsWith('http://') || url.startsWith('https://');
+        const extAttr = isExt ? 'target="_blank" rel="noopener noreferrer"' : '';
+        return `<a href="${url}" download ${extAttr} class="format-pill-btn" title="${escapeHtml(title)}">${label}</a>`;
+    };
 
     function createBookCard(book, idx) {
         const isMasterEn = window.I18n ? window.I18n.getCurrentLanguage() === 'en' : (localStorage.getItem('cosmos_master_lang') === 'en');
@@ -281,34 +293,37 @@ window.BooksModule = (function() {
 
         // Multi-format buttons
         const formatPills = [];
+        let dePdf = '', deEpub = '', deDocx = '', enPdf = '', enEpub = '', enDocx = '';
+        let pdfFile = '', docxFile = '', epubFile = '', txtFile = '';
+
         if (hasBoth) {
             const df = (deDoc && deDoc.formatFiles) || {};
             const ef = (enDoc && enDoc.formatFiles) || {};
-            const dePdf = cleanPath(df.pdf || (deDoc && deDoc.filePath));
-            const deEpub = cleanPath(df.epub);
-            const deDocx = cleanPath(df.docx);
+            dePdf = cleanPath(df.pdf || (deDoc && deDoc.filePath));
+            deEpub = cleanPath(df.epub);
+            deDocx = cleanPath(df.docx);
 
-            const enPdf = cleanPath(ef.pdf || (enDoc && enDoc.filePath));
-            const enEpub = cleanPath(ef.epub);
-            const enDocx = cleanPath(ef.docx);
+            enPdf = cleanPath(ef.pdf || (enDoc && enDoc.filePath));
+            enEpub = cleanPath(ef.epub);
+            enDocx = cleanPath(ef.docx);
 
-            if (dePdf) formatPills.push(`<a href="${dePdf}" download class="format-pill-btn" title="PDF herunterladen (Deutsch)">PDF (DE)</a>`);
-            if (deEpub) formatPills.push(`<a href="${deEpub}" download class="format-pill-btn" title="EPUB herunterladen (Deutsch)">EPUB (DE)</a>`);
-            if (deDocx) formatPills.push(`<a href="${deDocx}" download class="format-pill-btn" title="Word herunterladen (Deutsch)">DOCX (DE)</a>`);
+            if (dePdf) formatPills.push(formatPillBtn(dePdf, 'PDF (DE)', 'PDF herunterladen (Deutsch)'));
+            if (deEpub) formatPills.push(formatPillBtn(deEpub, 'EPUB (DE)', 'EPUB herunterladen (Deutsch)'));
+            if (deDocx) formatPills.push(formatPillBtn(deDocx, 'DOCX (DE)', 'Word herunterladen (Deutsch)'));
 
-            if (enPdf) formatPills.push(`<a href="${enPdf}" download class="format-pill-btn" title="Download PDF (English)">PDF (EN)</a>`);
-            if (enEpub) formatPills.push(`<a href="${enEpub}" download class="format-pill-btn" title="Download EPUB (English)">EPUB (EN)</a>`);
-            if (enDocx) formatPills.push(`<a href="${enDocx}" download class="format-pill-btn" title="Download Word (English)">DOCX (EN)</a>`);
+            if (enPdf) formatPills.push(formatPillBtn(enPdf, 'PDF (EN)', 'Download PDF (English)'));
+            if (enEpub) formatPills.push(formatPillBtn(enEpub, 'EPUB (EN)', 'Download EPUB (English)'));
+            if (enDocx) formatPills.push(formatPillBtn(enDocx, 'DOCX (EN)', 'Download Word (English)'));
         } else {
-            const pdfFile = cleanPath(files.pdf || book.filePath);
-            const docxFile = cleanPath(files.docx);
-            const epubFile = cleanPath(files.epub);
-            const txtFile = cleanPath(files.txt);
+            pdfFile = cleanPath(files.pdf || book.filePath);
+            docxFile = cleanPath(files.docx);
+            epubFile = cleanPath(files.epub);
+            txtFile = cleanPath(files.txt);
 
-            if (pdfFile) formatPills.push(`<a href="${pdfFile}" download class="format-pill-btn" title="${isMasterEn ? 'Download PDF' : 'PDF herunterladen'}">PDF</a>`);
-            if (docxFile) formatPills.push(`<a href="${docxFile}" download class="format-pill-btn" title="${isMasterEn ? 'Download Word (.docx)' : 'Word (.docx) herunterladen'}">DOCX</a>`);
-            if (epubFile) formatPills.push(`<a href="${epubFile}" download class="format-pill-btn" title="${isMasterEn ? 'Download E-Book (.epub)' : 'E-Book (.epub) herunterladen'}">EPUB</a>`);
-            if (txtFile) formatPills.push(`<a href="${txtFile}" download class="format-pill-btn" title="${isMasterEn ? 'Download Full Text (.txt)' : 'Volltext (.txt) herunterladen'}">TXT</a>`);
+            if (pdfFile) formatPills.push(formatPillBtn(pdfFile, 'PDF', isMasterEn ? 'Download PDF' : 'PDF herunterladen'));
+            if (docxFile) formatPills.push(formatPillBtn(docxFile, 'DOCX', isMasterEn ? 'Download Word (.docx)' : 'Word (.docx) herunterladen'));
+            if (epubFile) formatPills.push(formatPillBtn(epubFile, 'EPUB', isMasterEn ? 'Download E-Book (.epub)' : 'E-Book (.epub) herunterladen'));
+            if (txtFile) formatPills.push(formatPillBtn(txtFile, 'TXT', isMasterEn ? 'Download Full Text (.txt)' : 'Volltext (.txt) herunterladen'));
         }
 
         const safeBookId = (book.id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
@@ -379,6 +394,7 @@ window.BooksModule = (function() {
                         <div style="display: flex; gap: 0.35rem; align-items: center;">
                             <span class="book-format-badge">PDF</span>
                             ${(files.epub || (hasBoth && ((deDoc && deDoc.formatFiles && deDoc.formatFiles.epub) || (enDoc && enDoc.formatFiles && enDoc.formatFiles.epub)))) ? `<span class="book-format-badge epub">EPUB</span>` : ''}
+                            ${(files.docx || (hasBoth && ((deDoc && deDoc.formatFiles && deDoc.formatFiles.docx) || (enDoc && enDoc.formatFiles && enDoc.formatFiles.docx)))) ? `<span class="book-format-badge docx">DOCX</span>` : ''}
                             ${book.year ? `<span class="book-year-badge">${book.year}</span>` : ''}
                             <div style="display: inline-flex; gap: 0.2rem;">${langBadge}</div>
                         </div>
